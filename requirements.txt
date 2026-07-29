@@ -24,7 +24,7 @@ protobuf==6.33.5
 # (and patched via verl_patches/apply_verl_patch.sh); do not pin a wheel here.
 # verl==0.8.0.dev0
 vllm==0.17.1
-ray==2.54.0
+ray==2.56.0
 tensordict==0.10.0
 flash-attn==2.8.3                   # build with --no-build-isolation
 hydra-core==1.3.2
