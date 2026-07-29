@@ -1,0 +1,6 @@
+# Agent loop configuration for DesignCoder generate-only GDPO training.
+# This file is loaded by verl via:
+#   actor_rollout_ref.rollout.agent.agent_loop_config_path=<this_file>
+
+- name: single_step_generate
+  _target_: rl_verl.multi_step_agent.SingleStepGenerateAgentLoop
