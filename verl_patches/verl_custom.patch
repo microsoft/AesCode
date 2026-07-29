@@ -1,0 +1,2055 @@
+diff -ruN a/experimental/agent_loop/agent_loop.py b/experimental/agent_loop/agent_loop.py
+--- a/experimental/agent_loop/agent_loop.py	2026-05-23 04:46:15.988015208 +0000
++++ b/experimental/agent_loop/agent_loop.py	2026-05-23 04:17:40.746273015 +0000
+@@ -636,7 +636,11 @@
+                 dataset_cls=self.dataset_cls,
+                 data_config=DictConfigWrap(self.config.data),
+             )
+-            output: AgentLoopOutput = await agent_loop.run(sampling_params, **kwargs)
++            # DesignCoder: forward validate flag so agent loops can distinguish val vs train
++            # (verl only sets validate in batch.meta_info, not in per-sample kwargs).
++            output: AgentLoopOutput = await agent_loop.run(
++                sampling_params, validate=trajectory["validate"], **kwargs
++            )
+             return await self._agent_loop_postprocess(output, trajectory["validate"], **kwargs)
+ 
+     async def _agent_loop_postprocess(self, output, validate, **kwargs) -> _InternalAgentLoopOutput:
+@@ -948,10 +952,16 @@
+             non_tensor_batch.update(input_non_tensor_batch)
+ 
+         # add reward_extra_info to non_tensor_batch
++        # Always extract reward_extra_info regardless of rm_scores presence,
++        # so that all workers have consistent non_tensor_batch keys for concat.
+         reward_extra_infos = [input.extra_fields.get("reward_extra_info", {}) for input in inputs]
+-        reward_extra_keys = list(reward_extra_infos[0].keys())
++        # Collect all keys from all samples to handle inconsistent dicts
++        all_reward_keys = set()
++        for info in reward_extra_infos:
++            all_reward_keys.update(info.keys())
++        reward_extra_keys = sorted(all_reward_keys)
+         for key in reward_extra_keys:
+-            non_tensor_batch[key] = np.array([info[key] for info in reward_extra_infos])
++            non_tensor_batch[key] = np.array([float(info.get(key, 0.0)) for info in reward_extra_infos])
+ 
+         # Add multi_modal_inputs to non_tensor_batch if any samples have them
+         multi_modal_inputs_list = [input.multi_modal_inputs for input in inputs]
+@@ -983,12 +989,9 @@
+ 
+         non_tensor_batch.update(extra_fields)
+ 
+-        # Only include reward_extra_keys in meta_info if rm_scores is in batch
+-        # This avoids conflicts when reward_tensor is merged later in ray_trainer.py
+-        if "rm_scores" in batch.keys():
+-            meta_info = {"metrics": metrics, "reward_extra_keys": reward_extra_keys}
+-        else:
+-            meta_info = {"metrics": metrics}
++        # Always include reward_extra_keys in meta_info so WandB can log
++        # per-dimension scores even when using custom reward (no rm_scores).
++        meta_info = {"metrics": metrics, "reward_extra_keys": reward_extra_keys}
+ 
+         return DataProto(
+             batch=batch,
+@@ -1184,12 +1187,20 @@
+         if self.stream_teacher_with_rollout:
+             await self.teacher_model_manager.wake_up()
+         chunkes = prompts.chunk(len(self.agent_loop_workers))
+-        outputs = await asyncio.gather(
+-            *[
+-                worker.generate_sequences.remote(chunk)
+-                for worker, chunk in zip(self.agent_loop_workers, chunkes, strict=True)
+-            ]
+-        )
++        # FIX (DesignCoder): replace `await asyncio.gather(*refs)` with
++        # `await loop.run_in_executor(None, ray.get, refs)`.
++        # `asyncio.gather` on Ray ObjectRefs relies on per-event-loop
++        # callback wiring. `@auto_await` creates a fresh event loop each
++        # training step via asyncio.run(), and the Ray ObjectRef wakeup
++        # signal occasionally fails to reach the new loop → gather hangs
++        # forever even though all workers already returned. ray.get is the
++        # sync path (polls raylet directly) and is loop-recreation-safe.
++        loop = asyncio.get_running_loop()
++        refs = [
++            worker.generate_sequences.remote(chunk)
++            for worker, chunk in zip(self.agent_loop_workers, chunkes, strict=True)
++        ]
++        outputs = await loop.run_in_executor(None, ray.get, refs)
+         if self.stream_teacher_with_rollout:
+             await self.teacher_model_manager.sleep()
+         output = DataProto.concat(outputs)
+diff -ruN a/models/transformers/common/__init__.py b/models/transformers/common/__init__.py
+--- a/models/transformers/common/__init__.py	1970-01-01 00:00:00.000000000 +0000
++++ b/models/transformers/common/__init__.py	2026-05-23 04:44:33.312722154 +0000
+@@ -0,0 +1,98 @@
++# Copyright 2024 Bytedance Ltd. and/or its affiliates
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#     http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++# Copyright 2024 Bytedance Ltd. and/or its affiliates
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#     http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++# Copyright 2024 Bytedance Ltd. and/or its affiliates
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#     http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++# Copyright 2024 Bytedance Ltd. and/or its affiliates
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#     http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++# Copyright 2024 Bytedance Ltd. and/or its affiliates
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#     http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++# Copyright 2024 Bytedance Ltd. and/or its affiliates
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#     http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++# Copyright 2024 Bytedance Ltd. and/or its affiliates
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#     http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
+diff -ruN a/models/transformers/common/vision_pos_embed_utils.py b/models/transformers/common/vision_pos_embed_utils.py
+--- a/models/transformers/common/vision_pos_embed_utils.py	1970-01-01 00:00:00.000000000 +0000
++++ b/models/transformers/common/vision_pos_embed_utils.py	2026-05-23 04:44:33.312722154 +0000
+@@ -0,0 +1,798 @@
++# Copyright 2024 Bytedance Ltd. and/or its affiliates
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#     http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++from typing import NamedTuple
++
++import torch
++
++
++class BilinearInterpolationTensors(NamedTuple):
++    device: torch.device
++    idx_tensor: torch.Tensor
++    weight_tensor: torch.Tensor
++    grid_ts: torch.Tensor
++    grid_hs: torch.Tensor
++    grid_ws: torch.Tensor
++
++
++def build_bilinear_interpolation_tensors(
++    grid_thw: torch.Tensor,
++    num_grid_per_side: int,
++    weight_dtype: torch.dtype,
++) -> BilinearInterpolationTensors:
++    device = grid_thw.device
++    grid_ts, grid_hs, grid_ws = grid_thw[:, 0], grid_thw[:, 1], grid_thw[:, 2]
++
++    idx_list = [[] for _ in range(4)]
++    weight_list = [[] for _ in range(4)]
++
++    for h, w in zip(grid_hs, grid_ws, strict=False):
++        h_size = int(h.item())
++        w_size = int(w.item())
++        h_idxs = torch.linspace(0, num_grid_per_side - 1, h_size, device=device)
++        w_idxs = torch.linspace(0, num_grid_per_side - 1, w_size, device=device)
++
++        h_idxs_floor = h_idxs.int()
++        w_idxs_floor = w_idxs.int()
++        h_idxs_ceil = (h_idxs_floor + 1).clip(max=num_grid_per_side - 1)
++        w_idxs_ceil = (w_idxs_floor + 1).clip(max=num_grid_per_side - 1)
++
++        dh = h_idxs - h_idxs_floor
++        dw = w_idxs - w_idxs_floor
++
++        base_h = h_idxs_floor * num_grid_per_side
++        base_h_ceil = h_idxs_ceil * num_grid_per_side
++
++        indices = [
++            (base_h[:, None] + w_idxs_floor[None, :]).flatten(),
++            (base_h[:, None] + w_idxs_ceil[None, :]).flatten(),
++            (base_h_ceil[:, None] + w_idxs_floor[None, :]).flatten(),
++            (base_h_ceil[:, None] + w_idxs_ceil[None, :]).flatten(),
++        ]
++
++        weights = [
++            ((1 - dh)[:, None] * (1 - dw)[None, :]).flatten(),
++            ((1 - dh)[:, None] * dw[None, :]).flatten(),
++            (dh[:, None] * (1 - dw)[None, :]).flatten(),
++            (dh[:, None] * dw[None, :]).flatten(),
++        ]
++
++        for i in range(4):
++            idx_list[i].extend(indices[i].tolist())
++            weight_list[i].extend(weights[i].tolist())
++
++    idx_tensor = torch.as_tensor(idx_list, dtype=torch.long, device=device)
++    weight_tensor = torch.as_tensor(weight_list, dtype=weight_dtype, device=device)
++    return BilinearInterpolationTensors(
++        device=device,
++        idx_tensor=idx_tensor,
++        weight_tensor=weight_tensor,
++        grid_ts=grid_ts,
++        grid_hs=grid_hs,
++        grid_ws=grid_ws,
++    )
++
++
++def merge_bilinear_interpolated_pos_embeds(
++    pos_embeds: torch.Tensor,
++    weight_tensor: torch.Tensor,
++    grid_ts: torch.Tensor,
++    grid_hs: torch.Tensor,
++    grid_ws: torch.Tensor,
++    merge_size: int,
++) -> torch.Tensor:
++    pos_embeds = pos_embeds * weight_tensor[:, :, None]
++    patch_pos_embeds = pos_embeds[0] + pos_embeds[1] + pos_embeds[2] + pos_embeds[3]
++
++    split_sizes = [int(h.item()) * int(w.item()) for h, w in zip(grid_hs, grid_ws, strict=False)]
++    patch_pos_embeds = patch_pos_embeds.split(split_sizes)
++
++    patch_pos_embeds_permute = []
++    for pos_embed, t, h, w in zip(patch_pos_embeds, grid_ts, grid_hs, grid_ws, strict=False):
++        t_size = int(t.item())
++        h_size = int(h.item())
++        w_size = int(w.item())
++        pos_embed = pos_embed.repeat(t_size, 1)
++        pos_embed = (
++            pos_embed.view(t_size, h_size // merge_size, merge_size, w_size // merge_size, merge_size, -1)
++            .permute(0, 1, 3, 2, 4, 5)
++            .flatten(0, 4)
++        )
++        patch_pos_embeds_permute.append(pos_embed)
++
++    return torch.cat(patch_pos_embeds_permute)
++# Copyright 2024 Bytedance Ltd. and/or its affiliates
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#     http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++from typing import NamedTuple
++
++import torch
++
++
++class BilinearInterpolationTensors(NamedTuple):
++    device: torch.device
++    idx_tensor: torch.Tensor
++    weight_tensor: torch.Tensor
++    grid_ts: torch.Tensor
++    grid_hs: torch.Tensor
++    grid_ws: torch.Tensor
++
++
++def build_bilinear_interpolation_tensors(
++    grid_thw: torch.Tensor,
++    num_grid_per_side: int,
++    weight_dtype: torch.dtype,
++) -> BilinearInterpolationTensors:
++    device = grid_thw.device
++    grid_ts, grid_hs, grid_ws = grid_thw[:, 0], grid_thw[:, 1], grid_thw[:, 2]
++
++    idx_list = [[] for _ in range(4)]
++    weight_list = [[] for _ in range(4)]
++
++    for h, w in zip(grid_hs, grid_ws, strict=False):
++        h_size = int(h.item())
++        w_size = int(w.item())
++        h_idxs = torch.linspace(0, num_grid_per_side - 1, h_size, device=device)
++        w_idxs = torch.linspace(0, num_grid_per_side - 1, w_size, device=device)
++
++        h_idxs_floor = h_idxs.int()
++        w_idxs_floor = w_idxs.int()
++        h_idxs_ceil = (h_idxs_floor + 1).clip(max=num_grid_per_side - 1)
++        w_idxs_ceil = (w_idxs_floor + 1).clip(max=num_grid_per_side - 1)
++
++        dh = h_idxs - h_idxs_floor
++        dw = w_idxs - w_idxs_floor
++
++        base_h = h_idxs_floor * num_grid_per_side
++        base_h_ceil = h_idxs_ceil * num_grid_per_side
++
++        indices = [
++            (base_h[:, None] + w_idxs_floor[None, :]).flatten(),
++            (base_h[:, None] + w_idxs_ceil[None, :]).flatten(),
++            (base_h_ceil[:, None] + w_idxs_floor[None, :]).flatten(),
++            (base_h_ceil[:, None] + w_idxs_ceil[None, :]).flatten(),
++        ]
++
++        weights = [
++            ((1 - dh)[:, None] * (1 - dw)[None, :]).flatten(),
++            ((1 - dh)[:, None] * dw[None, :]).flatten(),
++            (dh[:, None] * (1 - dw)[None, :]).flatten(),
++            (dh[:, None] * dw[None, :]).flatten(),
++        ]
++
++        for i in range(4):
++            idx_list[i].extend(indices[i].tolist())
++            weight_list[i].extend(weights[i].tolist())
++
++    idx_tensor = torch.as_tensor(idx_list, dtype=torch.long, device=device)
++    weight_tensor = torch.as_tensor(weight_list, dtype=weight_dtype, device=device)
++    return BilinearInterpolationTensors(
++        device=device,
++        idx_tensor=idx_tensor,
++        weight_tensor=weight_tensor,
++        grid_ts=grid_ts,
++        grid_hs=grid_hs,
++        grid_ws=grid_ws,
++    )
++
++
++def merge_bilinear_interpolated_pos_embeds(
++    pos_embeds: torch.Tensor,
++    weight_tensor: torch.Tensor,
++    grid_ts: torch.Tensor,
++    grid_hs: torch.Tensor,
++    grid_ws: torch.Tensor,
++    merge_size: int,
++) -> torch.Tensor:
++    pos_embeds = pos_embeds * weight_tensor[:, :, None]
++    patch_pos_embeds = pos_embeds[0] + pos_embeds[1] + pos_embeds[2] + pos_embeds[3]
++
++    split_sizes = [int(h.item()) * int(w.item()) for h, w in zip(grid_hs, grid_ws, strict=False)]
++    patch_pos_embeds = patch_pos_embeds.split(split_sizes)
++
++    patch_pos_embeds_permute = []
++    for pos_embed, t, h, w in zip(patch_pos_embeds, grid_ts, grid_hs, grid_ws, strict=False):
++        t_size = int(t.item())
++        h_size = int(h.item())
++        w_size = int(w.item())
++        pos_embed = pos_embed.repeat(t_size, 1)
++        pos_embed = (
++            pos_embed.view(t_size, h_size // merge_size, merge_size, w_size // merge_size, merge_size, -1)
++            .permute(0, 1, 3, 2, 4, 5)
++            .flatten(0, 4)
++        )
++        patch_pos_embeds_permute.append(pos_embed)
++
++    return torch.cat(patch_pos_embeds_permute)
++# Copyright 2024 Bytedance Ltd. and/or its affiliates
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#     http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++from typing import NamedTuple
++
++import torch
++
++
++class BilinearInterpolationTensors(NamedTuple):
++    device: torch.device
++    idx_tensor: torch.Tensor
++    weight_tensor: torch.Tensor
++    grid_ts: torch.Tensor
++    grid_hs: torch.Tensor
++    grid_ws: torch.Tensor
++
++
++def build_bilinear_interpolation_tensors(
++    grid_thw: torch.Tensor,
++    num_grid_per_side: int,
++    weight_dtype: torch.dtype,
++) -> BilinearInterpolationTensors:
++    device = grid_thw.device
++    grid_ts, grid_hs, grid_ws = grid_thw[:, 0], grid_thw[:, 1], grid_thw[:, 2]
++
++    idx_list = [[] for _ in range(4)]
++    weight_list = [[] for _ in range(4)]
++
++    for h, w in zip(grid_hs, grid_ws, strict=False):
++        h_size = int(h.item())
++        w_size = int(w.item())
++        h_idxs = torch.linspace(0, num_grid_per_side - 1, h_size, device=device)
++        w_idxs = torch.linspace(0, num_grid_per_side - 1, w_size, device=device)
++
++        h_idxs_floor = h_idxs.int()
++        w_idxs_floor = w_idxs.int()
++        h_idxs_ceil = (h_idxs_floor + 1).clip(max=num_grid_per_side - 1)
++        w_idxs_ceil = (w_idxs_floor + 1).clip(max=num_grid_per_side - 1)
++
++        dh = h_idxs - h_idxs_floor
++        dw = w_idxs - w_idxs_floor
++
++        base_h = h_idxs_floor * num_grid_per_side
++        base_h_ceil = h_idxs_ceil * num_grid_per_side
++
++        indices = [
++            (base_h[:, None] + w_idxs_floor[None, :]).flatten(),
++            (base_h[:, None] + w_idxs_ceil[None, :]).flatten(),
++            (base_h_ceil[:, None] + w_idxs_floor[None, :]).flatten(),
++            (base_h_ceil[:, None] + w_idxs_ceil[None, :]).flatten(),
++        ]
++
++        weights = [
++            ((1 - dh)[:, None] * (1 - dw)[None, :]).flatten(),
++            ((1 - dh)[:, None] * dw[None, :]).flatten(),
++            (dh[:, None] * (1 - dw)[None, :]).flatten(),
++            (dh[:, None] * dw[None, :]).flatten(),
++        ]
++
++        for i in range(4):
++            idx_list[i].extend(indices[i].tolist())
++            weight_list[i].extend(weights[i].tolist())
++
++    idx_tensor = torch.as_tensor(idx_list, dtype=torch.long, device=device)
++    weight_tensor = torch.as_tensor(weight_list, dtype=weight_dtype, device=device)
++    return BilinearInterpolationTensors(
++        device=device,
++        idx_tensor=idx_tensor,
++        weight_tensor=weight_tensor,
++        grid_ts=grid_ts,
++        grid_hs=grid_hs,
++        grid_ws=grid_ws,
++    )
++
++
++def merge_bilinear_interpolated_pos_embeds(
++    pos_embeds: torch.Tensor,
++    weight_tensor: torch.Tensor,
++    grid_ts: torch.Tensor,
++    grid_hs: torch.Tensor,
++    grid_ws: torch.Tensor,
++    merge_size: int,
++) -> torch.Tensor:
++    pos_embeds = pos_embeds * weight_tensor[:, :, None]
++    patch_pos_embeds = pos_embeds[0] + pos_embeds[1] + pos_embeds[2] + pos_embeds[3]
++
++    split_sizes = [int(h.item()) * int(w.item()) for h, w in zip(grid_hs, grid_ws, strict=False)]
++    patch_pos_embeds = patch_pos_embeds.split(split_sizes)
++
++    patch_pos_embeds_permute = []
++    for pos_embed, t, h, w in zip(patch_pos_embeds, grid_ts, grid_hs, grid_ws, strict=False):
++        t_size = int(t.item())
++        h_size = int(h.item())
++        w_size = int(w.item())
++        pos_embed = pos_embed.repeat(t_size, 1)
++        pos_embed = (
++            pos_embed.view(t_size, h_size // merge_size, merge_size, w_size // merge_size, merge_size, -1)
++            .permute(0, 1, 3, 2, 4, 5)
++            .flatten(0, 4)
++        )
++        patch_pos_embeds_permute.append(pos_embed)
++
++    return torch.cat(patch_pos_embeds_permute)
++# Copyright 2024 Bytedance Ltd. and/or its affiliates
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#     http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++from typing import NamedTuple
++
++import torch
++
++
++class BilinearInterpolationTensors(NamedTuple):
++    device: torch.device
++    idx_tensor: torch.Tensor
++    weight_tensor: torch.Tensor
++    grid_ts: torch.Tensor
++    grid_hs: torch.Tensor
++    grid_ws: torch.Tensor
++
++
++def build_bilinear_interpolation_tensors(
++    grid_thw: torch.Tensor,
++    num_grid_per_side: int,
++    weight_dtype: torch.dtype,
++) -> BilinearInterpolationTensors:
++    device = grid_thw.device
++    grid_ts, grid_hs, grid_ws = grid_thw[:, 0], grid_thw[:, 1], grid_thw[:, 2]
++
++    idx_list = [[] for _ in range(4)]
++    weight_list = [[] for _ in range(4)]
++
++    for h, w in zip(grid_hs, grid_ws, strict=False):
++        h_size = int(h.item())
++        w_size = int(w.item())
++        h_idxs = torch.linspace(0, num_grid_per_side - 1, h_size, device=device)
++        w_idxs = torch.linspace(0, num_grid_per_side - 1, w_size, device=device)
++
++        h_idxs_floor = h_idxs.int()
++        w_idxs_floor = w_idxs.int()
++        h_idxs_ceil = (h_idxs_floor + 1).clip(max=num_grid_per_side - 1)
++        w_idxs_ceil = (w_idxs_floor + 1).clip(max=num_grid_per_side - 1)
++
++        dh = h_idxs - h_idxs_floor
++        dw = w_idxs - w_idxs_floor
++
++        base_h = h_idxs_floor * num_grid_per_side
++        base_h_ceil = h_idxs_ceil * num_grid_per_side
++
++        indices = [
++            (base_h[:, None] + w_idxs_floor[None, :]).flatten(),
++            (base_h[:, None] + w_idxs_ceil[None, :]).flatten(),
++            (base_h_ceil[:, None] + w_idxs_floor[None, :]).flatten(),
++            (base_h_ceil[:, None] + w_idxs_ceil[None, :]).flatten(),
++        ]
++
++        weights = [
++            ((1 - dh)[:, None] * (1 - dw)[None, :]).flatten(),
++            ((1 - dh)[:, None] * dw[None, :]).flatten(),
++            (dh[:, None] * (1 - dw)[None, :]).flatten(),
++            (dh[:, None] * dw[None, :]).flatten(),
++        ]
++
++        for i in range(4):
++            idx_list[i].extend(indices[i].tolist())
++            weight_list[i].extend(weights[i].tolist())
++
++    idx_tensor = torch.as_tensor(idx_list, dtype=torch.long, device=device)
++    weight_tensor = torch.as_tensor(weight_list, dtype=weight_dtype, device=device)
++    return BilinearInterpolationTensors(
++        device=device,
++        idx_tensor=idx_tensor,
++        weight_tensor=weight_tensor,
++        grid_ts=grid_ts,
++        grid_hs=grid_hs,
++        grid_ws=grid_ws,
++    )
++
++
++def merge_bilinear_interpolated_pos_embeds(
++    pos_embeds: torch.Tensor,
++    weight_tensor: torch.Tensor,
++    grid_ts: torch.Tensor,
++    grid_hs: torch.Tensor,
++    grid_ws: torch.Tensor,
++    merge_size: int,
++) -> torch.Tensor:
++    pos_embeds = pos_embeds * weight_tensor[:, :, None]
++    patch_pos_embeds = pos_embeds[0] + pos_embeds[1] + pos_embeds[2] + pos_embeds[3]
++
++    split_sizes = [int(h.item()) * int(w.item()) for h, w in zip(grid_hs, grid_ws, strict=False)]
++    patch_pos_embeds = patch_pos_embeds.split(split_sizes)
++
++    patch_pos_embeds_permute = []
++    for pos_embed, t, h, w in zip(patch_pos_embeds, grid_ts, grid_hs, grid_ws, strict=False):
++        t_size = int(t.item())
++        h_size = int(h.item())
++        w_size = int(w.item())
++        pos_embed = pos_embed.repeat(t_size, 1)
++        pos_embed = (
++            pos_embed.view(t_size, h_size // merge_size, merge_size, w_size // merge_size, merge_size, -1)
++            .permute(0, 1, 3, 2, 4, 5)
++            .flatten(0, 4)
++        )
++        patch_pos_embeds_permute.append(pos_embed)
++
++    return torch.cat(patch_pos_embeds_permute)
++# Copyright 2024 Bytedance Ltd. and/or its affiliates
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#     http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++from typing import NamedTuple
++
++import torch
++
++
++class BilinearInterpolationTensors(NamedTuple):
++    device: torch.device
++    idx_tensor: torch.Tensor
++    weight_tensor: torch.Tensor
++    grid_ts: torch.Tensor
++    grid_hs: torch.Tensor
++    grid_ws: torch.Tensor
++
++
++def build_bilinear_interpolation_tensors(
++    grid_thw: torch.Tensor,
++    num_grid_per_side: int,
++    weight_dtype: torch.dtype,
++) -> BilinearInterpolationTensors:
++    device = grid_thw.device
++    grid_ts, grid_hs, grid_ws = grid_thw[:, 0], grid_thw[:, 1], grid_thw[:, 2]
++
++    idx_list = [[] for _ in range(4)]
++    weight_list = [[] for _ in range(4)]
++
++    for h, w in zip(grid_hs, grid_ws, strict=False):
++        h_size = int(h.item())
++        w_size = int(w.item())
++        h_idxs = torch.linspace(0, num_grid_per_side - 1, h_size, device=device)
++        w_idxs = torch.linspace(0, num_grid_per_side - 1, w_size, device=device)
++
++        h_idxs_floor = h_idxs.int()
++        w_idxs_floor = w_idxs.int()
++        h_idxs_ceil = (h_idxs_floor + 1).clip(max=num_grid_per_side - 1)
++        w_idxs_ceil = (w_idxs_floor + 1).clip(max=num_grid_per_side - 1)
++
++        dh = h_idxs - h_idxs_floor
++        dw = w_idxs - w_idxs_floor
++
++        base_h = h_idxs_floor * num_grid_per_side
++        base_h_ceil = h_idxs_ceil * num_grid_per_side
++
++        indices = [
++            (base_h[:, None] + w_idxs_floor[None, :]).flatten(),
++            (base_h[:, None] + w_idxs_ceil[None, :]).flatten(),
++            (base_h_ceil[:, None] + w_idxs_floor[None, :]).flatten(),
++            (base_h_ceil[:, None] + w_idxs_ceil[None, :]).flatten(),
++        ]
++
++        weights = [
++            ((1 - dh)[:, None] * (1 - dw)[None, :]).flatten(),
++            ((1 - dh)[:, None] * dw[None, :]).flatten(),
++            (dh[:, None] * (1 - dw)[None, :]).flatten(),
++            (dh[:, None] * dw[None, :]).flatten(),
++        ]
++
++        for i in range(4):
++            idx_list[i].extend(indices[i].tolist())
++            weight_list[i].extend(weights[i].tolist())
++
++    idx_tensor = torch.as_tensor(idx_list, dtype=torch.long, device=device)
++    weight_tensor = torch.as_tensor(weight_list, dtype=weight_dtype, device=device)
++    return BilinearInterpolationTensors(
++        device=device,
++        idx_tensor=idx_tensor,
++        weight_tensor=weight_tensor,
++        grid_ts=grid_ts,
++        grid_hs=grid_hs,
++        grid_ws=grid_ws,
++    )
++
++
++def merge_bilinear_interpolated_pos_embeds(
++    pos_embeds: torch.Tensor,
++    weight_tensor: torch.Tensor,
++    grid_ts: torch.Tensor,
++    grid_hs: torch.Tensor,
++    grid_ws: torch.Tensor,
++    merge_size: int,
++) -> torch.Tensor:
++    pos_embeds = pos_embeds * weight_tensor[:, :, None]
++    patch_pos_embeds = pos_embeds[0] + pos_embeds[1] + pos_embeds[2] + pos_embeds[3]
++
++    split_sizes = [int(h.item()) * int(w.item()) for h, w in zip(grid_hs, grid_ws, strict=False)]
++    patch_pos_embeds = patch_pos_embeds.split(split_sizes)
++
++    patch_pos_embeds_permute = []
++    for pos_embed, t, h, w in zip(patch_pos_embeds, grid_ts, grid_hs, grid_ws, strict=False):
++        t_size = int(t.item())
++        h_size = int(h.item())
++        w_size = int(w.item())
++        pos_embed = pos_embed.repeat(t_size, 1)
++        pos_embed = (
++            pos_embed.view(t_size, h_size // merge_size, merge_size, w_size // merge_size, merge_size, -1)
++            .permute(0, 1, 3, 2, 4, 5)
++            .flatten(0, 4)
++        )
++        patch_pos_embeds_permute.append(pos_embed)
++
++    return torch.cat(patch_pos_embeds_permute)
++# Copyright 2024 Bytedance Ltd. and/or its affiliates
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#     http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++from typing import NamedTuple
++
++import torch
++
++
++class BilinearInterpolationTensors(NamedTuple):
++    device: torch.device
++    idx_tensor: torch.Tensor
++    weight_tensor: torch.Tensor
++    grid_ts: torch.Tensor
++    grid_hs: torch.Tensor
++    grid_ws: torch.Tensor
++
++
++def build_bilinear_interpolation_tensors(
++    grid_thw: torch.Tensor,
++    num_grid_per_side: int,
++    weight_dtype: torch.dtype,
++) -> BilinearInterpolationTensors:
++    device = grid_thw.device
++    grid_ts, grid_hs, grid_ws = grid_thw[:, 0], grid_thw[:, 1], grid_thw[:, 2]
++
++    idx_list = [[] for _ in range(4)]
++    weight_list = [[] for _ in range(4)]
++
++    for h, w in zip(grid_hs, grid_ws, strict=False):
++        h_size = int(h.item())
++        w_size = int(w.item())
++        h_idxs = torch.linspace(0, num_grid_per_side - 1, h_size, device=device)
++        w_idxs = torch.linspace(0, num_grid_per_side - 1, w_size, device=device)
++
++        h_idxs_floor = h_idxs.int()
++        w_idxs_floor = w_idxs.int()
++        h_idxs_ceil = (h_idxs_floor + 1).clip(max=num_grid_per_side - 1)
++        w_idxs_ceil = (w_idxs_floor + 1).clip(max=num_grid_per_side - 1)
++
++        dh = h_idxs - h_idxs_floor
++        dw = w_idxs - w_idxs_floor
++
++        base_h = h_idxs_floor * num_grid_per_side
++        base_h_ceil = h_idxs_ceil * num_grid_per_side
++
++        indices = [
++            (base_h[:, None] + w_idxs_floor[None, :]).flatten(),
++            (base_h[:, None] + w_idxs_ceil[None, :]).flatten(),
++            (base_h_ceil[:, None] + w_idxs_floor[None, :]).flatten(),
++            (base_h_ceil[:, None] + w_idxs_ceil[None, :]).flatten(),
++        ]
++
++        weights = [
++            ((1 - dh)[:, None] * (1 - dw)[None, :]).flatten(),
++            ((1 - dh)[:, None] * dw[None, :]).flatten(),
++            (dh[:, None] * (1 - dw)[None, :]).flatten(),
++            (dh[:, None] * dw[None, :]).flatten(),
++        ]
++
++        for i in range(4):
++            idx_list[i].extend(indices[i].tolist())
++            weight_list[i].extend(weights[i].tolist())
++
++    idx_tensor = torch.as_tensor(idx_list, dtype=torch.long, device=device)
++    weight_tensor = torch.as_tensor(weight_list, dtype=weight_dtype, device=device)
++    return BilinearInterpolationTensors(
++        device=device,
++        idx_tensor=idx_tensor,
++        weight_tensor=weight_tensor,
++        grid_ts=grid_ts,
++        grid_hs=grid_hs,
++        grid_ws=grid_ws,
++    )
++
++
++def merge_bilinear_interpolated_pos_embeds(
++    pos_embeds: torch.Tensor,
++    weight_tensor: torch.Tensor,
++    grid_ts: torch.Tensor,
++    grid_hs: torch.Tensor,
++    grid_ws: torch.Tensor,
++    merge_size: int,
++) -> torch.Tensor:
++    pos_embeds = pos_embeds * weight_tensor[:, :, None]
++    patch_pos_embeds = pos_embeds[0] + pos_embeds[1] + pos_embeds[2] + pos_embeds[3]
++
++    split_sizes = [int(h.item()) * int(w.item()) for h, w in zip(grid_hs, grid_ws, strict=False)]
++    patch_pos_embeds = patch_pos_embeds.split(split_sizes)
++
++    patch_pos_embeds_permute = []
++    for pos_embed, t, h, w in zip(patch_pos_embeds, grid_ts, grid_hs, grid_ws, strict=False):
++        t_size = int(t.item())
++        h_size = int(h.item())
++        w_size = int(w.item())
++        pos_embed = pos_embed.repeat(t_size, 1)
++        pos_embed = (
++            pos_embed.view(t_size, h_size // merge_size, merge_size, w_size // merge_size, merge_size, -1)
++            .permute(0, 1, 3, 2, 4, 5)
++            .flatten(0, 4)
++        )
++        patch_pos_embeds_permute.append(pos_embed)
++
++    return torch.cat(patch_pos_embeds_permute)
++# Copyright 2024 Bytedance Ltd. and/or its affiliates
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#     http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++from typing import NamedTuple
++
++import torch
++
++
++class BilinearInterpolationTensors(NamedTuple):
++    device: torch.device
++    idx_tensor: torch.Tensor
++    weight_tensor: torch.Tensor
++    grid_ts: torch.Tensor
++    grid_hs: torch.Tensor
++    grid_ws: torch.Tensor
++
++
++def build_bilinear_interpolation_tensors(
++    grid_thw: torch.Tensor,
++    num_grid_per_side: int,
++    weight_dtype: torch.dtype,
++) -> BilinearInterpolationTensors:
++    device = grid_thw.device
++    grid_ts, grid_hs, grid_ws = grid_thw[:, 0], grid_thw[:, 1], grid_thw[:, 2]
++
++    idx_list = [[] for _ in range(4)]
++    weight_list = [[] for _ in range(4)]
++
++    for h, w in zip(grid_hs, grid_ws, strict=False):
++        h_size = int(h.item())
++        w_size = int(w.item())
++        h_idxs = torch.linspace(0, num_grid_per_side - 1, h_size, device=device)
++        w_idxs = torch.linspace(0, num_grid_per_side - 1, w_size, device=device)
++
++        h_idxs_floor = h_idxs.int()
++        w_idxs_floor = w_idxs.int()
++        h_idxs_ceil = (h_idxs_floor + 1).clip(max=num_grid_per_side - 1)
++        w_idxs_ceil = (w_idxs_floor + 1).clip(max=num_grid_per_side - 1)
++
++        dh = h_idxs - h_idxs_floor
++        dw = w_idxs - w_idxs_floor
++
++        base_h = h_idxs_floor * num_grid_per_side
++        base_h_ceil = h_idxs_ceil * num_grid_per_side
++
++        indices = [
++            (base_h[:, None] + w_idxs_floor[None, :]).flatten(),
++            (base_h[:, None] + w_idxs_ceil[None, :]).flatten(),
++            (base_h_ceil[:, None] + w_idxs_floor[None, :]).flatten(),
++            (base_h_ceil[:, None] + w_idxs_ceil[None, :]).flatten(),
++        ]
++
++        weights = [
++            ((1 - dh)[:, None] * (1 - dw)[None, :]).flatten(),
++            ((1 - dh)[:, None] * dw[None, :]).flatten(),
++            (dh[:, None] * (1 - dw)[None, :]).flatten(),
++            (dh[:, None] * dw[None, :]).flatten(),
++        ]
++
++        for i in range(4):
++            idx_list[i].extend(indices[i].tolist())
++            weight_list[i].extend(weights[i].tolist())
++
++    idx_tensor = torch.as_tensor(idx_list, dtype=torch.long, device=device)
++    weight_tensor = torch.as_tensor(weight_list, dtype=weight_dtype, device=device)
++    return BilinearInterpolationTensors(
++        device=device,
++        idx_tensor=idx_tensor,
++        weight_tensor=weight_tensor,
++        grid_ts=grid_ts,
++        grid_hs=grid_hs,
++        grid_ws=grid_ws,
++    )
++
++
++def merge_bilinear_interpolated_pos_embeds(
++    pos_embeds: torch.Tensor,
++    weight_tensor: torch.Tensor,
++    grid_ts: torch.Tensor,
++    grid_hs: torch.Tensor,
++    grid_ws: torch.Tensor,
++    merge_size: int,
++) -> torch.Tensor:
++    pos_embeds = pos_embeds * weight_tensor[:, :, None]
++    patch_pos_embeds = pos_embeds[0] + pos_embeds[1] + pos_embeds[2] + pos_embeds[3]
++
++    split_sizes = [int(h.item()) * int(w.item()) for h, w in zip(grid_hs, grid_ws, strict=False)]
++    patch_pos_embeds = patch_pos_embeds.split(split_sizes)
++
++    patch_pos_embeds_permute = []
++    for pos_embed, t, h, w in zip(patch_pos_embeds, grid_ts, grid_hs, grid_ws, strict=False):
++        t_size = int(t.item())
++        h_size = int(h.item())
++        w_size = int(w.item())
++        pos_embed = pos_embed.repeat(t_size, 1)
++        pos_embed = (
++            pos_embed.view(t_size, h_size // merge_size, merge_size, w_size // merge_size, merge_size, -1)
++            .permute(0, 1, 3, 2, 4, 5)
++            .flatten(0, 4)
++        )
++        patch_pos_embeds_permute.append(pos_embed)
++
++    return torch.cat(patch_pos_embeds_permute)
+diff -ruN a/models/transformers/monkey_patch.py b/models/transformers/monkey_patch.py
+--- a/models/transformers/monkey_patch.py	2026-05-23 04:46:16.005015422 +0000
++++ b/models/transformers/monkey_patch.py	2026-05-23 04:17:40.748273040 +0000
+@@ -345,13 +345,16 @@
+     )
+ 
+     if is_trl_available():
+-        from trl import AutoModelForCausalLMWithValueHead  # type: ignore
++        try:
++            from trl import AutoModelForCausalLMWithValueHead  # type: ignore
+ 
+-        def state_dict(self, *args, **kwargs):
+-            return torch.nn.Module.state_dict(self, *args, **kwargs)
++            def state_dict(self, *args, **kwargs):
++                return torch.nn.Module.state_dict(self, *args, **kwargs)
+ 
+-        AutoModelForCausalLMWithValueHead.state_dict = state_dict
+-        print("Monkey patch state_dict in AutoModelForCausalLMWithValueHead. ")
++            AutoModelForCausalLMWithValueHead.state_dict = state_dict
++            print("Monkey patch state_dict in AutoModelForCausalLMWithValueHead. ")
++        except ImportError:
++            pass  # TRL >= 0.16 removed AutoModelForCausalLMWithValueHead
+ 
+     # TODO: VLM models only, unify monkey patch to LLM models.
+     if model.config.model_type in ["qwen2_5_vl", "qwen2_vl"]:
+@@ -424,6 +427,7 @@
+         from verl.models.transformers.qwen3_vl import (
+             forward_with_normal_backend,
+             patch_qwen3_vl_moe_sparse_moe_block_forward,
++            patch_qwen3_vl_vision_fast_pos_embed_interpolate,
+             qwen3_vl_base_forward,
+         )
+ 
+@@ -436,6 +440,7 @@
+         # Step 1.5: patch Qwen3VLMoeTextSparseMoeBlock to fix transformers 4.57.3 bug
+         if model.config.model_type == "qwen3_vl_moe" and is_transformers_version_in_range(max_version="4.57.3"):
+             patch_qwen3_vl_moe_sparse_moe_block_forward()
++        patch_qwen3_vl_vision_fast_pos_embed_interpolate()
+ 
+         # Step 2: patch input for multimodal sequence parallelism
+         if ulysses_sp_size > 1:
+@@ -489,17 +494,17 @@
+         from transformers.models.qwen3_5.modeling_qwen3_5 import (
+             Qwen3_5ForConditionalGeneration,
+             Qwen3_5Model,
+-            Qwen3_5VisionModel,
++            Qwen3_5TextModel,
+         )
+         from transformers.models.qwen3_5_moe.modeling_qwen3_5_moe import (
+             Qwen3_5MoeForConditionalGeneration,
+             Qwen3_5MoeModel,
+-            Qwen3_5MoeVisionModel,
++            Qwen3_5MoeTextModel,
+         )
+ 
+         from verl.models.transformers.qwen3_5 import (
+-            fast_pos_embed_interpolate,
+             forward_with_normal_backend,
++            patch_qwen3_5_vision_fast_pos_embed_interpolate,
+             qwen3_5_base_forward,
+         )
+ 
+@@ -510,8 +515,12 @@
+         print(f"Monkey patch {model.__class__.__name__} model forward")
+ 
+         # Step 2: patch vision model to fix fsdp2 cpu_offload bug.
+-        Qwen3_5VisionModel.fast_pos_embed_interpolate = fast_pos_embed_interpolate
+-        Qwen3_5MoeVisionModel.fast_pos_embed_interpolate = fast_pos_embed_interpolate
++        patch_qwen3_5_vision_fast_pos_embed_interpolate()
++
++        # Step 3: patch input for multimodal sequence parallelism
++        if ulysses_sp_size > 1:
++            patch_vlm_for_ulysses_input_slicing(Qwen3_5TextModel)
++            patch_vlm_for_ulysses_input_slicing(Qwen3_5MoeTextModel)
+ 
+     if use_remove_padding or ulysses_sp_size > 1:
+         if hasattr(module, "_flash_attention_forward"):  # transformers <= 4.47.1 or legacy models
+diff -ruN a/models/transformers/qwen2_vl.py b/models/transformers/qwen2_vl.py
+--- a/models/transformers/qwen2_vl.py	2026-05-23 04:46:16.005015422 +0000
++++ b/models/transformers/qwen2_vl.py	2026-05-23 04:17:40.748273040 +0000
+@@ -501,7 +501,7 @@
+ 
+     # Loss calculations
+     if labels is not None:
+-        rolled_labels = torch.roll(labels, shifts=-1, dims=-1)
++        rolled_labels = labels
+     elif input_ids is not None:
+         rolled_labels = torch.roll(input_ids, shifts=-1, dims=-1)
+     else:
+@@ -535,7 +535,7 @@
+ 
+     # Loss calculations
+     if labels is not None:
+-        rolled_labels = torch.roll(labels, shifts=-1, dims=-1)
++        rolled_labels = labels
+     elif input_ids is not None:
+         rolled_labels = torch.roll(input_ids, shifts=-1, dims=-1)
+     else:
+diff -ruN a/models/transformers/qwen3_5.py b/models/transformers/qwen3_5.py
+--- a/models/transformers/qwen3_5.py	2026-05-23 04:46:16.005015422 +0000
++++ b/models/transformers/qwen3_5.py	2026-05-23 04:17:40.748273040 +0000
+@@ -12,6 +12,7 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
++import functools
+ import logging
+ import os
+ from dataclasses import dataclass
+@@ -23,73 +24,64 @@
+     Qwen3_5ForConditionalGeneration,
+ )
+ 
++from .common.vision_pos_embed_utils import (
++    build_bilinear_interpolation_tensors,
++    merge_bilinear_interpolated_pos_embeds,
++)
++
+ logger = logging.getLogger(__file__)
+ logger.setLevel(os.getenv("VERL_LOGGING_LEVEL", "WARN"))
+ 
+ 
+-def fast_pos_embed_interpolate(self, grid_thw):
+-    grid_thw_list = grid_thw.tolist()
+-    grid_ts = [row[0] for row in grid_thw_list]
+-    grid_hs = [row[1] for row in grid_thw_list]
+-    grid_ws = [row[2] for row in grid_thw_list]
+-    # Modification: # Get device from grid_thw to avoid self.pos_embed being on CPU when FSDP2 enables cpu_offload
+-    device = grid_thw.device
+-
+-    idx_list = [[] for _ in range(4)]
+-    weight_list = [[] for _ in range(4)]
+-
+-    for t, h, w in grid_thw_list:
+-        h_idxs = torch.linspace(0, self.num_grid_per_side - 1, h)
+-        w_idxs = torch.linspace(0, self.num_grid_per_side - 1, w)
+-
+-        h_idxs_floor = h_idxs.int()
+-        w_idxs_floor = w_idxs.int()
+-        h_idxs_ceil = (h_idxs.int() + 1).clip(max=self.num_grid_per_side - 1)
+-        w_idxs_ceil = (w_idxs.int() + 1).clip(max=self.num_grid_per_side - 1)
+-
+-        dh = h_idxs - h_idxs_floor
+-        dw = w_idxs - w_idxs_floor
+-
+-        base_h = h_idxs_floor * self.num_grid_per_side
+-        base_h_ceil = h_idxs_ceil * self.num_grid_per_side
+-
+-        indices = [
+-            (base_h[None].T + w_idxs_floor[None]).flatten(),
+-            (base_h[None].T + w_idxs_ceil[None]).flatten(),
+-            (base_h_ceil[None].T + w_idxs_floor[None]).flatten(),
+-            (base_h_ceil[None].T + w_idxs_ceil[None]).flatten(),
+-        ]
+-
+-        weights = [
+-            ((1 - dh)[None].T * (1 - dw)[None]).flatten(),
+-            ((1 - dh)[None].T * dw[None]).flatten(),
+-            (dh[None].T * (1 - dw)[None]).flatten(),
+-            (dh[None].T * dw[None]).flatten(),
+-        ]
+-
+-        for i in range(4):
+-            idx_list[i].extend(indices[i].tolist())
+-            weight_list[i].extend(weights[i].tolist())
+-
+-    idx_tensor = torch.tensor(idx_list, dtype=torch.long, device=device)
+-    weight_tensor = torch.tensor(weight_list, dtype=self.pos_embed.weight.dtype, device=device)
+-    pos_embeds = self.pos_embed(idx_tensor).to(device) * weight_tensor[:, :, None]
+-    patch_pos_embeds = pos_embeds[0] + pos_embeds[1] + pos_embeds[2] + pos_embeds[3]
+-
+-    patch_pos_embeds = patch_pos_embeds.split([h * w for h, w in zip(grid_hs, grid_ws, strict=False)])
+-
+-    patch_pos_embeds_permute = []
+-    merge_size = self.config.spatial_merge_size
+-    for pos_embed, t, h, w in zip(patch_pos_embeds, grid_ts, grid_hs, grid_ws, strict=False):
+-        pos_embed = pos_embed.repeat(t, 1)
+-        pos_embed = (
+-            pos_embed.view(t, h // merge_size, merge_size, w // merge_size, merge_size, -1)
+-            .permute(0, 1, 3, 2, 4, 5)
+-            .flatten(0, 4)
++def _is_sharded_tensor(tensor: Optional[torch.Tensor]) -> bool:
++    return tensor is not None and hasattr(tensor, "full_tensor")
++
++
++def _patch_qwen3_5_vision_fast_pos_embed_interpolate(vision_model_cls, model_name: str):
++    if getattr(vision_model_cls.fast_pos_embed_interpolate, "_verl_device_safe_patch", False):
++        return
++
++    original_fast_pos_embed_interpolate = vision_model_cls.fast_pos_embed_interpolate
++
++    @functools.wraps(original_fast_pos_embed_interpolate)
++    def patched_fast_pos_embed_interpolate(self, grid_thw):
++        interpolation_tensors = build_bilinear_interpolation_tensors(
++            grid_thw=grid_thw,
++            num_grid_per_side=self.num_grid_per_side,
++            weight_dtype=self.pos_embed.weight.dtype,
++        )
++        pos_embed_weight = self.pos_embed.weight
++        if _is_sharded_tensor(pos_embed_weight):
++            # FSDP2 may wrap the embedding weight as a DTensor and route nn.Embedding
++            # indices through a CPU path. Materialize the small position embedding
++            # table locally on the active device so lookup stays device-consistent.
++            pos_embed_weight = pos_embed_weight.full_tensor().to(device=interpolation_tensors.device)
++            pos_embeds = torch.nn.functional.embedding(interpolation_tensors.idx_tensor, pos_embed_weight)
++        else:
++            pos_embeds = self.pos_embed(interpolation_tensors.idx_tensor).to(interpolation_tensors.device)
++        return merge_bilinear_interpolated_pos_embeds(
++            pos_embeds=pos_embeds,
++            weight_tensor=interpolation_tensors.weight_tensor,
++            grid_ts=interpolation_tensors.grid_ts,
++            grid_hs=interpolation_tensors.grid_hs,
++            grid_ws=interpolation_tensors.grid_ws,
++            merge_size=self.config.spatial_merge_size,
+         )
+-        patch_pos_embeds_permute.append(pos_embed)
+-    patch_pos_embeds = torch.cat(patch_pos_embeds_permute)
+-    return patch_pos_embeds
++
++    patched_fast_pos_embed_interpolate._verl_device_safe_patch = True
++    vision_model_cls.fast_pos_embed_interpolate = patched_fast_pos_embed_interpolate
++    logger.warning("Monkey patched %s.fast_pos_embed_interpolate for device-safe vision position embedding", model_name)
++
++
++def patch_qwen3_5_vision_fast_pos_embed_interpolate():
++    try:
++        from transformers.models.qwen3_5.modeling_qwen3_5 import Qwen3_5VisionModel
++        from transformers.models.qwen3_5_moe.modeling_qwen3_5_moe import Qwen3_5MoeVisionModel
++    except ImportError:
++        return
++
++    _patch_qwen3_5_vision_fast_pos_embed_interpolate(Qwen3_5VisionModel, "Qwen3_5VisionModel")
++    _patch_qwen3_5_vision_fast_pos_embed_interpolate(Qwen3_5MoeVisionModel, "Qwen3_5MoeVisionModel")
+ 
+ 
+ def _get_input_embeds(
+@@ -102,8 +94,13 @@
+     video_grid_thw: Optional[torch.LongTensor] = None,
+ ):
+     inputs_embeds = model.get_input_embeddings()(input_ids)
++    device = inputs_embeds.device
++    if image_grid_thw is not None:
++        image_grid_thw = image_grid_thw.to(device)
++    if video_grid_thw is not None:
++        video_grid_thw = video_grid_thw.to(device)
+     if pixel_values is not None:
+-        pixel_values = pixel_values.type(model.visual.dtype)
++        pixel_values = pixel_values.to(device=device, dtype=model.visual.dtype)
+         image_embeds = model.visual(pixel_values, grid_thw=image_grid_thw).pooler_output
+         n_image_tokens = (input_ids == model.config.image_token_id).sum().item()
+         n_image_features = image_embeds.shape[0]
+@@ -121,7 +118,7 @@
+         inputs_embeds = inputs_embeds.masked_scatter(image_mask, image_embeds)
+ 
+     if pixel_values_videos is not None:
+-        pixel_values_videos = pixel_values_videos.type(model.visual.dtype)
++        pixel_values_videos = pixel_values_videos.to(device=device, dtype=model.visual.dtype)
+         video_embeds = model.visual(pixel_values_videos, grid_thw=video_grid_thw).pooler_output
+         n_video_tokens = (input_ids == model.config.video_token_id).sum().item()
+         n_video_features = video_embeds.shape[0]
+@@ -208,7 +205,7 @@
+ 
+     # Loss calculations
+     if labels is not None:
+-        rolled_labels = torch.roll(labels, shifts=-1, dims=-1)
++        rolled_labels = labels
+     elif input_ids is not None:
+         rolled_labels = torch.roll(input_ids, shifts=-1, dims=-1)
+     else:
+@@ -242,7 +239,7 @@
+ 
+     # Loss calculations
+     if labels is not None:
+-        rolled_labels = torch.roll(labels, shifts=-1, dims=-1)
++        rolled_labels = labels
+     elif input_ids is not None:
+         rolled_labels = torch.roll(input_ids, shifts=-1, dims=-1)
+     else:
+diff -ruN a/models/transformers/qwen3_vl.py b/models/transformers/qwen3_vl.py
+--- a/models/transformers/qwen3_vl.py	2026-05-23 04:46:16.006015435 +0000
++++ b/models/transformers/qwen3_vl.py	2026-05-23 04:17:40.749273053 +0000
+@@ -26,10 +26,39 @@
+ 
+ from verl.utils.transformers_compat import unpack_visual_output
+ 
++from .common.vision_pos_embed_utils import (
++    build_bilinear_interpolation_tensors,
++    merge_bilinear_interpolated_pos_embeds,
++)
++
+ logger = logging.getLogger(__file__)
+ logger.setLevel(os.getenv("VERL_LOGGING_LEVEL", "WARN"))
+ 
+ 
++def _is_sharded_tensor(tensor: Optional[torch.Tensor]) -> bool:
++    return tensor is not None and hasattr(tensor, "full_tensor")
++
++
++def _compute_log_probs_entropy_from_logits(
++    logits: torch.Tensor,
++    input_ids: torch.LongTensor,
++    temperature: float,
++) -> tuple[torch.FloatTensor, torch.FloatTensor]:
++    if _is_sharded_tensor(logits):
++        logits = logits.full_tensor()
++
++    logits = logits / temperature
++    orig_dtype = logits.dtype
++    logits = logits.to(torch.float32)
++
++    probs = logits.softmax(dim=-1)
++    entropy = torch.logsumexp(logits, dim=-1) - torch.sum(probs * logits, dim=-1)
++    log_probs = logits.log_softmax(dim=-1)
++    token_log_probs = log_probs.gather(-1, input_ids.unsqueeze(-1)).squeeze(-1)
++
++    return token_log_probs, entropy.to(orig_dtype)
++
++
+ def get_rope_index(
+     processor,
+     input_ids: torch.Tensor,
+@@ -146,9 +175,15 @@
+     video_grid_thw: Optional[torch.LongTensor] = None,
+ ):
+     inputs_embeds = model.get_input_embeddings()(input_ids)
++    device = inputs_embeds.device
++    if image_grid_thw is not None:
++        image_grid_thw = image_grid_thw.to(device)
++    if video_grid_thw is not None:
++        video_grid_thw = video_grid_thw.to(device)
++
+     image_mask, video_mask = None, None
+     if pixel_values is not None:
+-        pixel_values = pixel_values.type(model.visual.dtype)
++        pixel_values = pixel_values.to(device=device, dtype=model.visual.dtype)
+         image_embeds, deepstack_image_embeds = unpack_visual_output(model.visual(pixel_values, grid_thw=image_grid_thw))
+         n_image_tokens = (input_ids == model.config.image_token_id).sum().item()
+         n_image_features = image_embeds.shape[0]
+@@ -166,7 +201,7 @@
+         inputs_embeds = inputs_embeds.masked_scatter(image_mask, image_embeds)
+ 
+     if pixel_values_videos is not None:
+-        pixel_values_videos = pixel_values_videos.type(model.visual.dtype)
++        pixel_values_videos = pixel_values_videos.to(device=device, dtype=model.visual.dtype)
+         video_embeds, deepstack_video_embeds = unpack_visual_output(
+             model.visual(pixel_values_videos, grid_thw=video_grid_thw)
+         )
+@@ -289,19 +324,31 @@
+ 
+     # Loss calculations
+     if labels is not None:
+-        rolled_labels = torch.roll(labels, shifts=-1, dims=-1)
++        rolled_labels = labels
+     elif input_ids is not None:
+         rolled_labels = torch.roll(input_ids, shifts=-1, dims=-1)
+     else:
+         raise RuntimeError("To use forward_with_torch_backend, either labels or input_ids must be provided.")
+ 
+-    fused_linear_for_ppo = FusedLinearForPPO()
+-    log_probs, entropy = fused_linear_for_ppo.forward(
+-        hidden_states=hidden_states,
+-        vocab_weights=self.lm_head.weight,
+-        input_ids=rolled_labels,
+-        temperature=temperature,
+-    )
++    if _is_sharded_tensor(self.lm_head.weight):
++        logger.warning(
++            "Qwen3-VL torch fused PPO backend does not support sharded lm_head weights; "
++            "falling back to logits-based computation."
++        )
++        logits = self.lm_head(hidden_states)
++        log_probs, entropy = _compute_log_probs_entropy_from_logits(
++            logits=logits,
++            input_ids=rolled_labels,
++            temperature=temperature,
++        )
++    else:
++        fused_linear_for_ppo = FusedLinearForPPO()
++        log_probs, entropy = fused_linear_for_ppo.forward(
++            hidden_states=hidden_states,
++            vocab_weights=self.lm_head.weight,
++            input_ids=rolled_labels,
++            temperature=temperature,
++        )
+     return Qwen3VLCausalLMOutputForPPO(
+         log_probs=log_probs,
+         entropy=entropy,
+@@ -323,7 +370,7 @@
+ 
+     # Loss calculations
+     if labels is not None:
+-        rolled_labels = torch.roll(labels, shifts=-1, dims=-1)
++        rolled_labels = labels
+     elif input_ids is not None:
+         rolled_labels = torch.roll(input_ids, shifts=-1, dims=-1)
+     else:
+@@ -379,3 +426,50 @@
+     # Apply the patch
+     Qwen3VLMoeTextSparseMoeBlock.forward = patched_forward
+     logger.info("Monkey patched Qwen3VLMoeTextSparseMoeBlock.forward to fix router_weights bug")
++
++
++def _patch_qwen3_vl_vision_fast_pos_embed_interpolate(vision_model_cls, model_name: str):
++    if getattr(vision_model_cls.fast_pos_embed_interpolate, "_verl_device_safe_patch", False):
++        return
++
++    original_fast_pos_embed_interpolate = vision_model_cls.fast_pos_embed_interpolate
++
++    @functools.wraps(original_fast_pos_embed_interpolate)
++    def patched_fast_pos_embed_interpolate(self, grid_thw):
++        interpolation_tensors = build_bilinear_interpolation_tensors(
++            grid_thw=grid_thw,
++            num_grid_per_side=self.num_grid_per_side,
++            weight_dtype=self.pos_embed.weight.dtype,
++        )
++        pos_embed_weight = self.pos_embed.weight
++        if _is_sharded_tensor(pos_embed_weight):
++            # FSDP2 may wrap the embedding weight as a DTensor and route nn.Embedding
++            # indices through a CPU path. Materialize the small position embedding
++            # table locally on the active device so lookup stays device-consistent.
++            pos_embed_weight = pos_embed_weight.full_tensor().to(device=interpolation_tensors.device)
++            pos_embeds = torch.nn.functional.embedding(interpolation_tensors.idx_tensor, pos_embed_weight)
++        else:
++            pos_embeds = self.pos_embed(interpolation_tensors.idx_tensor).to(interpolation_tensors.device)
++        return merge_bilinear_interpolated_pos_embeds(
++            pos_embeds=pos_embeds,
++            weight_tensor=interpolation_tensors.weight_tensor,
++            grid_ts=interpolation_tensors.grid_ts,
++            grid_hs=interpolation_tensors.grid_hs,
++            grid_ws=interpolation_tensors.grid_ws,
++            merge_size=self.config.spatial_merge_size,
++        )
++
++    patched_fast_pos_embed_interpolate._verl_device_safe_patch = True
++    vision_model_cls.fast_pos_embed_interpolate = patched_fast_pos_embed_interpolate
++    logger.warning("Monkey patched %s.fast_pos_embed_interpolate for device-safe vision position embedding", model_name)
++
++
++def patch_qwen3_vl_vision_fast_pos_embed_interpolate():
++    try:
++        from transformers.models.qwen3_vl.modeling_qwen3_vl import Qwen3VLVisionModel
++        from transformers.models.qwen3_vl_moe.modeling_qwen3_vl_moe import Qwen3VLMoeVisionModel
++    except ImportError:
++        return
++
++    _patch_qwen3_vl_vision_fast_pos_embed_interpolate(Qwen3VLVisionModel, "Qwen3VLVisionModel")
++    _patch_qwen3_vl_vision_fast_pos_embed_interpolate(Qwen3VLMoeVisionModel, "Qwen3VLMoeVisionModel")
+diff -ruN a/protocol.py b/protocol.py
+--- a/protocol.py	2026-05-23 04:46:15.985015170 +0000
++++ b/protocol.py	2026-05-23 04:17:40.749273053 +0000
+@@ -930,6 +930,7 @@
+         new_batch = torch.cat(batch_lst, dim=0) if batch_lst[0] is not None else None
+ 
+         non_tensor_batch = list_of_dict_to_dict_of_list(list_of_dict=[d.non_tensor_batch for d in data])
++
+         for key, val in non_tensor_batch.items():
+             non_tensor_batch[key] = np.concatenate(val, axis=0)
+ 
+@@ -949,7 +950,7 @@
+                     else:
+                         if k in merged_meta_info:
+                             # Ensure consistency for overlapping non-metric keys
+-                            assert merged_meta_info[k] == v, f"Conflicting values for meta_info key '{k}'"
++                            assert merged_meta_info[k] == v, f"Conflicting values for meta_info key '{k}': existing={merged_meta_info[k]!r} vs new={v!r}"
+                         else:
+                             merged_meta_info[k] = v
+ 
+diff -ruN a/trainer/main_ppo_sync.py b/trainer/main_ppo_sync.py
+--- a/trainer/main_ppo_sync.py	2026-05-23 04:46:16.013015523 +0000
++++ b/trainer/main_ppo_sync.py	2026-05-23 04:17:40.750273065 +0000
+@@ -1045,20 +1045,14 @@
+         fields = ["entropy", "log_probs", "response_mask"]
+         if self.config.actor_rollout_ref.rollout.calculate_log_probs:
+             fields.extend(["responses", "rollout_log_probs"])
+-        t_start = time.time()
+         data = tq.kv_batch_get(keys=batch.keys, partition_id=batch.partition_id, select_fields=fields)
+-        t_end = time.time()
+-        print(f"[DEBUG] _compute_old_log_prob time to get data: {t_end - t_start:.2f}", flush=True)
+ 
+         # 2. write old_log_probs and entropy back to TransferQueue
+         data["old_log_probs"] = response_from_nested(data.pop("log_probs"), data["response_mask"])
+         data["entropy"] = response_from_nested(data.pop("entropy"), data["response_mask"])
+-        t_start = time.time()
+         tq.kv_batch_put(
+             keys=batch.keys, partition_id=batch.partition_id, fields=data.select("old_log_probs", "entropy")
+         )
+-        t_end = time.time()
+-        print(f"[DEBUG] _compute_old_log_prob time to put data: {t_end - t_start:.2f}", flush=True)
+ 
+         data = DataProto(batch=data.to_padded_tensor())
+ 
+@@ -1096,17 +1090,11 @@
+         assert len(output) == len(batch)
+ 
+         # 2. write ref_log_prob and entropy back to TransferQueue
+-        t_start = time.time()
+         data = tq.kv_batch_get(
+             keys=batch.keys, partition_id=batch.partition_id, select_fields=["log_probs", "response_mask"]
+         )
+-        t_end = time.time()
+-        print(f"[DEBUG] _compute_ref_log_prob time to get data: {t_end - t_start:.2f}", flush=True)
+         data["ref_log_prob"] = response_from_nested(data.pop("log_probs"), data["response_mask"])
+-        t_start = time.time()
+         tq.kv_batch_put(keys=batch.keys, partition_id=batch.partition_id, fields=data.select("ref_log_prob"))
+-        t_end = time.time()
+-        print(f"[DEBUG] _compute_ref_log_prob time to put data: {t_end - t_start:.2f}", flush=True)
+ 
+         return batch
+ 
+@@ -1118,28 +1106,19 @@
+         ray.get(output.futures)
+ 
+         # 2. write value back to TransferQueue
+-        t_start = time.time()
+         data = tq.kv_batch_get(
+             keys=batch.keys, partition_id=batch.partition_id, select_fields=["values", "response_mask"]
+         )
+-        t_end = time.time()
+-        print(f"[DEBUG] _compute_values time to get data: {t_end - t_start:.2f}", flush=True)
+         data["values"] = response_from_nested(data.pop("values"), data["response_mask"])
+-        t_start = time.time()
+         tq.kv_batch_put(keys=batch.keys, partition_id=batch.partition_id, fields=data.select("values"))
+-        t_end = time.time()
+-        print(f"[DEBUG] _compute_values time to put data: {t_end - t_start:.2f}", flush=True)
+ 
+         return batch
+ 
+     def _compute_advantage(self, batch: KVBatchMeta, metrics: dict) -> KVBatchMeta:
+         """Compute the advantage of the batch."""
+         fields = ["uid", "response_mask", "rm_scores", "rollout_log_probs", "old_log_probs", "ref_log_prob", "values"]
+-        t_start = time.time()
+         data = tq.kv_batch_get(keys=batch.keys, partition_id=batch.partition_id, select_fields=fields)
+         response_mask = data["response_mask"]
+-        t_end = time.time()
+-        print(f"[DEBUG] _compute_advantage time to get data: {t_end - t_start:.2f}", flush=True)
+         data = DataProto(batch=data.to_padded_tensor())
+         data.batch["token_level_scores"] = data.batch["rm_scores"]
+         data.non_tensor_batch["uid"] = np.array(data.batch.pop("uid").tolist(), dtype=object)
+@@ -1190,10 +1169,7 @@
+         for field in fields:
+             output[field] = response_to_nested(data.batch[field], response_mask)
+         output = TensorDict(output, batch_size=len(batch))
+-        t_start = time.time()
+         tq.kv_batch_put(keys=batch.keys, partition_id=batch.partition_id, fields=output)
+-        t_end = time.time()
+-        print(f"[DEBUG] _compute_advantage time to put data: {t_end - t_start:.2f}", flush=True)
+ 
+         return batch
+ 
+diff -ruN a/trainer/ppo/core_algos.py b/trainer/ppo/core_algos.py
+--- a/trainer/ppo/core_algos.py	2026-05-23 04:46:16.026015686 +0000
++++ b/trainer/ppo/core_algos.py	2026-05-23 04:44:33.319722243 +0000
+@@ -317,7 +317,9 @@
+                 id2std[idx] = torch.tensor(1.0)
+             elif len(id2score[idx]) > 1:
+                 scores_tensor = torch.stack(id2score[idx])
+-                id2mean[idx] = torch.mean(scores_tensor)
++                # DesignCoder: clamp baseline >= 0 so all-negative groups get
++                # negative advantage (model learns "don't regress").
++                id2mean[idx] = torch.clamp(torch.mean(scores_tensor), min=0.0)
+                 id2std[idx] = torch.std(scores_tensor)
+             else:
+                 raise ValueError(f"no score in prompt index: {idx}")
+diff -ruN a/trainer/ppo/metric_utils.py b/trainer/ppo/metric_utils.py
+--- a/trainer/ppo/metric_utils.py	2026-05-23 04:46:16.026015686 +0000
++++ b/trainer/ppo/metric_utils.py	2026-05-23 04:17:40.750273065 +0000
+@@ -603,8 +603,8 @@
+         for var_name, var_vals in infos_dict.items():
+             var2vals[var_name].append(var_vals[sample_idx])
+ 
+-    np_mean = np.mean
+-    np_std = np.std
++    np_mean = np.nanmean
++    np_std = np.nanstd
+     reduce_fns_best_worst = [np.max, np.min]
+     n_bootstrap = 1000
+ 
+diff -ruN a/trainer/ppo/ray_trainer.py b/trainer/ppo/ray_trainer.py
+--- a/trainer/ppo/ray_trainer.py	2026-05-23 04:46:16.027015699 +0000
++++ b/trainer/ppo/ray_trainer.py	2026-05-23 04:45:27.640407246 +0000
+@@ -564,7 +564,18 @@
+             # pad to be divisible by dp_size
+             size_divisor = self.config.actor_rollout_ref.rollout.agent.num_workers
+             test_gen_batch_padded, pad_size = pad_dataproto_to_divisor(test_gen_batch, size_divisor)
+-            test_output_gen_batch_padded = self.async_rollout_manager.generate_sequences(test_gen_batch_padded)
++            print(f"[Validation] generate_sequences starting: batch_size={len(test_gen_batch_padded)}, "
++                  f"pad_size={pad_size}, size_divisor={size_divisor}", flush=True)
++            import time as _time
++            _gen_start = _time.time()
++            try:
++                test_output_gen_batch_padded = self.async_rollout_manager.generate_sequences(test_gen_batch_padded)
++            except Exception as _gen_err:
++                import traceback
++                print(f"[Validation] generate_sequences FAILED after {_time.time() - _gen_start:.1f}s: {_gen_err}", flush=True)
++                traceback.print_exc()
++                raise
++            print(f"[Validation] generate_sequences done in {_time.time() - _gen_start:.1f}s", flush=True)
+ 
+             if self.use_rm and "rm_scores" not in test_output_gen_batch_padded.batch.keys():
+                 # for colocate reward models, we need to sleep rollout model
+@@ -1318,7 +1329,7 @@
+         if self.config.trainer.get("val_before_train", True):
+             val_metrics = self._validate()
+             assert val_metrics, f"{val_metrics=}"
+-            pprint(f"Initial validation metrics: {val_metrics}")
++            print(f"Initial validation metrics: {val_metrics}", flush=True)
+             logger.log(data=val_metrics, step=self.global_steps)
+             if self.config.trainer.get("val_only", False):
+                 return
+@@ -1645,14 +1656,29 @@
+                 metrics.update(compute_data_metrics(batch=batch, use_critic=self.use_critic))
+                 # GDPO per-component reward metrics
+                 gdpo_reward_keys = self.config.algorithm.get("gdpo_reward_keys", None)
++                _skip_zero_keys_gdpo = set(self.config.algorithm.get("skip_zero_reward_keys", ["tablechart"]))
+                 if gdpo_reward_keys and self.config.algorithm.adv_estimator in ("gdpo", AdvantageEstimator.GDPO):
+                     for key in gdpo_reward_keys:
+                         if key in batch.non_tensor_batch:
+                             vals = np.asarray(batch.non_tensor_batch[key], dtype=np.float32)
+-                            metrics[f"gdpo/{key}/mean"] = float(np.mean(vals))
+-                            metrics[f"gdpo/{key}/std"] = float(np.std(vals))
+-                            metrics[f"gdpo/{key}/max"] = float(np.max(vals))
+-                            metrics[f"gdpo/{key}/min"] = float(np.min(vals))
++                            if key in _skip_zero_keys_gdpo:
++                                vals_active = vals[vals != 0.0]
++                                if len(vals_active) > 0:
++                                    metrics[f"gdpo/{key}/mean"] = float(np.mean(vals_active))
++                                    metrics[f"gdpo/{key}/std"] = float(np.std(vals_active))
++                                    metrics[f"gdpo/{key}/max"] = float(np.max(vals_active))
++                                    metrics[f"gdpo/{key}/min"] = float(np.min(vals_active))
++                                else:
++                                    metrics[f"gdpo/{key}/mean"] = 0.0
++                                    metrics[f"gdpo/{key}/std"] = 0.0
++                                    metrics[f"gdpo/{key}/max"] = 0.0
++                                    metrics[f"gdpo/{key}/min"] = 0.0
++                                metrics[f"gdpo/{key}/active_ratio"] = float(len(vals_active) / len(vals)) if len(vals) > 0 else 0.0
++                            else:
++                                metrics[f"gdpo/{key}/mean"] = float(np.mean(vals))
++                                metrics[f"gdpo/{key}/std"] = float(np.std(vals))
++                                metrics[f"gdpo/{key}/max"] = float(np.max(vals))
++                                metrics[f"gdpo/{key}/min"] = float(np.min(vals))
+                 metrics.update(compute_timing_metrics(batch=batch, timing_raw=timing_raw))
+                 # TODO: implement actual tflpo and theoretical tflpo
+                 n_gpus = self.resource_pool_manager.get_n_gpus()
+@@ -1668,6 +1694,11 @@
+ 
+                 # TODO: make a canonical logger that supports various backend
+                 logger.log(data=metrics, step=self.global_steps)
++                # Print key metrics to stdout for log visibility
++                _key_metrics = {k: f"{v:.4f}" if isinstance(v, float) else v
++                                for k, v in metrics.items()
++                                if any(t in k for t in ("reward", "progress", "loss", "grad_norm", "entropy", "kl"))}
++                print(f"[Step {self.global_steps}] {_key_metrics}", flush=True)
+ 
+                 progress_bar.update(1)
+                 self.global_steps += 1
+@@ -1683,7 +1714,7 @@
+                 if is_last_step:
+                     if hasattr(self.actor_rollout_wg, "async_calls_finalize_fn_exec"):
+                         self.actor_rollout_wg.async_calls_finalize_fn_exec(blocking=True)
+-                    pprint(f"Final validation metrics: {last_val_metrics}")
++                    print(f"Final validation metrics: {last_val_metrics}", flush=True)
+                     progress_bar.close()
+                     return
+ 
+diff -ruN a/utils/dataset/rl_dataset.py b/utils/dataset/rl_dataset.py
+--- a/utils/dataset/rl_dataset.py	2026-05-23 04:46:16.038015837 +0000
++++ b/utils/dataset/rl_dataset.py	2026-05-23 04:44:33.315722192 +0000
+@@ -368,6 +368,17 @@
+         # add index for each prompt
+         if "extra_info" not in row_dict or row_dict["extra_info"] is None:
+             row_dict["extra_info"] = dict()
++        # Deserialize JSON string extra_info (e.g. from pyarrow parquet)
++        if isinstance(row_dict["extra_info"], str):
++            import json
++            row_dict["extra_info"] = json.loads(row_dict["extra_info"])
++        # Deserialize JSON string reward_model (e.g. from pyarrow parquet)
++        if isinstance(row_dict.get("reward_model"), str):
++            import json
++            try:
++                row_dict["reward_model"] = json.loads(row_dict["reward_model"])
++            except (json.JSONDecodeError, TypeError):
++                pass
+         index = row_dict.get("extra_info", {}).get("index", 0)
+         tools_kwargs = row_dict.get("extra_info", {}).get("tools_kwargs", {})
+         interaction_kwargs = row_dict.get("extra_info", {}).get("interaction_kwargs", {})
+diff -ruN a/utils/model.py b/utils/model.py
+--- a/utils/model.py	2026-05-23 04:46:16.032015762 +0000
++++ b/utils/model.py	2026-05-23 04:44:33.315722192 +0000
+@@ -755,6 +755,18 @@
+     return multi_modal_inputs
+ 
+ 
++def is_vision_language_model(module_or_config) -> bool:
++    """Return whether a module/config corresponds to a vision-language model."""
++    target = getattr(module_or_config, "module", module_or_config)
++    config = getattr(target, "config", target)
++    if config is None:
++        return False
++    if hasattr(config, "vision_config"):
++        return True
++    hf_config = getattr(config, "hf_config", None)
++    return hf_config is not None and hasattr(hf_config, "vision_config")
++
++
+ def get_lora_rank_from_adapter(adapter_path: str | os.PathLike) -> int:
+     """
+     Extract LoRA rank from adapter configuration file.
+diff -ruN a/utils/tensordict_utils.py b/utils/tensordict_utils.py
+--- a/utils/tensordict_utils.py	2026-05-23 04:46:16.034015787 +0000
++++ b/utils/tensordict_utils.py	2026-05-23 04:44:33.316722205 +0000
+@@ -22,6 +22,8 @@
+ from tensordict import TensorDict
+ from tensordict.tensorclass import NonTensorData, NonTensorStack
+ 
++logger = logging.getLogger(__name__)
++
+ 
+ def assign_non_tensor_data(tensor_dict: TensorDict, key, val):
+     """Assign a single non-tensor value to a TensorDict.
+@@ -881,11 +883,55 @@
+ 
+ 
+ def maybe_fix_3d_position_ids(data: TensorDict):
+-    # note for tensordict with pickle/unpickle. nested tensor in tensordict after consolidate and pickle/unpickle
+-    # will incur indexing error for ragged tensor. This only happens when using 3D position ids in VLMs.
+-    # This is likely a bug in tensordict. As a workaround, we manually set _ragged_index.
++    # TensorDict may produce malformed jagged metadata/layout for 3D position_ids
++    # after consolidate + pickle/unpickle. This can trigger indexing errors in VLM
++    # pipelines. We keep the fast path for healthy tensors (set ragged axis to dim=2)
++    # and rebuild from input_ids offsets only for known broken layouts.
+     if "position_ids" in data.keys() and data["position_ids"].dim() == 3 and data["position_ids"].is_nested:
+-        data["position_ids"]._ragged_idx = 2
++        pos = data["position_ids"]
++        offsets = pos.offsets()
++        values = pos.values()
++        batch_num = pos.shape[0]
++        rope_dim = pos.shape[1]
++
++        target_offsets = None
++        if "input_ids" in data.keys() and getattr(data["input_ids"], "is_nested", False):
++            in_offsets = data["input_ids"].offsets()
++            if in_offsets.numel() == batch_num + 1:
++                target_offsets = in_offsets.to(device=offsets.device, dtype=offsets.dtype)
++
++        inferred_rope_dim = rope_dim if isinstance(rope_dim, int) else None
++        if inferred_rope_dim is None and values.dim() == 2 and batch_num > 0 and values.shape[0] % batch_num == 0:
++            inferred_rope_dim = values.shape[0] // batch_num
++
++        is_broken = (
++            target_offsets is not None
++            and batch_num > 0
++            and inferred_rope_dim is not None
++            and values.dim() == 2
++            and values.shape[0] == batch_num * inferred_rope_dim
++            and offsets.numel() == batch_num + 1
++            and bool(torch.all(offsets.diff() == inferred_rope_dim))
++        )
++
++        if not is_broken:
++            pos._ragged_idx = 2
++            return
++
++        seq_lens = target_offsets.diff().tolist()
++        max_seq_len = values.shape[1]
++        has_valid_seq_lens = all(sl >= 0 for sl in seq_lens) and max(seq_lens, default=0) <= max_seq_len
++        if not has_valid_seq_lens:
++            logger.warning("Skip repairing broken 3D position_ids due to invalid target offsets")
++            pos._ragged_idx = 2
++            return
++
++        values_3d = values.contiguous().view(batch_num, inferred_rope_dim, max_seq_len)
++        chunks = [values_3d[i, :, :sl] for i, sl in enumerate(seq_lens)]
++        fixed_values = torch.cat(chunks, dim=1).contiguous()
++        fixed_pos = torch.nested.nested_tensor_from_jagged(values=fixed_values, offsets=target_offsets, jagged_dim=2)
++        fixed_pos._ragged_idx = 2
++        data["position_ids"] = fixed_pos
+ 
+ 
+ def list_of_dict_to_tensordict(list_of_dicts: list[dict[str, Any]]) -> TensorDict:
+diff -ruN a/utils/tracking.py b/utils/tracking.py
+--- a/utils/tracking.py	2026-05-23 04:46:16.035015800 +0000
++++ b/utils/tracking.py	2026-05-23 04:44:33.316722205 +0000
+@@ -74,10 +74,15 @@
+             import wandb
+ 
+             settings = None
++            init_timeout = int(os.environ.get("WANDB_INIT_TIMEOUT", "180"))
+             if config and config["trainer"].get("wandb_proxy", None):
+-                settings = wandb.Settings(https_proxy=config["trainer"]["wandb_proxy"])
++                settings = wandb.Settings(https_proxy=config["trainer"]["wandb_proxy"], init_timeout=init_timeout)
++            else:
++                settings = wandb.Settings(init_timeout=init_timeout)
+             entity = os.environ.get("WANDB_ENTITY", None)
+-            wandb.init(project=project_name, name=experiment_name, entity=entity, config=config, settings=settings)
++            run_id = os.environ.get("WANDB_RUN_ID", experiment_name)
++            resume = os.environ.get("WANDB_RESUME", "never")
++            wandb.init(project=project_name, name=experiment_name, id=run_id, resume=resume, entity=entity, config=config, settings=settings)
+             self.logger["wandb"] = wandb
+ 
+         if "trackio" in default_backend:
+diff -ruN a/workers/actor/dp_actor.py b/workers/actor/dp_actor.py
+--- a/workers/actor/dp_actor.py	2026-05-23 04:46:16.055016051 +0000
++++ b/workers/actor/dp_actor.py	2026-05-23 04:44:33.316722205 +0000
+@@ -32,6 +32,7 @@
+ from verl.utils.device import get_device_id, get_device_name
+ from verl.utils.fsdp_utils import FSDPModule, fsdp2_clip_grad_norm_
+ from verl.utils.import_utils import deprecated
++from verl.utils.model import is_vision_language_model
+ from verl.utils.profiler import GPUMemoryLogger
+ from verl.utils.py_functional import append_to_dict
+ from verl.utils.seqlen_balancing import prepare_dynamic_batch, restore_dynamic_batch
+@@ -213,9 +214,7 @@
+ 
+                 # pad and slice the inputs if sp > 1
+                 if self.use_ulysses_sp:
+-                    is_vlm_model = hasattr(
+-                        getattr(self.actor_module, "module", self.actor_module).config, "vision_config"
+-                    )
++                    is_vlm_model = is_vision_language_model(self.actor_module)
+                     if is_vlm_model:
+                         # vlm model's inputs will be sliced after embedding
+                         input_ids_rmpad, position_ids_rmpad, pad_size = ulysses_pad(
+@@ -235,6 +234,7 @@
+                         sp_size=self.ulysses_sequence_parallel_size,
+                     )
+ 
++                input_ids_rmpad_rolled_for_model = input_ids_rmpad_rolled
+                 input_ids_rmpad_rolled = input_ids_rmpad_rolled.squeeze(0)  # ((total_nnz / sp) + pad)
+ 
+                 # only pass input_ids and position_ids to enable flash_attn_varlen
+@@ -242,6 +242,10 @@
+                 if self.use_fused_kernels:
+                     extra_args["temperature"] = temperature
+                     extra_args["return_dict"] = True
++                    if self.use_ulysses_sp and is_vlm_model:
++                        # VLM Ulysses slices sequences after embedding, so pass the
++                        # already-shifted local labels to keep hidden/label lengths aligned.
++                        extra_args["labels"] = input_ids_rmpad_rolled_for_model
+ 
+                 output = self.actor_module(
+                     input_ids=input_ids_rmpad,
+diff -ruN a/workers/engine/automodel/transformer_impl.py b/workers/engine/automodel/transformer_impl.py
+--- a/workers/engine/automodel/transformer_impl.py	2026-05-23 04:46:16.060016114 +0000
++++ b/workers/engine/automodel/transformer_impl.py	2026-05-23 04:44:33.317722218 +0000
+@@ -551,8 +551,10 @@
+                 )
+ 
+                 if position_ids.dim() == 3:
++                    rope_dim = position_ids.shape[1]
++                    assert isinstance(rope_dim, int), f"Expected static rope_dim for 3D position_ids, got {rope_dim}"
+                     position_ids = torch.nested.to_padded_tensor(
+-                        position_ids, padding=0, output_size=(batch_size, 4, max_seq_len)
++                        position_ids, padding=0, output_size=(batch_size, rope_dim, max_seq_len)
+                     ).transpose(0, 1)
+                 else:
+                     position_ids = torch.nested.to_padded_tensor(
+diff -ruN a/workers/engine/base.py b/workers/engine/base.py
+--- a/workers/engine/base.py	2026-05-23 04:46:16.059016102 +0000
++++ b/workers/engine/base.py	2026-05-23 04:44:33.317722218 +0000
+@@ -176,8 +176,8 @@
+             optimizer: If True, move the optimizer states.
+             grad: If True, move the gradient buffer.
+         """
+-        if not model:
+-            assert not optimizer and not grad, "Model must be moved to device along with optimizer and grad"
++        if not model and grad:
++            assert False, "Grad cannot be moved without model"
+ 
+     def save_checkpoint(
+         self,
+diff -ruN a/workers/engine/fsdp/transformer_impl.py b/workers/engine/fsdp/transformer_impl.py
+--- a/workers/engine/fsdp/transformer_impl.py	2026-05-23 04:46:16.061016127 +0000
++++ b/workers/engine/fsdp/transformer_impl.py	2026-05-23 04:44:33.318722231 +0000
+@@ -59,7 +59,7 @@
+     offload_fsdp_optimizer,
+     replace_lora_wrapper,
+ )
+-from verl.utils.model import convert_weight_keys, extract_multi_modal_inputs
++from verl.utils.model import convert_weight_keys, extract_multi_modal_inputs, is_vision_language_model
+ from verl.utils.py_functional import convert_to_regular_types
+ from verl.utils.torch_functional import logprobs_from_logits
+ from verl.utils.ulysses import (
+@@ -885,6 +885,7 @@
+         multi_modal_inputs = extract_multi_modal_inputs(micro_batch.get("multi_modal_inputs", []))
+         input_ids = micro_batch["input_ids"]
+         position_ids = micro_batch["position_ids"]
++        is_vlm_model = is_vision_language_model(self.module)
+ 
+         if not isinstance(temperature, torch.Tensor):
+             temperature = torch.tensor([temperature] * input_ids.shape[0], device=input_ids.device)
+@@ -894,6 +895,7 @@
+ 
+         # args used to get outputs
+         output_args = {}
++        input_ids_rmpad_rolled_for_model = None
+ 
+         if use_remove_padding:
+             # support per sample temperature
+@@ -904,8 +906,13 @@
+ 
+             if pad_mode == DatasetPadMode.NO_PADDING:
+                 input_ids_rmpad = input_ids.values().unsqueeze(0)  # (1, total_nnz)
+-                if position_ids.dim() == 3:
+-                    position_ids_rmpad = position_ids.values().unsqueeze(1)  # (4, 1, total_nnz)
++                num_pos_components = tu.get_non_tensor_data(data=micro_batch, key="num_pos_components", default=0)
++                if num_pos_components > 0:
++                    # position_ids stored as flattened 1D nested tensor: (total_nnz * num_components,)
++                    # reshape to (num_components, 1, total_nnz)
++                    flat_pos = position_ids.values()  # (total_nnz * num_components,)
++                    total_nnz = flat_pos.shape[0] // num_pos_components
++                    position_ids_rmpad = flat_pos.view(total_nnz, num_pos_components).T.unsqueeze(1)
+                 else:
+                     position_ids_rmpad = position_ids.values().unsqueeze(0)  # (1, total_nnz)
+             else:
+@@ -913,10 +920,8 @@
+ 
+             # for compute the log_prob
+             input_ids_rmpad_rolled = torch.roll(input_ids_rmpad, shifts=-1, dims=1)  # (1, total_nnz)
+-
+             # pad and slice the inputs if sp > 1
+             if self.use_ulysses_sp:
+-                is_vlm_model = hasattr(getattr(self.module, "module", self.module).config, "vision_config")
+                 if is_vlm_model:
+                     # vlm model's inputs will be sliced after embedding
+                     input_ids_rmpad, position_ids_rmpad, pad_size = ulysses_pad(
+@@ -943,6 +948,7 @@
+ 
+                 output_args["pad_size"] = pad_size
+ 
++            input_ids_rmpad_rolled_for_model = input_ids_rmpad_rolled
+             input_ids_rmpad_rolled = input_ids_rmpad_rolled.squeeze(0)  # ((total_nnz / sp) + pad)
+             temperature_rmpad = temperature_rmpad.squeeze(0)
+             output_args["input_ids_rmpad_rolled"] = input_ids_rmpad_rolled
+@@ -976,10 +982,13 @@
+                     input_ids, padding=pad_token_id, output_size=(batch_size, max_seq_len)
+                 )
+ 
+-                if position_ids.dim() == 3:
++                num_pos_components = tu.get_non_tensor_data(data=micro_batch, key="num_pos_components", default=0)
++                if num_pos_components > 0:
++                    # position_ids stored as flattened 1D nested: each sample has (seq_len * num_components,)
++                    # pad to (batch, max_seq_len * num_components), then reshape to (num_components, batch, max_seq_len)
+                     position_ids = torch.nested.to_padded_tensor(
+-                        position_ids, padding=0, output_size=(batch_size, 4, max_seq_len)
+-                    ).transpose(0, 1)  # (4, batch_size, max_seq_len)
++                        position_ids, padding=0, output_size=(batch_size, max_seq_len * num_pos_components)
++                    ).view(batch_size, max_seq_len, num_pos_components).permute(2, 0, 1)
+                 else:
+                     position_ids = torch.nested.to_padded_tensor(
+                         position_ids, padding=0, output_size=(batch_size, max_seq_len)
+@@ -1004,6 +1013,11 @@
+         if use_fused_kernels:
+             extra_args["temperature"] = temperature_item
+             extra_args["return_dict"] = True
++            if use_remove_padding and self.use_ulysses_sp and is_vlm_model:
++                # VLM Ulysses slices sequences after embedding, so the model must consume
++                # labels that are already shifted and sliced to the local shard.
++                assert input_ids_rmpad_rolled_for_model is not None
++                extra_args["labels"] = input_ids_rmpad_rolled_for_model
+ 
+         model_inputs.update(multi_modal_inputs)
+         model_inputs.update(extra_args)
+diff -ruN a/workers/engine/torchtitan/transformer_impl.py b/workers/engine/torchtitan/transformer_impl.py
+--- a/workers/engine/torchtitan/transformer_impl.py	2026-05-23 04:46:16.063016152 +0000
++++ b/workers/engine/torchtitan/transformer_impl.py	2026-05-23 04:44:33.318722231 +0000
+@@ -614,8 +614,10 @@
+             )
+ 
+             if position_ids.dim() == 3:
++                rope_dim = position_ids.shape[1]
++                assert isinstance(rope_dim, int), f"Expected static rope_dim for 3D position_ids, got {rope_dim}"
+                 position_ids = torch.nested.to_padded_tensor(
+-                    position_ids, padding=0, output_size=(batch_size, 4, max_seq_len)
++                    position_ids, padding=0, output_size=(batch_size, rope_dim, max_seq_len)
+                 ).transpose(0, 1)
+             else:
+                 position_ids = torch.nested.to_padded_tensor(
+diff -ruN a/workers/rollout/schemas.py b/workers/rollout/schemas.py
+--- a/workers/rollout/schemas.py	2026-05-23 04:46:16.066016190 +0000
++++ b/workers/rollout/schemas.py	2026-05-23 04:44:33.318722231 +0000
+@@ -264,14 +264,11 @@
+         attention_mask: torch.Tensor,
+         multi_modal_inputs: Optional[dict[str, torch.Tensor]] = None,
+     ) -> torch.Tensor:
+-        # special case for qwen2vl
+-        is_qwen2vl = (
+-            hasattr(processing_class, "image_processor")
+-            and "Qwen2VLImageProcessor" in processing_class.image_processor.__class__.__name__
++        processor_name = processing_class.__class__.__name__
++        has_multimodal_rope = hasattr(processing_class, "get_rope_index") and hasattr(
++            processing_class, "image_processor"
+         )
+-        if is_qwen2vl:
+-            from verl.models.transformers.qwen2_vl import get_rope_index
+-
++        if has_multimodal_rope:
+             image_grid_thw = video_grid_thw = second_per_grid_ts = None
+             if multi_modal_inputs:
+                 image_grid_thw = multi_modal_inputs.get("image_grid_thw")
+@@ -284,14 +281,38 @@
+             assert attention_mask.dim() == 2 and attention_mask.shape[0] == 1, (
+                 f"attention_mask should be 2D with batch size 1, but got shape {attention_mask.shape}"
+             )
+-            new_position_ids = get_rope_index(
+-                processing_class,
+-                input_ids=input_ids.squeeze(0),
+-                image_grid_thw=image_grid_thw,
+-                video_grid_thw=video_grid_thw,
+-                second_per_grid_ts=second_per_grid_ts,
+-                attention_mask=attention_mask.squeeze(0),
+-            )
++
++            if processor_name == "Qwen3VLProcessor":
++                rope_kwargs = {
++                    "input_ids": input_ids,
++                    "image_grid_thw": image_grid_thw,
++                    "video_grid_thw": video_grid_thw,
++                    "attention_mask": attention_mask,
++                }
++                new_position_ids, _ = processing_class.get_rope_index(**rope_kwargs)  # (3, 1, seq_len)
++                vision_position_ids = new_position_ids[:, 0, :]  # (3, seq_len)
++
++                valid_mask = attention_mask[0].bool()
++                text_position_ids = torch.ones((1, input_ids.shape[-1]), dtype=torch.long, device=input_ids.device)
++                text_position_ids[0, valid_mask] = torch.arange(valid_mask.sum().item(), device=input_ids.device)
++                return torch.cat((text_position_ids, vision_position_ids), dim=0)  # (4, seq_len)
++
++            # special case for qwen2/qwen2.5 style processors
++            rope_kwargs = {
++                "input_ids": input_ids.squeeze(0),
++                "image_grid_thw": image_grid_thw,
++                "video_grid_thw": video_grid_thw,
++                "attention_mask": attention_mask.squeeze(0),
++            }
++            if second_per_grid_ts is not None:
++                rope_kwargs["second_per_grid_ts"] = second_per_grid_ts
++            try:
++                new_position_ids = processing_class.get_rope_index(**rope_kwargs)
++            except TypeError:
++                rope_kwargs.pop("second_per_grid_ts", None)
++                new_position_ids = processing_class.get_rope_index(**rope_kwargs)
++            if isinstance(new_position_ids, tuple):
++                new_position_ids = new_position_ids[0]
+             return new_position_ids  # (3, seq_len)
+         else:
+             return compute_position_id_with_mask(attention_mask)  # (1, seq_len)
+diff -ruN a/workers/utils/padding.py b/workers/utils/padding.py
+--- a/workers/utils/padding.py	2026-05-23 04:46:16.072016265 +0000
++++ b/workers/utils/padding.py	2026-05-23 04:44:33.319722243 +0000
+@@ -56,15 +56,21 @@
+     input_ids_nested = torch.nested.nested_tensor_from_jagged(input_ids_rmpad.squeeze(-1), offsets=cu_seqlens)
+ 
+     position_ids_list = []
++    num_pos_components = 0  # 0 means 1D position_ids, >0 means multi-component (e.g. 4 for Qwen2-VL, 3 for Qwen3-VL)
+     for i in range(attention_mask.shape[0]):
+         curr_mask = attention_mask[i].bool()
+         curr_pos_ids = position_ids[i]
+         if curr_pos_ids.dim() == 1:  # (seq_len,)
+             valid_ids = curr_pos_ids[curr_mask]
+-        else:  # (4, seq_len)
+-            valid_ids = curr_pos_ids[:, curr_mask]
++        else:  # (num_components, seq_len) — flatten to 1D for nested tensor compatibility
++            # 3D jagged nested tensors have broken unbind() and to_padded_tensor() in PyTorch
++            # (see pytorch/pytorch#153238), so we flatten to 1D and reshape back in prepare_model_inputs
++            num_pos_components = curr_pos_ids.shape[0]
++            valid_ids = curr_pos_ids[:, curr_mask].T.contiguous().flatten()  # (valid_len * num_components,)
+         position_ids_list.append(valid_ids)
+     position_ids_nested = torch.nested.as_nested_tensor(position_ids_list, layout=torch.jagged)
++    if num_pos_components > 0:
++        tu.assign_non_tensor_data(data, "num_pos_components", num_pos_components)
+ 
+     data["input_ids"] = input_ids_nested
+     data["position_ids"] = position_ids_nested
