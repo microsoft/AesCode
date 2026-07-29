@@ -1,5 +1,7 @@
 # DesignCoder
 
+![DesignCoder sample outputs](assets/teaser.jpg)
+
 DesignCoder generates complex infographics—slides, posters, dashboards, and
 webpages—with code, and trains open vision-language models to do this well.
 Because infographics demand both visual design competence and factual precision,
@@ -16,8 +18,6 @@ layout, whitespace), and a Visual Graph Rubric grounds VLM judgments of
 perceptual quality in the reference. Training combines supervised fine-tuning
 with reinforcement learning (GDPO), keeping each reward channel's signal
 separate.
-
-![DesignCoder sample outputs](assets/teaser.jpg)
 
 This repository contains the training and evaluation code:
 
