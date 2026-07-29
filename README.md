@@ -1,26 +1,21 @@
 # DesignCoder
 
-DesignCoder generates complex **infographics** — slides, posters, dashboards,
-and webpages — with **code**, and trains open vision-language models to do this
-well. Infographics demand both visual design competence and factual precision:
-image generators are strong at composition, hierarchy, color, and typography but
-express them in pixels, where dense text, numbers, and structure are hard to get
-right; code models act in a structured, executable space that is far better
-suited to optimization and to producing the accurate, rigorous results
-infographics require — but they are weaker at visual organization. Instead of
-trading one for the other, DesignCoder brings the image generator *into the
-code-generation pipeline*: a generated **reference image** acts as a *design
-teacher* that externalizes a visual prior — good layout, whitespace, and color
-organization — and the code model learns to realize that prior as code. The
-reference is a **verifiable design anchor**, not a reconstruction target (this is
-not screenshot-to-code: the reference has no source code, prescribes no unique
-implementation, and may itself contain content errors). Supervision is factorized
-by observability into **decoupled, multi-dimensional rewards**: six deterministic
-validators check measurable properties (execution, text, boundaries, semantic
-layout, table/chart correctness, whitespace), and a Visual Graph Rubric grounds
-VLM judgments of perceptual design quality in the reference. A supervised
-fine-tuning warm start is followed by reinforcement learning (GDPO) that keeps
-each reward channel's signal separate.
+DesignCoder generates complex infographics—slides, posters, dashboards, and
+webpages—with code, and trains open vision-language models to do this well.
+Because infographics demand both visual design competence and factual precision,
+neither image generators (strong in layout and typography, but weak at dense text
+and structural accuracy) nor code models (rigorous and executable, but weaker at
+visual organization) suffice alone. Instead of trading one for the other,
+DesignCoder integrates the image generator into the code-generation pipeline: a
+generated reference image acts as a design anchor to externalize visual priors
+like layout and color, while the code model learns to realize them in executable
+code without treating the reference as a direct reconstruction target.
+Supervision is factorized into decoupled, multi-dimensional rewards: six
+deterministic validators verify measurable properties (e.g., execution, text,
+layout, whitespace), and a Visual Graph Rubric grounds VLM judgments of
+perceptual quality in the reference. Training combines supervised fine-tuning
+with reinforcement learning (GDPO), keeping each reward channel's signal
+separate.
 
 ![DesignCoder sample outputs](assets/teaser.jpg)
 
