@@ -52,7 +52,7 @@ openai==2.24.0
 tiktoken==0.12.0
 
 # ── HTML / image / rendering pipeline ───────────────────────────────────────
-Pillow==12.0.0
+Pillow==12.3.0
 opencv-python==4.13.0.92
 playwright==1.58.0                  # run `playwright install chromium` after pip install
 beautifulsoup4==4.14.3
