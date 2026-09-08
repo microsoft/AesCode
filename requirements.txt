@@ -23,7 +23,7 @@ protobuf==6.33.5
 # verl is installed from the local `verl/` worktree with `pip install -e .`
 # (and patched via verl_patches/apply_verl_patch.sh); do not pin a wheel here.
 # verl==0.8.0.dev0
-vllm==0.17.1
+vllm==0.27.0
 ray==2.54.0
 tensordict==0.10.0
 flash-attn==2.8.3                   # build with --no-build-isolation
