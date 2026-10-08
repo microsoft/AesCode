@@ -1,0 +1,845 @@
+{
+  "sample_id": "train_10721",
+  "execution_pass": false,
+  "quality_pass": false,
+  "overall_pass": false,
+  "hard_failures": [
+    "execution"
+  ],
+  "summary": {
+    "validator_count": 7.0,
+    "applicable_validator_count": 7.0,
+    "validator_status_counts": {
+      "pass": 1.0,
+      "fail": 5.0,
+      "partial": 1.0,
+      "uncertain": 0.0,
+      "not_applicable": 0.0
+    },
+    "result_count": 22.0,
+    "result_status_counts": {
+      "pass": 7.0,
+      "fail": 15.0,
+      "partial": 0.0,
+      "uncertain": 0.0,
+      "not_applicable": 0.0
+    },
+    "validators": [
+      {
+        "validator_name": "BoundaryValidator",
+        "status": "fail",
+        "score": 0.0,
+        "requirement_count": 1.0,
+        "applicable_requirement_count": 1.0
+      },
+      {
+        "validator_name": "DesignValidator",
+        "status": "fail",
+        "score": 0.0,
+        "requirement_count": 1.0,
+        "applicable_requirement_count": 1.0
+      },
+      {
+        "validator_name": "ExecutionValidator",
+        "status": "fail",
+        "score": 0.0,
+        "requirement_count": 1.0,
+        "applicable_requirement_count": 1.0
+      },
+      {
+        "validator_name": "SemanticLayoutValidator",
+        "status": "fail",
+        "score": 0.0,
+        "requirement_count": 1.0,
+        "applicable_requirement_count": 1.0
+      },
+      {
+        "validator_name": "TableChartValidator",
+        "status": "pass",
+        "score": 0.0,
+        "requirement_count": 6.0,
+        "applicable_requirement_count": 6.0
+      },
+      {
+        "validator_name": "TextValidator",
+        "status": "partial",
+        "score": 0.0909,
+        "requirement_count": 11.0,
+        "applicable_requirement_count": 11.0
+      },
+      {
+        "validator_name": "WhitespaceValidator",
+        "status": "fail",
+        "score": 0.0,
+        "requirement_count": 1.0,
+        "applicable_requirement_count": 1.0
+      }
+    ],
+    "scores": {
+      "overall_score": 0.013,
+      "per_validator": {
+        "BoundaryValidator": 0.0,
+        "DesignValidator": 0.0,
+        "ExecutionValidator": 0.0,
+        "SemanticLayoutValidator": 0.0,
+        "TableChartValidator": 0.0,
+        "TextValidator": 0.0909,
+        "WhitespaceValidator": 0.0
+      },
+      "validator_count": 7,
+      "quality_gate_threshold": 0.6,
+      "quality_pass": 0.0,
+      "overall_pass": 0.0,
+      "overall_assessment": "weak",
+      "degraded_requirement_count": 15.0,
+      "critical_failure_count": 15.0,
+      "degraded_requirements": [
+        "execution",
+        "boundary",
+        "layout",
+        "whitespace",
+        "design",
+        "req_admission_dept",
+        "req_admission_cost_title",
+        "req_patient_satisfaction",
+        "req_total_patients",
+        "req_operational_expense",
+        "req_doctors",
+        "req_staff_per_dept",
+        "req_avg_wait",
+        "req_doctor_plan",
+        "req_confidence"
+      ],
+      "critical_failures": [
+        "execution",
+        "boundary",
+        "layout",
+        "whitespace",
+        "design",
+        "req_admission_dept",
+        "req_admission_cost_title",
+        "req_patient_satisfaction",
+        "req_total_patients",
+        "req_operational_expense",
+        "req_doctors",
+        "req_staff_per_dept",
+        "req_avg_wait",
+        "req_doctor_plan",
+        "req_confidence"
+      ]
+    },
+    "passes": {
+      "quality_pass": false,
+      "overall_pass": false
+    },
+    "evidence_result_counts": {
+      "explicit_evidence_result_count": 17.0,
+      "fallback_evidence_result_count": 0.0,
+      "hybrid_evidence_result_count": 0.0,
+      "unknown_evidence_result_count": 5.0
+    },
+    "semantic_enrichment": {
+      "changed": true,
+      "touched_nodes": 1.0
+    },
+    "requirement_counts": {
+      "declared": 17.0,
+      "enabled": 17.0,
+      "included_in_results": 22.0
+    },
+    "layout": {
+      "validator_name": "SemanticLayoutValidator",
+      "score": 0.0,
+      "reference_block_count": 0.0,
+      "predicted_block_count": 0.0,
+      "matched_block_count": 0.0
+    },
+    "issues": {
+      "degraded_requirement_count": 15.0,
+      "critical_failure_count": 15.0,
+      "degraded_requirements": [
+        "execution",
+        "boundary",
+        "layout",
+        "whitespace",
+        "design",
+        "req_admission_dept",
+        "req_admission_cost_title",
+        "req_patient_satisfaction",
+        "req_total_patients",
+        "req_operational_expense",
+        "req_doctors",
+        "req_staff_per_dept",
+        "req_avg_wait",
+        "req_doctor_plan",
+        "req_confidence"
+      ],
+      "critical_failures": [
+        "execution",
+        "boundary",
+        "layout",
+        "whitespace",
+        "design",
+        "req_admission_dept",
+        "req_admission_cost_title",
+        "req_patient_satisfaction",
+        "req_total_patients",
+        "req_operational_expense",
+        "req_doctors",
+        "req_staff_per_dept",
+        "req_avg_wait",
+        "req_doctor_plan",
+        "req_confidence"
+      ]
+    }
+  },
+  "results": [
+    {
+      "requirement_id": "execution",
+      "validator_name": "ExecutionValidator",
+      "status": "fail",
+      "score": 0.0,
+      "evidence_basis": "unknown",
+      "evidence_sources": [
+        "html_source",
+        "render_image",
+        "playwright_runtime"
+      ],
+      "measured": {
+        "compile_errors": [],
+        "compile_warnings": [],
+        "resource_violation_count": 0,
+        "render_image_path": null,
+        "render_duration_ms": null,
+        "render_blank": false,
+        "render_variance": 0.0,
+        "render_dark_pixel_ratio": 0.0,
+        "render_near_white_ratio": 1.0,
+        "n_fatal": 0,
+        "n_warn": 0
+      },
+      "message": "Execution gate reported issues.",
+      "evidence": {
+        "compile_failed": false,
+        "blocker_issues": [
+          "render_image_missing"
+        ]
+      },
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "boundary",
+      "validator_name": "BoundaryValidator",
+      "status": "fail",
+      "score": 0.0,
+      "evidence_basis": "unknown",
+      "expected": {
+        "reference_image_wh": "1280x720"
+      },
+      "message": "Skipped: render failed.",
+      "debug": {
+        "implemented": true,
+        "render_failed": true
+      }
+    },
+    {
+      "requirement_id": "layout",
+      "validator_name": "SemanticLayoutValidator",
+      "status": "fail",
+      "score": 0.0,
+      "evidence_basis": "unknown",
+      "expected": {
+        "reference_image_path": "/Users/xingao/Documents/AesCode/examples/hospital_dashboard/reference.png",
+        "predicted_source": "artifact_boxes",
+        "required_display_texts": [
+          "Hospital performance dashboard to improve operations",
+          "Admission by Department",
+          "Admission vs Cost Over Time",
+          "Patient Satisfaction",
+          "Total Patients",
+          "Operational expense",
+          "Doctors",
+          "Staff Per Department",
+          "Average wait Times by Department",
+          "Doctor's Treatment Plan",
+          "Confidence in treatment"
+        ]
+      },
+      "message": "Skipped: render failed.",
+      "debug": {
+        "implemented": true,
+        "render_failed": true
+      }
+    },
+    {
+      "requirement_id": "whitespace",
+      "validator_name": "WhitespaceValidator",
+      "status": "fail",
+      "score": 0.0,
+      "evidence_basis": "unknown",
+      "message": "Skipped: render failed.",
+      "debug": {
+        "implemented": true,
+        "render_failed": true
+      }
+    },
+    {
+      "requirement_id": "design",
+      "validator_name": "DesignValidator",
+      "status": "fail",
+      "score": 0.0,
+      "evidence_basis": "unknown",
+      "expected": {
+        "cue_type": "design"
+      },
+      "message": "Skipped: render failed.",
+      "debug": {
+        "implemented": true,
+        "render_failed": true
+      }
+    },
+    {
+      "requirement_id": "req_pie_chart_data",
+      "validator_name": "TableChartValidator",
+      "status": "pass",
+      "score": 0.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source",
+        "echarts_runtime"
+      ],
+      "expected": {
+        "data": [
+          {
+            "name": "Excellent",
+            "value": 53
+          },
+          {
+            "name": "Okay",
+            "value": 25
+          },
+          {
+            "name": "Poor",
+            "value": 22
+          }
+        ]
+      },
+      "measured": {
+        "data_score": 0.0,
+        "subtype_score": 1.0,
+        "visibility": 1.0,
+        "data_source": "html_regex",
+        "runtime_series_count": 0,
+        "expected_series_name": null,
+        "expected_row_count": 3,
+        "candidate_previews": []
+      },
+      "message": "Chart validation: data=NOT matched (source=html_regex).",
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "req_combo_cost",
+      "validator_name": "TableChartValidator",
+      "status": "pass",
+      "score": 0.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source",
+        "echarts_runtime"
+      ],
+      "expected": {
+        "data": [
+          3500,
+          3200,
+          3600,
+          3400,
+          3800,
+          4100,
+          3700,
+          3900,
+          3600,
+          3300,
+          3400,
+          3550
+        ]
+      },
+      "measured": {
+        "data_score": 0.0,
+        "subtype_score": 1.0,
+        "visibility": 1.0,
+        "data_source": "html_regex",
+        "runtime_series_count": 0,
+        "expected_series_name": null,
+        "expected_row_count": 12,
+        "candidate_previews": []
+      },
+      "message": "Chart validation: data=NOT matched (source=html_regex).",
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "req_combo_admitted",
+      "validator_name": "TableChartValidator",
+      "status": "pass",
+      "score": 0.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source",
+        "echarts_runtime"
+      ],
+      "expected": {
+        "data": [
+          2200,
+          2100,
+          2300,
+          2250,
+          2400,
+          2600,
+          2350,
+          2450,
+          2300,
+          2200,
+          2250,
+          2350
+        ]
+      },
+      "measured": {
+        "data_score": 0.0,
+        "subtype_score": 1.0,
+        "visibility": 1.0,
+        "data_source": "html_regex",
+        "runtime_series_count": 0,
+        "expected_series_name": null,
+        "expected_row_count": 12,
+        "candidate_previews": []
+      },
+      "message": "Chart validation: data=NOT matched (source=html_regex).",
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "req_combo_outpatient",
+      "validator_name": "TableChartValidator",
+      "status": "pass",
+      "score": 0.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source",
+        "echarts_runtime"
+      ],
+      "expected": {
+        "data": [
+          1400,
+          1350,
+          1450,
+          1380,
+          1500,
+          1550,
+          1480,
+          1520,
+          1430,
+          1390,
+          1410,
+          1470
+        ]
+      },
+      "measured": {
+        "data_score": 0.0,
+        "subtype_score": 1.0,
+        "visibility": 1.0,
+        "data_source": "html_regex",
+        "runtime_series_count": 0,
+        "expected_series_name": null,
+        "expected_row_count": 12,
+        "candidate_previews": []
+      },
+      "message": "Chart validation: data=NOT matched (source=html_regex).",
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "req_radar_staff",
+      "validator_name": "TableChartValidator",
+      "status": "pass",
+      "score": 0.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source",
+        "echarts_runtime"
+      ],
+      "expected": {
+        "data": [
+          30,
+          28,
+          22,
+          34,
+          26,
+          24,
+          20
+        ]
+      },
+      "measured": {
+        "data_score": 0.0,
+        "subtype_score": 1.0,
+        "visibility": 1.0,
+        "data_source": "html_regex",
+        "runtime_series_count": 0,
+        "expected_series_name": null,
+        "expected_row_count": 7,
+        "candidate_previews": []
+      },
+      "message": "Chart validation: data=NOT matched (source=html_regex).",
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "req_wait_table",
+      "validator_name": "TableChartValidator",
+      "status": "pass",
+      "score": 0.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source"
+      ],
+      "expected": {
+        "data": [
+          [
+            "Department",
+            "Wait time"
+          ],
+          [
+            "Cardiology",
+            "38"
+          ],
+          [
+            "Concology",
+            "45"
+          ],
+          [
+            "Dermatology",
+            "42"
+          ],
+          [
+            "Gynaecology",
+            "50"
+          ],
+          [
+            "Neurology",
+            "44"
+          ],
+          [
+            "Orthopedics",
+            "38"
+          ],
+          [
+            "Surgery",
+            "39"
+          ]
+        ]
+      },
+      "measured": {
+        "candidate_count": 0,
+        "score": 0.0,
+        "candidate_previews": []
+      },
+      "message": "No visible HTML table matched any expected table rows.",
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "req_title",
+      "validator_name": "TextValidator",
+      "status": "pass",
+      "score": 1.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source"
+      ],
+      "expected": {
+        "text": "Hospital performance dashboard to improve operations",
+        "normalization": "cjk_basic"
+      },
+      "measured": {
+        "expected_text": "Hospital performance dashboard to improve operations",
+        "found_exact": true,
+        "normalization": "cjk_basic",
+        "case_sensitive": true,
+        "text_overlap_penalty": 1.0,
+        "text_visibility": 1.0
+      },
+      "message": "Text exact: found — \"Hospital performance dashboard to improve operations\"",
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "req_admission_dept",
+      "validator_name": "TextValidator",
+      "status": "fail",
+      "score": 0.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source"
+      ],
+      "expected": {
+        "text": "Admission by Department",
+        "normalization": "cjk_basic"
+      },
+      "measured": {
+        "expected_text": "Admission by Department",
+        "found_exact": false,
+        "normalization": "cjk_basic",
+        "case_sensitive": true,
+        "text_overlap_penalty": 1.0,
+        "text_visibility": 1.0
+      },
+      "message": "Text exact: NOT found — \"Admission by Department\"",
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "req_admission_cost_title",
+      "validator_name": "TextValidator",
+      "status": "fail",
+      "score": 0.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source"
+      ],
+      "expected": {
+        "text": "Admission vs Cost Over Time",
+        "normalization": "cjk_basic"
+      },
+      "measured": {
+        "expected_text": "Admission vs Cost Over Time",
+        "found_exact": false,
+        "normalization": "cjk_basic",
+        "case_sensitive": true,
+        "text_overlap_penalty": 1.0,
+        "text_visibility": 1.0
+      },
+      "message": "Text exact: NOT found — \"Admission vs Cost Over Time\"",
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "req_patient_satisfaction",
+      "validator_name": "TextValidator",
+      "status": "fail",
+      "score": 0.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source"
+      ],
+      "expected": {
+        "text": "Patient Satisfaction",
+        "normalization": "cjk_basic"
+      },
+      "measured": {
+        "expected_text": "Patient Satisfaction",
+        "found_exact": false,
+        "normalization": "cjk_basic",
+        "case_sensitive": true,
+        "text_overlap_penalty": 1.0,
+        "text_visibility": 1.0
+      },
+      "message": "Text exact: NOT found — \"Patient Satisfaction\"",
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "req_total_patients",
+      "validator_name": "TextValidator",
+      "status": "fail",
+      "score": 0.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source"
+      ],
+      "expected": {
+        "text": "Total Patients",
+        "normalization": "cjk_basic"
+      },
+      "measured": {
+        "expected_text": "Total Patients",
+        "found_exact": false,
+        "normalization": "cjk_basic",
+        "case_sensitive": true,
+        "text_overlap_penalty": 1.0,
+        "text_visibility": 1.0
+      },
+      "message": "Text exact: NOT found — \"Total Patients\"",
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "req_operational_expense",
+      "validator_name": "TextValidator",
+      "status": "fail",
+      "score": 0.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source"
+      ],
+      "expected": {
+        "text": "Operational expense",
+        "normalization": "cjk_basic"
+      },
+      "measured": {
+        "expected_text": "Operational expense",
+        "found_exact": false,
+        "normalization": "cjk_basic",
+        "case_sensitive": true,
+        "text_overlap_penalty": 1.0,
+        "text_visibility": 1.0
+      },
+      "message": "Text exact: NOT found — \"Operational expense\"",
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "req_doctors",
+      "validator_name": "TextValidator",
+      "status": "fail",
+      "score": 0.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source"
+      ],
+      "expected": {
+        "text": "Doctors",
+        "normalization": "cjk_basic"
+      },
+      "measured": {
+        "expected_text": "Doctors",
+        "found_exact": false,
+        "normalization": "cjk_basic",
+        "case_sensitive": true,
+        "text_overlap_penalty": 1.0,
+        "text_visibility": 1.0
+      },
+      "message": "Text exact: NOT found — \"Doctors\"",
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "req_staff_per_dept",
+      "validator_name": "TextValidator",
+      "status": "fail",
+      "score": 0.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source"
+      ],
+      "expected": {
+        "text": "Staff Per Department",
+        "normalization": "cjk_basic"
+      },
+      "measured": {
+        "expected_text": "Staff Per Department",
+        "found_exact": false,
+        "normalization": "cjk_basic",
+        "case_sensitive": true,
+        "text_overlap_penalty": 1.0,
+        "text_visibility": 1.0
+      },
+      "message": "Text exact: NOT found — \"Staff Per Department\"",
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "req_avg_wait",
+      "validator_name": "TextValidator",
+      "status": "fail",
+      "score": 0.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source"
+      ],
+      "expected": {
+        "text": "Average wait Times by Department",
+        "normalization": "cjk_basic"
+      },
+      "measured": {
+        "expected_text": "Average wait Times by Department",
+        "found_exact": false,
+        "normalization": "cjk_basic",
+        "case_sensitive": true,
+        "text_overlap_penalty": 1.0,
+        "text_visibility": 1.0
+      },
+      "message": "Text exact: NOT found — \"Average wait Times by Department\"",
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "req_doctor_plan",
+      "validator_name": "TextValidator",
+      "status": "fail",
+      "score": 0.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source"
+      ],
+      "expected": {
+        "text": "Doctor's Treatment Plan",
+        "normalization": "cjk_basic"
+      },
+      "measured": {
+        "expected_text": "Doctor's Treatment Plan",
+        "found_exact": false,
+        "normalization": "cjk_basic",
+        "case_sensitive": true,
+        "text_overlap_penalty": 1.0,
+        "text_visibility": 1.0
+      },
+      "message": "Text exact: NOT found — \"Doctor's Treatment Plan\"",
+      "debug": {
+        "implemented": true
+      }
+    },
+    {
+      "requirement_id": "req_confidence",
+      "validator_name": "TextValidator",
+      "status": "fail",
+      "score": 0.0,
+      "evidence_basis": "explicit",
+      "evidence_sources": [
+        "html_source"
+      ],
+      "expected": {
+        "text": "Confidence in treatment",
+        "normalization": "cjk_basic"
+      },
+      "measured": {
+        "expected_text": "Confidence in treatment",
+        "found_exact": false,
+        "normalization": "cjk_basic",
+        "case_sensitive": true,
+        "text_overlap_penalty": 1.0,
+        "text_visibility": 1.0
+      },
+      "message": "Text exact: NOT found — \"Confidence in treatment\"",
+      "debug": {
+        "implemented": true
+      }
+    }
+  ]
+}
