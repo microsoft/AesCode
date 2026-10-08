@@ -1,0 +1,39 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Private working material, not part of the release
+_private/
+
+# Python
+__pycache__/
+*.pyc
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Training and evaluation outputs (repo root only)
+/checkpoints/
+/outputs/
+/runs/
+/logs/
+*.log
+wandb/
+
+# Data and rendered artifacts (repo root only)
+/data/
+/datasets/
+/dataset*/
+/artifacts/
+verifier/artifacts/assets/cdn_cache/
+*.parquet
+*.jsonl
+!examples/**/*.jsonl
+
+# Editor / OS
+.DS_Store
+._*
+.vscode/
+.idea/
