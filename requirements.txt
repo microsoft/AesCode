@@ -53,7 +53,7 @@ openai==2.24.0
 anthropic==0.75.0                   # only for the Anthropic generation provider
 tiktoken==0.12.0
 aiolimiter==1.2.1                   # rate-limits the judge endpoint during RL
-python-dotenv==1.1.1                # .env loading for the eval scripts
+python-dotenv==1.2.2                # .env loading for the eval scripts
 
 # ── HTML / image / rendering pipeline ───────────────────────────────────────
 Pillow==12.0.0
