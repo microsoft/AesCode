@@ -59,7 +59,7 @@ beautifulsoup4==4.14.3
 cssutils==2.15.0
 rapidfuzz==3.14.5
 ImageHash                           # imagehash; version-flexible
-sentence-transformers==5.4.0        # optional, used by some visual-similarity validators
+sentence-transformers==5.6.0        # optional, used by some visual-similarity validators
 
 # ── Data prep / crawling (offline pipeline only, optional at training time) ─
 icrawler
