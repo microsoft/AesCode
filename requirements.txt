@@ -13,7 +13,7 @@ trl==0.29.0
 accelerate==1.13.0
 deepspeed==0.18.7
 peft==0.18.1
-datasets==4.7.0
+datasets==5.0.1
 qwen-vl-utils==0.0.14
 einops==0.8.2
 sentencepiece==0.2.1
