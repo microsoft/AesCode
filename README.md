@@ -4,6 +4,10 @@
 
 **Generating information-rich visual artifacts as editable, verifiable code, with image generators as a source of aesthetic guidance.**
 
+<!-- Paper: replace the badge below with the arXiv link once it is live:
+[![Paper](https://img.shields.io/badge/Paper-B31B1B?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/XXXX.XXXXX) -->
+![Paper](https://img.shields.io/badge/Paper-Coming_Soon-8A8F98?style=for-the-badge&logo=arxiv&logoColor=white)
+[![Project Page](https://img.shields.io/badge/Project_Page-608650?style=for-the-badge&logo=githubpages&logoColor=white)](https://microsoft.github.io/AesCode/)
 [![Models](https://img.shields.io/badge/Models-FFD21E?style=for-the-badge&logo=huggingface&logoColor=000)](https://huggingface.co/microsoft/AesCode-32B)
 [![License](https://img.shields.io/badge/License_MIT-2F6DB5?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
 
@@ -40,7 +44,7 @@ This produces targeted supervision for correctness, spatial planning, and visual
   <img src="assets/training_dynamics.png" width="100%" alt="Per-channel training rewards under GDPO">
 </p>
 
-<p align="center"><em>Per-channel training rewards under GDPO. Solid lines show single-rollout rewards; dashed lines aggregate eight rollouts. Blue denotes training prompts and red denotes held-out prompts.</em></p>
+<p align="center"><em>Per-channel training curves under GDPO. Solid lines show pass@1; dashed lines show pass@8. Blue denotes training prompts and red denotes held-out prompts.</em></p>
 
 Execution saturates after cold-start SFT, while Text and Table/Chart improve quickly. Semantic Layout, Whitespace, and Design continue rising throughout training. The close training and held-out curves show no visible reward trade-off or overfitting.
 
