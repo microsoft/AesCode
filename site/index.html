@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AesCode turns aesthetic guidance into editable HTML and CSS through design graphs and decoupled cross-modal rewards. Explore examples, the method, and results.">
+  <meta name="theme-color" content="#f6f5ef">
+  <title>AesCode — Good design. Written in code.</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="revision.css">
+  <link rel="stylesheet" href="tables.css">
+  <script src="content.js" defer></script>
+  <script src="app.js" defer></script>
+  <script src="method.js" defer></script>
+  <script src="tables.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="#" aria-label="AesCode home"><span class="brand-symbol" aria-hidden="true">a<span>:</span></span>AesCode<span class="wordmark-dot">.</span></a>
+    <nav aria-label="Main navigation"><a href="#gallery">Showcase</a><a href="#method">Method</a><a href="#results">Results</a><a href="#film">Film <span class="nav-time">03:04</span></a></nav>
+    <a class="nav-code" href="https://github.com/microsoft/AesCode" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> Get the code</a>
+  </header>
+
+  <main id="main">
+    <section class="hero section-shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot"></span> OPEN MODELS · VISUAL CODE GENERATION</p>
+        <h1 id="hero-title">Good design.<br>Written in <em>code.</em></h1>
+        <p class="hero-description">The visual instincts of an image generator.<br class="desktop-break"> The precision of editable code.</p>
+        <p class="hero-detail">AesCode learns from visual references to create information-rich posters, slides, dashboards, and webpages as HTML &amp; CSS.</p>
+        <div class="hero-actions"><a class="button button-dark" href="#gallery">Explore the work <span aria-hidden="true">↗</span></a><a class="text-link" href="#film"><span class="play-icon" aria-hidden="true">▶</span> Watch the film <span class="subtle">3:04</span></a></div>
+        <div class="resource-links" aria-label="Project resources"><a href="https://github.com/microsoft/AesCode" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a><span aria-hidden="true">/</span><a href="https://huggingface.co/microsoft/AesCode-8B" target="_blank" rel="noopener noreferrer">8B model <span aria-hidden="true">↗</span></a><span aria-hidden="true">/</span><a href="https://huggingface.co/microsoft/AesCode-32B" target="_blank" rel="noopener noreferrer">32B model <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <div class="hero-art" aria-label="A selection of AesCode-generated designs">
+        <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+        <div class="art-label"><span class="tiny-cross" aria-hidden="true">+</span> AESTHETICS, MEET STRUCTURE.</div>
+        <figure class="hero-paper paper-back" data-hero="0"><img src="assets/teaser.png" alt="AesCode generated visual artifacts" fetchpriority="high"><figcaption class="paper-caption">GENERATED WITH AESCODE</figcaption></figure>
+        <figure class="hero-paper paper-front" data-hero="1"><img src="assets/teaser.png" alt="Editable visual design from AesCode" fetchpriority="high"><figcaption class="paper-caption"><span class="status-dot"></span> HTML + CSS</figcaption></figure>
+        <div class="code-chip" aria-hidden="true"><span class="code-chip-top"><i></i><i></i><i></i><span>the output is code</span></span><code><span>&lt;design&gt;</span><br>&nbsp; structured<br>&nbsp; editable<br>&nbsp; verifiable<br><span>&lt;/design&gt;</span></code><span class="chip-footnote">CONCEPTUAL REPRESENTATION</span></div>
+        <span class="art-coordinate">FIG. 01 / FROM VISUAL GUIDANCE TO CODE</span>
+      </div>
+    </section>
+
+    <section class="film-leading section-shell" aria-label="Project video">
+      <div class="film-heading"><div><p class="eyebrow">THE SHORT FILM</p><h2>See it all <em>come together.</em></h2></div><p>The examples, the idea, and what we learned.</p></div>
+      <div id="film" class="film-section" aria-label="Project film"><div class="film-wrap"><video id="project-film" controls playsinline preload="none" poster="assets/film-poster.jpg" aria-label="AesCode project film, Gallery-first edition"><source src="media/film.mp4" type="video/mp4"><track kind="captions" src="media/captions-en.vtt" srclang="en" label="English"><p>Your browser does not support embedded video. <a href="media/film.mp4">Download the project film</a>.</p></video></div><div class="film-footer"><span class="mono">THE FILM · 03:04 · ENGLISH CAPTIONS</span><a class="text-link" href="media/film.mp4" download="AesCode-gallery-first-20261011.mp4">Download <span aria-hidden="true">↓</span></a></div><div class="chapter-links" role="group" aria-label="Jump to a film chapter"><button data-time="0"><span data-icon="play" aria-hidden="true"></span><span>Opening</span><small>00:00</small></button><button data-time="33.5"><span data-icon="gallery" aria-hidden="true"></span><span>Examples</span><small>00:33</small></button><button data-time="77.5"><span data-icon="graph" aria-hidden="true"></span><span>Method</span><small>01:17</small></button><button data-time="140.766667"><span data-icon="chart" aria-hidden="true"></span><span>Results</span><small>02:21</small></button><button data-time="169.033333"><span data-icon="limits" aria-hidden="true"></span><span>Limitations</span><small>02:49</small></button></div><p id="film-status" class="note" role="status"></p></div>
+    </section>
+
+    <section id="gallery" class="section-shell section-space" aria-labelledby="gallery-title">
+      <div class="section-heading"><div><p class="eyebrow">01 / THE WORK</p><h2 id="gallery-title">Made of code.<br><em>Full of possibilities.</em></h2></div><div class="gallery-intro"><div class="format-icons" aria-hidden="true"><span data-icon="poster"></span><span data-icon="dashboard"></span><span data-icon="slides"></span><span data-icon="web"></span></div><p>Posters, dashboards, slides &amp; websites.<br>A gallery of editable visual artifacts.</p></div></div>
+      <div class="placeholder-note"><span class="placeholder-swatch" aria-hidden="true"><span data-icon="poster"></span></span><p><strong>Why the gray boxes?</strong> AesCode generates editable HTML and CSS, so photos and complex illustrations are represented by <em>semantic placeholders</em> rather than requiring the code model to synthesize them. Their intended role and layout stay in place; you can add the images and refine the design in later edits.</p></div>
+      <div class="gallery-toolbar"><span class="note">Click a design to gently bring it forward</span><span id="gallery-count" class="mono" role="status" aria-live="polite"></span></div>
+      <div id="gallery-grid" class="gallery-grid"></div>
+      <div class="gallery-bottom"><button id="show-more" class="gallery-expand" hidden><span class="expand-label">Explore all designs</span><span class="expand-arrow" aria-hidden="true">↓</span></button></div>
+      <noscript><p>Enable JavaScript to explore individual examples and comparisons.</p><img src="assets/teaser.png" alt="AesCode examples" class="fallback-image"></noscript>
+    </section>
+
+    <section id="method" class="method-section section-space" aria-labelledby="method-title">
+      <div class="section-shell">
+        <div class="section-heading"><div><p class="eyebrow">02 / INSIDE AESCODE</p><h2 id="method-title">Learn the design.<br><em>Keep the facts.</em></h2></div><p>The prompt defines what to say.<br>The reference suggests how it could look.</p></div>
+        <aside class="training-scope" aria-labelledby="training-scope-title"><div class="training-scope-copy"><p class="eyebrow">A FOCUSED POST-TRAINING STUDY</p><h3 id="training-scope-title">A practical test of the idea.</h3><p>Starting from existing 8B and 32B models, we study whether visual guidance and decoupled rewards can teach better design in editable code—not train a new model from scratch.</p></div><div class="training-count"><strong>3,000</strong><span>Cold-start SFT demonstrations</span></div><div class="training-count"><strong>7,408<span>≈8K</span></strong><span>RL prompts</span></div><p class="training-scope-note">Dataset counts—not total RL rollouts. The results support this direction; they do not imply that every prompt or design task is solved.</p></aside>
+        <figure class="pipeline-figure"><div class="figure-topline"><span data-icon="graph" aria-hidden="true"></span><span>THE COMPLETE TRAINING PIPELINE</span></div><img src="assets/method-original.png" alt="AesCode training pipeline with generated image guidance, design graph, decoupled rewards, and policy update" loading="lazy" width="2508" height="928"></figure>
+        <div class="method-explorer-heading"><h3>Follow the signals.</h3><span class="mono">SELECT A STAGE TO EXPLORE ↓</span></div>
+        <div class="method-workbench">
+          <div class="method-controls" role="tablist" aria-label="Training method">
+            <button id="step-tab-0" class="method-tab active" role="tab" aria-selected="true" aria-controls="method-panel" data-step="0"><span data-icon="graph" aria-hidden="true"></span><span><small>01 / REPRESENT</small><strong>Design graph</strong></span><span aria-hidden="true">↗</span></button>
+            <button id="step-tab-1" class="method-tab" role="tab" aria-selected="false" aria-controls="method-panel" tabindex="-1" data-step="1"><span data-icon="verify" aria-hidden="true"></span><span><small>02 / EVALUATE</small><strong>Decoupled rewards</strong></span><span aria-hidden="true">↗</span></button>
+            <button id="step-tab-2" class="method-tab" role="tab" aria-selected="false" aria-controls="method-panel" tabindex="-1" data-step="2"><span data-icon="balance" aria-hidden="true"></span><span><small>03 / OPTIMIZE</small><strong>GDPO update</strong></span><span aria-hidden="true">↗</span></button>
+          </div>
+          <div id="method-panel" class="method-panel" role="tabpanel" aria-labelledby="step-tab-0" tabindex="0">
+            <div id="method-diagram" class="method-diagram"></div><div class="method-explanation"><span id="method-kicker" class="eyebrow"></span><h3 id="method-panel-title"></h3><p id="method-panel-description"></p></div>
+          </div>
+        </div>
+        <figure id="training-dynamics" class="training-figure"><div class="figure-topline"><span data-icon="chart" aria-hidden="true"></span><span>LEARNING, CHANNEL BY CHANNEL</span><button id="training-motion-toggle" class="training-motion-toggle" type="button" aria-pressed="true" aria-label="Pause decorative training sweep">Pause sweep</button></div><div class="training-plot"><img src="assets/training_dynamics.png" alt="Training dynamics across reward channels: solid curves show pass@1, dashed curves show pass@8" loading="lazy" width="2400" height="1083"><span class="training-sweep" aria-hidden="true"></span></div><figcaption><span class="training-curve-key"><i class="curve-line" aria-hidden="true"></i> Solid: <strong>pass@1</strong></span><span class="training-curve-key"><i class="curve-line dashed" aria-hidden="true"></i> Dashed: <strong>pass@8</strong></span><span>Blue: training prompts · Red: held-out prompts</span></figcaption></figure>
+      </div>
+    </section>
+
+    <section id="results" class="section-shell section-space" aria-labelledby="results-title">
+      <div class="section-heading"><div><p class="eyebrow">03 / THE EVIDENCE</p><h2 id="results-title">Small models.<br><em>Considered design.</em></h2></div><p>Competitive visual quality, with strong programmatic correctness. Measured on 300 infographic prompts, averaged over three generations per prompt, without selection.</p></div>
+      <div class="results-layout"><div class="results-narrative"><span data-icon="chart" class="result-symbol" aria-hidden="true"></span><span class="metric-caption">AESCODE-32B · OVERALL</span><div class="big-score">85.89<span>/100</span></div><div class="results-callout"><strong>77.44</strong><span>Visual</span><strong>94.33</strong><span>Rule</span></div><p class="note">Same reference-image setting. Full evaluations below.</p></div>
+      <div class="chart-card"><div class="chart-top"><h3>Same setting. Different models.</h3><div class="metric-switch" role="group" aria-label="Result metric"><button data-metric="overall" aria-pressed="true" class="active">Overall</button><button data-metric="visual" aria-pressed="false">Visual</button><button data-metric="rule" aria-pressed="false">Rule</button></div></div><p id="metric-description" class="note" aria-live="polite"></p><div id="results-chart" class="results-chart"></div><div class="chart-axis" aria-hidden="true"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div><p class="chart-footnote"><span class="legend-dot"></span> AesCode <span class="legend-dot baseline"></span> Baselines <span>All shown with reference images</span></p></div></div>
+      <div id="paper-tables" aria-label="Complete research results"></div>
+    </section>
+
+    <section id="comparisons" class="comparison-section section-space" aria-labelledby="comparison-title"><div class="section-shell"><div class="section-heading"><div><p class="eyebrow">04 / UP CLOSE</p><h2 id="comparison-title">The details<br><em>make the difference.</em></h2></div><p>Content. Boundaries. Visual hierarchy.<br>Compare the details side by side.</p></div><div id="comparison-tabs" class="filter-group" role="group" aria-label="Choose comparison"></div><div id="comparison-pair" class="comparison-pair"></div><p id="comparison-description" class="comparison-caption"></p><p class="note">Red outlines mark the source-documented issue regions.</p></div></section>
+
+    <section class="limitations section-shell" aria-labelledby="limitations-title"><p class="eyebrow">A NOTE ON LIMITS</p><h2 id="limitations-title">Still room to grow.</h2><div class="limitation-cards limitation-cards-illustrated"><article><div class="limitation-art"><img src="assets/limitation-detail.svg" alt="Illustration of a magnifying lens over icon geometry and connected layout elements" loading="lazy" width="320" height="190"></div><div class="limitation-copy"><span class="limit-number">01 / FINE DETAIL</span><h3>Small details. Complex relationships.</h3><p>Limited model capacity can affect fine icon detail and complex spatial relationships.</p></div></article><article><div class="limitation-art"><img src="assets/limitation-reference.svg" alt="Conceptual illustration contrasting prompt content requirements with a reference image that is visual guidance, not ground truth" loading="lazy" width="320" height="190"></div><div class="limitation-copy"><span class="limit-number">02 / REFERENCE ERRORS</span><h3>Guidance is not ground truth.</h3><p>Reference images can contain hallucinated content. The model must learn their visual cues without copying their mistakes.</p></div></article><article><div class="limitation-art"><img src="assets/limitation-style.svg" alt="Reported Style scores with references: GPT-5.5 57.91, Opus 4.8 55.51, AesCode-8B 53.21, AesCode-32B 55.99, all below 60" loading="lazy" width="320" height="190"></div><div class="limitation-copy"><span class="limit-number">03 / STYLE</span><h3>A shared design bottleneck.</h3><p>Style remains a challenge across models: every evaluated model scores below 60% on the Style dimension.</p></div></article></div></section>
+
+    <section class="closing section-shell"><div><p class="eyebrow">MADE TO BE EXPLORED. BUILT TO BE EDITED.</p><h2>Your next canvas<br>can start with <em>code.</em></h2></div><div class="closing-resources"><a href="https://github.com/microsoft/AesCode" target="_blank" rel="noopener noreferrer"><span><small>IMPLEMENTATION</small>Explore the code</span><span aria-hidden="true">↗</span></a><a href="https://huggingface.co/microsoft/AesCode-8B" target="_blank" rel="noopener noreferrer"><span><small>MODEL WEIGHTS</small>AesCode-8B</span><span aria-hidden="true">↗</span></a><a href="https://huggingface.co/microsoft/AesCode-32B" target="_blank" rel="noopener noreferrer"><span><small>MODEL WEIGHTS</small>AesCode-32B</span><span aria-hidden="true">↗</span></a></div></section>
+  </main>
+
+  <footer class="site-footer section-shell"><a class="wordmark" href="#">AesCode<span class="wordmark-dot">.</span></a><span>Aesthetic Code Generation with Decoupled Cross-Modal Rewards</span><a href="#" class="back-to-top">Back to top ↑</a></footer>
+
+</body>
+</html>
