@@ -99,7 +99,7 @@
   renderGallery();
   if (!gallery.length) $('#gallery-count').textContent = 'Showcase data unavailable. See the examples in the repository.';
 
-  const heroChoices = ['case-9272bf68ffe1bb', 'case-f3c6b3975bf539'].map(id => gallery.find(item => item.id === id));
+  const heroChoices = ['case-9272bf68ffe1bb', 'case-3318692f7638c1'].map(id => gallery.find(item => item.id === id));
   $$('[data-hero]').forEach((figure, index) => {
     const item = heroChoices[index] || gallery.find(item => index ? item.height > item.width : item.width > item.height);
     if (!item) return;
