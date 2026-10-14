@@ -4,9 +4,8 @@
 
 **Generating information-rich visual artifacts as editable, verifiable code, with image generators as a source of aesthetic guidance.**
 
-<!-- Paper: replace the badge below with the arXiv link once it is live:
-[![Paper](https://img.shields.io/badge/Paper-B31B1B?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/XXXX.XXXXX) -->
-![Paper](https://img.shields.io/badge/Paper-Coming_Soon-8A8F98?style=for-the-badge&logo=arxiv&logoColor=white)
+[![arXiv](https://img.shields.io/badge/arXiv-2610.18860-B31B1B?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2610.18860)
+[![Paper Page](https://img.shields.io/badge/Paper_Page-FF9D00?style=for-the-badge&logo=huggingface&logoColor=000)](https://huggingface.co/papers/2610.18860)
 [![Project Page](https://img.shields.io/badge/Project_Page-608650?style=for-the-badge&logo=githubpages&logoColor=white)](https://microsoft.github.io/AesCode/)
 [![Models](https://img.shields.io/badge/Models-FFD21E?style=for-the-badge&logo=huggingface&logoColor=000)](https://huggingface.co/microsoft/AesCode-32B)
 [![License](https://img.shields.io/badge/License_MIT-2F6DB5?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
@@ -344,10 +343,11 @@ The code model is configured separately. By default, the pipeline uses a served 
 ## Citation
 
 ```bibtex
-@inproceedings{aescode,
-  title     = {AesCode: Aesthetic Code Generation with Decoupled Cross-Modal Rewards},
-  booktitle = {Under review},
-  year      = {2027}
+@article{gao2026aescode,
+  title   = {AesCode: Aesthetic Code Generation with Decoupled Cross-Modal Rewards},
+  author  = {Gao, Xin and Yang, Yifan and Li, Xin and Wang, Pan and Li, Yan and Tian, Muzhao and Cheng, Mingxi and Liu, Bei and Qiu, Kai and Dai, Qi and Chen, Dong and Dong, Yue and Tassiulas, Leandros and Ying, Rex and Li, Ji and Luo, Chong},
+  journal = {arXiv preprint arXiv:2610.18860},
+  year    = {2026}
 }
 ```
 
