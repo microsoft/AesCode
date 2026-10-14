@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1536, initial-scale=1.0" />
+  <title>Data Relationship Visualization</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #eaf1ff;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #17235f;
+    }
+
+    .artboard {
+      position: absolute;
+      width: 1536px;
+      height: 1024px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 0% 68%, rgba(202, 117, 255, 0.24) 0%, rgba(229, 190, 255, 0.24) 14%, rgba(255, 255, 255, 0) 30%),
+        radial-gradient(circle at 88% 62%, rgba(125, 146, 255, 0.23) 0%, rgba(201, 220, 255, 0.26) 20%, rgba(255, 255, 255, 0) 36%),
+        linear-gradient(180deg, #ffffff 0%, #fbfdff 50%, #f5fbff 100%);
+    }
+
+    .artboard::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-radial-gradient(
+          ellipse at 18% 32%,
+          rgba(132, 94, 255, 0.18) 0px,
+          rgba(132, 94, 255, 0.18) 2px,
+          rgba(255, 255, 255, 0) 8px,
+          rgba(255, 255, 255, 0) 20px
+        ),
+        repeating-radial-gradient(
+          ellipse at 89% 78%,
+          rgba(113, 140, 255, 0.13) 0px,
+          rgba(113, 140, 255, 0.13) 3px,
+          rgba(255, 255, 255, 0) 12px,
+          rgba(255, 255, 255, 0) 22px
+        );
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .wave {
+      position: absolute;
+      left: -150px;
+      bottom: -120px;
+      width: 1720px;
+      height: 380px;
+      border-radius: 50%;
+      border-top: 3px solid rgba(126, 102, 255, 0.32);
+      box-shadow:
+        0 16px 0 rgba(122, 105, 255, 0.14),
+        0 32px 0 rgba(122, 105, 255, 0.10),
+        0 48px 0 rgba(122, 105, 255, 0.08),
+        0 64px 0 rgba(122, 105, 255, 0.06);
+      transform: rotate(-11deg);
+      opacity: 0.75;
+    }
+
+    .title {
+      position: absolute;
+      left: 50px;
+      top: 40px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 54px;
+      letter-spacing: -2px;
+      font-weight: 700;
+      color: #17225e;
+      line-height: 1.05;
+    }
+
+    .subtitle {
+      position: absolute;
+      left: 52px;
+      top: 120px;
+      font-size: 24px;
+      color: #445070;
+      font-weight: 400;
+    }
+
+    .logo-box {
+      position: absolute;
+      right: 34px;
+      top: 36px;
+      width: 216px;
+      height: 92px;
+      border: 3px solid #152362;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: #21306d;
+      background: rgba(255, 255, 255, 0.75);
+      box-shadow: 0 6px 12px rgba(52, 56, 120, 0.06);
+    }
+
+    .logo-mark {
+      font-size: 60px;
+      color: #8838d3;
+      font-weight: 800;
+      line-height: 1;
+      font-family: Georgia, serif;
+    }
+
+    .logo-text {
+      font-size: 31px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .top-line {
+      position: absolute;
+      left: 54px;
+      top: 164px;
+      width: 1428px;
+      height: 3px;
+      background: linear-gradient(90deg, #6f43dc, #8e52ff, rgba(132, 82, 255, 0.45));
+      border-radius: 3px;
+    }
+
+    .pyramid {
+      position: absolute;
+      left: 34px;
+      top: 198px;
+      width: 710px;
+      height: 694px;
+      filter: drop-shadow(0 12px 11px rgba(65, 53, 165, 0.18));
+    }
+
+    .pyramid-svg {
+      position: absolute;
+      inset: 0;
+      width: 710px;
+      height: 694px;
+      overflow: visible;
+    }
+
+    .seg-top {
+      position: absolute;
+      left: 208px;
+      top: 0;
+      width: 294px;
+      height: 260px;
+      background: linear-gradient(180deg, #a982ff 0%, #8865df 100%);
+      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+      border-top: 5px solid rgba(255, 255, 255, 0.95);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: Georgia, serif;
+      z-index: 2;
+    }
+
+    .seg-mid {
+      position: absolute;
+      left: 112px;
+      top: 260px;
+      width: 486px;
+      height: 204px;
+      background: linear-gradient(180deg, #8163dd 0%, #6955cc 100%);
+      clip-path: polygon(16% 0%, 84% 0%, 100% 100%, 0% 100%);
+      border-top: 5px solid rgba(255, 255, 255, 0.95);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: Georgia, serif;
+      z-index: 2;
+    }
+
+    .seg-bottom {
+      position: absolute;
+      left: 0;
+      top: 464px;
+      width: 710px;
+      height: 230px;
+      background: linear-gradient(180deg, #5b44bc 0%, #322d84 100%);
+      clip-path: polygon(12% 0%, 88% 0%, 100% 100%, 0% 100%);
+      border-top: 5px solid rgba(255, 255, 255, 0.95);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: Georgia, serif;
+      z-index: 2;
+    }
+
+    .seg-text {
+      text-align: center;
+      font-size: 29px;
+      line-height: 1.34;
+      letter-spacing: -0.5px;
+    }
+
+    .seg-text strong {
+      font-size: 32px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .connector {
+      position: absolute;
+      height: 1px;
+      border-top: 3px solid #6d49de;
+      border-radius: 50%;
+      z-index: 8;
+      opacity: 0.95;
+    }
+
+    .connector.c1 {
+      left: 488px;
+      top: 376px;
+      width: 286px;
+      transform: rotate(-17deg);
+      transform-origin: left center;
+    }
+
+    .connector.c2 {
+      left: 584px;
+      top: 577px;
+      width: 230px;
+      transform: rotate(-22deg);
+      transform-origin: left center;
+    }
+
+    .connector.c3 {
+      left: 696px;
+      top: 789px;
+      width: 118px;
+      transform: rotate(-30deg);
+      transform-origin: left center;
+    }
+
+    .arrow-head {
+      position: absolute;
+      width: 0;
+      height: 0;
+      z-index: 10;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      border-left: 22px solid #6645d8;
+      opacity: 0.95;
+    }
+
+    .arrow-a {
+      left: 768px;
+      top: 286px;
+      transform: rotate(0deg);
+    }
+
+    .arrow-b {
+      left: 778px;
+      top: 524px;
+      transform: rotate(0deg);
+    }
+
+    .arrow-c {
+      left: 786px;
+      top: 744px;
+      transform: rotate(0deg);
+    }
+
+    .info-card {
+      position: absolute;
+      left: 816px;
+      width: 682px;
+      height: 228px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(189, 198, 220, 0.36);
+      border-radius: 19px;
+      box-shadow: 0 12px 24px rgba(85, 83, 145, 0.16);
+      z-index: 7;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .card-top {
+      top: 206px;
+    }
+
+    .card-mid {
+      top: 456px;
+    }
+
+    .card-bottom {
+      top: 704px;
+    }
+
+    .metric-side {
+      width: 260px;
+      height: 180px;
+      padding-left: 54px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      border-right: 2px solid rgba(167, 130, 255, 0.42);
+    }
+
+    .metric-number {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 72px;
+      color: #7a40d1;
+      line-height: 1;
+      letter-spacing: -3px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .card-mid .metric-number {
+      color: #5b39ca;
+    }
+
+    .metric-caption {
+      font-family: Georgia, serif;
+      color: #17235f;
+      font-size: 20px;
+      line-height: 1.25;
+      max-width: 230px;
+      font-weight: 600;
+    }
+
+    .card-content {
+      width: 422px;
+      padding-left: 26px;
+      padding-right: 26px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #c82d87;
+      color: #ffffff;
+      border-radius: 11px;
+      font-family: Georgia, serif;
+      font-weight: 700;
+      font-size: 21px;
+      line-height: 1.15;
+      padding: 8px 18px;
+      margin-bottom: 12px;
+    }
+
+    .bullet-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding-left: 22px;
+      margin: 0 0 10px 0;
+      color: #243066;
+      font-size: 15.5px;
+      line-height: 1.25;
+      font-weight: 500;
+    }
+
+    .bullet-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: -1px;
+      color: #7938c6;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .soft-blob {
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(150, 110, 255, 0.06);
+      pointer-events: none;
+    }
+
+    .blob-a {
+      width: 360px;
+      height: 180px;
+      left: -130px;
+      top: 342px;
+      transform: rotate(-28deg);
+    }
+
+    .blob-b {
+      width: 400px;
+      height: 200px;
+      right: -90px;
+      top: 470px;
+      background: rgba(119, 160, 255, 0.08);
+      transform: rotate(22deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="soft-blob blob-a"></div>
+    <div class="soft-blob blob-b"></div>
+    <div class="wave"></div>
+
+    <div class="title">Data Relationship Visualization</div>
+    <div class="subtitle">Profit comparison analysis chart</div>
+
+    <div class="logo-box">
+      <div class="logo-mark">R</div>
+      <div class="logo-text">YOUR LOGO</div>
+    </div>
+
+    <div class="top-line"></div>
+
+    <section class="pyramid" aria-label="Three-level promotion pyramid">
+      <div class="seg-top">
+        <div class="seg-text">
+          <strong>3 Years</strong>
+          Promotion Level
+        </div>
+      </div>
+
+      <div class="seg-mid">
+        <div class="seg-text">
+          <strong>1–2.5 Years</strong>
+          Advanced Level
+        </div>
+      </div>
+
+      <div class="seg-bottom">
+        <div class="seg-text">
+          <strong>6–12 Months</strong>
+          Foundation Level
+        </div>
+      </div>
+
+      <svg class="pyramid-svg" viewBox="0 0 710 694" aria-hidden="true">
+        <polygon points="355,0 650,520 50,520" fill="none" stroke="rgba(255,255,255,0.78)" stroke-width="2"/>
+      </svg>
+    </section>
+
+    <div class="connector c1"></div>
+    <div class="connector c2"></div>
+    <div class="connector c3"></div>
+    <div class="arrow-head arrow-a"></div>
+    <div class="arrow-head arrow-b"></div>
+    <div class="arrow-head arrow-c"></div>
+
+    <section class="info-card card-top" aria-label="Performance Snapshot">
+      <div class="metric-side">
+        <div class="metric-number">27%</div>
+        <div class="metric-caption">Revenue from<br>New Customers</div>
+      </div>
+      <div class="card-content">
+        <div class="tag">Performance Snapshot</div>
+        <ul class="bullet-list">
+          <li>Customer acquisition rate increased steadily.</li>
+          <li>Market awareness expanded across key segments.</li>
+          <li>Cost optimization improved overall profitability.</li>
+          <li>Customer satisfaction scores reached new highs.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="info-card card-mid" aria-label="Sales Highlights">
+      <div class="metric-side">
+        <div class="metric-number">2.9</div>
+        <div class="metric-caption">2024 Sales ($10M)</div>
+      </div>
+      <div class="card-content">
+        <div class="tag">Key Highlights</div>
+        <ul class="bullet-list">
+          <li>Achieved 96% of annual sales target.</li>
+          <li>Launched 4 new products in strategic categories.</li>
+          <li>Strong performance across core markets.</li>
+          <li>Operational efficiency improved year over year.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="info-card card-bottom" aria-label="Comparative Insights">
+      <div class="metric-side">
+        <div class="metric-number">58%</div>
+        <div class="metric-caption">YoY Sales Growth</div>
+      </div>
+      <div class="card-content">
+        <div class="tag">Comparative Insights</div>
+        <ul class="bullet-list">
+          <li>58% growth compared to the previous year.</li>
+          <li>Revenue increased by $3.7M year over year.</li>
+          <li>Outperformed industry average by 21%.</li>
+          <li>New customer acquisition rose by 64% vs. last year.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

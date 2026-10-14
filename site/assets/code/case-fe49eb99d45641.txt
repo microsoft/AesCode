@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Skill-building for Azure Infographic</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #071f27;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 92% 82%, rgba(28, 190, 207, 0.15) 0 90px, transparent 91px),
+      linear-gradient(90deg, #082c35 0%, #062630 45%, #082c35 100%);
+    color: #fff;
+  }
+
+  /* Header */
+  .title {
+    position: absolute;
+    left: 48px;
+    top: 48px;
+    font-size: 42px;
+    line-height: 1.05;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 49px;
+    top: 100px;
+    font-size: 27px;
+    line-height: 1.1;
+    font-weight: 400;
+  }
+
+  .role-card {
+    position: absolute;
+    left: 568px;
+    top: 46px;
+    width: 268px;
+    height: 96px;
+    border: 3px solid rgba(198, 255, 255, 0.95);
+    border-radius: 12px;
+    background: rgba(15, 80, 92, 0.42);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 31px;
+    font-weight: 700;
+    z-index: 5;
+  }
+
+  .role-badge {
+    position: absolute;
+    left: 668px;
+    top: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #123540;
+    font-weight: 700;
+    z-index: 8;
+    font-size: 24px;
+  }
+
+  .ai-badge {
+    position: absolute;
+    right: 42px;
+    top: 38px;
+    width: 300px;
+    height: 104px;
+    border: 2px solid rgba(99, 238, 255, 0.85);
+    border-radius: 12px;
+    background: rgba(17, 88, 104, 0.82);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    font-size: 19px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .cloud-icon {
+    width: 60px;
+    height: 54px;
+    border: 3px solid #8ef4ff;
+    border-radius: 28px;
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #52dcff;
+    font-size: 28px;
+    text-align: center;
+    background: rgba(255,255,255,0.04);
+  }
+
+  /* Top course row */
+  .top-group {
+    position: absolute;
+    left: 36px;
+    top: 156px;
+    width: 1304px;
+    height: 182px;
+    border: 3px solid #20d5ff;
+    border-radius: 12px;
+    z-index: 2;
+  }
+
+  .connector-line {
+    position: absolute;
+    left: 662px;
+    top: -18px;
+    width: 3px;
+    height: 21px;
+    background: #33d8ff;
+    z-index: 3;
+  }
+
+  .course-card {
+    position: absolute;
+    background: #fff;
+    color: #061116;
+    border: 2px solid #38c9e3;
+    border-radius: 11px;
+    padding: 10px 12px 12px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 8px 18px rgba(0,0,0,0.22);
+    z-index: 4;
+  }
+
+  .course-card.top {
+    width: 288px;
+    height: 126px;
+  }
+
+  .course-card.top .duration {
+    position: absolute;
+    left: 16px;
+    bottom: -19px;
+    border: 0;
+  }
+
+  .course-card.top.card1 {
+    left: 21px;
+    top: 18px;
+  }
+
+  .course-card.top.card2 {
+    left: 348px;
+    top: 18px;
+  }
+
+  .course-card.top.card3 {
+    left: 678px;
+    top: 18px;
+  }
+
+  .course-card.top.card4 {
+    left: 1002px;
+    top: 18px;
+  }
+
+  .course-title {
+    font-weight: 800;
+    font-size: 17px;
+    line-height: 1.12;
+    margin-bottom: 5px;
+  }
+
+  .course-desc {
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  .duration {
+    display: inline-block;
+    min-width: 66px;
+    background: #0a88d2;
+    color: #fff;
+    border-radius: 14px;
+    padding: 4px 10px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .arrow {
+    position: absolute;
+    height: 0;
+    width: 40px;
+    border-top: 3px solid #27d2ff;
+    border-left: 3px solid #27d2ff;
+    z-index: 5;
+  }
+
+  .arrow.a1 {
+    left: 303px;
+    top: 78px;
+  }
+
+  .arrow.a2 {
+    left: 638px;
+    top: 78px;
+  }
+
+  .arrow.a3 {
+    left: 960px;
+    top: 78px;
+  }
+
+  .order-strip {
+    position: absolute;
+    left: 36px;
+    top: 338px;
+    width: 1304px;
+    height: 16px;
+    border-top: 2px solid #49e2ff;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    z-index: 6;
+  }
+
+  .order-text {
+    position: absolute;
+    left: 520px;
+    top: -13px;
+    width: 280px;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    color: #fff;
+    z-index: 8;
+  }
+
+  /* Lower panels */
+  .panel {
+    position: absolute;
+    top: 362px;
+    height: 328px;
+    border: 3px solid #20d7ff;
+    border-radius: 9px;
+    background: rgba(8, 45, 55, 0.62);
+    z-index: 2;
+  }
+
+  .panel.left {
+    left: 36px;
+    width: 647px;
+  }
+
+  .panel.right {
+    left: 696px;
+    width: 644px;
+  }
+
+  .panel-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 41px;
+    background: #18d5ec;
+    color: #061017;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border-bottom: 2px solid #246b80;
+  }
+
+  /* Left panel cards */
+  .panel-card {
+    position: absolute;
+    background: #fff;
+    border: 2px solid #42cde2;
+    border-radius: 9px;
+    color: #060d13;
+    z-index: 4;
+    padding: 9px 11px;
+    box-shadow: 0 6px 11px rgba(0,0,0,0.22);
+  }
+
+  .left-card1 {
+    left: 13px;
+    top: 48px;
+    width: 619px;
+    height: 90px;
+  }
+
+  .left-card2 {
+    left: 13px;
+    top: 151px;
+    width: 619px;
+    height: 88px;
+  }
+
+  .panel-card .course-title {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .panel-card .course-desc {
+    font-size: 13.4px;
+    line-height: 1.18;
+  }
+
+  .preview {
+    display: block;
+    color: #1486c3;
+    font-size: 12.4px;
+    margin-top: 1px;
+    text-decoration: underline;
+  }
+
+  .left-card1 .duration {
+    position: absolute;
+    left: 17px;
+    bottom: -20px;
+  }
+
+  .left-card2 .duration {
+    position: absolute;
+    left: 17px;
+    bottom: -20px;
+  }
+
+  .small-left-arrow {
+    position: absolute;
+    left: -17px;
+    top: 182px;
+    width: 0;
+    height: 0;
+    border-top: 18px solid #31dff3;
+    border-right: 18px solid transparent;
+    z-index: 8;
+  }
+
+  .cta-bar {
+    position: absolute;
+    left: 13px;
+    top: 261px;
+    width: 619px;
+    height: 46px;
+    border: 2px solid #56d823;
+    border-radius: 7px;
+    background: #fff;
+    color: #070d11;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    padding: 0 17px 0 56px;
+    gap: 16px;
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .stack-icon {
+    width: 32px;
+    height: 26px;
+    position: relative;
+  }
+
+  .stack-icon:before,
+  .stack-icon:after,
+  .stack-icon span {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 25px;
+    height: 6px;
+    border: 2px solid #58c743;
+    border-radius: 4px;
+  }
+
+  .stack-icon:before {
+    top: 0;
+  }
+
+  .stack-icon span {
+    top: 9px;
+  }
+
+  .stack-icon:after {
+    top: 18px;
+    width: 16px;
+  }
+
+  /* Right panel cards */
+  .right-card1 {
+    left: 10px;
+    top: 48px;
+    width: 300px;
+    height: 137px;
+  }
+
+  .right-card2 {
+    left: 325px;
+    top: 48px;
+    width: 290px;
+    height: 116px;
+  }
+
+  .right-card3 {
+    left: 10px;
+    top: 200px;
+    width: 618px;
+    height: 85px;
+  }
+
+  .right-card1 .duration {
+    position: absolute;
+    left: 17px;
+    bottom: -20px;
+  }
+
+  .right-card2 .duration {
+    position: absolute;
+    left: 16px;
+    bottom: -18px;
+  }
+
+  .right-card3 .duration {
+    position: absolute;
+    left: 17px;
+    bottom: -20px;
+  }
+
+  .right-arrow1 {
+    position: absolute;
+    left: -20px;
+    top: 96px;
+    width: 0;
+    height: 0;
+    border-top: 18px solid #30dfef;
+    border-right: 18px solid transparent;
+    z-index: 8;
+  }
+
+  .right-arrow2 {
+    position: absolute;
+    left: 285px;
+    top: 96px;
+    width: 0;
+    height: 0;
+    border-top: 17px solid #30dfef;
+    border-right: 17px solid transparent;
+    z-index: 8;
+  }
+
+  .right-arrow3 {
+    position: absolute;
+    left: -20px;
+    top: 182px;
+    width: 0;
+    height: 0;
+    border-top: 17px solid #30dfef;
+    border-right: 17px solid transparent;
+    z-index: 8;
+  }
+
+  /* Legend */
+  .legend-strip {
+    position: absolute;
+    left: 0;
+    top: 700px;
+    width: 1376px;
+    height: 48px;
+    z-index: 10;
+  }
+
+  .legend-item {
+    position: absolute;
+    height: 38px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    padding: 0 13px;
+    gap: 10px;
+  }
+
+  .legend-item.one {
+    left: 50px;
+    top: 0;
+    width: 278px;
+    background: #c7e6ff;
+    border: 1px solid rgba(183, 237, 255, 0.8);
+    color: #07141b;
+  }
+
+  .legend-item.two {
+    left: 341px;
+    top: 0;
+    width: 330px;
+    background: #bdebd6;
+    border: 1px solid rgba(208, 250, 231, 0.9);
+    color: #07141b;
+  }
+
+  .legend-item.three {
+    left: 683px;
+    top: 0;
+    width: 170px;
+    background: #fff;
+    border: 2px solid #b7ddff;
+    border-radius: 22px;
+    color: #061218;
+    font-size: 15px;
+  }
+
+  .legend-item.four {
+    left: 872px;
+    top: 0;
+    width: 170px;
+    background: #fff;
+    border: 2px solid #b7ddff;
+    border-radius: 22px;
+    color: #061218;
+    font-size: 15px;
+  }
+
+  .legend-icon {
+    width: 25px;
+    height: 25px;
+    border: 2px solid currentColor;
+    opacity: 0.85;
+    flex: 0 0 auto;
+  }
+
+  .tiny-line {
+    position: absolute;
+    left: 568px;
+    top: 124px;
+    width: 136px;
+    height: 1px;
+    background: #38dcff;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Skill-building for Azure</div>
+    <div class="subtitle">Developer solutions</div>
+
+    <div class="role-card">Developer</div>
+    <div class="role-badge">♙</div>
+
+    <div class="ai-badge">
+      <div class="cloud-icon">☁</div>
+      <div>Innovate with<br>Azure AI Apps &amp;<br>Agents</div>
+    </div>
+
+    <div class="top-group">
+      <div class="connector-line"></div>
+
+      <div class="course-card top card1">
+        <div class="course-title">AZ-1000: Azure Fundamentals for Developers</div>
+        <div class="course-desc">Understand core cloud concepts and Azure services for development.</div>
+        <div class="duration">5 days</div>
+      </div>
+
+      <div class="arrow a1"></div>
+
+      <div class="course-card top card2">
+        <div class="course-title">GH-1000: GitHub Actions &amp; Workflows</div>
+        <div class="course-desc">Automate software development with GitHub Actions.</div>
+        <div class="duration">2 days</div>
+      </div>
+
+      <div class="arrow a2"></div>
+
+      <div class="course-card top card3">
+        <div class="course-title">AZ-1001: Azure App Service Essentials</div>
+        <div class="course-desc">Build and deploy web apps on Azure App Service.</div>
+        <div class="duration">4 days</div>
+      </div>
+
+      <div class="arrow a3"></div>
+
+      <div class="course-card top card4">
+        <div class="course-title">AZ-1002: Azure Storage &amp; Data for Developers</div>
+        <div class="course-desc">Utilize Azure Storage solutions for application data.</div>
+        <div class="duration">3 days</div>
+      </div>
+    </div>
+
+    <div class="order-strip">
+      <div class="order-text">COURSES MAY BE TAKEN IN ANY ORDER</div>
+    </div>
+
+    <div class="panel left">
+      <div class="panel-header">Learning for everyone</div>
+
+      <div class="panel-card left-card1">
+        <div class="course-title">AZ-900: Introduction to Microsoft Azure</div>
+        <div class="course-desc">Learn cloud concepts, core Azure services, security, privacy, and compliance.<br><span class="preview">Course preview</span></div>
+        <div class="duration">1 day</div>
+      </div>
+
+      <div class="small-left-arrow"></div>
+
+      <div class="panel-card left-card2">
+        <div class="course-title">GH-900: GitHub Foundations</div>
+        <div class="course-desc">Master the basics of GitHub including repositories, branching, commits, and pull requests.</div>
+        <div class="duration">2 days</div>
+      </div>
+
+      <div class="cta-bar">
+        <div class="stack-icon"><span></span></div>
+        <div>Explore digital skill-building plans for this role</div>
+      </div>
+    </div>
+
+    <div class="panel right">
+      <div class="panel-header">Applied Skills</div>
+
+      <div class="panel-card right-card1">
+        <div class="course-title">AZ-2001: Implement security through a pipeline using Azure DevOps</div>
+        <div class="course-desc">Secure your CI/CD pipelines with Azure DevOps and related security tools.</div>
+        <div class="duration">1 day</div>
+      </div>
+      <div class="right-arrow1"></div>
+
+      <div class="panel-card right-card2">
+        <div class="course-title">GH-2001: Automate workflows with GitHub Actions</div>
+        <div class="course-desc">Create and manage complex automation workflows using GitHub Actions.</div>
+        <div class="duration">1 day</div>
+      </div>
+      <div class="right-arrow2"></div>
+
+      <div class="right-arrow3"></div>
+
+      <div class="panel-card right-card3">
+        <div class="course-title">AZ-2002: Build serverless apps with Azure Functions</div>
+        <div class="course-desc">Develop event-driven serverless applications using Azure Functions.</div>
+        <div class="duration">1 day</div>
+      </div>
+    </div>
+
+    <div class="legend-strip">
+      <div class="legend-item one"><span class="legend-icon"></span><span>Instructor-led training</span></div>
+      <div class="legend-item two"><span class="legend-icon"></span><span>Self-paced learning path(s)</span></div>
+      <div class="legend-item three"><span class="legend-icon"></span><span>Certification</span></div>
+      <div class="legend-item four"><span class="legend-icon"></span><span>Applied Skills</span></div>
+    </div>
+  </div>
+</body>
+</html>

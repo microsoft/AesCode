@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Warehouse & Transportation Management Roadmap</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9e9e9;
+    font-family: "Arial Narrow", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #ffffff;
+    color: #333333;
+  }
+
+  /* Top brand row */
+  .top-icon-pair {
+    position: absolute;
+    left: 22px;
+    top: 18px;
+    width: 72px;
+    height: 43px;
+  }
+
+  .circle-orange {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 39px;
+    height: 39px;
+    background: #ff5a00;
+    border-radius: 50%;
+  }
+
+  .circle-outline {
+    position: absolute;
+    left: 24px;
+    top: 0;
+    width: 42px;
+    height: 42px;
+    border: 2px solid #ff5a00;
+    border-radius: 50%;
+    background: #ffffff;
+  }
+
+  .title {
+    position: absolute;
+    left: 110px;
+    top: 19px;
+    font-size: 35px;
+    font-weight: 800;
+    color: #ff5a00;
+    letter-spacing: -0.6px;
+    white-space: nowrap;
+  }
+
+  .logo-placeholder {
+    position: absolute;
+    right: 34px;
+    top: 26px;
+    font-size: 24px;
+    color: #ff5a00;
+    font-weight: 800;
+  }
+
+  /* Decorative soft background band */
+  .soft-band {
+    position: absolute;
+    left: -60px;
+    top: 98px;
+    width: 420px;
+    height: 210px;
+    background: radial-gradient(circle at 76% 32%, rgba(255,90,0,0.08), rgba(255,90,0,0) 65%);
+  }
+
+  /* Bottom decorative band */
+  .bottom-band {
+    position: absolute;
+    left: 0;
+    bottom: -40px;
+    width: 1280px;
+    height: 130px;
+    background: #ff5a00;
+    border-radius: 52% 48% 0 0 / 42% 48% 0 0;
+    z-index: 1;
+  }
+
+  .bottom-band::before {
+    content: "";
+    position: absolute;
+    left: -52px;
+    top: -20px;
+    width: 285px;
+    height: 76px;
+    border-top: 5px solid #ffffff;
+    border-radius: 50% 50% 0 0 / 45% 45% 0 0;
+    transform: rotate(-16deg);
+  }
+
+  .bottom-band::after {
+    content: "";
+    position: absolute;
+    right: -82px;
+    top: -25px;
+    width: 308px;
+    height: 82px;
+    border-top: 5px solid #ffffff;
+    border-radius: 50% 50% 0 0 / 50% 50% 0 0;
+    transform: rotate(-24deg);
+  }
+
+  /* Route line */
+  .route-svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 720px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* Buildings, truck, globe */
+  .warehouse {
+    position: absolute;
+    left: 22px;
+    bottom: 47px;
+    width: 210px;
+    height: 108px;
+    z-index: 3;
+  }
+
+  .warehouse .roof {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 206px;
+    height: 45px;
+    background: #ff5a00;
+    clip-path: polygon(20% 0, 74% 0, 100% 62%, 100% 100%, 0 100%);
+    box-shadow: 0 4px 0 rgba(0,0,0,0.12);
+  }
+
+  .warehouse .wall {
+    position: absolute;
+    left: 29px;
+    top: 34px;
+    width: 152px;
+    height: 74px;
+    background: #e9edf0;
+    border-left: 5px solid #787878;
+  }
+
+  .warehouse .door {
+    position: absolute;
+    left: 78px;
+    top: 51px;
+    width: 75px;
+    height: 48px;
+    background: #4a4f55;
+  }
+
+  .truck {
+    position: absolute;
+    left: 357px;
+    bottom: 40px;
+    width: 158px;
+    height: 62px;
+    z-index: 4;
+    background: #d9dde1;
+    border-radius: 8px 14px 10px 10px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.18);
+  }
+
+  .truck::before {
+    content: "";
+    position: absolute;
+    left: 101px;
+    top: 0;
+    width: 52px;
+    height: 48px;
+    background: #f1f3f5;
+    clip-path: polygon(0 0, 100% 0, 86% 100%, 23% 100%);
+    border-left: 3px solid #8a9298;
+  }
+
+  .city-silhouette {
+    position: absolute;
+    left: 650px;
+    bottom: 31px;
+    width: 154px;
+    height: 58px;
+    z-index: 2;
+    opacity: 0.42;
+    background:
+      linear-gradient(to top, transparent 0 16px, #8d969d 17px 20px, transparent 21px) 0 37px / 24px 22px no-repeat,
+      linear-gradient(to top, transparent 0 14px, #8d969d 15px 18px, transparent 19px) 33px 26px / 18px 18px no-repeat,
+      linear-gradient(to top, transparent 0 19px, #8d969d 20px 23px, transparent 24px) 61px 18px / 28px 25px no-repeat,
+      linear-gradient(to top, transparent 0 23px, #8d969d 24px 28px, transparent 29px) 98px 12px / 25px 24px no-repeat,
+      linear-gradient(to top, transparent 0 13px, #8d969d 14px 17px, transparent 18px) 127px 30px / 18px 18px no-repeat;
+  }
+
+  .globe {
+    position: absolute;
+    right: 22px;
+    bottom: 40px;
+    width: 148px;
+    height: 148px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 45% 42%, rgba(190,195,198,0.88) 0 28%, transparent 29%),
+      repeating-linear-gradient(90deg, rgba(150,155,158,0.26) 0 2px, transparent 2px 8px),
+      linear-gradient(135deg, #eceef0, #bfc4c7);
+    z-index: 5;
+    box-shadow: inset -18px -18px 30px rgba(120,125,128,0.14);
+  }
+
+  .globe::after {
+    content: "";
+    position: absolute;
+    right: 42px;
+    top: 35px;
+    width: 28px;
+    height: 31px;
+    background: #ff5a00;
+    clip-path: path("M14 3 C7 8 8 10 9 15 C10 18 11 20 14 21 C17 20 18 18 19 15 C20 10 21 8 14 3 Z");
+    border: 3px solid #ffffff;
+    border-radius: 50% 50% 50% 50%;
+  }
+
+  /* Text blocks */
+  .text-block {
+    position: absolute;
+    z-index: 6;
+    color: #58616a;
+    font-size: 13.8px;
+    line-height: 1.42;
+  }
+
+  .text-block h2 {
+    margin: 0 0 7px 0;
+    font-size: 18px;
+    color: #ff5a00;
+    font-weight: 800;
+    letter-spacing: -0.2px;
+  }
+
+  .text-block p {
+    margin: 0;
+    font-size: 13.8px;
+    color: #505b65;
+  }
+
+  .warehouse-text {
+    left: 30px;
+    top: 240px;
+    width: 192px;
+  }
+
+  .inventory-text {
+    left: 217px;
+    top: 398px;
+    width: 288px;
+  }
+
+  .risk-text {
+    left: 497px;
+    top: 465px;
+    width: 280px;
+  }
+
+  .route-text {
+    left: 531px;
+    top: 88px;
+    width: 237px;
+  }
+
+  .digital-text {
+    left: 886px;
+    top: 201px;
+    width: 298px;
+  }
+
+  .logistics-text {
+    left: 998px;
+    top: 390px;
+    width: 252px;
+  }
+
+  /* Location pins */
+  .pin {
+    position: absolute;
+    z-index: 8;
+    width: 48px;
+    height: 82px;
+    background: #ff5a00;
+    border: 2px solid #ffffff;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-42deg);
+    box-shadow: 0 5px 0 rgba(0,0,0,0.18);
+  }
+
+  .pin::before {
+    content: "";
+    position: absolute;
+    top: -28px;
+    left: 14px;
+    width: 32px;
+    height: 32px;
+    background: #ff5a00;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+  }
+
+  .pin span {
+    position: absolute;
+    top: -25px;
+    left: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #ff5a00;
+    text-align: center;
+    line-height: 32px;
+    font-size: 17px;
+    font-weight: 800;
+    z-index: 2;
+  }
+
+  .pin-06 { left: 191px; top: 120px; }
+  .pin-05 { left: 382px; top: 104px; }
+  .pin-04 { left: 334px; top: 245px; }
+  .pin-03 { left: 786px; top: 182px; }
+  .pin-02 { left: 600px; top: 314px; }
+  .pin-01 {
+    left: 861px;
+    top: 383px;
+    width: 55px;
+    height: 92px;
+  }
+
+  .pin-01::before {
+    top: -33px;
+    left: 16px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .pin-01 span {
+    top: -30px;
+    left: 14px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+  }
+
+  /* Dotted connectors */
+  .dotted {
+    position: absolute;
+    z-index: 5;
+    border-left: 2px dotted #ff5a00;
+    height: 0;
+    background: transparent;
+  }
+
+  .dotted.d6 {
+    left: 216px;
+    top: 196px;
+    height: 66px;
+  }
+
+  .dotted.d5 {
+    left: 408px;
+    top: 185px;
+    height: 1px;
+    width: 124px;
+    border-left: none;
+    border-top: 2px dotted #ff5a00;
+  }
+
+  .dotted.d4 {
+    left: 360px;
+    top: 336px;
+    height: 54px;
+  }
+
+  .dotted.d3 {
+    left: 842px;
+    top: 210px;
+    width: 34px;
+    height: 1px;
+    border-left: none;
+    border-top: 2px dotted #ff5a00;
+  }
+
+  .dotted.d2 {
+    left: 624px;
+    top: 410px;
+    height: 42px;
+  }
+
+  /* Large callout circle for 01 */
+  .callout-01 {
+    position: absolute;
+    left: 833px;
+    top: 383px;
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    background: #ff5a00;
+    border: 2px dotted #ff5a00;
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 44px;
+    font-weight: 800;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.18);
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="top-icon-pair">
+    <div class="circle-orange"></div>
+    <div class="circle-outline"></div>
+  </div>
+
+  <div class="title">Warehouse &amp; Transportation Management</div>
+  <div class="logo-placeholder">YOUR LOGO</div>
+
+  <div class="soft-band"></div>
+
+  <svg class="route-svg" viewBox="0 0 1280 720" aria-hidden="true">
+    <defs>
+      <linearGradient id="routeGrad" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0%" stop-color="#ff6a10" stop-opacity="0.92"/>
+        <stop offset="54%" stop-color="#ff7b23" stop-opacity="0.88"/>
+        <stop offset="100%" stop-color="#ff5200" stop-opacity="0.98"/>
+      </linearGradient>
+      <mask id="routeMask">
+        <rect width="1280" height="720" fill="white"/>
+        <path d="M1154 602 C990 542 864 487 810 413 C766 349 835 320 760 292 C666 261 534 292 448 263 C366 235 483 218 406 189 C331 161 211 177 161 150 C111 123 230 152 188 145 L1260 560 Z"
+              fill="#000" opacity="0.75"/>
+      </mask>
+    </defs>
+    <path d="M1146 608 C980 550 855 497 800 422 C757 358 826 328 755 298 C660 264 528 296 442 267 C360 238 480 222 405 193 C328 166 209 182 162 155"
+          fill="none" stroke="url(#routeGrad)" stroke-width="18" stroke-linecap="round" mask="url(#routeMask)"/>
+    <path d="M1146 608 C980 550 855 497 800 422 C757 358 826 328 755 298 C660 264 528 296 442 267 C360 238 480 222 405 193 C328 166 209 182 162 155"
+          fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.85" mask="url(#routeMask)"/>
+    <path d="M1135 590 C982 536 870 487 820 417 C782 367 846 338 772 310 C675 280 545 310 460 281 C378 255 486 242 412 214 C340 190 226 207 168 181"
+          fill="none" stroke="#ffffff" stroke-width="1.6" stroke-dasharray="9 8" opacity="0.88" mask="url(#routeMask)"/>
+  </svg>
+
+  <div class="pin pin-06"><span>06</span></div>
+  <div class="pin pin-05"><span>05</span></div>
+  <div class="pin pin-04"><span>04</span></div>
+  <div class="pin pin-03"><span>03</span></div>
+  <div class="pin pin-02"><span>02</span></div>
+  <div class="pin pin-01"><span>01</span></div>
+
+  <div class="dotted d6"></div>
+  <div class="dotted d5"></div>
+  <div class="dotted d4"></div>
+  <div class="dotted d3"></div>
+  <div class="dotted d2"></div>
+
+  <div class="callout-01">01</div>
+
+  <section class="text-block warehouse-text">
+    <h2>Warehouse Layout<br>Optimization</h2>
+    <p>Plan warehouse space efficiently based on product type, throughput, storage requirements, and more to maximize operations.</p>
+  </section>
+
+  <section class="text-block inventory-text">
+    <h2>Accurate Inventory Management</h2>
+    <p>Build an accurate inventory management system to track inbound, outbound, and on-hand inventory in real time for better control and efficiency.</p>
+  </section>
+
+  <section class="text-block risk-text">
+    <h2>Risk Management &amp; Response</h2>
+    <p>Identify potential risks in warehouse and transportation operations and develop proactive response strategies to minimize disruptions and ensure business continuity.</p>
+  </section>
+
+  <section class="text-block route-text">
+    <h2>Route Optimization</h2>
+    <p>Leverage GIS and transportation management software to optimize routes, reduce transit time, and lower transportation costs.</p>
+  </section>
+
+  <section class="text-block digital-text">
+    <h2>Digital Management System</h2>
+    <p>Implement advanced warehouse logistics information systems, such as WMS, to improve visibility, efficiency, and decision-making across the supply chain.</p>
+  </section>
+
+  <section class="text-block logistics-text">
+    <h2>Logistics Provider Evaluation</h2>
+    <p>Evaluate logistics providers based on service quality, reliability, cost efficiency, and compliance to ensure the best partnership for your operations.</p>
+  </section>
+
+  <div class="warehouse">
+    <div class="roof"></div>
+    <div class="wall"></div>
+    <div class="door"></div>
+  </div>
+
+  <div class="truck"></div>
+  <div class="city-silhouette"></div>
+  <div class="globe"></div>
+  <div class="bottom-band"></div>
+</div>
+</body>
+</html>

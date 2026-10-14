@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>工作总结汇报</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #dfe7f2;
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 848px;
+    height: 1264px;
+    overflow: hidden;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.95), rgba(248,252,255,0.98)),
+      repeating-linear-gradient(180deg, rgba(62,112,179,0.035) 0 1px, transparent 1px 18px);
+    color: #111;
+  }
+
+  .top-strip {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 848px;
+    height: 30px;
+    background: #1f6dff;
+  }
+
+  .header-card {
+    position: absolute;
+    left: 22px;
+    top: 16px;
+    width: 804px;
+    height: 382px;
+    border-radius: 22px;
+    background: #fbfdff;
+    box-shadow: 0 10px 28px rgba(31,109,255,0.22), inset 0 0 18px rgba(31,109,255,0.12);
+    border: 1px solid rgba(31,109,255,0.18);
+  }
+
+  .brand-top {
+    position: absolute;
+    left: 34px;
+    top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .brand-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #2370ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    box-shadow: 0 5px 12px rgba(35,112,255,0.35);
+  }
+
+  .date-top {
+    position: absolute;
+    right: 32px;
+    top: 30px;
+    color: #666;
+    font-size: 16px;
+  }
+
+  .main-title {
+    position: absolute;
+    left: 38px;
+    top: 112px;
+    font-size: 70px;
+    line-height: 1.1;
+    letter-spacing: 2px;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .main-title .blue {
+    color: #1f6dff;
+  }
+
+  .main-title .black {
+    color: #050505;
+  }
+
+  .reporter {
+    position: absolute;
+    left: 38px;
+    top: 248px;
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .eng-subtitle {
+    position: absolute;
+    left: 38px;
+    bottom: 34px;
+    color: #333;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+  }
+
+  .checkmark {
+    position: absolute;
+    right: -68px;
+    bottom: -42px;
+    width: 260px;
+    height: 230px;
+    background: #1f6dff;
+    clip-path: path("M120 230 L35 135 L120 45 L260 135 Z");
+    opacity: 0.95;
+    filter: drop-shadow(0 12px 14px rgba(31,109,255,0.25));
+  }
+
+  .contents-section {
+    position: absolute;
+    left: 0;
+    top: 414px;
+    width: 848px;
+    height: 212px;
+    background: rgba(255,255,255,0.9);
+    border-top: 1px solid #d7e1ef;
+    border-bottom: 1px solid #d7e1ef;
+  }
+
+  .contents-left {
+    position: absolute;
+    left: 28px;
+    top: 14px;
+    width: 380px;
+    height: 190px;
+    border-right: 1px solid #d7e1ef;
+  }
+
+  .contents-heading {
+    font-size: 30px;
+    font-weight: 800;
+    color: #1f6dff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .contents-heading span {
+    color: #55708f;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .divider {
+    height: 1px;
+    background: #3477d8;
+    margin-top: 6px;
+    margin-bottom: 20px;
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 390px;
+    height: 34px;
+    border-bottom: 1px solid #7593b3;
+    display: flex;
+    align-items: center;
+    justify-content: space50;
+    gap: 14px;
+    font-size: 12px;
+    color: #444;
+  }
+
+  .nav-menu div:first-child {
+    background: #2370ff;
+    color: white;
+    padding: 5px 10px;
+  }
+
+  .nav-menu .nav-small {
+    margin-left: auto;
+    font-size: 10px;
+  }
+
+  .num-row {
+    display: flex;
+    gap: 22px;
+    padding-left: 2px;
+  }
+
+  .num-block {
+    width: 78px;
+    text-align: center;
+  }
+
+  .big-num {
+    color: #4f8fe8;
+    font-size: 48px;
+    line-height: 1;
+    font-weight: 800;
+  }
+
+  .num-block:nth-child(1) .big-num,
+  .num-block:nth-child(2) .big-num {
+    color: #2b73f2;
+  }
+
+  .num-label {
+    font-size: 12px;
+    font-weight: 800;
+    color: #111;
+    margin-top: 4px;
+  }
+
+  .num-caption {
+    font-size: 12px;
+    color: #1f2d3d;
+    font-weight: 600;
+    margin-top: 3px;
+  }
+
+  .section-one {
+    position: absolute;
+    left: 0;
+    top: 626px;
+    width: 848px;
+    height: 210px;
+    border-bottom: 1px solid #d7e1ef;
+    display: flex;
+  }
+
+  .s1-left {
+    width: 424px;
+    padding-left: 32px;
+    padding-top: 30px;
+  }
+
+  .big-01 {
+    font-size: 48px;
+    font-weight: 900;
+    color: #050505;
+  }
+
+  .s1-title {
+    color: #1e6cff;
+    font-size: 34px;
+    font-weight: 900;
+    margin-top: 4px;
+  }
+
+  .s1-sub {
+    color: #333;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+
+  .clock-wrap {
+    position: absolute;
+    left: 255px;
+    top: 48px;
+    width: 136px;
+    height: 136px;
+    border-radius: 50%;
+    border: 12px solid #2d79ff;
+    box-shadow:
+      0 0 0 26px rgba(45,121,255,0.12),
+      0 0 28px rgba(45,121,255,0.38),
+      58px 18px 18px rgba(45,121,255,0.23);
+    background: white;
+  }
+
+  .clock-wrap:before {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 10px;
+    background: #2d79ff;
+    top: 52px;
+    left: 58px;
+    border-radius: 5px;
+    transform-origin: left center;
+    transform: rotate(0deg);
+    opacity: 0.9;
+  }
+
+  .clock-wrap:after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 40px;
+    background: #2d79ff;
+    top: 26px;
+    left: 62px;
+    border-radius: 6px;
+    transform-origin: bottom center;
+    transform: rotate(-90deg);
+    opacity: 0.95;
+  }
+
+  .s1-right {
+    width: 424px;
+    background:
+      linear-gradient(90deg, rgba(108,166,219,0.45), rgba(255,255,255,0.85)),
+      repeating-linear-gradient(90deg, transparent 0 15px, rgba(200,220,235,0.65) 15px 18px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #d7e1ef;
+  }
+
+  .photo-team {
+    width: 365px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 2px;
+    border: 5px solid rgba(255,255,255,0.95);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.22);
+  }
+
+  .work-progress {
+    position: absolute;
+    left: 0;
+    top: 836px;
+    width: 848px;
+    height: 202px;
+    border-bottom: 1px solid #d7e1ef;
+    display: flex;
+  }
+
+  .work-col {
+    width: 256px;
+    padding-left: 26px;
+    padding-top: 22px;
+  }
+
+  .progress-heading {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1c6cff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .progress-heading:before {
+    content: "";
+    width: 21px;
+    height: 18px;
+    background: #2370ff;
+    border-radius: 3px;
+    display: inline-block;
+  }
+
+  .body-text {
+    color: #222;
+    font-size: 11.5px;
+    line-height: 1.55;
+    margin-top: 12px;
+    width: 200px;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 9px;
+    margin-top: 12px;
+  }
+
+  .badge {
+    width: 88px;
+    height: 48px;
+    border-radius: 8px;
+    background: linear-gradient(180deg, #5f9fff, #2f7cff);
+    color: white;
+    text-align: center;
+    padding-top: 6px;
+    box-shadow: 0 5px 10px rgba(47,124,255,0.28);
+  }
+
+  .badge .num {
+    font-size: 20px;
+    font-weight: 900;
+  }
+
+  .badge .cap {
+    font-size: 9.5px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+
+  .photo-planning {
+    width: 174px;
+    height: 158px;
+    object-fit: cover;
+    border: 6px solid #e8f0f7;
+    margin-left: 2px;
+    margin-top: -34px;
+  }
+
+  .progress-chart-col {
+    width: 592px;
+    padding-left: 16px;
+    padding-top: 16px;
+  }
+
+  #progressChart {
+    width: 530px;
+    height: 160px;
+    margin-top: 0;
+  }
+
+  .activity-section {
+    position: absolute;
+    left: 0;
+    top: 1038px;
+    width: 424px;
+    height: 222px;
+    border-right: 1px solid #d7e1ef;
+    padding-top: 14px;
+  }
+
+  .activity-title {
+    font-size: 20px;
+    color: #1d1d1d;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .activity-title:before {
+    content: "";
+    width: 22px;
+    height: 17px;
+    background: #2370ff;
+    border-radius: 3px;
+  }
+
+  .activity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-top: 16px;
+  }
+
+  .event-card {
+    text-align: center;
+  }
+
+  .event-card img {
+    width: 112px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 7px;
+    display: block;
+    margin: 0 auto 5px;
+    border: 2px solid #dce8f3;
+  }
+
+  .event-card div {
+    font-size: 11px;
+    font-weight: 700;
+    color: #222;
+  }
+
+  .thank-section {
+    position: absolute;
+    left: 424px;
+    top: 1038px;
+    width: 424px;
+    height: 222px;
+    padding-top: 12px;
+    text-align: center;
+  }
+
+  .thank-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: #222;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 22px;
+  }
+
+  .thank-title {
+    font-size: 32px;
+    color: #1d1d1d;
+    font-weight: 900;
+    margin-top: 2px;
+  }
+
+  .thank-title .blue {
+    color: #1e6bff;
+  }
+
+  .thank-reporter {
+    margin-top: 6px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .heart {
+    position: absolute;
+    right: 28px;
+    bottom: 38px;
+    width: 86px;
+    height: 86px;
+    background: linear-gradient(135deg, #347eff, #1f65d8);
+    clip-path: path("M42 82 C19 62, 10 50, 10 35 C10 18, 26 10, 42 26 C58 10, 74 18, 74 35 C74 50, 65 62, 42 82 Z");
+    filter: drop-shadow(0 5px 8px rgba(30,107,255,0.23));
+  }
+
+  .bottom-line {
+    position: absolute;
+    left: 424px;
+    bottom: 0;
+    width: 424px;
+    height: 4px;
+    background: #2370ff;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="top-strip"></div>
+
+  <section class="header-card">
+    <div class="brand-top">
+      <div class="brand-icon">△</div>
+      <div>定高科技</div>
+    </div>
+    <div class="date-top">2023年12月31日</div>
+    <div class="main-title"><span class="blue">工作总结</span><span class="black">汇报</span></div>
+    <div class="reporter">汇报人：高小定</div>
+    <div class="eng-subtitle">WORK SUMMARY REPORT</div>
+    <div class="checkmark"></div>
+  </section>
+
+  <section class="contents-section">
+    <div class="contents-left">
+      <div class="contents-heading">目录 <span>Contents</span></div>
+      <div class="divider"></div>
+      <div class="num-row">
+        <div class="num-block">
+          <div class="big-num">01</div>
+          <div class="num-label">WORK<br>REVIEW</div>
+          <div class="num-caption">工作回顾</div>
+        </div>
+        <div class="num-block">
+          <div class="big-num">02</div>
+          <div class="num-label">RESULTS<br>DISPLAY</div>
+          <div class="num-caption">成果展示</div>
+        </div>
+        <div class="num-block">
+          <div class="big-num">03</div>
+          <div class="num-label">HIGHLIGHTS &amp;<br>DRAWBACKS</div>
+          <div class="num-caption">亮点与不足</div>
+        </div>
+        <div class="num-block">
+          <div class="big-num">04</div>
+          <div class="num-label">GOALS<br>PLANNING</div>
+          <div class="num-caption">目标规划</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-menu">
+      <div>首页</div>
+      <div style="background:#2370ff;color:#fff;">报告概览</div>
+      <div>项目进度</div>
+      <div>团队状态</div>
+      <div>未来展望</div>
+      <div class="nav-small">NAVIGATION</div>
+    </div>
+
+    <div class="num-row" style="position:absolute;left:440px;top:80px;gap:20px;width:380px;">
+      <div class="num-block">
+        <div class="big-num">02</div>
+        <div class="num-label">WORK<br>REVIEW</div>
+        <div class="num-caption">工作回顾</div>
+      </div>
+      <div class="num-block">
+        <div class="big-num">03</div>
+        <div class="num-label">RESULTS<br>DISPLAY</div>
+        <div class="num-caption">成果展示</div>
+      </div>
+      <div class="num-block">
+        <div class="big-num">03</div>
+        <div class="num-label">HIGHLIGHTS &amp;<br>DRAWBACKS</div>
+        <div class="num-caption">亮点与不足</div>
+      </div>
+      <div class="num-block">
+        <div class="big-num">04</div>
+        <div class="num-label">GOALS<br>PLANNING</div>
+        <div class="num-caption">目标规划</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-one">
+    <div class="s1-left">
+      <div class="big-01">01</div>
+      <div class="s1-title">工作回顾</div>
+      <div class="s1-sub">WORK REVIEW</div>
+      <div class="clock-wrap"></div>
+    </div>
+    <div class="s1-right">
+      <img class="photo-team" src="https://placehold.co/340x260?text=Team+planning+photo" alt="Team planning photo">
+    </div>
+  </section>
+
+  <section class="work-progress">
+    <div class="work-col">
+      <div class="progress-heading">工作回顾</div>
+      <div class="body-text">
+        在过去的一年中，我们的团队通过紧密协作，成功完成了多个关键项目。我们专注于技术革新和流程优化，既展现了团队的专业能力，也推动了整体业务效率提升。在此基础上，我们持续完善项目管理方法，为后续工作积累了宝贵经验。
+      </div>
+      <div class="stats-row">
+        <div class="badge">
+          <div class="num">8</div>
+          <div class="cap">完成重大项目数</div>
+        </div>
+        <div class="badge">
+          <div class="num">1000.</div>
+          <div class="cap">客户满意度提升</div>
+        </div>
+      </div>
+      <img class="photo-planning" src="https://placehold.co/174x158?text=Planning+photo" alt="Planning photo">
+    </div>
+
+    <div class="progress-chart-col">
+      <div class="progress-heading">工作进度表</div>
+      <div id="progressChart"></div>
+    </div>
+  </section>
+
+  <section class="activity-section">
+    <div class="activity-title">活动回顾</div>
+    <div class="activity-grid">
+      <div class="event-card">
+        <img src="https://placehold.co/220x200?text=Event+photo+1" alt="Event photo 1">
+        <div>团队建设活动</div>
+      </div>
+      <div class="event-card">
+        <img src="https://placehold.co/220x200?text=Event+photo+2" alt="Event photo 2">
+        <div>行业交流峰会</div>
+      </div>
+      <div class="event-card">
+        <img src="https://placehold.co/220x200?text=Additional+events" alt="Additional events">
+        <div>新增协作会议</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="thank-section">
+    <div class="thank-brand">
+      <div class="brand-icon" style="font-size:12px;">△</div>
+      <div>定高科技</div>
+    </div>
+    <div class="thank-title"><span class="blue">感谢</span>您的观看</div>
+    <div class="thank-reporter">汇报人：高小定</div>
+    <div class="heart"></div>
+  </section>
+
+  <div class="bottom-line"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script>
+  const chart = echarts.init(document.getElementById('progressChart'));
+  chart.setOption({
+    animation: false,
+    grid: {
+      left: 62,
+      right: 12,
+      top: 12,
+      bottom: 24
+    },
+    xAxis: {
+      type: 'value',
+      min: 0,
+      max: 12,
+      interval: 1,
+      axisLabel: {
+        formatter: function(value) {
+          return ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'][value - 1] || '';
+        },
+        color: '#222',
+        fontSize: 10
+      },
+      axisLine: { lineStyle: { color: '#bdc7d4' } },
+      splitLine: { lineStyle: { color: '#edf1f5' } }
+    },
+    yAxis: {
+      type: 'category',
+      inverse: true,
+      data: ['阶段一：需求分析', '阶段二：系统设计', '阶段三：开发实施', '阶段四：测试上线'],
+      axisLabel: {
+        color: '#222',
+        fontSize: 10
+      },
+      axisLine: { lineStyle: { color: '#d5dde6' } },
+      axisTick: { show: false }
+    },
+    series: [
+      {
+        type: 'bar',
+        data: [2, 5, 8, 11],
+        barWidth: 10,
+        itemStyle: {
+          color: '#4d91ff',
+          borderRadius: 5,
+          borderColor: 'rgba(78,149,255,0.35)',
+          borderWidth: 2
+        },
+        label: {
+          show: true,
+          position: 'right',
+          color: '#333',
+          fontSize: 10,
+          formatter: function(params) {
+            return ['一月', '五月', '八月', '十一月'][params.dataIndex];
+          }
+        },
+        markPoint: {
+          symbol: 'circle',
+          symbolSize: 12,
+          label: { show: false },
+          data: [
+            { xAxis: 2, yAxis: 0, itemStyle: { color: '#fff', borderColor: '#5a9eff', borderWidth: 2 } },
+            { xAxis: 5, yAxis: 1, itemStyle: { color: '#fff', borderColor: '#5a9eff', borderWidth: 2 } },
+            { xAxis: 8, yAxis: 2, itemStyle: { color: '#fff', borderColor: '#5a9eff', borderWidth: 2 } },
+            { xAxis: 11, yAxis: 3, itemStyle: { color: '#fff', borderColor: '#5a9eff', borderWidth: 2 } }
+          ]
+        }
+      }
+    ]
+  });
+</script>
+</body>
+</html>

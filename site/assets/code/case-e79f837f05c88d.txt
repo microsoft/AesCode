@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>XXFlagship Evolution: Seven Technological Revolutions</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #02060b;
+    font-family: "Trebuchet MS", "Avenir Next", "Segoe UI", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 70% 76%, rgba(255,214,128,0.16) 0, rgba(255,214,128,0.04) 22%, rgba(0,0,0,0) 48%),
+      linear-gradient(180deg, #02060b 0%, #030912 46%, #0a2038 76%, #112f50 100%);
+    color: #fff;
+  }
+
+  /* Subtle background tech texture */
+  .artboard::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+    background-image:
+      linear-gradient(rgba(255,219,134,0.28) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,219,134,0.18) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+  }
+
+  /* Flowing golden curves */
+  .curve-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    pointer-events: none;
+  }
+
+  /* Title */
+  .main-title-line-1 {
+    position: absolute;
+    left: 70px;
+    top: 50px;
+    font-size: 58px;
+    line-height: 1.02;
+    letter-spacing: -2px;
+    font-weight: 600;
+    color: #efe2be;
+    text-shadow: 0 0 12px rgba(245,220,170,0.12);
+    white-space: nowrap;
+    z-index: 6;
+  }
+
+  .main-title-line-2 {
+    position: absolute;
+    left: 70px;
+    top: 118px;
+    font-size: 58px;
+    line-height: 1.02;
+    letter-spacing: -2px;
+    font-weight: 600;
+    color: #efe2be;
+    text-shadow: 0 0 12px rgba(245,220,170,0.12);
+    white-space: nowrap;
+    z-index: 6;
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 76px;
+    top: 188px;
+    width: 1040px;
+    font-size: 27px;
+    line-height: 1.15;
+    font-weight: 400;
+    color: #e8c589;
+    letter-spacing: -0.2px;
+    z-index: 6;
+  }
+
+  /* Timeline event structure */
+  .event {
+    position: absolute;
+    z-index: 8;
+  }
+
+  .event-line {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2px;
+    height: 310px;
+    background: rgba(255,255,255,0.88);
+    border-radius: 2px;
+    box-shadow: 0 0 8px rgba(255,255,255,0.18);
+  }
+
+  .year {
+    position: absolute;
+    left: 16px;
+    top: 0;
+    color: #efcf8a;
+    font-size: 40px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 10px rgba(255,230,170,0.12);
+    white-space: nowrap;
+  }
+
+  .desc {
+    position: absolute;
+    left: 18px;
+    top: 76px;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1.18;
+    font-weight: 400;
+    text-shadow: 0 0 8px rgba(255,255,255,0.08);
+  }
+
+  .glow-dot {
+    position: absolute;
+    left: -8px;
+    bottom: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow:
+      0 0 8px #fff,
+      0 0 18px #fff8c6,
+      0 0 28px rgba(255,230,180,0.85),
+      0 0 50px rgba(255,212,112,0.48);
+  }
+
+  /* Individual event placements */
+  .event-1988 {
+    left: 70px;
+    top: 416px;
+    width: 180px;
+    height: 310px;
+  }
+  .event-1988 .year {
+    top: 0;
+    font-size: 41px;
+    left: 8px;
+  }
+  .event-1988 .desc {
+    top: 57px;
+    width: 150px;
+    font-size: 16px;
+  }
+
+  .event-1994 {
+    left: 252px;
+    top: 376px;
+    width: 180px;
+    height: 310px;
+  }
+  .event-1994 .year {
+    font-size: 41px;
+    left: 7px;
+  }
+  .event-1994 .desc {
+    top: 55px;
+    width: 150px;
+  }
+
+  .event-2002 {
+    left: 434px;
+    top: 343px;
+    width: 180px;
+    height: 310px;
+  }
+  .event-2002 .year {
+    font-size: 41px;
+    left: 8px;
+  }
+  .event-2002 .desc {
+    top: 56px;
+    width: 152px;
+    font-size: 16px;
+  }
+
+  .event-2010 {
+    left: 616px;
+    top: 308px;
+    width: 180px;
+    height: 310px;
+  }
+  .event-2010 .year {
+    font-size: 40px;
+    left: 7px;
+  }
+  .event-2010 .desc {
+    top: 56px;
+    width: 152px;
+    font-size: 15.5px;
+  }
+
+  .event-2017 {
+    left: 798px;
+    top: 275px;
+    width: 180px;
+    height: 310px;
+  }
+  .event-2017 .year {
+    font-size: 40px;
+    left: 8px;
+  }
+  .event-2017 .desc {
+    top: 56px;
+    width: 152px;
+    font-size: 15.2px;
+  }
+
+  .event-2021 {
+    left: 980px;
+    top: 248px;
+    width: 180px;
+    height: 310px;
+  }
+  .event-2021 .year {
+    font-size: 40px;
+    left: 8px;
+  }
+  .event-2021 .desc {
+    top: 56px;
+    width: 152px;
+    font-size: 15.5px;
+  }
+
+  .event-2023 {
+    left: 1162px;
+    top: 214px;
+    width: 180px;
+    height: 310px;
+  }
+  .event-2023 .year {
+    font-size: 41px;
+    left: 8px;
+  }
+  .event-2023 .desc {
+    top: 55px;
+    width: 152px;
+    font-size: 15.2px;
+  }
+
+  /* Add a soft glowing band behind the dots and curves */
+  .glow-band {
+    position: absolute;
+    left: 0;
+    bottom: 76px;
+    width: 1376px;
+    height: 210px;
+    background: radial-gradient(ellipse at 50% 38%, rgba(255,220,145,0.18), transparent 54%);
+    filter: blur(10px);
+    opacity: 0.45;
+    z-index: 3;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="glow-band"></div>
+
+  <div class="curve-layer" aria-hidden="true">
+    <svg width="1376" height="768" viewBox="0 0 1376 768" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="goldLineGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#3b382f" stop-opacity="0.18"/>
+          <stop offset="42%" stop-color="#efdc8f" stop-opacity="0.92"/>
+          <stop offset="76%" stop-color="#ffe5a4" stop-opacity="0.76"/>
+          <stop offset="100%" stop-color="#5b503f" stop-opacity="0.25"/>
+        </linearGradient>
+        <linearGradient id="darkLineGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#111" stop-opacity="0.12"/>
+          <stop offset="50%" stop-color="#9d8b55" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#111" stop-opacity="0.12"/>
+        </linearGradient>
+      </defs>
+
+      <path d="M-70 701 C300 592 560 578 790 588 C1020 597 1220 567 1445 462" fill="none" stroke="url(#goldLineGrad)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M-20 688 C330 572 580 563 820 576 C1040 587 1230 555 1440 439" fill="none" stroke="url(#darkLineGrad)" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M20 645 C355 533 620 539 840 562 C1080 583 1240 522 1450 402" fill="none" stroke="url(#goldLineGrad)" stroke-width="3.8" stroke-linecap="round"/>
+      <path d="M48 738 C350 624 600 618 860 607 C1100 597 1250 548 1460 422" fill="none" stroke="url(#darkLineGrad)" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M280 768 C520 680 720 638 970 634 C1190 630 1285 596 1452 489" fill="none" stroke="url(#goldLineGrad)" stroke-width="5.5" stroke-linecap="round"/>
+      <path d="M120 768 C420 665 660 641 920 624 C1160 607 1280 605 1450 498" fill="none" stroke="rgba(239,207,138,0.25)" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="main-title-line-1">XXFlagship Evolution:</div>
+  <div class="main-title-line-2">Seven Technological Revolutions</div>
+  <div class="subtitle">The Evolution of the XX Flagship: Seven Technological Revolutions</div>
+
+  <div class="event event-1988">
+    <div class="event-line"></div>
+    <div class="year">1988</div>
+    <div class="desc">First generation XX<br>(Typ44)<br>Breakthrough level,<br>the start of a luxury<br>track.</div>
+    <div class="glow-dot"></div>
+  </div>
+
+  <div class="event event-1994">
+    <div class="event-line"></div>
+    <div class="year">1994</div>
+    <div class="desc">First generation A8<br>(D2) The world's first<br>full aluminum body,<br>significant weight<br>loss.</div>
+    <div class="glow-dot"></div>
+  </div>
+
+  <div class="event event-2002">
+    <div class="event-line"></div>
+    <div class="year">2002</div>
+    <div class="desc">Second generation<br>XX (D3)<br>Impacting industry<br>standards for luxury<br>vehicle digital<br>cockpits.</div>
+    <div class="glow-dot"></div>
+  </div>
+
+  <div class="event event-2010">
+    <div class="event-line"></div>
+    <div class="year">2010</div>
+    <div class="desc">Matrix-style LED<br>Headlight (D4)<br>Beam zoning control,<br>increasing<br>nighttime illumination<br>distance to 600<br>meters.</div>
+    <div class="glow-dot"></div>
+  </div>
+
+  <div class="event event-2017">
+    <div class="event-line"></div>
+    <div class="year">2017</div>
+    <div class="desc">Level 3 autonomous<br>driving<br>Regulatory<br>certification, first in<br>the world to obtain<br>federal approval,<br>approved by<br>authorities.</div>
+    <div class="glow-dot"></div>
+  </div>
+
+  <div class="event event-2021">
+    <div class="event-line"></div>
+    <div class="year">2021</div>
+    <div class="desc">Third generation<br>OLED rear light<br>Feedback improved<br>recognizability by<br>30%.</div>
+    <div class="glow-dot"></div>
+  </div>
+
+  <div class="event event-2023">
+    <div class="event-line"></div>
+    <div class="year">2023</div>
+    <div class="desc">AI active suspension<br>system<br>48A sensor scanning<br>the road in real time<br>and adjusting timing<br>within fractions of a<br>second.</div>
+    <div class="glow-dot"></div>
+  </div>
+</div>
+</body>
+</html>

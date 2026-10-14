@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Future Workspace Summit Poster</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #020b1d;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 60% 10%, rgba(0, 153, 255, 0.16), transparent 22%),
+      linear-gradient(180deg, #020b22 0%, #031333 30%, #031a4a 100%);
+  }
+
+  .header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 62px;
+    border-bottom: 1px solid rgba(67, 148, 255, 0.28);
+    background: rgba(1, 9, 30, 0.42);
+  }
+
+  .header-kicker {
+    position: absolute;
+    left: 68px;
+    top: 26px;
+    font-size: 15px;
+    letter-spacing: 4px;
+    font-weight: 800;
+    color: #f3f8ff;
+    text-transform: uppercase;
+  }
+
+  .edition-badge {
+    position: absolute;
+    right: 56px;
+    top: 19px;
+    min-width: 150px;
+    height: 38px;
+    border: 1px solid #139cff;
+    border-radius: 8px;
+    color: #f4fbff;
+    text-align: center;
+    line-height: 36px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .hero {
+    position: absolute;
+    left: 0;
+    top: 62px;
+    width: 1024px;
+    height: 390px;
+    padding: 22px 52px 18px 52px;
+    border-bottom: 1px solid rgba(72, 151, 255, 0.38);
+  }
+
+  .title {
+    position: absolute;
+    left: 52px;
+    top: 26px;
+    width: 390px;
+    font-size: 54px;
+    line-height: 0.99;
+    font-weight: 900;
+    letter-spacing: -1px;
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 52px;
+    top: 204px;
+    width: 390px;
+    font-size: 17px;
+    line-height: 1.42;
+    color: #f3f7ff;
+  }
+
+  .date-line {
+    position: absolute;
+    left: 52px;
+    top: 282px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 28px;
+    font-weight: 800;
+  }
+
+  .date-line .icon {
+    width: 29px;
+    height: 29px;
+    border: 2px solid #00b7ff;
+    border-radius: 5px;
+    color: #00b7ff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  .venue-line {
+    position: absolute;
+    left: 52px;
+    top: 328px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 21px;
+  }
+
+  .venue-line .pin {
+    width: 28px;
+    height: 28px;
+    border: 2px solid #00b7ff;
+    border-radius: 50%;
+    color: #00b7ff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+  }
+
+  .hero-image {
+    position: absolute;
+    right: 52px;
+    top: 28px;
+    width: 500px;
+    height: 335px;
+    border-radius: 30px;
+    overflow: hidden;
+    border: 2px solid #45b7ff;
+    box-shadow: 0 0 22px rgba(0, 180, 255, 0.72), inset 0 0 20px rgba(0, 180, 255, 0.55);
+    background: #194d83;
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .details {
+    position: absolute;
+    left: 0;
+    top: 452px;
+    width: 1024px;
+    height: 150px;
+    background: rgba(5, 28, 70, 0.92);
+    padding: 20px 36px 18px 36px;
+    display: flex;
+    gap: 21px;
+  }
+
+  .info-card {
+    width: 310px;
+    height: 118px;
+    border: 1px solid rgba(82, 160, 255, 0.72);
+    border-radius: 8px;
+    background: rgba(2, 17, 50, 0.62);
+    display: flex;
+    gap: 17px;
+    padding: 16px 22px 14px 22px;
+    align-items: center;
+  }
+
+  .circle-ico {
+    width: 58px;
+    height: 58px;
+    border: 1.8px solid #cde9ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cde9ff;
+    font-size: 26px;
+    flex: 0 0 auto;
+  }
+
+  .card-text {
+    font-size: 16px;
+    line-height: 1.38;
+    color: #f2f7ff;
+  }
+
+  .card-label {
+    display: block;
+    font-size: 19px;
+    color: #00aefb;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  .speakers {
+    position: absolute;
+    left: 0;
+    top: 602px;
+    width: 1024px;
+    height: 274px;
+    background: linear-gradient(100deg, #0756c8 0%, #0848b2 48%, #066bd7 100%);
+    border-top: 1px solid rgba(69, 154, 255, 0.55);
+    border-bottom: 1px solid rgba(69, 154, 255, 0.55);
+    padding: 18px 108px 20px 108px;
+  }
+
+  .speakers-heading {
+    position: absolute;
+    top: 8px;
+    left: 362px;
+    width: 300px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+  }
+
+  .speaker-grid {
+    position: absolute;
+    left: 108px;
+    top: 58px;
+    width: 808px;
+    height: 190px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 92px 92px;
+    column-gap: 26px;
+    row-gap: 18px;
+  }
+
+  .speaker-block {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .speaker-block img {
+    width: 102px;
+    height: 102px;
+    border-radius: 50%;
+    border: 1.5px solid #8fd3ff;
+    box-shadow: 0 0 14px rgba(0, 180, 255, 0.8), inset 0 0 12px rgba(0, 180, 255, 0.35);
+    object-fit: cover;
+    background: #d8e8f8;
+  }
+
+  .speaker-name {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  .speaker-title {
+    font-size: 16px;
+    line-height: 1.35;
+    color: #f4f8ff;
+  }
+
+  .agenda {
+    position: absolute;
+    left: 0;
+    top: 876px;
+    width: 1024px;
+    height: 252px;
+    background: #020b20;
+    padding: 14px 52px 18px 52px;
+  }
+
+  .agenda-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 25px;
+    font-weight: 900;
+    margin-bottom: 14px;
+  }
+
+  .agenda-title .calendar {
+    width: 31px;
+    height: 31px;
+    border: 2px solid #00b8ff;
+    border-radius: 4px;
+    color: #00b8ff;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    height: 170px;
+    border: 1px solid rgba(73, 151, 255, 0.45);
+    border-radius: 8px;
+    background: rgba(6, 25, 62, 0.82);
+  }
+
+  td {
+    border-bottom: 1px dashed rgba(120, 180, 255, 0.28);
+    color: #f3f8ff;
+    font-size: 15.5px;
+    vertical-align: middle;
+    height: 43px;
+  }
+
+  td:last-child {
+    text-align: left;
+  }
+
+  td:first-child {
+    width: 156px;
+    border-right: 1px solid rgba(120, 180, 255, 0.55);
+    color: #e9f3ff;
+    padding-left: 15px;
+  }
+
+  .stats {
+    position: absolute;
+    left: 0;
+    top: 1128px;
+    width: 1024px;
+    height: 112px;
+    background: linear-gradient(100deg, #0766dc 0%, #0898e8 48%, #07b8e8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space3d;
+    padding: 0 82px;
+  }
+
+  .stat-card {
+    width: 300px;
+    height: 82px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.62);
+  }
+
+  .stat-card:last-child {
+    border-right: 0;
+  }
+
+  .stat-ico {
+    width: 82px;
+    height: 82px;
+    border: 2px solid #f0fbff;
+    border-radius: 50%;
+    color: #f0fbff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+  }
+
+  .stat-number {
+    font-size: 50px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 20px;
+    color: #f0fbff;
+  }
+
+  .register {
+    position: absolute;
+    left: 0;
+    top: 1240px;
+    width: 1024px;
+    height: 142px;
+    background: #020b22;
+    padding: 16px 36px 12px 36px;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .register-left {
+    display: flex;
+    gap: 22px;
+    align-items: center;
+    flex: 1;
+  }
+
+  .register-icon {
+    width: 78px;
+    height: 78px;
+    border: 2px solid #37baff;
+    border-radius: 50%;
+    color: #37baff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .register-heading {
+    font-size: 33px;
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  .register-note {
+    font-size: 16px;
+    color: #e8f3ff;
+  }
+
+  .price-strip {
+    width: 470px;
+    height: 68px;
+    border: 1px solid #119eff;
+    border-radius: 9px;
+    color: #f4fbff;
+    background: linear-gradient(180deg, #077cf4, #0693e8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+  }
+
+  .website {
+    position: absolute;
+    left: 0;
+    top: 1382px;
+    width: 1024px;
+    height: 30px;
+    text-align: center;
+    border-top: 1px solid rgba(120, 180, 255, 0.45);
+    border-bottom: 1px solid rgba(120, 180, 255, 0.45);
+    font-size: 16px;
+    color: #e8f2fb;
+  }
+
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1024px;
+    height: 140px;
+    background: #020b20;
+    padding: 18px 38px 14px 38px;
+  }
+
+  .footer-top-row {
+    display: flex;
+    justify-content: space3d;
+    align-items: center;
+    height: 68px;
+    border-bottom: 1px solid rgba(120, 180, 255, 0.45);
+  }
+
+  .footer-block {
+    width: 250px;
+    font-size: 13.5px;
+    line-height: 1.3;
+    color: #e7eff8;
+  }
+
+  .footer-block strong {
+    display: block;
+    color: #00aefb;
+    margin-bottom: 5px;
+  }
+
+  .footer-note {
+    text-align: center;
+    font-size: 14px;
+    color: #e7eff8;
+  }
+
+  .footer-note span {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 0 12px;
+  }
+
+  .footer-bottom-line {
+    position: absolute;
+    left: 36px;
+    bottom: 28px;
+    width: 952px;
+    height: 1px;
+    background: rgba(120, 180, 255, 0.65);
+  }
+
+  .contact-line {
+    position: absolute;
+    bottom: 12px;
+    left: 36px;
+    width: 952px;
+    color: #e7eff8;
+    font-size: 14px;
+    text-align: center;
+    border-top: 1px solid rgba(120, 180, 255, 0.45);
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .tiny-shield {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #9ed7ff;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(45deg);
+    opacity: 0.9;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="header">
+      <div class="header-kicker">REAL ESTATE + COWORKING FORUM</div>
+      <div class="edition-badge">2026 EDITION</div>
+    </div>
+
+    <section class="hero">
+      <div class="title">Future<br>Workspace<br>Summit</div>
+      <div class="subtitle">Uniting investors, operators, and workplace strategists to shape the next generation of mixed-use office hubs.</div>
+      <div class="date-line"><span class="icon">▣</span><span>18 September 2026</span></div>
+      <div class="venue-line"><span class="pin">⌖</span><span>Harbor Convention Center, Singapore</span></div>
+      <div class="hero-image">
+        <img src="https://placehold.co/360x260?text=Skyline+and+Coworking+Lobby" alt="Skyline and Coworking Lobby placeholder">
+      </div>
+    </section>
+
+    <section class="details">
+      <div class="info-card">
+        <div class="circle-ico">◎</div>
+        <div class="card-text"><span class="card-label">THEME</span>Adaptive Offices, Flexible Leases, Better Cities</div>
+      </div>
+      <div class="info-card">
+        <div class="circle-ico">◷</div>
+        <div class="card-text"><span class="card-label">TIME</span>09:00 AM - 05:30 PM</div>
+      </div>
+      <div class="info-card">
+        <div class="circle-ico">♟</div>
+        <div class="card-text"><span class="card-label">FORMAT</span>Keynote talks, operator case studies, and investor roundtables.</div>
+      </div>
+    </section>
+
+    <section class="speakers">
+      <div class="speakers-heading">Featured Speakers</div>
+      <div class="speaker-grid">
+        <div class="speaker-block">
+          <img src="https://placehold.co/120x120?text=Speaker" alt="Elena Park avatar">
+          <div><div class="speaker-name">Elena Park</div><div class="speaker-title">Regional Director,<br>UrbanNest Offices</div></div>
+        </div>
+        <div class="speaker-block">
+          <img src="https://placehold.co/120x120?text=Speaker" alt="Marcus Hale avatar">
+          <div><div class="speaker-name">Marcus Hale</div><div class="speaker-title">Partner,<br>North Quay Real Assets</div></div>
+        </div>
+        <div class="speaker-block">
+          <img src="https://placehold.co/120x120?text=Speaker" alt="Priya Natarajan avatar">
+          <div><div class="speaker-name">Priya Natarajan</div><div class="speaker-title">Head of Workplace Strategy,<br>Stride Collective</div></div>
+        </div>
+        <div class="speaker-block">
+          <img src="https://placehold.co/120x120?text=Speaker" alt="James Liu avatar">
+          <div><div class="speaker-name">James Liu</div><div class="speaker-title">Managing Director,<br>Mapleton Capital</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="agenda">
+      <div class="agenda-title"><span class="calendar">▣</span><span>Agenda Highlights</span></div>
+      <table>
+        <tr>
+          <td>09:00 AM</td>
+          <td>Opening Keynote: The Future of Workplaces in Dynamic Cities</td>
+        </tr>
+        <tr>
+          <td>10:30 AM</td>
+          <td>Panel: Financing the Next Generation of Flexible Space</td>
+        </tr>
+        <tr>
+          <td>01:00 PM</td>
+          <td>Networking Lunch &amp; Industry Connections</td>
+        </tr>
+        <tr>
+          <td>03:30 PM</td>
+          <td>Operator Case Studies: Building Scalable, Resilient Office Platforms</td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="stats">
+      <div class="stat-card">
+        <div class="stat-ico">♟</div>
+        <div><div class="stat-number">500+</div><div class="stat-label">Attendees</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-ico">♬</div>
+        <div><div class="stat-number">35</div><div class="stat-label">Speakers</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-ico">▥</div>
+        <div><div class="stat-number">12</div><div class="stat-label">Market Briefings</div></div>
+      </div>
+    </section>
+
+    <section class="register">
+      <div class="register-left">
+        <div class="register-icon">◇</div>
+        <div><div class="register-heading">Register Now</div><div class="register-note">Early-bird passes close on 22 August 2026.</div></div>
+      </div>
+      <div class="price-strip">Early Bird Pass — SGD 320</div>
+    </section>
+
+    <div class="website">www.futureworkspacesummit.com</div>
+
+    <footer class="footer">
+      <div class="footer-top-row">
+        <div class="footer-block">
+          <strong>Organized By</strong>
+          Workspace<br>Future Group
+        </div>
+        <div class="footer-block">
+          <strong>In Partnership With</strong>
+          URBIS · North Quay Real Assets · Stride Collective
+        </div>
+        <div class="footer-block">
+          <strong>Venue Access</strong>
+          5-min walk from Harbor MRT (C09)<br>
+          On-site parking available
+        </div>
+      </div>
+      <div class="footer-bottom-line"></div>
+      <div class="contact-line"><span class="tiny-shield"></span>Safe. Accessible. Connected.</div>
+    </footer>
+  </div>
+</body>
+</html>

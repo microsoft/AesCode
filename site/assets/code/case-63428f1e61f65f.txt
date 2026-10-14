@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Global Herald Homepage</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #d8d2ca;
+      font-family: "Arial", "Helvetica", sans-serif;
+      color: #303030;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 853px;
+      height: 1280px;
+      overflow: hidden;
+      background: #f5f2ec;
+      border: 1px solid #d8d0c6;
+    }
+
+    .topbar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 853px;
+      height: 42px;
+      border-bottom: 1px solid #cfc7be;
+      background: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      z-index: 8;
+    }
+
+    .hamburger {
+      width: 38px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #3c3c3c;
+    }
+
+    .nav-center {
+      position: absolute;
+      left: 62px;
+      top: 0;
+      width: 560px;
+      display: flex;
+      justify-content: space1around;
+      align-items: center;
+      gap: 16px;
+      font-size: 10px;
+      color: #3f3f3f;
+    }
+
+    .top-icons {
+      position: absolute;
+      right: 30px;
+      top: 0;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 11px;
+      color: #3f3f3f;
+    }
+
+    .masthead {
+      position: absolute;
+      top: 50px;
+      left: 34px;
+      width: 785px;
+      height: 82px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+    }
+
+    .date-block {
+      width: 90px;
+      font-size: 10px;
+      color: #777;
+      line-height: 1.2;
+    }
+
+    .title-wrap {
+      width: 510px;
+      text-align: center;
+    }
+
+    .title-wrap h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 40px;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      color: #222;
+    }
+
+    .title-wrap .tagline {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 12px;
+      color: #555;
+      margin-top: 2px;
+    }
+
+    .weather {
+      width: 120px;
+      text-align: right;
+      font-size: 11px;
+      color: #4f4f4f;
+      line-height: 1.3;
+    }
+
+    .breaking {
+      position: absolute;
+      left: 34px;
+      top: 138px;
+      width: 785px;
+      height: 34px;
+      background: #a1201d;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space1between;
+      padding: 0 12px;
+      font-size: 11px;
+    }
+
+    .breaking .label {
+      font-weight: 700;
+      font-size: 10px;
+    }
+
+    .breaking .headline {
+      width: 350px;
+      opacity: 0.95;
+    }
+
+    .breaking .time {
+      margin-left: auto;
+      font-size: 10px;
+    }
+
+    .breaking .close {
+      font-size: 17px;
+      margin-left: 10px;
+    }
+
+    .lead-row {
+      position: absolute;
+      top: 190px;
+      left: 34px;
+      width: 785px;
+      height: 295px;
+      display: flex;
+      gap: 28px;
+      border-bottom: 1px solid transparent;
+    }
+
+    .lead-image {
+      width: 346px;
+      height: 295px;
+      overflow: hidden;
+      background: #ddd;
+    }
+
+    .lead-image img {
+      width: 346px;
+      height: 295px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .lead-article {
+      position: relative;
+      width: 270px;
+      height: 295px;
+      padding-top: 4px;
+    }
+
+    .lead-article .cat {
+      font-size: 9px;
+      color: #a1201d;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .lead-article h2 {
+      margin: 0 0 12px 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 31px;
+      line-height: 1.22;
+      color: #2d2d2d;
+      letter-spacing: 0.1px;
+    }
+
+    .lead-article .summary {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 13px;
+      line-height: 1.45;
+      color: #5a5a5a;
+      margin-bottom: 18px;
+    }
+
+    .lead-article .byline {
+      font-size: 10px;
+      color: #7b7b7b;
+    }
+
+    .lead-article .tag {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      font-size: 9px;
+      color: #a1201d;
+      text-transform: uppercase;
+      border-bottom: 1px solid #a1201d;
+    }
+
+    .trend-sidebar {
+      position: absolute;
+      right: 28px;
+      top: 190px;
+      width: 185px;
+      height: 620px;
+    }
+
+    .trend-sidebar h3 {
+      margin: 0 0 10px 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .trend-sidebar .trend-item {
+      min-height: 72px;
+      border-top: 1px solid transparent;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 8px 0;
+    }
+
+    .trend-sidebar .num {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 20px;
+      color: #303030;
+      width: 24px;
+    }
+
+    .trend-text {
+      width: 92px;
+    }
+
+    .trend-text .tiny-cat {
+      display: block;
+      color: #aa2420;
+      font-size: 8px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .trend-text h4 {
+      margin: 2px 0 4px 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 10.5px;
+      line-height: 1.15;
+    }
+
+    .trend-text .time {
+      font-size: 8.5px;
+      color: #777;
+    }
+
+    .trend-thumb {
+      width: 56px;
+      height: 56px;
+      flex: 0 0 auto;
+      border: 1px solid #ddd;
+      background: #eee;
+      overflow: hidden;
+    }
+
+    .trend-thumb img {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .view-all {
+      margin-top: 5px;
+      width: 168px;
+      height: 27px;
+      border: 1px solid #c9b9a8;
+      background: #f5f0e8;
+      color: #444;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 9px;
+      text-transform: uppercase;
+    }
+
+    .premium-card {
+      margin-top: 10px;
+      width: 166px;
+      height: 158px;
+      background: #20272d;
+      color: #fff;
+      padding: 18px 12px 10px 12px;
+      text-align: center;
+    }
+
+    .premium-card h3 {
+      margin: 0 0 8px 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: #f2e2c8;
+      font-size: 17px;
+    }
+
+    .premium-card .premium-sub {
+      font-family: Georgia, "Times New Roman", serif;
+      color: #c88255;
+      font-style: italic;
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+
+    .premium-card p {
+      margin: 0 0 12px 0;
+      color: #e4ddcf;
+      font-size: 10.5px;
+      line-height: 1.45;
+    }
+
+    .premium-card button {
+      width: 100%;
+      height: 26px;
+      border: none;
+      background: #d7a164;
+      color: #2c2c2c;
+      font-size: 9px;
+      text-transform: uppercase;
+    }
+
+    .tabs {
+      position: absolute;
+      top: 496px;
+      left: 34px;
+      width: 585px;
+      height: 34px;
+      border-top: 1px solid #cfc7be;
+      border-bottom: 1px solid #d6cdb8;
+      display: flex;
+      align-items: center;
+      justify-content: space1around;
+      background: #fbfaf7;
+    }
+
+    .tabs span {
+      font-size: 9px;
+      text-transform: uppercase;
+      color: #666;
+    }
+
+    .tabs .active {
+      color: #a1201d;
+      border-bottom: 2px solid #a1201d;
+    }
+
+    .article-grid {
+      position: absolute;
+      left: 34px;
+      top: 540px;
+      width: 585px;
+      height: 460px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 180px);
+      gap: 16px;
+    }
+
+    .story-card {
+      position: relative;
+      border-bottom: 1px solid transparent;
+      min-height: 180px;
+    }
+
+    .story-card .thumb {
+      width: 100%;
+      height: 112px;
+      overflow: hidden;
+      background: #ddd;
+    }
+
+    .story-card .thumb img {
+      width: 100%;
+      height: 112px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .story-card .cat {
+      margin-top: 0;
+      color: #a1201d;
+      font-size: 8.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .story-card h4 {
+      font-family: Georgia, "Times New Roman", serif;
+      margin: 3px 0 7px 0;
+      color: #303030;
+      font-size: 13px;
+      line-height: 1.16;
+    }
+
+    .story-card .summary {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 10.5px;
+      line-height: 1.35;
+      color: #6a6a6a;
+    }
+
+    .story-card .byline {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      font-size: 9px;
+      color: #777;
+    }
+
+    .subscribe-banner {
+      position: absolute;
+      left: 0;
+      top: 1040px;
+      width: 853px;
+      height: 88px;
+      background: #eee9df;
+      border-top: 1px solid #dfcfba;
+      display: flex;
+      align-items: center;
+      justify-content: space1between;
+      padding: 0 34px;
+    }
+
+    .subscribe-text {
+      width: 225px;
+    }
+
+    .subscribe-text h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      margin: 0 0 6px 0;
+      color: #2d2d2d;
+      font-size: 18px;
+      line-height: 1.1;
+    }
+
+    .subscribe-text p {
+      font-family: Georgia, "Times New Roman", serif;
+      margin: 0 0 4px 0;
+      font-size: 10px;
+      color: #666;
+    }
+
+    .subscribe-form {
+      width: 360px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      border: 1px solid #d6c6b2;
+      background: #faf7f2;
+      padding: 0 6px;
+      gap: 5px;
+    }
+
+    .subscribe-form input {
+      width: 240px;
+      border: none;
+      font-size: 10px;
+      outline: none;
+      padding: 6px 8px;
+    }
+
+    .subscribe-form button {
+      width: 95px;
+      height: 22px;
+      border: none;
+      background: #20272d;
+      color: #fff;
+      font-size: 9px;
+      text-transform: uppercase;
+    }
+
+    .desk-illustration {
+      width: 235px;
+      height: 70px;
+      overflow: hidden;
+    }
+
+    .desk-illustration img {
+      width: 235px;
+      height: 70px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .footer {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 853px;
+      height: 150px;
+      background: #1d2830;
+      color: #f0ece6;
+    }
+
+    .footer-brand {
+      position: absolute;
+      left: 36px;
+      top: 18px;
+      width: 125px;
+    }
+
+    .footer-brand h3 {
+      margin: 0 0 7px 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: #fff;
+      font-size: 17px;
+    }
+
+    .footer-brand .socials {
+      display: flex;
+      gap: 8px;
+    }
+
+    .footer-brand .socials span {
+      width: 16px;
+      height: 16px;
+      border: 1px solid #8f9ca5;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+    }
+
+    .footer-col {
+      position: absolute;
+      top: 18px;
+      width: 70px;
+      font-size: 9px;
+    }
+
+    .footer-col.sections { left: 232px; }
+    .footer-col.more { left: 360px; }
+    .footer-col.legal { left: 500px; }
+    .footer-col.contact { left: 630px; width: 150px; }
+
+    .footer-col h4 {
+      margin: 0 0 7px 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 10px;
+      color: #e8d7c6;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .footer-col li {
+      margin-bottom: 3px;
+      color: #b8b0a7;
+    }
+
+    .final-line {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 853px;
+      height: 16px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      justify-content: space1between;
+      padding: 0 36px;
+      font-size: 8.5px;
+      color: #a9a198;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="topbar">
+      <div class="hamburger">☰</div>
+      <div class="nav-center">
+        <span>Home</span>
+        <span>World</span>
+        <span>Politics</span>
+        <span>Business</span>
+        <span>Technology</span>
+        <span>Science</span>
+        <span>Culture</span>
+        <span>Health</span>
+        <span>Opinion</span>
+      </div>
+      <div class="top-icons">
+        <span>⌕ Search</span>
+        <span>♟ Login</span>
+      </div>
+    </div>
+
+    <div class="masthead">
+      <div class="date-block">
+        May 24, 2024<br>
+        Friday
+      </div>
+      <div class="title-wrap">
+        <h1>The Global Herald</h1>
+        <div class="tagline">Independent. Insightful. Informed.</div>
+      </div>
+      <div class="weather">
+        ☼ 18°C<br>
+        London, UK
+      </div>
+    </div>
+
+    <div class="breaking">
+      <div class="label">BREAKING NEWS</div>
+      <div class="headline">Global leaders meet in Geneva to discuss new climate finance pact</div>
+      <div class="time">10 mins ago</div>
+      <div class="close">×</div>
+    </div>
+
+    <div class="lead-row">
+      <div class="lead-image">
+        <img src="https://placehold.co/600x350?text=Lead+Story+Image" alt="Lead Story Image">
+      </div>
+      <div class="lead-article">
+        <div class="cat">WORLD</div>
+        <h2>Global leaders unite on new climate finance pact in Geneva</h2>
+        <div class="summary">
+          The landmark agreement aims to mobilize $300 billion annually by 2030 to support vulnerable nations.
+        </div>
+        <div class="byline">By Olivia Markham &nbsp;•&nbsp; 10 mins ago</div>
+        <div class="tag">WORLD</div>
+      </div>
+    </div>
+
+    <div class="trend-sidebar">
+      <h3>TRENDING</h3>
+
+      <div class="trend-item">
+        <div class="num">1</div>
+        <div class="trend-text">
+          <span class="tiny-cat">TECHNOLOGY</span>
+          <h4>Tech giants unveil new AI safety framework</h4>
+          <div class="time">2 hours ago</div>
+        </div>
+        <div class="trend-thumb"><img src="https://placehold.co/80x80?text=Story+Image" alt="Story Image"></div>
+      </div>
+
+      <div class="trend-item">
+        <div class="num">2</div>
+        <div class="trend-text">
+          <span class="tiny-cat">BUSINESS</span>
+          <h4>Markets rally as inflation cools in April</h4>
+          <div class="time">3 hours ago</div>
+        </div>
+        <div class="trend-thumb"><img src="https://placehold.co/80x80?text=Story+Image" alt="Story Image"></div>
+      </div>
+
+      <div class="trend-item">
+        <div class="num">3</div>
+        <div class="trend-text">
+          <span class="tiny-cat">WORLD</span>
+          <h4>Ceasefire talks resume in the Middle East</h4>
+          <div class="time">4 hours ago</div>
+        </div>
+        <div class="trend-thumb"><img src="https://placehold.co/80x80?text=Story+Image" alt="Story Image"></div>
+      </div>
+
+      <div class="trend-item">
+        <div class="num">4</div>
+        <div class="trend-text">
+          <span class="tiny-cat">SCIENCE</span>
+          <h4>New study reveals how sleep shapes memory</h4>
+          <div class="time">5 hours ago</div>
+        </div>
+      </div>
+
+      <div class="trend-item">
+        <div class="num">5</div>
+        <div class="trend-text">
+          <span class="tiny-cat">CULTURE</span>
+          <h4>Cannes Film Festival kicks off in France</h4>
+          <div class="time">6 hours ago</div>
+        </div>
+        <div class="trend-thumb"><img src="https://placehold.co/80x80?text=Story+Image" alt="Story Image"></div>
+      </div>
+
+      <div class="view-all">VIEW ALL TRENDING</div>
+
+      <div class="premium-card">
+        <h3>The Global Herald</h3>
+        <div class="premium-sub">Premium</div>
+        <p>In-depth analysis.<br>Exclusive stories.<br>Ad-free experience.</p>
+        <button>SUBSCRIBE NOW</button>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <span class="active">LATEST</span>
+      <span>WORLD</span>
+      <span>POLITICS</span>
+      <span>BUSINESS</span>
+      <span>TECHNOLOGY</span>
+      <span>SCIENCE</span>
+      <span>CULTURE</span>
+      <span>HEALTH</span>
+    </div>
+
+    <div class="article-grid">
+      <div class="story-card">
+        <div class="thumb"><img src="https://placehold.co/260x170?text=Article+Image" alt="Article Image"></div>
+        <div class="cat">POLITICS</div>
+        <h4>US Senate passes bipartisan infrastructure bill</h4>
+        <div class="summary">The $18 billion package focuses on transportation, energy, and broadband expansion.</div>
+        <div class="byline">By Daniel Senate &nbsp;•&nbsp; 1 hour ago</div>
+      </div>
+
+      <div class="story-card">
+        <div class="thumb"><img src="https://placehold.co/260x170?text=Article+Image" alt="Article Image"></div>
+        <div class="cat">BUSINESS</div>
+        <h4>Global economy shows signs of cautious recovery</h4>
+        <div class="summary">IMF raises growth forecast, but warns of risks amid geopolitical tensions.</div>
+        <div class="byline">By Sophia Chen &nbsp;•&nbsp; 2 hours ago</div>
+      </div>
+
+      <div class="story-card">
+        <div class="thumb"><img src="https://placehold.co/260x170?text=Article+Image" alt="Article Image"></div>
+        <div class="cat">TECHNOLOGY</div>
+        <h4>New cybersecurity law sparks debate online</h4>
+        <div class="summary">Privacy advocates argue the law could lead to increased surveillance.</div>
+        <div class="byline">By James Holloway &nbsp;•&nbsp; 3 hours ago</div>
+      </div>
+
+      <div class="story-card">
+        <div class="thumb"><img src="https://placehold.co/260x170?text=Article+Image" alt="Article Image"></div>
+        <div class="cat">SCIENCE</div>
+        <h4>NASA confirms discovery of over 100 new exoplanets</h4>
+        <div class="summary">The findings bring scientists closer to answering the biggest question: Are we alone?</div>
+        <div class="byline">By Laura Simmons &nbsp;•&nbsp; 4 hours ago</div>
+      </div>
+
+      <div class="story-card">
+        <div class="thumb"><img src="https://placehold.co/260x170?text=Article+Image" alt="Article Image"></div>
+        <div class="cat">CULTURE</div>
+        <h4>Why museums are redefining visitor experience</h4>
+        <div class="summary">From immersive exhibits to digital guides, museums are evolving.</div>
+        <div class="byline">By Matilda Reeves &nbsp;•&nbsp; 5 hours ago</div>
+      </div>
+
+      <div class="story-card">
+        <div class="thumb"><img src="https://placehold.co/260x170?text=Article+Image" alt="Article Image"></div>
+        <div class="cat">HEALTH</div>
+        <h4>Mindfulness may improve long-term well-being</h4>
+        <div class="summary">New research links mindfulness practices to better mental health outcomes.</div>
+        <div class="byline">By Arjun Patel &nbsp;•&nbsp; 6 hours ago</div>
+      </div>
+    </div>
+
+    <div class="subscribe-banner">
+      <div class="subscribe-text">
+        <h3>Stay informed.<br>Every morning.</h3>
+        <p>Get the top stories delivered to your inbox.</p>
+      </div>
+      <div class="subscribe-form">
+        <input placeholder="Enter your email address">
+        <button>SUBSCRIBE</button>
+      </div>
+      <div class="desk-illustration">
+        <img src="https://placehold.co/260x120?text=Desk+Illustration" alt="Desk Illustration">
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-brand">
+        <h3>The Global Herald</h3>
+        <div class="socials"><span>f</span><span>x</span><span>◎</span><span>▶</span><span>●</span></div>
+      </div>
+
+      <div class="footer-col sections">
+        <h4>SECTIONS</h4>
+        <ul>
+          <li>World</li>
+          <li>Politics</li>
+          <li>Business</li>
+          <li>Technology</li>
+          <li>Science</li>
+        </ul>
+      </div>
+
+      <div class="footer-col more">
+        <h4>MORE</h4>
+        <ul>
+          <li>About Us</li>
+          <li>Contact Us</li>
+          <li>Advertise</li>
+          <li>Press</li>
+        </ul>
+      </div>
+
+      <div class="footer-col legal">
+        <h4>LEGAL</h4>
+        <ul>
+          <li>Terms of Use</li>
+          <li>Privacy Policy</li>
+          <li>Cookie Policy</li>
+          <li>Corrections</li>
+        </ul>
+      </div>
+
+      <div class="footer-col contact">
+        <h4>CONTACT</h4>
+        <ul>
+          <li>5 Fleet Place, London</li>
+          <li>EC4M 7ER, United Kingdom</li>
+          <li>info@theglobalherald.com</li>
+          <li>+44 20 7946 0958</li>
+        </ul>
+      </div>
+
+      <div class="final-line">
+        <div>© 2024 The Global Herald. All rights reserved.</div>
+        <div>Made with integrity. Read with perspective.</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

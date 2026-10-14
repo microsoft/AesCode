@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Retail Industry Infographic</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #ece7df;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 96% 0%, rgba(255, 136, 40, 0.14) 0 120px, transparent 122px),
+      radial-gradient(circle at 8% 82%, rgba(255, 136, 40, 0.14) 0 160px, transparent 162px),
+      linear-gradient(135deg, #f8f3ea 0%, #f3eee8 44%, #fbf7ef 100%);
+    color: #1f1f1f;
+  }
+
+  /* Decorative soft waves */
+  .wave-top-left {
+    position: absolute;
+    left: -240px;
+    top: -190px;
+    width: 720px;
+    height: 480px;
+    border-radius: 0 0 50% 0;
+    background: rgba(255, 152, 70, 0.15);
+    transform: rotate(-22deg);
+  }
+
+  .wave-top-right {
+    position: absolute;
+    right: -200px;
+    top: -140px;
+    width: 600px;
+    height: 420px;
+    border-radius: 50%;
+    background: rgba(255, 152, 70, 0.12);
+    border: 18px solid rgba(255, 152, 70, 0.18);
+  }
+
+  .wave-bottom-left {
+    position: absolute;
+    left: -110px;
+    bottom: -110px;
+    width: 630px;
+    height: 330px;
+    border-radius: 50%;
+    background: rgba(255, 152, 70, 0.15);
+  }
+
+  .diagonal-rings {
+    position: absolute;
+    left: -80px;
+    bottom: -80px;
+    width: 500px;
+    height: 400px;
+    border-radius: 50%;
+    background:
+      repeating-radial-gradient(
+        ellipse at 130px 180px,
+        rgba(255, 136, 40, 0.20) 0 2px,
+        transparent 3px 14px
+      );
+    opacity: 0.65;
+  }
+
+  /* Header */
+  .hex {
+    position: absolute;
+    left: 38px;
+    top: 29px;
+    width: 89px;
+    height: 92px;
+    background: #f57f22;
+    clip-path: polygon(28% 0, 72% 0, 100% 29%, 100% 71%, 72% 100%, 28% 100%, 0 71%, 0 29%);
+    box-shadow: 0 10px 18px rgba(245, 127, 34, 0.22);
+    z-index: 5;
+  }
+
+  .hex-icon {
+    position: absolute;
+    left: 22px;
+    top: 26px;
+    font-size: 40px;
+    color: #fff;
+  }
+
+  .title {
+    position: absolute;
+    left: 150px;
+    top: 44px;
+    margin: 0;
+    font-size: 48px;
+    line-height: 1;
+    font-weight: 800;
+    color: #cf470e;
+    z-index: 5;
+    letter-spacing: -1px;
+  }
+
+  .top-label {
+    position: absolute;
+    right: 0;
+    top: 46px;
+    width: 401px;
+    height: 58px;
+    border-radius: 32px 0 0 32px;
+    background: #f57f22;
+    color: white;
+    font-weight: 800;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    padding-left: 32px;
+    z-index: 5;
+  }
+
+  /* Journey line */
+  .journey-svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    z-index: 1;
+  }
+
+  /* Shared stage styles */
+  .stage-heading {
+    font-weight: 800;
+    color: #cf470e;
+    font-size: 21px;
+    line-height: 1.15;
+  }
+
+  .body-copy {
+    font-size: 17px;
+    line-height: 1.22;
+    color: #171717;
+  }
+
+  .orange-note {
+    color: #cf470e;
+    font-weight: 800;
+    font-size: 16px;
+    text-align: center;
+    line-height: 1.28;
+  }
+
+  /* Stage 1 */
+  .stage-1-text {
+    position: absolute;
+    left: 214px;
+    top: 469px;
+    width: 275px;
+    z-index: 4;
+  }
+
+  .stage-1-title {
+    margin: 0 0 5px 0;
+    font-size: 22px;
+    font-weight: 400;
+  }
+
+  .stage-1-people-icon {
+    position: absolute;
+    left: 88px;
+    top: 402px;
+    width: 98px;
+    height: 98px;
+    border-radius: 50%;
+    background: #f57f22;
+    border: 8px solid rgba(255, 255, 255, 0.72);
+    box-shadow: 0 0 0 10px rgba(245, 127, 34, 0.25);
+    z-index: 5;
+  }
+
+  .stage-1-people-icon:before,
+  .stage-1-people-icon:after {
+    content: "";
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+  }
+
+  .stage-1-people-icon:before {
+    width: 22px;
+    height: 22px;
+    left: 27px;
+    top: 30px;
+    box-shadow: 24px 3px 0 3px #fff;
+  }
+
+  .stage-1-people-icon:after {
+    width: 35px;
+    height: 18px;
+    left: 21px;
+    top: 57px;
+    border-radius: 20px 20px 8px 8px;
+    box-shadow: 28px 6px 0 -2px #fff;
+  }
+
+  /* Stage 2 */
+  .stage-2-label {
+    position: absolute;
+    left: 210px;
+    top: 176px;
+    width: 284px;
+    text-align: center;
+    font-size: 17px;
+    line-height: 1.22;
+    z-index: 4;
+  }
+
+  .stage-2-icon {
+    position: absolute;
+    left: 296px;
+    top: 254px;
+    width: 98px;
+    height: 98px;
+    border-radius: 50%;
+    background: #f57f22;
+    border: 7px solid rgba(255, 255, 255, 0.72);
+    box-shadow: 0 0 0 9px rgba(245, 127, 34, 0.22);
+    z-index: 5;
+  }
+
+  .stage-2-title {
+    position: absolute;
+    left: 304px;
+    top: 354px;
+    width: 100px;
+    text-align: center;
+    font-size: 22px;
+    z-index: 5;
+  }
+
+  .partner-note {
+    position: absolute;
+    left: 254px;
+    top: 382px;
+    width: 230px;
+    text-align: center;
+    z-index: 5;
+  }
+
+  /* Stage 3 */
+  .stage-3-icon {
+    position: absolute;
+    left: 504px;
+    top: 282px;
+    width: 98px;
+    height: 98px;
+    border-radius: 50%;
+    background: #f57f22;
+    border: 7px solid rgba(255, 255, 255, 0.72);
+    box-shadow: 0 0 0 9px rgba(245, 127, 34, 0.22);
+    z-index: 5;
+  }
+
+  .stage-3-title {
+    position: absolute;
+    left: 518px;
+    top: 246px;
+    width: 100px;
+    text-align: center;
+    font-size: 22px;
+    z-index: 5;
+  }
+
+  .stage-3-block {
+    position: absolute;
+    left: 624px;
+    top: 246px;
+    width: 370px;
+    z-index: 4;
+  }
+
+  /* Stage 4 */
+  .stage-4-icon {
+    position: absolute;
+    left: 715px;
+    top: 448px;
+    width: 98px;
+    height: 98px;
+    border-radius: 50%;
+    background: #f57f22;
+    border: 7px solid rgba(255, 255, 255, 0.72);
+    box-shadow: 0 0 0 9px rgba(245, 127, 34, 0.22);
+    z-index: 5;
+  }
+
+  .stage-4-title {
+    position: absolute;
+    left: 716px;
+    top: 550px;
+    width: 120px;
+    text-align: center;
+    font-size: 22px;
+  }
+
+  .stage-4-block {
+    position: absolute;
+    left: 639px;
+    top: 582px;
+    width: 245px;
+    text-align: center;
+  }
+
+  /* Stage 5 */
+  .stage-5-icon {
+    position: absolute;
+    left: 924px;
+    top: 390px;
+    width: 98px;
+    height: 98px;
+    border-radius: 50%;
+    background: #f57f22;
+    border: 7px solid rgba(255, 255, 255, 0.72);
+    box-shadow: 0 0 0 9px rgba(245, 127, 34, 0.22);
+    z-index: 5;
+  }
+
+  .stage-5-title {
+    position: absolute;
+    left: 926px;
+    top: 500px;
+    width: 110px;
+    text-align: left;
+    font-size: 22px;
+  }
+
+  .stage-5-block {
+    position: absolute;
+    left: 926px;
+    top: 531px;
+    width: 285px;
+  }
+
+  /* Stage 6 */
+  .stage-6-icon {
+    position: absolute;
+    left: 1114px;
+    top: 202px;
+    width: 98px;
+    height: 98px;
+    border-radius: 50%;
+    background: #f57f22;
+    border: 7px solid rgba(255, 255, 255, 0.72);
+    box-shadow: 0 0 0 9px rgba(245, 127, 34, 0.22);
+    z-index: 5;
+  }
+
+  .stage-6-title {
+    position: absolute;
+    left: 1118px;
+    top: 306px;
+    width: 210px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #cf470e;
+  }
+
+  .stage-6-block {
+    position: absolute;
+    left: 1118px;
+    top: 340px;
+    width: 240px;
+  }
+
+  /* Simple inline SVG icons */
+  .mini-icon {
+    position: absolute;
+    z-index: 6;
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .chart-bars {
+    font-size: 41px;
+    left: 528px;
+    top: 306px;
+  }
+
+  .envelope-symbol {
+    font-size: 42px;
+    left: 738px;
+    top: 472px;
+  }
+
+  .monitor-symbol {
+    font-size: 43px;
+    left: 948px;
+    top: 415px;
+  }
+
+  .focus-symbol {
+    font-size: 43px;
+    left: 1138px;
+    top: 225px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="wave-top-left"></div>
+  <div class="wave-top-right"></div>
+  <div class="wave-bottom-left"></div>
+  <div class="diagonal-rings"></div>
+
+  <div class="hex">
+    <div class="hex-icon">🛒</div>
+  </div>
+  <h1 class="title">Retail Industry</h1>
+  <div class="top-label">Background &amp; Objectives</div>
+
+  <svg class="journey-svg" viewBox="0 0 1376 768" aria-hidden="true">
+    <path d="M-15 628 C140 482, 240 395, 360 357 C450 326, 500 345, 590 330 C662 318, 710 410, 790 465 C850 510, 920 488, 1005 448 C1098 404, 1142 382, 1218 280 C1260 232, 1340 196, 1390 170"
+          fill="none" stroke="#f57f22" stroke-width="8" stroke-linecap="round"/>
+  </svg>
+
+  <div class="stage-2-label">
+    Party B: local fruit and<br>
+    vegetable farm (500 acres under<br>
+    cultivation, 3 harvest sites)
+  </div>
+
+  <div class="stage-2-icon">
+    <span class="mini-icon" style="left:25px;top:28px;font-size:42px;">⌘</span>
+  </div>
+  <div class="stage-2-title">Stage 2</div>
+  <div class="partner-note">
+    <div class="orange-note">Partner to Cut Costs and</div>
+    <div class="orange-note">Improve Freshness</div>
+  </div>
+
+  <div class="stage-3-icon">
+    <span class="mini-icon chart-bars">↗</span>
+  </div>
+  <div class="stage-3-title">Stage 3</div>
+  <div class="stage-3-block">
+    <div class="stage-heading" style="font-size:22px;">Partner Overview</div>
+    <div class="body-copy" style="font-size:16px;">
+      Party A: community fresh-food<br>
+      chain (20 stores, 5 tons of fresh<br>
+      produce sold daily, 80K members)
+    </div>
+  </div>
+
+  <div class="stage-1-people-icon"></div>
+  <div class="stage-1-text">
+    <div class="stage-1-title">Stage 1</div>
+    <div class="stage-heading">Partnership Background</div>
+    <div class="body-copy">
+      Community fresh‑food stores<br>
+      face high produce shrink (15%)<br>
+      and insufficient freshness from<br>
+      harvest to store.
+    </div>
+  </div>
+
+  <div class="stage-4-icon">
+    <span class="mini-icon envelope-symbol">✉</span>
+  </div>
+  <div class="stage-4-title">Stage 4</div>
+  <div class="stage-4-block">
+    <div class="stage-heading">Core Objectives</div>
+    <div class="body-copy">
+      Year 1 targets: 60% direct‑<br>
+      sourced fresh produce; shrink<br>
+      reduced to 8%; improved<br>
+      freshness (harvest‑to‑store).
+    </div>
+  </div>
+
+  <div class="stage-5-icon">
+    <span class="mini-icon monitor-symbol">▭</span>
+  </div>
+  <div class="stage-5-title">Stage 5</div>
+  <div class="stage-5-block">
+    <div class="stage-heading">Partnership Value</div>
+    <div class="body-copy">
+      Party A secures fresher, lower‑<br>
+      cost supply (10% reduction in<br>
+      procurement costs) and<br>
+      strengthens member loyalty.
+    </div>
+  </div>
+
+  <div class="stage-6-icon">
+    <span class="mini-icon focus-symbol">⌕</span>
+  </div>
+  <div class="stage-6-title">Stage 6</div>
+  <div class="stage-6-block">
+    <div class="stage-heading">Joint Focus Areas</div>
+    <div class="body-copy">
+      The partners collaborate<br>
+      to address key pain<br>
+      points—produce shrink<br>
+      and freshness—leveraging<br>
+      Party A’s store footprint<br>
+      and member base.
+    </div>
+  </div>
+</div>
+</body>
+</html>

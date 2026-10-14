@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Clarity SaaS Landing Page</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #ddd;
+      font-family: Georgia, "Times New Roman", serif;
+      color: #242832;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 853px;
+      height: 1280px;
+      overflow: hidden;
+      background: #fbfaf8;
+    }
+
+    .nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 853px;
+      height: 42px;
+      border-bottom: 1px solid #e5e1db;
+      background: #fbfbfa;
+      display: flex;
+      align-items: center;
+      padding: 0 70px;
+      z-index: 10;
+    }
+
+    .brand {
+      font-size: 20px;
+      letter-spacing: 0.3px;
+      font-weight: 500;
+      margin-right: 110px;
+      color: #262931;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      font-size: 9px;
+      font-weight: 650;
+      color: #262931;
+      align-items: center;
+      flex: 1;
+    }
+
+    .nav-links span {
+      white-space: nowrap;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 9px;
+      font-weight: 650;
+    }
+
+    .nav-actions .btn {
+      background: #172330;
+      color: #fff !important;
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-weight: 700;
+    }
+
+    .hero {
+      position: absolute;
+      top: 42px;
+      left: 0;
+      width: 853px;
+      height: 325px;
+      padding: 26px 78px 0;
+      background: #fbfaf8;
+    }
+
+    .hero-left {
+      position: absolute;
+      left: 78px;
+      top: 26px;
+      width: 250px;
+    }
+
+    .pill-new {
+      display: inline-block;
+      background: #f0ebe8;
+      border-radius: 15px;
+      padding: 4px 10px;
+      font-size: 8px;
+      color: #8d837c;
+      font-weight: 650;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 35px;
+      line-height: 1.14;
+      margin: 0 0 10px;
+      font-weight: 500;
+      color: #252831;
+    }
+
+    .hero-copy {
+      font-size: 11px;
+      line-height: 1.55;
+      color: #716b65;
+      margin: 0 0 13px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 9px;
+      margin-bottom: 14px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5px;
+      height: 23px;
+      padding: 0 12px;
+      font-size: 9px;
+      font-weight: 650;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: #172330;
+      color: #fff;
+    }
+
+    .btn-secondary {
+      border: 1px solid #d9d3cc;
+      color: #272a33;
+      background: #fff;
+    }
+
+    .social-proof {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #817973;
+      font-size: 8px;
+    }
+
+    .avatars {
+      display: flex;
+      width: 72px;
+      gap: 4px;
+    }
+
+    .avatar-dot {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #d5c9ba;
+      border: 1px solid #e0d5ca;
+    }
+
+    .avatar-dot:nth-child(1) { background: #f4d0ba; }
+    .avatar-dot:nth-child(2) { background: #a9c8c0; }
+    .avatar-dot:nth-child(3) { background: #d4aeb8; }
+    .avatar-dot:nth-child(4) { background: #f7d6aa; }
+
+    .mockup-card {
+      position: absolute;
+      right: 75px;
+      top: 18px;
+      width: 480px;
+      height: 280px;
+      background: #fff;
+      border: 1px solid #eee8e5;
+      border-radius: 4px;
+      box-shadow: 0 8px 20px rgba(42, 38, 35, 0.08);
+      overflow: hidden;
+    }
+
+    .mock-topbar {
+      height: 30px;
+      background: #f7f6f4;
+      border-bottom: 1px solid #ebe5e2;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 8px;
+      color: #514c48;
+    }
+
+    .mock-side {
+      position: absolute;
+      left: 0;
+      top: 30px;
+      width: 90px;
+      height: 250px;
+      background: #172330;
+      color: #fff;
+      padding-top: 8px;
+    }
+
+    .mock-side div {
+      padding: 5px 7px;
+      font-size: 8px;
+      opacity: 0.85;
+    }
+
+    .mock-body {
+      position: absolute;
+      left: 90px;
+      top: 30px;
+      width: 390px;
+      height: 250px;
+      background: #fff;
+    }
+
+    .mock-title {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 12px;
+      margin-left: 12px;
+    }
+
+    .mock-metrics {
+      margin: 20px 12px 9px;
+      display: flex;
+      gap: 16px;
+    }
+
+    .metric {
+      min-width: 70px;
+      border: 1px solid #edf0f2;
+      padding: 6px;
+      border-radius: 3px;
+    }
+
+    .chart-block {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 14px;
+      height: 92px;
+    }
+
+    #projectChart {
+      width: 365px;
+      height: 88px;
+    }
+
+    .features {
+      position: absolute;
+      top: 367px;
+      left: 0;
+      width: 853px;
+      height: 190px;
+      background: #fbfaf8;
+      text-align: center;
+    }
+
+    .section-label {
+      color: #a99a8f;
+      font-size: 9px;
+      letter-spacing: 3px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .section-heading {
+      font-size: 20px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      margin: 0 0 24px;
+      color: #272b33;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      padding: 0 78px;
+    }
+
+    .feature-card {
+      min-height: 90px;
+    }
+
+    .feature-icon {
+      width: 34px;
+      height: 34px;
+      border: 1px solid #e2d9d3;
+      border-radius: 5px;
+      margin: 0 auto 10px;
+      background: #f2ede9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #91867f;
+      font-size: 15px;
+    }
+
+    .feature-card h3 {
+      font-size: 11px;
+      margin: 0 0 6px;
+      font-weight: 700;
+    }
+
+    .feature-card p {
+      font-size: 8.5px;
+      line-height: 1.45;
+      color: #766f69;
+      margin: 0 0 7px;
+    }
+
+    .feature-card .learn {
+      color: #353535;
+      font-size: 9px;
+      font-weight: 650;
+    }
+
+    .pricing {
+      position: absolute;
+      top: 557px;
+      left: 0;
+      width: 853px;
+      height: 310px;
+      background: #f4f0ec;
+      border-radius: 18px 18px 0 0;
+    }
+
+    .pricing .section-heading {
+      margin-top: 0;
+    }
+
+    .toggle-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 8px;
+      color: #67605b;
+    }
+
+    .toggle-pill {
+      border: 1px solid #dfd7cf;
+      background: #fff;
+      border-radius: 12px;
+      padding: 4px 8px;
+      font-size: 8px;
+    }
+
+    .pricing-cards {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .price-card {
+      width: 160px;
+      height: 176px;
+      background: #fff;
+      border: 1px solid #ebe5e2;
+      border-radius: 4px;
+      padding: 12px 10px 8px;
+      box-shadow: 0 6px 12px rgba(50, 44, 40, 0.07);
+    }
+
+    .price-card.pro {
+      border: 2px solid #25303a;
+      position: relative;
+      box-shadow: 0 9px 18px rgba(32, 36, 42, 0.12);
+    }
+
+    .pro::after {
+      content: "Most Popular";
+      position: absolute;
+      top: -10px;
+      left: 30px;
+      background: #25303a;
+      color: #fff;
+      padding: 2px 7px;
+      font-size: 7px;
+      border-radius: 2px;
+    }
+
+    .price-card h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 12px;
+      margin: 0 0 6px;
+    }
+
+    .price {
+      font-size: 20px;
+      font-family: Georgia, "Times New Roman", serif;
+      color: #252932;
+      margin-bottom: 6px;
+    }
+
+    .price-card .trial {
+      display: block;
+      font-size: 7.5px;
+      color: #928a84;
+    }
+
+    .price-card button {
+      width: 100%;
+      height: 21px;
+      border: 1px solid #ddcfc8;
+      background: #fff;
+      border-radius: 3px;
+      color: #282b33;
+      font-size: 8px;
+      margin-bottom: 7px;
+    }
+
+    .pro button {
+      background: #172330;
+      color: #fff;
+      border-color: #172330;
+    }
+
+    .bullets {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: #6c6560;
+      font-size: 7.8px;
+    }
+
+    .fine-print {
+      text-align: center;
+      font-size: 7.5px;
+      color: #78706c;
+      margin-top: 2px;
+    }
+
+    .testimonials {
+      position: absolute;
+      top: 867px;
+      left: 0;
+      width: 853px;
+      height: 170px;
+      background: #fbfaf8;
+      padding: 0 135px;
+      text-align: center;
+    }
+
+    .testimonial-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 13px;
+    }
+
+    .testimonial-card {
+      height: 92px;
+      border: 1px solid #e6ded9;
+      border-radius: 4px;
+      padding: 8px;
+      background: #fff;
+      display: flex;
+      gap: 9px;
+      color: #5d5752;
+      font-size: 8.5px;
+    }
+
+    .customer-img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #f1e8dc;
+      flex: 0 0 auto;
+    }
+
+    .testimonial-card strong {
+      display: block;
+      font-size: 8px;
+    }
+
+    .cta-band {
+      position: absolute;
+      top: 1037px;
+      left: 0;
+      width: 853px;
+      height: 64px;
+      background: #f1eee9;
+      display: flex;
+      align-items: center;
+      padding: 0 82px;
+      gap: 150px;
+    }
+
+    .cta-text h2 {
+      margin: 0 0 4px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 21px;
+    }
+
+    .cta-text p {
+      margin: 0;
+      color: #6d6460;
+      font-size: 9.5px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 853px;
+      height: 139px;
+      background: #172330;
+      color: #fff;
+      padding: 14px 82px 0;
+    }
+
+    .footer-brand {
+      position: absolute;
+      left: 82px;
+      top: 14px;
+      width: 160px;
+    }
+
+    .footer-cols {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      position: absolute;
+      top: 14px;
+      left: 260px;
+      right: 82px;
+    }
+
+    .footer-col h4 {
+      margin: 0 0 6px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    .footer-col ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: #d3d7dc;
+      font-size: 8px;
+    }
+
+    .copyright {
+      position: absolute;
+      left: 82px;
+      bottom: 11px;
+      font-size: 7.5px;
+      color: #aeb7bd;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <nav class="nav">
+      <div class="brand">Clarity</div>
+      <div class="nav-links">
+        <span>Product</span>
+        <span>Features</span>
+        <span>Pricing</span>
+        <span>Resources</span>
+        <span>Company</span>
+      </div>
+      <div class="nav-actions">
+        <span>Log in</span>
+        <span class="btn">Start free trial</span>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-left">
+        <div class="pill-new">NEW &nbsp; Advanced reporting is here ›</div>
+        <h1>The all-in-one platform for modern teams</h1>
+        <p class="hero-copy">
+          Clarity helps teams plan, track, and deliver work with visibility and less chaos.
+        </p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#">Start free trial</a>
+          <a class="btn-secondary" href="#">Book a demo</a>
+        </div>
+        <div class="social-proof">
+          <div class="avatars">
+            <span class="avatar-dot"></span>
+            <span class="avatar-dot"></span>
+            <span class="avatar-dot"></span>
+            <span class="avatar-dot"></span>
+          </div>
+          Loved by thousands of teams worldwide
+        </div>
+      </div>
+
+      <div class="mockup-card">
+        <div class="mock-topbar">Overview</div>
+        <div class="mock-side">
+          <div>Overview</div>
+          <div>Projects</div>
+          <div>Tasks</div>
+          <div>Calendar</div>
+          <div>Reports</div>
+        </div>
+        <div class="mock-body">
+          <div class="mock-title">Good morning, Olivia 👋</div>
+          <div class="mock-metrics">
+            <div class="metric">23<br>Projects</div>
+            <div class="metric">128<br>Tasks</div>
+            <div class="metric">47<br>In Progress</div>
+            <div class="metric">9<br>Overdue</div>
+          </div>
+          <div class="chart-block">
+            <div id="projectChart"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="section-label">FEATURES</div>
+      <h2 class="section-heading">Everything you need to get work done</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">☷</div>
+          <h3>Project Management</h3>
+          <p>Plan, organize, and track projects from start to finish with ease.</p>
+          <div class="learn">Learn more →</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">▦</div>
+          <h3>Task Tracking</h3>
+          <p>Break down work into tasks and stay on top of every detail.</p>
+          <div class="learn">Learn more →</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">▥</div>
+          <h3>Advanced Reports</h3>
+          <p>Get insights that help you make better decisions faster.</p>
+          <div class="learn">Learn more →</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">♧</div>
+          <h3>Team Collaboration</h3>
+          <p>Communicate, share, and collaborate in one place.</p>
+          <div class="learn">Learn more →</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing">
+      <div class="section-label">PRICING</div>
+      <h2 class="section-heading">Simple, transparent pricing</h2>
+      <div class="toggle-row">
+        <span class="toggle-pill">Monthly</span>
+        <span class="toggle-pill">Annual</span>
+        <span>Save up to 20% with annual billing</span>
+      </div>
+
+      <div class="pricing-cards">
+        <div class="price-card">
+          <h3>Starter</h3>
+          <div class="price">$9<span class="trial">/ month</span></div>
+          <button>Start free trial</button>
+          <ul class="bullets">
+            <li>✓ Up to 5 team members</li>
+            <li>✓ Unlimited projects</li>
+            <li>✓ Basic management</li>
+          </ul>
+        </div>
+
+        <div class="price-card pro">
+          <h3>Pro</h3>
+          <div class="price">$15<span class="trial">/ month</span></div>
+          <button>Start free trial</button>
+          <ul class="bullets">
+            <li>✓ Up to 20 team members</li>
+            <li>✓ Advanced reports</li>
+            <li>✓ Priority support</li>
+          </ul>
+        </div>
+
+        <div class="price-card">
+          <h3>Business</h3>
+          <div class="price">$25<span class="trial">/ month</span></div>
+          <button>Start free trial</button>
+          <ul class="bullets">
+            <li>✓ Unlimited team members</li>
+            <li>✓ Advanced reporting</li>
+            <li>✓ Custom workflows</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fine-print">All plans include a 14-day free trial. No credit card required.</div>
+    </section>
+
+    <section class="testimonials">
+      <div class="section-label">TESTIMONIALS</div>
+      <h2 class="section-heading">Loved by teams around the world</h2>
+      <div class="testimonial-row">
+        <div class="testimonial-card">
+          <div class="customer-img"></div>
+          <div>
+            <p>“Clarity transformed the way we manage projects and our team loves using it.”</p>
+            <strong>Sarah Johnson</strong>
+            Product Manager, Acme Inc.
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="customer-img"></div>
+          <div>
+            <p>“The reporting features give us real visibility into what matters.”</p>
+            <strong>Michael Chen</strong>
+            Head of Operations, Ledge
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="customer-img"></div>
+          <div>
+            <p>“Onboarding was a breeze and the support team is incredible.”</p>
+            <strong>Emily Rodriguez</strong>
+            CEO, Studio Flow
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="cta-text">
+        <h2>Ready to bring clarity to your team?</h2>
+        <p>Join thousands of teams already using Clarity to do their best work.</p>
+      </div>
+      <div class="cta-buttons">
+        <a class="btn-primary" href="#">Start free trial</a>
+        <a class="btn-secondary" href="#">Book a demo</a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">
+        <div>Clarity</div>
+        <div style="font-size:8px;color:#c9d0d6;line-height:1.4;">
+          The all-in-one platform for modern teams to plan, track, and deliver work with clarity.
+        </div>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li>Features</li>
+            <li>Pricing</li>
+            <li>Security</li>
+            <li>Pricing</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li>Documentation</li>
+            <li>Help Center</li>
+            <li>Blog</li>
+            <li>Webinars</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li>About us</li>
+            <li>Careers</li>
+            <li>Customers</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li>Email: hello@clarity.io</li>
+            <li>Phone: +1 (555) 123-4567</li>
+            <li>Address: 123 Market St, San Francisco, CA 94105, USA</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="copyright">© 2024 Clarity. All rights reserved.</div>
+    </footer>
+  </div>
+
+  <script>
+    var chart = echarts.init(document.getElementById('projectChart'));
+    chart.setOption({
+      animation: false,
+      grid: { left: 25, right: 12, top: 10, bottom: 23 },
+      tooltip: { trigger: 'axis' },
+      legend: {
+        bottom: 0,
+        left: 0,
+        itemWidth: 7,
+        itemHeight: 7,
+        textStyle: { fontSize: 7 }
+      },
+      xAxis: {
+        type: 'category',
+        data: ['May 15', 'May 16', 'May 17', 'May 18', 'May 19', 'May 20', 'May 21'],
+        axisLabel: { fontSize: 6 }
+      },
+      yAxis: {
+        type: 'value',
+        max: 100,
+        splitLine: { lineStyle: { color: '#eee' } },
+        axisLabel: { fontSize: 6 }
+      },
+      series: [
+        {
+          name: 'Project progress',
+          type: 'line',
+          data: [2, 8, 18, 36, 52, 60, 68],
+          symbolSize: 3,
+          smooth: true
+        },
+        {
+          name: 'Marketing Campaign',
+          type: 'line',
+          data: [5, 24, 35, 48, 82, 91, 86],
+          symbolSize: 3,
+          smooth: true
+        },
+        {
+          name: 'Website Redesign',
+          type: 'line',
+          data: [12, 35, 46, 72, 78, 74, 90],
+          symbolSize: 3,
+          smooth: true
+        },
+        {
+          name: 'Design System',
+          type: 'line',
+          data: [8, 58, 72, 50, 55, 66, 78],
+          symbolSize: 3,
+          smooth: true
+        }
+      ]
+    });
+  </script>
+</body>
+</html>

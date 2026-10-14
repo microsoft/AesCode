@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Patient Success Snapshot</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9eeee;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background: #ffffff;
+    color: #125f66;
+  }
+
+  .top-banner {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 168px;
+    background: #08757b;
+    padding: 38px 48px 28px 48px;
+  }
+
+  .title {
+    margin: 0;
+    color: #ffffff;
+    font-size: 50px;
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+  }
+
+  .subtitle {
+    margin-top: 18px;
+    color: #f3fbfb;
+    font-size: 25px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .case-badge {
+    position: absolute;
+    top: 51px;
+    right: 50px;
+    width: 235px;
+    height: 72px;
+    border-radius: 11px;
+    background: #ff7424;
+    color: #ffffff;
+    font-size: 31px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+  }
+
+  .testimonial-card {
+    position: absolute;
+    left: 31px;
+    top: 196px;
+    width: 482px;
+    height: 342px;
+    border: 1.8px solid #007780;
+    border-radius: 14px;
+    background: #ffffff;
+    padding: 26px 28px;
+  }
+
+  .avatar {
+    position: absolute;
+    left: 29px;
+    top: 26px;
+    width: 130px;
+    height: 130px;
+    border-radius: 14px;
+    background: #d9dddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #80888b;
+    font-size: 16px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+
+  .avatar span:first-child {
+    font-size: 17px;
+  }
+
+  .profile-name {
+    position: absolute;
+    left: 185px;
+    top: 30px;
+    color: #006f76;
+    font-size: 35px;
+    font-weight: 800;
+  }
+
+  .profile-sub {
+    position: absolute;
+    left: 186px;
+    top: 82px;
+    color: #70787a;
+    font-size: 20px;
+    white-space: nowrap;
+  }
+
+  .divider-line {
+    position: absolute;
+    left: 185px;
+    top: 140px;
+    width: 238px;
+    height: 2px;
+    background: #93aac0;
+  }
+
+  .quote {
+    position: absolute;
+    left: 31px;
+    top: 180px;
+    width: 410px;
+    color: #33383a;
+    font-size: 31px;
+    line-height: 1.48;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .quote-mark {
+    position: absolute;
+    left: 0;
+    top: 166px;
+    color: #00787e;
+    font-size: 48px;
+    font-family: Georgia, serif;
+    font-weight: 700;
+  }
+
+  .outcomes-card {
+    position: absolute;
+    left: 538px;
+    top: 196px;
+    width: 467px;
+    height: 342px;
+    border-radius: 14px;
+    background: #e8f6f7;
+    border: 1.2px solid #bfe4e7;
+    padding: 18px 22px 18px 22px;
+  }
+
+  .outcome-title {
+    color: #006f76;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 15px;
+  }
+
+  .metric-chip {
+    height: 72px;
+    border-radius: 10px;
+    background: #ffffff;
+    border: 1.2px solid #c6e3e6;
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+    padding: 0 14px;
+  }
+
+  .metric-chip:last-child {
+    margin-bottom: 0;
+  }
+
+  .metric-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #008187;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 18px;
+    flex: 0 0 auto;
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .metric-label {
+    color: #2f3335;
+    font-size: 24px;
+    line-height: 1.1;
+  }
+
+  .metric-value {
+    color: #127278;
+    font-weight: 800;
+    font-size: 25px;
+  }
+
+  .section-heading {
+    position: absolute;
+    top: 556px;
+    left: 372px;
+    width: 280px;
+    text-align: center;
+    color: #00747a;
+    font-size: 30px;
+    font-weight: 800;
+  }
+
+  .heading-line-left,
+  .heading-line-right {
+    position: absolute;
+    top: 575px;
+    height: 1.5px;
+    background: #2d9399;
+    width: 330px;
+  }
+
+  .heading-line-left {
+    left: 32px;
+  }
+
+  .heading-line-right {
+    right: 32px;
+  }
+
+  .info-card {
+    position: absolute;
+    top: 616px;
+    width: 322px;
+    height: 188px;
+    border: 1.7px solid #2c969c;
+    border-radius: 10px;
+    background: #fbfdfe;
+    padding: 22px 20px 18px 82px;
+    color: #253234;
+  }
+
+  .card-1 { left: 32px; }
+  .card-2 { left: 362px; }
+  .card-3 { left: 691px; }
+
+  .card-4 { top: 810px; }
+  .card-5 { top: 810px; left: 362px; }
+  .card-6 { top: 810px; left: 691px; }
+
+  .card-icon {
+    position: absolute;
+    left: 18px;
+    top: 22px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #d7f1f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00787e;
+    font-size: 30px;
+  }
+
+  .card-title {
+    color: #00747a;
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 13px;
+  }
+
+  .card-value {
+    color: #303739;
+    font-size: 20px;
+    line-height: 1.45;
+  }
+
+  .satisfaction-score {
+    color: #ff7424;
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 13px;
+    text-align: center;
+  }
+
+  .stars {
+    color: #ff7424;
+    text-align: center;
+    font-size: 29px;
+    letter-spacing: 4px;
+  }
+
+  .progress-panel {
+    position: absolute;
+    left: 32px;
+    top: 1002px;
+    width: 960px;
+    height: 308px;
+    border: 1.8px solid #157d83;
+    border-radius: 12px;
+    background: #ffffff;
+    padding: 20px 32px;
+  }
+
+  .progress-title {
+    color: #00747a;
+    font-size: 25px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  #symptomChart {
+    position: absolute;
+    left: 33px;
+    top: 65px;
+    width: 720px;
+    height: 210px;
+  }
+
+  .improvement-note {
+    position: absolute;
+    right: 45px;
+    top: 70px;
+    width: 128px;
+    height: 126px;
+    border-left: 2px solid #ff7424;
+    border-top: 2px solid #ff7424;
+    border-bottom: 2px solid #ff7424;
+    color: #ff5f13;
+    font-size: 26px;
+    font-weight: 800;
+    padding-left: 43px;
+    padding-top: 36px;
+  }
+
+  .improvement-note small {
+    display: block;
+    margin-top: 6px;
+    color: #ff6b1b;
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .cta-panel {
+    position: absolute;
+    left: 32px;
+    bottom: 31px;
+    width: 960px;
+    height: 190px;
+    background: #087d84;
+    border-radius: 12px;
+    color: #ffffff;
+    text-align: center;
+    padding-top: 22px;
+    box-shadow: 0 8px 12px rgba(0,0,0,0.14);
+  }
+
+  .cta-icon {
+    position: absolute;
+    left: 38px;
+    top: 32px;
+    width: 125px;
+    height: 125px;
+    color: white;
+    font-size: 28px;
+    z-index: 2;
+  }
+
+  .cta-title {
+    margin: 0;
+    color: #ffffff;
+    font-size: 38px;
+    line-height: 1.15;
+    font-weight: 800;
+  }
+
+  .cta-sub {
+    margin-top: 10px;
+    color: #f4fbfb;
+    font-size: 22px;
+    line-height: 1.25;
+  }
+
+  .cta-button {
+    margin-top: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 66px;
+    min-width: 430px;
+    border-radius: 10px;
+    background: #ff7424;
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 800;
+    box-shadow: 0 5px 8px rgba(0,0,0,0.16);
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <header class="top-banner">
+    <h1 class="title">Patient Success Snapshot</h1>
+    <div class="subtitle">Harbor Mind Clinic • Anxiety Care Program</div>
+    <div class="case-badge">Case Study</div>
+  </header>
+
+  <section class="testimonial-card">
+    <div class="avatar">
+      <span>placeholder.co</span>
+      <span>120x120</span>
+    </div>
+    <div class="profile-name">Emily R., 34</div>
+    <div class="profile-sub">Marketing Director • Austin, TX</div>
+    <div class="divider-line"></div>
+    <div class="quote-mark">“</div>
+    <div class="quote">“I finally sleep through the night and feel like myself again.”</div>
+  </section>
+
+  <section class="outcomes-card">
+    <div class="outcome-title">12-week outcome</div>
+    <div class="metric-chip">
+      <div class="metric-icon">↗</div>
+      <div class="metric-label">GAD-7 score:</div>
+      <div class="metric-value">16 → 6</div>
+    </div>
+    <div class="metric-chip">
+      <div class="metric-icon">☾</div>
+      <div class="metric-label">Sleep quality:</div>
+      <div class="metric-value">+41%</div>
+    </div>
+    <div class="metric-chip">
+      <div class="metric-icon">▦</div>
+      <div class="metric-label">Session attendance:</div>
+      <div class="metric-value">11/12</div>
+    </div>
+  </section>
+
+  <div class="heading-line-left"></div>
+  <h2 class="section-heading">Measured Results</h2>
+  <div class="heading-line-right"></div>
+
+  <section class="info-card card-1">
+    <div class="card-icon">🧠</div>
+    <div class="card-title">Primary concern</div>
+    <div class="card-value">Persistent anxiety<br>and insomnia</div>
+  </section>
+
+  <section class="info-card card-2">
+    <div class="card-icon">📋</div>
+    <div class="card-title">Treatment plan</div>
+    <div class="card-value">CBT + medication<br>review + sleep<br>coaching</div>
+  </section>
+
+  <section class="info-card card-3">
+    <div class="card-icon">▣</div>
+    <div class="card-title">First appointment</div>
+    <div class="card-value">February 12, 2025</div>
+  </section>
+
+  <section class="info-card card-4">
+    <div class="card-icon">👥</div>
+    <div class="card-title">Care team</div>
+    <div class="card-value">Dr. Lena Morales, MD<br>Tessa Kim, LPC</div>
+  </section>
+
+  <section class="info-card card-5">
+    <div class="card-icon">⭐</div>
+    <div class="card-title">Patient satisfaction</div>
+    <div class="satisfaction-score">4.9/5</div>
+    <div class="stars">★★★★★</div>
+  </section>
+
+  <section class="info-card card-6">
+    <div class="card-icon">♡</div>
+    <div class="card-title">Recommended<br>by patient</div>
+    <div class="card-value">Yes — to family and<br>coworkers</div>
+  </section>
+
+  <section class="progress-panel">
+    <div class="progress-title">Symptom change over 12 weeks</div>
+    <div id="symptomChart"></div>
+    <div class="improvement-note">62.5%<small>improvement</small></div>
+  </section>
+
+  <section class="cta-panel">
+    <div class="cta-icon">☼</div>
+    <h2 class="cta-title">Ready to start care?</h2>
+    <div class="cta-sub">Book a confidential consultation at harbormind.example</div>
+    <div class="cta-button">Schedule an Intake</div>
+  </section>
+</div>
+
+<script>
+  const chart = echarts.init(document.getElementById('symptomChart'));
+  chart.setOption({
+    animation: false,
+    grid: {
+      left: 105,
+      right: 40,
+      top: 10,
+      bottom: 45
+    },
+    xAxis: {
+      type: 'value',
+      min: 0,
+      max: 18,
+      interval: 2,
+      name: 'GAD-7 Score',
+      nameLocation: 'middle',
+      nameGap: 30,
+      axisLine: { lineStyle: { color: '#6d7d80' } },
+      axisLabel: { color: '#4b5557', fontSize: 16 }
+    },
+    yAxis: {
+      type: 'category',
+      inverse: true,
+      data: ['Week 1', 'Week 4', 'Week 8', 'Week 12'],
+      axisTick: { show: false },
+      axisLine: { lineStyle: { color: '#94b6ba' } },
+      axisLabel: { color: '#333b3d', fontSize: 17 }
+    },
+    series: [
+      {
+        type: 'bar',
+        data: [16, 12, 9, 6],
+        barWidth: 26,
+        itemStyle: {
+          color: '#087f84',
+          borderRadius: [0, 0, 0, 0]
+        },
+        label: {
+          show: true,
+          position: 'right',
+          color: '#384244',
+          fontSize: 17
+        },
+        backgroundStyle: {
+          color: '#e8f3f3',
+          borderRadius: 0
+        },
+        showBackground: true
+      }
+    ]
+  });
+</script>
+</body>
+</html>

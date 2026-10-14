@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>能源消耗监控平台</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #eef3f5;
+    font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+    color: #333;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 853px;
+    overflow: hidden;
+    background: #f6fbfc;
+    border: 1px solid #cfd8dc;
+  }
+
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 216px;
+    height: 853px;
+    background: #fbfdfe;
+    border-right: 1px solid #d8e0e4;
+  }
+
+  .brand {
+    height: 78px;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    border-bottom: 1px solid #e3ebef;
+    font-weight: 700;
+    font-size: 16px;
+    color: #222;
+    gap: 10px;
+  }
+
+  .leaf-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #51b868;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .menu {
+    padding-top: 10px;
+  }
+
+  .menu-item {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px 0 18px;
+    gap: 12px;
+    font-size: 14px;
+    color: #666;
+  }
+
+  .menu-item.active {
+    background: #43b664;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 8px;
+    margin: 0 10px 10px 10px;
+    font-size: 14px;
+  }
+
+  .promo {
+    position: absolute;
+    left: 16px;
+    bottom: 48px;
+    width: 182px;
+    height: 120px;
+    border: 1px solid #d8e2e6;
+    border-radius: 8px;
+    background: #fbfdfe;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    color: #555;
+  }
+
+  .promo-left {
+    width: 84px;
+  }
+
+  .promo-title {
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 6px;
+  }
+
+  .promo-text {
+    font-size: 10px;
+    color: #777;
+    line-height: 1.5;
+  }
+
+  .promo-img {
+    width: 76px;
+    height: 76px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .main {
+    position: absolute;
+    left: 216px;
+    top: 0;
+    width: 1064px;
+    height: 853px;
+  }
+
+  .topbar {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    width: 1032px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .date-range,
+  .filter {
+    height: 32px;
+    border: 1px solid #d7e0e5;
+    background: #fff;
+    border-radius: 6px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #444;
+    white-space: nowrap;
+  }
+
+  .filter {
+    min-width: 116px;
+    justify-content: space1between;
+  }
+
+  .date-range span:first-child {
+    color: #666;
+    font-size: 13px;
+  }
+
+  .top-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn {
+    height: 32px;
+    min-width: 56px;
+    border: 1px solid #9ab0b8;
+    border-radius: 6px;
+    color: #444;
+    font-size: 12px;
+    padding: 0 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+  }
+
+  .kpi-row {
+    position: absolute;
+    left: 16px;
+    top: 72px;
+    width: 1032px;
+    height: 120px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .kpi-card {
+    height: 120px;
+    background: #fff;
+    border: 1px solid #dbe5e9;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kpi-card.electric {
+    width: 500px;
+    background: linear-gradient(90deg, #fbfbfb 0%, #f4fbf8 100%);
+  }
+
+  .kpi-card.energy {
+    width: 522px;
+    background: linear-gradient(90deg, #fbfbff 0%, #f8f4ff 100%);
+  }
+
+  .kpi-icon {
+    position: absolute;
+    left: 22px;
+    top: 12px;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #8fd39c;
+    color: #fff;
+    font-size: 34px;
+    font-weight: 700;
+  }
+
+  .kpi-title {
+    position: absolute;
+    left: 122px;
+    top: 12px;
+    width: 160px;
+    font-size: 13px;
+    color: #333;
+  }
+
+  .kpi-value {
+    position: absolute;
+    left: 122px;
+    top: 38px;
+    font-size: 30px;
+    font-weight: 800;
+  }
+
+  .kpi-change {
+    position: absolute;
+    left: 122px;
+    top: 80px;
+    font-size: 13px;
+    color: #333;
+  }
+
+  .spark {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    width: 180px;
+    height: 82px;
+  }
+
+  .mid-row {
+    position: absolute;
+    left: 16px;
+    top: 205px;
+    width: 1032px;
+    height: 276px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid #dbe5e9;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    padding: 10px 12px;
+  }
+
+  .heat-card {
+    width: 330px;
+    height: 276px;
+  }
+
+  .bar-card {
+    width: 330px;
+    height: 276px;
+  }
+
+  .trend-card {
+    width: 348px;
+    height: 276px;
+  }
+
+  .card-title {
+    font-size: 14px;
+    color: #222;
+    margin-bottom: 6px;
+  }
+
+  .chart {
+    width: 100%;
+    height: 220px;
+  }
+
+  .bottom-row {
+    position: absolute;
+    left: 16px;
+    top: 492px;
+    width: 1032px;
+    height: 292px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .structure-card {
+    width: 300px;
+    height: 292px;
+  }
+
+  .scatter-card {
+    width: 362px;
+    height: 292px;
+  }
+
+  .rank-card {
+    width: 360px;
+    height: 292px;
+  }
+
+  .correlation {
+    position: absolute;
+    right: 26px;
+    top: 18px;
+    font-size: 12px;
+    color: #21aa62;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin-top: 8px;
+  }
+
+  th {
+    background: #f2f6fa;
+    color: #555;
+    height: 28px;
+    border: 1px solid #e0e7ec;
+    text-align: left;
+  }
+
+  td {
+    height: 30px;
+    border: 1px solid #e6ebef;
+    color: #333;
+  }
+
+  .rank-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .rank-dot.gold { background: #f2b134; }
+  .rank-dot.silver { background: #9fb8c8; color: #fff; }
+  .rank-dot.copper { background: #f08c30; }
+  .rank-dot.gray1 { background: #cfd8df; color: #333; }
+
+  .status-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1064px;
+    height: 52px;
+    border-top: 1px solid #d7e0e5;
+    background: #fbfdfe;
+    color: #666;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+  }
+
+  .status-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .clock {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid #777;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+  }
+
+  .status-source {
+    margin-left: 120px;
+    color: #777;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <aside class="sidebar">
+    <div class="brand"><span class="leaf-icon">⚡</span><span>能源消耗监控平台</span></div>
+    <div class="menu">
+      <div class="menu-item active">🏠 总览</div>
+      <div class="menu-item">⚡ 用电监控</div>
+      <div class="menu-item">◌ 用水监控</div>
+      <div class="menu-item">◇ 用气监控</div>
+      <div class="menu-item">▥ 数据分析</div>
+      <div class="menu-item">▤ 报表管理</div>
+      <div class="menu-item">♧ 告警管理</div>
+      <div class="menu-item">⚙ 设备管理</div>
+      <div class="menu-item">⚙ 系统设置</div>
+    </div>
+    <div class="promo">
+      <div class="promo-left">
+        <div class="promo-title">绿色能源·智慧管理</div>
+        <div class="promo-text">节能减排，从每一度开始</div>
+      </div>
+      <img class="promo-img" src="https://placehold.co/260x120?text=%E7%��%E8%89%B2%E8%83%BD%E6%BA%90%E6%8F%92%E7%94%BB" alt="绿色能源插画" />
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="date-range"><span>▣</span><span>2024-05-01</span><span>~</span><span>2024-05-31</span><span>⌄</span></div>
+      <div class="filter">全部区域 <span>⌄</span></div>
+      <div class="filter">全部建筑 <span>⌄</span></div>
+      <div class="filter">全部能耗类型 <span>⌄</span></div>
+      <div class="top-actions">
+        <div class="btn">⟳ 刷新</div>
+        <div class="btn">⇩ 导出</div>
+      </div>
+    </div>
+
+    <section class="kpi-row">
+      <div class="kpi-card electric">
+        <div class="kpi-icon">⚡</div>
+        <div class="kpi-title">本月总用电量 (kWh)</div>
+        <div class="kpi-value" style="color:#159344;">1,253,680</div>
+        <div class="kpi-change" style="color:#16a15b;">较上月  ↑ 8.7%</div>
+        <div id="electricSpark" class="spark"></div>
+      </div>
+      <div class="kpi-card energy">
+        <div class="kpi-icon" style="background:#8f75ec;color:#fff;">◌</div>
+        <div class="kpi-title">本月总能耗 (吨标准煤)</div>
+        <div class="kpi-value" style="color:#6d52e8;">352.45</div>
+        <div class="kpi-change" style="color:#f04444;">较上月  ↓ 6.3%</div>
+        <div id="energySpark" class="spark"></div>
+      </div>
+    </section>
+
+    <section class="mid-row">
+      <div class="card heat-card">
+        <div class="card-title">能耗热力图 (单位: kWh)</div>
+        <div id="heatmap" class="chart"></div>
+      </div>
+      <div class="card bar-card">
+        <div class="card-title">分区域能耗对比 (kWh)</div>
+        <div id="regionBar" class="chart"></div>
+      </div>
+      <div class="card trend-card">
+        <div class="card-title">能耗趋势 (kWh)</div>
+        <div id="trend" class="chart"></div>
+      </div>
+    </section>
+
+    <section class="bottom-row">
+      <div class="card structure-card">
+        <div class="card-title">能耗结构占比</div>
+        <div style="position:absolute;left:16px;top:34px;color:#555;">kWh</div>
+        <div id="structureBar" class="chart"></div>
+      </div>
+      <div class="card scatter-card">
+        <div class="card-title">能耗与面积关系 (kWh/m²)</div>
+        <div class="correlation">相关系数: 0.78</div>
+        <div id="scatter" class="chart"></div>
+      </div>
+      <div class="card rank-card">
+        <div class="card-title">能耗排名 (按单位面积能耗)</div>
+        <table>
+          <thead>
+            <tr>
+              <th>排名</th><th>建筑名称</th><th>区域</th><th>单位能耗值 (kWh/m²)</th><th>较上月变化</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="rank-dot gold">1</span></td><td>研发中心</td><td>A区</td><td>78.6</td><td>↓ 9.2%</td></tr>
+            <tr><td><span class="rank-dot silver">2</span></td><td>生产车间2</td><td>C区</td><td>65.4</td><td>↑ 4.1%</td></tr>
+            <tr><td><span class="rank-dot copper">3</span></td><td>办公楼A</td><td>B区</td><td>52.3</td><td>↑ 3.7%</td></tr>
+            <tr><td><span class="rank-dot gray1">4</span></td><td>生产车间1</td><td>A区</td><td>48.9</td><td>↑ 1.2%</td></tr>
+            <tr><td><span class="rank-dot gray1">5</span></td><td>宿舍楼</td><td>D区</td><td>41.6</td><td>↓ 6.5%</td></tr>
+            <tr><td><span class="rank-dot gray1">6</span></td><td>仓储中心</td><td>E区</td><td>33.8</td><td>↑ 2.3%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="status-bar">
+      <div class="status-left"><span class="clock">◷</span><span>数据更新于 2024-06-01 10:00:00</span></div>
+      <div class="status-source">数据来源: 智能电表、水表、气表及能源管理系统</div>
+    </div>
+  </main>
+</div>
+
+<script>
+  const electricSpark = echarts.init(document.getElementById('electricSpark'));
+  electricSpark.setOption({
+    animation: false,
+    grid: { left: 8, right: 8, top: 8, bottom: 8 },
+    xAxis: { type: 'category', show: false, boundaryGap: false, data: ['1','2','3','4','5','6','7','8','9','10'] },
+    yAxis: { type: 'value', show: false },
+    series: [{
+      type: 'line',
+      data: [30, 45, 50, 40, 60, 80, 75, 90, 110, 130],
+      smooth: true,
+      symbol: 'none',
+      lineStyle: { color: '#26b663', width: 2 }
+    }]
+  });
+
+  const energySpark = echarts.init(document.getElementById('energySpark'));
+  energySpark.setOption({
+    animation: false,
+    grid: { left: 8, right: 8, top: 8, bottom: 8 },
+    xAxis: { type: 'category', show: false, boundaryGap: false, data: ['1','2','3','4','5','6','7','8','9','10'] },
+    yAxis: { type: 'value', show: false },
+    series: [{
+      type: 'line',
+      data: [15, 18, 20, 22, 21, 24, 26, 25, 27, 29],
+      smooth: true,
+      symbol: 'none',
+      lineStyle: { color: '#7e63e7', width: 2 }
+    }]
+  });
+
+  const heatmap = echarts.init(document.getElementById('heatmap'));
+  heatmap.setOption({
+    animation: false,
+    grid: { left: 34, right: 24, top: 22, bottom: 28 },
+    tooltip: { show: false },
+    xAxis: {
+      type: 'category',
+      data: ['02时','04时','06时','08时','10时','12时','14时','16时','18时','20时','22时','24时'],
+      splitArea: { show: true }
+    },
+    yAxis: {
+      type: 'category',
+      data: ['周一','周二','周三','周四','周五','周六','周日'],
+      splitArea: { show: true }
+    },
+    visualMap: { min: 0, max: 80000, show: false, color: ['#f0f6f0','#43b865','#189548'] },
+    series: [{
+      type: 'heatmap',
+      data: [[0, 0, 12000], [1, 0, 18000], [2, 0, 20000], [3, 0, 26000], [4, 0, 30000], [5, 0, 31000], [6, 0, 28000], [7, 0, 26000], [8, 0, 22000], [9, 0, 18000], [10, 0, 14000], [11, 0, 11000], [0, 1, 15000], [1, 1, 22000], [2, 1, 26000], [3, 1, 34000], [4, 1, 42000], [5, 1, 52000], [6, 1, 60000], [7, 1, 54000], [8, 1, 43000], [9, 1, 30000], [10, 1, 22000], [11, 1, 16000], [0, 2, 13000], [1, 2, 21000], [2, 2, 28000], [3, 2, 38000], [4, 2, 50000], [5, 2, 65000], [6, 2, 78000], [7, 2, 72000], [8, 2, 56000], [9, 2, 42000], [10, 2, 28000], [11, 2, 19000], [0, 3, 14000], [1, 3, 23000], [2, 3, 32000], [3, 3, 45000], [4, 3, 62000], [5, 3, 82000], [6, 3, 96000], [7, 3, 90000], [8, 3, 70000], [9, 3, 50000], [10, 3, 33000], [11, 3, 22000], [0, 4, 11000], [1, 4, 19000], [2, 4, 26000], [3, 4, 36000], [4, 4, 52000], [5, 4, 70000], [6, 4, 85000], [7, 4, 78000], [8, 4, 60000], [9, 4, 42000], [10, 4, 28000], [11, 4, 18000], [0, 5, 8000], [1, 5, 14000], [2, 5, 20000], [3, 5, 30000], [4, 5, 42000], [5, 5, 58000], [6, 5, 70000], [7, 5, 64000], [8, 5, 50000], [9, 5, 34000], [10, 5, 22000], [11, 5, 13000], [0, 6, 6000], [1, 6, 11000], [2, 6, 16000], [3, 6, 24000], [4, 6, 34000], [5, 6, 46000], [6, 6, 56000], [7, 6, 50000], [8, 6, 38000], [9, 6, 26000], [10, 6, 17000], [11, 6, 9000]],
+      label: { show: false }
+    }]
+  });
+
+  const regionBar = echarts.init(document.getElementById('regionBar'));
+  regionBar.setOption({
+    animation: false,
+    legend: { top: 0, right: 8, itemWidth: 12, itemHeight: 12, textStyle: { fontSize: 10 }, data: ['用电量','用水量','用气量'] },
+    grid: { left: 38, right: 16, top: 30, bottom: 28 },
+    xAxis: { type: 'category', data: ['A区','B区','C区','D区','E区'], axisLabel: { fontSize: 10 } },
+    yAxis: { type: 'value', axisLabel: { fontSize: 10 } },
+    series: [
+      { name: '用电量', type: 'bar', data: [320000, 280000, 360000, 300000, 340000], barWidth: 14 },
+      { name: '用水量', type: 'bar', data: [210000, 190000, 230000, 220000, 200000], barWidth: 14 },
+      { name: '用气量', type: 'bar', data: [150000, 160000, 170000, 155000, 165000], barWidth: 14 }
+    ]
+  });
+
+  const trend = echarts.init(document.getElementById('trend'));
+  trend.setOption({
+    animation: false,
+    legend: { top: 0, right: 10, itemWidth: 18, itemHeight: 4, textStyle: { fontSize: 10 }, data: ['用电量','用水量','用气量'] },
+    grid: { left: 42, right: 16, top: 34, bottom: 30 },
+    xAxis: { type: 'category', data: ['05-01','05-06','05-11','05-16','05-21','05-26','05-31'], axisLabel: { fontSize: 10 } },
+    yAxis: { type: 'value', axisLabel: { fontSize: 10 } },
+    series: [
+      { name: '用电量', type: 'line', data: [60000, 70000, 65000, 72000, 68000, 75000, 77000], smooth: true },
+      { name: '用水量', type: 'line', data: [30000, 32000, 31000, 33000, 34000, 33500, 34500], smooth: true },
+      { name: '用气量', type: 'line', data: [20000, 21000, 20500, 21500, 22000, 22500, 23000], smooth: true }
+    ]
+  });
+
+  const structureBar = echarts.init(document.getElementById('structureBar'));
+  structureBar.setOption({
+    animation: false,
+    grid: { left: 40, right: 16, top: 30, bottom: 30 },
+    xAxis: { type: 'category', data: ['用电量','用水量','用气量'], axisLabel: { fontSize: 11 } },
+    yAxis: { type: 'value', axisLabel: { fontSize: 11 } },
+    series: [{
+      type: 'bar',
+      data: [1253680, 432560, 218430],
+      itemStyle: { color: function(params) { return ['#32b864','#7d59e9','#47a8ef'][params.dataIndex]; } }
+    }]
+  });
+
+  const scatter = echarts.init(document.getElementById('scatter'));
+  scatter.setOption({
+    animation: false,
+    grid: { left: 42, right: 18, top: 30, bottom: 34 },
+    xAxis: { name: '建筑面积 (㎡)', nameLocation: 'middle', nameGap: 20, type: 'value', axisLabel: { fontSize: 10 } },
+    yAxis: { name: '能耗强度 (kWh/㎡)', type: 'value', axisLabel: { fontSize: 10 } },
+    series: [
+      {
+        type: 'scatter',
+        data: [[5000, 40], [8000, 45], [12000, 50], [20000, 60], [30000, 70], [40000, 80]],
+        symbolSize: 8,
+        itemStyle: { color: '#28b868' }
+      },
+      {
+        type: 'line',
+        data: [35, 40, 50, 60, 70, 80],
+        symbol: 'none',
+        lineStyle: { color: '#2bb96c', width: 1.5, type: 'dashed' },
+        tooltip: { show: false }
+      }
+    ]
+  });
+
+  window.addEventListener('resize', function () {
+    electricSpark.resize();
+    energySpark.resize();
+    heatmap.resize();
+    regionBar.resize();
+    trend.resize();
+    structureBar.resize();
+    scatter.resize();
+  });
+</script>
+</body>
+</html>

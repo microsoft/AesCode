@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=768, initial-scale=1.0" />
+  <title>Sales Process Statistics</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #111827;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 768px;
+      height: 1376px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #2c2c6f 0%, #555ba9 35%, #76a9c8 65%, #8bd7d4 100%);
+      color: #fff;
+    }
+
+    .title {
+      position: absolute;
+      left: 56px;
+      top: 46px;
+      width: 520px;
+      font-size: 42px;
+      line-height: 1.22;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .title .yellow {
+      color: #ffe15a;
+    }
+
+    .title .white {
+      color: #ffffff;
+    }
+
+    .top-circle {
+      position: absolute;
+      right: 50px;
+      top: 40px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: conic-gradient(from 35deg, #62d9d1 0deg, #71d7cf 135deg, #3f3f87 135deg, #31306b 280deg, #62d9d1 280deg);
+      opacity: 0.95;
+    }
+
+    .intro-panel {
+      position: absolute;
+      left: 43px;
+      top: 192px;
+      width: 682px;
+      height: 212px;
+      border-radius: 22px;
+      background: rgba(255, 107, 87, 0.78);
+      padding: 18px 36px;
+    }
+
+    .intro-text {
+      text-align: center;
+      font-size: 13.5px;
+      line-height: 1.35;
+      color: #fff;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+
+    .callout {
+      position: absolute;
+      top: 80px;
+      width: 240px;
+      height: 112px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .callout.left {
+      left: 28px;
+    }
+
+    .callout.right {
+      left: 352px;
+    }
+
+    .icon-circle {
+      flex: 0 0 102px;
+      width: 102px;
+      height: 102px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-circle svg {
+      width: 66px;
+      height: 66px;
+      stroke: #ff785a;
+    }
+
+    .callout-number {
+      color: #fff85a;
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .callout-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.25;
+      color: #fff;
+      font-weight: 650;
+    }
+
+    .methodology-area {
+      position: absolute;
+      left: 58px;
+      top: 426px;
+      width: 350px;
+      height: 350px;
+    }
+
+    .small-heading {
+      font-size: 20px;
+      line-height: 1.15;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .big-stat {
+      font-size: 52px;
+      color: #85e7df;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .people-row {
+      height: 62px;
+      margin: 12px 0 13px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .people-row svg {
+      stroke: #87eadf;
+    }
+
+    .body-copy {
+      font-size: 13.2px;
+      line-height: 1.25;
+      color: #fff;
+      font-weight: 620;
+    }
+
+    .win-panel {
+      position: absolute;
+      left: 402px;
+      top: 414px;
+      width: 322px;
+      height: 348px;
+      border-radius: 22px;
+      background: rgba(173, 188, 241, 0.58);
+      padding: 18px 24px;
+    }
+
+    .win-heading {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1.16;
+    }
+
+    #winDonut {
+      position: absolute;
+      top: 72px;
+      left: 52px;
+      width: 180px;
+      height: 160px;
+    }
+
+    .win-number {
+      position: absolute;
+      left: 20px;
+      bottom: 32px;
+      color: #82e9e9;
+      font-size: 47px;
+      font-weight: 900;
+    }
+
+    .win-caption {
+      position: absolute;
+      right: 21px;
+      bottom: 34px;
+      width: 145px;
+      font-size: 12.7px;
+      line-height: 1.22;
+      font-weight: 700;
+      color: #0b0b0b;
+    }
+
+    .research-panel {
+      position: absolute;
+      left: 43px;
+      top: 800px;
+      width: 682px;
+      height: 174px;
+      border-radius: 22px;
+      background: rgba(255, 104, 90, 0.75);
+      padding: 12px 36px;
+    }
+
+    .research-title {
+      text-align: center;
+      font-size: 15.5px;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      margin-top: 14px;
+    }
+
+    .bar-label {
+      width: 76px;
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .bar-wrap {
+      width: 280px;
+      height: 30px;
+      border-radius: 18px;
+      border: 2px solid rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.22);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .bar-fill {
+      height: 24px;
+      border-radius: 16px;
+      background: #65e6d2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .bar-caption {
+      width: 265px;
+      font-size: 12.7px;
+      line-height: 1.22;
+      font-weight: 640;
+    }
+
+    .report-line {
+      position: absolute;
+      left: 98px;
+      top: 992px;
+      width: 570px;
+      text-align: center;
+      color: #fff;
+      font-size: 17.5px;
+      line-height: 1.25;
+      font-weight: 700;
+    }
+
+    .report-line .gold {
+      color: #ffe15a;
+    }
+
+    .divider {
+      position: absolute;
+      left: 43px;
+      top: 1053px;
+      width: 682px;
+      height: 2px;
+      background: rgba(255,255,255,0.62);
+    }
+
+    .comparison {
+      position: absolute;
+      left: 64px;
+      top: 1088px;
+      width: 640px;
+      height: 112px;
+      display: flex;
+      gap: 34px;
+    }
+
+    .compare-item {
+      width: 292px;
+      display: flex;
+      gap: 17px;
+      align-items: flex-start;
+    }
+
+    .compare-icon {
+      width: 60px;
+      flex: 0 0 60px;
+    }
+
+    .compare-icon svg {
+      stroke: #313a88;
+    }
+
+    .compare-heading {
+      font-size: 21.5px;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 7px;
+    }
+
+    .compare-text {
+      font-size: 13px;
+      line-height: 1.22;
+      color: #fff;
+      font-weight: 620;
+    }
+
+    .bottom-stat {
+      position: absolute;
+      left: 47px;
+      top: 1182px;
+      width: 676px;
+      height: 130px;
+    }
+
+    .badge-circle {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      border: 8px solid #313472;
+      background: conic-gradient(#74ded9 0deg, #74ded9 292deg, rgba(255,255,255,0.24) 292deg, rgba(255,255,255,0.24) 360deg);
+    }
+
+    .badge-inner {
+      position: absolute;
+      left: 21px;
+      top: 20px;
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: #31246f;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: 900;
+    }
+
+    .bottom-explain {
+      position: absolute;
+      right: 0;
+      top: 17px;
+      width: 510px;
+      height: 88px;
+      background: #31246f;
+      border-radius: 0 44px 44px 0;
+      padding: 20px 24px;
+      font-size: 14.5px;
+      line-height: 1.25;
+      color: #fff;
+    }
+
+    .footer {
+      position: absolute;
+      left: 0;
+      bottom: 26px;
+      width: 768px;
+      text-align: center;
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.9);
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title"><span class="yellow">SALES</span> <span class="white">PROCESS</span><br><span class="yellow">STATISTICS</span></div>
+    <div class="top-circle"></div>
+
+    <section class="intro-panel">
+      <p class="intro-text">Survey research was conducted with over 1000 sales professionals to understand what works in their sales process and identify key challenges and opportunities for improvement.</p>
+
+      <div class="callout left">
+        <div class="icon-circle">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="63" r="14"></circle>
+            <path d="M18 88h30"></path><path d="M25 76h17"></path>
+            <path d="M36 22h27l9 11-18 18H36"></path>
+            <path d="M63 42h16l-9 11v11h-8"></path>
+            <path d="M50 60h22"></path><path d="M57 52h16"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="callout-number">29%</div>
+          <div class="callout-caption">Sales professionals aim to improve their sales processes as a top goal for the year.</div>
+        </div>
+      </div>
+
+      <div class="callout right">
+        <div class="icon-circle">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="60" cy="22" r="8"></circle>
+            <circle cx="35" cy="32" r="6"></circle>
+            <path d="M35 32L60 22"></path>
+            <path d="M51 58L31 72"></path>
+            <path d="M42 52L24 68"></path>
+            <circle cx="76" cy="57" r="8"></circle>
+            <path d="M62 45L32 52"></path>
+            <path d="M32 58h28"></path>
+            <path d="M41 53v16"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="callout-number">30%</div>
+          <div class="callout-caption">Top reasons prospects back out are because of issues in the sales process.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="methodology-area">
+      <div class="small-heading">Structured Methodology<br>Leads to Better Close Rates</div>
+      <div class="big-stat">43%</div>
+
+      <div class="people-row">
+        <svg viewBox="0 0 70 48" width="50" height="38" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="22" cy="17" r="10"></circle><path d="M10 42c2-12 10-18 15-18s15 6 17 18"></path>
+        </svg>
+        <svg viewBox="0 0 58 48" width="38" height="38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M28 8v8"></path><circle cx="29" cy="12" r="8"></circle><path d="M29 22v10h-10"></path><path d="M29 32h20v-9"></path><path d="M49 23l-10 10"></path>
+        </svg>
+        <svg viewBox="0 0 58 48" width="38" height="38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="23" cy="13" r="9"></circle><path d="M10 36c2-8 8-12 13-12s12 4 15 12"></path>
+        </svg>
+        <svg viewBox="0 0 48 48" width="42" height="42" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="20" cy="20" r="11"></circle><path d="M8 38l12-12"></path><path d="M30 14l10 10"></path><path d="M24 8v8h8"></path>
+        </svg>
+      </div>
+
+      <p class="body-copy">Data suggests that teams employing a structured sales methodology and a defined process see significantly higher close rates compared to those who do not.</p>
+      <div class="small-heading" style="margin-top:12px;">Optimum Follow-up Window</div>
+      <p class="body-copy">The golden window for following up with prospects is often within the first hour of their inquiry, with response times under 5 minutes showing exponentially better results in lead qualification.</p>
+    </section>
+
+    <section class="win-panel">
+      <div class="win-heading">Win Rates Boost with<br>Effective Management</div>
+      <div id="winDonut"></div>
+      <div class="win-number">165%</div>
+      <div class="win-caption">Win rates can be this much higher when opportunities are managed effectively in the sales process.</div>
+    </section>
+
+    <section class="research-panel">
+      <div class="research-title">Research studies for the State of B2B Sales in 2023 by Prezentor shows that</div>
+
+      <div class="bar-row">
+        <div class="bar-label">34%</div>
+        <div class="bar-wrap"><div class="bar-fill" style="width:34%;">34%</div></div>
+        <div class="bar-caption">Share of respondents struggle to visualize their value proposition to prospects.</div>
+      </div>
+
+      <div class="bar-row" style="margin-top:17px;">
+        <div class="bar-label">21%</div>
+        <div class="bar-wrap"><div class="bar-fill" style="width:21%; background:#18bdd4;">21%</div></div>
+        <div class="bar-caption">Share of sales leaders struggle to ensure that sellers have the right sales material at the right time.</div>
+      </div>
+    </section>
+
+    <div class="report-line">The <span class="gold">LinkedIn Global State Of Sales Report 2022</span> highlights the importance of research and keeping tabs on buyers.</div>
+    <div class="divider"></div>
+
+    <section class="comparison">
+      <div class="compare-item">
+        <div class="compare-icon">
+          <svg viewBox="0 0 80 70" width="60" height="60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 8h38l12 11v31"></path><path d="M14 8v46h49"></path><path d="M23 23h19"></path><path d="M23 34h18"></path><circle cx="48" cy="43" r="16"></circle><path d="M55 50l16 16"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="compare-heading">76% OF TOP PERFORMERS</div>
+          <div class="compare-text">These respondents say they regularly perform research before reaching out to prospects.</div>
+        </div>
+      </div>
+
+      <div class="compare-item">
+        <div class="compare-icon">
+          <svg viewBox="0 0 80 70" width="60" height="60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 17h38l12 11v21"></path><path d="M21 17v39h48"></path><path d="M32 31h21"></path><path d="M32 43h21"></path><circle cx="55" cy="48" r="15"></circle><path d="M61 55l16 16"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="compare-heading">47% FOR OTHER SELLERS</div>
+          <div class="compare-text">A smaller portion of other sellers do the same, indicating a gap in preparation efforts.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bottom-stat">
+      <div class="badge-circle"></div>
+      <div class="badge-inner">81%</div>
+      <div class="bottom-explain">Share of sellers say deals lost due to stalled communication often happen when stakeholders leave a client or prospect organization within the last 12 months.</div>
+    </section>
+
+    <div class="footer">Made with Visme</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    var winChart = echarts.init(document.getElementById('winDonut'));
+    winChart.setOption({
+      animation: false,
+      color: ['#84e8e2', '#eeeeee'],
+      series: [{
+        type: 'pie',
+        radius: ['58%', '82%'],
+        center: ['50%', '50%'],
+        avoidLabelOverlap: false,
+        label: {
+          show: true,
+          position: 'center',
+          formatter: '165 / 265ths',
+          color: '#ffffff',
+          fontSize: 12,
+          fontWeight: 700
+        },
+        labelLine: {
+          show: false
+        },
+        data: [165, 100]
+      }]
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1376, initial-scale=1.0" />
+  <title>Secure and govern AI with Microsoft</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      background: #dceeff;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 32% 18%, rgba(147, 205, 244, 0.35) 0, rgba(147, 205, 244, 0.18) 22%, transparent 42%),
+        radial-gradient(circle at 82% 84%, rgba(255, 200, 178, 0.32) 0, rgba(255, 200, 178, 0.17) 24%, transparent 42%),
+        linear-gradient(105deg, #d7e4fb 0%, #eaf4fb 42%, #dcfbfb 69%, #f3edf3 100%);
+    }
+
+    .title {
+      position: absolute;
+      top: 50px;
+      left: 0;
+      width: 1376px;
+      text-align: center;
+      font-size: 48px;
+      line-height: 1.12;
+      font-weight: 760;
+      letter-spacing: -0.9px;
+      color: #06111f;
+    }
+
+    .main-panel {
+      position: absolute;
+      left: 50px;
+      top: 135px;
+      width: 1276px;
+      height: 586px;
+      border-radius: 20px;
+      background: rgba(244, 250, 253, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow:
+        inset 0 0 20px rgba(255, 255, 255, 0.38),
+        0 10px 26px rgba(53, 89, 112, 0.14);
+      z-index: 1;
+    }
+
+    .card {
+      position: absolute;
+      top: 92px;
+      width: 282px;
+      height: 458px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 15px;
+      box-shadow: 0 8px 15px rgba(38, 56, 70, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+    }
+
+    .card.prepare {
+      left: 32px;
+    }
+
+    .card.discover {
+      left: 343px;
+    }
+
+    .card.protect {
+      left: 654px;
+    }
+
+    .card.govern {
+      left: 966px;
+    }
+
+    .icon-circle {
+      position: absolute;
+      top: -66px;
+      left: 72px;
+      width: 124px;
+      height: 124px;
+      border-radius: 50%;
+      background: #f9fdff;
+      border: 3px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      box-shadow: 0 5px 10px rgba(31, 64, 88, 0.16);
+    }
+
+    .card.prepare .icon-circle {
+      border-color: #0f6fb8;
+    }
+
+    .card.discover .icon-circle {
+      border-color: #147f8e;
+    }
+
+    .card.protect .icon-circle {
+      border-color: #8657b2;
+    }
+
+    .card.govern .icon-circle {
+      border-color: #c95a30;
+    }
+
+    .section-title {
+      position: absolute;
+      top: 82px;
+      left: 0;
+      width: 282px;
+      text-align: center;
+      font-size: 29px;
+      font-weight: 760;
+      color: var(--accent);
+    }
+
+    .underline {
+      position: absolute;
+      top: 136px;
+      left: 0;
+      width: 282px;
+      height: 8px;
+      background: var(--accent);
+    }
+
+    .bullets {
+      position: absolute;
+      top: 154px;
+      left: 20px;
+      width: 242px;
+      margin: 0;
+      padding-left: 22px;
+      font-size: 18px;
+      line-height: 1.24;
+      color: #111111;
+    }
+
+    .bullets li {
+      margin: 0 0 10px 0;
+      padding-left: 2px;
+    }
+
+    .icon-svg {
+      width: 68px;
+      height: 68px;
+      stroke: #202a33;
+      fill: none;
+      stroke-width: 2.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .prepare {
+      --accent: #1478b1;
+    }
+
+    .discover {
+      --accent: #228495;
+    }
+
+    .protect {
+      --accent: #8059b1;
+    }
+
+    .govern {
+      --accent: #cc5a31;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Secure and govern AI with Microsoft</div>
+
+    <div class="main-panel">
+      <section class="card prepare">
+        <div class="icon-circle" aria-hidden="true">
+          <svg class="icon-svg" viewBox="0 0 80 80">
+            <path d="M21 18h37v49H21z"></path>
+            <path d="M27 28h25"></path>
+            <path d="M27 39h20"></path>
+            <path d="M27 50h16"></path>
+            <path d="M17 16h38v8H17z"></path>
+            <circle cx="38" cy="38" r="2"></circle>
+            <circle cx="54" cy="51" r="2"></circle>
+            <path d="M46 22h20a8 8 0 0 1 8 8v13L46 69V22z"></path>
+            <path d="M55 38l10 10"></path>
+          </svg>
+        </div>
+        <div class="section-title">Prepare</div>
+        <div class="underline"></div>
+        <ul class="bullets">
+          <li>Zero Trust strategy – Microsoft Security</li>
+          <li>Data labeling and classification</li>
+          <li>Identity and access governance</li>
+          <li>Baseline reports</li>
+          <li>Site ownership policy</li>
+        </ul>
+      </section>
+
+      <section class="card discover">
+        <div class="icon-circle" aria-hidden="true">
+          <svg class="icon-svg" viewBox="0 0 80 80">
+            <path d="M20 16h38l10 10v42H20z"></path>
+            <path d="M58 16v13h12"></path>
+            <path d="M28 34h20"></path>
+            <path d="M28 44h16"></path>
+            <circle cx="56" cy="49" r="16"></circle>
+            <path d="M65 58l11 11"></path>
+          </svg>
+        </div>
+        <div class="section-title">Discover</div>
+        <div class="underline"></div>
+        <ul class="bullets">
+          <li>AI app usage, prompt, response, and grounding data risk analytics – Microsoft Purview</li>
+          <li>Discover and monitor AI asset usage</li>
+          <li>Data risk analytics</li>
+          <li>Security posture management for AI assets</li>
+        </ul>
+      </section>
+
+      <section class="card protect">
+        <div class="icon-circle" aria-hidden="true">
+          <svg class="icon-svg" viewBox="0 0 80 80">
+            <path d="M40 9c8 7 17 8 27 9v19c0 17-11 28-27 36C24 65 13 54 13 37V18c10-1 19-2 27-9z"></path>
+            <path d="M29 42l11 11 22-25"></path>
+          </svg>
+        </div>
+        <div class="section-title">Protect</div>
+        <div class="underline"></div>
+        <ul class="bullets">
+          <li>Prompt &amp; response data security – Microsoft Purview</li>
+          <li>Endpoint and access controls</li>
+          <li>SaaS app security</li>
+          <li>Threat protection for AI workloads</li>
+          <li>AI safety system</li>
+        </ul>
+      </section>
+
+      <section class="card govern">
+        <div class="icon-circle" aria-hidden="true">
+          <svg class="icon-svg" viewBox="0 0 80 80">
+            <rect x="22" y="39" width="36" height="28" rx="4"></rect>
+            <path d="M34 39V25a10 10 0 0 1 20 0v14"></path>
+            <circle cx="40" cy="49" r="4"></circle>
+            <path d="M40 53v5a3 3 0 0 1 -6 0v-5"></path>
+            <path d="M28 19v14"></path>
+            <path d="M52 19v14"></path>
+            <path d="M22 32c4 -7 10 -9 18 -9s14 2 18 9"></path>
+          </svg>
+        </div>
+        <div class="section-title">Govern</div>
+        <div class="underline"></div>
+        <ul class="bullets">
+          <li>Compliance assessments against AI regulations and standards – Microsoft Purview</li>
+          <li>Lifecycle management and eDiscovery</li>
+          <li>Web search query logging</li>
+          <li>Citations and audit logs</li>
+          <li>AI governance policies and reporting</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

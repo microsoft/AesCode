@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RealVista Market Analytics Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #eef2f7;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: #1f2d3d;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 853px;
+      overflow: hidden;
+      background: #fbfcfe;
+      border: 1px solid #dfe5ee;
+    }
+
+    .sidebar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 186px;
+      height: 853px;
+      background: #ffffff;
+      border-right: 1px solid #e4e9f0;
+      padding: 20px 12px 16px 12px;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border: 3px solid #2f73e8;
+      border-radius: 7px;
+      margin: 0 0 8px 4px;
+      position: relative;
+    }
+
+    .brand-icon:before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      width: 16px;
+      height: 16px;
+      border-left: 3px solid #2f73e8;
+      border-top: 3px solid #2f73e8;
+      transform: rotate(45deg);
+      border-radius: 2px;
+    }
+
+    .brand-text {
+      font-size: 17px;
+      font-weight: 750;
+      margin-bottom: 2px;
+    }
+
+    .brand-sub {
+      color: #697789;
+      font-size: 12px;
+      margin-left: 42px;
+    }
+
+    .nav {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-item {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px 0 4px;
+      font-size: 12px;
+      border-radius: 7px;
+      color: #536171;
+      gap: 10px;
+    }
+
+    .nav-item.active {
+      background: #eaf2ff;
+      color: #2f73e8;
+      font-weight: 650;
+    }
+
+    .promo {
+      position: absolute;
+      left: 13px;
+      bottom: 34px;
+      width: 154px;
+      height: 154px;
+      border: 1px solid #e1e7ef;
+      border-radius: 9px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      background: #fff;
+    }
+
+    .promo-icon {
+      width: 38px;
+      height: 38px;
+      border: 2px solid #2f73e8;
+      border-radius: 7px;
+      position: relative;
+    }
+
+    .promo-icon:before {
+      content: "";
+      position: absolute;
+      left: 9px;
+      top: 10px;
+      width: 16px;
+      height: 14px;
+      border-left: 2px solid #2f73e8;
+      border-top: 2px solid #2f73e8;
+      transform: rotate(45deg);
+    }
+
+    .promo-text {
+      font-size: 12px;
+      text-align: center;
+      font-weight: 650;
+      color: #222;
+    }
+
+    .promo-btn {
+      width: 100px;
+      height: 30px;
+      background: #2f73e8;
+      color: white;
+      border-radius: 5px;
+      font-size: 12px;
+      border: 0;
+    }
+
+    .main {
+      position: absolute;
+      left: 186px;
+      top: 0;
+      width: 1094px;
+      height: 853px;
+      padding: 20px 22px 14px 22px;
+    }
+
+    .topbar {
+      height: 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .title {
+      font-size: 17px;
+      font-weight: 750;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: #697789;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .pill {
+      height: 34px;
+      min-width: 170px;
+      border: 1px solid #dfe5ee;
+      border-radius: 6px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space1between;
+      gap: 8px;
+      padding: 0 10px;
+      font-size: 12px;
+      color: #425061;
+    }
+
+    .export {
+      min-width: 103px;
+      height: 34px;
+      border: 1px solid #dfe5ee;
+      border-radius: 6px;
+      color: #2f73e8;
+      background: #fbfcfe;
+      font-size: 12px;
+    }
+
+    .metric-row {
+      position: absolute;
+      top: 75px;
+      left: 20px;
+      width: 1032px;
+      height: 164px;
+      display: flex;
+      gap: 14px;
+    }
+
+    .metric-card {
+      width: 327px;
+      height: 164px;
+      border: 1px solid #e0e6ef;
+      border-radius: 7px;
+      background: #fff;
+      padding: 15px 13px 10px 13px;
+      position: relative;
+    }
+
+    .metric-title {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .metric-value {
+      margin-top: 7px;
+      font-size: 29px;
+      font-weight: 800;
+      color: #2f73e8;
+    }
+
+    .metric-change {
+      margin-top: 3px;
+      font-size: 11px;
+      color: #35a65d;
+      font-weight: 650;
+    }
+
+    .spark {
+      position: absolute;
+      left: 12px;
+      bottom: 10px;
+      width: 296px;
+      height: 66px;
+    }
+
+    .mid-row {
+      position: absolute;
+      top: 248px;
+      left: 20px;
+      width: 1032px;
+      height: 258px;
+      display: flex;
+      gap: 14px;
+    }
+
+    .panel {
+      width: 363px;
+      height: 258px;
+      border: 1px solid #e0e6ef;
+      border-radius: 7px;
+      background: #fff;
+      position: relative;
+      padding: 10px 12px;
+    }
+
+    .panel-title {
+      font-size: 13px;
+      font-weight: 750;
+      margin-bottom: 4px;
+    }
+
+    .chart {
+      width: 100%;
+      height: 200px;
+    }
+
+    #priceTrend {
+      height: 198px;
+    }
+
+    #propertyDonut {
+      height: 198px;
+    }
+
+    #statusDonut {
+      height: 198px;
+    }
+
+    .bottom-row {
+      position: absolute;
+      top: 520px;
+      left: 20px;
+      width: 1032px;
+      height: 239px;
+      display: flex;
+      gap: 14px;
+    }
+
+    .scatter-panel {
+      width: 478px;
+      height: 239px;
+    }
+
+    .table-panel {
+      width: 540px;
+      height: 239px;
+      padding: 0 12px;
+    }
+
+    .scatter-panel .panel-title,
+    .table-panel .panel-title {
+      padding-left: 0;
+      margin-left: 0;
+    }
+
+    #scatterChart {
+      height: 190px;
+    }
+
+    .table-wrap {
+      margin-top: 2px;
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      overflow: hidden;
+      height: 181px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      color: #455364;
+    }
+
+    th {
+      background: #fbfcfe;
+      color: #536171;
+      height: 31px;
+      font-weight: 700;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    td {
+      height: 30px;
+      border-bottom: 1px solid #edf1f5;
+      font-weight: 550;
+    }
+
+    .green {
+      color: #31a35b;
+    }
+
+    .red {
+      color: #e03b4d;
+    }
+
+    .footer {
+      position: absolute;
+      left: 260px;
+      bottom: 35px;
+      width: 610px;
+      height: 18px;
+      display: flex;
+      justify-content: space1between;
+      font-size: 10px;
+      color: #73808f;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <aside class="sidebar">
+      <div class="brand-icon"></div>
+      <div class="brand-text">RealVista</div>
+      <div class="brand-sub">Market Analytics</div>
+
+      <nav class="nav">
+        <div class="nav-item active">⌂ Overview</div>
+        <div class="nav-item">↗ Market Trends</div>
+        <div class="nav-item">▤ Listings</div>
+        <div class="nav-item">● Neighborhoods</div>
+        <div class="nav-item">▥ Reports</div>
+        <div class="nav-item">♟ Alerts</div>
+        <div class="nav-item">☆ Favorites</div>
+        <div class="nav-item">⚙ Settings</div>
+      </nav>
+
+      <div class="promo">
+        <div class="promo-icon"></div>
+        <div class="promo-text">Get the full picture of your market.</div>
+        <button class="promo-btn">Upgrade Plan</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <div class="title">Overview</div>
+          <div class="subtitle">Key real estate market insights and trends.</div>
+        </div>
+        <div class="filters">
+          <div class="pill">▣ May 1 – May 31, 2024</div>
+          <div class="pill">▽ All Property Types</div>
+          <div class="pill">◇ All Regions</div>
+          <button class="pill export">⇩ Export</button>
+        </div>
+      </header>
+
+      <section class="metric-row">
+        <div class="metric-card">
+          <div class="metric-title">Median Home Price</div>
+          <div class="metric-value">$425,000</div>
+          <div class="metric-change">▲ 6.4% &nbsp; vs Apr 1 – Apr 30, 2024</div>
+          <div id="sparkMedian" class="spark"></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-title">Homes Sold</div>
+          <div class="metric-value">1,248</div>
+          <div class="metric-change">▲ 8.7% &nbsp; vs Apr 1 – Apr 30, 2024</div>
+          <div id="sparkSold" class="spark"></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-title">Days on Market (Avg.)</div>
+          <div class="metric-value">28</div>
+          <div class="metric-change">▼ -12.5% &nbsp; vs Apr 1 – Apr 30, 2024</div>
+          <div id="sparkDays" class="spark"></div>
+        </div>
+      </section>
+
+      <section class="mid-row">
+        <div class="panel">
+          <div class="panel-title">Median Home Price Trend</div>
+          <div id="priceTrend" class="chart"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">Market Share by Property Type</div>
+          <div id="propertyDonut" class="chart"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">Listings by Status</div>
+          <div id="statusDonut" class="chart"></div>
+        </div>
+      </section>
+
+      <section class="bottom-row">
+        <div class="panel scatter-panel">
+          <div class="panel-title">Price vs. Square Footage</div>
+          <div id="scatterChart" class="chart"></div>
+        </div>
+
+        <div class="panel table-panel">
+          <div class="panel-title">Top Neighborhoods by Median Price</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Neighborhood</th>
+                  <th>Region</th>
+                  <th>Median Price</th>
+                  <th>% vs Last Month</th>
+                  <th>Inventory</th>
+                  <th>Days on Market</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Bayview Heights</td>
+                  <td>North</td>
+                  <td>$765,000</td>
+                  <td class="green">▲ 7.2%</td>
+                  <td>42</td>
+                  <td>19</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Maple Grove</td>
+                  <td>North</td>
+                  <td>$620,000</td>
+                  <td class="green">▲ 5.6%</td>
+                  <td>38</td>
+                  <td>21</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Riverfront</td>
+                  <td>West</td>
+                  <td>$575,000</td>
+                  <td class="green">▲ 3.1%</td>
+                  <td>29</td>
+                  <td>17</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Oakwood</td>
+                  <td>South</td>
+                  <td>$510,000</td>
+                  <td class="red">▼ -1.2%</td>
+                  <td>31</td>
+                  <td>25</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Sunset Park</td>
+                  <td>South</td>
+                  <td>$485,000</td>
+                  <td class="red">▼ -2.8%</td>
+                  <td>27</td>
+                  <td>28</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div>Source: RealVista MLS Data</div>
+        <div>Data updated: June 1, 2024 8:30 AM</div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const blue = '#2f73e8';
+    const green = '#43ad5e';
+    const purple = '#8c55d7';
+    const orange = '#ff8b31';
+
+    echarts.init(document.getElementById('sparkMedian')).setOption({
+      animation: false,
+      grid: { left: 0, right: 0, top: 10, bottom: 6 },
+      xAxis: { type: 'category', show: false, data: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20'] },
+      yAxis: { type: 'value', show: false },
+      series: [{
+        type: 'line',
+        data: [398000, 410000, 418000, 421000, 412000, 408000, 416000, 421000, 428000, 441000, 440000, 438000, 435000, 426000, 423000, 427000, 433000, 435000, 443000, 431000],
+        smooth: true,
+        symbol: 'none',
+        lineStyle: { color: blue, width: 2 },
+        areaStyle: { color: 'rgba(47,115,232,0.08)' }
+      }]
+    });
+
+    echarts.init(document.getElementById('sparkSold')).setOption({
+      animation: false,
+      grid: { left: 0, right: 0, top: 10, bottom: 6 },
+      xAxis: { type: 'category', show: false, data: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20'] },
+      yAxis: { type: 'value', show: false },
+      series: [{
+        type: 'line',
+        data: [1120, 1090, 1130, 1165, 1110, 1115, 1140, 1135, 1160, 1175, 1145, 1130, 1140, 1120, 1115, 1135, 1130, 1100, 1125, 1085],
+        smooth: true,
+        symbol: 'none',
+        lineStyle: { color: green, width: 2 },
+        areaStyle: { color: 'rgba(67,173,94,0.08)' }
+      }]
+    });
+
+    echarts.init(document.getElementById('sparkDays')).setOption({
+      animation: false,
+      grid: { left: 0, right: 0, top: 10, bottom: 6 },
+      xAxis: { type: 'category', show: false, data: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22'] },
+      yAxis: { type: 'value', show: false },
+      series: [{
+        type: 'line',
+        data: [34, 31, 33, 34, 33, 32, 33, 34, 32, 30, 30, 32, 35, 33, 30, 27, 29, 30, 31, 30, 28, 29],
+        smooth: true,
+        symbol: 'none',
+        lineStyle: { color: purple, width: 2 },
+        areaStyle: { color: 'rgba(140,85,215,0.08)' }
+      }]
+    });
+
+    echarts.init(document.getElementById('priceTrend')).setOption({
+      animation: false,
+      color: [blue, green, purple, orange],
+      grid: { left: 42, right: 12, top: 38, bottom: 34 },
+      legend: {
+        top: 0,
+        left: 0,
+        itemWidth: 7,
+        itemHeight: 7,
+        textStyle: { fontSize: 10, color: '#536171' },
+        data: ['All Regions', 'North Region', 'South Region', 'West Region']
+      },
+      xAxis: {
+        type: 'category',
+        data: ['May 1', 'May 4', 'May 7', 'May 10', 'May 13', 'May 16', 'May 19', 'May 22', 'May 25', 'May 28', 'May 29', 'May 30', 'May 31'],
+        boundaryGap: false,
+        axisLabel: { fontSize: 10, color: '#536171' },
+        axisLine: { lineStyle: { color: '#e1e7ef' } }
+      },
+      yAxis: {
+        type: 'value',
+        min: 200000,
+        max: 600000,
+        interval: 100000,
+        axisLabel: {
+          fontSize: 10,
+          color: '#536171',
+          formatter: function (v) { return '$' + (v / 1000) + 'K'; }
+        },
+        splitLine: { lineStyle: { color: '#edf1f5' } }
+      },
+      series: [
+        {
+          name: 'All Regions',
+          data: [405000, 412000, 415000, 416000, 414000, 418000, 416000, 417000, 421000, 424000, 420000, 426000, 425000],
+          type: 'line',
+          smooth: true,
+          symbol: 'none',
+          lineStyle: { width: 2 }
+        },
+        {
+          name: 'North Region',
+          data: [505000, 520000, 516000, 522000, 530000, 520000, 524000, 522000, 521000, 526000, 520000, 528000, 523000],
+          type: 'line',
+          smooth: true,
+          symbol: 'none'
+        },
+        {
+          name: 'South Region',
+          data: [305000, 312000, 311000, 320000, 322000, 326000, 327000, 330000, 331000, 334000, 340000, 333000, 337000],
+          type: 'line',
+          smooth: true,
+          symbol: 'none'
+        },
+        {
+          name: 'West Region',
+          data: [230000, 235000, 236000, 240000, 239000, 244000, 246000, 245000, 249000, 247000, 250000, 255000, 252000],
+          type: 'line',
+          smooth: true,
+          symbol: 'none'
+        }
+      ]
+    });
+
+    echarts.init(document.getElementById('propertyDonut')).setOption({
+      animation: false,
+      color: [blue, green, purple, orange],
+      grid: { left: 34, right: 88, top: 22, bottom: 28 },
+      legend: {
+        orient: 'vertical',
+        right: 0,
+        top: 24,
+        itemWidth: 8,
+        itemHeight: 8,
+        textStyle: { fontSize: 11, color: '#455364' },
+        formatter: function (name) {
+          const map = {
+            'Single Family': 'Single Family\n60%',
+            'Condo': 'Condo\n20%',
+            'Townhouse': 'Townhouse\n12%',
+            'Multi-Family': 'Multi-Family\n8%'
+          };
+          return map[name];
+        }
+      },
+      series: [{
+        type: 'pie',
+        radius: ['38%', '68%'],
+        center: ['38%', '50%'],
+        avoidLabelOverlap: false,
+        label: {
+          color: '#fff',
+          fontSize: 10,
+          formatter: '{b}\n{d}%'
+        },
+        labelLine: { show: false },
+        data: [
+          { name: 'Single Family', value: 60 },
+          { name: 'Condo', value: 20 },
+          { name: 'Townhouse', value: 12 },
+          { name: 'Multi-Family', value: 8 }
+        ]
+      }],
+      graphic: [{
+        type: 'text',
+        left: '42%',
+        top: '49%',
+        style: {
+          text: '100%',
+          fill: '#3f4b58',
+          fontSize: 13,
+          textAlign: 'center',
+          textVerticalAlign: 'middle'
+        }
+      }, {
+        type: 'text',
+        left: '42%',
+        top: '58%',
+        style: {
+          text: 'Total',
+          fill: '#697789',
+          fontSize: 10,
+          textAlign: 'center',
+          textVerticalAlign: 'middle'
+        }
+      }]
+    });
+
+    echarts.init(document.getElementById('statusDonut')).setOption({
+      animation: false,
+      color: [blue, green, purple, orange],
+      grid: { left: 34, right: 90, top: 22, bottom: 28 },
+      legend: {
+        orient: 'vertical',
+        right: 0,
+        top: 24,
+        itemWidth: 8,
+        itemHeight: 8,
+        textStyle: { fontSize: 11, color: '#455364' },
+        formatter: function (name) {
+          const map = {
+            'For Sale': 'For Sale\n1,642 (57.5%)',
+            'Under Contract': 'Under Contract\n689 (24.1%)',
+            'Pending': 'Pending\n345 (12.1%)',
+            'Sold': 'Sold\n180 (6.3%)'
+          };
+          return map[name];
+        }
+      },
+      series: [{
+        type: 'pie',
+        radius: ['36%', '66%'],
+        center: ['40%', '50%'],
+        label: {
+          color: '#fff',
+          fontSize: 10,
+          formatter: '{b}'
+        },
+        labelLine: { show: false },
+        data: [
+          { name: 'For Sale', value: 1642 },
+          { name: 'Under Contract', value: 689 },
+          { name: 'Pending', value: 345 },
+          { name: 'Sold', value: 180 }
+        ]
+      }],
+      graphic: [{
+        type: 'text',
+        left: '45%',
+        top: '46%',
+        style: {
+          text: '2,856',
+          fill: '#455364',
+          fontSize: 18,
+          textAlign: 'center',
+          textVerticalAlign: 'middle'
+        }
+      }, {
+        type: 'text',
+        left: '41%',
+        top: '59%',
+        style: {
+          text: 'Total Listings',
+          fill: '#697789',
+          fontSize: 10,
+          textAlign: 'center',
+          textVerticalAlign: 'middle'
+        }
+      }]
+    });
+
+    echarts.init(document.getElementById('scatterChart')).setOption({
+      animation: false,
+      color: [blue],
+      grid: { left: 44, right: 14, top: 26, bottom: 38 },
+      xAxis: {
+        type: 'value',
+        name: 'Square Footage (sq ft)',
+        nameLocation: 'middle',
+        nameGap: 26,
+        min: 400,
+        max: 3800,
+        axisLabel: { fontSize: 10, color: '#536171' },
+        splitLine: { lineStyle: { color: '#edf1f5' } }
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Sale Price',
+        nameLocation: 'middle',
+        nameGap: 34,
+        min: 200000,
+        max: 1200000,
+        axisLabel: {
+          fontSize: 10,
+          color: '#536171',
+          formatter: function (v) { return '$' + (v / 1000) + 'K'; }
+        },
+        splitLine: { lineStyle: { color: '#edf1f5' } }
+      },
+      series: [
+        {
+          type: 'scatter',
+          data: [[520, 315000], [610, 380000], [680, 335000], [740, 430000], [790, 395000], [850, 470000], [910, 360000], [960, 505000], [1010, 450000], [1080, 520000], [1140, 410000], [1190, 560000], [1260, 600000], [1320, 455000], [1380, 610000], [1440, 540000], [1490, 660000], [1550, 490000], [1620, 620000], [1680, 700000], [1740, 565000], [1810, 680000], [1880, 740000], [1940, 610000], [2010, 880000], [2080, 710000], [2150, 600000], [2220, 765000], [2290, 680000], [2360, 820000], [2430, 710000], [2500, 900000], [2570, 780000], [2640, 665000], [2710, 840000], [2780, 730000], [2860, 880000], [2940, 795000], [3020, 920000], [3100, 860000], [3180, 990000], [3260, 830000], [3340, 1035000], [3420, 910000], [3500, 1100000], [3580, 960000], [3660, 1150000], [3740, 1010000], [3820, 1080000], [3910, 940000], [4000, 1045000]],
+          symbolSize: 5,
+          lineStyle: { width: 1.2 }
+        },
+        {
+          type: 'line',
+          data: [[500, 350000], [1000, 455000], [1500, 560000], [2000, 665000], [2500, 770000], [3000, 875000], [3500, 980000], [4000, 1085000]],
+          smooth: false,
+          symbol: 'none',
+          silent: true,
+          lineStyle: { color: '#7fa3d9', width: 1, type: 'dashed' }
+        }
+      ]
+    });
+  </script>
+</body>
+</html>

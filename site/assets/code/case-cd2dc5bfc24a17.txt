@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WriteMate AI Writing Assistant Landing Page</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9edf5;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #151a34;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 731px;
+    overflow: hidden;
+    background: #f7fbff;
+  }
+
+  /* Browser chrome */
+  .browser-top {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 44px;
+    background: #202428;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    gap: 8px;
+  }
+
+  .traffic {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex: 0 0 auto;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .red { background: #ff5f57; }
+  .yellow { background: #ffbd2e; }
+  .green { background: #28c840; }
+
+  .tab {
+    height: 30px;
+    width: 228px;
+    background: #2d3338;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    color: #d7dbe2;
+    font-size: 11px;
+    gap: 7px;
+    margin-left: 4px;
+  }
+
+  .tab-icon {
+    width: 15px;
+    height: 15px;
+    border-radius: 5px;
+    background: #7b55ff;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 800;
+  }
+
+  .tab-close {
+    margin-left: auto;
+    color: #c8ccd2;
+    font-size: 12px;
+  }
+
+  .plus {
+    color: #d7dbe2;
+    font-size: 19px;
+    padding-left: 8px;
+  }
+
+  .browser-bar {
+    position: absolute;
+    left: 0;
+    top: 44px;
+    width: 1280px;
+    height: 30px;
+    background: #24292d;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+  }
+
+  .browser-arrow {
+    color: #d6dbe4;
+    font-size: 18px;
+  }
+
+  .url {
+    height: 22px;
+    width: 1074px;
+    border-radius: 13px;
+    background: #30363a;
+    color: #d5d8de;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    font-size: 12px;
+  }
+
+  .browser-right {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    color: #d8dbe3;
+    font-size: 16px;
+  }
+
+  /* Navigation */
+  .nav {
+    position: absolute;
+    left: 0;
+    top: 74px;
+    width: 1280px;
+    height: 67px;
+    background: rgba(255,255,255,0.96);
+    border-bottom: 1px solid #dfe6f1;
+    display: flex;
+    align-items: center;
+    z-index: 5;
+    box-shadow: 0 12px 28px rgba(32, 42, 70, 0.08);
+  }
+
+  .logo {
+    position: absolute;
+    left: 80px;
+    top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    color: #151a34;
+  }
+
+  .logo-mark {
+    width: 29px;
+    height: 20px;
+    position: relative;
+  }
+
+  .logo-mark:before,
+  .logo-mark:after {
+    content: "";
+    position: absolute;
+    top: 1px;
+    width: 12px;
+    height: 17px;
+    border-radius: 10px 10px 12px 12px;
+    background: linear-gradient(180deg, #8763ff, #6347ff);
+    transform: skewX(-16deg);
+  }
+
+  .logo-mark:before {
+    left: 1px;
+  }
+
+  .logo-mark:after {
+    left: 15px;
+    background: linear-gradient(180deg, #9c72ff, #7552ff);
+    opacity: .85;
+  }
+
+  .nav-links {
+    position: absolute;
+    left: 406px;
+    top: 0;
+    height: 67px;
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    font-size: 12px;
+    color: #161b32;
+  }
+
+  .nav-links span {
+    white-space: nowrap;
+  }
+
+  .nav-actions {
+    position: absolute;
+    right: 72px;
+    top: 0;
+    height: 67px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .login {
+    color: #171c34;
+    font-size: 12px;
+  }
+
+  .get-free-top {
+    height: 30px;
+    min-width: 116px;
+    border: 0;
+    border-radius: 7px;
+    background: #ff7319;
+    color: white;
+    font-size: 11px;
+    padding: 0 16px;
+    font-weight: 700;
+  }
+
+  /* Hero */
+  .hero {
+    position: absolute;
+    left: 0;
+    top: 141px;
+    width: 1280px;
+    height: 276px;
+    background: linear-gradient(108deg, #dfe6ff 0%, #f5edf8 46%, #ffe9df 100%);
+  }
+
+  .feature-card-left {
+    position: absolute;
+    left: 87px;
+    top: 68px;
+    width: 188px;
+    height: 140px;
+    background: rgba(255,255,255,.92);
+    border-radius: 16px;
+    box-shadow: 0 16px 28px rgba(34, 43, 78, .12);
+    padding: 18px 17px;
+  }
+
+  .feature-card-left .mini-head {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 10px;
+    color: #171b32;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+
+  .icon-circle {
+    width: 23px;
+    height: 23px;
+    border-radius: 7px;
+    background: #7759ff;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  .feature-card-left .body-text {
+    font-size: 9.5px;
+    color: #566078;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .lines {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .line {
+    height: 2px;
+    border-radius: 10px;
+    background: #cfd6e3;
+  }
+
+  .line.one { width: 78%; }
+  .line.two { width: 87%; }
+  .line.three { width: 66%; }
+
+  .hero-copy {
+    position: absolute;
+    left: 374px;
+    top: 27px;
+    width: 520px;
+    text-align: center;
+  }
+
+  .headline {
+    margin: 0;
+    font-size: 35px;
+    line-height: 1.15;
+    letter-spacing: -1.3px;
+    color: #101734;
+    font-weight: 850;
+  }
+
+  .subheadline {
+    margin: 0 0 10px 0;
+    font-size: 33px;
+    line-height: 1.16;
+    color: #101734;
+    font-weight: 850;
+  }
+
+  .subheadline .accent {
+    color: #7459ff;
+  }
+
+  .hero-copy p {
+    margin: 0 auto 20px auto;
+    width: 420px;
+    color: #47506a;
+    font-size: 12.5px;
+    line-height: 1.65;
+  }
+
+  .hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .btn-orange {
+    width: 164px;
+    height: 34px;
+    border: 0;
+    border-radius: 7px;
+    background: #ff7319;
+    color: white;
+    font-weight: 750;
+    font-size: 11px;
+  }
+
+  .btn-ghost {
+    width: 164px;
+    height: 34px;
+    border: 1px solid #dfe6ef;
+    border-radius: 7px;
+    background: rgba(255,255,255,.82);
+    color: #161b32;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .bullets {
+    display: flex;
+    justify-content: center;
+    gap: 27px;
+    color: #687289;
+    font-size: 10.5px;
+    margin-top: 10px;
+  }
+
+  .bullet:before {
+    content: "✓";
+    color: #4c5770;
+    margin-right: 5px;
+  }
+
+  .feature-card-right {
+    position: absolute;
+    right: 55px;
+    top: 22px;
+    width: 188px;
+    height: 112px;
+    background: rgba(255,255,255,.92);
+    border-radius: 14px;
+    box-shadow: 0 13px 24px rgba(42, 49, 80, .11);
+    padding: 13px 13px;
+  }
+
+  .feature-card-right.lower {
+    top: 148px;
+  }
+
+  .feature-card-right .mini-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    color: #171b32;
+    margin-bottom: 8px;
+  }
+
+  .feature-card-right .body-text {
+    font-size: 9.5px;
+    color: #5a6379;
+    line-height: 1.45;
+    margin-bottom: 10px;
+  }
+
+  .feature-card-right .line {
+    background: #dfe6ef;
+  }
+
+  /* Features row */
+  .features-row {
+    position: absolute;
+    left: 0;
+    top: 417px;
+    width: 1280px;
+    height: 118px;
+    background: #fbfdff;
+    border-bottom: 1px solid #e4eaf2;
+  }
+
+  .feature-tile {
+    position: absolute;
+    top: 15px;
+    width: 284px;
+    height: 82px;
+    border-right: 1px solid #e3e9f2;
+  }
+
+  .feature-tile.one { left: 158px; }
+  .feature-tile.two { left: 460px; }
+  .feature-tile.three { left: 817px; border-right: 0; }
+
+  .tile-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 13px;
+    background: #eadcf7;
+    color: #7759ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 20px;
+  }
+
+  .feature-tile.two .tile-icon {
+    background: #ecf8f0;
+    color: #63b983;
+  }
+
+  .feature-tile.three .tile-icon {
+    background: #ffe8dc;
+    color: #ff7319;
+  }
+
+  .tile-copy {
+    position: absolute;
+    left: 76px;
+    top: 0;
+    width: 200px;
+  }
+
+  .tile-copy h3 {
+    margin: 0 0 5px 0;
+    font-size: 12px;
+    color: #171c34;
+  }
+
+  .tile-copy p {
+    margin: 0;
+    color: #5a647b;
+    font-size: 10.5px;
+    line-height: 1.5;
+  }
+
+  /* Social proof */
+  .trusted {
+    position: absolute;
+    left: 0;
+    top: 535px;
+    width: 1280px;
+    height: 58px;
+    border-bottom: 1px solid #e4eaf2;
+  }
+
+  .trusted-title {
+    text-align: center;
+    font-size: 8.5px;
+    letter-spacing: 2.2px;
+    color: #747d94;
+    font-weight: 750;
+    margin-bottom: 8px;
+  }
+
+  .brand-row {
+    display: flex;
+    justify-content: space8around;
+    align-items: center;
+    padding: 0 150px;
+  }
+
+  .brand {
+    font-size: 16px;
+    color: #687189;
+    margin: 0 27px;
+    letter-spacing: -0.2px;
+  }
+
+  .brand.small {
+    font-size: 14px;
+  }
+
+  /* Bottom CTA */
+  .bottom-cta {
+    position: absolute;
+    left: 132px;
+    top: 609px;
+    width: 1016px;
+    height: 107px;
+    border-radius: 8px;
+    background: linear-gradient(105deg, #7656ff 0%, #8c62f1 46%, #e273c5 100%);
+    color: white;
+  }
+
+  .cta-left {
+    position: absolute;
+    left: 56px;
+    top: 18px;
+    width: 380px;
+  }
+
+  .cta-left h2 {
+    margin: 0 0 6px 0;
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  .cta-left p {
+    margin: 0;
+    font-size: 10.5px;
+    line-height: 1.45;
+    color: #f2edff;
+  }
+
+  .cta-form {
+    position: absolute;
+    left: 456px;
+    top: 20px;
+    width: 504px;
+    height: 42px;
+    display: flex;
+    gap: 9px;
+  }
+
+  .email-input {
+    width: 326px;
+    height: 38px;
+    border-radius: 6px;
+    background: white;
+    border: 0;
+    color: #697087;
+    font-size: 11px;
+    padding: 0 13px;
+    outline: 0;
+  }
+
+  .submit-btn {
+    width: 162px;
+    height: 38px;
+    border: 0;
+    border-radius: 6px;
+    background: #ff7319;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .fine-print {
+    position: absolute;
+    left: 456px;
+    bottom: 12px;
+    width: 460px;
+    color: #f4efff;
+    font-size: 8.8px;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="browser-top">
+      <div class="traffic">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+      <div class="tab">
+        <span class="tab-icon">w</span>
+        <span>WriteMate – AI Writing Assistant</span>
+        <span class="tab-close">×</span>
+      </div>
+      <div class="plus">+</div>
+    </div>
+
+    <div class="browser-bar">
+      <span class="browser-arrow">‹</span>
+      <span class="browser-arrow">›</span>
+      <div class="url">https://www.writemate.ai</div>
+      <div class="browser-right">
+        <span>☆</span>
+        <span style="width:22px;height:22px;border-radius:50%;background:#536070;color:white;display:flex;align-items:center;justify-content:center;">J</span>
+        <span>⋮</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <div class="logo">
+        <div class="logo-mark"></div>
+        <span>WriteMate</span>
+      </div>
+      <div class="nav-links">
+        <span>Features</span>
+        <span>Use Cases</span>
+        <span>Pricing</span>
+        <span>Resources</span>
+        <span>Blog</span>
+      </div>
+      <div class="nav-actions">
+        <span class="login">Log in</span>
+        <button class="get-free-top">Get Started Free</button>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="feature-card-left">
+        <div class="mini-head"><span class="icon-circle">✦</span><span>AI Writer</span></div>
+        <div class="body-text">Generate high-quality content in seconds.</div>
+        <div class="lines">
+          <div class="line one"></div>
+          <div class="line two"></div>
+          <div class="line three"></div>
+        </div>
+      </div>
+
+      <div class="hero-copy">
+        <h1 class="headline">Your ideas. Our AI.</h1>
+        <div class="subheadline">Powerful writing, <span class="accent">made simple.</span></div>
+        <p>WriteMate is an AI writing assistant that helps you create high-quality content, faster. From blog posts to emails, we’ve got you covered.</p>
+        <div class="hero-buttons">
+          <button class="btn-orange">Get Started Free</button>
+          <button class="btn-ghost">See How It Works</button>
+        </div>
+        <div class="bullets">
+          <div class="bullet">No credit card required</div>
+          <div class="bullet">Up to 2,000 words free</div>
+        </div>
+      </div>
+
+      <div class="feature-card-right">
+        <div class="mini-head"><span class="icon-circle">✎</span><span>Rewrite &amp; Improve</span></div>
+        <div class="body-text">Enhance clarity, tone, and engagement.</div>
+        <div class="lines">
+          <div class="line one"></div>
+          <div class="line two"></div>
+          <div class="line three"></div>
+        </div>
+      </div>
+
+      <div class="feature-card-right lower">
+        <div class="mini-head"><span class="icon-circle">▤</span><span>Summarize</span></div>
+        <div class="body-text">Turn long content into clear summaries.</div>
+        <div class="lines">
+          <div class="line one"></div>
+          <div class="line two"></div>
+          <div class="line three"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features-row">
+      <div class="feature-tile one">
+        <div class="tile-icon">ϟ</div>
+        <div class="tile-copy">
+          <h3>AI-Powered Writing</h3>
+          <p>Generate, edit, and refine content with state-of-the-art AI models trained for quality and relevance.</p>
+        </div>
+      </div>
+
+      <div class="feature-tile two">
+        <div class="tile-icon">◎</div>
+        <div class="tile-copy">
+          <h3>Built for Every Use Case</h3>
+          <p>From marketing copy and blog posts to emails and reports—WriteMate adapts to your needs.</p>
+        </div>
+      </div>
+
+      <div class="feature-tile three">
+        <div class="tile-icon">♜</div>
+        <div class="tile-copy">
+          <h3>Save Time, Boost Productivity</h3>
+          <p>Reduce writer's block and speed up your workflow while maintaining your unique voice.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="trusted">
+      <div class="trusted-title">TRUSTED BY TEAMS AT</div>
+      <div class="brand-row">
+        <div class="brand">Microsoft</div>
+        <div class="brand small">airbnb</div>
+        <div class="brand">HubSpot</div>
+        <div class="brand">Google</div>
+        <div class="brand">Dropbox</div>
+        <div class="brand small">shopify</div>
+        <div class="brand small">amazon</div>
+      </div>
+    </section>
+
+    <section class="bottom-cta">
+      <div class="cta-left">
+        <h2>Get better content, every day.</h2>
+        <p>Join thousands of writers, marketers, and teams boosting their productivity with WriteMate.</p>
+      </div>
+
+      <div class="cta-form">
+        <input class="email-input" placeholder="Enter your email address" />
+        <button class="submit-btn">Get Started Free</button>
+      </div>
+
+      <div class="fine-print">By signing up, you agree to our Terms of Service and Privacy Policy.</div>
+    </section>
+  </div>
+</body>
+</html>

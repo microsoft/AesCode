@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Employees Ready to Embrace AI</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e9e9e9;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background: #fbfbf8;
+      color: #26323f;
+    }
+
+    .left-banner {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 458px;
+      height: 720px;
+      background:
+        radial-gradient(circle at 20% 12%, rgba(255,255,255,0.22), transparent 30%),
+        linear-gradient(140deg, #ea4287 0%, #c436b1 39%, #7436d0 72%, #3f28d0 100%);
+      overflow: hidden;
+    }
+
+    .left-banner::before {
+      content: "";
+      position: absolute;
+      left: -160px;
+      bottom: -170px;
+      width: 690px;
+      height: 370px;
+      border-radius: 50%;
+      border-top: 18px solid rgba(255,255,255,0.24);
+      border-left: 16px solid rgba(255,255,255,0.18);
+      transform: rotate(120deg);
+      filter: blur(1px);
+      opacity: 0.85;
+    }
+
+    .left-banner::after {
+      content: "";
+      position: absolute;
+      left: -140px;
+      bottom: -130px;
+      width: 610px;
+      height: 290px;
+      border-radius: 50%;
+      border-top: 18px solid rgba(255,255,255,0.19);
+      border-left: 16px solid rgba(255,255,255,0.14);
+      transform: rotate(118deg);
+      opacity: 0.65;
+    }
+
+    .main-title {
+      position: absolute;
+      z-index: 2;
+      left: 48px;
+      top: 146px;
+      width: 360px;
+      margin: 0;
+      color: #ffffff;
+      font-size: 60px;
+      line-height: 1.18;
+      font-weight: 700;
+      letter-spacing: -2.2px;
+    }
+
+    .footer-left {
+      position: absolute;
+      z-index: 3;
+      left: 34px;
+      bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .footer-left .slide-no {
+      font-size: 21px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .footer-left .divider-bar {
+      width: 2px;
+      height: 14px;
+      background: rgba(255,255,255,0.72);
+    }
+
+    .right-area {
+      position: absolute;
+      left: 458px;
+      top: 0;
+      width: 822px;
+      height: 720px;
+      background: #fbfbf8;
+    }
+
+    .metric-card {
+      position: absolute;
+      left: 40px;
+      top: 44px;
+      width: 742px;
+      height: 606px;
+      border-radius: 30px;
+      background: rgba(255,255,255,0.94);
+      box-shadow: 0 10px 28px rgba(78, 58, 110, 0.08);
+      border: 1px solid rgba(210, 210, 210, 0.30);
+      overflow: hidden;
+    }
+
+    .divider-vertical {
+      position: absolute;
+      top: 45px;
+      left: 344px;
+      width: 1px;
+      height: 516px;
+      background: #e5e5e5;
+    }
+
+    .divider-horizontal {
+      position: absolute;
+      left: 36px;
+      top: 295px;
+      width: 670px;
+      height: 1px;
+      background: #e5e5e5;
+    }
+
+    .tile {
+      position: absolute;
+      width: 320px;
+      height: 250px;
+      padding-top: 44px;
+    }
+
+    .top-left {
+      left: 47px;
+      top: 34px;
+    }
+
+    .top-right {
+      left: 401px;
+      top: 34px;
+    }
+
+    .bottom-left {
+      left: 47px;
+      top: 332px;
+    }
+
+    .bottom-right {
+      left: 401px;
+      top: 332px;
+    }
+
+    .metric-number {
+      margin: 0 0 14px 0;
+      font-size: 86px;
+      line-height: 0.96;
+      letter-spacing: -3px;
+      font-weight: 700;
+      color: #12928f;
+    }
+
+    .metric-number.purple {
+      color: #7343e7;
+    }
+
+    .metric-copy {
+      margin: 0;
+      color: #303842;
+      font-size: 24px;
+      line-height: 1.18;
+      font-weight: 650;
+      letter-spacing: -0.35px;
+    }
+
+    .decor-badge {
+      position: absolute;
+      right: 29px;
+      bottom: 25px;
+      width: 82px;
+      height: 70px;
+    }
+
+    .shape-a {
+      position: absolute;
+      right: 3px;
+      bottom: 5px;
+      width: 44px;
+      height: 44px;
+      background: #ef5792;
+      border-radius: 12px 18px 12px 18px;
+      transform: rotate(45deg);
+      z-index: 1;
+    }
+
+    .shape-b {
+      position: absolute;
+      left: 2px;
+      bottom: 4px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #7542e7;
+      z-index: 2;
+    }
+
+    .shape-c {
+      position: absolute;
+      right: 31px;
+      top: 0;
+      width: 49px;
+      height: 32px;
+      background: #149490;
+      border-radius: 8px 12px 12px 8px;
+      transform: rotate(25deg);
+      z-index: 3;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <section class="left-banner" aria-label="Title panel">
+      <h1 class="main-title">Employees<br>are ready<br>to embrace<br>AI</h1>
+      <div class="footer-left">
+        <span class="slide-no">1</span>
+        <span class="divider-bar"></span>
+        <span>Microsoft Fabric</span>
+      </div>
+    </section>
+
+    <section class="right-area" aria-label="Metric panel">
+      <div class="metric-card">
+        <div class="divider-vertical"></div>
+        <div class="divider-horizontal"></div>
+
+        <div class="tile top-left">
+          <div class="metric-number">64%</div>
+          <div class="metric-copy">Employees lack<br>time &amp; energy to<br>do their job</div>
+        </div>
+
+        <div class="tile top-right">
+          <div class="metric-number purple">3.5X</div>
+          <div class="metric-copy">Less likely to focus<br>strategically due to<br>time constraints</div>
+        </div>
+
+        <div class="tile bottom-left">
+          <div class="metric-number">70%</div>
+          <div class="metric-copy">Employees willing<br>to delegate work<br>to AI</div>
+        </div>
+
+        <div class="tile bottom-right">
+          <div class="metric-number purple">2.5X</div>
+          <div class="metric-copy">Managers are much<br>more likely to augment<br>with AI than replace</div>
+        </div>
+      </div>
+
+      <div class="decor-badge" aria-hidden="true">
+        <div class="shape-a"></div>
+        <div class="shape-b"></div>
+        <div class="shape-c"></div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Tri-Fold Healthcare Brochure Infographic</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #dfe3e5;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1264px;
+    height: 848px;
+    overflow: hidden;
+    background: #d8dee0;
+  }
+
+  /* LEFT INFO STRIP */
+  .info-strip {
+    position: absolute;
+    left: 46px;
+    top: 178px;
+    width: 160px;
+    height: 600px;
+    color: #2f3337;
+  }
+
+  .info-title {
+    font-size: 29px;
+    line-height: 1.22;
+    font-weight: 800;
+    margin-bottom: 62px;
+    letter-spacing: -0.3px;
+  }
+
+  .info-item {
+    position: relative;
+    min-height: 80px;
+    padding-left: 14px;
+    padding-bottom: 17px;
+    font-size: 18px;
+    line-height: 1.24;
+    text-align: center;
+  }
+
+  .info-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    bottom: 0;
+    width: 60px;
+    height: 2px;
+    background: #aeb4b7;
+  }
+
+  /* FRONT COVER */
+  .front-cover {
+    position: absolute;
+    left: 256px;
+    top: 70px;
+    width: 360px;
+    height: 688px;
+    background: #f8f8f7;
+    box-shadow: 0 12px 20px rgba(32, 42, 47, 0.18);
+    overflow: hidden;
+  }
+
+  .front-logo {
+    position: absolute;
+    top: 26px;
+    left: 76px;
+    width: 210px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    color: #189a62;
+    z-index: 4;
+  }
+
+  .logo-mark {
+    width: 42px;
+    height: 42px;
+    border: 3px solid #189a62;
+    border-radius: 15px;
+    display: grid;
+    place-items: center;
+    color: #189a62;
+    font-weight: 900;
+    font-size: 18px;
+  }
+
+  .logo-name {
+    font-size: 16px;
+    font-weight: 800;
+    color: #222;
+  }
+
+  .logo-subtitle {
+    margin-top: 3px;
+    font-size: 11px;
+    color: #464a4d;
+  }
+
+  .hex-frame {
+    position: absolute;
+    top: 92px;
+    left: 36px;
+    width: 288px;
+    height: 298px;
+    background: #d9eeef;
+    border: 6px solid #189a62;
+    clip-path: polygon(50% 0%, 100% 25%, 88% 100%, 12% 100%, 0% 25%);
+    z-index: 2;
+    padding: 40px 22px 22px 22px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hex-frame img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 16px;
+    display: block;
+  }
+
+  .front-headline {
+    position: absolute;
+    top: 420px;
+    left: 0;
+    width: 360px;
+    text-align: center;
+    padding: 0 20px;
+    background: #263036;
+    color: #fff;
+    z-index: 3;
+  }
+
+  .front-headline .line1 {
+    font-size: 35px;
+    font-weight: 900;
+    letter-spacing: 0.4px;
+    line-height: 1.15;
+  }
+
+  .front-headline .line2 {
+    margin-top: 7px;
+    color: #249c68;
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 0.4px;
+    line-height: 1.15;
+  }
+
+  .front-headline .line3 {
+    margin-top: 6px;
+    font-size: 35px;
+    font-weight: 900;
+    letter-spacing: 0.4px;
+    line-height: 1.15;
+  }
+
+  .front-stat-row {
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+    width: 300px;
+    display: flex;
+    justify-content: space1-between;
+    gap: 15px;
+  }
+
+  .stat-card {
+    width: 142px;
+    height: 82px;
+    background: #18b376;
+    color: #fff;
+    border-radius: 8px;
+    padding: 9px 8px 8px 8px;
+    text-align: center;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    line-height: 1.18;
+  }
+
+  .stat-value {
+    margin-top: 6px;
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1.05;
+  }
+
+  /* RIGHT BROCHURE PANELS */
+  .inside-spread-top {
+    position: absolute;
+    left: 700px;
+    top: 70px;
+    width: 496px;
+    height: 326px;
+    background: #fff;
+    display: flex;
+    box-shadow: 0 10px 20px rgba(30, 40, 44, 0.17);
+  }
+
+  .panel-about {
+    position: relative;
+    width: 154px;
+    height: 326px;
+    background: #fbfbfa;
+    padding: 10px 12px 12px 14px;
+    border-right: 1px solid #d9dddd;
+  }
+
+  .panel-about h3 {
+    margin: 0 0 9px;
+    font-size: 14px;
+    line-height: 1.15;
+    color: #16191b;
+    font-weight: 900;
+  }
+
+  .panel-about .green-subhead {
+    color: #189a62;
+    font-size: 14px;
+    font-weight: 800;
+    border-bottom: 2px solid #189a62;
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+  }
+
+  .panel-about p,
+  .panel-quote p {
+    margin: 0 0 8px;
+    font-size: 7.5px;
+    line-height: 1.35;
+    color: #444b4e;
+  }
+
+  .panel-about ul {
+    margin: 8px 0 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 8.5px;
+    color: #202528;
+  }
+
+  .panel-about li {
+    position: relative;
+    padding-left: 12px;
+    margin-bottom: 5px;
+  }
+
+  .panel-about li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 5px;
+    height: 5px;
+    background: #189a62;
+    border-radius: 50%;
+  }
+
+  .panel-quote {
+    position: relative;
+    width: 166px;
+    height: 326px;
+    background: #fbfbfa;
+    padding: 10px 12px;
+    border-right: 1px solid #d9dddd;
+    text-align: center;
+  }
+
+  .panel-quote h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    color: #189a62;
+    font-weight: 900;
+    line-height: 1.15;
+  }
+
+  .panel-quote p {
+    font-size: 8px;
+    color: #454a4d;
+  }
+
+  .team-wrap {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 166px;
+    height: 110px;
+    background: #213037;
+    clip-path: polygon(0 36%, 46% 0, 100% 12%, 100% 100%, 0 100%);
+    overflow: hidden;
+  }
+
+  .team-wrap img {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 166px;
+    height: 84px;
+    object-fit: cover;
+  }
+
+  .panel-back-top {
+    position: relative;
+    width: 176px;
+    height: 326px;
+    background: #fbfbfa;
+    padding: 10px 12px;
+  }
+
+  .mini-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #189a62;
+    font-weight: 800;
+    font-size: 10px;
+  }
+
+  .mini-logo .small-mark {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #189a62;
+    border-radius: 10px;
+    color: #189a62;
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 900;
+  }
+
+  .back-small-hex {
+    margin-top: 12px;
+    width: 106px;
+    height: 106px;
+    border: 3px solid #189a62;
+    background: #d9eeef;
+    clip-path: polygon(50% 0%, 100% 25%, 88% 100%, 12% 100%, 0% 25%);
+    padding: 15px;
+    text-align: center;
+  }
+
+  .back-small-hex img {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .back-top-headline {
+    position: absolute;
+    bottom: 15px;
+    left: 12px;
+    width: 152px;
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1.22;
+  }
+
+  .contact-block {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    color: #fff;
+    font-size: 8.5px;
+    line-height: 1.35;
+  }
+
+  .inside-spread-bottom {
+    position: absolute;
+    left: 700px;
+    top: 436px;
+    width: 496px;
+    height: 322px;
+    background: #fff;
+    box-shadow: 0 10px 20px rgba(30, 40, 44, 0.17);
+  }
+
+  .bottom-panels {
+    display: flex;
+    height: 150px;
+  }
+
+  .bottom-col {
+    padding: 10px 11px;
+    border-right: 1px solid #d9dddd;
+  }
+
+  .bottom-col:first-of-type {
+    width: 166px;
+  }
+
+  .bottom-col:nth-of-type(2) {
+    width: 160px;
+  }
+
+  .bottom-col:last-of-type {
+    width: 170px;
+    border-right: none;
+  }
+
+  .bottom-col h3 {
+    margin: 0 0 8px;
+    color: #189a62;
+    font-size: 15px;
+    font-weight: 900;
+    line-height: 1.08;
+  }
+
+  .bottom-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 8.2px;
+    color: #262c2f;
+  }
+
+  .bottom-col li {
+    position: relative;
+    padding-left: 10px;
+    margin-bottom: 5px;
+  }
+
+  .bottom-col li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 3px;
+    width: 5px;
+    height: 5px;
+    background: #189a62;
+    border-radius: 50%;
+  }
+
+  .doctor-line {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 4px;
+    font-size: 8.2px;
+    color: #333;
+  }
+
+  .doctor-line b {
+    display: block;
+    font-size: 9px;
+  }
+
+  .building-area {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 496px;
+    height: 172px;
+    background: #eef5f3;
+    overflow: hidden;
+  }
+
+  .green-diagonal {
+    position: absolute;
+    left: 28px;
+    top: 0;
+    width: 420px;
+    height: 100px;
+    background: #149a62;
+    clip-path: polygon(24% 0, 100% 42%, 100% 100%, 0 100%);
+    opacity: 0.95;
+  }
+
+  .dark-diagonal {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 180px;
+    height: 120px;
+    background: #263036;
+    clip-path: polygon(34% 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .building-area img {
+    position: absolute;
+    left: 23px;
+    bottom: 0;
+    width: 450px;
+    height: 150px;
+    object-fit: cover;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="info-strip">
+      <div class="info-title">TRI-FOLD<br>BROCHURE</div>
+      <div class="info-item">Image Not<br>Included</div>
+      <div class="info-item">Free Fonts<br>Used</div>
+      <div class="info-item">Fully<br>Editable File</div>
+      <div class="info-item">Fully<br>Ready File</div>
+    </div>
+
+    <div class="front-cover">
+      <div class="front-logo">
+        <div class="logo-mark">□</div>
+        <div>
+          <div class="logo-name">COMPANY NAME</div>
+          <div class="logo-subtitle">Your Tagline Here</div>
+        </div>
+      </div>
+
+      <div class="hex-frame">
+        <img src="https://placehold.co/260x260?text=Doctor+Photo" alt="Doctor Photo Placeholder">
+      </div>
+
+      <div class="front-headline">
+        <div class="line1">THE BEST</div>
+        <div class="line2">HEALTHCARE</div>
+        <div class="line3">SOLUTIONS</div>
+      </div>
+
+      <div class="front-stat-row">
+        <div class="stat-card">
+          <div class="stat-label">Patient<br>Satisfaction</div>
+          <div class="stat-value">99.99%</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Successful<br>Operation</div>
+          <div class="stat-value">95.33%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inside-spread-top">
+      <div class="panel-about">
+        <h3>ABOUT<br><span class="green-subhead">OUR HOSPITAL</span></h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+        <p>Our commitment to patient care and medical innovation creates a trusted healthcare experience.</p>
+        <ul>
+          <li>Your Hospital Text Here</li>
+          <li>Your Hospital Text Here</li>
+          <li>Your Hospital Text Here</li>
+        </ul>
+      </div>
+
+      <div class="panel-quote">
+        <h3>Your Most Trusted Health Partner</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+        <div class="team-wrap">
+          <img src="https://placehold.co/260x140?text=Medical+Team" alt="Medical Team Placeholder">
+        </div>
+      </div>
+
+      <div class="panel-back-top">
+        <div class="mini-logo">
+          <span class="small-mark">□</span>
+          <span>COMPANY NAME</span>
+        </div>
+        <div class="back-small-hex">
+          <img src="https://placehold.co/180x180?text=Doctor+Photo" alt="Small Doctor Photo Placeholder">
+        </div>
+        <div class="back-top-headline">THE BEST<br>HEALTHCARE<br>SOLUTIONS</div>
+        <div class="contact-block">
+          <div>Get More Information</div>
+          <div>Phone: +000 123 4567</div>
+          <div>Website: yoursite.com</div>
+          <div>Address: 123 Medical Street</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inside-spread-bottom">
+      <div class="bottom-panels">
+        <div class="bottom-col">
+          <h3>Our Medical<br>Services</h3>
+          <ul>
+            <li>Medical Laboratory<br>Advanced diagnostic testing.</li>
+            <li>Medical Report<br>Comprehensive health documentation.</li>
+            <li>Medical Insurance<br>Flexible payment options.</li>
+            <li>Your Hospital Text Here<br>Customized service description.</li>
+          </ul>
+        </div>
+
+        <div class="bottom-col">
+          <h3>Why<br>Choose Us ?</h3>
+          <ul>
+            <li>Your Hospital Text Here</li>
+            <li>Your Hospital Text Here</li>
+            <li>Your Hospital Text Here</li>
+            <li>Your Hospital Text Here</li>
+          </ul>
+        </div>
+
+        <div class="bottom-col">
+          <h3>Our Medical<br>Doctors</h3>
+          <div class="doctor-line">
+            <div style="width:20px;height:20px;background:#d8efee;border:1px solid #189a62;border-radius:50%;"></div>
+            <div><b>NAME HERE</b>Your Hospital Text Here</div>
+          </div>
+          <div class="doctor-line">
+            <div style="width:20px;height:20px;background:#d8efee;border:1px solid #189a62;border-radius:50%;"></div>
+            <div><b>NAME HERE</b>Your Hospital Text Here</div>
+          </div>
+          <div class="doctor-line">
+            <div style="width:20px;height:20px;background:#d8efee;border:1px solid #189a62;border-radius:50%;"></div>
+            <div><b>NAME HERE</b>Your Hospital Text Here</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="building-area">
+        <div class="green-diagonal"></div>
+        <div class="dark-diagonal"></div>
+        <img src="https://placehold.co/520x180?text=Hospital+Building" alt="Hospital Building Placeholder">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

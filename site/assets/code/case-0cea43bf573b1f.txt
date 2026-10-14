@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Digital Marketing Analytics</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f4f5f6;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #111;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1072px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .title {
+      position: absolute;
+      left: 18px;
+      top: 27px;
+      font-size: 40px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .controls {
+      position: absolute;
+      left: 960px;
+      top: 28px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 18px;
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .label {
+      font-weight: 700;
+    }
+
+    .dropdown {
+      width: 118px;
+      height: 48px;
+      border: 1px solid #b8b8b8;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space1between;
+      padding: 0 12px;
+      font-size: 18px;
+    }
+
+    .chev {
+      margin-left: auto;
+      width: 10px;
+      height: 10px;
+      border-right: 1.5px solid #222;
+      border-bottom: 1.5px solid #222;
+      transform: rotate(45deg);
+      margin-top: -5px;
+    }
+
+    .pills {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .pill {
+      height: 48px;
+      min-width: 78px;
+      border: 1px solid #b8b8b8;
+      border-radius: 12px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .pill.active {
+      background: #fa0018;
+      border-color: #fa0018;
+      color: #fff;
+      font-weight: 800;
+      min-width: 105px;
+    }
+
+    .logo {
+      position: absolute;
+      left: 1685px;
+      top: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 28px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .logo-mark {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 28px;
+    }
+
+    .logo-mark span {
+      display: block;
+      width: 5px;
+      background: #111;
+      border-radius: 4px;
+    }
+
+    .logo-mark span:nth-child(1) { height: 23px; }
+    .logo-mark span:nth-child(2) { height: 28px; }
+    .logo-mark span:nth-child(3) { height: 26px; }
+    .logo-mark span:nth-child(4) { height: 19px; }
+
+    .panel {
+      position: absolute;
+      background: #fff;
+      border: 1px solid #d5d7da;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .panel-metrics {
+      left: 18px;
+      top: 105px;
+      width: 850px;
+      height: 450px;
+    }
+
+    .panel-insights-top {
+      left: 880px;
+      top: 105px;
+      width: 1022px;
+      height: 450px;
+    }
+
+    .panel-kpis {
+      left: 18px;
+      top: 570px;
+      width: 850px;
+      height: 450px;
+    }
+
+    .panel-insights-bottom {
+      left: 880px;
+      top: 570px;
+      width: 1022px;
+      height: 450px;
+    }
+
+    .section-heading {
+      position: absolute;
+      left: 16px;
+      top: 18px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .section-heading small {
+      font-weight: 400;
+    }
+
+    table {
+      border-collapse: collapse;
+      font-size: 18px;
+    }
+
+    .metrics-table {
+      position: absolute;
+      left: 10px;
+      top: 65px;
+      width: 570px;
+    }
+
+    .kpis-table {
+      position: absolute;
+      left: 10px;
+      top: 50px;
+      width: 580px;
+      font-size: 16px;
+    }
+
+    th {
+      text-align: center;
+      font-weight: 700;
+      height: 34px;
+      border: 1px solid #d8d8d8;
+      background: #fbfbfb;
+    }
+
+    td {
+      height: 39px;
+      border: 1px solid #dddddd;
+      vertical-align: middle;
+      padding-left: 8px;
+    }
+
+    td.value {
+      text-align: center;
+    }
+
+    .green {
+      color: #178b20;
+    }
+
+    .red {
+      color: #ff0018;
+    }
+
+    .bold-row td {
+      font-weight: 700;
+      background: #efefef;
+    }
+
+    .variance-label {
+      position: absolute;
+      top: 23px;
+      right: 68px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .metric-var-chart {
+      position: absolute;
+      left: 588px;
+      top: 62px;
+      width: 240px;
+      height: 360px;
+    }
+
+    .kpi-var-chart {
+      position: absolute;
+      left: 588px;
+      top: 50px;
+      width: 240px;
+      height: 370px;
+    }
+
+    .insight-list {
+      position: absolute;
+      left: 25px;
+      top: 40px;
+      width: 285px;
+      font-size: 18px;
+    }
+
+    .insight-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 38px 86px 1fr;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 58px;
+    }
+
+    .num {
+      width: 32px;
+      height: 32px;
+      background: #000;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .insight-title {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .triangle-up {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 14px solid currentColor;
+      margin-left: 4px;
+    }
+
+    .triangle-down {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 14px solid currentColor;
+      margin-left: 4px;
+    }
+
+    .insight-value {
+      font-size: 18px;
+      font-weight: 700;
+      margin-left: 2px;
+    }
+
+    .insight-text {
+      grid-column: 2 / span 2;
+      margin-top: 10px;
+      max-width: 250px;
+      line-height: 1.5;
+    }
+
+    .chart-title {
+      position: absolute;
+      top: 14px;
+      right: 34px;
+      font-size: 21px;
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .y-axis-label {
+      position: absolute;
+      left: 22px;
+      top: 62px;
+      font-size: 16px;
+    }
+
+    .chart {
+      position: absolute;
+      left: 25px;
+      top: 84px;
+      width: 930px;
+      height: 340px;
+      background: #f2f2f2;
+    }
+
+    .top-chart {
+      left: 28px;
+      top: 84px;
+      width: 925px;
+      height: 335px;
+    }
+
+    .bottom-chart {
+      left: 25px;
+      top: 102px;
+      width: 930px;
+      height: 325px;
+    }
+
+    .bottom-insight-list {
+      position: absolute;
+      left: 22px;
+      top: 54px;
+      width: 288px;
+      font-size: 18px;
+    }
+
+    .bottom-insight-item {
+      display: grid;
+      grid-template-columns: 38px 122px 1fr;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 48px;
+    }
+
+    .bottom-insight-title {
+      font-size: 18px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .bottom-insight-text {
+      grid-column: 2 / span 2;
+      max-width: 260px;
+      line-height: 1.45;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Digital Marketing Analytics</div>
+
+    <div class="controls">
+      <div class="control-group"><span class="label">Year</span><div class="dropdown"><span>2025</span><span class="chev"></span></div></div>
+      <div class="control-group"><span class="label">Month</span><div class="dropdown"><span>Aug</span><span class="chev"></span></div></div>
+      <div class="pills">
+        <div class="pill active">MTD</div>
+        <div class="pill">YTD</div>
+        <div class="pill">LTM</div>
+      </div>
+      <div class="logo"><div class="logo-mark"><span></span><span></span><span></span><span></span></div><span>zebra bi</span></div>
+    </div>
+
+    <section class="panel panel-metrics">
+      <div class="section-heading">Metrics 2025, <small>in USD &amp; no. of</small></div>
+      <div class="variance-label">ΔPL%</div>
+      <table class="metrics-table">
+        <tr><th></th><th>AC MTD Aug</th><th>ΔPL</th><th>ΔPL%</th></tr>
+        <tr><td>Cost</td><td class="value">120.3K</td><td class="value red">4.0K</td><td class="value red">3.4%</td></tr>
+        <tr><td>Impressions</td><td class="value">20.9M</td><td class="value green">1.2M</td><td class="value green">6.1%</td></tr>
+        <tr><td>Clicks</td><td class="value">418.6K</td><td class="value green">18.6K</td><td class="value green">4.6%</td></tr>
+        <tr><td>Leads</td><td class="value">21.8K</td><td class="value green">0.9K</td><td class="value green">4.3%</td></tr>
+        <tr><td>Conversions</td><td class="value">4.6K</td><td class="value green">0.1K</td><td class="value green">2.3%</td></tr>
+        <tr><td>New customers</td><td class="value">1.6K</td><td class="value green">0.0K</td><td class="value green">1.3%</td></tr>
+        <tr class="bold-row"><td>New revenue</td><td class="value">122.3K</td><td class="value red">-0.7K</td><td class="value red">-0.6%</td></tr>
+      </table>
+      <div id="metricsVarChart" class="metric-var-chart"></div>
+    </section>
+
+    <section class="panel panel-insights-top">
+      <div class="insight-list">
+        <div class="insight-item">
+          <div class="num">1</div>
+          <div><span class="insight-title">Cost</span><span style="color:#ff0018;" class="triangle-up"></span><span class="insight-value red">+3.4%</span></div>
+          <div class="insight-text">Higher media spend from<br>expanded campaign activity.</div>
+        </div>
+        <div class="insight-item">
+          <div class="num">2</div>
+          <div><span class="insight-title">Conversions</span><span style="color:#178b20;" class="triangle-up"></span><span class="insight-value green">+2.3%</span></div>
+          <div class="insight-text">Driven by stronger targeting<br>and creative performance.</div>
+        </div>
+        <div class="insight-item">
+          <div class="num">3</div>
+          <div><span class="insight-title">New revenue</span><span style="color:#ff0018;" class="triangle-down"></span><span class="insight-value red">-0.6%</span></div>
+          <div class="insight-text">Linked to lower average<br>order value.</div>
+        </div>
+      </div>
+      <div class="chart-title">Rolling 13M New revenue</div>
+      <div class="y-axis-label">AC</div>
+      <div id="rollingChart" class="chart top-chart"></div>
+    </section>
+
+    <section class="panel panel-kpis">
+      <div class="section-heading">KPIs 2025, <small>in USD, % &amp; multiplier</small></div>
+      <div class="variance-label">ΔPL%</div>
+      <table class="kpis-table">
+        <tr><th></th><th>AC MTD Aug</th><th>ΔPL</th><th>ΔPL%</th></tr>
+        <tr><td>Cost per thousand impressions</td><td class="value">5.7</td><td class="value red">0.2</td><td class="value red">3.6%</td></tr>
+        <tr><td>Cost per click</td><td class="value">0.2</td><td class="value red">0.0</td><td class="value red">2.9%</td></tr>
+        <tr><td>Cost per lead</td><td class="value">1.9</td><td class="value green">-0.1</td><td class="value green">-4.7%</td></tr>
+        <tr><td>Cost per conversion</td><td class="value">3.8</td><td class="value green">-0.2</td><td class="value green">-5.0%</td></tr>
+        <tr><td>Customer acquisition cost</td><td class="value">4.0</td><td class="value green">-0.2</td><td class="value green">-4.8%</td></tr>
+        <tr class="bold-row"><td>Return on ad spend</td><td class="value">1.0</td><td class="value red">0.0</td><td class="value red">-0.6%</td></tr>
+        <tr><td>Click-through rate</td><td class="value">2.5%</td><td class="value green">0.1pp</td><td class="value green">4.2%</td></tr>
+        <tr><td>Click to lead CR</td><td class="value">11.9%</td><td class="value green">0.3pp</td><td class="value green">2.6%</td></tr>
+        <tr><td>Conversion rate</td><td class="value">50.7%</td><td class="value green">0.6pp</td><td class="value green">1.2%</td></tr>
+        <tr><td>Conversion to customer CR</td><td class="value">95.9%</td><td class="value red">-0.5pp</td><td class="value red">-0.5%</td></tr>
+        <tr><td>Lead to customer CR</td><td class="value">48.7%</td><td class="value red">-0.6pp</td><td class="value red">-1.2%</td></tr>
+      </table>
+      <div id="kpiVarChart" class="kpi-var-chart"></div>
+    </section>
+
+    <section class="panel panel-insights-bottom">
+      <div class="bottom-insight-list">
+        <div class="bottom-insight-item">
+          <div class="num">1</div>
+          <div><span class="bottom-insight-title">Return on ad spend</span><span style="color:#ff0018;" class="triangle-down"></span><span class="insight-value red">0.0</span></div>
+          <div class="bottom-insight-text">Revenue uplift did not keep<br>pace with spend increase.</div>
+        </div>
+        <div class="bottom-insight-item">
+          <div class="num">2</div>
+          <div><span class="bottom-insight-title">Conversion rate</span><span style="color:#178b20;" class="triangle-up"></span><span class="insight-value green">+0.6pp</span></div>
+          <div class="bottom-insight-text">Improved efficiency through<br>optimized audiences and<br>landing pages.</div>
+        </div>
+      </div>
+      <div class="chart-title">Return on ad spend</div>
+      <div class="y-axis-label">AC</div>
+      <div id="returnChart" class="chart bottom-chart"></div>
+    </section>
+  </div>
+
+  <script>
+    const metricsVarChart = echarts.init(document.getElementById('metricsVarChart'));
+    metricsVarChart.setOption({
+      animation: false,
+      grid: { left: 40, right: 14, top: 16, bottom: 32 },
+      xAxis: {
+        type: 'value',
+        min: -8,
+        max: 10,
+        interval: 5,
+        axisLabel: { color: '#222' },
+        splitLine: { show: false },
+        axisLine: { show: true },
+        axisTick: { show: false }
+      },
+      yAxis: {
+        type: 'category',
+        inverse: true,
+        data: ['Cost', 'Impressions', 'Clicks', 'Leads', 'Conversions', 'New customers', 'New revenue'],
+        axisLabel: { show: false },
+        axisLine: { show: false },
+        axisTick: { show: false }
+      },
+      series: [{
+        type: 'bar',
+        data: [3.4, 6.1, 4.6, 4.3, 2.3, 1.3, -0.6],
+        barWidth: 6,
+        itemStyle: {
+          color: function(params) {
+            return params.value < 0 ? '#ff0018' : '#43a939';
+          }
+        },
+        label: {
+          show: true,
+          position: 'right',
+          formatter: '{c}%',
+          color: function(params) { return params.value < 0 ? '#ff0018' : '#178b20'; },
+          fontWeight: 700
+        }
+      }]
+    });
+
+    const kpiVarChart = echarts.init(document.getElementById('kpiVarChart'));
+    kpiVarChart.setOption({
+      animation: false,
+      grid: { left: 40, right: 14, top: 12, bottom: 32 },
+      xAxis: {
+        type: 'value',
+        min: -2,
+        max: 5,
+        interval: 2.5,
+        axisLabel: { color: '#222' },
+        splitLine: { show: false },
+        axisLine: { show: true },
+        axisTick: { show: false }
+      },
+      yAxis: {
+        type: 'category',
+        inverse: true,
+        data: [
+          'Cost per thousand impressions',
+          'Cost per click',
+          'Cost per lead',
+          'Cost per conversion',
+          'Customer acquisition cost',
+          'Return on ad spend',
+          'Click-through rate',
+          'Click to lead CR',
+          'Conversion rate',
+          'Conversion to customer CR',
+          'Lead to customer CR'
+        ],
+        axisLabel: { show: false },
+        axisLine: { show: false },
+        axisTick: { show: false }
+      },
+      series: [{
+        type: 'bar',
+        data: [3.6, 2.9, -4.7, -5.0, -4.8, -0.6, 4.2, 2.6, 1.2, -0.5, -1.2],
+        barWidth: 6,
+        itemStyle: {
+          color: function(params) {
+            return params.value < 0 ? '#ff0018' : '#43a939';
+          }
+        },
+        label: {
+          show: true,
+          position: 'right',
+          formatter: '{c}%',
+          color: function(params) { return params.value < 0 ? '#ff0018' : '#178b20'; },
+          fontWeight: 700
+        }
+      }]
+    });
+
+    const rollingChart = echarts.init(document.getElementById('rollingChart'));
+    rollingChart.setOption({
+      animation: false,
+      grid: { left: 46, right: 18, top: 28, bottom: 42 },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['Aug\n2024', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan\n2025', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+        axisLabel: { color: '#222', fontSize: 14 },
+        axisLine: { lineStyle: { color: '#555' } }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 160,
+        interval: 40,
+        name: 'AC',
+        nameLocation: 'end',
+        nameGap: 8,
+        nameTextStyle: { color: '#222', fontSize: 16, align: 'left' },
+        axisLabel: { color: '#222' },
+        splitLine: { show: false }
+      },
+      series: [{
+        type: 'line',
+        smooth: false,
+        symbol: 'circle',
+        symbolSize: 10,
+        data: [116.1, 73.9, 49.5, 26.9, 32.0, 73.5, 51.5, 109.3, 133.9, 109.3, 122.3],
+        label: {
+          show: true,
+          position: 'top',
+          color: '#111',
+          fontSize: 16
+        },
+        lineStyle: { color: '#111', width: 2 },
+        itemStyle: { color: '#111' },
+        areaStyle: {
+          color: function(params) {
+            return params.value >= 80 ? '#9bcb84' : '#ef575b';
+          }
+        }
+      }]
+    });
+
+    const returnChart = echarts.init(document.getElementById('returnChart'));
+    returnChart.setOption({
+      animation: false,
+      grid: { left: 46, right: 18, top: 28, bottom: 42 },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['Aug\n2024', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan\n2025', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+        axisLabel: { color: '#222', fontSize: 14 },
+        axisLine: { lineStyle: { color: '#555' } }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 2,
+        interval: 0.5,
+        name: 'AC',
+        nameLocation: 'end',
+        nameGap: 8,
+        nameTextStyle: { color: '#222', fontSize: 16, align: 'left' },
+        axisLabel: { color: '#222' },
+        splitLine: { show: false }
+      },
+      series: [{
+        type: 'line',
+        smooth: false,
+        symbol: 'circle',
+        symbolSize: 10,
+        data: [1.1, 1.0, 1.1, 0.9, 1.0, 1.3, 1.7, 1.1, 1.4, 1.2, 1.2, 1.0],
+        label: {
+          show: true,
+          position: 'top',
+          color: '#111',
+          fontSize: 16
+        },
+        lineStyle: { color: '#111', width: 2 },
+        itemStyle: { color: '#111' },
+        areaStyle: {
+          color: function(params) {
+            return params.value >= 1.0 ? '#9bcb84' : '#ef575b';
+          }
+        }
+      }]
+    });
+  </script>
+</body>
+</html>

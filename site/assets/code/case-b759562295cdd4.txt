@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Delivery Options after Component 1</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #eef6fb;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 78% 18%, rgba(245, 218, 244, 0.85), transparent 30%),
+        radial-gradient(circle at 12% 80%, rgba(200, 234, 249, 0.8), transparent 34%),
+        linear-gradient(135deg, #e7f5fb 0%, #fbf8ff 56%, #f8eef9 100%);
+      color: #071f3a;
+    }
+
+    .title {
+      position: absolute;
+      top: 14px;
+      left: 0;
+      width: 1280px;
+      text-align: center;
+      font-size: 43px;
+      line-height: 1.08;
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      color: #062347;
+    }
+
+    .subtitle {
+      position: absolute;
+      top: 70px;
+      left: 0;
+      width: 1280px;
+      text-align: center;
+      font-size: 20px;
+      color: #34445a;
+      letter-spacing: 0.1px;
+    }
+
+    .post-card {
+      position: absolute;
+      left: 40px;
+      top: 265px;
+      width: 185px;
+      height: 212px;
+      border: 2.5px solid #362690;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.88);
+      box-shadow: 0 10px 20px rgba(20, 32, 70, 0.23);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 6;
+    }
+
+    .clipboard-icon {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: #e7e8fb;
+      border: 1px solid rgba(54,38,144,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 13px;
+    }
+
+    .post-label {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .post-label .accent {
+      color: #d10076;
+      font-size: 23px;
+    }
+
+    .dotted-left {
+      position: absolute;
+      left: 228px;
+      top: 356px;
+      width: 80px;
+      height: 4px;
+      background: repeating-linear-gradient(
+        to right,
+        #26384c 0,
+        #26384c 4px,
+        transparent 4px,
+        transparent 7px
+      );
+      border-radius: 4px;
+      z-index: 2;
+    }
+
+    .arrow-circle {
+      position: absolute;
+      left: 308px;
+      top: 336px;
+      width: 50px;
+      height: 50px;
+      border: 3px solid #362690;
+      border-radius: 50%;
+      background: #f4f6ff;
+      z-index: 5;
+    }
+
+    .arrow-circle::after {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: 15px;
+      width: 15px;
+      height: 15px;
+      border-right: 4px solid #362690;
+      border-top: 4px solid #362690;
+      transform: rotate(45deg);
+    }
+
+    .dotted-vert {
+      position: absolute;
+      left: 340px;
+      top: 232px;
+      width: 3px;
+      height: 278px;
+      background: repeating-linear-gradient(
+        to bottom,
+        #26384c 0,
+        #26384c 3px,
+        transparent 3px,
+        transparent 6px
+      );
+      border-radius: 2px;
+      z-index: 2;
+    }
+
+    .dot-top,
+    .dot-bottom,
+    .dot-blue-top,
+    .dot-blue-bottom,
+    .dot-mag-top,
+    .dot-mag-mid,
+    .dot-mag-low {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #8390a0;
+      z-index: 4;
+    }
+
+    .dot-top {
+      left: 386px;
+      top: 228px;
+    }
+
+    .dot-bottom {
+      left: 386px;
+      top: 506px;
+    }
+
+    .component2-box {
+      position: absolute;
+      left: 395px;
+      top: 160px;
+      width: 298px;
+      height: 140px;
+      border: 2.8px solid #0057d8;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.82);
+      box-shadow: 0 8px 14px rgba(0,71,180,0.25);
+      display: flex;
+      align-items: center;
+      padding-left: 108px;
+      z-index: 4;
+    }
+
+    .component2-box::before {
+      content: "";
+      position: absolute;
+      left: 22px;
+      top: 22px;
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: rgba(20,115,220,0.13);
+    }
+
+    .component2-box .cloud-icon {
+      position: absolute;
+      left: 38px;
+      top: 36px;
+      width: 60px;
+      height: 60px;
+    }
+
+    .component2-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0057d8;
+      margin-bottom: 6px;
+    }
+
+    .component2-subtitle {
+      font-size: 16px;
+      line-height: 1.45;
+      color: #1b283a;
+    }
+
+    .component3-box {
+      position: absolute;
+      left: 395px;
+      top: 442px;
+      width: 298px;
+      height: 140px;
+      border: 2.8px solid #e10066;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.84);
+      box-shadow: 0 8px 14px rgba(225,0,102,0.23);
+      display: flex;
+      align-items: center;
+      padding-left: 110px;
+      z-index: 4;
+    }
+
+    .component3-box::before {
+      content: "";
+      position: absolute;
+      left: 22px;
+      top: 22px;
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: rgba(229,0,102,0.16);
+    }
+
+    .component3-box .chip-icon {
+      position: absolute;
+      left: 34px;
+      top: 35px;
+      width: 70px;
+      height: 70px;
+    }
+
+    .component3-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #d80069;
+      margin-bottom: 6px;
+    }
+
+    .component3-subtitle {
+      font-size: 16px;
+      line-height: 1.35;
+      color: #1b283a;
+    }
+
+    .blue-hline {
+      position: absolute;
+      left: 692px;
+      top: 228px;
+      width: 43px;
+      height: 3px;
+      background: #0057d8;
+      border-radius: 3px;
+      z-index: 1;
+    }
+
+    .blue-vert {
+      position: absolute;
+      left: 748px;
+      top: 154px;
+      width: 3px;
+      height: 116px;
+      background: #0057d8;
+      border-radius: 3px;
+      z-index: 1;
+    }
+
+    .blue-hbranch-top,
+    .blue-hbranch-bottom {
+      position: absolute;
+      left: 735px;
+      width: 38px;
+      height: 3px;
+      background: #0057d8;
+      border-radius: 3px;
+      z-index: 2;
+    }
+
+    .blue-hbranch-top {
+      top: 154px;
+    }
+
+    .blue-hbranch-bottom {
+      top: 268px;
+    }
+
+    .dot-blue-top {
+      left: 787px;
+      top: 151px;
+      background: #0057d8;
+    }
+
+    .dot-blue-bottom {
+      left: 787px;
+      top: 265px;
+      background: #0057d8;
+    }
+
+    .option-card {
+      position: absolute;
+      width: 474px;
+      height: 92px;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      padding-left: 112px;
+      z-index: 3;
+    }
+
+    .option-card.blue {
+      border: 2.4px solid #0057d8;
+      color: #0057d8;
+    }
+
+    .option-card.magenta {
+      border: 2.4px solid #e10066;
+      color: #d6006a;
+    }
+
+    .option-card .circle-bg {
+      position: absolute;
+      left: 18px;
+      top: 17px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(20,115,220,0.13);
+    }
+
+    .option-card.magenta .circle-bg {
+      background: rgba(229,0,102,0.17);
+    }
+
+    .option-title {
+      font-size: 21px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      line-height: 1.1;
+    }
+
+    .option-desc {
+      font-size: 14px;
+      line-height: 1.28;
+      color: #233042;
+    }
+
+    .option-cost {
+      font-size: 14px;
+      color: #0057d8;
+      font-style: italic;
+    }
+
+    .option-card.magenta .option-cost {
+      color: #d6006a;
+    }
+
+    .csu-card {
+      left: 792px;
+      top: 111px;
+      height: 94px;
+    }
+
+    .isd-card {
+      left: 792px;
+      top: 222px;
+      height: 106px;
+    }
+
+    .codewith-card {
+      left: 792px;
+      top: 346px;
+      height: 92px;
+    }
+
+    .cmf-card {
+      left: 792px;
+      top: 446px;
+      height: 106px;
+    }
+
+    .isdfull-card {
+      left: 792px;
+      top: 561px;
+      height: 108px;
+    }
+
+    .mag-vert {
+      position: absolute;
+      left: 748px;
+      top: 384px;
+      width: 3px;
+      height: 226px;
+      background: #e10066;
+      border-radius: 3px;
+      z-index: 1;
+    }
+
+    .mag-hline {
+      position: absolute;
+      left: 692px;
+      top: 507px;
+      width: 43px;
+      height: 3px;
+      background: #e10066;
+      border-radius: 3px;
+      z-index: 2;
+    }
+
+    .mag-hbranch-top,
+    .mag-hbranch-mid,
+    .mag-hbranch-low {
+      position: absolute;
+      left: 735px;
+      width: 38px;
+      height: 3px;
+      background: #e10066;
+      border-radius: 3px;
+      z-index: 2;
+    }
+
+    .mag-hbranch-top {
+      top: 383px;
+    }
+
+    .mag-hbranch-mid {
+      top: 493px;
+    }
+
+    .mag-hbranch-low {
+      top: 611px;
+    }
+
+    .dot-mag-top {
+      left: 787px;
+      top: 380px;
+      background: #e10066;
+    }
+
+    .dot-mag-mid {
+      left: 787px;
+      top: 487px;
+      background: #e10066;
+    }
+
+    .dot-mag-low {
+      left: 787px;
+      top: 604px;
+      background: #e10066;
+    }
+
+    .icon-stroke {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Delivery Options after Component 1</div>
+    <div class="subtitle">After completing Component 1, there are a few delivery options to support Component 2 and 3.</div>
+
+    <div class="post-card">
+      <div class="clipboard-icon">
+        <svg width="58" height="58" viewBox="0 0 58 58" aria-hidden="true">
+          <rect x="13" y="12" width="32" height="39" rx="5" fill="#f2f5ff" stroke="#5964a6" stroke-width="4"/>
+          <circle cx="29" cy="8" r="8" fill="#7662d1" stroke="#fff" stroke-width="3"/>
+          <path d="M18 23l7 7 13-14" fill="none" stroke="#5e63aa" stroke-width="4"/>
+          <path d="M18 33l7 7 13-14" fill="none" stroke="#5e63aa" stroke-width="4"/>
+          <circle cx="40" cy="40" r="12" fill="#6747bd" stroke="#fff" stroke-width="3"/>
+          <path d="M34 35l4 4 8-9" fill="none" stroke="#fff" stroke-width="3"/>
+        </svg>
+      </div>
+      <div class="post-label">
+        Post Completing<br><span class="accent">Component 1</span>
+      </div>
+    </div>
+
+    <div class="dotted-left"></div>
+    <div class="arrow-circle"></div>
+    <div class="dotted-vert"></div>
+    <div class="dot-top"></div>
+    <div class="dot-bottom"></div>
+
+    <div class="component2-box">
+      <div class="cloud-icon">
+        <svg width="60" height="60" viewBox="0 0 60 60" aria-hidden="true" style="color:#0057d8;">
+          <path d="M17 34c-7 0-12-5-12-11s5-11 12-11c3 0 6 1 8 3c2-9 9-15 18-15c10 0 18 8 18 18s-8 18-18 18h-8v8h-8v-8h-8z"/>
+          <path d="M22 20l16 14 16-14" fill="none" stroke="rgba(0,87,216,0.8)" stroke-width="4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="component2-title">Component 2</div>
+        <div class="component2-subtitle">Azure Landing Zone<br>Implementations</div>
+      </div>
+    </div>
+
+    <div class="blue-hline"></div>
+    <div class="blue-vert"></div>
+    <div class="blue-hbranch-top"></div>
+    <div class="blue-hbranch-bottom"></div>
+    <div class="dot-blue-top"></div>
+    <div class="dot-blue-bottom"></div>
+
+    <div class="option-card blue csu-card">
+      <div class="circle-bg"></div>
+      <div style="position:absolute;left:88px;top:18px;width:340px;">
+        <div class="option-title">CSU</div>
+        <div class="option-desc">Delivered via CSU VBD’s with unified support credits</div>
+        <div class="option-cost">$55,800 for all 3 landing zones: AI, Apps, Infra</div>
+      </div>
+    </div>
+
+    <div class="option-card blue isd-card">
+      <div class="circle-bg"></div>
+      <div style="position:absolute;left:88px;top:18px;width:340px;">
+        <div class="option-title">ISD</div>
+        <div class="option-desc">Delivered via AI Scalability and<br>Governance Program Offer</div>
+        <div class="option-cost">~$300,000 with solution build</div>
+      </div>
+    </div>
+
+    <div class="component3-box">
+      <div class="chip-icon">
+        <svg width="70" height="70" viewBox="0 0 70 70" aria-hidden="true" style="color:#d80069;">
+          <circle cx="35" cy="35" r="28" fill="none" stroke="currentColor" stroke-width="4"/>
+          <circle cx="35" cy="35" r="14" fill="none" stroke="currentColor" stroke-width="4"/>
+          <circle cx="35" cy="10" r="5" fill="none" stroke="currentColor" stroke-width="4"/>
+          <circle cx="56" cy="27" r="5" fill="none" stroke="currentColor" stroke-width="4"/>
+          <circle cx="52" cy="52" r="5" fill="none" stroke="currentColor" stroke-width="4"/>
+          <circle cx="20" cy="54" r="5" fill="none" stroke="currentColor" stroke-width="4"/>
+          <circle cx="13" cy="25" r="5" fill="none" stroke="currentColor" stroke-width="4"/>
+          <path d="M35 15v18M46 26h11M25 50H14M50 35V24" stroke="currentColor" stroke-width="4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="component3-title">Component 3</div>
+        <div class="component3-subtitle">GenAIOps + Delivery<br>of POV Use Case</div>
+      </div>
+    </div>
+
+    <div class="mag-vert"></div>
+    <div class="mag-hline"></div>
+    <div class="mag-hbranch-top"></div>
+    <div class="mag-hbranch-mid"></div>
+    <div class="mag-hbranch-low"></div>
+    <div class="dot-mag-top"></div>
+    <div class="dot-mag-mid"></div>
+    <div class="dot-mag-low"></div>
+
+    <div class="option-card magenta codewith-card">
+      <div class="circle-bg"></div>
+      <div style="position:absolute;left:88px;top:18px;width:340px;">
+        <div class="option-title">Co‑Build: CodeWith</div>
+        <div class="option-desc">Delivered via CSU VBD’s with unified support credits</div>
+        <div class="option-cost">Custom Development, Customer Dev Resources Required</div>
+      </div>
+    </div>
+
+    <div class="option-card magenta cmf-card">
+      <div class="circle-bg"></div>
+      <div style="position:absolute;left:88px;top:18px;width:340px;">
+        <div class="option-title">Full Build: CSU CMF</div>
+        <div class="option-desc">Delivered via CSU CMF with unified support credits</div>
+        <div class="option-cost">Built on Repeatable Patterns, No Customer<br>Dev Resources Required</div>
+      </div>
+    </div>
+
+    <div class="option-card magenta isdfull-card">
+      <div class="circle-bg"></div>
+      <div style="position:absolute;left:88px;top:18px;width:340px;">
+        <div class="option-title">Full Build: ISD</div>
+        <div class="option-desc">Delivered via AI Scalability and<br>Governance Program Offer</div>
+        <div class="option-cost">~$300,000 with landing zone implementation</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

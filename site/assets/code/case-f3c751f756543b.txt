@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1152, initial-scale=1.0" />
+  <title>Medic Landing Page Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #d8edff;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      color: #0c1f56;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1152px;
+      height: 928px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, #b9ecff 0px, #edf8ff 290px, #eff8ff 492px, #e8f5ff 730px, #1379d8 730px, #1379d8 928px);
+    }
+
+    .top-ribbon {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 620px;
+      height: 60px;
+      background: #86c8f3;
+    }
+
+    .main-panel {
+      position: absolute;
+      left: 58px;
+      top: 58px;
+      width: 698px;
+      height: 428px;
+      border-radius: 17px;
+      background: rgba(248, 254, 255, 0.72);
+      box-shadow: 0 14px 30px rgba(30, 102, 160, 0.14);
+      border: 1px solid rgba(255,255,255,0.7);
+      z-index: 4;
+    }
+
+    .header {
+      position: absolute;
+      left: 58px;
+      top: 11px;
+      width: 650px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      z-index: 6;
+    }
+
+    .brand {
+      font-size: 21px;
+      font-weight: 650;
+      color: #3075a6;
+      width: 150px;
+      letter-spacing: -0.4px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 30px;
+      margin-left: 28px;
+      font-size: 10.5px;
+      color: #15285e;
+      align-items: center;
+      flex: 1;
+    }
+
+    .contact-header {
+      margin-left: 8px;
+      width: 82px;
+      height: 26px;
+      border-radius: 15px;
+      background: linear-gradient(180deg, #5fb0f0 0%, #3388dc 100%);
+      color: white;
+      font-size: 11px;
+      text-align: center;
+      line-height: 26px;
+      box-shadow: 0 7px 14px rgba(46, 120, 201, 0.28);
+    }
+
+    .hero-text {
+      position: absolute;
+      left: 60px;
+      top: 138px;
+      width: 290px;
+      z-index: 5;
+    }
+
+    .subtitle {
+      color: #2c82bd;
+      font-size: 13px;
+      font-weight: 650;
+      margin-bottom: 6px;
+    }
+
+    .hero-title {
+      font-size: 38px;
+      line-height: 1.08;
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      color: #091d58;
+      margin: 0 0 9px 0;
+    }
+
+    .hero-paragraph {
+      font-size: 12.8px;
+      line-height: 1.45;
+      margin: 0 0 22px 0;
+      width: 285px;
+    }
+
+    .appointment-btn {
+      width: 160px;
+      height: 34px;
+      border-radius: 18px;
+      border: none;
+      background: linear-gradient(180deg, #66b4f3 0%, #4292df 100%);
+      color: white;
+      font-size: 11.5px;
+      text-align: center;
+      line-height: 34px;
+      box-shadow: 0 9px 16px rgba(53, 126, 201, 0.28);
+    }
+
+    .doctor-card {
+      position: absolute;
+      right: 60px;
+      top: 100px;
+      width: 248px;
+      height: 270px;
+      border-radius: 17px;
+      background: #e7f4ff;
+      border: 8px solid white;
+      z-index: 5;
+      box-shadow: 0 15px 25px rgba(31, 96, 150, 0.24);
+    }
+
+    .doctor-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .wave-line {
+      position: absolute;
+      border: 2px solid rgba(105, 180, 238, 0.25);
+      border-color: rgba(105,180,238,0.25) transparent transparent transparent;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .wave-1 {
+      width: 380px;
+      height: 380px;
+      left: -120px;
+      top: 180px;
+    }
+
+    .wave-2 {
+      width: 520px;
+      height: 520px;
+      left: -180px;
+      top: 210px;
+    }
+
+    .right-panel {
+      position: absolute;
+      left: 756px;
+      top: 120px;
+      width: 396px;
+      height: 375px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.86);
+      box-shadow: 0 13px 30px rgba(30, 96, 150, 0.15);
+      z-index: 3;
+    }
+
+    .physicians-title {
+      position: absolute;
+      top: 42px;
+      left: 12px;
+      width: 360px;
+      font-size: 20px;
+      font-weight: 800;
+      color: #071b56;
+    }
+
+    .doctor-row {
+      position: absolute;
+      top: 102px;
+      left: 12px;
+      width: 372px;
+      display: flex;
+      gap: 9px;
+    }
+
+    .profile-card {
+      width: 115px;
+      height: 166px;
+      background: white;
+      border: 1px solid #dbe8f3;
+      border-radius: 11px;
+      box-shadow: 0 9px 17px rgba(35, 90, 140, 0.14);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .profile-card img {
+      width: 100%;
+      height: 108px;
+      object-fit: cover;
+      display: block;
+      border-radius: 8px 8px 3px 3px;
+    }
+
+    .profile-name {
+      margin-top: 8px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #091c58;
+      min-height: 19px;
+    }
+
+    .profile-role {
+      margin-top: 0;
+      font-size: 9.5px;
+      color: #26365f;
+    }
+
+    .services-section {
+      position: absolute;
+      left: 58px;
+      top: 486px;
+      width: 698px;
+      height: 355px;
+      z-index: 4;
+      background: rgba(255,255,255,0.82);
+      border-radius: 0 0 15px 15px;
+    }
+
+    .services-title {
+      position: absolute;
+      top: 68px;
+      left: 0;
+      width: 698px;
+      text-align: center;
+      font-size: 24px;
+      line-height: 1.1;
+      font-weight: 850;
+      color: #071b58;
+    }
+
+    .services-desc {
+      position: absolute;
+      top: 92px;
+      left: 190px;
+      width: 310px;
+      text-align: center;
+      font-size: 12px;
+      color: #192a61;
+    }
+
+    .service-row {
+      position: absolute;
+      top: 144px;
+      left: 58px;
+      width: 582px;
+      height: 198px;
+      display: flex;
+      gap: 17px;
+    }
+
+    .service-card {
+      width: 132px;
+      height: 194px;
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #e5ebf2;
+      box-shadow: 0 10px 18px rgba(20, 65, 110, 0.15);
+      text-align: center;
+      padding: 21px 12px 10px;
+      color: #081c58;
+      overflow: hidden;
+    }
+
+    .service-card.active {
+      background: linear-gradient(180deg, #5db4f6 0%, #2989e1 100%);
+      color: white;
+      box-shadow: 0 13px 22px rgba(40, 128, 210, 0.28);
+    }
+
+    .icon-wrap {
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 11px;
+    }
+
+    .service-card.active .icon-wrap {
+      height: 56px;
+    }
+
+    .service-heading {
+      font-size: 14.5px;
+      line-height: 1.12;
+      font-weight: 800;
+      margin-bottom: 9px;
+    }
+
+    .service-text {
+      font-size: 9.8px;
+      line-height: 1.35;
+      color: #1b2b64;
+    }
+
+    .learn-link {
+      position: absolute;
+      bottom: 13px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-weight: 700;
+      font-size: 10.5px;
+    }
+
+    .right-continuation {
+      position: absolute;
+      left: 756px;
+      top: 448px;
+      width: 396px;
+      height: 293px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.78);
+      z-index: 3;
+      box-shadow: 0 12px 28px rgba(30, 96, 150, 0.12);
+    }
+
+    .testimonials-title {
+      position: absolute;
+      top: 38px;
+      left: 0;
+      width: 396px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 850;
+      color: #071b58;
+    }
+
+    .testimonial-cards {
+      position: absolute;
+      top: 92px;
+      left: 42px;
+      width: 314px;
+      display: flex;
+      gap: 11px;
+    }
+
+    .testimonial-card {
+      width: 149px;
+      min-height: 120px;
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #dbe7f0;
+      box-shadow: 0 10px 18px rgba(20, 70, 115, 0.13);
+      padding: 12px 12px 10px;
+      color: #11235b;
+    }
+
+    .quote-mark {
+      font-size: 30px;
+      color: #3288e8;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .quote-text {
+      font-size: 9.8px;
+      line-height: 1.25;
+      color: #1c2d65;
+    }
+
+    .patient-line {
+      margin-top: 5px;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .newsletter {
+      position: absolute;
+      left: 756px;
+      top: 732px;
+      width: 396px;
+      height: 196px;
+      background: #1f85e6;
+      z-index: 5;
+    }
+
+    .newsletter-title {
+      position: absolute;
+      top: 33px;
+      left: 0;
+      width: 396px;
+      text-align: center;
+      color: white;
+      font-size: 20px;
+      line-height: 1.1;
+      font-weight: 850;
+    }
+
+    .newsletter-caption {
+      position: absolute;
+      top: 61px;
+      left: 0;
+      width: 396px;
+      text-align: center;
+      color: white;
+      font-size: 11px;
+    }
+
+    .newsletter-form {
+      position: absolute;
+      top: 92px;
+      left: 10px;
+      width: 376px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .newsletter-input {
+      width: 190px;
+      height: 24px;
+      border-radius: 14px;
+      border: none;
+      background: rgba(255,255,255,0.18);
+      color: white;
+      text-align: center;
+      line-height: 24px;
+      font-size: 10px;
+    }
+
+    .send-btn {
+      margin-left: 8px;
+      width: 82px;
+      height: 24px;
+      border-radius: 14px;
+      background: white;
+      color: #1977d8;
+      font-size: 10px;
+      text-align: center;
+      line-height: 24px;
+      font-weight: 800;
+    }
+
+    .newsletter-links {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      width: 396px;
+      border-top: 1px solid rgba(255,255,255,0.18);
+      padding-top: 8px;
+      text-align: center;
+      font-size: 9.2px;
+      color: white;
+    }
+
+    .footer-mini-nav {
+      display: flex;
+      gap: 25px;
+      justify-content: center;
+    }
+
+    svg {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="top-ribbon"></div>
+
+    <div class="main-panel">
+      <div class="header">
+        <div class="brand">medic</div>
+        <div class="nav">
+          <span>Home</span>
+          <span>About us</span>
+          <span>Services</span>
+          <span>Community</span>
+        </div>
+        <div class="contact-header">Contact</div>
+      </div>
+
+      <div class="wave-line wave-1"></div>
+      <div class="wave-line wave-2"></div>
+
+      <div class="hero-text">
+        <div class="subtitle">A range of programs for healthcare</div>
+        <div class="hero-title">Special Touch</div>
+        <p class="hero-paragraph">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+        <div class="appointment-btn">Make an Appointment</div>
+      </div>
+
+      <div class="doctor-card">
+        <img src="https://placehold.co/420x480?text=Doctor+Photo" alt="Doctor Photo" />
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <div class="physicians-title">Meet Medicus Physicians</div>
+      <div class="doctor-row">
+        <div class="profile-card">
+          <img src="https://placehold.co/200x220?text=Physician" alt="Physician" />
+          <div class="profile-name">Dr. Emily Carter</div>
+          <div class="profile-role">Neurologist</div>
+        </div>
+        <div class="profile-card">
+          <img src="https://placehold.co/200x220?text=Physician" alt="Physician" />
+          <div class="profile-name">Dr. Alan Chen</div>
+          <div class="profile-role">Cardiologist</div>
+        </div>
+        <div class="profile-card">
+          <img src="https://placehold.co/200x220?text=Physician" alt="Physician" />
+          <div class="profile-name">Dr. Maria Rodriguez</div>
+          <div class="profile-role">Pediatrician</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="services-section">
+      <div class="services-title">Our Services</div>
+      <div class="services-desc">
+        We offer complete healthcare to individuals with various health concerns.
+      </div>
+
+      <div class="service-row">
+        <div class="service-card">
+          <div class="icon-wrap">
+            <svg width="60" height="48" viewBox="0 0 60 48" aria-hidden="true">
+              <path d="M8 28 C17 18, 23 22, 29 18 C36 13, 44 16, 52 24" fill="none" stroke="#122868" stroke-width="2.5" />
+              <path d="M18 29 L30 36 L40 26" fill="none" stroke="#122868" stroke-width="2.5" />
+              <path d="M30 27 C34 20, 38 23, 40 26" fill="none" stroke="#122868" stroke-width="2.5" />
+            </svg>
+          </div>
+          <div class="service-heading">Cardiology</div>
+          <div class="service-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+          </div>
+        </div>
+
+        <div class="service-card active">
+          <div class="icon-wrap">
+            <svg width="58" height="58" viewBox="0 0 58 58" aria-hidden="true">
+              <circle cx="29" cy="29" r="24" fill="none" stroke="#dbeeff" stroke-width="2.5" />
+              <circle cx="29" cy="29" r="16" fill="#e8f5ff" stroke="#9fd7ff" stroke-width="2.5" />
+              <rect x="20" y="30" width="18" height="14" rx="3" fill="#fff" />
+              <path d="M22 24 C22 19, 36 19, 36 24" fill="none" stroke="#69b7f4" stroke-width="3" />
+            </svg>
+          </div>
+          <div class="service-heading">CT &amp; X-Ray</div>
+          <div class="service-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+          </div>
+          <div class="learn-link">Learn more ›</div>
+        </div>
+
+        <div class="service-card">
+          <div class="icon-wrap">
+            <svg width="56" height="56" viewBox="0 0 56 56" aria-hidden="true">
+              <path d="M18 19 C11 18, 10 27, 13 33 C15 39, 20 43, 28 43 C36 43, 41 39, 43 33 C46 27, 45 18, 38 19" fill="none" stroke="#122868" stroke-width="2.5" />
+              <circle cx="30" cy="28" r="3" fill="#fff" stroke="#122868" stroke-width="1.8" />
+              <path d="M26 17 C20 20, 20 28, 24 35" fill="none" stroke="#122868" stroke-width="2" />
+            </svg>
+          </div>
+          <div class="service-heading">Dentistry</div>
+          <div class="service-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="icon-wrap">
+            <svg width="60" height="50" viewBox="0 0 60 50" aria-hidden="true">
+              <path d="M10 24 C14 12, 22 11, 28 14 C34 8, 43 11, 48 20 C54 24, 53 34, 45 38 C39 44, 31 40, 27 34 C20 38, 14 36, 10 29 Z" fill="none" stroke="#122868" stroke-width="2.5" />
+              <path d="M18 29 C25 25, 34 27, 38 33" fill="none" stroke="#122868" stroke-width="2" />
+            </svg>
+          </div>
+          <div class="service-heading">Neurological<br />Treatment</div>
+          <div class="service-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-continuation">
+      <div class="testimonials-title">Testimonials</div>
+      <div class="testimonial-cards">
+        <div class="testimonial-card">
+          <div class="quote-mark">“</div>
+          <div class="quote-text">
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </div>
+          <div class="patient-line">Jane Doe, Patient</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="quote-mark">“</div>
+          <div class="quote-text">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          </div>
+          <div class="patient-line">John Smith, Parent</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="newsletter">
+      <div class="newsletter-title">Subscribe to Newsletter</div>
+      <div class="newsletter-caption">Stay up to date with our latest news and offers.</div>
+      <div class="newsletter-form">
+        <div class="newsletter-input">Enter your email</div>
+        <div class="send-btn">Send Now</div>
+      </div>
+      <div class="newsletter-links">
+        <div class="footer-mini-nav">
+          <span>Home</span>
+          <span>Services</span>
+          <span>Community</span>
+          <span>Contact</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

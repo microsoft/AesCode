@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Talent Sourcing, Recruiting & Hiring Trends</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #111c2c;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1200px;
+    height: 896px;
+    overflow: hidden;
+    background: #263345;
+    color: #ffffff;
+  }
+
+  .title {
+    position: absolute;
+    top: 28px;
+    left: 88px;
+    width: 1024px;
+    text-align: center;
+    font-size: 38px;
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #91d5d3;
+    text-transform: uppercase;
+  }
+
+  .title .gold {
+    color: #f2c867;
+  }
+
+  .intro {
+    position: absolute;
+    top: 138px;
+    left: 80px;
+    width: 1040px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.28;
+    color: #f3f7fb;
+  }
+
+  .top-card-row {
+    position: absolute;
+    top: 205px;
+    left: 36px;
+    width: 1128px;
+    height: 110px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .stat-card {
+    height: 110px;
+    background: #d9eff2;
+    border: 2px solid rgba(255,255,255,0.22);
+    border-radius: 10px;
+    position: relative;
+    color: #263345;
+    box-shadow: inset 0 0 18px rgba(255,255,255,0.16);
+  }
+
+  .stat-icon {
+    position: absolute;
+    left: 16px;
+    top: 18px;
+    width: 46px;
+    height: 46px;
+    color: #2f7fc0;
+  }
+
+  .card-text {
+    position: absolute;
+    left: 72px;
+    top: 12px;
+    right: 12px;
+    font-size: 14.5px;
+    line-height: 1.16;
+    color: #263345;
+  }
+
+  .card-text .percent {
+    color: #202938;
+    font-weight: 800;
+  }
+
+  .circle-row {
+    position: absolute;
+    top: 345px;
+    left: 36px;
+    width: 1128px;
+    height: 210px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+
+  .metric-circle {
+    position: relative;
+    height: 208px;
+    background: #d9eff2;
+    border: 9px solid #b7c8d4;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #263345;
+    box-shadow: inset 0 0 18px rgba(255,255,255,0.16);
+  }
+
+  .metric-circle::after {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    border: 6px solid #8bd8d4;
+    pointer-events: none;
+  }
+
+  .metric-circle .pct {
+    position: relative;
+    z-index: 2;
+    font-size: 42px;
+    line-height: 1;
+    font-weight: 800;
+    color: #202938;
+    margin-bottom: 8px;
+  }
+
+  .metric-circle .desc {
+    position: relative;
+    z-index: 2;
+    width: 136px;
+    text-align: center;
+    font-size: 15.5px;
+    line-height: 1.16;
+    color: #263345;
+  }
+
+  .highlight-strip {
+    position: absolute;
+    top: 588px;
+    left: 36px;
+    width: 1128px;
+    height: 78px;
+    background: #8bd8d4;
+    border: 2px solid rgba(255,255,255,0.22);
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+
+  .highlight-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 92px;
+    padding-right: 28px;
+    font-size: 18px;
+    line-height: 1.25;
+    color: #263345;
+  }
+
+  .highlight-box.right {
+    border-left: 2px solid rgba(42,58,78,0.38);
+    padding-left: 84px;
+  }
+
+  .strip-icon {
+    position: absolute;
+    left: 24px;
+    top: 20px;
+    width: 46px;
+    height: 42px;
+    color: #263345;
+  }
+
+  .highlight-box .gold {
+    color: #202938;
+    font-weight: 800;
+  }
+
+  .bottom-row {
+    position: absolute;
+    left: 36px;
+    top: 686px;
+    width: 1128px;
+    height: 170px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .bottom-card {
+    background: #d9eff2;
+    border: 2px solid rgba(255,255,255,0.22);
+    border-radius: 10px;
+    color: #263345;
+    height: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: inset 0 0 18px rgba(255,255,255,0.12);
+  }
+
+  .bottom-card .big-pct {
+    font-size: 43px;
+    line-height: 1;
+    font-weight: 800;
+    color: #202938;
+    margin-bottom: 7px;
+  }
+
+  .bottom-card .small-text {
+    width: 174px;
+    font-size: 16px;
+    line-height: 1.22;
+    color: #263345;
+  }
+
+  svg {
+    display: block;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">TALENT SOURCING,<br>RECRUITING &amp; HIRING <span class="gold">TRENDS</span></div>
+
+    <div class="intro">
+      Many companies now use People &amp; Culture or Chief Happiness Officers instead of traditional HR managers.<br>
+      This infographic shares the latest stats on the biggest HR trends shaping the future of talent acquisition.
+    </div>
+
+    <div class="top-card-row">
+      <div class="stat-card">
+        <svg class="stat-icon" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="20" cy="34" r="10" fill="#8cc4c9"/>
+          <path d="M8 54c2-12 10-18 18-18s14 8 18 18z" fill="#8cc4c9"/>
+          <path d="M26 16c-7 2-11 8-12 15" fill="none" stroke="#8cc4c9" stroke-width="5" stroke-linecap="round"/>
+          <path d="M32 10v18h18" fill="none" stroke="#8cc4c9" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="card-text">Only <span class="percent">41%</span> of companies have an established structure for promoting internal hires.</div>
+      </div>
+
+      <div class="stat-card">
+        <svg class="stat-icon" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="30" cy="30" r="21" fill="none" stroke="#2f7fc0" stroke-width="4"/>
+          <circle cx="30" cy="22" r="8" fill="#f2c867"/>
+          <circle cx="22" cy="37" r="5" fill="#f2c867"/>
+          <circle cx="44" cy="14" r="4" fill="#f2c867"/>
+          <circle cx="49" cy="44" r="5" fill="#f2c867"/>
+          <line x1="24" y1="28" x2="10" y2="20" stroke="#2f7fc0" stroke-width="3"/>
+          <line x1="38" y1="34" x2="54" y2="45" stroke="#2f7fc0" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+        <div class="card-text"><span class="percent">94%</span> of hiring managers use social media to find the best candidates.</div>
+      </div>
+
+      <div class="stat-card">
+        <svg class="stat-icon" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="22" cy="28" r="10" fill="#f2c867"/>
+          <circle cx="38" cy="30" r="12" fill="#f2c867"/>
+          <circle cx="48" cy="24" r="8" fill="#f2c867"/>
+          <path d="M10 54c2-12 9-18 18-18s15 8 18 18z" fill="#8cc4c9"/>
+          <path d="M30 53c3-12 11-18 22-18" fill="none" stroke="#8cc4c9" stroke-width="3"/>
+        </svg>
+        <div class="card-text"><span class="percent">78%</span> of HR professionals say that diversity is very important in their hiring.</div>
+      </div>
+
+      <div class="stat-card">
+        <svg class="stat-icon" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="28" cy="26" r="18" fill="none" stroke="#2f7fc0" stroke-width="4"/>
+          <path d="M14 16a21 21 0 0 1 28-4" fill="none" stroke="#8cc4c9" stroke-width="3"/>
+          <line x1="28" y1="12" x2="28" y2="20" stroke="#f2c867" stroke-width="3"/>
+          <circle cx="42" cy="44" r="12" fill="#f2c867"/>
+          <circle cx="38" cy="38" r="3" fill="#263345"/>
+          <circle cx="46" cy="48" r="3" fill="#263345"/>
+        </svg>
+        <div class="card-text"><span class="percent">27%</span> of recruiters say that a long hiring process hurts their attempts at hiring new candidates.</div>
+      </div>
+    </div>
+
+    <div class="circle-row">
+      <div class="metric-circle">
+        <div class="pct">45%</div>
+        <div class="desc">of employers are struggling to find the right talent for open positions.</div>
+      </div>
+      <div class="metric-circle">
+        <div class="pct">90%</div>
+        <div class="desc">of employers say that they need to be more strategic with their hiring practices.</div>
+      </div>
+      <div class="metric-circle">
+        <div class="pct">49%</div>
+        <div class="desc">of hiring managers say that lack of soft skills keep them from hiring potential candidates.</div>
+      </div>
+      <div class="metric-circle">
+        <div class="pct">44%</div>
+        <div class="desc">of employers say a bad hire will drag down overall team morale.</div>
+      </div>
+      <div class="metric-circle">
+        <div class="pct">79%</div>
+        <div class="desc">of companies want to promote from within instead of hiring someone new.</div>
+      </div>
+    </div>
+
+    <div class="highlight-strip">
+      <div class="highlight-box">
+        <svg class="strip-icon" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="12" y="15" width="40" height="39" rx="3" fill="#efeff1"/>
+          <rect x="18" y="22" width="28" height="25" fill="#c7d0d6"/>
+          <line x1="12" y1="15" x2="12" y2="8" stroke="#efeff1" stroke-width="3" stroke-linecap="round"/>
+          <line x1="44" y1="15" x2="44" y2="8" stroke="#efeff1" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="12" cy="8" r="3" fill="#f2c867"/>
+          <circle cx="44" cy="8" r="3" fill="#f2c867"/>
+          <line x1="18" y1="30" x2="42" y2="30" stroke="#aeb8bf" stroke-width="2" stroke-dasharray="3 3"/>
+          <line x1="22" y1="36" x2="46" y2="36" stroke="#aeb8bf" stroke-width="2" stroke-dasharray="3 3"/>
+        </svg>
+        <div>Referred employees usually take an <span class="gold">average 26 fewer days</span> in the hiring process.</div>
+      </div>
+      <div class="highlight-box right">
+        <svg class="strip-icon" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M18 12h28l8 8v38H18z" fill="#efeff1"/>
+          <path d="M46 12h12v18H46z" fill="#b8c1c7"/>
+          <path d="M26 24h18M26 31h18M26 38h12" stroke="#8f99a0" stroke-width="2"/>
+        </svg>
+        <div>Managers review around <span class="gold">40 resumes</span> and an <span class="gold">average of 7 people</span> per open position.</div>
+      </div>
+    </div>
+
+    <div class="bottom-row">
+      <div class="bottom-card">
+        <div class="big-pct">46%</div>
+        <div class="small-text">of referred employees stay at their job more than a year, with only 22% for employees coming from a job site.</div>
+      </div>
+      <div class="bottom-card">
+        <div class="big-pct">75%</div>
+        <div class="small-text">of HR managers are open to hiring alternative workers like freelance or contract workers.</div>
+      </div>
+      <div class="bottom-card">
+        <div class="big-pct">67%</div>
+        <div class="small-text">of HR managers make 3x more offers when they use a talent resource management platform.</div>
+      </div>
+      <div class="bottom-card">
+        <div class="big-pct">45%</div>
+        <div class="small-text">of companies say that their employees lack info about open job inside the company.</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

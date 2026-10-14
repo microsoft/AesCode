@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Copilot Adoption Stages</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #050b18;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      color: #ffffff;
+      background:
+        radial-gradient(circle at 83% 16%, rgba(168, 72, 220, 0.24) 0, rgba(168, 72, 220, 0.05) 170px, transparent 320px),
+        radial-gradient(circle at 14% 77%, rgba(32, 120, 255, 0.28) 0, rgba(32, 120, 255, 0.07) 180px, transparent 340px),
+        linear-gradient(120deg, #071b35 0%, #111a35 42%, #271538 66%, #381642 100%);
+    }
+
+    .artboard::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.16;
+      background-image:
+        linear-gradient(rgba(113, 202, 255, 0.45) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(196, 88, 255, 0.45) 1px, transparent 1px);
+      background-size: 96px 96px;
+      mask-image: radial-gradient(circle at 88% 18%, #000 0%, rgba(0,0,0,0.7) 38%, transparent 72%);
+    }
+
+    .artboard::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: 120px;
+      width: 340px;
+      height: 170px;
+      border-top: 1px solid rgba(153, 193, 255, 0.18);
+      border-right: 1px solid rgba(153, 193, 255, 0.18);
+      transform: skewX(32deg) rotate(13deg);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .title {
+      position: absolute;
+      top: 50px;
+      left: 170px;
+      width: 1036px;
+      text-align: center;
+      font-size: 52px;
+      line-height: 1.08;
+      font-weight: 800;
+      letter-spacing: -1.8px;
+      text-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      z-index: 2;
+    }
+
+    .subtitle {
+      position: absolute;
+      top: 142px;
+      left: 92px;
+      width: 1192px;
+      text-align: center;
+      font-size: 25px;
+      line-height: 1.34;
+      font-weight: 400;
+      z-index: 2;
+      text-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+    }
+
+    .subtitle strong {
+      font-weight: 800;
+    }
+
+    .process-panel {
+      position: absolute;
+      left: 45px;
+      top: 274px;
+      width: 1286px;
+      height: 448px;
+      border: 1.5px solid rgba(181, 183, 255, 0.28);
+      border-radius: 15px;
+      background:
+        linear-gradient(90deg, rgba(18, 82, 150, 0.15) 0%, rgba(22, 26, 62, 0.35) 45%, rgba(58, 20, 82, 0.28) 100%),
+        rgba(18, 28, 58, 0.26);
+      z-index: 1;
+      box-shadow:
+        inset 0 0 38px rgba(122, 152, 255, 0.12),
+        0 0 36px rgba(140, 80, 255, 0.12);
+    }
+
+    .stage {
+      position: absolute;
+      top: 0;
+      width: 321.5px;
+      height: 448px;
+      text-align: center;
+      padding-top: 27px;
+    }
+
+    .stage-1 {
+      left: 0;
+    }
+
+    .stage-2 {
+      left: 321.5px;
+    }
+
+    .stage-3 {
+      left: 643px;
+    }
+
+    .stage-4 {
+      left: 964.5px;
+      border-right: none;
+    }
+
+    .stage-divider {
+      position: absolute;
+      top: 18px;
+      height: 412px;
+      width: 1.5px;
+      background: rgba(166, 168, 255, 0.23);
+      z-index: 4;
+    }
+
+    .divider-1 {
+      left: 321.5px;
+    }
+
+    .divider-2 {
+      left: 643px;
+    }
+
+    .divider-3 {
+      left: 964.5px;
+    }
+
+    .icon-circle {
+      width: 158px;
+      height: 158px;
+      border-radius: 50%;
+      margin: 0 auto 22px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 0 34px currentColor,
+        inset 0 0 22px rgba(255, 255, 255, 0.16);
+    }
+
+    .purple-circle {
+      background: radial-gradient(circle, #8e60ff 0%, #6642b1 46%, rgba(101, 65, 205, 0.25) 72%, rgba(101, 65, 205, 0.08) 100%);
+      color: #8962ff;
+      border: 1.5px solid rgba(235, 172, 255, 0.42);
+    }
+
+    .magenta-circle {
+      background: radial-gradient(circle, #e239e0 0%, #9c29b0 45%, rgba(172, 42, 190, 0.26) 72%, rgba(172, 42, 190, 0.08) 100%);
+      color: #ef42e1;
+      border: 1.5px solid rgba(255, 174, 255, 0.42);
+    }
+
+    .teal-circle {
+      background: radial-gradient(circle, #47ead7 0%, #21bfb5 43%, rgba(45, 192, 198, 0.23) 72%, rgba(45, 192, 198, 0.08) 100%);
+      color: #48e3d5;
+      border: 1.5px solid rgba(141, 255, 245, 0.42);
+    }
+
+    .pink-circle {
+      background: radial-gradient(circle, #f370e7 0%, #9f40bd 45%, rgba(183, 62, 198, 0.27) 72%, rgba(183, 62, 198, 0.08) 100%);
+      color: #fb7ce8;
+      border: 1.5px solid rgba(255, 174, 255, 0.42);
+    }
+
+    .stage-heading {
+      margin: 0 auto 20px auto;
+      font-size: 29px;
+      line-height: 1.13;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      text-shadow: 0 9px 18px rgba(0, 0, 0, 0.45);
+    }
+
+    .heading-white {
+      color: #eef4ff;
+    }
+
+    .heading-magenta {
+      color: #ee53e6;
+    }
+
+    .heading-teal {
+      color: #52e3df;
+    }
+
+    .heading-pink {
+      color: #ef7de3;
+    }
+
+    .stage-desc {
+      margin: 0 auto;
+      width: 270px;
+      font-size: 20.5px;
+      line-height: 1.35;
+      font-weight: 400;
+      color: #ffffff;
+      text-shadow: 0 7px 16px rgba(0, 0, 0, 0.52);
+    }
+
+    .arrow-node {
+      position: absolute;
+      top: 170px;
+      width: 47px;
+      height: 47px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.62);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      background: rgba(32, 42, 70, 0.62);
+      box-shadow: 0 0 18px rgba(180, 180, 255, 0.16);
+    }
+
+    .arrow-node::before {
+      content: "›";
+      font-size: 30px;
+      line-height: 1;
+      font-weight: 400;
+    }
+
+    .node-1 {
+      left: 297px;
+      border-color: rgba(220, 202, 255, 0.78);
+    }
+
+    .node-2 {
+      left: 618px;
+      border-color: rgba(237, 132, 236, 0.78);
+    }
+
+    .node-3 {
+      left: 939px;
+      border-color: rgba(76, 227, 222, 0.78);
+    }
+
+    .bottom-labels {
+      position: absolute;
+      left: 0;
+      bottom: 12px;
+      width: 1286px;
+      height: 41px;
+      border-top: 1px solid rgba(185, 195, 255, 0.28);
+      background: linear-gradient(90deg, rgba(83, 108, 170, 0.15), rgba(53, 105, 126, 0.10), rgba(81, 60, 132, 0.13));
+      z-index: 3;
+    }
+
+    .label-leading {
+      position: absolute;
+      left: 203px;
+      top: 0;
+      width: 283px;
+      text-align: center;
+      font-size: 17px;
+      color: rgba(209, 220, 255, 0.72);
+    }
+
+    .label-org {
+      position: absolute;
+      left: 532px;
+      top: 0;
+      width: 382px;
+      text-align: center;
+      font-size: 17px;
+      color: rgba(209, 220, 255, 0.72);
+    }
+
+    svg {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">GitHub Copilot Adoption Stages</div>
+
+    <div class="subtitle">
+      We recommend to first focus on your developers’ adoption and engagement with Copilot.<br>
+      Then, <strong>harness developers’ improved productivity</strong> to pursue the engineering system<br>
+      improvements that matter most to your organization
+    </div>
+
+    <div class="process-panel">
+      <div class="stage stage-1">
+        <div class="icon-circle purple-circle">
+          <svg width="78" height="78" viewBox="0 0 78 78" aria-hidden="true">
+            <rect x="17" y="20" width="44" height="48" rx="4" fill="none" stroke="#ffffff" stroke-width="6"/>
+            <circle cx="39" cy="17" r="8" fill="none" stroke="#ffffff" stroke-width="6"/>
+            <circle cx="39" cy="17" r="4" fill="#ffffff"/>
+            <path d="M28 38 L39 49 L56 31" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="stage-heading heading-white">Evaluation</div>
+        <div class="stage-desc">
+          Evaluate business and technical case to adopt Copilot through the organization
+        </div>
+      </div>
+
+      <div class="stage stage-2">
+        <div class="icon-circle magenta-circle">
+          <svg width="78" height="78" viewBox="0 0 78 78" aria-hidden="true">
+            <path d="M39 22 C28 22 20 30 20 41 C20 52 30 59 42 54" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+            <path d="M28 48 L39 37 L51 48" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M35 57 H58 C63 57 66 54 66 49 V40" fill="#ffffff" stroke="#ffffff" stroke-width="6"/>
+          </svg>
+        </div>
+        <div class="stage-heading heading-magenta">Adoption</div>
+        <div class="stage-desc">
+          Teams are enabled and actively using Copilot
+        </div>
+      </div>
+
+      <div class="stage stage-3">
+        <div class="icon-circle teal-circle">
+          <svg width="78" height="78" viewBox="0 0 78 78" aria-hidden="true">
+            <path d="M22 53 L51 24" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+            <path d="M18 24 L39 45" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+            <path d="M50 18 L62 30" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+            <path d="M30 50 L50 30" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="stage-heading heading-teal">Optimization</div>
+        <div class="stage-desc">
+          Positive impact on organization specific goals
+        </div>
+      </div>
+
+      <div class="stage stage-4">
+        <div class="icon-circle pink-circle">
+          <svg width="78" height="78" viewBox="0 0 78 78" aria-hidden="true">
+            <path d="M39 11 L44 22 L57 22 L50 32 L58 42 L48 46 L43 57 L35 46 L26 42 L34 32 L27 22 L40 22 Z" fill="none" stroke="#ffffff" stroke-width="6" stroke-linejoin="round"/>
+            <circle cx="39" cy="39" r="14" fill="none" stroke="#ffffff" stroke-width="6"/>
+          </svg>
+        </div>
+        <div class="stage-heading heading-pink">Sustained<br>Efficiency</div>
+        <div class="stage-desc">
+          Continuous evaluation and improvement
+        </div>
+      </div>
+
+      <div class="stage-divider divider-1"></div>
+      <div class="stage-divider divider-2"></div>
+      <div class="stage-divider divider-3"></div>
+
+      <div class="arrow-node node-1"></div>
+      <div class="arrow-node node-2"></div>
+      <div class="arrow-node node-3"></div>
+
+      <div class="bottom-labels">
+        <div class="label-leading">Leading indicators</div>
+        <div class="label-org">Organization-specific measures</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

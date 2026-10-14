@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>UI/UX Design Fundamentals Landing Page</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e9e9f3;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: #171821;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 853px;
+      height: 1280px;
+      overflow: hidden;
+      background: #fbfbfe;
+    }
+
+    .header {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 853px;
+      height: 48px;
+      background: #fff;
+      border-bottom: 1px solid #e9e9f2;
+      display: flex;
+      align-items: center;
+      padding: 0 52px;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-right: 80px;
+      white-space: nowrap;
+    }
+
+    .logo::before {
+      content: "◇";
+      color: #6b57ff;
+      margin-right: 8px;
+      font-size: 15px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 28px;
+      font-size: 10px;
+      color: #404354;
+      align-items: center;
+      flex: 1;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 10px;
+      font-weight: 650;
+    }
+
+    .signup {
+      background: #6245f2;
+      color: #fff;
+      border: 0;
+      padding: 9px 17px;
+      border-radius: 5px;
+    }
+
+    .hero {
+      position: absolute;
+      top: 48px;
+      left: 0;
+      width: 853px;
+      height: 342px;
+      background: #fbfbfe;
+      display: flex;
+      padding: 27px 52px 28px 52px;
+      border-bottom: 1px solid #ececf2;
+    }
+
+    .hero-left {
+      width: 385px;
+      padding-right: 28px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 8px;
+      background: #eeeaff;
+      color: #6752f0;
+      font-size: 9px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: 36px;
+      line-height: 1.17;
+      letter-spacing: -0.045em;
+    }
+
+    .hero .subtitle {
+      margin: 0 0 20px;
+      font-size: 12px;
+      line-height: 1.55;
+      color: #565b6a;
+    }
+
+    .features-row {
+      display: flex;
+      gap: 17px;
+      margin-bottom: 22px;
+    }
+
+    .mini-badge {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      min-width: 70px;
+      font-size: 9px;
+      color: #404456;
+    }
+
+    .mini-badge strong {
+      display: block;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 9px;
+    }
+
+    .btn {
+      border: 0;
+      height: 31px;
+      border-radius: 5px;
+      font-size: 10px;
+      padding: 0 21px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 118px;
+      font-weight: 700;
+    }
+
+    .btn-primary {
+      background: #6245f2;
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: #202433;
+      border: 1px solid #999db7;
+      min-width: 120px;
+    }
+
+    .hero-visual {
+      width: 375px;
+      height: 265px;
+      margin-top: 1px;
+      background: linear-gradient(135deg, #bdc8ff 0%, #ded8ff 48%, #d2d5ff 100%);
+      border-radius: 6px;
+      padding: 19px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 13px 30px rgba(98, 69, 242, 0.15);
+      overflow: hidden;
+    }
+
+    .hero-visual img {
+      width: 360px;
+      height: 420px;
+      object-fit: cover;
+      transform: translateY(-12px);
+      border-radius: 9px;
+      opacity: 0.98;
+    }
+
+    .learn-section {
+      position: absolute;
+      top: 390px;
+      left: 0;
+      width: 853px;
+      height: 350px;
+      background: #fff;
+      padding: 20px 52px 20px;
+      border-bottom: 1px solid #ececf2;
+    }
+
+    .section-pill {
+      display: inline-block;
+      background: #eeeaff;
+      color: #6752f0;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 5px 9px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .learn-section h2,
+    .instructor-section h2,
+    .reviews-section h2 {
+      margin: 0 0 13px;
+      font-size: 23px;
+      letter-spacing: -0.04em;
+    }
+
+    .curriculum-card {
+      width: 402px;
+      border: 1px solid #e1e3ef;
+      border-radius: 5px;
+      height: 270px;
+      overflow: hidden;
+      background: #fbfbfd;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 9px;
+      color: #454958;
+    }
+
+    td {
+      height: 26px;
+      padding: 4px 9px;
+      border-bottom: 1px solid #e5e7ef;
+      vertical-align: middle;
+    }
+
+    td:nth-child(1) {
+      width: 43px;
+      text-align: center;
+      color: #6251f0;
+      font-weight: 800;
+    }
+
+    td:nth-child(2) {
+      font-weight: 700;
+    }
+
+    .learn-features {
+      width: 370px;
+      display: flex;
+      flex-direction: column;
+      gap: 17px;
+      margin-left: 24px;
+    }
+
+    .feature-blurb {
+      display: flex;
+      gap: 13px;
+      align-items: flex-start;
+    }
+
+    .line-icon {
+      width: 30px;
+      height: 30px;
+      border: 2px solid #6551ff;
+      color: #6551ff;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .blurb-text h3 {
+      font-size: 11px;
+      margin: 0 0 4px;
+    }
+
+    .blurb-text p {
+      margin: 0;
+      color: #596070;
+      font-size: 10px;
+    }
+
+    .instructor-section {
+      position: absolute;
+      top: 740px;
+      left: 0;
+      width: 853px;
+      height: 142px;
+      background: #fbfbfe;
+      border-bottom: 1px solid #ececf2;
+      padding: 0 115px 0 115px;
+      display: flex;
+      gap: 32px;
+    }
+
+    .instructor-photo {
+      width: 148px;
+      height: 148px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #e6ddff;
+      flex: 0 0 auto;
+    }
+
+    .instructor-photo img {
+      width: 148px;
+      height: 148px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .instructor-info {
+      width: 350px;
+      padding-top: 11px;
+    }
+
+    .instructor-info h2 {
+      margin-bottom: 11px;
+    }
+
+    .instructor-info .name {
+      color: #6245f2;
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+
+    .instructor-info .role {
+      color: #666b7c;
+      font-size: 9px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .instructor-info p {
+      margin: 0 0 10px;
+      color: #555b69;
+      font-size: 9.5px;
+      line-height: 1.45;
+    }
+
+    .socials {
+      display: flex;
+      gap: 8px;
+    }
+
+    .socials span {
+      width: 21px;
+      height: 21px;
+      border: 1px solid #b8bbc9;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+    }
+
+    .reviews-section {
+      position: absolute;
+      top: 882px;
+      left: 0;
+      width: 853px;
+      height: 140px;
+      background: #fff;
+      padding: 0 112px 0 112px;
+      border-bottom: 1px solid #ececf2;
+    }
+
+    .reviews-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .review-card {
+      width: 215px;
+      min-height: 92px;
+      border: 1px solid #e1e4ee;
+      border-radius: 5px;
+      background: #fbfbfd;
+      padding: 9px 11px 8px;
+      box-shadow: 0 8px 18px rgba(29, 31, 50, 0.04);
+    }
+
+    .stars {
+      color: #ffbc2a;
+      letter-spacing: 1px;
+      font-size: 10px;
+      margin-bottom: 3px;
+    }
+
+    .review-card p {
+      margin: 0 0 7px;
+      color: #585f6e;
+      font-size: 8.5px;
+      line-height: 1.35;
+    }
+
+    .student {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      color: #363a48;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .student span {
+      font-size: 8px;
+      color: #656b79;
+      display: block;
+      font-weight: 600;
+    }
+
+    .cta-banner {
+      position: absolute;
+      left: 0;
+      top: 1072px;
+      width: 853px;
+      height: 66px;
+      background: linear-gradient(90deg, #5638e7 0%, #6245f2 56%, #5638e7 100%);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      padding: 0 150px 0 150px;
+      gap: 28px;
+    }
+
+    .cta-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+
+    .cta-text h2 {
+      margin: 0 0 3px;
+      font-size: 16px;
+    }
+
+    .cta-text p {
+      margin: 0;
+      color: #fff;
+      font-size: 9px;
+      width: 290px;
+    }
+
+    .banner-button {
+      width: 138px;
+      height: 32px;
+      border: 0;
+      color: #6245f2;
+      border-radius: 5px;
+      background: #fff;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .footer {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 853px;
+      height: 142px;
+      background: #fff;
+      padding: 17px 112px 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 170px 95px 95px 95px 105px;
+      gap: 12px;
+      height: 88px;
+    }
+
+    .footer-brand .logo {
+      font-size: 12px;
+      margin-bottom: 7px;
+    }
+
+    .footer-brand p {
+      margin: 0 0 8px;
+      font-size: 8.5px;
+      line-height: 1.45;
+      color: #606675;
+    }
+
+    .socials-small {
+      display: flex;
+      gap: 9px;
+      font-size: 10px;
+    }
+
+    .footer-col h4 {
+      margin: 0 0 8px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .footer-col a {
+      display: block;
+      color: #626878;
+      text-decoration: none;
+      font-size: 8.2px;
+      margin-bottom: 4px;
+    }
+
+    .copyright {
+      position: absolute;
+      left: 112px;
+      bottom: 12px;
+      font-size: 8px;
+      color: #8a909e;
+    }
+
+    .footer-links {
+      position: absolute;
+      right: 112px;
+      bottom: 13px;
+      display: flex;
+      gap: 14px;
+      font-size: 8px;
+      color: #69707e;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <header class="header">
+      <div class="logo">DesignAcademy</div>
+      <nav class="nav">
+        <span>Courses</span>
+        <span>About</span>
+        <span>Resources</span>
+        <span>Blog</span>
+        <span>Pricing</span>
+      </nav>
+      <div class="header-actions">
+        <span>Log in</span>
+        <button class="signup">Sign up</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-left">
+        <div class="pill">UI/UX DESIGN</div>
+        <h1>UI/UX Design Fundamentals</h1>
+        <p class="subtitle">
+          Learn the core principles of user experience and interface design.
+          Build real-world projects and create beautiful, user-centered designs.
+        </p>
+
+        <div class="features-row">
+          <div class="mini-badge">
+            <span>◷</span>
+            <div><strong>8 HOURS</strong>On-demand video</div>
+          </div>
+          <div class="mini-badge">
+            <span>▥</span>
+            <div><strong>BEGINNER</strong>Level</div>
+          </div>
+          <div class="mini-badge">
+            <span>▤</span>
+            <div><strong>CERTIFICATE</strong>Of completion</div>
+          </div>
+        </div>
+
+        <div class="cta-row">
+          <button class="btn btn-primary">Enroll Now — $79</button>
+          <button class="btn btn-outline">Preview Course</button>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <img src="https://placehold.co/360x420?text=Course+App+Mockups" alt="Course App Mockups">
+      </div>
+    </section>
+
+    <section class="learn-section">
+      <div class="section-pill">Curriculum</div>
+      <h2>What You’ll Learn</h2>
+
+      <div style="display: flex; gap: 24px;">
+        <div class="curriculum-card">
+          <table>
+            <tr>
+              <td>Module</td>
+              <td>Title</td>
+              <td>Lessons</td>
+              <td>Duration</td>
+            </tr>
+            <tr>
+              <td>01</td>
+              <td>Introduction to UI/UX Design</td>
+              <td>4 lessons</td>
+              <td>45 min</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>What is UI/UX Design?</td>
+              <td></td>
+              <td>08:15</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>The Difference Between UI and UX</td>
+              <td></td>
+              <td>06:45</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>The Design Thinking Process</td>
+              <td></td>
+              <td>12:30</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Course Project Overview</td>
+              <td></td>
+              <td>17:20</td>
+            </tr>
+            <tr>
+              <td>02</td>
+              <td>User Research & Personas</td>
+              <td>5 lessons</td>
+              <td>60 min</td>
+            </tr>
+            <tr>
+              <td>03</td>
+              <td>Information Architecture</td>
+              <td>4 lessons</td>
+              <td>48 min</td>
+            </tr>
+            <tr>
+              <td>04</td>
+              <td>Wireframing & Prototyping</td>
+              <td>6 lessons</td>
+              <td>75 min</td>
+            </tr>
+            <tr>
+              <td>05</td>
+              <td>Visual Design Principles</td>
+              <td>5 lessons</td>
+              <td>65 min</td>
+            </tr>
+            <tr>
+              <td>06</td>
+              <td>Design Systems & Handoff</td>
+              <td>4 lessons</td>
+              <td>50 min</td>
+            </tr>
+            <tr>
+              <td>07</td>
+              <td>Final Project</td>
+              <td>3 lessons</td>
+              <td>40 min</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="learn-features">
+          <div class="feature-blurb">
+            <div class="line-icon">◇</div>
+            <div class="blurb-text">
+              <h3>Practical Projects</h3>
+              <p>Build 3 real-world projects for your portfolio.</p>
+            </div>
+          </div>
+          <div class="feature-blurb">
+            <div class="line-icon">♙</div>
+            <div class="blurb-text">
+              <h3>Expert Guidance</h3>
+              <p>Learn from a professional UX/UI designer.</p>
+            </div>
+          </div>
+          <div class="feature-blurb">
+            <div class="line-icon">◉</div>
+            <div class="blurb-text">
+              <h3>Flexible Learning</h3>
+              <p>Study at your own pace, anytime, anywhere.</p>
+            </div>
+          </div>
+          <div class="feature-blurb">
+            <div class="line-icon">✓</div>
+            <div class="blurb-text">
+              <h3>Lifetime Access</h3>
+              <p>Get lifetime access to all course content.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="instructor-section">
+      <div class="instructor-photo">
+        <img src="https://placehold.co/260x260?text=Instructor+Photo" alt="Instructor Photo">
+      </div>
+      <div class="instructor-info">
+        <div class="section-pill">Instructor</div>
+        <h2>Meet Your Instructor</h2>
+        <div class="name">Emma Johnson</div>
+        <div class="role">Senior UI/UX Designer</div>
+        <p>
+          Emma is a Senior UI/UX Designer with over 8 years of experience
+          creating intuitive digital products for startups and global brands.
+          She has worked with companies like Spotify, Adobe, and Airbnb,
+          and loves teaching design to help others grow their skills and confidence.
+        </p>
+        <div class="socials">
+          <span>in</span>
+          <span>◎</span>
+          <span>♥</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="reviews-section">
+      <h2>What Students Say</h2>
+      <div class="reviews-row">
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p>“This course gave me a solid foundation in UI/UX design. The projects were practical and helped me build confidence in my skills.”</p>
+          <div class="student">James Carter <span>Product Designer</span></div>
+        </div>
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p>“I enjoyed the hands-on approach and real-world examples. I was able to apply what I learned immediately.”</p>
+          <div class="student">Sophia Lee <span>UI Designer</span></div>
+        </div>
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p>“Emma does an amazing job explaining complex concepts in a simple way. Highly recommended for beginners.”</p>
+          <div class="student">Daniel Kim <span>Freelance Designer</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-banner">
+      <div class="cta-circle">◇</div>
+      <div class="cta-text">
+        <h2>Ready to Start Your Design Journey?</h2>
+        <p>Join thousands of aspiring designers and build the skills you need to create amazing user experiences.</p>
+      </div>
+      <button class="banner-button">Enroll Now — $79</button>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">DesignAcademy</div>
+          <p>Empowering designers worldwide with practical courses and expert insights.</p>
+          <div class="socials-small">f t ◉ ◉</div>
+        </div>
+        <div class="footer-col">
+          <h4>Courses</h4>
+          <a>All Courses</a>
+          <a>UI/UX Design</a>
+          <a>Web Design</a>
+          <a>Graphic Design</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a>About Us</a>
+          <a>Careers</a>
+          <a>Blog</a>
+          <a>Pricing</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a>Articles</a>
+          <a>Tutorials</a>
+          <a>Freebies</a>
+          <a>Design Tools</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a>hello@designacademy.com</a>
+          <a>+1 (123) 456-7890</a>
+          <a>123 Design Street</a>
+          <a>San Francisco, CA</a>
+        </div>
+      </div>
+
+      <div class="copyright">© 2024 DesignAcademy. All rights reserved.</div>
+      <div class="footer-links">
+        <span>Privacy Policy</span>
+        <span>Terms of Service</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

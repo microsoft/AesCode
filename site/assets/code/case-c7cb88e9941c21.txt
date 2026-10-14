@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>投资组合总览</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:#020915;
+    font-family:Microsoft YaHei,"PingFang SC",Arial,sans-serif;
+    color:#d9efff;
+  }
+  .artboard{
+    position:absolute;
+    left:0; top:0;
+    width:1280px; height:853px;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 18% 12%, rgba(41,105,255,.18), transparent 190px),
+      radial-gradient(circle at 82% 28%, rgba(36,255,186,.12), transparent 210px),
+      linear-gradient(180deg,#061022 0%,#07182d 100%);
+  }
+  .sidebar{
+    position:absolute;
+    left:0; top:0;
+    width:132px; height:853px;
+    background:#030b17;
+    border-right:1px solid rgba(92,150,255,.25);
+  }
+  .brand{
+    position:absolute;
+    left:18px; top:20px;
+    width:54px; height:54px;
+    display:flex; align-items:center; justify-content:center;
+    color:#3f8fff; font-size:34px; font-weight:800;
+    border-radius:16px;
+    filter:drop-shadow(0 0 10px rgba(57,143,255,.55));
+  }
+  .nav{position:absolute; top:72px; left:0; width:132px; height:670px;}
+  .nav-item{
+    height:44px;
+    display:flex; align-items:center; gap:10px;
+    padding-left:12px;
+    color:#9aa8bb;
+    font-size:12px;
+    border-radius:8px;
+    margin-bottom:4px;
+  }
+  .nav-item.active{
+    background:rgba(37,92,180,.32);
+    color:#fff;
+    border-left:2px solid #2f7fff;
+    padding-left:10px;
+  }
+  .icon{font-size:17px; opacity:.9}
+  .timestamp{
+    position:absolute;
+    bottom:22px;
+    left:13px;
+    color:#9ca8b6;
+    font-size:11px;
+    line-height:1.5;
+  }
+  .main{
+    position:absolute;
+    left:132px; top:0;
+    width:1148px; height:853px;
+  }
+  .header{
+    position:absolute;
+    left:22px; top:20px;
+    width:1104px; height:44px;
+  }
+  .title{
+    font-size:22px;
+    color:#f2f7ff;
+    font-weight:700;
+    letter-spacing:.5px;
+  }
+  .filters{
+    position:absolute;
+    right:0;
+    display:flex; gap:12px;
+    align-items:center;
+  }
+  .date-range{
+    width:225px;
+    height:30px;
+    border:1px solid rgba(140,180,220,.32);
+    border-radius:7px;
+    color:#aeb9c7;
+    font-size:12px;
+    display:flex; align-items:center;
+    justify-content:center;
+    background:rgba(12,28,50,.8);
+  }
+  .dropdown,.refresh{
+    height:30px;
+    border:1px solid rgba(140,180,220,.28);
+    border-radius:7px;
+    color:#b8c3d0;
+    font-size:12px;
+    display:flex; align-items:center;
+    justify-content:center;
+    min-width:112px;
+  }
+  .refresh{
+    min-width:80px;
+    color:#4f8fff;
+    border-color:rgba(79,143,255,.45);
+    background:rgba(31,82,170,.22);
+  }
+  .summary-row{
+    position:absolute;
+    top:68px;
+    left:22px;
+    width:1104px; height:168px;
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:12px;
+  }
+  .card{
+    position:relative;
+    background:linear-gradient(180deg,rgba(10,28,54,.88),rgba(6,20,38,.82));
+    border:1px solid rgba(82,138,190,.28);
+    border-radius:8px;
+    box-shadow:inset 0 0 22px rgba(30,110,255,.12),0 8px 22px rgba(0,0,0,.18);
+  }
+  .summary-card{
+    padding:18px 18px 10px 18px;
+  }
+  .summary-title{
+    color:#b9c5d3;
+    font-size:13px;
+    text-align:center;
+    margin-bottom:6px;
+  }
+  .summary-value{
+    text-align:center;
+    font-size:28px;
+    font-weight:700;
+    color:#f2f7ff;
+    letter-spacing:.5px;
+  }
+  .green{color:#32ff92}
+  .compare{
+    text-align:center;
+    color:#8fa0b0;
+    font-size:12px;
+    margin-top:6px;
+  }
+  .spark{
+    position:absolute;
+    left:12px; right:12px; bottom:8px;
+    height:46px;
+  }
+  .analytics{
+    position:absolute;
+    top:248px;
+    left:22px;
+    width:1104px; height:314px;
+    display:grid;
+    grid-template-columns:1fr .98fr 1.12fr;
+    gap:12px;
+  }
+  .panel-top{
+    display:flex; justify-content:space3;
+    height:26px;
+    align-items:flex-start;
+  }
+  .panel-title{
+    color:#d7e4f0;
+    font-size:14px;
+    font-weight:700;
+  }
+  .panel-link{
+    color:#9fb0bf;
+    font-size:12px;
+  }
+  .chart{
+    width:100%;
+    height:230px;
+  }
+  .table-card{
+    position:absolute;
+    left:22px; bottom:14px;
+    width:1104px; height:256px;
+  }
+  .table-head{
+    height:30px;
+    display:flex; justify-content:space-between;
+    align-items:flex-start;
+  }
+  .table-title{
+    color:#d9e5ef;
+    font-size:14px;
+    font-weight:700;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    color:#b8c5d2;
+    font-size:12px;
+    margin-top:6px;
+  }
+  th{
+    height:26px;
+    color:#9fb2c1;
+    border-bottom:1px solid rgba(90,140,180,.22);
+    background:rgba(20,50,80,.10);
+    text-align:left;
+  }
+  td{
+    height:32px;
+    border-bottom:1px solid rgba(90,140,180,.14);
+  }
+  .profit{color:#2eff88}.loss{color:#ff5050}
+  .trend{
+    display:inline-flex;
+    width:86px; height:20px;
+    align-items:center;
+    justify-content:center;
+    color:#43e4a4;
+    background:rgba(40,90,130,.12);
+    border-radius:6px;
+    font-size:11px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <aside class="sidebar">
+    <div class="brand">Ci</div>
+    <div class="nav">
+      <div class="nav-item active"><span class="icon">⌂</span><span>总览</span></div>
+      <div class="nav-item"><span class="icon">◷</span><span>资产配置</span></div>
+      <div class="nav-item"><span class="icon">▥</span><span>持仓分析</span></div>
+      <div class="nav-item"><span class="icon">☼</span><span>收益分析</span></div>
+      <div class="nav-item"><span class="icon">♙</span><span>风险分析</span></div>
+      <div class="nav-item"><span class="icon">▤</span><span>交易记录</span></div>
+      <div class="nav-item"><span class="icon">▧</span><span>报表中心</span></div>
+      <div class="nav-item"><span class="icon">⚙</span><span>设置中心</span></div>
+    </div>
+    <div class="timestamp">
+      数据更新<br>2024-05-26 15:30
+    </div>
+  </aside>
+
+  <main class="main">
+    <section class="header">
+      <div class="title">投资组合总览</div>
+      <div class="filters">
+        <div class="date-range">2024-04-26　~　2024-05-26　▣</div>
+        <div class="dropdown">全部账户　⌄</div>
+        <div class="dropdown">全部资产类别　⌄</div>
+        <div class="refresh">⟳ 刷新</div>
+      </div>
+    </section>
+
+    <section class="summary-row">
+      <div class="card summary-card">
+        <div class="summary-title">组合总资产（元）</div>
+        <div class="summary-value">12,856,230.45</div>
+        <div class="compare">较上期　↑ 2.35%　+294,230.45</div>
+        <div id="spark1" class="spark"></div>
+      </div>
+      <div class="card summary-card">
+        <div class="summary-title">本期收益（元）</div>
+        <div class="summary-value green">+294,230.45</div>
+        <div class="compare green">较上期　↑ 2.35%</div>
+        <div id="spark2" class="spark"></div>
+      </div>
+      <div class="card summary-card">
+        <div class="summary-title">本期收益率</div>
+        <div class="summary-value green">+2.35%</div>
+        <div class="compare green">较上期　↑ 0.48%</div>
+        <div id="spark3" class="spark"></div>
+      </div>
+    </section>
+
+    <section class="analytics">
+      <div class="card">
+        <div class="panel-top">
+          <div class="panel-title">资产类别分布（元）</div>
+          <div class="panel-link">查看详情 ›</div>
+        </div>
+        <div id="bar1" class="chart"></div>
+      </div>
+      <div class="card">
+        <div class="panel-top">
+          <div class="panel-title">持仓行业分布（元）</div>
+          <div class="panel-link">查看详情 ›</div>
+        </div>
+        <div id="bar2" class="chart"></div>
+      </div>
+      <div class="card">
+        <div class="panel-top">
+          <div class="panel-title">风险雷达图</div>
+          <div class="panel-link">查看详情 ›</div>
+        </div>
+        <div id="radar" class="chart"></div>
+      </div>
+    </section>
+
+    <section class="table-card">
+      <div class="table-head">
+        <div class="table-title">持仓前五大资产</div>
+        <div class="panel-link">查看更多 ›</div>
+      </div>
+      <table>
+        <tr>
+          <th>资产名称</th>
+          <th>资产类别</th>
+          <th>市值（元）</th>
+          <th>占比</th>
+          <th>持仓收益（元）</th>
+          <th>持仓收益率</th>
+          <th>走势（近30日）</th>
+        </tr>
+        <tr>
+          <td>腾讯控股（00700.HK）</td>
+          <td>股票</td>
+          <td>1,256,780.00</td>
+          <td>9.77%</td>
+          <td class="profit">+156,230.00</td>
+          <td class="profit">+14.20%</td>
+          <td class="trend">迷你走势图</td>
+        </tr>
+        <tr>
+          <td>贵州茅台（600519.SH）</td>
+          <td>股票</td>
+          <td>1,102,560.00</td>
+          <td>8.57%</td>
+          <td class="profit">+98,760.00</td>
+          <td class="profit">+9.84%</td>
+          <td class="trend">迷你走势图</td>
+        </tr>
+        <tr>
+          <td>中债国债总财富(7-10年)指数</td>
+          <td>债券</td>
+          <td>980,450.00</td>
+          <td>7.62%</td>
+          <td class="profit">+21,450.00</td>
+          <td class="profit">+2.24%</td>
+          <td class="trend">迷你走势图</td>
+        </tr>
+        <tr>
+          <td>华夏沪深300ETF（510330.SH）</td>
+          <td>基金</td>
+          <td>876,340.00</td>
+          <td>6.81%</td>
+          <td class="loss">-12,340.00</td>
+          <td class="loss">-1.39%</td>
+          <td class="trend">迷你走势图</td>
+        </tr>
+        <tr>
+          <td>中国平安（601318.SH）</td>
+          <td>股票</td>
+          <td>789,230.00</td>
+          <td>6.14%</td>
+          <td class="profit">+45,670.00</td>
+          <td class="profit">+6.14%</td>
+          <td class="trend">迷你走势图</td>
+        </tr>
+      </table>
+    </section>
+  </main>
+</div>
+
+<script>
+  function sparkOption(data, color, area=false){
+    return {
+      animation:false,
+      grid:{left:0,right:0,top:4,bottom:4},
+      xAxis:{type:'category',show:false,data:[1,2,3,4,5,6,7]},
+      yAxis:{type:'value',show:false},
+      series:[{
+        type:'line',
+        data:data,
+        symbol:'none',
+        smooth:true,
+        lineStyle:{width:1.5,color:color},
+        areaStyle:area?{opacity:.18,color:color}:undefined
+      }]
+    };
+  }
+
+  echarts.init(document.getElementById('spark1')).setOption(
+    sparkOption([100,120,115,130,140,150,160],'#318fff')
+  );
+  echarts.init(document.getElementById('spark2')).setOption(
+    sparkOption([20,25,30,35,40,42,45],'#23e384',true)
+  );
+  echarts.init(document.getElementById('spark3')).setOption(
+    sparkOption([1.5,1.7,1.6,1.8,2.0,2.2,2.35],'#8f62ff')
+  );
+
+  echarts.init(document.getElementById('bar1')).setOption({
+    animation:false,
+    grid:{left:42,right:12,top:28,bottom:42},
+    xAxis:{
+      type:'category',
+      data:['股票','债券','基金','现金','黄金','其他'],
+      axisLine:{lineStyle:{color:'#2f5570'}},
+      axisLabel:{color:'#9fa9b2',fontSize:11}
+    },
+    yAxis:{
+      type:'value',
+      name:'亿元',
+      nameTextStyle:{color:'#7f91a0'},
+      axisLabel:{color:'#9fa9b2'}
+    },
+    series:[{
+      type:'bar',
+      data:[5128450, 3245670, 2156340, 1256780, 768230, 300760],
+      barWidth:24,
+      itemStyle:{color:'#2f7fff'},
+      label:{show:true,position:'top',color:'#cfe0ff'}
+    }]
+  });
+
+  echarts.init(document.getElementById('bar2')).setOption({
+    animation:false,
+    grid:{left:62,right:34,top:18,bottom:32},
+    xAxis:{type:'value',axisLabel:{color:'#9fa9b2'}},
+    yAxis:{
+      type:'category',
+      data:['信息技术','金融','消费','医疗保健','工业','能源','公用事业','其他'],
+      axisLabel:{color:'#b5c0c8',fontSize:11}
+    },
+    series:[{
+      type:'bar',
+      data:[2560320, 2134560, 1876430, 1356780, 1213450, 876430, 586230, 251120],
+      barWidth:8,
+      itemStyle:{color:'#2f7fff'},
+      label:{show:true,position:'right',color:'#cfe0ff'}
+    }]
+  });
+
+  echarts.init(document.getElementById('radar')).setOption({
+    animation:false,
+    legend:{bottom:0,textStyle:{color:'#9fb0bf'}},
+    radar:{
+      center:['50%','48%'],
+      radius:90,
+      axisName:{color:'#9fb0bf'},
+      splitLine:{lineStyle:{color:'#2b4f70'}},
+      axisLine:{lineStyle:{color:'#2b4f70'}},
+      indicator:[
+        {name:'收益能力',max:100},
+        {name:'波动性',max:100},
+        {name:'流动性',max:100},
+        {name:'集中性',max:100},
+        {name:'多样性',max:100}
+      ]
+    },
+    series:[{
+      type:'radar',
+      data:[
+        {value:[78, 65, 82, 70, 75],name:'本组合',areaStyle:{opacity:.16},lineStyle:{color:'#358fff'}},
+        {value:[70,60,75,65,72],name:'市场平均',areaStyle:{opacity:.12},lineStyle:{color:'#8b5cff'}}
+      ]
+    }]
+  });
+</script>
+</body>
+</html>

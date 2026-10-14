@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Automation Value Infographic</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #f4f4f6;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background: #ffffff;
+    color: #2f3034;
+  }
+
+  .title {
+    position: absolute;
+    left: 60px;
+    top: 42px;
+    width: 1256px;
+    text-align: left;
+    font-size: 48px;
+    line-height: 1.18;
+    letter-spacing: -1.4px;
+    font-weight: 800;
+    color: #323338;
+  }
+
+  .top-card,
+  .bottom-card {
+    position: absolute;
+    width: 305px;
+    height: 178px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 12px 20px rgba(28, 29, 35, 0.12);
+  }
+
+  .top-card-1 { left: 60px; top: 192px; }
+  .top-card-2 { left: 384px; top: 192px; }
+  .top-card-3 { left: 708px; top: 192px; }
+  .top-card-4 { left: 1032px; top: 192px; }
+
+  .bottom-card-1 { left: 60px; top: 528px; }
+  .bottom-card-2 { left: 384px; top: 528px; }
+  .bottom-card-3 { left: 708px; top: 528px; }
+  .bottom-card-4 { left: 1032px; top: 528px; }
+
+  .donut-wrap {
+    position: absolute;
+    left: 24px;
+    top: 24px;
+    width: 124px;
+    height: 124px;
+  }
+
+  .donut {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 315deg,
+      #8452c8 0deg,
+      #6f42b4 100%,
+      #f3eff7 100%,
+      #f3eff7 360deg
+    );
+    box-shadow: 0 4px 11px rgba(99, 62, 160, 0.15);
+  }
+
+  .donut::after {
+    content: "";
+    position: absolute;
+    left: 24px;
+    top: 24px;
+    width: 76px;
+    height: 76px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: inset 0 0 10px rgba(116, 77, 180, 0.10);
+  }
+
+  .donut-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6742a2;
+    font-size: 26px;
+    font-weight: 800;
+    z-index: 2;
+  }
+
+  .top-card .caption,
+  .bottom-card .caption {
+    position: absolute;
+    left: 160px;
+    top: 46px;
+    width: 126px;
+    font-size: 20px;
+    line-height: 1.22;
+    color: #111115;
+  }
+
+  .bottom-card .caption {
+    top: 48px;
+  }
+
+  .benefit-band {
+    position: absolute;
+    left: 60px;
+    top: 394px;
+    width: 1256px;
+    height: 116px;
+    border-radius: 10px;
+    background: #e7e1f1;
+    box-shadow: 0 6px 14px rgba(122, 77, 180, 0.08);
+  }
+
+  .benefit {
+    position: absolute;
+    top: 0;
+    height: 116px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #6f46a8;
+    font-size: 22px;
+    line-height: 1.22;
+    font-weight: 500;
+  }
+
+  .benefit-1 { left: 0; width: 314px; }
+  .benefit-2 { left: 314px; width: 314px; }
+  .benefit-3 { left: 628px; width: 314px; }
+  .benefit-4 { left: 942px; width: 314px; }
+
+  .divider {
+    position: absolute;
+    top: 20px;
+    width: 1px;
+    height: 76px;
+    background: rgba(111, 70, 168, 0.42);
+  }
+
+  .divider-1 { left: 313px; }
+  .divider-2 { left: 627px; }
+  .divider-3 { left: 941px; }
+
+  /* Donut variants via class-based degree shifts */
+  .donut-74 {
+    background: conic-gradient(
+      from 315deg,
+      #8452c8 0deg,
+      #6f42b4 266.4deg,
+      #f3eff7 266.4deg,
+      #f3eff7 360deg
+    );
+  }
+
+  .donut-274 {
+    background: conic-gradient(
+      from 315deg,
+      #8452c8 0deg,
+      #6f42b4 98.64deg,
+      #f3eff7 98.64deg,
+      #f3eff7 360deg
+    );
+  }
+
+  .donut-80 {
+    background: conic-gradient(
+      from 315deg,
+      #8452c8 0deg,
+      #6f42b4 288deg,
+      #f3eff7 288deg,
+      #f3eff7 360deg
+    );
+  }
+
+  .donut-502 {
+    background: conic-gradient(
+      from 315deg,
+      #8452c8 0deg,
+      #6f42b4 584.8deg,
+      #f3eff7 584.8deg,
+      #f3eff7 720deg
+    );
+  }
+
+  .donut-24 {
+    background: conic-gradient(
+      from 315deg,
+      #8452c8 0deg,
+      #6f42b4 86.4deg,
+      #f3eff7 86.4deg,
+      #f3eff7 360deg
+    );
+  }
+
+  .donut-33 {
+    background: conic-gradient(
+      from 315deg,
+      #8452c8 0deg,
+      #6f42b4 118.8deg,
+      #f3eff7 118.8deg,
+      #f3eff7 360deg
+    );
+  }
+
+  .donut-50 {
+    background: conic-gradient(
+      from 315deg,
+      #8452c8 0deg,
+      #6f42b4 180deg,
+      #f3eff7 180deg,
+      #f3eff7 360deg
+    );
+  }
+
+  .donut-money {
+    background: conic-gradient(
+      from 315deg,
+      #8452c8 0deg,
+      #6f42b4 180deg,
+      #f3eff7 180deg,
+      #f3eff7 360deg
+    );
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Automation delivers proven value<br>in real world business scenarios</div>
+
+    <!-- Top row cards -->
+    <div class="top-card top-card-1">
+      <div class="donut-wrap">
+        <div class="donut donut-74">
+          <div class="donut-label">74%</div>
+        </div>
+      </div>
+      <div class="caption">Reduction<br>in app<br>development<br>costs</div>
+    </div>
+
+    <div class="top-card top-card-2">
+      <div class="donut-wrap">
+        <div class="donut donut-274">
+          <div class="donut-label">27.4%</div>
+        </div>
+      </div>
+      <div class="caption">Reduced<br>errors due to<br>increase<br>automation</div>
+    </div>
+
+    <div class="top-card top-card-3">
+      <div class="donut-wrap">
+        <div class="donut donut-80">
+          <div class="donut-label">80%</div>
+        </div>
+      </div>
+      <div class="caption">Less effort<br>required to<br>build and<br>maintain bots</div>
+    </div>
+
+    <div class="top-card top-card-4">
+      <div class="donut-wrap" style="left:20px; top:20px; width:126px; height:126px;">
+        <div class="donut donut-502" style="width:126px; height:126px;">
+          <div class="donut-label" style="font-size:26px;">502%</div>
+        </div>
+      </div>
+      <div class="caption" style="left:158px;">Return on<br>investment<br>over three<br>years</div>
+    </div>
+
+    <!-- Benefit band -->
+    <div class="benefit-band">
+      <div class="benefit benefit-1">Reduce<br>development costs</div>
+      <div class="divider divider-1"></div>
+      <div class="benefit benefit-2">Improve customer<br>experience</div>
+      <div class="divider divider-2"></div>
+      <div class="benefit benefit-3">Meet business<br>demands faster</div>
+      <div class="divider divider-3"></div>
+      <div class="benefit benefit-4">Maximize return on<br>your tech investments</div>
+    </div>
+
+    <!-- Bottom row cards -->
+    <div class="bottom-card bottom-card-1">
+      <div class="donut-wrap">
+        <div class="donut donut-24">
+          <div class="donut-label">24%</div>
+        </div>
+      </div>
+      <div class="caption">Reduction<br>in Pro Dev<br>and DevOps<br>cost</div>
+    </div>
+
+    <div class="bottom-card bottom-card-2">
+      <div class="donut-wrap">
+        <div class="donut donut-33">
+          <div class="donut-label">33%</div>
+        </div>
+      </div>
+      <div class="caption">Reduced time<br>to market</div>
+    </div>
+
+    <div class="bottom-card bottom-card-3">
+      <div class="donut-wrap">
+        <div class="donut donut-50">
+          <div class="donut-label">50%</div>
+        </div>
+      </div>
+      <div class="caption">Reduced time<br>to handle<br>customer<br>support<br>requests</div>
+    </div>
+
+    <div class="bottom-card bottom-card-4">
+      <div class="donut-wrap" style="left:20px; top:20px; width:126px; height:126px;">
+        <div class="donut donut-money" style="width:126px; height:126px;">
+          <div class="donut-label" style="font-size:19px;">$25.92M</div>
+        </div>
+      </div>
+      <div class="caption" style="left:158px;">Net present<br>value</div>
+    </div>
+  </div>
+</body>
+</html>

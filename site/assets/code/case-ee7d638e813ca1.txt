@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Sustainability Presentation Template</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #dfe8dd;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background: #f2f7ef;
+    color: #0d2114;
+  }
+
+  .title {
+    position: absolute;
+    top: 31px;
+    left: 0;
+    width: 1376px;
+    text-align: center;
+    font-size: 42px;
+    line-height: 1;
+    font-weight: 800;
+    color: #205731;
+    letter-spacing: 0.3px;
+  }
+
+  .text-section {
+    position: absolute;
+    width: 325px;
+    color: #080d09;
+  }
+
+  .text-section h2 {
+    margin: 0 0 9px 0;
+    font-size: 22px;
+    line-height: 1.14;
+    font-weight: 800;
+    color: #060806;
+  }
+
+  .text-section p {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    line-height: 1.28;
+    color: #080d09;
+  }
+
+  .text-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .section-sustainable-transportation {
+    left: 62px;
+    top: 124px;
+  }
+
+  .section-climate-action {
+    left: 63px;
+    top: 326px;
+    width: 320px;
+  }
+
+  .section-waste-reduction {
+    left: 63px;
+    top: 553px;
+    width: 350px;
+  }
+
+  .section-renewable-energy {
+    left: 1013px;
+    top: 126px;
+    width: 300px;
+  }
+
+  .section-agriculture {
+    left: 1027px;
+    top: 351px;
+    width: 310px;
+  }
+
+  .section-infrastructure {
+    left: 1027px;
+    top: 553px;
+    width: 310px;
+  }
+
+  /* Main circular ring */
+  .outer-ring {
+    position: absolute;
+    left: 496px;
+    top: 164px;
+    width: 430px;
+    height: 430px;
+    border: 13px solid #61b259;
+    border-radius: 50%;
+    opacity: 0.95;
+  }
+
+  .outer-ring::after {
+    content: "";
+    position: absolute;
+    left: 178px;
+    top: 183px;
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: #f2f7ef;
+  }
+
+  /* Main landscape circle */
+  .center-landscape {
+    position: absolute;
+    left: 515px;
+    top: 240px;
+    width: 360px;
+    height: 360px;
+    border: 13px solid #58b354;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 52% 22%, #8bd8f2 0 13%, #65c5dc 14% 30%, #36b58a 31% 44%, #49c86b 45% 60%, #278b52 61% 100%);
+    overflow: hidden;
+    z-index: 6;
+  }
+
+  .sky {
+    position: absolute;
+    left: 24px;
+    top: 14px;
+    width: 305px;
+    height: 130px;
+    background: #89d8f1;
+  }
+
+  .cloud {
+    position: absolute;
+    border-radius: 50px;
+    background: rgba(248, 255, 255, 0.85);
+  }
+
+  .cloud.c1 {
+    left: 72px;
+    top: 58px;
+    width: 62px;
+    height: 21px;
+  }
+
+  .cloud.c2 {
+    left: 212px;
+    top: 92px;
+    width: 56px;
+    height: 20px;
+  }
+
+  .sun {
+    position: absolute;
+    left: 162px;
+    top: 43px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #ffd83d;
+    box-shadow:
+      0 -18px 0 -10px #ffd83d,
+      16px -13px 0 -10px #ffd83d,
+      19px 13px 0 -10px #ffd83d,
+      0 18px 0 -10px #ffd83d,
+      -16px 12px 0 -10px #ffd83d,
+      -18px -13px 0 -105px #ffd83d;
+  }
+
+  .hill-light {
+    position: absolute;
+    left: 18px;
+    bottom: 88px;
+    width: 324px;
+    height: 92px;
+    background: #7fcd68;
+    border-radius: 55% 45% 0 0;
+    clip-path: polygon(0 34%, 24% 16%, 47% 30%, 69% 22%, 100% 40%, 100% 100%, 0 100%);
+  }
+
+  .hill-mid {
+    position: absolute;
+    left: 36px;
+    bottom: 66px;
+    width: 286px;
+    height: 110px;
+    background: #54bd60;
+    border-radius: 48% 52% 0 0;
+    clip-path: polygon(0 30%, 26% 22%, 48% 28%, 68% 18%, 100% 32%, 100% 100%, 0 100%);
+  }
+
+  .hill-dark {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 360px;
+    height: 122px;
+    background: #238943;
+    border-radius: 52% 48% 0 0;
+    clip-path: polygon(0 46%, 23% 34%, 45% 38%, 67% 30%, 100% 44%, 100% 100%, 0 100%);
+  }
+
+  .field-solar {
+    position: absolute;
+    right: 30px;
+    bottom: 53px;
+    width: 142px;
+    height: 61px;
+    background:
+      repeating-linear-gradient(90deg, transparent 0 18px, rgba(17, 108, 70, 0.55) 19px 23px),
+      repeating-linear-gradient(0deg, transparent 0 16px, rgba(17, 108, 70, 0.55) 17px 21px);
+    border: 3px solid #1f8b54;
+    border-radius: 8px;
+  }
+
+  .tree {
+    position: absolute;
+    width: 38px;
+    height: 70px;
+    z-index: 8;
+  }
+
+  .tree.t1 {
+    left: 56px;
+    top: 125px;
+  }
+
+  .tree.t2 {
+    left: 108px;
+    top: 130px;
+  }
+
+  .tree.t3 {
+    right: 63px;
+    top: 83px;
+  }
+
+  .tree.t4 {
+    right: 22px;
+    top: 91px;
+  }
+
+  .tree .trunk {
+    position: absolute;
+    left: 14px;
+    top: 0;
+    width: 11px;
+    height: 48px;
+    background: #2f8448;
+  }
+
+  .tree .canopy {
+    position: absolute;
+    left: 0;
+    top: 28px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #56bd62;
+  }
+
+  .turbine {
+    position: absolute;
+    width: 90px;
+    height: 104px;
+    z-index: 9;
+    top: 28px;
+  }
+
+  .turbine.tl {
+    left: 58px;
+    transform: rotate(10deg);
+  }
+
+  .turbine.tc {
+    left: 135px;
+    top: 17px;
+    transform: rotate(-5deg);
+  }
+
+  .turbine.tr {
+    right: 58px;
+    top: 37px;
+    transform: rotate(-14deg);
+  }
+
+  .turbine .tower {
+    position: absolute;
+    left: 39px;
+    top: 41px;
+    width: 10px;
+    height: 68px;
+    background: #227540;
+  }
+
+  .turbine .blade {
+    position: absolute;
+    left: 43px;
+    top: 24px;
+    width: 7px;
+    height: 70px;
+    background: #2e8e52;
+    border-radius: 8px;
+    transform-origin: bottom center;
+  }
+
+  .turbine .b1 { transform: rotate(0deg); height: 58px; top: 23px; }
+  .turbine .b2 { transform: rotate(122deg); height: 66px; top: 16px; }
+  .turbine .b3 { transform: rotate(242deg); height: 62px; top: 18px; }
+
+  .power-plug {
+    position: absolute;
+    right: 27px;
+    bottom: 17px;
+    width: 47px;
+    height: 47px;
+    background: #55bd59;
+    border-radius: 50% 50% 45% 45%;
+    box-shadow:
+      11px -15px 0 -6px #55bd59,
+      25px -18px 0 -9px #55bd59,
+      30px -12px 0 -11px #55bd59;
+    z-index: 10;
+  }
+
+  /* Icon badges */
+  .badge {
+    position: absolute;
+    width: 108px;
+    height: 108px;
+    border-radius: 50%;
+    background: #efe8d8;
+    z-index: 11;
+    border: 0;
+  }
+
+  .badge-bl {
+    left: 380px;
+    top: 541px;
+  }
+
+  .badge-b {
+    left: 638px;
+    top: 625px;
+  }
+
+  .badge-br {
+    left: 828px;
+    top: 542px;
+  }
+
+  .badge-tr {
+    left: 825px;
+    top: 187px;
+  }
+
+  .badge-t {
+    left: 638px;
+    top: 112px;
+  }
+
+  .badge-tl {
+    left: 455px;
+    top: 188px;
+  }
+
+  .badge-l {
+    left: 380px;
+    top: 366px;
+  }
+
+  .badge-r {
+    left: 896px;
+    top: 366px;
+  }
+
+  /* Simple SVG-based icons inside badges */
+  .badge svg {
+    position: absolute;
+    left: 18px;
+    top: 18px;
+    width: 72px;
+    height: 72px;
+  }
+
+  .badge svg * {
+    stroke: #237a38;
+    fill: none;
+    stroke-width: 7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .badge .fill-green {
+    fill: #46ad56;
+    stroke: none;
+  }
+
+  .badge .fill-cream {
+    fill: #f4ead8;
+    stroke: none;
+  }
+
+  .badge .stroke-thin {
+    stroke-width: 5;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="title">Sustainability Presentation Template</div>
+
+  <section class="text-section section-sustainable-transportation">
+    <h2>Sustainable Transportation</h2>
+    <p>– Electric vehicles and public<br>transport integration.</p>
+    <p>– Cycling and pedestrian-friendly<br>city infrastructure.</p>
+    <p>– Reducing emissions from<br>transportation systems.</p>
+  </section>
+
+  <section class="text-section section-climate-action">
+    <h2>Climate Action &amp;<br>Conservation</h2>
+    <p>– Reducing carbon footprints<br>through conscious choices.</p>
+    <p>– Protecting forests and preserving<br>marine ecosystems.</p>
+    <p>– Implementing carbon offset<br>programs and reforestation.</p>
+  </section>
+
+  <section class="text-section section-waste-reduction">
+    <h2>Waste Reduction &amp; Recycling</h2>
+    <p>– Promoting a circular economy and<br>resource efficiency.</p>
+    <p>– Encouraging waste segregation<br>and composting methods.</p>
+    <p>– Reducing single-use plastics and<br>packaging waste.</p>
+  </section>
+
+  <section class="text-section section-renewable-energy">
+    <h2>Renewable Energy</h2>
+    <p>– Harnessing solar, wind, and hydro<br>power sources.</p>
+    <p>– Reducing dependency on non-<br>renewable fossil fuels.</p>
+    <p>– Investing in clean energy solutions<br>and technology.</p>
+  </section>
+
+  <section class="text-section section-agriculture">
+    <h2>Sustainable Agriculture</h2>
+    <p>– Adopting organic farming and<br>permaculture practices.</p>
+    <p>– Water conservation techniques in<br>farming and irrigation.</p>
+    <p>– Reducing pesticide and harmful<br>chemical use in food production.</p>
+  </section>
+
+  <section class="text-section section-infrastructure">
+    <h2>Eco-Friendly Infrastructure</h2>
+    <p>– Utilizing green building materials<br>and sustainable designs.</p>
+    <p>– Creating energy-efficient homes<br>and workplaces.</p>
+    <p>– Smart urban planning for long-<br>term sustainability.</p>
+  </section>
+
+  <div class="outer-ring"></div>
+
+  <div class="center-landscape" aria-label="Flat sustainable landscape with wind turbines, trees, sun, solar panels, and green hills">
+    <div class="sky">
+      <div class="cloud c1"></div>
+      <div class="cloud c2"></div>
+      <div class="sun"></div>
+    </div>
+    <div class="hill-light"></div>
+    <div class="hill-mid"></div>
+    <div class="hill-dark"></div>
+    <div class="field-solar"></div>
+
+    <div class="tree t1">
+      <div class="trunk"></div>
+      <div class="canopy"></div>
+    </div>
+    <div class="tree t2">
+      <div class="trunk"></div>
+      <div class="canopy"></div>
+    </div>
+    <div class="tree t3">
+      <div class="trunk"></div>
+      <div class="canopy"></div>
+    </div>
+    <div class="tree t4">
+      <div class="trunk"></div>
+      <div class="canopy"></div>
+    </div>
+
+    <div class="turbine tl">
+      <div class="blade b1"></div>
+      <div class="blade b2"></div>
+      <div class="blade b3"></div>
+      <div class="tower"></div>
+    </div>
+    <div class="turbine tc">
+      <div class="blade b1"></div>
+      <div class="blade b2"></div>
+      <div class="blade b3"></div>
+      <div class="tower"></div>
+    </div>
+    <div class="turbine tr">
+      <div class="blade b1"></div>
+      <div class="blade b2"></div>
+      <div class="blade b3"></div>
+      <div class="tower"></div>
+    </div>
+    <div class="power-plug"></div>
+  </div>
+
+  <div class="badge badge-bl" aria-label="House icon">
+    <svg viewBox="0 0 100 100">
+      <path d="M20 42 L50 18 L80 42 L80 72 L62 72 L62 56 L38 56 L38 72 L20 72 Z"></path>
+      <circle cx="40" cy="72" r="16"></circle>
+      <circle cx="60" cy="72" r="16"></circle>
+    </svg>
+  </div>
+
+  <div class="badge badge-b" aria-label="Recycling arrows icon">
+    <svg viewBox="0 0 100 100">
+      <path d="M25 45 L37 64 L58 48 L42 44 L50 24 L32 30 Z"></path>
+      <path d="M65 46 L78 27 L59 25 L61 40 L42 33 L50 54 Z"></path>
+      <path d="M44 70 L38 51 L22 62 L42 75 L52 61 L64 68 Z"></path>
+    </svg>
+  </div>
+
+  <div class="badge badge-br" aria-label="Tractor icon">
+    <svg viewBox="0 0 100 100">
+      <rect x="31" y="28" width="40" height="23"></rect>
+      <circle cx="26" cy="60" r="17"></circle>
+      <circle cx="58" cy="65" r="11"></circle>
+      <path d="M16 55 L16 40 L28 36 L28 22"></path>
+      <circle cx="72" cy="54" r="7"></circle>
+    </svg>
+  </div>
+
+  <div class="badge badge-tr" aria-label="Solar panel icon">
+    <svg viewBox="0 0 100 100">
+      <rect x="22" y="40" width="56" height="33"></rect>
+      <path d="M42 28 L58 28 L50 38"></path>
+      <circle cx="50" cy="20" r="9"></circle>
+    </svg>
+  </div>
+
+  <div class="badge badge-t" aria-label="Plant with leaves icon">
+    <svg viewBox="0 0 100 100">
+      <path d="M38 70 C24 44 28 36 47 28 C60 22 74 24 80 34 C87 42 82 48 68 46 C60 45 53 52 46 62"></path>
+      <path d="M55 68 C42 62 39 47 47 35 C55 22 70 22 80 31 C88 38 88 48 76 52"></path>
+      <path d="M50 76 L62 42"></path>
+    </svg>
+  </div>
+
+  <div class="badge badge-tl" aria-label="Single leaf icon">
+    <svg viewBox="0 0 100 100">
+      <path d="M23 58 C33 41 48 33 65 26 C75 22 82 26 87 34 C81 41 72 44 63 45 C50 46 40 54 38 65"></path>
+      <path d="M30 62 C40 58 52 53 66 48"></path>
+    </svg>
+  </div>
+
+  <div class="badge badge-l" aria-label="Sprouting plant icon">
+    <svg viewBox="0 0 100 100">
+      <path d="M25 58 C33 42 45 38 58 35 C68 33 77 38 84 46"></path>
+      <path d="M61 52 C48 47 36 48 28 57"></path>
+      <path d="M50 64 C47 72 48 80 55 86"></path>
+    </svg>
+  </div>
+
+  <div class="badge badge-r" aria-label="Tractor icon">
+    <svg viewBox="0 0 100 100">
+      <rect x="27" y="30" width="42" height="24"></rect>
+      <circle cx="23" cy="62" r="16"></circle>
+      <circle cx="57" cy="64" r="12"></circle>
+      <circle cx="76" cy="56" r="8"></circle>
+    </svg>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>PeopleHub Employee Overview Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #dfe4ec;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #1f2937;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 731px;
+    overflow: hidden;
+    background: #f7f9fb;
+  }
+
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 176px;
+    height: 731px;
+    background: #1d2c3d;
+    color: #e5edf5;
+  }
+
+  .brand {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 12px;
+    font-weight: 700;
+    font-size: 15px;
+    color: #fff;
+  }
+
+  .nav-item {
+    height: 33px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 10px;
+    font-size: 12px;
+    border-left: 3px solid transparent;
+  }
+
+  .nav-item.active {
+    background: #34437b;
+    border-left-color: #6c63ff;
+    color: #fff;
+  }
+
+  .section-label {
+    padding: 11px 12px 5px;
+    font-size: 10px;
+    color: #8f9db1;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+  }
+
+  .collapse {
+    position: absolute;
+    bottom: 0;
+    height: 43px;
+    width: 176px;
+    border-top: 1px solid rgba(255,255,255,.12);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-left: 14px;
+    font-size: 12px;
+  }
+
+  .main {
+    position: absolute;
+    left: 176px;
+    top: 0;
+    width: 1104px;
+    height: 731px;
+  }
+
+  .topbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1104px;
+    height: 47px;
+    background: #ffffff;
+    border-bottom: 1px solid #e1e7ef;
+  }
+
+  .menu-icon {
+    position: absolute;
+    left: 13px;
+    top: 16px;
+    width: 15px;
+    height: 13px;
+    border-top: 2px solid #738090;
+    border-bottom: 2px solid #738090;
+  }
+
+  .menu-icon:before,
+  .menu-icon:after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 0;
+    width: 15px;
+    border-top: 2px solid #738090;
+  }
+
+  .menu-icon:before { top: 0; }
+  .menu-icon:after { top: 8px; }
+
+  .search {
+    position: absolute;
+    left: 60px;
+    top: 8px;
+    width: 478px;
+    height: 31px;
+    border: 1px solid #e0e5ec;
+    border-radius: 6px;
+    background: #f6f7f9;
+  }
+
+  .search-placeholder {
+    position: absolute;
+    left: 13px;
+    top: 8px;
+    color: #788495;
+    font-size: 11px;
+  }
+
+  .search-icon {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    color: #596879;
+    font-size: 13px;
+  }
+
+  .top-notify {
+    position: absolute;
+    right: 101px;
+    top: 13px;
+    color: #435164;
+    font-size: 13px;
+  }
+
+  .help-icon {
+    position: absolute;
+    right: 62px;
+    top: 14px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #8995a5;
+    color: #596879;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 18px;
+    font-size: 13px;
+  }
+
+  .profile {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    height: 31px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .profile img {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1px solid #d7dee6;
+  }
+
+  .profile-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: #263342;
+  }
+
+  .profile-role {
+    font-size: 9px;
+    color: #697788;
+    margin-top: 1px;
+  }
+
+  .content {
+    position: absolute;
+    top: 47px;
+    left: 0;
+    width: 1104px;
+    height: 684px;
+    background: #fbfcfe;
+  }
+
+  .page-title {
+    position: absolute;
+    left: 20px;
+    top: 12px;
+    width: 1064px;
+  }
+
+  .page-title h1 {
+    margin: 0;
+    color: #202b36;
+    font-size: 18px;
+    font-weight: 750;
+  }
+
+  .page-title p {
+    margin: 5px 0 0;
+    color: #596879;
+    font-size: 12px;
+  }
+
+  .export {
+    position: absolute;
+    right: 23px;
+    top: 14px;
+    height: 24px;
+    min-width: 72px;
+    border: 0;
+    border-radius: 4px;
+    background: #5946e8;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 650;
+  }
+
+  .filters-row {
+    position: absolute;
+    top: 72px;
+    left: 20px;
+    width: 1064px;
+    height: 32px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .filter-pill {
+    height: 28px;
+    min-width: 202px;
+    border: 1px solid #dfe5ec;
+    background: #fff;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space1between;
+    padding: 0 10px;
+    gap: 8px;
+    font-size: 10px;
+    color: #3e4b59;
+    background: #fbfcfd;
+  }
+
+  .kpis-row {
+    position: absolute;
+    top: 121px;
+    left: 20px;
+    width: 1064px;
+    height: 82px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+  }
+
+  .kpi-card {
+    background: #fff;
+    border: 1px solid #edf0f4;
+    border-radius: 5px;
+    padding: 9px 10px 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kpi-title {
+    font-size: 10px;
+    color: #4a5563;
+    margin-bottom: 4px;
+  }
+
+  .kpi-value {
+    font-size: 17px;
+    color: #1b2531;
+    font-weight: 700;
+  }
+
+  .kpi-change {
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+
+  .kpi-change.green { color: #25a76a; }
+  .kpi-change.red { color: #e23b3b; }
+
+  .chart-left {
+    position: absolute;
+    left: 20px;
+    top: 218px;
+    width: 502px;
+    height: 205px;
+    background: #fff;
+    border: 1px solid #e0e6ef;
+    border-radius: 5px;
+  }
+
+  .chart-left h3,
+  .chart-right h3 {
+    margin: 0 0 0 0;
+    font-size: 12px;
+    color: #263342;
+    font-weight: 720;
+    padding: 10px 0 0 8px;
+  }
+
+  .view-select {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 52px;
+    height: 22px;
+    border: 1px solid #dfe5ec;
+    border-radius: 4px;
+    font-size: 10px;
+  }
+
+  #lineChart {
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+    width: 486px;
+    height: 158px;
+  }
+
+  .chart-right {
+    position: absolute;
+    left: 522px;
+    top: 218px;
+    width: 542px;
+    height: 205px;
+    background: #fff;
+    border: 1px solid #e0e6ef;
+    border-radius: 5px;
+  }
+
+  #barChart {
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+    width: 512px;
+    height: 158px;
+  }
+
+  .table-card {
+    position: absolute;
+    left: 20px;
+    top: 438px;
+    width: 1064px;
+    height: 240px;
+    background: #fff;
+    border: 1px solid #e0e6ef;
+    border-radius: 5px;
+  }
+
+  .table-card h3 {
+    margin: 0 0 8px;
+    font-size: 12px;
+    font-weight: 730;
+    color: #263342;
+    padding-left: 8px;
+  }
+
+  table {
+    width: 1048px;
+    margin-left: 6px;
+    border-collapse: collapse;
+    font-size: 10px;
+  }
+
+  th {
+    height: 25px;
+    background: #eef2f6;
+    color: #4c5a68;
+    font-weight: 700;
+    border-bottom: 1px solid #dbe3ec;
+  }
+
+  td {
+    height: 28px;
+    border-bottom: 1px solid #e5ebf1;
+    color: #344050;
+  }
+
+  .net-green {
+    color: #20a86b;
+    font-weight: 700;
+  }
+
+  .table-footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1064px;
+    height: 28px;
+    border-top: 1px solid #e1e7ef;
+    color: #596879;
+    font-size: 10px;
+    padding-left: 8px;
+  }
+
+  .pagination {
+    position: absolute;
+    right: 8px;
+    top: 5px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .page-size {
+    width: 80px;
+    height: 22px;
+    border: 1px solid #dfe5ec;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .page-btn {
+    width: 22px;
+    height: 22px;
+    border: 1px solid #dfe5ec;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .page-current {
+    width: 24px;
+    height: 22px;
+    background: #5946e8;
+    border: 1px solid #4b36bf;
+    color: #fff;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <aside class="sidebar">
+    <div class="brand">PeopleHub</div>
+
+    <div class="nav-item active">Dashboard</div>
+    <div class="section-label">MAIN</div>
+    <div class="nav-item">Employees</div>
+    <div class="nav-item">Teams</div>
+    <div class="nav-item">Organization</div>
+    <div class="nav-item">Onboarding</div>
+    <div class="nav-item">Performance</div>
+    <div class="nav-item">Time Off</div>
+    <div class="nav-item">Payroll</div>
+    <div class="nav-item">Reports</div>
+
+    <div class="section-label">SETTINGS</div>
+    <div class="nav-item">Settings</div>
+    <div class="nav-item">Integrations</div>
+    <div class="nav-item">Permissions</div>
+    <div class="nav-item">Audit Logs</div>
+
+    <div class="collapse">‹ Collapse</div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="menu-icon"></div>
+      <div class="search">
+        <div class="search-placeholder">Search for employees, teams, documents...</div>
+        <div class="search-icon">⌕</div>
+      </div>
+      <div class="top-notify">♟</div>
+      <div class="help-icon">?</div>
+      <div class="profile">
+        <img src="https://placehold.co/40x40?text=User" alt="Sarah Johnson avatar" />
+        <div>
+          <div class="profile-name">Sarah Johnson</div>
+          <div class="profile-role">HR Manager</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="content">
+      <div class="page-title">
+        <h1>Employee Overview</h1>
+        <p>Overview of your organization's headcount and employee metrics.</p>
+      </div>
+      <button class="export">Export</button>
+
+      <div class="filters-row">
+        <div class="filter-pill">▣ May 1, 2024 - May 31, 2024</div>
+        <div class="filter-pill">All Departments</div>
+        <div class="filter-pill">All Locations</div>
+        <div class="filter-pill">All Employment Types</div>
+      </div>
+
+      <div class="kpis-row">
+        <div class="kpi-card">
+          <div class="kpi-title">Total Employees</div>
+          <div class="kpi-value">1,248 <span style="font-weight:400;color:#25a76a;">↑ 3.2%</span></div>
+          <div class="kpi-change green">vs Apr 1 - Apr 30, 2024</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">New Hires</div>
+          <div class="kpi-value">52 <span style="font-weight:400;color:#25a76a;">↑ 8.3%</span></div>
+          <div class="kpi-change green">vs Apr 1 - Apr 30, 2024</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">Terminations</div>
+          <div class="kpi-value">12 <span style="font-weight:400;color:#e23b3b;">↑ 14.3%</span></div>
+          <div class="kpi-change red">vs Apr 1 - Apr 30, 2024</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">Attrition Rate</div>
+          <div class="kpi-value">0.95% <span style="font-weight:400;color:#25a76a;">↑ 0.35pp</span></div>
+          <div class="kpi-change green">vs Apr 1 - Apr 30, 2024</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">Avg. Tenure</div>
+          <div class="kpi-value">3.7 <span style="font-weight:400;">years</span></div>
+          <div class="kpi-change green">vs Apr 1 - Apr 30, 2024</div>
+        </div>
+      </div>
+
+      <div class="chart-left">
+        <h3>Headcount Over Time</h3>
+        <div class="view-select">Daily</div>
+        <div id="lineChart"></div>
+      </div>
+
+      <div class="chart-right">
+        <h3>Headcount by Department</h3>
+        <div class="view-select">By Department</div>
+        <div id="barChart"></div>
+      </div>
+
+      <div class="table-card">
+        <h3>Department Summary</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Department</th>
+              <th>Total Employees</th>
+              <th>New Hires</th>
+              <th>Terminations</th>
+              <th>Net Change</th>
+              <th>Attrition Rate</th>
+              <th>Avg. Tenure</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Engineering</td>
+              <td>278</td>
+              <td>14</td>
+              <td>2</td>
+              <td class="net-green">+12</td>
+              <td>0.71%</td>
+              <td>4.2 years</td>
+              <td>⋮</td>
+            </tr>
+            <tr>
+              <td>Sales</td>
+              <td>245</td>
+              <td>11</td>
+              <td>3</td>
+              <td class="net-green">+8</td>
+              <td>1.22%</td>
+              <td>3.1 years</td>
+              <td>⋮</td>
+            </tr>
+            <tr>
+              <td>Marketing</td>
+              <td>168</td>
+              <td>7</td>
+              <td>1</td>
+              <td class="net-green">+6</td>
+              <td>0.59%</td>
+              <td>2.8 years</td>
+              <td>⋮</td>
+            </tr>
+            <tr>
+              <td>Customer Success</td>
+              <td>142</td>
+              <td>5</td>
+              <td>2</td>
+              <td class="net-green">+3</td>
+              <td>1.39%</td>
+              <td>3.6 years</td>
+              <td>⋮</td>
+            </tr>
+            <tr>
+              <td>Finance</td>
+              <td>118</td>
+              <td>3</td>
+              <td>1</td>
+              <td class="net-green">+2</td>
+              <td>0.84%</td>
+              <td>4.0 years</td>
+              <td>⋮</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="table-footer">
+          Showing 1 to 8 of 8 departments
+          <div class="pagination">
+            <div class="page-size">10 per page</div>
+            <div class="page-btn">‹</div>
+            <div class="page-current">1</div>
+            <div class="page-btn">›</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  const lineChart = echarts.init(document.getElementById('lineChart'));
+  lineChart.setOption({
+    animation: false,
+    grid: { left: 35, right: 10, top: 22, bottom: 28 },
+    xAxis: {
+      type: 'category',
+      data: ["May 1","May 6","May 11","May 16","May 21","May 26","May 31"],
+      boundaryGap: false,
+      axisLine: { lineStyle: { color: '#d9dee6' } },
+      axisLabel: { color: '#596879', fontSize: 10 }
+    },
+    yAxis: {
+      type: 'value',
+      min: 1000,
+      max: 1300,
+      interval: 100,
+      splitLine: { lineStyle: { color: '#edf1f5' } },
+      axisLabel: { color: '#596879', fontSize: 10 }
+    },
+    series: [{
+      type: 'line',
+      smooth: true,
+      symbol: 'circle',
+      symbolSize: 5,
+      showSymbol: true,
+      lineStyle: { color: '#5946e8', width: 2 },
+      itemStyle: { color: '#5946e8', borderColor: '#fff', borderWidth: 1 },
+      areaStyle: { color: 'rgba(89,70,232,.11)' },
+      data: [1120, 1135, 1150, 1178, 1195, 1210, 1230]
+    }]
+  });
+
+  const barChart = echarts.init(document.getElementById('barChart'));
+  barChart.setOption({
+    animation: false,
+    grid: { left: 40, right: 8, top: 18, bottom: 36 },
+    xAxis: {
+      type: 'category',
+      data: ["Engineering","Sales","Marketing","Customer Success","Finance","HR","Operations","Other"],
+      axisLine: { lineStyle: { color: '#d9dee6' } },
+      axisLabel: { color: '#596879', fontSize: 9, interval: 0 }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: 300,
+      splitLine: { lineStyle: { color: '#edf1f5' } },
+      axisLabel: { color: '#596879', fontSize: 10 }
+    },
+    series: [{
+      type: 'bar',
+      barWidth: 34,
+      data: [278,245,168,142,118,97,88,112],
+      itemStyle: {
+        color: function(params) {
+          const colors = ['#5d46e8','#2f7df1','#17b0a1','#ffa817','#ff7537','#f33678','#8b97aa','#a772ee'];
+          return colors[params.dataIndex];
+        }
+      },
+      label: {
+        show: true,
+        position: 'top',
+        color: '#344050',
+        fontSize: 9
+      }
+    }]
+  });
+</script>
+</body>
+</html>

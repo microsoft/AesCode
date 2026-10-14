@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Easy Scheduling for Growth-Oriented Teams</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #dfe7ef;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: #0f1d3f;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1264px;
+      height: 1632px;
+      overflow: hidden;
+      background: #f7f9fb;
+    }
+
+    .left-border {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 22px;
+      height: 1632px;
+      background: linear-gradient(180deg, #c4b9ff 0%, #b9bdff 45%, #d7d8ff 100%);
+    }
+
+    .right-border {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 30px;
+      height: 1632px;
+      background: linear-gradient(180deg, #c2e5e6 0%, #d9eef4 52%, #e6f0f3 100%);
+    }
+
+    .hero {
+      position: absolute;
+      left: 0;
+      top: 72px;
+      width: 1264px;
+      text-align: center;
+    }
+
+    .hero-title {
+      margin: 0;
+      color: #0b1842;
+      font-size: 60px;
+      line-height: 1.16;
+      font-weight: 850;
+      letter-spacing: -2.5px;
+    }
+
+    .hero-accent-left {
+      position: absolute;
+      left: 220px;
+      top: 105px;
+      width: 64px;
+      height: 64px;
+    }
+
+    .hero-accent-left span {
+      position: absolute;
+      width: 48px;
+      height: 7px;
+      border-radius: 10px;
+      background: #c3b6ff;
+      transform: rotate(48deg);
+      opacity: 0.85;
+    }
+
+    .hero-accent-left span:nth-child(1) {
+      left: 13px;
+      top: 0;
+    }
+
+    .hero-accent-left span:nth-child(2) {
+      left: 0;
+      top: 20px;
+    }
+
+    .hero-accent-left span:nth-child(3) {
+      left: 10px;
+      top: 44px;
+    }
+
+    .hero-accent-right {
+      position: absolute;
+      right: 210px;
+      top: 210px;
+      width: 62px;
+      height: 62px;
+      border-top: 5px solid #9ed9d4;
+      border-radius: 50%;
+      transform: rotate(30deg);
+      opacity: 0.8;
+    }
+
+    .calendar-card {
+      position: absolute;
+      left: 120px;
+      top: 280px;
+      width: 1068px;
+      height: 620px;
+      border: 1px solid #dce4ef;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 10px 26px rgba(20, 34, 62, 0.09);
+      overflow: hidden;
+    }
+
+    .calendar-header {
+      height: 100px;
+      border-bottom: 1px solid #e5ebf2;
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      gap: 22px;
+    }
+
+    .calendar-icon-label {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 26px;
+      font-weight: 800;
+      color: #0d1b42;
+    }
+
+    .mini-calendar-icon {
+      width: 28px;
+      height: 28px;
+      border: 3px solid #3166f5;
+      border-radius: 6px;
+      position: relative;
+    }
+
+    .mini-calendar-icon:before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 8px;
+      width: 12px;
+      height: 8px;
+      border-top: 3px solid #3166f5;
+    }
+
+    .calendar-controls {
+      margin-left: auto;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .pill {
+      min-width: 80px;
+      height: 42px;
+      padding: 0 18px;
+      border: 1px solid #d9e1ea;
+      border-radius: 8px;
+      background: #fff;
+      color: #263454;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .calendar-table {
+      position: absolute;
+      left: 0;
+      top: 100px;
+      width: 1068px;
+      height: 520px;
+      table-layout: fixed;
+    }
+
+    .calendar-table th,
+    .calendar-table td {
+      border-right: 1px solid #e6ebf0;
+      border-bottom: 1px solid #e9edf2;
+      text-align: center;
+      vertical-align: middle;
+      height: 66px;
+    }
+
+    .calendar-table th {
+      height: 74px;
+      color: #606d86;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .calendar-table th.date-head {
+      font-size: 16px;
+      color: #0f1d3f;
+    }
+
+    .calendar-table td {
+      font-size: 12px;
+      color: #68748a;
+    }
+
+    .calendar-table .time-col {
+      width: 98px;
+      text-align: center;
+    }
+
+    .calendar-table .day-col {
+      width: 138px;
+    }
+
+    .event {
+      display: block;
+      min-height: 52px;
+      border-radius: 7px;
+      padding: 8px 10px;
+      color: #102042;
+      font-size: 12.5px;
+      line-height: 1.18;
+      box-shadow: 0 5px 12px rgba(50, 70, 100, 0.08);
+    }
+
+    .event-name {
+      font-weight: 800;
+      margin-bottom: 3px;
+      font-size: 13px;
+    }
+
+    .event-time {
+      color: #77849a;
+      font-size: 11.5px;
+    }
+
+    .purple {
+      background: #e7ddff;
+      border: 1px solid #c9baff;
+    }
+
+    .yellow {
+      background: #fff1dc;
+      border: 1px solid #ffd4a0;
+    }
+
+    .green {
+      background: #dff5f3;
+      border: 1px solid #b9e8e4;
+    }
+
+    .blue {
+      background: #e8f1ff;
+      border: 1px solid #bcd3fb;
+    }
+
+    .pink {
+      background: #ffe5ea;
+      border: 1px solid #ffc0c9;
+    }
+
+    .feature-strip {
+      position: absolute;
+      left: 66px;
+      top: 920px;
+      width: 1132px;
+      height: 230px;
+      border-top: 1px solid #e4eaf1;
+      border-bottom: 1px solid #e4eaf1;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      padding: 20px 0 20px 0;
+    }
+
+    .feature-block {
+      position: relative;
+      display: flex;
+      gap: 22px;
+      padding: 0 24px;
+    }
+
+    .feature-block:not(:last-child):after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 1px;
+      height: 200px;
+      background: #dfe6ef;
+    }
+
+    .feature-icon {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      margin-top: 0;
+      flex: 0 0 86px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-icon svg {
+      width: 48px;
+      height: 48px;
+    }
+
+    .feature-text {
+      padding-top: 2px;
+    }
+
+    .feature-heading {
+      margin: 0 0 12px 0;
+      color: #0c1b42;
+      font-size: 24px;
+      line-height: 1.18;
+      font-weight: 850;
+      letter-spacing: -0.3px;
+    }
+
+    .feature-copy {
+      margin: 0;
+      color: #606e87;
+      font-size: 16.5px;
+      line-height: 1.45;
+    }
+
+    .cta-button {
+      position: absolute;
+      left: 132px;
+      top: 1060px;
+      width: 270px;
+      height: 64px;
+      border-radius: 14px;
+      background: #111c4e;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 850;
+      box-shadow: 0 8px 18px rgba(17, 28, 78, 0.18);
+    }
+
+    .lower-headline {
+      position: absolute;
+      top: 1180px;
+      left: 0;
+      width: 1264px;
+      text-align: center;
+    }
+
+    .lower-headline h2 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.18;
+      letter-spacing: -0.7px;
+      color: #0d1b42;
+      font-weight: 850;
+    }
+
+    .feature-grid {
+      position: absolute;
+      left: 66px;
+      top: 1248px;
+      width: 1132px;
+      height: 420px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 165px;
+    }
+
+    .feature-item {
+      position: relative;
+      display: flex;
+      gap: 22px;
+      padding: 0 20px;
+    }
+
+    .feature-item:not(:last-child):after {
+      content: "";
+      position: absolute;
+      right: 20px;
+      top: 0;
+      width: 1px;
+      height: 150px;
+      background: #dde4ed;
+    }
+
+    .feature-item:nth-child(3n-1):after,
+    .feature-item:nth-child(3n):after {
+      display: none;
+    }
+
+    .grid-icon {
+      width: 92px;
+      height: 92px;
+      flex: 0 0 92px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .grid-content h3 {
+      margin: 0 0 10px 0;
+      color: #0c1b42;
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 850;
+    }
+
+    .grid-content p {
+      margin: 0;
+      color: #687489;
+      font-size: 16px;
+      line-height: 1.42;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="left-border"></div>
+    <div class="right-border"></div>
+
+    <section class="hero">
+      <h1 class="hero-title">Easy scheduling for<br>growth-oriented teams</h1>
+      <div class="hero-accent-left" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="hero-accent-right" aria-hidden="true"></div>
+    </section>
+
+    <section class="calendar-card" aria-label="Weekly calendar dashboard">
+      <div class="calendar-header">
+        <div class="calendar-icon-label">
+          <div class="mini-calendar-icon" aria-hidden="true"></div>
+          <div>Jan.2023⌄</div>
+        </div>
+        <div class="calendar-controls">
+          <div class="pill">Today</div>
+          <div class="pill">‹</div>
+          <div class="pill">›</div>
+          <div class="pill">This week⌄</div>
+        </div>
+      </div>
+
+      <table class="calendar-table" aria-label="Calendar events for Jan 15-21, 2023">
+        <tr>
+          <th class="time-col">Time</th>
+          <th class="day-col">SUN<br><span class="date-head">15</span></th>
+          <th class="day-col">MON<br><span class="date-head">16</span></th>
+          <th class="day-col">TUE<br><span class="date-head">17</span></th>
+          <th class="day-col">WED<br><span class="date-head">18</span></th>
+          <th class="day-col">THU<br><span class="date-head">19</span></th>
+          <th class="day-col">FRI<br><span class="date-head">20</span></th>
+          <th class="day-col">SAT<br><span class="date-head">21</span></th>
+        </tr>
+        <tr>
+          <td class="time-col">9:00 AM</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><span class="event green">All hands<br><span class="event-time">9:30 - 10:30 AM</span></span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="time-col">10:00 AM</td>
+          <td><span class="event purple">Code review<br><span class="event-time">10:00 - 11:00 AM</span></span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><span class="event blue">Product<br>planning<br><span class="event-time">10:00 - 11:30 AM</span></span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="time-col">11:00 AM</td>
+          <td></td>
+          <td><span class="event yellow">Stakeholder<br>interview<br><span class="event-time">11:00 AM -<br>12:00 PM</span></span></td>
+          <td></td>
+          <td></td>
+          <td><span class="event pink">User interview<br><span class="event-time">11:00 AM -<br>12:00 PM</span></span></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="time-col">12:00 PM</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="time-col">1:00 PM</td>
+          <td><span class="event green">User interview<br><span class="event-time">1:00 - 2:00 PM</span></span></td>
+          <td></td>
+          <td></td>
+          <td><span class="event purple">Code review<br><span class="event-time">1:00 - 2:00 PM</span></span></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="time-col">2:00 PM</td>
+          <td></td>
+          <td></td>
+          <td><span class="event blue">Project<br>kickoff<br><span class="event-time">2:00 - 3:00 PM</span></span></td>
+          <td></td>
+          <td></td>
+          <td><span class="event yellow">Stakeholder<br>interview<br><span class="event-time">2:00 - 3:00 PM</span></span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="time-col">3:00 PM</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><span class="event blue">Team sync<br><span class="event-time">3:00 - 4:00 PM</span></span></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="time-col">4:00 PM</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="time-col">5:00 PM</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="feature-strip" aria-label="Primary scheduling benefits">
+      <div class="feature-block">
+        <div class="feature-icon purple" aria-hidden="true">
+          <svg viewBox="0 0 64 64">
+            <rect x="12" y="14" width="33" height="35" rx="4" fill="none" stroke="#1f2d66" stroke-width="3"/>
+            <path d="M20 10h18M16 16h26M21 49l-9 7M39 37l9 9" fill="none" stroke="#1f2d66" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="44" cy="43" r="9" fill="none" stroke="#1f2d66" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <p class="feature-copy">Avoid double-booking and keep everyone in sync. Save time, reduce scheduling friction, and increase team efficiency.</p>
+        </div>
+      </div>
+
+      <div class="feature-block">
+        <div class="feature-icon green" aria-hidden="true">
+          <svg viewBox="0 0 64 64">
+            <circle cx="24" cy="22" r="9" fill="none" stroke="#0f5d56" stroke-width="3"/>
+            <circle cx="42" cy="22" r="9" fill="none" stroke="#0f5d56" stroke-width="3"/>
+            <path d="M14 48c3-10 14-16 26-12 4 1 7 3 9 6" fill="none" stroke="#0f5d56" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <h3 class="feature-heading">Team scheduling</h3>
+          <p class="feature-copy">Coordinate meetings, manage availability, and book the right people at the right time.</p>
+        </div>
+      </div>
+
+      <div class="feature-block">
+        <div class="feature-icon pink" aria-hidden="true">
+          <svg viewBox="0 0 64 64">
+            <rect x="13" y="14" width="38" height="39" rx="4" fill="none" stroke="#243159" stroke-width="3"/>
+            <circle cx="23" cy="24" r="5" fill="none" stroke="#243159" stroke-width="3"/>
+            <circle cx="40" cy="24" r="5" fill="none" stroke="#243159" stroke-width="3"/>
+            <path d="M21 38h23M21 45h14" fill="none" stroke="#243159" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <h3 class="feature-heading">Update CRM</h3>
+          <p class="feature-copy">Automatically log meetings and keep your CRM up to date without extra work.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="cta-button">Sign up for free</div>
+
+    <section class="lower-headline">
+      <h2>Say hello to smart appointment scheduling</h2>
+    </section>
+
+    <section class="feature-grid" aria-label="Smart appointment scheduling features">
+      <div class="feature-item">
+        <div class="grid-icon purple" aria-hidden="true">
+          <svg viewBox="0 0 64 64">
+            <rect x="15" y="15" width="33" height="35" rx="4" fill="none" stroke="#172754" stroke-width="3"/>
+            <path d="M22 10h18M20 47l-10 8M43 36l10 10" fill="none" stroke="#172754" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="47" cy="46" r="10" fill="none" stroke="#172754" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="grid-content">
+          <h3>Sync your calendars</h3>
+          <p>Connect all your calendars so you’re always in the loop and never double-book.</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="grid-icon green" aria-hidden="true">
+          <svg viewBox="0 0 64 64">
+            <circle cx="31" cy="31" r="25" fill="none" stroke="#142646" stroke-width="3"/>
+            <path d="M31 20v22M20 31h22" fill="none" stroke="#142646" stroke-width="3" stroke-linecap="round"/>
+            <path d="M44 19l9-9M49 31h11M44 43l9 9" fill="none" stroke="#142646" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="grid-content">
+          <h3>Set up buffer times</h3>
+          <p>Add custom buffer times between meetings to stay focused and on track.</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="grid-icon pink" aria-hidden="true">
+          <svg viewBox="0 0 64 64">
+            <rect x="14" y="38" width="13" height="18" rx="2" fill="none" stroke="#17264a" stroke-width="3"/>
+            <rect x="30" y="28" width="13" height="28" rx="2" fill="none" stroke="#17264a" stroke-width="3"/>
+            <rect x="44" y="14" width="13" height="42" rx="2" fill="none" stroke="#17264a" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="grid-content">
+          <h3>Manage your team with reports</h3>
+          <p>Get visibility into schedules, capacity, and meeting trends with easy-to-read reports.</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="grid-icon yellow" aria-hidden="true">
+          <svg viewBox="0 0 64 64">
+            <path d="M14 42c2-12 13-20 24-17 5 1 9 4 11 8" fill="none" stroke="#17264a" stroke-width="3" stroke-linecap="round"/>
+            <path d="M18 43h25c7 0 11 4 11 10M10 35h20M15 27h20" fill="none" stroke="#17264a" stroke-width="3" stroke-linecap="round"/>
+            <path d="M43 22l8-7M47 26l8 4" fill="none" stroke="#17264a" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="grid-content">
+          <h3>Plan work and break times</h3>
+          <p>Schedule deep work, breaks, and personal time to keep your team healthy and happy.</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="grid-icon blue" aria-hidden="true">
+          <svg viewBox="0 0 64 64">
+            <path d="M21 20l-8 8 8 8M41 20l8 8-8 8M20 44v-12M44 44v-12M24 23c-4-4-9-6-15-5M39 23c4-4 9-6 15-5" fill="none" stroke="#17264a" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="grid-content">
+          <h3>Connect the tools you already use</h3>
+          <p>Integrate with your favorite tools and automate your workflows.</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="grid-icon purple" aria-hidden="true">
+          <svg viewBox="0 0 64 64">
+            <path d="M32 51S8 34 8 21c0-8 7-12 15-12 6 0 10 4 12 8 2-4 6-8 12-8 8 0 15 5 15 12 0 13-24 30-24 30z" fill="none" stroke="#17264a" stroke-width="3" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="grid-content">
+          <h3>Our people make the difference</h3>
+          <p>Real humans. Real support. We’re here to help you succeed.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

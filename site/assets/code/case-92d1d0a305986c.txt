@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Dashboard to Track Franchise Marketing Campaign Performance</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    background: #f5eef4;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background: linear-gradient(120deg, #e8f5fb 0%, #f8e8ef 100%);
+    color: #08173c;
+  }
+
+  .title {
+    position: absolute;
+    left: 30px;
+    top: 25px;
+    font-size: 42px;
+    line-height: 1.1;
+    font-weight: 300;
+    letter-spacing: 0.2px;
+    color: #08225f;
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 32px;
+    top: 82px;
+    font-size: 15px;
+    color: #101010;
+  }
+
+  .card {
+    position: absolute;
+    background: rgba(255,255,255,0.88);
+    border: 1.5px solid #6e7f99;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(52, 52, 70, 0.08);
+  }
+
+  .cost-card {
+    left: 22px;
+    top: 120px;
+    width: 325px;
+    height: 390px;
+    padding: 12px;
+  }
+
+  .purple-cost-box {
+    height: 166px;
+    background: linear-gradient(135deg, #8b61dc 0%, #6655d2 100%);
+    color: white;
+    border-radius: 13px;
+    text-align: center;
+    padding-top: 10px;
+    position: relative;
+  }
+
+  .purple-cost-box .cost-title {
+    font-weight: 800;
+    font-size: 21px;
+  }
+
+  .purple-cost-box .cost-value {
+    margin-top: 42px;
+    font-size: 37px;
+    font-weight: 800;
+  }
+
+  .cost-ccc-card {
+    left: 22px;
+    top: 320px;
+    width: 325px;
+    height: 190px;
+    padding: 0;
+  }
+
+  .cost-ccc-label {
+    height: 30px;
+    margin: 6px 11px 0 11px;
+    border-radius: 17px;
+    background: #f8aeb8;
+    color: #111;
+    text-align: center;
+    font-size: 16px;
+    line-height: 30px;
+    font-weight: 800;
+  }
+
+  .cost-ccc-value {
+    margin-top: 8px;
+    text-align: center;
+    font-size: 21px;
+    font-weight: 800;
+  }
+
+  .area-chart {
+    margin-left: 28px;
+    margin-top: 10px;
+    width: 265px;
+    height: 72px;
+  }
+
+  .cost-ccc-notes {
+    text-align: center;
+    font-size: 12.5px;
+    color: #080808;
+  }
+
+  .metric-card {
+    top: 120px;
+    height: 133px;
+    padding: 9px 12px;
+  }
+
+  .clicks-card {
+    left: 360px;
+    width: 338px;
+  }
+
+  .impressions-card {
+    left: 710px;
+    width: 324px;
+  }
+
+  .ctr-card {
+    left: 1045px;
+    width: 311px;
+  }
+
+  .metric-pill {
+    height: 28px;
+    border-radius: 17px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .blue-pill { background: #9ed4e8; }
+  .green-pill { background: #aee2e1; }
+  .yellow-pill { background: #f6e9ad; }
+
+  .metric-value {
+    text-align: center;
+    font-size: 31px;
+    margin-top: 5px;
+    font-weight: 800;
+  }
+
+  .metric-notes {
+    text-align: center;
+    font-size: 12.5px;
+    margin-top: 2px;
+  }
+
+  .conversions-card {
+    left: 360px;
+    top: 265px;
+    width: 338px;
+    height: 245px;
+    padding: 8px;
+  }
+
+  .conv-pill {
+    height: 31px;
+    border-radius: 17px;
+    background: #f9b685;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 31px;
+  }
+
+  #gaugeChart {
+    width: 320px;
+    height: 165px;
+    margin: 8px auto 0 auto;
+  }
+
+  .ad-impression-card {
+    left: 710px;
+    top: 265px;
+    width: 646px;
+    height: 145px;
+    padding: 7px;
+  }
+
+  .ad-pill {
+    height: 28px;
+    border-radius: 17px;
+    background: #d7c4ef;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 28px;
+  }
+
+  #lineChart {
+    width: 625px;
+    height: 98px;
+    margin: 2px auto 0 auto;
+  }
+
+  .small-metrics-row {
+    position: absolute;
+    left: 710px;
+    top: 420px;
+    width: 646px;
+    height: 100px;
+    display: flex;
+    gap: 9px;
+  }
+
+  .small-card {
+    width: 209px;
+    height: 98px;
+    border-radius: 9px;
+    padding: 6px 7px;
+    border: 1px solid #8d9bb4;
+  }
+
+  .small-card .small-title {
+    height: 21px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 21px;
+  }
+
+  .small-value {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 2px;
+    font-weight: 800;
+  }
+
+  .small-notes {
+    margin-top: 1px;
+    text-align: center;
+    font-size: 11.5px;
+  }
+
+  .bottom-panel {
+    position: absolute;
+    left: 22px;
+    top: 527px;
+    width: 1332px;
+    height: 202px;
+    padding: 11px 30px 0 30px;
+  }
+
+  .bottom-title {
+    position: absolute;
+    top: 9px;
+    left: 492px;
+    width: 366px;
+    height: 31px;
+    border-radius: 17px;
+    background: #0d4b95;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .legend {
+    position: absolute;
+    top: 57px;
+    left: 438px;
+    display: flex;
+    gap: 24px;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .legend-swatch {
+    width: 9px;
+    height: 9px;
+    display: inline-block;
+  }
+
+  #barChart {
+    position: absolute;
+    left: 18px;
+    top: 82px;
+    width: 1275px;
+    height: 105px;
+  }
+
+  .footnote {
+    position: absolute;
+    left: 0;
+    bottom: 8px;
+    width: 1332px;
+    text-align: center;
+    font-size: 12px;
+    color: #303030;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="title">Dashboard to Track Franchise Marketing Campaign Performance</div>
+  <div class="subtitle">This slide provides information about clicks, impressions, conversions, conversion rate, cost per click, etc.</div>
+
+  <div class="card cost-card">
+    <div class="purple-cost-box">
+      <div class="cost-title">COST</div>
+      <div class="cost-value">$2,060.24</div>
+    </div>
+  </div>
+
+  <div class="card metric-card clicks-card">
+    <div class="metric-pill blue-pill">CLICKS</div>
+    <div class="metric-value">2,267</div>
+    <div class="metric-notes">
+      Previous period: 2,150 <span style="color:#26a967;">(+5.44%)</span><br>
+      Previous year: 1,900 <span style="color:#26a967;">(+19.32%)</span>
+    </div>
+  </div>
+
+  <div class="card metric-card impressions-card">
+    <div class="metric-pill green-pill">IMPRESSIONS</div>
+    <div class="metric-value">4,363</div>
+    <div class="metric-notes">
+      Previous period: 4,120 <span style="color:#26a967;">(+5.90%)</span><br>
+      Previous year: 3,800 <span style="color:#26a967;">(+14.82%)</span>
+    </div>
+  </div>
+
+  <div class="card metric-card ctr-card">
+    <div class="metric-pill yellow-pill">CTR</div>
+    <div class="metric-value">66.51%</div>
+    <div class="metric-notes">
+      Previous period: 64.80% <span style="color:#26a967;">(+2.64%)</span><br>
+      Previous year: 58.75% <span style="color:#26a967;">(+13.21%)</span>
+    </div>
+  </div>
+
+  <div class="card cost-ccc-card">
+    <div class="cost-ccc-label">Cost Per Conversion</div>
+    <div class="cost-ccc-value">$57.50</div>
+    <div id="areaChart" class="area-chart"></div>
+    <div class="cost-ccc-notes">
+      Previous period: $61.10 <span style="color:#c00018;">(-5.89%)</span><br>
+      Previous year: $59.00 <span style="color:#c00018;">(-2.54%)</span>
+    </div>
+  </div>
+
+  <div class="card conversions-card">
+    <div class="conv-pill">Conversions</div>
+    <div id="gaugeChart"></div>
+  </div>
+
+  <div class="card ad-impression-card">
+    <div class="ad-pill">AD Impression</div>
+    <div id="lineChart"></div>
+  </div>
+
+  <div class="small-metrics-row">
+    <div class="small-card">
+      <div class="small-title" style="background:#f9aeb8;">CONVERSION RATE</div>
+      <div class="small-value">38.22%</div>
+      <div class="small-notes">
+        Previous period: 36.50% <span style="color:#26a967;">(+4.71%)</span><br>
+        Previous year: 35.10% <span style="color:#26a967;">(+8.89%)</span>
+      </div>
+    </div>
+    <div class="small-card">
+      <div class="small-title" style="background:#aee6e3;">COST PER CLICK (CPC)</div>
+      <div class="small-value">$7.91</div>
+      <div class="small-notes">
+        Previous period: $8.10 <span style="color:#c00018;">(-2.35%)</span><br>
+        Previous year: $8.50 <span style="color:#c00018;">(-8.94%)</span>
+      </div>
+    </div>
+    <div class="small-card">
+      <div class="small-title" style="background:#dcd5fb;">COST PER THOUSAND IMPRESSION</div>
+      <div class="small-value">2,267</div>
+      <div class="small-notes">
+        Previous period: 2,100 <span style="color:#26a967;">(+7.95%)</span><br>
+        Previous year: 2,050 <span style="color:#26a967;">(+10.59%)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card bottom-panel">
+    <div class="bottom-title">Google ADS Overview</div>
+    <div class="legend">
+      <div class="legend-item"><span class="legend-swatch" style="background:#2f87df;"></span>Conversions</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:#ff8f2f;"></span>Ad Clicks</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:#58c987;"></span>Ad Impressions</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:#8a63df;"></span>Ad Cost</div>
+    </div>
+    <div id="barChart"></div>
+    <div class="footnote">The graph or chart is linked to a data source and can change automatically.</div>
+  </div>
+</div>
+
+<script>
+  var areaChart = echarts.init(document.getElementById('areaChart'));
+  areaChart.setOption({
+    animation: false,
+    grid: { left: 22, right: 10, top: 10, bottom: 18 },
+    xAxis: {
+      type: 'category',
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+      show: false
+    },
+    yAxis: {
+      type: 'value',
+      show: false,
+      min: 0,
+      max: 60
+    },
+    series: [{
+      type: 'line',
+      data: [22, 18, 55, 24, 26],
+      smooth: true,
+      symbol: 'none',
+      lineStyle: { color: '#f28ca1', width: 2 },
+      areaStyle: { color: '#f9b7c4' }
+    }]
+  });
+
+  var gaugeChart = echarts.init(document.getElementById('gaugeChart'));
+  gaugeChart.setOption({
+    animation: false,
+    series: [{
+      type: 'pie',
+      radius: ['58%', '82%'],
+      center: ['50%', '50%'],
+      startAngle: 180,
+      endAngle: 0,
+      avoidLabelOverlap: true,
+      label: { show: false },
+      labelLine: { show: false },
+      data: [
+        { name: 'Low', value: 899, itemStyle: { color: '#f15b6c' } },
+        { name: 'Medium', value: 899, itemStyle: { color: '#f6da58' } },
+        { name: 'High', value: 899, itemStyle: { color: '#49b878' } }
+      ]
+    }, {
+      type: 'pie',
+      radius: ['42%', '55%'],
+      center: ['50%', '50%'],
+      startAngle: 180,
+      endAngle: 0,
+      label: { show: false },
+      labelLine: { show: false },
+      data: [
+        { value: 899, itemStyle: { color: '#f48a96' } },
+        { value: 899, itemStyle: { color: '#f5ef85' } },
+        { value: 899, itemStyle: { color: '#78d0a5' } }
+      ]
+    }],
+    graphic: [
+      {
+        type: 'text',
+        left: 'center',
+        top: 102,
+        style: {
+          text: '1,819',
+          fill: '#0a3e83',
+          fontSize: 30,
+          fontWeight: 800
+        }
+      },
+      {
+        type: 'polygon',
+        shape: { points: [[84, 70], [118, 100], [74, 118]] },
+        style: { fill: '#7f8ca2' },
+        rotation: 0.5,
+        right: 38,
+        top: 58
+      },
+      {
+        type: 'text',
+        right: 12,
+        bottom: 9,
+        style: {
+          text: '2,697',
+          fill: '#777',
+          fontSize: 13
+        }
+      }
+    ]
+  });
+
+  var lineChart = echarts.init(document.getElementById('lineChart'));
+  lineChart.setOption({
+    animation: false,
+    legend: {
+      top: 0,
+      right: 130,
+      itemWidth: 22,
+      itemHeight: 5,
+      textStyle: { fontSize: 11 },
+      data: ['Ad Impressions', 'Ad Clicks']
+    },
+    grid: { left: 40, right: 36, top: 24, bottom: 22 },
+    xAxis: {
+      type: 'category',
+      data: ['Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'],
+      axisLabel: { fontSize: 10 }
+    },
+    yAxis: [
+      {
+        type: 'value',
+        min: 0,
+        max: 8000,
+        interval: 2000,
+        axisLabel: { fontSize: 10 }
+      },
+      {
+        type: 'value',
+        min: 0,
+        max: 1200,
+        interval: 300,
+        axisLabel: { fontSize: 10 }
+      }
+    ],
+    series: [
+      {
+        name: 'Ad Impressions',
+        type: 'line',
+        yAxisIndex: 0,
+        data: [2000, 3000, 4500, 6000, 5500, 7000, 6500, 6200, 5800, 5400, 5000, 4800],
+        symbolSize: 5,
+        lineStyle: { width: 2, color: '#1774d5' },
+        itemStyle: { color: '#1774d5' }
+      },
+      {
+        name: 'Ad Clicks',
+        type: 'line',
+        yAxisIndex: 1,
+        data: [400, 500, 700, 900, 850, 1000, 950, 920, 880, 840, 800, 760],
+        symbolSize: 4,
+        lineStyle: { width: 2, color: '#ff9832' },
+        itemStyle: { color: '#ff9832' }
+      }
+    ]
+  });
+
+  var barChart = echarts.init(document.getElementById('barChart'));
+  barChart.setOption({
+    animation: false,
+    grid: { left: 42, right: 12, top: 18, bottom: 26 },
+    xAxis: {
+      type: 'category',
+      data: ['Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'],
+      axisLabel: { fontSize: 13, color: '#111' }
+    },
+    yAxis: [
+      {
+        type: 'value',
+        show: false,
+        max: 7
+      }
+    ],
+    series: [
+      {
+        name: 'Conversions',
+        type: 'bar',
+        data: [1, 1, 2, 3, 2, 4, 3, 3, 2, 2, 1, 1],
+        barWidth: 14,
+        itemStyle: { color: '#2f87df' }
+      },
+      {
+        name: 'Ad Clicks',
+        type: 'bar',
+        data: [2, 2, 3, 4, 3, 5, 4, 4, 3, 3, 2, 2],
+        barWidth: 14,
+        itemStyle: { color: '#ff8f2f' }
+      },
+      {
+        name: 'Ad Impressions',
+        type: 'bar',
+        data: [3, 3, 4, 5, 4, 6, 5, 5, 4, 4, 3, 3],
+        barWidth: 14,
+        itemStyle: { color: '#58c987' }
+      },
+      {
+        name: 'Ad Cost',
+        type: 'bar',
+        data: [1, 1, 1, 2, 2, 3, 2, 2, 2, 1, 1, 1],
+        barWidth: 14,
+        itemStyle: { color: '#8a63df' }
+      }
+    ]
+  });
+</script>
+</body>
+</html>

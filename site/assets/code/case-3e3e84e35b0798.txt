@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Azure Arc-enabled servers & Azure Arc-enabled SQL server</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #020814;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 18%, rgba(55, 200, 255, 0.18), transparent 22%),
+      radial-gradient(circle at 15% 40%, rgba(0, 225, 255, 0.12), transparent 24%),
+      linear-gradient(180deg, #061a2b 0%, #03111f 42%, #020814 100%);
+    color: #fff;
+  }
+
+  .title {
+    position: absolute;
+    top: 29px;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+  }
+
+  .title .main {
+    font-size: 36px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    text-shadow: 0 0 18px rgba(120, 215, 255, 0.45);
+  }
+
+  .title .subtitle {
+    margin-top: 2px;
+    font-size: 26px;
+    font-weight: 400;
+    color: #f4f8fb;
+  }
+
+  /* User Interface box */
+  .ui-box {
+    position: absolute;
+    left: 24px;
+    top: 123px;
+    width: 290px;
+    height: 160px;
+    border: 2px solid #31e8ff;
+    border-radius: 8px;
+    background: rgba(0, 18, 38, 0.45);
+    box-shadow: inset 0 0 12px rgba(0, 220, 255, 0.35), 0 0 12px rgba(0, 220, 255, 0.35);
+    padding-top: 9px;
+  }
+
+  .ui-box .label {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .ui-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .tool-tile {
+    height: 43px;
+    border: 1.4px solid #7df4ff;
+    border-radius: 4px;
+    background: rgba(0, 60, 95, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 11.5px;
+    text-align: center;
+  }
+
+  .tiny-icon {
+    width: 21px;
+    height: 21px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #57d8ff, #1165c7);
+    box-shadow: 0 0 8px rgba(105, 220, 255, 0.75);
+    position: relative;
+  }
+
+  .tiny-icon.round {
+    border-radius: 50%;
+    background: #229fff;
+  }
+
+  /* Azure A icon */
+  .azure-a {
+    position: absolute;
+    left: 339px;
+    top: 153px;
+    width: 100px;
+    height: 96px;
+    filter: drop-shadow(0 0 12px rgba(55, 190, 255, 0.75));
+  }
+
+  .azure-a .left-wing {
+    position: absolute;
+    left: 20px;
+    top: 0;
+    width: 42px;
+    height: 88px;
+    background: linear-gradient(180deg, #25d9ff 0%, #0668bc 100%);
+    clip-path: polygon(48% 0%, 100% 100%, 0% 78%);
+    border-radius: 10px;
+    transform: skewX(-22deg);
+  }
+
+  .azure-a .right-wing {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    width: 60px;
+    height: 72px;
+    background: linear-gradient(135deg, #47dff3, #0876c9);
+    clip-path: polygon(0% 0%, 100% 25%, 80% 100%, 0% 80%);
+    border-radius: 12px;
+  }
+
+  .azure-a .center-cut {
+    position: absolute;
+    left: 45px;
+    top: 38px;
+    width: 28px;
+    height: 46px;
+    background: #072042;
+    clip-path: polygon(40% 0%, 100% 100%, 0% 100%);
+    opacity: 0.95;
+  }
+
+  /* Azure Policy band */
+  .policy-box {
+    position: absolute;
+    left: 462px;
+    top: 123px;
+    width: 890px;
+    height: 160px;
+    border: 2px solid #24ddff;
+    border-radius: 7px;
+    background: rgba(0, 20, 46, 0.65);
+    box-shadow: inset 0 0 15px rgba(0, 220, 255, 0.28), 0 0 12px rgba(0, 220, 255, 0.35);
+    padding: 8px 8px 6px 8px;
+  }
+
+  .policy-box .label {
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .policy-row1 {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 6px;
+  }
+
+  .policy-row2 {
+    margin-top: 6px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+  }
+
+  .policy-small {
+    height: 52px;
+    border: 1.3px solid #58efff;
+    border-radius: 4px;
+    background: rgba(0, 55, 90, 0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-size: 10.2px;
+    line-height: 1.05;
+    text-align: center;
+  }
+
+  .policy-small .cap {
+    height: 22px;
+    width: 24px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #55d9ff, #1173d7);
+    box-shadow: 0 0 7px rgba(100, 220, 255, 0.8);
+  }
+
+  .policy-row2 .policy-small {
+    height: 31px;
+    gap: 1px;
+  }
+
+  /* Integration bar */
+  .integration-bar {
+    position: absolute;
+    left: 24px;
+    top: 311px;
+    width: 1328px;
+    height: 84px;
+    border: 2px solid #22cfff;
+    border-radius: 7px;
+    background: rgba(0, 20, 45, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: space4around;
+    gap: 12px;
+    padding: 10px 20px;
+    box-shadow: inset 0 0 14px rgba(0, 220, 255, 0.28), 0 0 10px rgba(0, 220, 255, 0.25);
+  }
+
+  .integration-title {
+    flex: 1;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .integration-cell {
+    min-width: 124px;
+    height: 32px;
+    border: 1.3px solid #7df8ff;
+    border-radius: 4px;
+    background: rgba(0, 55, 90, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  /* Native Azure box */
+  .native-box {
+    position: absolute;
+    left: 24px;
+    top: 311px;
+    width: 290px;
+    height: 84px;
+    border: 2px solid #31e8ff;
+    border-radius: 7px;
+    background: rgba(0, 18, 38, 0.52);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 5;
+    box-shadow: inset 0 0 12px rgba(0, 220, 255, 0.35), 0 0 10px rgba(0, 220, 255, 0.35);
+  }
+
+  .native-box .native-title {
+    font-size: 16px;
+    margin-top: 2px;
+  }
+
+  .native-inner {
+    margin-top: 6px;
+    height: 35px;
+    border: 1.3px solid #7df8ff;
+    border-radius: 4px;
+    background: rgba(0, 55, 90, 0.85);
+    text-align: center;
+    padding-top: 3px;
+    font-size: 12.8px;
+    line-height: 1.1;
+  }
+
+  /* Lower compliance regions */
+  .region {
+    position: absolute;
+    top: 432px;
+    height: 235px;
+    border-radius: 7px;
+    background: rgba(5, 24, 44, 0.78);
+    z-index: 2;
+  }
+
+  .region-left {
+    left: 24px;
+    width: 365px;
+    border: 2px solid #70ff66;
+  }
+
+  .region-fed {
+    left: 402px;
+    width: 312px;
+    border: 2px solid #ffe83b;
+  }
+
+  .region-uk {
+    left: 730px;
+    width: 312px;
+    border: 2px solid #ff1fde;
+  }
+
+  .region-can {
+    left: 1058px;
+    width: 300px;
+    border: 2px solid #ff2f2f;
+  }
+
+  .region-header {
+    height: 43px;
+    border: 1.2px solid #39cfff;
+    border-radius: 4px;
+    background: rgba(0, 55, 90, 0.85);
+    color: #fff;
+    text-align: center;
+    padding-top: 4px;
+    font-size: 12.5px;
+    line-height: 1.15;
+  }
+
+  .region-fed .region-header {
+    font-size: 11.8px;
+  }
+
+  .enforcement {
+    margin-top: 14px;
+    height: 26px;
+    border: 1.2px solid #39cfff;
+    border-radius: 4px;
+    background: rgba(0, 55, 90, 0.85);
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    line-height: 25px;
+  }
+
+  .region-left .bottom-tools {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 62px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 8px;
+    background: rgba(0, 20, 42, 0.55);
+  }
+
+  .region-bottom-box {
+    height: 50px;
+    border: 1.2px solid #4adfff;
+    border-radius: 5px;
+    background: rgba(0, 45, 80, 0.85);
+    text-align: center;
+    padding-top: 7px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+  }
+
+  .mini-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #5fdcff, #126bc8);
+    box-shadow: 0 0 7px rgba(110, 235, 255, 0.7);
+  }
+
+  /* Arrows and connectors */
+  .arrow {
+    position: absolute;
+    z-index: 1;
+    opacity: 0.95;
+    text-align: center;
+    filter: drop-shadow(0 0 6px rgba(120, 220, 255, 0.8));
+  }
+
+  .arrow.down::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 14px solid currentColor;
+  }
+
+  .arrow.green { color: #7fff33; height: 34px; top: 401px; left: 346px; }
+  .arrow.yellow { color: #fff133; height: 34px; top: 401px; left: 552px; }
+  .arrow.magenta { color: #ff33d6; height: 34px; top: 401px; left: 875px; }
+  .arrow.red { color: #ff2a2a; height: 34px; top: 401px; left: 1192px; }
+
+  .arrow.ui-to-int { color: #5affff; height: 22px; top: 286px; left: 162px; }
+  .arrow.policy-to-int { color: #5affff; height: 28px; top: 286px; left: 826px; }
+  .arrow.native-down { color: #5affff; height: 34px; top: 401px; left: 158px; }
+
+  /* Bottom hybrid target rows */
+  .hybrid-row {
+    position: absolute;
+    top: 680px;
+    height: 62px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    background: rgba(0, 20, 42, 0.65);
+  }
+
+  .hybrid-row.left-row {
+    left: 402px;
+    width: 312px;
+  }
+
+  .hybrid-row.uk-row {
+    left: 730px;
+    width: 312px;
+  }
+
+  .hybrid-row.can-row {
+    left: 1058px;
+    width: 300px;
+  }
+
+  .hybrid-box {
+    border: 1.3px solid #54fff0;
+    border-radius: 5px;
+    background: rgba(0, 45, 80, 0.85);
+    text-align: center;
+    padding-top: 8px;
+    font-size: 12.6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+  }
+
+  .hybrid-box.wide {
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <header class="title">
+      <div class="main">Azure Arc-enabled servers &amp; Azure Arc-enabled SQL server</div>
+      <div class="subtitle">On-premises and multicloud compliance with Azure Policy</div>
+    </header>
+
+    <section class="ui-box" aria-label="User Interface">
+      <div class="label">User Interface</div>
+      <div class="ui-grid">
+        <div class="tool-tile"><span class="tiny-icon"></span><span>Azure Portal</span></div>
+        <div class="tool-tile"><span class="tiny-icon round"></span><span>Azure<br>REST API</span></div>
+        <div class="tool-tile"><span class="tiny-icon"></span><span>Azure CLI</span></div>
+        <div class="tool-tile"><span class="tiny-icon"></span><span>PowerShell</span></div>
+      </div>
+    </section>
+
+    <div class="azure-a" aria-label="Stylized Azure A icon">
+      <div class="left-wing"></div>
+      <div class="right-wing"></div>
+      <div class="center-cut"></div>
+    </div>
+
+    <section class="policy-box" aria-label="Azure Policy services">
+      <div class="label">Azure Policy</div>
+      <div class="policy-row1">
+        <div class="policy-small"><span class="cap"></span><span>Azure AD<br>(RBAC)</span></div>
+        <div class="policy-small"><span class="cap"></span><span>Azure ARM<br>Templates</span></div>
+        <div class="policy-small"><span class="cap"></span><span>Azure<br>Tags</span></div>
+        <div class="policy-small"><span class="cap"></span><span>Azure<br>Resource<br>Graph</span></div>
+        <div class="policy-small"><span class="cap"></span><span>Azure<br>Audit</span></div>
+        <div class="policy-small"><span class="cap"></span><span>Azure<br>Automation</span></div>
+        <div class="policy-small"><span class="cap"></span><span>Azure<br>Monitor</span></div>
+        <div class="policy-small"><span class="cap"></span><span>Azure Log<br>Analytics</span></div>
+        <div class="policy-small"><span class="cap"></span><span>Microsoft<br>Defender<br>for Cloud</span></div>
+        <div class="policy-small"><span class="cap"></span><span>Microsoft<br>Sentinel</span></div>
+        <div class="policy-small"><span class="cap"></span><span>Azure Key Vault</span></div>
+        <div class="policy-small"><span class="cap"></span><span>Azure<br>Automanage</span></div>
+      </div>
+      <div class="policy-row2">
+        <div class="policy-small"><span>Resource Inventory</span></div>
+        <div class="policy-small"><span>Billing</span></div>
+        <div class="policy-small"><span>Monitoring &amp; Logs</span></div>
+        <div class="policy-small"><span>Secrets<br>Management</span></div>
+        <div class="policy-small"><span>Governance</span></div>
+        <div class="policy-small"><span>Compliance &amp;<br>Security</span></div>
+      </div>
+    </section>
+
+    <section class="native-box" aria-label="Native Azure">
+      <div class="native-title">Native Azure</div>
+      <div class="native-inner">Healthcare Azure Policy<br>HIPAA</div>
+    </section>
+
+    <section class="integration-bar" aria-label="Azure Arc Integration">
+      <div class="integration-title">Azure Arc Integration</div>
+      <div class="integration-cell">Threat<br>Protection</div>
+      <div class="integration-cell">Monitoring<br>&amp; Logs</div>
+      <div class="integration-cell">Secrets</div>
+      <div class="integration-cell">Change<br>Tracking</div>
+      <div class="integration-cell">Extensibility</div>
+      <div class="integration-cell">Patching &amp;<br>Updates</div>
+      <div class="integration-cell">Automanage</div>
+    </section>
+
+    <div class="arrow ui-to-int" aria-hidden="true"></div>
+    <div class="arrow policy-to-int" aria-hidden="true"></div>
+    <div class="arrow native-down" aria-hidden="true"></div>
+    <div class="arrow green" aria-hidden="true"></div>
+    <div class="arrow yellow" aria-hidden="true"></div>
+    <div class="arrow magenta" aria-hidden="true"></div>
+    <div class="arrow red" aria-hidden="true"></div>
+
+    <section class="region region-left" aria-label="Healthcare Azure Policy HIPAA">
+      <div class="region-header">Healthcare Azure Policy<br>HIPAA</div>
+      <div class="enforcement">Compliance Enforcement</div>
+      <div class="bottom-tools">
+        <div class="region-bottom-box">
+          <span>Azure VMs</span>
+          <span class="mini-icon"></span>
+        </div>
+        <div class="region-bottom-box">
+          <span>Azure Arc-enabled servers<br>Azure Arc-enabled SQL servers</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="region region-fed" aria-label="Federal Risk and Authorization Management Program Azure Policy">
+      <div class="region-header">Federal Risk and Authorization Management Program (FedRAMP) Azure Policy</div>
+      <div class="enforcement">Compliance Enforcement</div>
+      <div class="bottom-tools">
+        <div class="region-bottom-box">
+          <span>Azure Arc-enabled servers</span>
+        </div>
+        <div class="region-bottom-box">
+          <span>Azure Arc-enabled SQL servers</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="region region-uk" aria-label="UK OFFICIAL and UK NHS Azure Policy">
+      <div class="region-header">UK OFFICIAL and UK NHS Azure Policy</div>
+      <div class="enforcement">Compliance Enforcement</div>
+      <div class="bottom-tools">
+        <div class="region-bottom-box">
+          <span>Azure Arc-enabled servers</span>
+        </div>
+        <div class="region-bottom-box">
+          <span>Azure Arc-enabled SQL servers</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="region region-can" aria-label="Canada Federal PBMM Azure Policy">
+      <div class="region-header">Canada Federal PBMM Azure Policy</div>
+      <div class="enforcement">Compliance Enforcement</div>
+      <div class="bottom-tools">
+        <div class="region-bottom-box">
+          <span>Azure Arc-enabled servers</span>
+        </div>
+        <div class="region-bottom-box">
+          <span>Azure Arc-enabled SQL servers</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="hybrid-row left-row" aria-label="Hybrid infrastructure targets">
+      <div class="hybrid-box">VMware vSphere VMs</div>
+      <div class="hybrid-box">VMware vSphere</div>
+    </div>
+
+    <div class="hybrid-row uk-row" aria-label="Public cloud targets">
+      <div class="hybrid-box wide">EC2 Instances</div>
+      <div class="hybrid-box wide">Amazon Web Services</div>
+    </div>
+
+    <div class="hybrid-row can-row" aria-label="Google Cloud targets">
+      <div class="hybrid-box wide">GCP Instances</div>
+      <div class="hybrid-box wide">Google Cloud Platform</div>
+    </div>
+  </div>
+</body>
+</html>

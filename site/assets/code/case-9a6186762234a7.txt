@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Company Overview Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #e8f6fb;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background: linear-gradient(120deg, #dcecf8 0%, #c9edf4 52%, #aee4e5 100%);
+      color: #111111;
+    }
+
+    .title {
+      position: absolute;
+      left: 64px;
+      top: 58px;
+      font-size: 48px;
+      line-height: 1.08;
+      font-weight: 800;
+      color: #1f2a35;
+      letter-spacing: -1.4px;
+    }
+
+    .subtitle {
+      position: absolute;
+      left: 64px;
+      top: 122px;
+      font-size: 32px;
+      line-height: 1.15;
+      font-weight: 400;
+      color: #111111;
+      letter-spacing: -0.6px;
+    }
+
+    .panel {
+      position: absolute;
+      top: 218px;
+      width: 214px;
+      height: 480px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 21px;
+      box-shadow: 0 12px 21px rgba(26, 80, 105, 0.17);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      z-index: 2;
+    }
+
+    .panel-1 {
+      left: 62px;
+    }
+
+    .panel-2 {
+      left: 308px;
+    }
+
+    .panel-3 {
+      left: 564px;
+    }
+
+    .panel-4 {
+      left: 822px;
+    }
+
+    .panel-5 {
+      left: 1080px;
+    }
+
+    .tab {
+      position: absolute;
+      left: 0;
+      top: -32px;
+      width: 108px;
+      height: 68px;
+      border-radius: 0 0 20px 20px;
+      color: #ffffff;
+      font-size: 28px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 4;
+    }
+
+    .tab-blue {
+      background: #277fbf;
+    }
+
+    .tab-green {
+      background: #42aaa1;
+    }
+
+    .tab-blue-soft {
+      background: #4c97d2;
+    }
+
+    .tab-green-soft {
+      background: #56b9c0;
+    }
+
+    .panel-title {
+      position: absolute;
+      top: 70px;
+      left: 18px;
+      width: 178px;
+      font-size: 20px;
+      line-height: 1.22;
+      font-weight: 800;
+      color: #111111;
+    }
+
+    .panel-body {
+      position: absolute;
+      top: 144px;
+      left: 18px;
+      width: 178px;
+      font-size: 14.2px;
+      line-height: 1.17;
+      font-weight: 400;
+      color: #111111;
+    }
+
+    .panel-body p {
+      margin: 0 0 14px 0;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 428px;
+      width: 28px;
+      height: 28px;
+      z-index: 1;
+      opacity: 0.65;
+    }
+
+    .arrow::before,
+    .arrow::after {
+      content: "";
+      position: absolute;
+      background: #77d3dc;
+      border-radius: 6px;
+      width: 11px;
+      height: 20px;
+      transform-origin: center;
+    }
+
+    .arrow::before {
+      left: 0;
+      top: 0;
+      transform: rotate(-42deg);
+    }
+
+    .arrow::after {
+      left: 16px;
+      top: 0;
+      transform: rotate(42deg);
+    }
+
+    .arrow-1 {
+      left: 288px;
+    }
+
+    .arrow-2 {
+      left: 543px;
+    }
+
+    .arrow-3 {
+      left: 802px;
+    }
+
+    .arrow-4 {
+      left: 1060px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Company Overview</div>
+    <div class="subtitle">Company Growth &amp; Industry Leadership</div>
+
+    <div class="panel panel-1">
+      <div class="tab tab-blue">01</div>
+      <div class="panel-title">Company<br>Growth Journey</div>
+      <div class="panel-body">
+        <p>The company rapidly evolved from a focused startup in the late 1980s to a mature, dominant player within the consumer electronics industry, demonstrating exponential growth in both revenue and market share.</p>
+        <p>By strategically leveraging initial successes, it established a robust leadership position, becoming a recognized authority and trendsetter in the global market for innovative electronic devices.</p>
+      </div>
+    </div>
+
+    <div class="panel panel-2">
+      <div class="tab tab-green">02</div>
+      <div class="panel-title">Key<br>Milestones</div>
+      <div class="panel-body">
+        <p>A significant breakthrough product launched in the 1990s redefined the consumer electronics landscape, capturing widespread market attention and achieving record-breaking sales.</p>
+        <p>This foundational success was further strengthened through a series of strategic acquisitions and a continuous pipeline of product innovation, solidifying its market presence and competitive advantage across multiple product categories.</p>
+      </div>
+    </div>
+
+    <div class="panel panel-3">
+      <div class="tab tab-blue-soft">03</div>
+      <div class="panel-title">Industry Position<br>&amp; Recognition</div>
+      <div class="panel-body">
+        <p>Continuous technological innovation and exceptional market performance have established the company as a global leader in the consumer electronics sector.</p>
+        <p>Its commitment to quality and design has been acknowledged internationally, earning numerous prestigious design awards and broad market recognition for setting industry standards.</p>
+      </div>
+    </div>
+
+    <div class="panel panel-4">
+      <div class="tab tab-green-soft">04</div>
+      <div class="panel-title">Corporate<br>Responsibility &amp;<br>Sustainability</div>
+      <div class="panel-body">
+        <p>The company actively advances greener, more sustainable manufacturing processes across its global operations, investing significantly in research and development for eco-friendly products and materials.</p>
+        <p>It is dedicated to setting the highest standards for environmental stewardship and social responsibility within the industry.</p>
+      </div>
+    </div>
+
+    <div class="panel panel-5">
+      <div class="tab tab-blue-soft">05</div>
+      <div class="panel-title">Future Outlook &amp;<br>Strategic<br>Roadmap</div>
+      <div class="panel-body">
+        <p>Looking ahead, the company is strategically expanding its footprint into emerging markets with tailored solutions, while simultaneously developing next-generation innovative products.</p>
+        <p>This forward-looking approach is building a solid foundation for sustained long-term growth and continued industry leadership.</p>
+      </div>
+    </div>
+
+    <div class="arrow arrow-1"></div>
+    <div class="arrow arrow-2"></div>
+    <div class="arrow arrow-3"></div>
+    <div class="arrow arrow-4"></div>
+  </div>
+</body>
+</html>

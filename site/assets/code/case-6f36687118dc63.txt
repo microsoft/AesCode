@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Market Data Analysis</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #7656b8;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.22) 0px, rgba(255,255,255,0.12) 220px, rgba(255,255,255,0.04) 420px, rgba(255,255,255,0.00) 720px),
+        linear-gradient(135deg, #5e43a4 0%, #8c70d4 36%, #8f70d1 64%, #7058c2 100%);
+      color: #111;
+    }
+
+    .top-banner {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 86px;
+      background: #5a40a3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .top-title {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #fff;
+    }
+
+    .main-panel {
+      position: absolute;
+      left: 52px;
+      top: 113px;
+      width: 892px;
+      height: 460px;
+      background: rgba(255,255,255,0.96);
+      border-radius: 30px;
+      box-shadow: 0 12px 24px rgba(52, 34, 90, 0.24);
+    }
+
+    .section-pill {
+      position: absolute;
+      top: 24px;
+      left: 254px;
+      width: 394px;
+      height: 45px;
+      border-radius: 24px;
+      background: #6040a6;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 12px rgba(70, 45, 120, 0.28);
+    }
+
+    .legend {
+      position: absolute;
+      top: 101px;
+      right: 112px;
+      font-size: 14px;
+      color: #222;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-right: 22px;
+    }
+
+    .legend-square {
+      width: 22px;
+      height: 12px;
+      display: inline-block;
+      border-radius: 2px;
+      background: linear-gradient(180deg, #5a40a8, #a88bd7);
+    }
+
+    .legend-square.light {
+      background: linear-gradient(180deg, #a892e2, #c9b8ef);
+    }
+
+    #centerChart {
+      position: absolute;
+      left: 38px;
+      top: 122px;
+      width: 814px;
+      height: 314px;
+    }
+
+    .right-card {
+      position: absolute;
+      left: 968px;
+      top: 113px;
+      width: 356px;
+      height: 460px;
+      background: rgba(255,255,255,0.97);
+      border-radius: 22px;
+      box-shadow: 0 12px 24px rgba(55, 38, 100, 0.22);
+      padding: 24px 24px 20px 24px;
+    }
+
+    .right-card .section-pill {
+      position: absolute;
+      top: 23px;
+      left: 30px;
+      width: 294px;
+      height: 43px;
+      border-radius: 22px;
+      font-size: 21px;
+    }
+
+    .right-text {
+      position: absolute;
+      top: 88px;
+      left: 0;
+      width: 310px;
+      font-size: 13.5px;
+      line-height: 1.3;
+      color: #111;
+    }
+
+    #rightQuarterlyChart {
+      position: absolute;
+      left: 0;
+      bottom: 24px;
+      width: 310px;
+      height: 194px;
+    }
+
+    .bottom-card {
+      position: absolute;
+      height: 133px;
+      background: rgba(255,255,255,0.93);
+      border-radius: 15px;
+      box-shadow: 0 11px 17px rgba(60, 45, 100, 0.20);
+      padding: 14px 34px 13px 22px;
+    }
+
+    .bottom-left-card {
+      left: 52px;
+      top: 591px;
+      width: 628px;
+      z-index: 3;
+    }
+
+    .bottom-right-card {
+      left: 703px;
+      top: 591px;
+      width: 621px;
+      z-index: 3;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0 0 8px 0;
+      color: #111;
+    }
+
+    .card-text {
+      font-size: 14px;
+      line-height: 1.22;
+      margin: 0;
+      color: #151515;
+    }
+
+    .decor-number {
+      position: absolute;
+      right: 16px;
+      bottom: 0;
+      font-size: 82px;
+      font-weight: 800;
+      color: rgba(108, 90, 200, 0.25);
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <header class="top-banner">
+      <div class="top-title">Market Data Analysis</div>
+    </header>
+
+    <section class="main-panel">
+      <div class="section-pill">Market Expansion Results</div>
+      <div class="legend">
+        <span><i class="legend-square"></i>Current Data</span>
+        <span><i class="legend-square light"></i>Previous Year</span>
+      </div>
+      <div id="centerChart"></div>
+    </section>
+
+    <aside class="right-card">
+      <div class="section-pill">Future Growth Outlook</div>
+      <div class="right-text">
+        Strategic plans focus on accelerating digital adoption, expanding into high-growth regional markets, and leveraging predictive analytics to enhance customer retention and optimize resource allocation for sustained revenue growth.
+      </div>
+      <div id="rightQuarterlyChart"></div>
+    </aside>
+
+    <section class="bottom-card bottom-left-card">
+      <h2 class="card-title">30% Increase in User Engagement</h2>
+      <p class="card-text">
+        Through targeted operational strategies and product optimizations, including personalized recommendations and streamlined user interfaces, we have successfully increased overall user engagement by 30%, leading to longer session times and higher interaction rates.
+      </p>
+      <div class="decor-number">1</div>
+    </section>
+
+    <section class="bottom-card bottom-right-card">
+      <h2 class="card-title">Market Expansion Results</h2>
+      <p class="card-text">
+        Our market expansion efforts successfully launched into several new regional markets, resulting in over 15,000 new customer signups. Key achievements include securing partnerships with five major flagship accounts, establishing a strong local presence, and achieving initial market traction exceeding forecasts.
+      </p>
+      <div class="decor-number">2</div>
+    </section>
+  </div>
+
+  <script>
+    const centerChart = echarts.init(document.getElementById('centerChart'));
+    centerChart.setOption({
+      animation: false,
+      grid: {
+        left: 54,
+        right: 26,
+        top: 20,
+        bottom: 52
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      legend: {
+        show: false
+      },
+      xAxis: {
+        type: 'category',
+        data: [
+          'Market Share',
+          'Sales Revenue',
+          'Brand Awareness',
+          'Repeat Purchase\nRate',
+          'Customer\nSatisfaction',
+          'Market Penetration'
+        ],
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#808080',
+            width: 1
+          }
+        },
+        axisLabel: {
+          color: '#111',
+          fontSize: 14,
+          interval: 0,
+          lineHeight: 15
+        }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 70000,
+        interval: 10000,
+        axisLabel: {
+          color: '#111',
+          fontSize: 14
+        },
+        splitLine: {
+          lineStyle: {
+            color: '#dddddd'
+          }
+        },
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: '#808080'
+          }
+        }
+      },
+      series: [
+        {
+          name: 'Current Data',
+          type: 'bar',
+          data: [50000, 60000, 20000, 15000, 40000, 25000],
+          barWidth: 58,
+          barGap: '36%',
+          itemStyle: {
+            borderRadius: [12, 12, 0, 0],
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: '#5840a8' },
+              { offset: 0.55, color: '#8466c8' },
+              { offset: 1, color: '#9a7dd6' }
+            ])
+          },
+          label: {
+            show: true,
+            position: 'top',
+            color: '#555',
+            fontSize: 14,
+            formatter: '{c}'
+          }
+        },
+        {
+          name: 'Previous Year',
+          type: 'bar',
+          data: [45000, 55000, 18000, 12000, 35000, 22000],
+          barWidth: 58,
+          itemStyle: {
+            borderRadius: [12, 12, 0, 0],
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: '#aaa3ef' },
+              { offset: 0.55, color: '#b9aaf0' },
+              { offset: 1, color: '#cfc2f3' }
+            ])
+          },
+          label: {
+            show: true,
+            position: 'top',
+            color: '#555',
+            fontSize: 14,
+            formatter: '{c}'
+          }
+        }
+      ]
+    });
+
+    const rightQuarterlyChart = echarts.init(document.getElementById('rightQuarterlyChart'));
+    rightQuarterlyChart.setOption({
+      animation: false,
+      title: {
+        text: 'Projected Quarterly Growth',
+        left: 'center',
+        top: 0,
+        textStyle: {
+          fontSize: 14,
+          fontWeight: 500,
+          color: '#111'
+        }
+      },
+      grid: {
+        left: 44,
+        right: 10,
+        top: 28,
+        bottom: 30
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      xAxis: {
+        type: 'category',
+        data: ['Q1', 'Q2', 'Q3', 'Q4'],
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#808080',
+            width: 1
+          }
+        },
+        axisLabel: {
+          color: '#111',
+          fontSize: 14
+        }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 100,
+        interval: 20,
+        axisLabel: {
+          formatter: '{value}%',
+          color: '#111',
+          fontSize: 14
+        },
+        splitLine: {
+          lineStyle: {
+            color: '#dddddd'
+          }
+        },
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: '#808080'
+          }
+        }
+      },
+      series: [
+        {
+          name: 'Growth',
+          type: 'bar',
+          data: [50, 60, 40, 90],
+          barWidth: 54,
+          itemStyle: {
+            borderRadius: [11, 11, 0, 0],
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: '#5840a8' },
+              { offset: 0.48, color: '#8468c8' },
+              { offset: 1, color: '#aaa2ea' }
+            ])
+          },
+          label: {
+            show: true,
+            position: 'top',
+            color: '#555',
+            fontSize: 14,
+            formatter: '{c}'
+          }
+        }
+      ]
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Three questions to guide you through model selection</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #eef5f5;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background: #f5f9fb;
+    color: #111;
+  }
+
+  .title {
+    position: absolute;
+    top: 32px;
+    left: 0;
+    width: 1376px;
+    text-align: center;
+    color: #186fae;
+    font-size: 39px;
+    font-weight: 400;
+    letter-spacing: 0.4px;
+    line-height: 1.25;
+  }
+
+  /* Donut containers */
+  .donut {
+    position: absolute;
+    border-radius: 50%;
+    background: transparent;
+  }
+
+  .donut-left {
+    left: 69px;
+    top: 183px;
+    width: 452px;
+    height: 452px;
+  }
+
+  .donut-mid {
+    left: 481px;
+    top: 183px;
+    width: 452px;
+    height: 452px;
+  }
+
+  .donut-right {
+    left: 892px;
+    top: 183px;
+    width: 452px;
+    height: 452px;
+  }
+
+  /* Donut outer rings */
+  .outer-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    z-index: 1;
+    filter: drop-shadow(0 18px 20px rgba(0,0,0,0.12));
+  }
+
+  .outer-left {
+    background:
+      conic-gradient(
+        from 240deg,
+        #9bd24b 0deg,
+        #59c5a3 95deg,
+        #32aac4 190deg,
+        #49bdd2 280deg,
+        #8fd287 345deg,
+        #9bd24b 360deg
+      );
+  }
+
+  .outer-mid {
+    background:
+      conic-gradient(
+        from 225deg,
+        #3085d2 0deg,
+        #4c67d3 105deg,
+        #7a50c5 210deg,
+        #7d5bc8 300deg,
+        #5278d1 345deg,
+        #3085d2 360deg
+      );
+  }
+
+  .outer-right {
+    background:
+      conic-gradient(
+        from 245deg,
+        #d24f88 0deg,
+        #c33f91 95deg,
+        #8a35bd 190deg,
+        #5f34c1 280deg,
+        #b6368e 345deg,
+        #d24f88 360deg
+      );
+  }
+
+  /* Inner white circles */
+  .inner-circle {
+    position: absolute;
+    left: 80px;
+    top: 78px;
+    width: 292px;
+    height: 292px;
+    border-radius: 50%;
+    background: #f8fbfb;
+    border: 3px solid rgba(255,255,255,0.75);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  }
+
+  .question {
+    font-size: 28px;
+    line-height: 1.25;
+    font-weight: 700;
+    color: #050505;
+    max-width: 240px;
+  }
+
+  .mid-question {
+    font-size: 28px;
+    max-width: 280px;
+    text-align: left;
+  }
+
+  /* Inner flow arcs */
+  .flow-svg {
+    position: absolute;
+    left: 67px;
+    top: 67px;
+    width: 318px;
+    height: 318px;
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  /* Outer labels */
+  .label {
+    position: absolute;
+    z-index: 5;
+    font-size: 18px;
+    font-style: italic;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.16);
+    text-align: center;
+    line-height: 1.1;
+    white-space: normal;
+    transform-origin: center center;
+  }
+
+  /* Prototype labels */
+  .l-defining { left: 120px; top: 32px; transform: rotate(-48deg); }
+  .l-feasibility { left: 265px; top: 35px; transform: rotate(-22deg); }
+  .l-building { left: 352px; top: 135px; transform: rotate(28deg); }
+  .l-prototype { left: 330px; top: 230px; transform: rotate(56deg); }
+  .l-validating1 { left: 30px; top: 208px; transform: rotate(78deg); }
+  .l-requirements { left: 108px; top: 390px; transform: rotate(-48deg); }
+  .l-validating2 { left: 288px; top: 380px; transform: rotate(-28deg); }
+  .l-concepts { left: 41px; top: 270px; transform: rotate(123deg); }
+
+  /* Optimize labels */
+  .m-prompt { left: 52px; top: 52px; transform: rotate(-56deg); }
+  .m-rag { left: 152px; top: 31px; transform: rotate(0deg); }
+  .m-finetune { left: 308px; top: 80px; transform: rotate(30deg); }
+  .m-model { left: 376px; top: 183px; transform: rotate(90deg); }
+  .m-evaluate { left: 306px; top: 326px; transform: rotate(-28deg); }
+  .m-compare { left: 216px; top: 387px; transform: rotate(15deg); }
+  .m-hyper { left: 62px; top: 320px; transform: rotate(85deg); }
+  .m-data { left: 128px; top: 378px; transform: rotate(-14deg); }
+
+  /* Operationalize labels */
+  .r-capacity { left: 120px; top: 32px; transform: rotate(-48deg); }
+  .r-monitor { left: 270px; top: 22px; transform: rotate(-18deg); }
+  .r-content { left: 368px; top: 122px; transform: rotate(28deg); }
+  .r-security { left: 362px; top: 292px; transform: rotate(-38deg); }
+  .r-deploy { left: 272px; top: 390px; transform: rotate(34deg); }
+  .r-manage { left: 126px; top: 388px; transform: rotate(-30deg); }
+  .r-reliability { left: 80px; top: 300px; transform: rotate(70deg); }
+  .r-observability { left: 210px; top: 26px; transform: rotate(12deg); }
+
+  /* Phase labels under rings */
+  .phase-label {
+    position: absolute;
+    font-size: 29px;
+    font-weight: 800;
+    z-index: 8;
+  }
+
+  .phase-prototype {
+    left: 227px;
+    top: 662px;
+    color: #52c3b0;
+  }
+
+  .phase-optimize {
+    left: 626px;
+    top: 663px;
+    color: #4775c3;
+  }
+
+  .phase-operationalize {
+    left: 983px;
+    top: 663px;
+    color: #dc5378;
+  }
+
+  /* Advance arrows */
+  .advance {
+    position: absolute;
+    color: #5f7090;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    z-index: 6;
+    text-align: center;
+  }
+
+  .advance-left-top {
+    left: 448px;
+    top: 152px;
+    width: 110px;
+  }
+
+  .advance-mid-top {
+    left: 850px;
+    top: 152px;
+    width: 110px;
+  }
+
+  .arrow-svg-top {
+    position: absolute;
+    width: 120px;
+    height: 70px;
+    z-index: 5;
+    opacity: 0.55;
+  }
+
+  .arrow-left-top {
+    left: 422px;
+    top: 178px;
+  }
+
+  .arrow-mid-top {
+    left: 824px;
+    top: 178px;
+  }
+
+  /* Revert arrows */
+  .revert {
+    position: absolute;
+    color: #4a5768;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    z-index: 6;
+    text-align: center;
+  }
+
+  .revert-left-bottom {
+    left: 460px;
+    top: 642px;
+    width: 90px;
+  }
+
+  .revert-mid-bottom {
+    left: 858px;
+    top: 642px;
+    width: 98px;
+  }
+
+  .arrow-svg-bottom {
+    position: absolute;
+    width: 120px;
+    height: 70px;
+    z-index: 5;
+    opacity: 0.55;
+  }
+
+  .arrow-left-bottom {
+    left: 422px;
+    top: 602px;
+  }
+
+  .arrow-mid-bottom {
+    left: 824px;
+    top: 602px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="title">Three questions to guide you through model selection at every stage of the development lifecycle</div>
+
+  <!-- Donut: Prototype -->
+  <div class="donut donut-left">
+    <div class="outer-ring outer-left"></div>
+    <div class="inner-circle">
+      <div class="question">Can AI<br>solve my<br>use case?</div>
+    </div>
+    <svg class="flow-svg" viewBox="0 0 318 318" aria-hidden="true">
+      <defs>
+        <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L10,5 L0,10 Z" fill="#52c3b0"></path>
+        </marker>
+      </defs>
+      <path d="M50 95 A109 109 0 0 1 185 45" fill="none" stroke="#52c3b0" stroke-width="2.5" marker-end="url(#arrowGreen)"></path>
+      <path d="M247 73 A109 109 0 0 1 270 190" fill="none" stroke="#52c3b0" stroke-width="2.5" marker-end="url(#arrowGreen)"></path>
+      <path d="M247 266 A109 109 0 0 1 105 275" fill="none" stroke="#52c3b0" stroke-width="2.5" marker-end="url(#arrowGreen)"></path>
+      <path d="M68 272 A109 109 0 0 1 42 148" fill="none" stroke="#52c3b0" stroke-width="2.5" marker-end="url(#arrowGreen)"></path>
+    </svg>
+
+    <div class="label l-defining">defining<br>use cases</div>
+    <div class="label l-feasibility">establishing<br>feasibility</div>
+    <div class="label l-building">building<br>prototypes</div>
+    <div class="label l-prototype">validating<br>assumptions</div>
+    <div class="label l-validating1">validating<br>assumptions</div>
+    <div class="label l-requirements">gathering<br>requirements</div>
+    <div class="label l-validating2">validating<br>assumptions</div>
+    <div class="label l-concepts">testing initial<br>concepts</div>
+  </div>
+
+  <!-- Donut: Optimize -->
+  <div class="donut donut-mid">
+    <div class="outer-ring outer-mid"></div>
+    <div class="inner-circle">
+      <div class="question mid-question">What is the<br>best model for<br>my use case?</div>
+    </div>
+    <svg class="flow-svg" viewBox="0 0 318 318" aria-hidden="true">
+      <defs>
+        <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L10,5 L0,10 Z" fill="#3b76cf"></path>
+        </marker>
+      </defs>
+      <path d="M60 82 A110 110 0 0 1 185 43" fill="none" stroke="#3b76cf" stroke-width="2.5" marker-end="url(#arrowBlue)"></path>
+      <path d="M250 70 A110 110 0 0 1 271 190" fill="none" stroke="#7050ba" stroke-width="2.5" marker-end="url(#arrowBlue)"></path>
+      <path d="M250 260 A110 110 0 0 1 153 278" fill="none" stroke="#7050ba" stroke-width="2.5" marker-end="url(#arrowBlue)"></path>
+      <path d="M77 270 A110 110 0 0 1 52 140" fill="none" stroke="#3b76cf" stroke-width="2.5" marker-end="url(#arrowBlue)"></path>
+    </svg>
+
+    <div class="label m-prompt">prompt<br>engineering</div>
+    <div class="label m-rag">(Retrieval-Augmented<br>Generation)</div>
+    <div class="label m-finetune">fine-tuning</div>
+    <div class="label m-model">general model<br>selection</div>
+    <div class="label m-evaluate">evaluating<br>performance<br>metrics</div>
+    <div class="label m-compare">comparing<br>architectures</div>
+    <div class="label m-hyper">hyperparameters<br>tuning</div>
+    <div class="label m-data">experimenting with<br>data preparation</div>
+  </div>
+
+  <!-- Donut: Operationalize -->
+  <div class="donut donut-right">
+    <div class="outer-ring outer-right"></div>
+    <div class="inner-circle">
+      <div class="question">Can I scale<br>for real-world<br>workloads?</div>
+    </div>
+    <svg class="flow-svg" viewBox="0 0 318 318" aria-hidden="true">
+      <defs>
+        <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L10,5 L0,10 Z" fill="#b83f8d"></path>
+        </marker>
+      </defs>
+      <path d="M60 82 A109 109 0 0 1 185 43" fill="none" stroke="#cb5270" stroke-width="2.5" marker-end="url(#arrowPurple)"></path>
+      <path d="M250 70 A109 109 0 0 1 270 190" fill="none" stroke="#8a35bd" stroke-width="2.5" marker-end="url(#arrowPurple)"></path>
+      <path d="M250 262 A109 109 0 0 1 160 278" fill="none" stroke="#8a35bd" stroke-width="2.5" marker-end="url(#arrowPurple)"></path>
+      <path d="M72 272 A109 109 0 0 1 48 148" fill="none" stroke="#cb5270" stroke-width="2.5" marker-end="url(#arrowPurple)"></path>
+    </svg>
+
+    <div class="label r-capacity">capacity and cost<br>trade-offs</div>
+    <div class="label r-monitor">monitoring and<br>observability</div>
+    <div class="label r-content">content filtering<br>and moderation</div>
+    <div class="label r-security">security and<br>data privacy</div>
+    <div class="label r-deploy">deploying<br>to production</div>
+    <div class="label r-manage">managing<br>infrastructure</div>
+    <div class="label r-reliability">ensuring<br>reliability</div>
+    <div class="label r-observability">monitoring and<br>observability</div>
+  </div>
+
+  <!-- Advance labels and arrows -->
+  <div class="advance advance-left-top">ADVANCE<br>PROJECT</div>
+  <svg class="arrow-svg-top arrow-left-top" viewBox="0 0 120 70" aria-hidden="true">
+    <defs>
+      <marker id="smallArrowTop1" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L9,4.5 L0,9 Z" fill="#70a8de"></path>
+      </marker>
+    </defs>
+    <path d="M20 40 C50 12, 82 21, 106 42" fill="none" stroke="#8bb7ef" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#smallArrowTop1)"></path>
+  </svg>
+
+  <div class="advance advance-mid-top">ADVANCE<br>PROJECT</div>
+  <svg class="arrow-svg-top arrow-mid-top" viewBox="0 0 120 70" aria-hidden="true">
+    <defs>
+      <marker id="smallArrowTop2" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L9,4.5 L0,9 Z" fill="#70a8de"></path>
+      </marker>
+    </defs>
+    <path d="M20 40 C50 12, 82 21, 106 42" fill="none" stroke="#8bb7ef" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#smallArrowTop2)"></path>
+  </svg>
+
+  <!-- Revert labels and arrows -->
+  <div class="revert revert-left-bottom">REVERT<br>PROJECT</div>
+  <svg class="arrow-svg-bottom arrow-left-bottom" viewBox="0 0 120 70" aria-hidden="true">
+    <defs>
+      <marker id="smallArrowBottom1" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L9,4.5 L0,9 Z" fill="#9fd0d2"></path>
+      </marker>
+    </defs>
+    <path d="M103 14 C76 36, 43 36, 18 42" fill="none" stroke="#9fd0d2" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#smallArrowBottom1)"></path>
+  </svg>
+
+  <div class="revert revert-mid-bottom">REVERT<br>PROJECT</div>
+  <svg class="arrow-svg-bottom arrow-mid-bottom" viewBox="0 0 120 70" aria-hidden="true">
+    <defs>
+      <marker id="smallArrowBottom2" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L9,4.5 L0,9 Z" fill="#c896aa"></path>
+      </marker>
+    </defs>
+    <path d="M103 14 C76 36, 43 36, 18 42" fill="none" stroke="#c896aa" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#smallArrowBottom2)"></path>
+  </svg>
+
+  <!-- Bottom phase labels -->
+  <div class="phase-label phase-prototype">Prototype</div>
+  <div class="phase-label phase-optimize">Optimize</div>
+  <div class="phase-label phase-operationalize">Operationalize</div>
+</div>
+</body>
+</html>

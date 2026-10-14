@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Assistant Security Incident Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #020817;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      color: #ffffff;
+      background:
+        radial-gradient(circle at 82% 12%, rgba(28, 84, 180, 0.32), transparent 21%),
+        radial-gradient(circle at 14% 92%, rgba(0, 112, 255, 0.28), transparent 24%),
+        linear-gradient(100deg, #020817 0%, #061127 42%, #071a3d 65%, #020817 100%);
+    }
+
+    .artboard::before {
+      content: "";
+      position: absolute;
+      left: -100px;
+      bottom: -105px;
+      width: 820px;
+      height: 270px;
+      background:
+        radial-gradient(circle, rgba(34, 122, 255, 0.65) 0 2px, transparent 3px) 0 0 / 24px 24px,
+        radial-gradient(circle, rgba(34, 122, 255, 0.28) 0 1.5px, transparent 2.5px) 12px 12px / 24px 24px;
+      opacity: 0.55;
+      transform: rotate(19deg);
+      border-radius: 50%;
+      filter: blur(0.2px);
+    }
+
+    .artboard::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      bottom: 33px;
+      width: 400px;
+      height: 190px;
+      background:
+        radial-gradient(circle, rgba(36, 115, 255, 0.28) 0 1.5px, transparent 2.5px) 0 0 / 21px 21px;
+      opacity: 0.45;
+      border-radius: 50%;
+    }
+
+    .title {
+      position: absolute;
+      left: 47px;
+      top: 57px;
+      width: 478px;
+      font-size: 43px;
+      line-height: 1.25;
+      font-weight: 700;
+      letter-spacing: -1.2px;
+      color: #ffffff;
+    }
+
+    .feature-row {
+      position: absolute;
+      left: 45px;
+      width: 428px;
+      height: 118px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .feature-row.one {
+      top: 205px;
+    }
+
+    .feature-row.two {
+      top: 335px;
+    }
+
+    .feature-row.three {
+      top: 468px;
+    }
+
+    .feature-icon {
+      width: 94px;
+      height: 94px;
+      border: 1.8px solid rgba(49, 127, 255, 0.72);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(7, 28, 64, 0.36);
+      box-shadow:
+        0 0 18px rgba(47, 128, 255, 0.28),
+        inset 0 0 15px rgba(52, 124, 255, 0.22);
+    }
+
+    .icon-speed {
+      position: relative;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 4px solid #a8d9ff;
+      border-left-color: #56a3ff;
+      border-bottom-color: #b17aff;
+      background: #05101f;
+    }
+
+    .icon-speed::before {
+      content: "";
+      position: absolute;
+      left: 26px;
+      top: 10px;
+      width: 4px;
+      height: 20px;
+      background: #cfeaff;
+      border-radius: 4px;
+      box-shadow: 14px 16px 0 -1px #62b8ff, 25px 31px 0 -1px #c27aff;
+      transform: rotate(42deg);
+      transform-origin: bottom center;
+    }
+
+    .icon-speed::after {
+      content: "";
+      position: absolute;
+      right: 13px;
+      bottom: 12px;
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, #47b8ff, #bf65ff);
+      clip-path: polygon(50% 0, 100% 80%, 40% 58%, 38% 100%, 0 25%, 62% 49%);
+    }
+
+    .icon-chat {
+      position: relative;
+      width: 60px;
+      height: 60px;
+    }
+
+    .icon-chat::before {
+      content: "";
+      position: absolute;
+      left: 9px;
+      top: 10px;
+      width: 42px;
+      height: 42px;
+      border: 4px solid #88c7ff;
+      border-radius: 16px 16px 20px 20px;
+      clip-path: polygon(0 26%, 100% 0, 82% 100%, 0 72%);
+    }
+
+    .icon-chat::after {
+      content: "";
+      position: absolute;
+      left: 23px;
+      top: 19px;
+      width: 16px;
+      height: 16px;
+      background: #bb79ff;
+      clip-path: polygon(50% 0, 86% 38%, 100% 100%, 0 70%, 14% 36%);
+    }
+
+    .icon-doc {
+      position: relative;
+      width: 54px;
+      height: 58px;
+      border: 3px solid #cde9ff;
+      border-radius: 4px;
+    }
+
+    .icon-doc::before {
+      content: "";
+      position: absolute;
+      right: -5px;
+      top: -7px;
+      width: 18px;
+      height: 18px;
+      border-left: 3px solid #d7efff;
+      border-bottom: 3px solid #d7efff;
+      background: #06101f;
+      transform: rotate(45deg);
+    }
+
+    .icon-doc::after {
+      content: "";
+      position: absolute;
+      left: 13px;
+      top: 21px;
+      width: 26px;
+      height: 6px;
+      background: #38b9ff;
+      box-shadow: 0 11px 0 #82e0ff, 0 22px 0 #bf75ff;
+    }
+    .feature-copy {
+      font-size: 18px;
+      line-height: 1.28;
+      color: #ffffff;
+    }
+
+    .feature-copy strong {
+      font-weight: 750;
+    }
+
+    .device-panel {
+      position: absolute;
+      left: 570px;
+      top: 46px;
+      width: 364px;
+      height: 594px;
+      border: 1.5px solid rgba(102, 168, 255, 0.72);
+      border-radius: 18px;
+      background: #06101f;
+      box-shadow:
+        0 0 26px rgba(53, 124, 255, 0.25),
+        inset 0 0 18px rgba(55, 119, 255, 0.14);
+      z-index: 4;
+    }
+
+    .device-header {
+      height: 72px;
+      background: rgba(11, 21, 43, 0.86);
+      display: flex;
+      align-items: center;
+      padding-left: 28px;
+      gap: 18px;
+      border-bottom: 1px solid rgba(110, 155, 255, 0.08);
+    }
+
+    .logo-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 6px solid #43c4ff;
+      border-bottom-color: #b071ff;
+      box-shadow: 0 0 14px rgba(72, 126, 255, 0.38);
+    }
+
+    .device-title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .chat-card {
+      position: absolute;
+      left: 16px;
+      top: 78px;
+      width: 332px;
+      height: 434px;
+      border: 1px solid rgba(140, 170, 220, 0.28);
+      border-radius: 9px;
+      background: rgba(10, 18, 34, 0.58);
+      padding: 11px 11px 12px;
+      box-shadow: inset 0 0 14px rgba(65, 119, 255, 0.07);
+    }
+
+    .timestamp {
+      color: rgba(190, 197, 215, 0.55);
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .question {
+      font-size: 14.5px;
+      font-weight: 650;
+      padding-bottom: 9px;
+      border-bottom: 1px solid rgba(200, 210, 230, 0.18);
+      margin-bottom: 11px;
+    }
+
+    .answer {
+      color: #ffffff;
+      font-size: 13.5px;
+      line-height: 1.38;
+      margin-bottom: 11px;
+    }
+
+    .list-lines {
+      color: #ffffff;
+      font-size: 13px;
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+
+    .code-block {
+      margin-top: 2px;
+      width: 308px;
+      height: 108px;
+      border: 1px solid rgba(150, 170, 210, 0.25);
+      border-radius: 5px;
+      background: rgba(12, 20, 35, 0.62);
+      font-family: Consolas, "Courier New", monospace;
+      color: #d7e8ff;
+      font-size: 11px;
+      display: flex;
+      padding: 6px 6px 4px;
+    }
+
+    .code-line-numbers {
+      width: 30px;
+      border-right: 1px solid rgba(180, 190, 220, 0.18);
+      color: rgba(170, 180, 210, 0.58);
+      display: flex;
+      flex-direction: column;
+      justify-content: space3-around;
+    }
+
+    .code-lines {
+      margin-left: 7px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .code-lines span {
+      color: #dceaff;
+    }
+
+    .code-lines .magenta {
+      color: #df74ff;
+    }
+
+    .code-lines .blue {
+      color: #54c9ff;
+    }
+
+    .code-lines .green {
+      color: #8df28f;
+    }
+
+    .input-bar {
+      position: absolute;
+      left: 16px;
+      bottom: 0;
+      width: 332px;
+      height: 50px;
+      border-radius: 8px;
+      background: #e7edf5;
+      color: #4f5c68;
+      font-size: 13.5px;
+      display: flex;
+      align-items: center;
+      justify-content: space3-between;
+      padding: 0 14px;
+      opacity: 0.96;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+    }
+
+    .send-icon {
+      width: 22px;
+      height: 22px;
+      border: 2px solid #55616b;
+      clip-path: polygon(0 0, 100% 50%, 0 100%, 24% 50%);
+    }
+
+    .connector {
+      position: absolute;
+      left: 932px;
+      width: 41px;
+      height: 1.5px;
+      background: #9aa9ff;
+      z-index: 2;
+      box-shadow: 0 0 7px rgba(130, 160, 255, 0.65);
+    }
+
+    .connector.c1 {
+      top: 177px;
+    }
+
+    .connector.c2 {
+      top: 291px;
+    }
+
+    .connector.c3 {
+      top: 405px;
+    }
+
+    .connector.c4 {
+      top: 519px;
+    }
+
+    .connector::before,
+    .connector::after {
+      content: "";
+      position: absolute;
+      top: -4px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #9aa9ff;
+      box-shadow: 0 0 8px rgba(130, 160, 255, 0.85);
+    }
+
+    .connector::before {
+      left: -7px;
+    }
+
+    .connector::after {
+      right: -7px;
+    }
+
+    .action-card {
+      position: absolute;
+      left: 975px;
+      width: 280px;
+      height: 87px;
+      background: #fbfbfb;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      z-index: 5;
+      color: #171717;
+      font-size: 15.5px;
+      line-height: 1.25;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+    }
+
+    .card-1 {
+      top: 136px;
+    }
+
+    .card-2 {
+      top: 250px;
+    }
+
+    .card-3 {
+      top: 364px;
+    }
+
+    .card-4 {
+      top: 478px;
+    }
+
+    .action-icon {
+      width: 58px;
+      height: 58px;
+      margin-left: 15px;
+      border-radius: 9px;
+      flex: 0 0 auto;
+      position: relative;
+      background: linear-gradient(145deg, #7d66ff, #855cff);
+      box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.18);
+    }
+
+    .action-icon.target::before {
+      content: "";
+      position: absolute;
+      left: 19px;
+      top: 17px;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 0 7px rgba(255,255,255,0.10);
+    }
+
+    .action-icon.shield {
+      background: linear-gradient(135deg, #22c4ff, #3778ff);
+    }
+
+    .action-icon.shield::before {
+      content: "";
+      position: absolute;
+      left: 19px;
+      top: 14px;
+      width: 20px;
+      height: 24px;
+      border: 3px solid #ffffff;
+      border-radius: 7px 7px 10px 10px;
+      transform: rotate(45deg);
+    }
+
+    .action-icon.chain {
+      background: linear-gradient(135deg, #68d877, #36bd57);
+    }
+
+    .action-icon.chain::before,
+    .action-icon.chain::after {
+      content: "";
+      position: absolute;
+      width: 23px;
+      height: 12px;
+      border: 4px solid #ffffff;
+      border-radius: 12px;
+      top: 22px;
+    }
+
+    .action-icon.chain::before {
+      left: 11px;
+      border-right-color: transparent;
+      transform: rotate(135deg);
+    }
+
+    .action-icon.chain::after {
+      right: 11px;
+      border-left-color: transparent;
+      transform: rotate(-135deg);
+    }
+
+    .action-icon.laptop {
+      background: linear-gradient(135deg, #ffc666, #f07822);
+    }
+
+    .action-icon.laptop::before {
+      content: "";
+      position: absolute;
+      left: 15px;
+      top: 20px;
+      width: 28px;
+      height: 18px;
+      border: 2px solid #ffffff;
+      border-bottom-width: 3px;
+      border-radius: 2px;
+    }
+
+    .action-icon.laptop::after {
+      content: "";
+      position: absolute;
+      left: 20px;
+      top: 39px;
+      width: 18px;
+      height: 8px;
+      border: 2px solid #ffffff;
+      border-top: none;
+    }
+
+    .card-text {
+      flex: 1;
+      padding: 0 0 0 8px;
+      font-size: 15.5px;
+      font-weight: 500;
+      color: #151515;
+    }
+
+    .nav-triangle {
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 18px solid #111111;
+      margin-left: 0;
+      flex: 0 0 auto;
+      filter: drop-shadow(0 0 2px rgba(0,0,0,0.25));
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Accelerate full resolution<br>for every incident</div>
+
+    <div class="feature-row one">
+      <div class="feature-icon">
+        <div class="icon-speed"></div>
+      </div>
+      <div class="feature-copy">
+        Speed up investigation, containment, and remediation with step-by-step <strong>guided responses</strong> for maximum efficiency
+      </div>
+    </div>
+
+    <div class="feature-row two">
+      <div class="feature-icon">
+        <div class="icon-chat"></div>
+      </div>
+      <div class="feature-copy">
+        <strong>Provide feedback</strong> to each response card to continuously enhance future responses from Copilot
+      </div>
+    </div>
+
+    <div class="feature-row three">
+      <div class="feature-icon">
+        <div class="icon-doc"></div>
+      </div>
+      <div class="feature-copy">
+        Effortlessly generate ready-to-share <strong>incident reports</strong> that compile the incident summary, actions taken, and a clear record of who performed each action and when.
+      </div>
+    </div>
+
+    <div class="device-panel">
+      <div class="device-header">
+        <div class="logo-circle"></div>
+        <div class="device-title">Copilot</div>
+      </div>
+
+      <div class="chat-card">
+        <div class="timestamp">Aug 01, 2023 2:41 AM</div>
+        <div class="question">Who are the top email senders?</div>
+        <div class="answer">Here are the top email senders by message count in the last 7 days:</div>
+        <div class="list-lines">
+          1. billing@acme corp.com 1,245<br>
+          2. security-alerts@acme corp.com 842<br>
+          3. noreply@updates.acmecorp.com 621<br>
+          4. support@acme corp.com 512<br>
+          5. hr@acme corp.com 398
+        </div>
+        <div class="answer">Would you like to investigate any of these senders?</div>
+
+        <div class="code-block">
+          <div class="code-line-numbers">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+          </div>
+          <div class="code-lines">
+            <span class="magenta">search</span> index=email
+            <span class="blue">stats count</span> by sender
+            <span class="blue">sort</span> - count
+            <span class="blue">head</span> 5
+            <span class="blue">fields</span> sender, count
+          </div>
+        </div>
+      </div>
+
+      <div class="input-bar">
+        <span>Ask a question to generate a query</span>
+        <div class="send-icon"></div>
+      </div>
+    </div>
+
+    <div class="connector c1"></div>
+    <div class="connector c2"></div>
+    <div class="connector c3"></div>
+    <div class="connector c4"></div>
+
+    <div class="action-card card-1">
+      <div class="action-icon target"></div>
+      <div class="card-text">Hunt for emails from this sender</div>
+      <div class="nav-triangle"></div>
+    </div>
+
+    <div class="action-card card-2">
+      <div class="action-icon shield"></div>
+      <div class="card-text">Do we have alerts involving this IP?</div>
+      <div class="nav-triangle"></div>
+    </div>
+
+    <div class="action-card card-3">
+      <div class="action-icon chain"></div>
+      <div class="card-text">Find URL clicks for recipients of this email</div>
+      <div class="nav-triangle"></div>
+    </div>
+
+    <div class="action-card card-4">
+      <div class="action-icon laptop"></div>
+      <div class="card-text">Which devices has this file been observed on?</div>
+      <div class="nav-triangle"></div>
+    </div>
+  </div>
+</body>
+</html>

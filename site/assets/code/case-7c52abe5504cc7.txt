@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>怎么做？财务汇报PPT</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9eef3;
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1024px;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 28%, #ffffff 0%, #f4f6f8 44%, #eef2f5 100%);
+    color: #111827;
+  }
+
+  .headline {
+    position: absolute;
+    top: 52px;
+    left: 0;
+    width: 1024px;
+    text-align: center;
+    font-size: 66px;
+    font-weight: 900;
+    letter-spacing: 6px;
+    color: #111111;
+    line-height: 1.08;
+  }
+
+  .subheadline {
+    position: absolute;
+    top: 176px;
+    left: 0;
+    width: 1024px;
+    text-align: center;
+    font-size: 58px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: #073475;
+    line-height: 1.05;
+  }
+
+  .dashboard {
+    position: absolute;
+    left: 54px;
+    top: 316px;
+    width: 916px;
+    height: 638px;
+    background: #f6f7f9;
+    border: 5px solid #111827;
+    border-radius: 38px;
+    box-shadow:
+      0 18px 38px rgba(20, 30, 45, 0.32),
+      inset 0 0 0 6px #d8dde2;
+    padding: 24px 18px 22px 18px;
+  }
+
+  .panel-top {
+    position: absolute;
+    left: 18px;
+    top: 10px;
+    width: 872px;
+    height: 42px;
+    border-bottom: 1px solid #c8cdd3;
+    background: #ffffff;
+  }
+
+  .panel-title {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #555b63;
+    letter-spacing: 1px;
+  }
+
+  .logo-placeholder {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 19px;
+    color: #5b5f66;
+    font-weight: 700;
+  }
+
+  .metrics-bar {
+    position: absolute;
+    left: 18px;
+    top: 60px;
+    width: 872px;
+    height: 138px;
+    background: #1d74c8;
+    border-radius: 6px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .metric {
+    position: relative;
+    text-align: center;
+    padding-top: 14px;
+    background: #0f67be;
+  }
+
+  .metric:last-child {
+    background: #3c3c3c;
+  }
+
+  .metric-circle {
+    width: 42px;
+    height: 42px;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid rgba(255,255,255,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0f67be;
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .metric:last-child .metric-circle {
+    color: #3c3c3c;
+  }
+
+  .metric-label {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .metric-value {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 800;
+  }
+
+  .card {
+    position: absolute;
+    border-radius: 6px;
+    background: #ffffff;
+    box-shadow: 0 7px 14px rgba(30, 45, 60, 0.16);
+    border: 1px solid #d9dde2;
+    overflow: hidden;
+  }
+
+  .monthly-card {
+    left: 18px;
+    top: 206px;
+    width: 404px;
+    height: 202px;
+  }
+
+  .quarter-card {
+    left: 428px;
+    top: 206px;
+    width: 228px;
+    height: 202px;
+  }
+
+  .rank-card {
+    left: 662px;
+    top: 206px;
+    width: 206px;
+    height: 202px;
+  }
+
+  .trend-card {
+    left: 18px;
+    top: 414px;
+    width: 326px;
+    height: 160px;
+  }
+
+  .summary-card {
+    left: 350px;
+    top: 414px;
+    width: 292px;
+    height: 160px;
+  }
+
+  .progress-card {
+    left: 648px;
+    top: 414px;
+    width: 268px;
+    height: 160px;
+  }
+
+  .card-header {
+    height: 28px;
+    background: #bd1532;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+  }
+
+  .monthly-card .card-header {
+    background: #073e84;
+  }
+
+  .quarter-card .card-header {
+    background: #c21838;
+  }
+
+  .rank-card .card-header {
+    background: #515151;
+    color: #ffffff;
+  }
+
+  .trend-card .card-header {
+    background: #073e84;
+  }
+
+  .summary-card .card-header {
+    background: #c21838;
+  }
+
+  .progress-card .card-header {
+    background: #a91939;
+  }
+
+  .chart-box {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 28px;
+    bottom: 0;
+  }
+
+  .chart {
+    width: 100%;
+    height: 100%;
+  }
+
+  .summary-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 11px 10px 8px 10px;
+  }
+
+  .summary-row {
+    height: 42px;
+    border-radius: 6px;
+    background: #ffe0e8;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 0 10px;
+  }
+
+  .summary-row:first-child {
+    background: #d83354;
+    color: #ffffff;
+    font-weight: 800;
+  }
+
+  .summary-label {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .summary-value {
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: 800;
+  }
+
+  .summary-change {
+    width: 76px;
+    text-align: center;
+    color: #cf1435;
+    font-weight: 800;
+    font-size: 15px;
+    background: #f8dce2;
+    border-radius: 4px;
+  }
+
+  .summary-row.second .summary-change {
+    color: #208960;
+    background: #edf3f1;
+  }
+
+  .progress-list {
+    padding: 9px 10px;
+  }
+
+  .progress-item {
+    display: grid;
+    grid-template-columns: 72px 1fr 26px;
+    align-items: center;
+    height: 22px;
+    gap: 4px;
+    font-size: 12px;
+    color: #2d333a;
+  }
+
+  .tiny-bar {
+    height: 8px;
+    background: #d8dde3;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .tiny-bar span {
+    display: block;
+    height: 100%;
+    background: #bd1532;
+  }
+
+  .tiny-bar.gray span {
+    background: #9da3aa;
+  }
+
+  .tiny-bar.blue span {
+    background: #4f8ed5;
+  }
+
+  .tiny-bar.light span {
+    background: #8eb9e8;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="headline">怎么做？</div>
+    <div class="subheadline">财务汇报PPT</div>
+
+    <div class="dashboard">
+      <div class="panel-top">
+        <div class="panel-title">004. 财务概览与关键指标</div>
+        <div class="logo-placeholder">LOGO</div>
+      </div>
+
+      <div class="metrics-bar">
+        <div class="metric">
+          <div class="metric-circle">▥</div>
+          <div class="metric-label">主营收入</div>
+          <div class="metric-value">¥985.40M</div>
+        </div>
+        <div class="metric">
+          <div class="metric-circle">♟</div>
+          <div class="metric-label">活跃用户</div>
+          <div class="metric-value">25.6M</div>
+        </div>
+        <div class="metric">
+          <div class="metric-circle">♜</div>
+          <div class="metric-label">税费支出</div>
+          <div class="metric-value">¥123.50M</div>
+        </div>
+        <div class="metric">
+          <div class="metric-circle">⌁</div>
+          <div class="metric-label">运营成本</div>
+          <div class="metric-value">¥302.85M</div>
+        </div>
+        <div class="metric">
+          <div class="metric-circle">↗</div>
+          <div class="metric-label">净利润</div>
+          <div class="metric-value">¥418.52M</div>
+        </div>
+      </div>
+
+      <div class="card monthly-card">
+        <div class="card-header">月度业绩表现</div>
+        <div class="chart-box">
+          <div id="monthlyBarChart" class="chart"></div>
+        </div>
+      </div>
+
+      <div class="card quarter-card">
+        <div class="card-header">季度贡献分布</div>
+        <div class="chart-box">
+          <div id="quarterPieChart" class="chart"></div>
+        </div>
+      </div>
+
+      <div class="card rank-card">
+        <div class="card-header">部门排名</div>
+        <div class="chart-box">
+          <div id="departmentRankChart" class="chart"></div>
+        </div>
+      </div>
+
+      <div class="card trend-card">
+        <div class="card-header">业务趋势对比</div>
+        <div class="chart-box">
+          <div id="trendLineChart" class="chart"></div>
+        </div>
+      </div>
+
+      <div class="card summary-card">
+        <div class="card-header">半年度业绩汇总</div>
+        <div class="summary-body">
+          <div class="summary-row">
+            <div><span class="summary-label">上半年</span><span class="summary-value">¥251.63M</span></div>
+            <div class="summary-change">↑15%<br>同比</div>
+          </div>
+          <div class="summary-row second">
+            <div><span class="summary-label">下半年</span><span class="summary-value">¥166.83M</span></div>
+            <div class="summary-change">↓-8%<br>环比</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card progress-card">
+        <div class="card-header">关键计划进度</div>
+        <div class="progress-list">
+          <div class="progress-item">
+            <span>成本控制计划</span>
+            <div class="tiny-bar"><span style="width:80%;"></span></div>
+            <span>80%</span>
+          </div>
+          <div class="progress-item">
+            <span>新市场拓展</span>
+            <div class="tiny-bar red"><span style="width:65%;"></span></div>
+            <span>65%</span>
+          </div>
+          <div class="progress-item">
+            <span>产品迭代升级</span>
+            <div class="tiny-bar gray"><span style="width:90%;"></span></div>
+            <span>90%</span>
+          </div>
+          <div class="progress-item">
+            <span>团队建设</span>
+            <div class="tiny-bar blue"><span style="width:50%;"></span></div>
+            <span>50%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    const monthlyBarChart = echarts.init(document.getElementById('monthlyBarChart'));
+    monthlyBarChart.setOption({
+      animation: false,
+      grid: { left: 34, right: 10, top: 24, bottom: 28 },
+      legend: {
+        top: 0,
+        left: 18,
+        itemWidth: 10,
+        itemHeight: 8,
+        textStyle: { fontSize: 10, color: '#222' },
+        data: ['series.data A', 'series.data B', 'series.data C']
+      },
+      xAxis: {
+        type: 'category',
+        data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+        axisLabel: { fontSize: 10, color: '#333' },
+        axisLine: { lineStyle: { color: '#aeb4bb' } }
+      },
+      yAxis: {
+        type: 'value',
+        splitLine: { lineStyle: { color: '#e7eaee' } },
+        axisLabel: { fontSize: 10, color: '#333' }
+      },
+      series: [
+        {
+          name: 'series.data A',
+          type: 'bar',
+          barWidth: 8,
+          data: [20, 30, 25, 35, 45, 50, 55, 48, 52, 49, 45, 60],
+          itemStyle: { color: '#1e72c4' }
+        },
+        {
+          name: 'series.data B',
+          type: 'bar',
+          barWidth: 8,
+          data: [16, 25, 20, 35, 35, 40, 35, 40, 42, 48, 45, 55],
+          itemStyle: { color: '#c21838' }
+        },
+        {
+          name: 'series.data C',
+          type: 'bar',
+          barWidth: 8,
+          data: [10, 25, 15, 30, 20, 30, 50, 38, 38, 49, 41, 50],
+          itemStyle: { color: '#aeb4bb' }
+        }
+      ]
+    });
+
+    const quarterPieChart = echarts.init(document.getElementById('quarterPieChart'));
+    quarterPieChart.setOption({
+      animation: false,
+      color: ['#1f72c5', '#c21838', '#777b80', '#8dc4ef'],
+      legend: {
+        bottom: 0,
+        left: 12,
+        itemWidth: 8,
+        itemHeight: 8,
+        textStyle: { fontSize: 10, color: '#222' },
+        data: ['第一季度', '第二季度', '第三季度', '第四季度']
+      },
+      series: [
+        {
+          type: 'pie',
+          radius: ['38%', '62%'],
+          center: ['50%', '42%'],
+          avoidLabelOverlap: false,
+          label: {
+            color: '#333',
+            fontSize: 10,
+            formatter: '{b}\n{d}%'
+          },
+          labelLine: { length: 8, length2: 4 },
+          data: [
+            {name: '第一季度', value: 48},
+            {name: '第二季度', value: 52},
+            {name: '第三季度', value: 37},
+            {name: '第四季度', value: 63}
+          ]
+        }
+      ]
+    });
+
+    const departmentRankChart = echarts.init(document.getElementById('departmentRankChart'));
+    departmentRankChart.setOption({
+      animation: false,
+      grid: { left: 34, right: 10, top: 10, bottom: 14 },
+      xAxis: {
+        type: 'value',
+        splitLine: { lineStyle: { color: '#e8ebef' } },
+        axisLabel: { fontSize: 10, color: '#333' }
+      },
+      yAxis: {
+        type: 'category',
+        data: ['销售部','市场部','研发部','运营部','财务部','行政部'],
+        axisLabel: { fontSize: 10, color: '#333' },
+        axisLine: { lineStyle: { color: '#bdc3c8' } }
+      },
+      series: [
+        {
+          type: 'bar',
+          barWidth: 10,
+          data: [95, 88, 76, 72, 65, 50],
+          itemStyle: { color: '#1f72c4' }
+        }
+      ]
+    });
+
+    const trendLineChart = echarts.init(document.getElementById('trendLineChart'));
+    trendLineChart.setOption({
+      animation: false,
+      grid: { left: 30, right: 12, top: 20, bottom: 24 },
+      legend: {
+        top: 0,
+        left: 18,
+        itemWidth: 12,
+        itemHeight: 8,
+        textStyle: { fontSize: 10, color: '#222' },
+        data: ['series.data 红', 'series.data 蓝']
+      },
+      xAxis: {
+        type: 'category',
+        data: ['一月','二月','三月','四月','五月','六月','七月'],
+        axisLabel: { fontSize: 10, color: '#333' },
+        axisLine: { lineStyle: { color: '#aeb4bb' } }
+      },
+      yAxis: {
+        type: 'value',
+        splitLine: { lineStyle: { color: '#e7eaee' } },
+        axisLabel: { fontSize: 10, color: '#333' }
+      },
+      series: [
+        {
+          name: 'series.data 红',
+          type: 'line',
+          smooth: false,
+          symbol: 'circle',
+          symbolSize: 5,
+          lineStyle: { color: '#c21838', width: 2 },
+          itemStyle: { color: '#c21838' },
+          data: [12, 18, 15, 22, 19, 25, 28]
+        },
+        {
+          name: 'series.data 蓝',
+          type: 'line',
+          smooth: false,
+          symbol: 'circle',
+          symbolSize: 5,
+          lineStyle: { color: '#2b75c5', width: 2 },
+          itemStyle: { color: '#2b75c5' },
+          data: [10, 14, 13, 17, 16, 20, 21]
+        }
+      ]
+    });
+  </script>
+</body>
+</html>

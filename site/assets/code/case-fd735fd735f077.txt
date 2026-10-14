@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>生产监控看板</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #020817;
+    font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1504px;
+    height: 848px;
+    overflow: hidden;
+    color: #eaf8ff;
+    background:
+      radial-gradient(circle at 50% 40%, rgba(0, 150, 255, 0.18), transparent 22%),
+      radial-gradient(circle at 18% 20%, rgba(58, 125, 255, 0.15), transparent 20%),
+      linear-gradient(180deg, #061432 0%, #03112f 45%, #041638 100%);
+  }
+
+  .artboard::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(45, 180, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(45, 180, 255, 0.08) 1px, transparent 1px);
+    background-size: 60px 60px, 60px 60px;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .top-title {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 1504px;
+    text-align: center;
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(40, 180, 255, 0.8), 0 0 20px rgba(40, 180, 255, 0.5);
+  }
+
+  .datetime {
+    position: absolute;
+    top: 28px;
+    right: 60px;
+    color: #e9f7ff;
+    font-size: 16px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    text-shadow: 0 0 10px rgba(80, 180, 255, 0.5);
+  }
+
+  .decor-left,
+  .decor-right {
+    position: absolute;
+    top: 18px;
+    width: 290px;
+    height: 42px;
+    border-top: 2px solid #2fb8ff;
+    border-left: 2px solid #2fb8ff;
+    clip-path: polygon(0 0, 100% 0, 92% 45%, 74% 45%, 74% 100%, 0 100%);
+    background: rgba(47, 184, 255, 0.18);
+    box-shadow: 0 0 15px rgba(47, 184, 255, 0.65);
+  }
+
+  .decor-left {
+    left: 20px;
+  }
+
+  .decor-right {
+    right: 22px;
+  }
+
+  .panel {
+    position: absolute;
+    border: 2px solid #2f9cff;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(6, 38, 88, 0.9), rgba(8, 30, 80, 0.82));
+    box-shadow:
+      inset 0 0 20px rgba(0, 160, 255, 0.25),
+      0 0 15px rgba(0, 160, 255, 0.35);
+  }
+
+  .panel-title {
+    position: absolute;
+    left: 34px;
+    top: 8px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(55, 190, 255, 0.65);
+  }
+
+  .title-line {
+    position: absolute;
+    left: 0;
+    top: 38px;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #2fbfff 15%, #2fbfff 78%, transparent);
+    box-shadow: 0 0 8px #2fbfff;
+  }
+
+  /* Left top */
+  #panel-left-top {
+    left: 14px;
+    top: 72px;
+    width: 445px;
+    height: 348px;
+  }
+
+  #chart-work-order {
+    position: absolute;
+    left: 5px;
+    top: 56px;
+    width: 428px;
+    height: 282px;
+  }
+
+  /* Left bottom */
+  #panel-left-bottom {
+    left: 14px;
+    top: 438px;
+    width: 445px;
+    height: 390px;
+  }
+
+  .metric-pill {
+    position: absolute;
+    left: 74px;
+    top: 58px;
+    width: 166px;
+    height: 36px;
+    border-radius: 20px;
+    background: linear-gradient(180deg, #3fd7ff, #1f8fff);
+    color: #eaffff;
+    text-align: center;
+    font-weight: 800;
+    font-size: 22px;
+    border: 1px solid #8feaff;
+    box-shadow: 0 0 14px rgba(63, 215, 255, 0.75);
+  }
+
+  #product-table {
+    position: absolute;
+    left: 6px;
+    top: 112px;
+    width: 428px;
+    border-collapse: collapse;
+    font-size: 16px;
+  }
+
+  #product-table th,
+  #product-table td {
+    height: 42px;
+    border: 1px solid rgba(120, 190, 255, 0.45);
+    text-align: center;
+    color: #f0fbff;
+  }
+
+  #product-table th {
+    background: rgba(20, 90, 180, 0.55);
+    font-weight: 800;
+  }
+
+  /* Center */
+  #panel-center {
+    left: 474px;
+    top: 82px;
+    width: 588px;
+    height: 748px;
+  }
+
+  .center-platform {
+    position: absolute;
+    left: 162px;
+    top: 278px;
+    width: 264px;
+    height: 180px;
+    filter: drop-shadow(0 0 20px rgba(55, 220, 255, 0.9));
+  }
+
+  .platform-top {
+    position: absolute;
+    left: 70px;
+    top: 0;
+    width: 124px;
+    height: 110px;
+    background: linear-gradient(180deg, rgba(120, 255, 255, 0.85), rgba(10, 90, 180, 0.7));
+    clip-path: polygon(35% 0, 65% 0, 100% 45%, 65% 100%, 35% 100%, 0 45%);
+    border: 1px solid #7fefff;
+    opacity: 0.95;
+  }
+
+  .platform-bottom {
+    position: absolute;
+    left: 28px;
+    top: 62px;
+    width: 210px;
+    height: 88px;
+    background: linear-gradient(180deg, rgba(80, 220, 255, 0.8), rgba(18, 90, 200, 0.45));
+    clip-path: polygon(30% 0, 70% 0, 100% 30%, 80% 100%, 20% 100%, 0 30%);
+    border: 1px solid #5fbfff;
+  }
+
+  .kpi {
+    position: absolute;
+    font-weight: 800;
+    text-shadow: 0 0 12px rgba(120, 230, 255, 0.8);
+  }
+
+  .kpi-label {
+    color: #f0fbff;
+    font-size: 16px;
+  }
+
+  .kpi-value {
+    color: #6defff;
+    font-size: 36px;
+    font-family: "Trebuchet MS", "Microsoft YaHei", Arial;
+  }
+
+  .kpi-red .kpi-value {
+    color: #ff5f6d;
+  }
+
+  .kpi-1 { left: 92px; top: 52px; width: 180px; }
+  .kpi-2 { left: 356px; top: 60px; width: 190px; }
+  .kpi-3 { left: 58px; top: 216px; width: 180px; }
+  .kpi-4 { left: 360px; top: 224px; width: 200px; }
+  .kpi-5 { left: 78px; top: 390px; width: 170px; }
+  .kpi-6 { left: 362px; top: 398px; width: 200px; }
+  .kpi-7 { left: 86px; top: 560px; width: 180px; }
+  .kpi-8 { left: 352px; top: 560px; width: 190px; }
+
+  /* Right top */
+  #panel-right-top {
+    left: 1056px;
+    top: 72px;
+    width: 432px;
+    height: 318px;
+  }
+
+  #chart-defect {
+    position: absolute;
+    left: 0;
+    top: 52px;
+    width: 420px;
+    height: 258px;
+  }
+
+  /* Right middle */
+  #panel-right-middle {
+    left: 1056px;
+    top: 402px;
+    width: 432px;
+    height: 214px;
+  }
+
+  #pie-chart {
+    position: absolute;
+    left: 20px;
+    top: 38px;
+    width: 166px;
+    height: 158px;
+  }
+
+  .pie-legend {
+    position: absolute;
+    left: 205px;
+    top: 42px;
+    width: 210px;
+    font-size: 15px;
+    color: #f0fbff;
+  }
+
+  .pie-legend div {
+    margin-bottom: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: space1-between;
+    gap: 10px;
+  }
+
+  .legend-color {
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    flex: 0 0 auto;
+  }
+
+  /* Right bottom */
+  #panel-right-bottom {
+    left: 1056px;
+    top: 630px;
+    width: 432px;
+    height: 200px;
+  }
+
+  #task-table {
+    position: absolute;
+    left: 0;
+    top: 35px;
+    width: 424px;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  #task-table th,
+  #task-table td {
+    height: 28px;
+    border: 1px solid rgba(90, 180, 255, 0.35);
+    text-align: center;
+    color: #f0fbff;
+  }
+
+  #task-table th {
+    background: rgba(20, 90, 180, 0.65);
+    font-weight: 800;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="decor-left"></div>
+  <div class="decor-right"></div>
+
+  <div class="top-title">生产监控看板</div>
+  <div class="datetime">2024-03-26 10:29:41 星期二</div>
+
+  <!-- Left Top Panel -->
+  <div id="panel-left-top" class="panel">
+    <div class="panel-title">工单产出统计</div>
+    <div class="title-line"></div>
+    <div id="chart-work-order"></div>
+  </div>
+
+  <!-- Left Bottom Panel -->
+  <div id="panel-left-bottom" class="panel">
+    <div class="panel-title">产品完成产数量排名</div>
+    <div class="title-line"></div>
+    <div class="metric-pill">1,250.00</div>
+    <table id="product-table">
+      <thead>
+        <tr><th>排名</th><th>产品名称</th><th>完成产数量（件）</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>热轧钢卷</td><td>300.00</td></tr>
+        <tr><td>2</td><td>冷轧钢板</td><td>250.00</td></tr>
+        <tr><td>3</td><td>镀锌钢板</td><td>220.00</td></tr>
+        <tr><td>4</td><td>不锈钢卷</td><td>180.00</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Center Panel -->
+  <div id="panel-center" class="panel">
+    <div class="center-platform">
+      <div class="platform-top"></div>
+      <div class="platform-bottom"></div>
+    </div>
+
+    <div class="kpi kpi-1"><div class="kpi-label">在制工单数</div><div class="kpi-value">2 单</div></div>
+    <div class="kpi kpi-2"><div class="kpi-label">在制工单计划生产数量</div><div class="kpi-value">290.00 件</div></div>
+    <div class="kpi kpi-3"><div class="kpi-label">在制工单已入库数量</div><div class="kpi-value">50.00 件</div></div>
+    <div class="kpi kpi-4 kpi-red"><div class="kpi-label">在制工单延期生产数量</div><div class="kpi-value">290.00 件</div></div>
+    <div class="kpi kpi-5"><div class="kpi-label">在制任务数</div><div class="kpi-value">11 单</div></div>
+    <div class="kpi kpi-6 kpi-red"><div class="kpi-label">在制工序延期生产数量</div><div class="kpi-value">809.00 件</div></div>
+    <div class="kpi kpi-7"><div class="kpi-label">在制工序数</div><div class="kpi-value">397.00</div></div>
+    <div class="kpi kpi-8"><div class="kpi-label">在制工序计划生产数量</div><div class="kpi-value">1,100.00 件</div></div>
+  </div>
+
+  <!-- Right Top Panel -->
+  <div id="panel-right-top" class="panel">
+    <div class="panel-title">不良品分析</div>
+    <div class="title-line"></div>
+    <div id="chart-defect"></div>
+  </div>
+
+  <!-- Right Middle Pie Panel -->
+  <div id="panel-right-middle" class="panel">
+    <div class="panel-title">不良品项分布图</div>
+    <div class="title-line"></div>
+    <div id="pie-chart"></div>
+    <div class="pie-legend">
+      <div><span class="legend-color" style="background:#2f7fff;"></span><span>破损缺陷</span><span style="margin-left:20px;">29.41%</span></div>
+      <div><span class="legend-color" style="background:#ff7f3f;"></span><span>外观异常</span><span style="margin-left:20px;">29.02%</span></div>
+      <div><span class="legend-color" style="background:#3fcb6f;"></span><span>尺寸偏差</span><span style="margin-left:20px;">21.57%</span></div>
+      <div><span class="legend-color" style="background:#8f5cff;"></span><span>表面划伤</span><span style="margin-left:20px;">20.00%</span></div>
+    </div>
+  </div>
+
+  <!-- Right Bottom Panel -->
+  <div id="panel-right-bottom" class="panel">
+    <div class="panel-title">生产任务播报</div>
+    <div class="title-line"></div>
+    <table id="task-table">
+      <thead>
+        <tr><th>操作人员</th><th>合格数量（件）</th><th>播报时间</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>产夜班</td><td>8.00</td><td>2023-08-05 10:10</td></tr>
+        <tr><td>简小文</td><td>20.00</td><td>2023-08-05 09:50</td></tr>
+        <tr><td>张伟</td><td>22.00</td><td>2023-08-05 09:30</td></tr>
+        <tr><td>李强</td><td>18.00</td><td>2023-08-05 09:10</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  var workOrderChart = echarts.init(document.getElementById('chart-work-order'));
+  workOrderChart.setOption({
+    animation: false,
+    color: ['#2f8cff', '#ffc400'],
+    grid: { left: 38, right: 48, top: 38, bottom: 52 },
+    legend: {
+      bottom: 0,
+      itemWidth: 24,
+      itemHeight: 8,
+      textStyle: { color: '#dfffff', fontSize: 13 },
+      data: ['工单入库数量', '工单单数']
+    },
+    tooltip: { trigger: 'axis' },
+    xAxis: {
+      type: 'category',
+      data: ['2023/05月', '2023/06月', '2023/07月', '2023/08月'],
+      axisLine: { lineStyle: { color: '#9fdfff' } },
+      axisTick: { show: false },
+      axisLabel: { color: '#f0fbff', fontSize: 12 }
+    },
+    yAxis: [
+      {
+        type: 'value',
+        min: 0,
+        max: 500,
+        splitNumber: 5,
+        axisLine: { show: false },
+        axisLabel: { color: '#dfffff' },
+        splitLine: { lineStyle: { color: 'rgba(88,190,255,0.18)', type: 'dashed' } }
+      },
+      {
+        type: 'value',
+        min: 0,
+        max: 2.5,
+        axisLine: { show: false },
+        axisLabel: { color: '#dfffff' },
+        splitLine: { lineStyle: { color: 'rgba(88,190,255,0.18)', type: 'dashed' } }
+      }
+    ],
+    series: [
+      {
+        name: '工单入库数量',
+        type: 'bar',
+        barWidth: 30,
+        data: [200, 300, 460, 190]
+      },
+      {
+        name: '工单单数',
+        type: 'line',
+        yAxisIndex: 1,
+        symbol: 'circle',
+        symbolSize: 8,
+        lineStyle: { width: 3, color: '#ffc400' },
+        itemStyle: { color: '#ffc400' },
+        data: [1, 1, 2, 2]
+      }
+    ]
+  });
+
+  var defectChart = echarts.init(document.getElementById('chart-defect'));
+  defectChart.setOption({
+    animation: false,
+    color: ['#2f8cff', '#ff7f24'],
+    grid: { left: 38, right: 45, top: 30, bottom: 42 },
+    legend: {
+      bottom: 0,
+      itemWidth: 24,
+      itemHeight: 8,
+      textStyle: { color: '#dfffff', fontSize: 12 },
+      data: ['不良品数量', '工序生产不良率 %']
+    },
+    tooltip: { trigger: 'axis' },
+    xAxis: {
+      type: 'category',
+      data: ['2023/05月', '2023/07月', '2023/08月', '2023/10月', '2024/02月'],
+      axisLine: { lineStyle: { color: '#9fdfff' } },
+      axisTick: { show: false },
+      axisLabel: { color: '#f0fbff', fontSize: 12 }
+    },
+    yAxis: [
+      {
+        type: 'value',
+        min: 0,
+        max: 120,
+        axisLabel: { color: '#dfffff' },
+        splitLine: { lineStyle: { color: 'rgba(88,190,255,0.18)', type: 'dashed' } }
+      },
+      {
+        type: 'value',
+        min: 0,
+        max: 10,
+        axisLabel: {
+          color: '#dfffff',
+          formatter: '{value}%'
+        },
+        splitLine: { lineStyle: { color: 'rgba(88,190,255,0.18)', type: 'dashed' } }
+      }
+    ],
+    series: [
+      {
+        name: '不良品数量',
+        type: 'bar',
+        barWidth: 28,
+        data: [115, 60, 52, 24, 4]
+      },
+      {
+        name: '工序生产不良率 %',
+        type: 'line',
+        yAxisIndex: 1,
+        symbol: 'circle',
+        symbolSize: 7,
+        lineStyle: { width: 3, color: '#ff7f24' },
+        itemStyle: { color: '#ff7f24' },
+        data: [8.75, 6.00, 5.04, 2.75, 4.44]
+      }
+    ]
+  });
+
+  var pieChart = echarts.init(document.getElementById('pie-chart'));
+  pieChart.setOption({
+    animation: false,
+    color: ['#2f7fff', '#ff7f3f', '#3fcb6f', '#8f5cff'],
+    series: [
+      {
+        type: 'pie',
+        radius: ['42%', '70%'],
+        center: ['50%', '50%'],
+        avoidLabelOverlap: false,
+        label: {
+          color: '#ffffff',
+          fontSize: 11,
+          formatter: '{b} {d}%'
+        },
+        labelLine: { lineStyle: { color: '#9fdfff' } },
+        data: [
+          {name: '破损缺陷', value: 29.41},
+          {name: '外观异常', value: 29.02},
+          {name: '尺寸偏差', value: 21.57},
+          {name: '表面划伤', value: 20.00}
+        ]
+      }
+    ]
+  });
+</script>
+</body>
+</html>

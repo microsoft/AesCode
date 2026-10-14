@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Comparison: CI/CD, DevOps, Agile Approaches</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9eef4;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1024px;
+    background: #ffffff;
+    color: #0b0f14;
+  }
+
+  .main-title {
+    position: absolute;
+    left: 38px;
+    top: 38px;
+    width: 948px;
+    height: 58px;
+    border-radius: 8px;
+    background: #172d46;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 29px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.16);
+  }
+
+  .table-wrap {
+    position: absolute;
+    left: 38px;
+    top: 116px;
+    width: 948px;
+    height: 870px;
+  }
+
+  table.comparison-table {
+    width: 948px;
+    height: 870px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    border: 1px solid #d3d8dd;
+  }
+
+  .comparison-table th {
+    height: 54px;
+    background: #213f67;
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.45);
+    font-size: 24px;
+    font-weight: 800;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .comparison-table th:first-child {
+    text-transform: uppercase;
+  }
+
+  .comparison-table th:nth-child(2) {
+    font-size: 26px;
+  }
+
+  .comparison-table th:nth-child(3),
+  .comparison-table th:nth-child(4) {
+    font-size: 23px;
+  }
+
+  .comparison-table td {
+    height: 94px;
+    border: 1px solid #d1d5d8;
+    text-align: center;
+    vertical-align: middle;
+    padding: 6px 12px;
+    font-size: 20.5px;
+    line-height: 1.22;
+    font-weight: 500;
+  }
+
+  .comparison-table .aspect-cell {
+    width: 231px;
+    padding: 0 12px 0 14px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .comparison-table .content-cell {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .odd-row td {
+    background: #dfdfdf;
+  }
+
+  .even-row td {
+    background: #d8e8fb;
+  }
+
+  .odd-row .aspect-cell {
+    background: #dfdfdf;
+    border-radius: 17px 0 0 17px;
+  }
+
+  .even-row .aspect-cell {
+    background: #d8e8fb;
+    border-radius: 17px 0 0 17px;
+  }
+
+  .aspect-label {
+    font-weight: 800;
+    font-size: 20.2px;
+    min-width: 135px;
+  }
+
+  .icon {
+    width: 58px;
+    height: 58px;
+    flex: 0 0 auto;
+    margin-right: 8px;
+    stroke: #355a80;
+    fill: none;
+    stroke-width: 3.3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .icon-small {
+    width: 55px;
+    height: 55px;
+  }
+
+  .goal-text {
+    font-size: 20.5px;
+  }
+
+  .automation-text {
+    font-size: 20px;
+  }
+
+  .method-text {
+    font-size: 20.5px;
+  }
+
+  .iteration-text {
+    font-size: 20.5px;
+  }
+
+  .team-text {
+    font-size: 19px;
+  }
+
+  .feedback-text {
+    font-size: 20px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="main-title">COMPARISON: CI/CD, DEVOPS, AGILE APPROACHES</div>
+
+  <div class="table-wrap">
+    <table class="comparison-table">
+      <tr>
+        <th>Aspect</th>
+        <th>CI/CD</th>
+        <th>DevOps</th>
+        <th>Agile</th>
+      </tr>
+      <tr class="odd-row">
+        <td class="aspect-cell">
+          <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="28" cy="34" r="17"></circle>
+            <circle cx="28" cy="34" r="8"></circle>
+            <circle cx="28" cy="34" r="4"></circle>
+            <path d="M12 45c5-12 14-18 23-18"></path>
+            <path d="M36 12l12-8 8 12"></path>
+            <path d="M42 10v14h14"></path>
+          </svg>
+          <div class="aspect-label">Focus</div>
+        </td>
+        <td class="content-cell">Automated code integration and deployment</td>
+        <td class="content-cell">Collaboration between development and operations</td>
+        <td class="content-cell">Iterative development process</td>
+      </tr>
+      <tr class="even-row">
+        <td class="aspect-cell">
+          <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M10 38h17l-8-16h-9z"></path>
+            <path d="M20 28h17l-8-16h-9z"></path>
+            <path d="M30 18h14l-7-14h-7z"></path>
+            <path d="M17 26l-8-8"></path>
+            <path d="M27 36l-8-8"></path>
+            <path d="M37 46l-8-8"></path>
+            <circle cx="10" cy="54" r="5"></circle>
+            <path d="M10 43v11"></path>
+          </svg>
+          <div class="aspect-label">Goal</div>
+        </td>
+        <td class="content-cell goal-text">Streamline deployment process</td>
+        <td class="content-cell goal-text">Accelerate software delivery and improve collaboration</td>
+        <td class="content-cell goal-text">Rapidly deliver features</td>
+      </tr>
+      <tr class="odd-row">
+        <td class="aspect-cell">
+          <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="22" cy="42" r="12"></circle>
+            <path d="M22 28v14M8 42h28"></path>
+            <circle cx="46" cy="18" r="12"></circle>
+            <path d="M46 4v14M32 18h28"></path>
+            <path d="M25 25l15 15"></path>
+            <path d="M12 16a17 17 0 0 1 27-8"></path>
+            <path d="M47 28a17 17 0 0 1 -26 8"></path>
+          </svg>
+          <div class="aspect-label automation-text">Automation</div>
+        </td>
+        <td class="content-cell automation-text">Emphasizes automation of build, test, and deploy processes</td>
+        <td class="content-cell automation-text">Highly automated processes for deployment and operations</td>
+        <td class="content-cell automation-text">Minimal automation required</td>
+      </tr>
+      <tr class="even-row">
+        <td class="aspect-cell">
+          <svg class="icon" viewBox="0 0 64 64" aria-hidden="true" style="width:62px;height:62px;">
+            <rect x="10" y="10" width="14" height="14" rx="2"></rect>
+            <path d="M20 20h30M20 27h24M20 34h14"></path>
+            <rect x="10" y="39" width="16" height="14" rx="2"></rect>
+            <rect x="33" y="39" width="16" height="14" rx="2"></rect>
+            <path d="M26 46h12M22 43h18M18 40h24"></path>
+            <circle cx="50" cy="46" r="4"></circle>
+            <path d="M34 21l10 15"></path>
+          </svg>
+          <div class="aspect-label method-text">Methodology</div>
+        </td>
+        <td class="content-cell method-text">Technical practice</td>
+        <td class="content-cell method-text">Cultural and technical approach</td>
+        <td class="content-cell method-text">Development methodology</td>
+      </tr>
+      <tr class="odd-row">
+        <td class="aspect-cell">
+          <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="28" cy="28" r="18"></circle>
+            <path d="M10 50h32M10 50l18-29"></path>
+            <path d="M37 16h10v10"></path>
+          </svg>
+          <div class="aspect-label iteration-text">Iterations</div>
+        </td>
+        <td class="content-cell iteration-text">Frequent integration and deployment</td>
+        <td class="content-cell iteration-text">Continuous integration and delivery</td>
+        <td class="content-cell iteration-text">Iterative development cycles</td>
+      </tr>
+      <tr class="even-row">
+        <td class="aspect-cell">
+          <svg class="icon" viewBox="0 0 64 64" aria-hidden="true" style="width:60px;height:60px;">
+            <rect x="8" y="10" width="22" height="14" rx="3"></rect>
+            <circle cx="44" cy="22" r="7"></circle>
+            <circle cx="16" cy="48" r="7"></circle>
+            <circle cx="44" cy="48" r="7"></circle>
+            <path d="M12 24v24M23 24v24M34 24v24"></path>
+          </svg>
+          <div class="aspect-label team-text">Team<br>Collaboration</div>
+        </td>
+        <td class="content-cell team-text">Cross-functional collaboration</td>
+        <td class="content-cell team-text">Development and operations teams collaborate</td>
+        <td class="content-cell team-text">Cross-functional collaboration</td>
+      </tr>
+      <tr class="odd-row">
+        <td class="aspect-cell">
+          <svg class="icon" viewBox="0 0 64 64" aria-hidden="true" style="width:61px;height:61px;">
+            <rect x="8" y="11" width="41" height="34" rx="6"></rect>
+            <path d="M13 45l-9 9h27"></path>
+            <path d="M22 21l8-6 8 6v13l-8 6-8-6z"></path>
+          </svg>
+          <div class="aspect-label feedback-text">Customer<br>Feedback</div>
+        </td>
+        <td class="content-cell feedback-text">Limited customer involvement</td>
+        <td class="content-cell feedback-text">Customer-centric approach</td>
+        <td class="content-cell feedback-text">Customer feedback integrated</td>
+      </tr>
+    </table>
+  </div>
+</div>
+</body>
+</html>

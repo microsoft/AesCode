@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>One Page Mental Health Fact Sheet</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9eef3;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #111;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 848px;
+    height: 1264px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .top-banner {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 848px;
+    height: 160px;
+    background: linear-gradient(180deg, #4f8fc5 0%, #5f9fcb 100%);
+    color: #fff;
+  }
+
+  .head-icon {
+    position: absolute;
+    left: 42px;
+    top: 18px;
+    width: 148px;
+    height: 130px;
+    border: 2px solid #fff;
+    border-radius: 50% 48% 48% 50%;
+  }
+
+  .head-icon::after {
+    content: "";
+    position: absolute;
+    right: -24px;
+    bottom: -40px;
+    width: 65px;
+    height: 88px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: skewX(-20deg);
+  }
+
+  .brain {
+    position: absolute;
+    left: 26px;
+    top: 16px;
+    width: 80px;
+    height: 58px;
+    background: #c6def2;
+    border: 2px solid #fff;
+    border-radius: 42% 45% 45% 42%;
+  }
+
+  .title-small {
+    position: absolute;
+    top: 21px;
+    left: 238px;
+    font-size: 30px;
+    letter-spacing: 2px;
+    font-weight: 700;
+  }
+
+  .title-large {
+    position: absolute;
+    top: 60px;
+    left: 238px;
+    font-size: 46px;
+    letter-spacing: 3px;
+    font-weight: 900;
+  }
+
+  .intro-band {
+    position: absolute;
+    top: 130px;
+    left: 0;
+    width: 848px;
+    height: 70px;
+    background: rgba(173, 216, 226, 0.85);
+  }
+
+  .intro-text {
+    position: absolute;
+    top: 136px;
+    left: 238px;
+    width: 540px;
+    font-size: 14.5px;
+    line-height: 1.25;
+  }
+
+  .section-heading {
+    position: absolute;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 900;
+    color: #111;
+  }
+
+  .conditions-heading {
+    top: 214px;
+    left: 0;
+    width: 848px;
+  }
+
+  .conditions-list {
+    position: absolute;
+    top: 260px;
+    left: 32px;
+    width: 450px;
+    height: 260px;
+  }
+
+  .condition-row {
+    position: relative;
+    height: 42px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .percent-pill {
+    width: 92px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 900;
+    margin-right: 12px;
+  }
+
+  .p1 { background: #5b9bd4; clip-path: polygon(0 0, 64% 0, 100% 50%, 64% 100%, 0 100%); }
+  .p2 { background: #79c7c8; clip-path: polygon(0 0, 65% 0, 100% 50%, 65% 100%, 0 100%); }
+  .p3 { background: #b8a8d5; clip-path: polygon(0 0, 65% 0, 100% 50%, 65% 100%, 0 100%); }
+  .p4 { background: #b8cde2; clip-path: polygon(0 0, 64% 0, 100% 50%, 64% 100%, 0 100%); }
+  .p5 { background: #204f81; clip-path: polygon(0 0, 64% 0, 100% 50%, 64% 100%, 0 100%); }
+
+  .condition-capsule {
+    width: 340px;
+    height: 40px;
+    border-radius: 24px;
+    border: 2px solid #116a9a;
+    background: rgba(120, 190, 220, 0.65);
+    display: flex;
+    align-items: center;
+    padding-left: 62px;
+    font-size: 14px;
+    font-weight: 800;
+    color: #111;
+    position: relative;
+  }
+
+  .condition-row:nth-child(4) .condition-capsule {
+    background: #c5d6e5;
+  }
+
+  .condition-row:nth-child(5) .condition-capsule {
+    background: #1e4878;
+    color: #fff;
+  }
+
+  .people-icons {
+    position: absolute;
+    right: 16px;
+    top: 8px;
+    width: 112px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .person {
+    width: 12px;
+    height: 18px;
+    background: #265f91;
+    border-radius: 5px 5px 7px 7px;
+    position: relative;
+    flex: 0 0 auto;
+    opacity: 0.95;
+  }
+
+  .person::before {
+    content: "";
+    position: absolute;
+    top: -7px;
+    left: 1px;
+    width: 8px;
+    height: 8px;
+    background: #265f91;
+    border-radius: 50%;
+  }
+
+  .person.light {
+    background: rgba(92, 174, 190, 0.75);
+    border: 1px solid rgba(255,255,255,0.85);
+  }
+
+  .person.light::before {
+    background: rgba(92, 174, 190, 0.75);
+  }
+
+  #conditionsChart {
+    position: absolute;
+    top: 265px;
+    left: 500px;
+    width: 300px;
+    height: 250px;
+    z-index: 1;
+    opacity: 0.92;
+  }
+
+  .aware-heading {
+    top: 549px;
+    left: 0;
+    width: 848px;
+  }
+
+  .day-block {
+    position: absolute;
+    top: 600px;
+    left: 32px;
+    width: 300px;
+    height: 195px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .day-block img {
+    width: 145px;
+    height: 126px;
+    border-radius: 50%;
+    border: 2px solid #6fa9c7;
+  }
+
+  .day-text {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 900;
+    color: #264a6f;
+  }
+
+  .day-text .small {
+    font-size: 17px;
+  }
+
+  .facts-grid {
+    position: absolute;
+    top: 590px;
+    left: 346px;
+    width: 470px;
+    height: 220px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px 12px;
+  }
+
+  .fact-box {
+    min-height: 60px;
+    padding: 7px 10px;
+    border-radius: 10px;
+    background: #b9d7e8;
+    font-size: 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: #111;
+  }
+
+  .fact-box.blue { background: #c9dce8; }
+  .fact-box.green { background: #b8e0dc; }
+  .fact-box.purple { background: #d6d6ec; }
+
+  .fact-icon {
+    width: 26px;
+    height: 26px;
+    color: #204a75;
+    flex: 0 0 auto;
+  }
+
+  .highlight-stat {
+    position: absolute;
+    top: 835px;
+    left: 33px;
+    width: 782px;
+    height: 43px;
+    border: 2px solid #5596aa;
+    border-radius: 8px;
+    background: #f3fbfb;
+    font-size: 18px;
+    text-align: center;
+    color: #111;
+  }
+
+  .symptoms-band {
+    position: absolute;
+    top: 886px;
+    left: 33px;
+    width: 782px;
+    height: 138px;
+    border-radius: 14px;
+    background: #e9f4f8;
+  }
+
+  .band-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 900;
+    margin: 7px 0 13px;
+  }
+
+  .sym-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .sym-card {
+    border-left: 3px solid #6da9c6;
+    padding-left: 8px;
+  }
+
+  .pill-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #203f5d;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    height: 26px;
+    border-radius: 18px;
+    margin-bottom: 5px;
+  }
+
+  .hex-icon {
+    width: 23px;
+    height: 23px;
+    background: #6fa9d4;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+  }
+
+  .copy-line {
+    font-size: 13.5px;
+    color: #333;
+    line-height: 1.25;
+  }
+
+  .tips-band {
+    position: absolute;
+    top: 1036px;
+    left: 33px;
+    width: 782px;
+    height: 138px;
+    border-radius: 14px;
+    background: #e6f5f5;
+  }
+
+  .tips-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .tip-card {
+    border-left: 3px solid #5c9bb8;
+    padding-left: 8px;
+  }
+
+  .tip-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #203f5d;
+    color: #fff;
+    height: 29px;
+    border-radius: 18px;
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 5px;
+  }
+
+  .footer-cta {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 848px;
+    height: 76px;
+    background: #4a86b5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+  }
+
+  .footer-left {
+    color: #fff;
+    font-size: 18px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .phone-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    min-width: 360px;
+    border: 2px solid rgba(255,255,255,0.85);
+    border-radius: 26px;
+    color: #fff;
+    font-size: 19px;
+    font-weight: 900;
+  }
+
+  .phone-icon {
+    font-size: 22px;
+    margin-right: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="top-banner">
+    <div class="head-icon">
+      <div class="brain"></div>
+    </div>
+    <div class="title-small">One Page Fact Sheet Example</div>
+    <div class="title-large">Mental Health</div>
+  </div>
+
+  <div class="intro-band"></div>
+  <div class="intro-text">
+    This one-page fact sheet provides an overview of mental health awareness, highlighting common conditions, their estimated prevalence, general symptoms of decline, and actionable tips to manage and improve mental well-being.
+  </div>
+
+  <div class="section-heading conditions-heading">Major Mental Health Conditions</div>
+
+  <div class="conditions-list">
+    <div class="condition-row">
+      <div class="percent-pill p1">46%</div>
+      <div class="condition-capsule">
+        <span>Anxiety</span>
+        <div class="people-icons">
+          <span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person light"></span><span class="person light"></span><span class="person light"></span><span class="person light"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="condition-row">
+      <div class="percent-pill p2">31%</div>
+      <div class="condition-capsule">
+        <span>Obsessive<br>Compulsive Disorder</span>
+        <div class="people-icons">
+          <span class="person"></span><span class="person"></span><span class="person light"></span><span class="person light"></span><span class="person light"></span><span class="person light"></span><span class="person light"></span><span class="person light"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="condition-row">
+      <div class="percent-pill p3">26%</div>
+      <div class="condition-capsule">
+        <span>Oppositional<br>Defiant Disorder</span>
+        <div class="people-icons">
+          <span class="person"></span><span class="person"></span><span class="person"></span><span class="person light"></span><span class="person light"></span><span class="person light"></span><span class="person light"></span><span class="person light"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="condition-row">
+      <div class="percent-pill p4">11%</div>
+      <div class="condition-capsule">
+        <span>Panic Disorder</span>
+        <div class="people-icons">
+          <span class="person"></span><span class="person light"></span><span class="person light"></span><span class="person light"></span><span class="person light"></span><span class="person light"></span><span class="person light"></span><span class="person light"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="condition-row">
+      <div class="percent-pill p5">71%</div>
+      <div class="condition-capsule">
+        <span>Depression</span>
+        <div class="people-icons">
+          <span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person light"></span><span class="person light"></span><span class="person light"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="conditionsChart"></div>
+
+  <div class="section-heading aware-heading">Are You Aware ?</div>
+
+  <div class="day-block">
+    <img src="https://placehold.co/260x220?text=World+Mental+Health+Day+Illustration" alt="World Mental Health Day Illustration placeholder">
+    <div class="day-text">
+      <div>WORLD</div>
+      <div style="font-size:30px;">MENTAL HEALTH</div>
+      <div>Day</div>
+      <div class="small">October 10</div>
+    </div>
+  </div>
+
+  <div class="facts-grid">
+    <div class="fact-box blue"><span>1 in 10 children aged 5-16 have a diagnosable condition</span><span class="fact-icon">♟</span></div>
+    <div class="fact-box green"><span>Suicide is the leading cause of death in 15-49 year olds</span><span class="fact-icon">↗</span></div>
+    <div class="fact-box purple"><span>Half of all mental health problems are established by the age of 14</span><span class="fact-icon">♟</span></div>
+    <div class="fact-box green"><span>65% of those with mental health problems are in employment</span><span class="fact-icon">♟</span></div>
+    <div class="fact-box blue"><span>1 in 5 older people are affected by depression</span><span class="fact-icon">♟</span></div>
+    <div class="fact-box green"><span>Support is available through counselling, community groups and crisis lines.</span><span class="fact-icon">☎</span></div>
+  </div>
+
+  <div class="highlight-stat">
+    1 in 4 adults experience at least one diagnosable mental health problem in any given year
+  </div>
+
+  <div class="symptoms-band">
+    <div class="band-title">Symptoms of Mental Health Decline</div>
+    <div class="sym-row">
+      <div class="sym-card">
+        <div class="pill-label"><span class="hex-icon">♟</span><span>Illogical thinking</span></div>
+        <div class="copy-line">• Add text here describing illogical thinking.</div>
+      </div>
+      <div class="sym-card">
+        <div class="pill-label"><span class="hex-icon">☻</span><span>Major or erratic shifts<br>in mood</span></div>
+        <div class="copy-line">• Add text here describing mood shifts.</div>
+      </div>
+      <div class="sym-card">
+        <div class="pill-label"><span class="hex-icon">♟</span><span>Heightened sensitivity</span></div>
+        <div class="copy-line">• Add text here describing sensitivity.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tips-band">
+    <div class="band-title">Tips To Manage Mental Health</div>
+    <div class="tips-row">
+      <div class="tip-card">
+        <div class="tip-label"><span class="hex-icon">☏</span><span>Speak to a professional</span></div>
+        <div class="copy-line">• Add text here</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-label"><span class="hex-icon">▥</span><span>Make time for exercise</span></div>
+        <div class="copy-line">• Add text here</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-label"><span class="hex-icon">♟</span><span>Communicate with others</span></div>
+        <div class="copy-line">• Add text here</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-cta">
+    <div class="footer-left">
+      <div>STRUGGLING WITH ISOLATION?</div>
+      <div>NEED SOMEONE TO TALK TO?</div>
+    </div>
+    <div class="phone-button"><span class="phone-icon">☎</span>CALL HELPLINE NOW ON 123</div>
+  </div>
+</div>
+
+<script>
+  const chart = echarts.init(document.getElementById('conditionsChart'));
+  chart.setOption({
+    animation: false,
+    grid: { left: 105, right: 24, top: 10, bottom: 26 },
+    xAxis: {
+      type: 'value',
+      min: 0,
+      max: 60,
+      axisLine: { lineStyle: { color: '#9da8b3' } },
+      axisLabel: { color: '#333', fontSize: 11 },
+      splitLine: { lineStyle: { color: '#d9e0e6' } }
+    },
+    yAxis: {
+      type: 'category',
+      inverse: true,
+      data: ['Anxiety', 'Obsessive\nCompulsive\nDisorder', 'Oppositional\nDefiant Disorder', 'Panic Disorder', 'Depression'],
+      axisTick: { show: false },
+      axisLine: { lineStyle: { color: '#9da8b3' } },
+      axisLabel: { color: '#333', fontSize: 11 }
+    },
+    series: [{
+      name: 'Prevalence',
+      type: 'bar',
+      data: [46, 31, 26, 11, 71],
+      barWidth: 26,
+      itemStyle: {
+        color: function(params) {
+          return ['#5b9bd4', '#79c7c8', '#b8a8d5', '#b8cde2', '#204f81'][params.dataIndex];
+        }
+      },
+      label: {
+        show: true,
+        position: 'right',
+        color: '#222',
+        fontSize: 12
+      }
+    }]
+  });
+</script>
+</body>
+</html>

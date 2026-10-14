@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>AI Business Leader Infographic</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #eef5fb;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #080808;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 18% 17%, rgba(255,255,255,0.95) 0, rgba(255,255,255,0.25) 220px, transparent 420px),
+      linear-gradient(105deg, #fff0ee 0%, #fff3f6 30%, #eef7ff 63%, #ddecff 100%);
+  }
+
+  /* Background decorative elements */
+  .bg-line {
+    position: absolute;
+    border: 1px solid rgba(120,180,220,0.18);
+    border-radius: 22px;
+    opacity: 0.55;
+  }
+  .line-a { right: 22px; top: 22px; width: 170px; height: 118px; }
+  .line-b { right: 170px; top: 42px; width: 130px; height: 80px; }
+  .line-c { right: 300px; top: 62px; width: 180px; height: 110px; }
+  .line-d { right: 440px; top: 18px; width: 120px; height: 190px; border-left: 0; }
+  .dot-field {
+    position: absolute;
+    right: 260px;
+    top: 6px;
+    width: 100px;
+    height: 70px;
+    background-image: radial-gradient(rgba(200,160,220,0.65) 3px, transparent 4px);
+    background-size: 32px 28px;
+  }
+
+  /* Title and icon */
+  .topbar {
+    position: absolute;
+    left: 50px;
+    top: 22px;
+    width: 1280px;
+    height: 82px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    z-index: 3;
+  }
+
+  .ai-icon {
+    position: relative;
+    width: 82px;
+    height: 70px;
+    flex: 0 0 auto;
+  }
+  .ai-icon .brain-left,
+  .ai-icon .brain-right {
+    position: absolute;
+    top: 20px;
+    width: 36px;
+    height: 42px;
+    border: 4px solid #2db7d8;
+    border-radius: 55% 45% 50% 50%;
+    background: rgba(45,183,216,0.15);
+  }
+  .ai-icon .brain-left { left: 10px; border-right: 0; border-radius: 60% 40% 45% 55%; transform: skew(-14deg); }
+  .ai-icon .brain-right { right: 10px; border-left: 0; transform: skew(14deg); }
+  .ai-icon .node {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2fb8dc;
+    box-shadow: 0 0 6px rgba(47,184,220,0.75);
+  }
+  .ai-icon .n1 { left: 24px; top: 18px; }
+  .ai-icon .n2 { left: 48px; top: 22px; }
+  .ai-icon .n3 { left: 30px; top: 42px; }
+  .ai-icon .gear {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 5px dotted #38b9da;
+    background: rgba(255,255,255,0.7);
+  }
+  .ai-icon .ai-tag {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #229bd4;
+    color: #fff;
+    font-size: 10px;
+    text-align: center;
+    line-height: 28px;
+  }
+
+  .main-title {
+    font-size: 38px;
+    line-height: 1;
+    letter-spacing: 0.2px;
+    font-weight: 800;
+    margin: 0;
+  }
+
+  /* Row 1 */
+  .band-1 {
+    position: absolute;
+    left: 36px;
+    top: 114px;
+    width: 1298px;
+    height: 302px;
+    background: rgba(255, 220, 228, 0.88);
+    border-radius: 14px;
+    z-index: 1;
+  }
+
+  .section-heading {
+    position: absolute;
+    top: 6px;
+    left: 10px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+  }
+
+  .story-card {
+    position: absolute;
+    left: 16px;
+    top: 36px;
+    width: 485px;
+    height: 258px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0 8px 16px rgba(160,160,160,0.25);
+  }
+  .story-card .photo {
+    width: 460px;
+    height: 150px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.12);
+    background: #d7e8ef;
+  }
+  .story-card img {
+    display: block;
+    width: 460px;
+    height: 150px;
+    object-fit: cover;
+  }
+  .story-card h3 {
+    margin: 10px 0 7px;
+    font-size: 16px;
+    line-height: 1.15;
+  }
+  .story-card .desc {
+    font-size: 12px;
+    line-height: 1.35;
+    margin-bottom: 10px;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 52px;
+    height: 22px;
+    border-radius: 12px;
+    background: #ffc4cc;
+    color: #111;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .class-card {
+    position: absolute;
+    left: 522px;
+    top: 36px;
+    width: 380px;
+    height: 190px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 16px 12px 12px;
+    box-shadow: 0 8px 15px rgba(120,120,120,0.25);
+  }
+  .ribbon {
+    position: absolute;
+    right: 8px;
+    top: 0;
+    width: 92px;
+    height: 68px;
+    background: #76bdf2;
+    color: #111;
+    border-left: 4px solid #376f91;
+    transform: rotate(-42deg);
+    font-size: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-style: italic;
+  }
+  .class-card .badge-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .badge-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #2a9ed8;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+  }
+  .class-card h3 {
+    margin: 0 0 5px;
+    font-size: 16px;
+  }
+  .class-card .course-name {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .class-card p {
+    font-size: 11.5px;
+    line-height: 1.22;
+    margin: 0 0 5px;
+  }
+  .class-card .pill {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    background: #70c4ef;
+  }
+
+  .cxo-card {
+    position: absolute;
+    right: 32px;
+    top: 36px;
+    width: 360px;
+    height: 190px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px 12px 12px;
+    box-shadow: 0 8px 15px rgba(120,120,120,0.25);
+  }
+  .cxo-card .ribbon {
+    right: 8px;
+    top: 0;
+    width: 90px;
+    height: 68px;
+    background: #ffd08a;
+    color: #111;
+    border-left: 4px solid #e28b22;
+  }
+  .cxo-card h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+  }
+  .cxo-card p {
+    font-size: 11.5px;
+    line-height: 1.22;
+    margin: 0;
+  }
+  .cxo-card .pill {
+    position: absolute;
+    right: 14px;
+    bottom: 11px;
+    background: #ffb46b;
+  }
+
+  /* Row 2 */
+  .band-2 {
+    position: absolute;
+    left: 36px;
+    top: 434px;
+    width: 1298px;
+    height: 300px;
+    background: rgba(255, 228, 205, 0.86);
+    border-radius: 14px;
+    z-index: 2;
+  }
+
+  .band-2 .section-heading {
+    top: 7px;
+    left: 10px;
+    font-size: 15px;
+  }
+
+  .era-card {
+    position: absolute;
+    left: 15px;
+    top: 38px;
+    width: 232px;
+    height: 248px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 32px 16px 14px;
+    box-shadow: 0 8px 14px rgba(130,130,130,0.25);
+  }
+  .era-card h2 {
+    margin: 0 0 12px;
+    font-size: 27px;
+    line-height: 1.2;
+  }
+  .era-card p {
+    font-size: 12.5px;
+    line-height: 1.35;
+    margin: 0;
+  }
+  .era-card .bottom-actions {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    display: flex;
+    gap: 8px;
+  }
+
+  .workshop-card {
+    position: absolute;
+    left: 265px;
+    top: 38px;
+    width: 222px;
+    height: 248px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px 12px 12px;
+    box-shadow: 0 8px 14px rgba(130,130,130,0.25);
+  }
+  .workshop-card h3 {
+    margin: 0 0 8px;
+    font-size: 19px;
+  }
+  .workshop-card h4 {
+    margin: 0 0 8px;
+    font-size: 16px;
+  }
+  .workshop-card p {
+    font-size: 11.5px;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .learn-card {
+    position: absolute;
+    left: 520px;
+    top: -48px;
+    width: 382px;
+    height: 160px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 13px 13px 10px;
+    box-shadow: 0 8px 14px rgba(130,130,130,0.25);
+  }
+  .learn-card h2 {
+    display: flex;
+    gap: 10px;
+    margin: 0 0 9px;
+    font-size: 23px;
+  }
+  .learn-card h2 .mini-book {
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    background: #2d9fe2;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .learn-card h3 {
+    margin: 0 0 5px;
+    font-size: 16px;
+  }
+  .learn-card p {
+    font-size: 11.5px;
+    line-height: 1.22;
+    margin: 0;
+  }
+
+  .cert-card {
+    position: absolute;
+    right: 12px;
+    top: -50px;
+    width: 360px;
+    height: 160px;
+    background: linear-gradient(135deg, #ffe1dd 0%, #d9ecff 78%);
+    border-radius: 10px;
+    padding: 14px 12px 10px;
+    box-shadow: 0 8px 14px rgba(130,130,130,0.25);
+  }
+  .beta {
+    position: absolute;
+    right: 12px;
+    top: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    background: #ffe0d9;
+    border-radius: 8px;
+    padding: 3px 6px;
+  }
+  .cert-card .shield {
+    position: absolute;
+    left: 16px;
+    top: 26px;
+    width: 70px;
+    height: 70px;
+    background: #5aa9ec;
+    clip-path: polygon(50% 0%, 92% 14%, 82% 72%, 50% 100%, 18% 72%, 8% 14%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+  }
+  .cert-card h3 {
+    margin: 22px 0 5px 88px;
+    font-size: 16px;
+  }
+  .cert-card p {
+    margin: 0 0 7px 88px;
+    font-size: 11.5px;
+    line-height: 1.22;
+  }
+  .cert-card .bottom-actions {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    gap: 6px;
+  }
+
+  /* Row 3 */
+  .band-3 {
+    position: absolute;
+    left: 560px;
+    top: 534px;
+    width: 782px;
+    height: 208px;
+    background: rgba(185, 222, 245, 0.85);
+    border-radius: 14px;
+    z-index: 3;
+  }
+
+  .band-3 .section-heading {
+    font-size: 16px;
+    top: 8px;
+    left: 11px;
+    width: 600px;
+  }
+
+  .podcast-card {
+    position: absolute;
+    top: 42px;
+    width: 302px;
+    height: 146px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px 10px 8px;
+    box-shadow: 0 6px 12px rgba(100,140,170,0.22);
+  }
+  .pod-1 { left: 0; }
+  .pod-2 { left: 324px; }
+  .pod-3 { right: 0; }
+
+  .podcard-top {
+    position: relative;
+    height: 58px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: linear-gradient(90deg, #d7efff, #8263c9);
+  }
+  .podcard-top img {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 180px;
+    height: 58px;
+    object-fit: cover;
+  }
+  .quote {
+    position: absolute;
+    left: 8px;
+    top: 7px;
+    font-size: 11px;
+    line-height: 1.25;
+    z-index: 2;
+  }
+  .duration {
+    position: absolute;
+    right: 8px;
+    bottom: 5px;
+    min-width: 46px;
+    height: 18px;
+    border-radius: 10px;
+    background: #0b1f33;
+    color: #fff;
+    font-size: 10px;
+    text-align: center;
+    line-height: 18px;
+  }
+
+  .avatar {
+    position: absolute;
+    left: 2px;
+    bottom: 22px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #eee;
+    border: 3px solid #ddd;
+    z-index: 3;
+  }
+
+  .pod-title {
+    margin: 0 0 6px;
+    font-size: 11.5px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .listen {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 54px;
+    height: 20px;
+    border-radius: 11px;
+    background: #1d8ed1;
+    color: #fff;
+    font-size: 10px;
+    text-decoration: none;
+  }
+
+  .version {
+    position: absolute;
+    right: 18px;
+    bottom: 7px;
+    font-size: 10px;
+    color: #4a4a4a;
+    z-index: 5;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="bg-line line-a"></div>
+    <div class="bg-line line-b"></div>
+    <div class="bg-line line-c"></div>
+    <div class="bg-line line-d"></div>
+    <div class="dot-field"></div>
+
+    <div class="topbar">
+      <div class="ai-icon" aria-hidden="true">
+        <div class="brain-left"></div>
+        <div class="brain-right"></div>
+        <div class="node n1"></div>
+        <div class="node n2"></div>
+        <div class="node n3"></div>
+        <div class="gear"></div>
+        <div class="ai-tag">AI</div>
+      </div>
+      <h1 class="main-title">AI Business Leader</h1>
+    </div>
+
+    <section class="band-1">
+      <div class="section-heading">Empower your organization to become a frontier firm</div>
+
+      <div class="story-card">
+        <div class="photo">
+          <img src="https://placehold.co/400x225?text=City+Skyline+Story" alt="City Skyline Story placeholder">
+        </div>
+        <h3>Leading AI Transformation | Moody’s Story</h3>
+        <div class="desc">Discover how Moody’s is leveraging AI to reshape financial intelligence and drive sustainable growth.</div>
+        <span class="pill">Video</span>
+      </div>
+
+      <div class="class-card">
+        <div class="ribbon">Coming Soon</div>
+        <div class="badge-row">
+          <div class="badge-icon">📘</div>
+          <div>
+            <div>MasterClass</div>
+            <div style="font-size:15px;font-weight:800;">CERTIFICATES</div>
+          </div>
+        </div>
+        <div class="course-name">Lead with AI</div>
+        <p>This course empowers leaders with the strategic foresight and practical skills to deploy AI effectively, fostering innovation across the enterprise.</p>
+        <p>Gain insights on navigating ethical considerations, building AI-ready teams, and creating measurable company-wide impact.</p>
+        <span class="pill">Certificate</span>
+      </div>
+
+      <div class="cxo-card">
+        <div class="ribbon">Coming Soon</div>
+        <div class="badge-row">
+          <div class="badge-icon" style="background:#2c8ec5;color:#fff;">CXO</div>
+          <div style="font-size:20px;font-weight:800;">Edge</div>
+        </div>
+        <h3>CxO Edge: Run your business on AI</h3>
+        <p>A comprehensive program designed for C-suite executives to understand the core principles of AI, develop strategic roadmaps, and lead their organizations through the AI revolution, optimizing operations and creating new business models.</p>
+        <span class="pill">Program</span>
+      </div>
+    </section>
+
+    <section class="band-2">
+      <div class="section-heading">Explore strategizing and scaling AI projects in a responsible way</div>
+
+      <div class="era-card">
+        <h2>Leading in the era of AI</h2>
+        <p>Practical guidance for leaders on how to navigate the complexities of AI adoption, build trust, and ensure responsible and ethical implementation for long-term success.</p>
+        <div class="bottom-actions">
+          <span class="pill" style="background:#ffd8ad;">Playbook</span>
+          <span class="pill" style="background:#b9def4;">Site</span>
+        </div>
+      </div>
+
+      <div class="workshop-card">
+        <h3>Workshop</h3>
+        <h4>Copilot Immersion Experience</h4>
+        <p>Engage in interactive scenarios and hands-on sessions to explore Microsoft Copilot’s capabilities across various business functions. Learn how to integrate AI assistants into your workflows to boost productivity and creativity.</p>
+        <p style="margin-top:6px;">Register now to secure your spot and experience the future of work.</p>
+      </div>
+
+      <div class="learn-card">
+        <h2><span class="mini-book">📘</span>Microsoft Learn</h2>
+        <h3>Transform your business with Microsoft AI</h3>
+        <p>Access a curated collection of learning paths and resources aimed at business leaders, covering AI strategy, implementation, governance, and cultural change management to drive successful digital transformation.</p>
+      </div>
+
+      <div class="cert-card">
+        <span class="beta">In Beta</span>
+        <div class="shield">AI</div>
+        <h3>Microsoft Certified: AI Transformation Leader</h3>
+        <p>Validate your expertise in leading AI initiatives. This certification demonstrates your ability to strategize, plan, and execute AI projects aligned with business goals, promoting a culture of responsible AI.</p>
+        <div class="bottom-actions">
+          <span class="pill" style="background:#ffc7cc;">Course</span>
+          <span class="pill" style="background:#ffd0d2;">Exam</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="band-3">
+      <div class="section-heading">Follow the latest thought leadership through the WorkLab Podcast</div>
+
+      <div class="podcast-card pod-1">
+        <div class="podcard-top">
+          <img src="https://placehold.co/320x180?text=Podcast+Episode+1" alt="Podcast Episode 1 placeholder">
+          <div class="quote">“Leading with courage means embracing the unknown and using AI to unlock human potential.”</div>
+          <div class="duration">39:04</div>
+        </div>
+        <div class="avatar" style="background:#e7e7e7;border-color:#ddd;"></div>
+        <h4 class="pod-title">Leading with courage in the AI Era with Microsoft EVP Rajesh Jha</h4>
+        <a href="#" class="listen">Listen</a>
+      </div>
+
+      <div class="podcast-card pod-2">
+        <div class="podcard-top">
+          <img src="https://placehold.co/320x180?text=Podcast+Episode+2" alt="Podcast Episode 2 placeholder">
+          <div class="duration">26:13</div>
+        </div>
+        <h4 class="pod-title">AI is changing the rules of business, see how to adapt from a Harvard Business School professor</h4>
+        <a href="#" class="listen">Listen</a>
+      </div>
+
+      <div class="podcast-card pod-3">
+        <div class="podcard-top">
+          <img src="https://placehold.co/320x180?text=Podcast+Episode+3" alt="Podcast Episode 3 placeholder">
+          <div class="duration">27:53</div>
+        </div>
+        <h4 class="pod-title">AI agents are reshaping business and team dynamics, discover the future of work</h4>
+        <a href="#" class="listen">Listen</a>
+      </div>
+    </section>
+
+    <div class="version">v 10.27.25</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Microsoft Dev Box and Google Cloud Workstations</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #02080d;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 94% -10%, rgba(33, 255, 238, 0.45) 0px, rgba(33, 255, 238, 0.22) 135px, rgba(0, 0, 0, 0) 250px),
+      radial-gradient(circle at 28% 106%, rgba(210, 81, 255, 0.30) 0px, rgba(80, 120, 255, 0.22) 100px, rgba(0, 0, 0, 0) 230px),
+      linear-gradient(120deg, #021018 0%, #05171e 48%, #031118 100%);
+    color: #f5f8fb;
+  }
+
+  .title {
+    position: absolute;
+    left: 46px;
+    top: 36px;
+    width: 660px;
+    font-size: 43px;
+    line-height: 1.22;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+    color: #ffffff;
+  }
+
+  .section-heading {
+    position: absolute;
+    left: 46px;
+    top: 166px;
+    font-size: 26px;
+    font-weight: 800;
+    color: #27d7ec;
+  }
+
+  .intro-copy {
+    position: absolute;
+    left: 46px;
+    top: 207px;
+    width: 610px;
+    font-size: 14.8px;
+    line-height: 1.19;
+    color: #f2f7fb;
+  }
+
+  .reasons-card {
+    position: absolute;
+    left: 46px;
+    top: 387px;
+    width: 380px;
+    height: 328px;
+    border: 1.5px solid #9f53f4;
+    border-radius: 18px;
+    background: rgba(22, 24, 42, 0.82);
+    box-shadow: inset 0 0 18px rgba(37, 120, 190, 0.24);
+  }
+
+  .reasons-title {
+    position: absolute;
+    top: 20px;
+    left: 26px;
+    width: 310px;
+    color: #f132ee;
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 1.35;
+  }
+
+  .reason-list {
+    position: absolute;
+    left: 24px;
+    top: 88px;
+    width: 332px;
+  }
+
+  .reason {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    margin-bottom: 15px;
+    font-size: 14.4px;
+    line-height: 1.2;
+  }
+
+  .reason-icon {
+    width: 27px;
+    min-width: 27px;
+    color: #31e5f3;
+    text-align: center;
+    font-size: 21px;
+    padding-top: 2px;
+  }
+
+  .pricing-box {
+    position: absolute;
+    left: 450px;
+    top: 387px;
+    width: 245px;
+    height: 145px;
+    border-left: 1px solid rgba(120, 150, 190, 0.38);
+  }
+
+  .pricing-box h3,
+  .licensing-box h3 {
+    margin: 0 0 6px 0;
+    color: #cc34e9;
+    font-size: 20px;
+    line-height: 1.1;
+  }
+
+  .pricing-box p,
+  .licensing-box p {
+    margin: 0;
+    font-size: 13.6px;
+    line-height: 1.17;
+    color: #f3f8fb;
+  }
+
+  .licensing-box {
+    position: absolute;
+    left: 450px;
+    top: 558px;
+    width: 245px;
+    height: 158px;
+    border-top: 1px solid rgba(120, 150, 190, 0.42);
+    padding-top: 3px;
+  }
+
+  .main-table-wrap {
+    position: absolute;
+    left: 727px;
+    top: 40px;
+    width: 618px;
+    height: 395px;
+    border-radius: 18px;
+    border: 1.6px solid rgba(185, 84, 255, 0.50);
+    background: rgba(13, 26, 39, 0.72);
+    box-shadow: inset 0 0 20px rgba(32, 115, 180, 0.26);
+    padding: 8px;
+  }
+
+  table.main-table {
+    width: 602px;
+    height: 370px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    color: #f7fbff;
+    font-size: 12.7px;
+  }
+
+  .main-table th {
+    height: 46px;
+    font-weight: 800;
+    border: 1px solid rgba(120, 160, 190, 0.40);
+    text-align: center;
+  }
+
+  .main-table th:first-child {
+    background: linear-gradient(90deg, #753085, #8d43cc);
+    color: #ffffff;
+    width: 302px;
+  }
+
+  .main-table th:nth-child(2) {
+    background: #25d6df;
+    width: 140px;
+  }
+
+  .main-table th:nth-child(3) {
+    background: #32c4b7;
+    width: 160px;
+  }
+
+  .main-table td {
+    height: 27px;
+    border: 1px solid rgba(120, 160, 190, 0.22);
+    text-align: center;
+    vertical-align: middle;
+    padding: 2px 8px;
+    background: rgba(25, 35, 48, 0.66);
+  }
+
+  .main-table td:first-child {
+    text-align: left;
+    width: 302px;
+    background: rgba(45, 35, 62, 0.50);
+    white-space: normal;
+    padding-left: 8px;
+  }
+
+  .feature-dot {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: -2px;
+    border: 1.5px solid #44e3ef;
+    color: #44e3ef;
+    font-size: 8px;
+    text-align: center;
+    font-weight: 800;
+  }
+
+  .lower-comparison {
+    position: absolute;
+    left: 738px;
+    top: 450px;
+    width: 600px;
+    height: 280px;
+    border-radius: 10px;
+    border: 1.4px solid rgba(150, 80, 235, 0.50);
+    background: rgba(10, 25, 35, 0.83);
+  }
+
+  .top-strip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 600px;
+    height: 33px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 8px 8px 0 0;
+    background: linear-gradient(90deg, #17cfd4 0%, #30c3b7 50%, #43c9b3 100%);
+  }
+
+  .top-strip div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    color: #06171b;
+    border-right: 1px solid rgba(255, 255, 255, 0.28);
+  }
+
+  .top-strip div:last-child {
+    border-right: 0;
+  }
+
+  .eux-label {
+    position: absolute;
+    top: 33px;
+    left: 0;
+    width: 600px;
+    height: 24px;
+    background: #8240bd;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    border-bottom: 1px solid rgba(120, 150, 180, 0.33);
+  }
+
+  table.lower-table {
+    position: absolute;
+    top: 57px;
+    left: 0;
+    width: 600px;
+    height: 102px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 12.2px;
+    color: #fbfbfb;
+  }
+
+  .lower-table td {
+    border-right: 1px solid rgba(140, 170, 190, 0.32);
+    border-bottom: 1px solid rgba(140, 170, 190, 0.32);
+    padding: 6px 8px;
+    vertical-align: top;
+    background: rgba(7, 21, 28, 0.82);
+  }
+
+  .lower-table td:last-child {
+    border-right: 0;
+  }
+
+  .check {
+    color: #ffffff;
+    font-weight: 800;
+  }
+
+  .apps-label {
+    position: absolute;
+    top: 159px;
+    left: 0;
+    width: 600px;
+    height: 22px;
+    background: #7837b0;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+  }
+
+  table.apps-table {
+    position: absolute;
+    top: 181px;
+    left: 0;
+    width: 600px;
+    height: 67px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    color: #f4f8fb;
+    font-size: 12.1px;
+  }
+
+  .apps-table td {
+    padding: 5px 8px;
+    background: rgba(6, 19, 26, 0.80);
+    vertical-align: top;
+  }
+
+  .apps-table td:first-child {
+    border-right: 1px solid rgba(140, 170, 190, 0.32);
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Microsoft Dev Box and<br>Google Cloud Workstations</div>
+
+    <div class="section-heading">What is Google Cloud Workstations?</div>
+    <div class="intro-copy">
+      Google Cloud Workstations, introduced in October 2022, is a managed development environment solution that delivers secure, cloud-based developer workspaces. It supports any Integrated Development Environment (IDE) that can run within a container, providing developers with significant flexibility. The service offers configurable machine sizes, scaling up to high vCPU and memory configurations to handle demanding workloads. With a focus on container-based environments, it ensures rapid onboarding, consistent environments, and enhanced security through Google Cloud’s infrastructure. This approach boosts developer productivity by removing local hardware constraints and enabling on-demand resource allocation.
+    </div>
+
+    <div class="reasons-card">
+      <div class="reasons-title">Why they might choose<br>Google Cloud Workstations</div>
+      <div class="reason-list">
+        <div class="reason">
+          <div class="reason-icon">◷</div>
+          <div>On-demand access to lower-powered environments for small-scale or auxiliary tasks.</div>
+        </div>
+        <div class="reason">
+          <div class="reason-icon">▱</div>
+          <div>Does not need a full desktop replacement; focuses on specific development tools.</div>
+        </div>
+        <div class="reason">
+          <div class="reason-icon">⊞</div>
+          <div>Preference for individual virtual machines or pools running on a single large VM infrastructure.</div>
+        </div>
+        <div class="reason">
+          <div class="reason-icon">▧</div>
+          <div>Requires support for GPUs to accelerate specific workloads like AI/ML development.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pricing-box">
+      <h3>Pricing</h3>
+      <p>
+        Google Cloud Workstations pricing is available via a
+        <span style="color:#33e0ef;">price list link</span>,
+        differing significantly from Microsoft Dev Box’s model. It emphasizes flexible hourly pricing options based on resource usage, allowing for cost optimization aligned with actual development time and machine type.
+      </p>
+    </div>
+
+    <div class="licensing-box">
+      <h3>Licensing</h3>
+      <p>
+        While Microsoft Dev Box allows customers with qualifying Microsoft 365 licenses to avoid additional licensing costs, Google Cloud Workstations licensing operates separately. It does not leverage existing enterprise productivity suite licenses and requires its own subscription or pay-as-you-go arrangement.
+      </p>
+    </div>
+
+    <div class="main-table-wrap">
+      <table class="main-table" aria-label="Feature comparison table">
+        <tr>
+          <th>Feature</th>
+          <th>Microsoft Dev Box</th>
+          <th>Google Cloud Workstations</th>
+        </tr>
+        <tr>
+          <td><span class="feature-dot">$</span>Monthly Pricing</td>
+          <td>Yes</td>
+          <td>Hourly pricing</td>
+        </tr>
+        <tr>
+          <td><span class="feature-dot">▦</span>Windows 10 and 11 app support</td>
+          <td>Yes</td>
+          <td>Limited</td>
+        </tr>
+        <tr>
+          <td><span class="feature-dot">▣</span>Secure access</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td><span class="feature-dot">▤</span>3rd-party integration (with dev tools)</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td><span class="feature-dot">⚙</span>Multiple bundles/SKUs to meet different and evolving needs</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td><span class="feature-dot">♟</span>Out-of-the-box integration with Active Directory</td>
+          <td>Yes</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td><span class="feature-dot">▭</span>Windows 10 or 11 desktop experience</td>
+          <td>Yes</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td><span class="feature-dot">⏱</span>Quick deployment</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td><span class="feature-dot">▣</span>Runs on Windows, MacOS, IOS, Android and Chrome browser</td>
+          <td>Yes</td>
+          <td>Yes (Browser)</td>
+        </tr>
+        <tr>
+          <td><span class="feature-dot">☁</span>Compute, store, and memory in the cloud</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td><span class="feature-dot">▰</span>Monthly and hourly pricing options</td>
+          <td>Yes (Monthly)</td>
+          <td>Yes (Hourly)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="lower-comparison">
+      <div class="top-strip">
+        <div>Microsoft Dev Box</div>
+        <div>Google Cloud Workstations</div>
+      </div>
+
+      <div class="eux-label">End User Experience</div>
+
+      <table class="lower-table" aria-label="End User Experience comparison">
+        <tr>
+          <td>
+            <div style="display:flex; align-items:center; gap:7px; color:#fff; margin-bottom:3px;"><span class="feature-dot">✓</span><strong>Provides a full Windows 10 or 11 desktop experience optimized specifically for developers.</strong></div>
+            <div style="display:flex; align-items:center; gap:7px; color:#fff; margin-bottom:3px;"><span class="feature-dot">✓</span>Offers tight and seamless integration with the Microsoft 365 suite.</div>
+            <div style="display:flex; align-items:center; gap:7px; color:#fff;"><span class="feature-dot">✓</span>Seamless integration with Microsoft Endpoint Manager and Active Directory for corporate governance.</div>
+          </td>
+          <td>
+            Any IDE environment that can run in a container can be used, providing significant flexibility for developers accustomed to different workflows, including web-based IDEs and traditional desktop clients connected via remote access.
+          </td>
+        </tr>
+      </table>
+
+      <div class="apps-label">Compatible Applications</div>
+
+      <table class="apps-table" aria-label="Compatible Applications comparison">
+        <tr>
+          <td>
+            Supports any application compatible with Windows 10 or 11, including desktop software, development frameworks, and productivity tools, ensuring broad software ecosystem access.
+          </td>
+          <td>
+            Supports any IDE that can run in a container, along with popular remote development methods including JetBrains Gateway and Visual Studio Code’s Remote Development extensions, focusing on the developer environment.
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

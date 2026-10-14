@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Debunking Harmful Bipolar Disorder Myths</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #d8e4e8;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 768px;
+    height: 1376px;
+    overflow: hidden;
+    background: #f7fbfb;
+    color: #111;
+  }
+
+  .header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 768px;
+    height: 214px;
+    background: #4e8690;
+    color: #fff;
+    text-align: center;
+    padding-top: 34px;
+  }
+
+  .title {
+    font-size: 34px;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .intro {
+    position: absolute;
+    top: 132px;
+    left: 48px;
+    width: 672px;
+    font-size: 12px;
+    line-height: 1.25;
+    color: #f4fbfb;
+    text-align: center;
+  }
+
+  .section-labels {
+    position: absolute;
+    top: 200px;
+    left: 48px;
+    width: 672px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space9between;
+  }
+
+  .section-label {
+    height: 44px;
+    min-width: 282px;
+    background: #2c6370;
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 23px;
+    font-weight: 800;
+  }
+
+  .section-label.center {
+    min-width: 58px;
+    height: 48px;
+    border-radius: 50%;
+    background: #2f6875;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .row {
+    position: absolute;
+    left: 48px;
+    width: 672px;
+    height: 144px;
+  }
+
+  .row1 { top: 260px; }
+  .row2 { top: 392px; }
+  .row3 { top: 524px; }
+  .row4 { top: 656px; }
+  .row5 { top: 788px; }
+  .row6 { top: 920px; }
+  .row7 { top: 1052px; }
+
+  .divider-line {
+    position: absolute;
+    top: 11px;
+    left: 336px;
+    width: 1px;
+    height: 122px;
+    background: #2c6370;
+  }
+
+  .divider-line::before,
+  .divider-line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #2f6875;
+  }
+
+  .divider-line::before {
+    top: -5px;
+  }
+
+  .divider-line::after {
+    bottom: -5px;
+  }
+
+  .panel {
+    position: absolute;
+    top: 0;
+    height: 122px;
+    background: #d8e8ea;
+    border: 2px solid #2f6d79;
+    border-radius: 14px;
+    color: #0d0f10;
+  }
+
+  .panel.myth {
+    left: 0;
+    width: 310px;
+    padding: 30px 20px 12px 20px;
+  }
+
+  .panel.fact {
+    right: 0;
+    width: 310px;
+    padding: 8px 12px 12px 12px;
+  }
+
+  .panel h3 {
+    margin: 0 0 6px 0;
+    font-size: 20px;
+    line-height: 1.15;
+    font-weight: 800;
+  }
+
+  .fact h4 {
+    margin: 0 0 4px 0;
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .fact p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.12;
+    color: #111;
+  }
+
+  .icon-circle {
+    position: absolute;
+    left: 282px;
+    top: 8px;
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: #5b9198;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .icon-circle svg {
+    width: 52px;
+    height: 52px;
+    stroke: #fff;
+    fill: none;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 768px;
+    height: 128px;
+    background: #4e8690;
+    color: #fff;
+    padding: 18px 48px 0 48px;
+    text-align: center;
+  }
+
+  .closing {
+    width: 672px;
+    font-size: 15.5px;
+    line-height: 1.18;
+    margin-bottom: 14px;
+  }
+
+  .footer-labels {
+    display: flex;
+    justify-content: space9between;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .pill-label {
+    background: #e8f4f5;
+    color: #111;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 5px 8px;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="header">
+      <div class="title">DEBUNKING HARMFUL<br>BIPOLAR DISORDER MYTHS</div>
+      <div class="intro">
+        Bipolar disorder is a complex mental health condition characterized by extreme mood swings, including emotional highs (mania or hypomania) and lows (depression). Myths and stigma surrounding bipolar disorder often lead to misunderstandings, making it harder for individuals to receive accurate diagnoses, appropriate treatment, and necessary support.
+      </div>
+    </div>
+
+    <div class="section-labels">
+      <div class="section-label">MYTHS</div>
+      <div class="section-label center">vs.</div>
+      <div class="section-label">FACTS</div>
+    </div>
+
+    <div class="row row1">
+      <div class="divider-line"></div>
+      <div class="panel myth">
+        <h3>1. Bipolar disorder cannot be easily diagnosed.</h3>
+      </div>
+      <div class="icon-circle">
+        <svg viewBox="0 0 48 48">
+          <path d="M12 12h24v18c0 4-2.8 7.2-6.5 8l-7.5 2.5L13 35c-2.5-1.5-4-4-4-7V12z"></path>
+          <path d="M16 18h12M16 24h12M16 30h7"></path>
+          <circle cx="31" cy="24" r="8"></circle>
+          <path d="M28 31l-3 3 3 3"></path>
+          <circle cx="15" cy="10" r="4"></circle>
+        </svg>
+      </div>
+      <div class="panel fact">
+        <h4>FACT</h4>
+        <p>Bipolar disorder can be diagnosed through a comprehensive evaluation by a mental health professional, including a detailed medical history, physical examination, and psychological assessment to rule out other conditions. Early and accurate diagnosis is crucial for effective management.</p>
+      </div>
+    </div>
+
+    <div class="row row2">
+      <div class="divider-line"></div>
+      <div class="panel myth">
+        <h3>2. Children do not suffer from bipolar disorder.</h3>
+      </div>
+      <div class="icon-circle">
+        <svg viewBox="0 0 48 48">
+          <circle cx="17" cy="17" r="6"></circle>
+          <path d="M10 31c1.5-7 22.5-7 24 0v6H10v-6z"></path>
+          <circle cx="32" cy="19" r="7"></circle>
+          <path d="M26 32c1.5-7 23-7 25 0v6H25v-5z"></path>
+          <path d="M17 28c0-6 4-9 8-9s8 3 8 9"></path>
+        </svg>
+      </div>
+      <div class="panel fact">
+        <h4>FACT</h4>
+        <p>Children and adolescents can be affected by bipolar disorder, although symptoms may manifest differently than in adults. It is sometimes misdiagnosed as ADHD or behavioral issues. Specialized pediatric mental health evaluation is essential for proper diagnosis and treatment.</p>
+      </div>
+    </div>
+
+    <div class="row row3">
+      <div class="divider-line"></div>
+      <div class="panel myth">
+        <h3>3. Bipolar disorder has no successful treatment.</h3>
+      </div>
+      <div class="icon-circle">
+        <svg viewBox="0 0 48 48">
+          <path d="M12 10h24v26H16l-4 4 4-6H12z"></path>
+          <path d="M18 18h12M18 25h10M18 32h7"></path>
+          <circle cx="34" cy="31" r="8"></circle>
+          <path d="M28 38l-4 4 4 4"></path>
+          <circle cx="15" cy="9" r="4"></circle>
+        </svg>
+      </div>
+      <div class="panel fact">
+        <h4>FACT</h4>
+        <p>Bipolar disorder is a highly treatable condition. A combination of medication, such as mood stabilizers, antipsychotics, or antidepressants, and psychotherapy can be effective for many individuals. With proper ongoing care, people can manage symptoms and lead fulfilling lives.</p>
+      </div>
+    </div>
+
+    <div class="row row4">
+      <div class="divider-line"></div>
+      <div class="panel myth">
+        <h3>4. Bipolar disorder is nothing more than an overactive imagination.</h3>
+      </div>
+      <div class="icon-circle">
+        <svg viewBox="0 0 48 48">
+          <path d="M24 10c-7 0-12 5-13 12-5 1-8 5-8 10 0 7 6 12 14 12h18c8 0 14-5 14-12 0-5-3-9-8-10-1-7-6-12-13-12z"></path>
+          <path d="M18 22c4-2 8-2 13 0M16 28c5-2 9-2 14 0M14 34c6-2 10-2 15 0"></path>
+          <path d="M9 14c0 3 2 5 4 5s4-2 4-5"></path>
+        </svg>
+      </div>
+      <div class="panel fact">
+        <h4>FACT</h4>
+        <p>Bipolar disorder is a serious, chronic brain condition, not an issue of personality or imagination. It involves biological differences and neurochemical imbalances that significantly impact mood, energy levels, and behavior, warranting medical attention and understanding.</p>
+      </div>
+    </div>
+
+    <div class="row row5">
+      <div class="divider-line"></div>
+      <div class="panel myth">
+        <h3>5. People with bipolar disorder are ill all the time.</h3>
+      </div>
+      <div class="icon-circle">
+        <svg viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="16"></circle>
+          <path d="M14 24h18M24 14c4 4 5 8 5 10s-1 6-5 10M24 14c-4 4-5 8-5 10s1 6 5 10"></path>
+          <path d="M10 16l-4 4 4 4M37 15l4 4-4 4M12 36l-4 4 4 4M36 33l4 4-4 4"></path>
+          <circle cx="16" cy="13" r="2"></circle>
+        </svg>
+      </div>
+      <div class="panel fact">
+        <h4>FACT</h4>
+        <p>Bipolar disorder is characterized by episodic mood swings, with periods of stability between manic/hypomanic and depressive episodes. The duration, frequency, and intensity of these episodes vary significantly among individuals, and many experience symptom-free periods.</p>
+      </div>
+    </div>
+
+    <div class="row row6">
+      <div class="divider-line"></div>
+      <div class="panel myth">
+        <h3>6. People can stop their medication use once the illness is managed.</h3>
+      </div>
+      <div class="icon-circle">
+        <svg viewBox="0 0 48 48">
+          <path d="M18 10h12v26H18z"></path>
+          <circle cx="24" cy="20" r="7"></circle>
+          <path d="M24 16v8M20 20h8"></path>
+          <circle cx="24" cy="30" r="10"></circle>
+          <path d="M24 26v8M20 30h8"></path>
+          <path d="M12 39h24c-3-6-8-8-12-8s-9 2-12 8z"></path>
+        </svg>
+      </div>
+      <div class="panel fact">
+        <h4>FACT</h4>
+        <p>Medication is often a long-term component of managing bipolar disorder. Stopping medication abruptly, even when feeling well, can lead to a relapse of symptoms and potentially severe complications. Adjustments should always be made under the guidance of a healthcare provider.</p>
+      </div>
+    </div>
+
+    <div class="row row7">
+      <div class="divider-line"></div>
+      <div class="panel myth">
+        <h3>7. Drugs and alcohol consumption causes bipolar disorder.</h3>
+      </div>
+      <div class="icon-circle">
+        <svg viewBox="0 0 48 48">
+          <path d="M16 11h10l4 6v19H16z"></path>
+          <circle cx="21" cy="29" r="9"></circle>
+          <path d="M29 16h10v22H29l-6 6z"></path>
+          <circle cx="38" cy="32" r="8"></circle>
+          <path d="M11 18h20M30 18h10M20 32h19"></path>
+        </svg>
+      </div>
+      <div class="panel fact">
+        <h4>FACT</h4>
+        <p>While substance use can worsen symptoms and complicate the course of bipolar disorder, it does not directly cause the condition. However, there is a high rate of co-occurring substance use disorders, which require integrated treatment along with the mental health condition.</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="closing">
+        Hopefully, this Bipolar Disorder myth busting will help you manage and treat the illness of yours or of a loved one once daily and properly. Visit a reputable mental health website to learn more.
+      </div>
+      <div class="footer-labels">
+        <div class="pill-label">BIPOLAR SUPPORT GROUP</div>
+        <div class="pill-label">#BipolarSupportGroup</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

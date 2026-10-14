@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>The Lantern Page Milestone Poster</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #0f1114;
+    font-family: "Arial", "Helvetica Neue", Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background: #16181c;
+    color: #b8bbc1;
+  }
+
+  .top-strip {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 34px;
+    background: #7cff4f;
+    border-bottom: 1px solid rgba(124, 255, 79, 0.25);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #101214;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    white-space: nowrap;
+  }
+
+  .corner-bracket {
+    position: absolute;
+    width: 58px;
+    height: 58px;
+    border-color: #7cff4f;
+    border-style: solid;
+    opacity: 0.95;
+    z-index: 2;
+  }
+
+  .corner-tl {
+    left: 26px;
+    top: 54px;
+    border-width: 3px 3px 0 0;
+  }
+
+  .corner-tr {
+    right: 26px;
+    top: 54px;
+    border-width: 3px 0 0 3px;
+  }
+
+  .corner-bl {
+    left: 26px;
+    bottom: 48px;
+    border-width: 0 0 3px 3px;
+  }
+
+  .corner-br {
+    right: 26px;
+    bottom: 48px;
+    border-width: 0 3px 3px 0;
+  }
+
+  .tiny-logo {
+    position: absolute;
+    left: 54px;
+    top: 80px;
+    width: 48px;
+    height: 58px;
+    border: 2px solid #7cff4f;
+    border-radius: 7px;
+    z-index: 3;
+  }
+
+  .tiny-logo:before {
+    content: "";
+    position: absolute;
+    top: -13px;
+    left: 12px;
+    width: 22px;
+    height: 12px;
+    border: 2px solid #7cff4f;
+    border-bottom: none;
+    border-radius: 14px 14px 0 0;
+  }
+
+  .club-label {
+    position: absolute;
+    top: 96px;
+    left: 118px;
+    z-index: 3;
+    color: #aeb2b8;
+    font-weight: 800;
+    font-size: 21px;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+  }
+
+  .est-badge {
+    position: absolute;
+    top: 74px;
+    right: 70px;
+    z-index: 3;
+    min-width: 152px;
+    height: 54px;
+    border: 2px solid #7cff4f;
+    border-radius: 9px;
+    color: #7cff4f;
+    font-size: 20px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .headline {
+    position: absolute;
+    top: 150px;
+    left: 0;
+    width: 1024px;
+    text-align: center;
+    color: #d9d9de;
+    font-size: 76px;
+    line-height: 1;
+    letter-spacing: 10px;
+    font-weight: 900;
+    z-index: 2;
+  }
+
+  .anniversary {
+    position: absolute;
+    top: 280px;
+    left: 0;
+    width: 1024px;
+    text-align: center;
+    color: #7cff4f;
+    font-size: 43px;
+    letter-spacing: 12px;
+    font-weight: 900;
+    z-index: 2;
+  }
+
+  .subtitle {
+    position: absolute;
+    top: 344px;
+    left: 0;
+    width: 1024px;
+    text-align: center;
+    color: #aeb2b8;
+    font-size: 28px;
+    font-weight: 800;
+    z-index: 2;
+  }
+
+  .numbers-title {
+    position: absolute;
+    top: 410px;
+    left: 0;
+    width: 1024px;
+    text-align: center;
+    color: #bdf55f;
+    font-size: 21px;
+    font-weight: 900;
+    z-index: 3;
+  }
+
+  .numbers-title:before,
+  .numbers-title:after {
+    content: "";
+    display: inline-block;
+    width: 270px;
+    height: 1px;
+    background: #7cff4f;
+    vertical-align: middle;
+    margin: 0 18px;
+  }
+
+  .cards-grid {
+    position: absolute;
+    top: 446px;
+    left: 33px;
+    width: 958px;
+    height: 448px;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 142px);
+    gap: 12px;
+  }
+
+  .metric-card {
+    position: relative;
+    background: #121418;
+    border: 2px solid #7cff4f;
+    border-radius: 16px;
+    color: #b7b9be;
+    overflow: hidden;
+  }
+
+  .metric-icon {
+    position: absolute;
+    left: 24px;
+    top: 24px;
+    width: 68px;
+    height: 68px;
+    border: 1.5px dashed rgba(124, 255, 79, 0.85);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7cff4f;
+  }
+
+  .metric-text {
+    position: absolute;
+    left: 158px;
+    top: 15px;
+    right: 18px;
+    text-align: center;
+  }
+
+  .metric-number {
+    color: #7cff4f;
+    font-size: 70px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin-bottom: 7px;
+  }
+
+  .metric-caption {
+    color: #aeb2b8;
+    font-size: 25px;
+    font-weight: 800;
+  }
+
+  .card-dots {
+    position: absolute;
+    right: 23px;
+    top: 29px;
+    width: 5px;
+    height: 82px;
+    background: repeating-linear-gradient(to bottom, #7cff4f 0 2px, transparent 2px 5px);
+    opacity: 0.95;
+  }
+
+  .chart-panel {
+    position: absolute;
+    left: 32px;
+    top: 926px;
+    width: 960px;
+    height: 288px;
+    background: #121418;
+    border: 2px solid #7cff4f;
+    border-radius: 16px;
+    z-index: 2;
+    padding: 14px 12px 12px 12px;
+  }
+
+  .chart-title {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #80ff52;
+    font-size: 22px;
+    font-weight: 900;
+    z-index: 3;
+  }
+
+  #attendanceChart {
+    position: absolute;
+    left: 20px;
+    top: 35px;
+    width: 920px;
+    height: 228px;
+  }
+
+  .cta-panel {
+    position: absolute;
+    left: 30px;
+    top: 1238px;
+    width: 964px;
+    height: 190px;
+    background: #121418;
+    border: 2px solid #7cff4f;
+    border-radius: 16px;
+    z-index: 2;
+    text-align: center;
+    padding-top: 11px;
+  }
+
+  .cta-headline {
+    color: #7cff4f;
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
+  }
+
+  .cta-sub {
+    color: #aeb2b8;
+    font-size: 20px;
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 410px;
+    height: 62px;
+    border: 2px solid #7cff4f;
+    color: #7cff4f;
+    border-radius: 12px;
+    background: #16181c;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+
+  .website-row {
+    position: absolute;
+    bottom: 64px;
+    left: 0;
+    width: 1024px;
+    text-align: center;
+    color: #7cff4f;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+  }
+
+  .footer-note {
+    position: absolute;
+    bottom: 22px;
+    left: 0;
+    width: 1024px;
+    text-align: center;
+    color: #aeb2b8;
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .footer-dots {
+    position: absolute;
+    bottom: 51px;
+    left: 298px;
+    width: 428px;
+    height: 14px;
+    background: repeating-linear-gradient(to right, #7cff4f 0 3px, transparent 3px 8px);
+    opacity: 0.9;
+  }
+
+  .sound-glow-left,
+  .sound-glow-right {
+    position: absolute;
+    top: 1262px;
+    width: 125px;
+    height: 108px;
+    opacity: 0.65;
+    z-index: 1;
+  }
+
+  .sound-glow-left {
+    left: 56px;
+  }
+
+  .sound-glow-right {
+    right: 56px;
+  }
+
+  .sound-glow-left:before,
+  .sound-glow-right:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(to bottom, transparent 0 12px, rgba(124, 255, 79, 0.85) 13px 14px, transparent 15px 22px);
+    border-left: 1px dotted rgba(124, 255, 79, 0.55);
+    border-right: 1px dotted rgba(124, 255, 79, 0.55);
+    border-top: 1px dotted rgba(124, 255, 79, 0.45);
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="top-strip">STORIES CONNECT. SOUNDS RESONATE. COMMUNITY GROWS.</div>
+
+    <div class="corner-bracket corner-tl"></div>
+    <div class="corner-bracket corner-tr"></div>
+    <div class="corner-bracket corner-bl"></div>
+    <div class="corner-bracket corner-br"></div>
+
+    <div class="tiny-logo"></div>
+    <div class="club-label">CITY READING &amp; LISTENING CLUB</div>
+    <div class="est-badge">EST. 2017</div>
+
+    <div class="headline">THE LANTERN PAGE</div>
+    <div class="anniversary">8 YEARS OF STORIES &amp; SOUND</div>
+    <div class="subtitle">Anniversary Milestone Report · 2017–2025</div>
+
+    <div class="numbers-title">BY THE NUMBERS</div>
+
+    <div class="cards-grid">
+      <div class="metric-card">
+        <div class="metric-icon">▦</div>
+        <div class="metric-text">
+          <div class="metric-number">312</div>
+          <div class="metric-caption">Events Hosted</div>
+        </div>
+        <div class="card-dots"></div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">♟</div>
+        <div class="metric-text">
+          <div class="metric-number">18,640</div>
+          <div class="metric-caption">Total Attendees</div>
+        </div>
+        <div class="card-dots"></div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">▱</div>
+        <div class="metric-text">
+          <div class="metric-number">427</div>
+          <div class="metric-caption">Books Featured</div>
+        </div>
+        <div class="card-dots"></div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">●</div>
+        <div class="metric-text">
+          <div class="metric-number">96</div>
+          <div class="metric-caption">Guest Performers</div>
+        </div>
+        <div class="card-dots"></div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">☆</div>
+        <div class="metric-text">
+          <div class="metric-number">4.9/5</div>
+          <div class="metric-caption">Member Rating</div>
+        </div>
+        <div class="card-dots"></div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">◎</div>
+        <div class="metric-text">
+          <div class="metric-number">12</div>
+          <div class="metric-caption">Neighborhood Venues</div>
+        </div>
+        <div class="card-dots"></div>
+      </div>
+    </div>
+
+    <div class="chart-panel">
+      <div class="chart-title">Annual Attendance Growth</div>
+      <div id="attendanceChart"></div>
+    </div>
+
+    <div class="sound-glow-left"></div>
+    <div class="sound-glow-right"></div>
+
+    <div class="cta-panel">
+      <div class="cta-headline">Join the next chapter.</div>
+      <div class="cta-sub">Anniversary Week Festival · Sept 12–14, 2025 · Dockside Arts Hall</div>
+      <div class="cta-button">Reserve Free Pass</div>
+    </div>
+
+    <div class="footer-dots"></div>
+    <div class="website-row">www.thelanternpage.club</div>
+    <div class="footer-note">Reading series, live scores, author talks, and late-night listening sessions.</div>
+  </div>
+
+<script>
+  const chart = echarts.init(document.getElementById('attendanceChart'));
+  chart.setOption({
+    animation: false,
+    grid: {
+      left: 68,
+      right: 28,
+      top: 18,
+      bottom: 38
+    },
+    xAxis: {
+      type: 'category',
+      data: ['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'],
+      axisLine: { lineStyle: { color: '#8b929a' } },
+      axisTick: { show: false },
+      axisLabel: {
+        color: '#9a9da0',
+        fontSize: 13,
+        margin: 12
+      }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: 4500,
+      interval: 500,
+      name: 'ATTENDEES',
+      nameLocation: 'middle',
+      nameGap: 48,
+      nameTextStyle: {
+        color: '#9a9da0',
+        fontSize: 14,
+        fontWeight: 700
+      },
+      axisLine: { lineStyle: { color: '#8b929a' } },
+      axisTick: { show: false },
+      splitLine: {
+        lineStyle: {
+          color: 'rgba(124, 255, 79, 0.18)',
+          type: 'dashed'
+        }
+      },
+      axisLabel: {
+        color: '#8f969d',
+        fontSize: 12
+      }
+    },
+    series: [
+      {
+        type: 'line',
+        data: [620, 910, 1280, 1540, 2030, 2350, 2710, 3220, 3980],
+        smooth: false,
+        symbol: 'circle',
+        symbolSize: 11,
+        lineStyle: {
+          color: '#7cff4f',
+          width: 3
+        },
+        itemStyle: {
+          color: '#7cff4f',
+          borderColor: '#7cff4f',
+          borderWidth: 1
+        },
+        label: {
+          show: true,
+          position: 'top',
+          color: '#80ff52',
+          fontSize: 14,
+          fontWeight: 800,
+          formatter: '{c}'
+        }
+      }
+    ]
+  });
+</script>
+</body>
+</html>

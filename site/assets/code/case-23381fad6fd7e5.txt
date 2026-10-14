@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Hospital KPI Dashboard with Patient Turnover Rate</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #061629;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 70% 10%, rgba(28, 116, 177, 0.13), transparent 30%),
+      linear-gradient(180deg, #071a31 0%, #061629 100%);
+  }
+
+  .title {
+    position: absolute;
+    left: 38px;
+    top: 13px;
+    width: 895px;
+    text-align: center;
+    font-size: 34px;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 80px;
+    top: 57px;
+    width: 755px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.35;
+    font-weight: 400;
+  }
+
+  .card {
+    position: absolute;
+    background: rgba(8, 29, 52, 0.92);
+    border: 1px solid rgba(158, 196, 227, 0.48);
+    border-radius: 8px;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.025);
+  }
+
+  .efficiency {
+    left: 14px;
+    top: 108px;
+    width: 925px;
+    height: 158px;
+  }
+
+  .efficiency-title {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .metric {
+    position: absolute;
+    top: 47px;
+    width: 308px;
+    text-align: center;
+  }
+
+  .metric-1 {
+    left: 0;
+  }
+
+  .metric-2 {
+    left: 308px;
+  }
+
+  .metric-3 {
+    left: 616px;
+  }
+
+  .metric-label {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .metric-value {
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .metric-change {
+    margin-top: 7px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .change-red {
+    color: #ff3d54;
+  }
+
+  .change-green {
+    color: #36c356;
+  }
+
+  .bed-card {
+    left: 14px;
+    top: 273px;
+    width: 340px;
+    height: 190px;
+  }
+
+  .patients-card {
+    left: 367px;
+    top: 273px;
+    width: 258px;
+    height: 190px;
+  }
+
+  .turnover-card {
+    left: 637px;
+    top: 273px;
+    width: 302px;
+    height: 190px;
+  }
+
+  .small-title {
+    position: absolute;
+    top: 12px;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .gauge-wrap {
+    position: absolute;
+    left: 18px;
+    top: 53px;
+    width: 305px;
+    height: 120px;
+  }
+
+  .gauge-svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 305px;
+    height: 92px;
+  }
+
+  .needle {
+    position: absolute;
+    left: 135px;
+    top: 53px;
+    width: 90px;
+    height: 4px;
+    background: #e7fbcc;
+    transform-origin: left center;
+    border-radius: 5px;
+    z-index: 3;
+  }
+
+  .needle::before {
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: -7px;
+    width: 15px;
+    height: 15px;
+    background: #e7fbcc;
+    border: 3px solid #e7fbcc;
+    border-radius: 50%;
+  }
+
+  .gauge-value {
+    position: absolute;
+    left: 0;
+    bottom: -20px;
+    width: 305px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 800;
+  }
+
+  .patients-top {
+    position: absolute;
+    top: 17px;
+    left: 0;
+    width: 258px;
+    height: 84px;
+    border-bottom: 1px solid rgba(158, 196, 227, 0.48);
+    text-align: center;
+  }
+
+  .patients-top .label {
+    font-size: 15px;
+  }
+
+  .patients-value {
+    font-size: 33px;
+    color: #44e3ee;
+    font-weight: 800;
+  }
+
+  .patients-bottom {
+    position: absolute;
+    top: 101px;
+    left: 0;
+    width: 258px;
+    height: 75px;
+    text-align: center;
+  }
+
+  .patients-bottom .label {
+    font-size: 14px;
+  }
+
+  .patients-bottom .value {
+    font-size: 33px;
+    color: #44e3ee;
+    font-weight: 800;
+  }
+
+  .turnover-value {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 33px;
+    color: #44e3ee;
+    font-weight: 800;
+  }
+
+  .turnover-sub {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .mini-table {
+    position: absolute;
+    left: 20px;
+    top: 117px;
+    width: 260px;
+    border-collapse: collapse;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .mini-table td {
+    border: 1px solid rgba(158, 196, 227, 0.45);
+    height: 33px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .drug-card {
+    left: 14px;
+    top: 472px;
+    width: 494px;
+    height: 204px;
+  }
+
+  .drug-title {
+    position: absolute;
+    top: 8px;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .dept-row {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 494px;
+    height: 143px;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .dept-block {
+    width: 82px;
+    height: 143px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    padding: 6px 4px;
+  }
+
+  .dept-block .icon {
+    font-size: 34px;
+    margin-bottom: 4px;
+  }
+
+  .dept-block .dept-name {
+    font-size: 12px;
+    min-height: 30px;
+  }
+
+  .dept-block .dept-cost {
+    font-size: 15px;
+  }
+
+  .equipment-card {
+    left: 518px;
+    top: 472px;
+    width: 421px;
+    height: 204px;
+  }
+
+  .equipment-title {
+    position: absolute;
+    top: 11px;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  #equipmentChart {
+    position: absolute;
+    left: 9px;
+    top: 54px;
+    width: 400px;
+    height: 135px;
+  }
+
+  .satisfaction {
+    left: 952px;
+    top: 16px;
+    width: 312px;
+    height: 146px;
+  }
+
+  .sat-title {
+    position: absolute;
+    top: 8px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .sat-value {
+    position: absolute;
+    top: 36px;
+    width: 100%;
+    text-align: center;
+    font-size: 31px;
+    font-weight: 800;
+  }
+
+  .sat-sub {
+    position: absolute;
+    top: 71px;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+  }
+
+  .sat-bar {
+    position: absolute;
+    left: 13px;
+    bottom: 18px;
+    width: 287px;
+    height: 24px;
+    background: #23262b;
+    overflow: hidden;
+  }
+
+  .sat-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 24px;
+    background: linear-gradient(90deg, #35bd52, #38d057);
+  }
+
+  .follow-card {
+    left: 952px;
+    top: 170px;
+    width: 312px;
+    height: 250px;
+  }
+
+  .follow-title {
+    position: absolute;
+    top: 7px;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  #followChart {
+    position: absolute;
+    top: 39px;
+    left: 15px;
+    width: 282px;
+    height: 190px;
+  }
+
+  .missed-card {
+    left: 952px;
+    top: 428px;
+    width: 312px;
+    height: 248px;
+  }
+
+  .missed-title {
+    position: absolute;
+    top: 8px;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  #missedChart {
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    width: 290px;
+    height: 175px;
+  }
+
+  .right-card-title,
+  .left-card-title,
+  .metric-label,
+  .small-title,
+  .dept-name,
+  .dept-cost,
+  .sat-title,
+  .follow-title,
+  .missed-title,
+  .equipment-title,
+  .turnover-sub,
+  .sat-sub,
+  .metric-value,
+  .metric-change,
+  .gauge-value,
+  .patients-value,
+  .patients-bottom .value {
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="title">Hospital KPI Dashboard with Patient Turnover Rate</div>
+  <div class="subtitle">This slide focuses on patient dashboard which includes KPIs such as bed occupancy rate, patient satisfaction rate, average cost per patient of various departments, follow up rate, percentage of missed appointments.</div>
+
+  <section class="card efficiency">
+    <div class="efficiency-title">Efficiency &amp; Costs</div>
+    <div class="metric metric-1">
+      <div class="metric-label">Avg. Total Cost Per Patient</div>
+      <div class="metric-value">$14,244</div>
+      <div class="metric-change change-red">(-1,296)</div>
+    </div>
+    <div class="metric metric-2">
+      <div class="metric-label">Staff to Patient Ratio</div>
+      <div class="metric-value">0.26</div>
+      <div class="metric-change change-red">(-0.04)</div>
+    </div>
+    <div class="metric metric-3">
+      <div class="metric-label">Room Turnover</div>
+      <div class="metric-value">45 min</div>
+      <div class="metric-change change-green">(+2)</div>
+    </div>
+  </section>
+
+  <section class="card bed-card">
+    <div class="small-title">Current Bed Occupancy Rate</div>
+    <div class="gauge-wrap">
+      <svg class="gauge-svg" viewBox="0 0 305 92" aria-label="Current Bed Occupancy Rate gauge">
+        <path d="M30 44 A122 122 0 0 1 265 44" fill="none" stroke="#16283d" stroke-width="4"/>
+        <path d="M30 44 A122 122 0 0 1 265 44" fill="none" stroke="url(#gaugeGrad)" stroke-width="14" stroke-linecap="round"/>
+        <defs>
+          <linearGradient id="gaugeGrad" x1="0" y1="0.4" x2="1" y2="0.4" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#ef2432"/>
+            <stop offset="0.28" stop-color="#ff7c38"/>
+            <stop offset="0.55" stop-color="#ffd33a"/>
+            <stop offset="0.76" stop-color="#c7e742"/>
+            <stop offset="1" stop-color="#38bd55"/>
+          </linearGradient>
+        </defs>
+        <path d="M265 44 L245 67" fill="none" stroke="#fff" stroke-width="2"/>
+        <text x="12" y="71" font-size="14" fill="#fff">0</text>
+        <text x="68" y="19" font-size="14" fill="#fff">25</text>
+        <text x="138" y="4" font-size="14" fill="#fff">50</text>
+        <text x="208" y="19" font-size="14" fill="#fff">75</text>
+        <text x="272" y="71" font-size="14" fill="#fff">100</text>
+      </svg>
+      <div class="needle"></div>
+      <div class="gauge-value">82%</div>
+    </div>
+  </section>
+
+  <section class="card patients-card">
+    <div class="patients-top">
+      <div class="label">Current Patients</div>
+      <div class="patients-value">560</div>
+    </div>
+    <div class="patients-bottom">
+      <div class="label">Number of Beds</div>
+      <div class="value">1200</div>
+    </div>
+  </section>
+
+  <section class="card turnover-card">
+    <div class="small-title">Patient turnover Rate</div>
+    <div class="turnover-value">3.55 <span style="font-size:17px;color:#66d849;font-weight:700;">(+5%)</span></div>
+    <div class="turnover-sub">(% Changes prev. month)</div>
+    <table class="mini-table">
+      <tr><td>ICU</td><td>5.31</td></tr>
+      <tr><td>Other</td><td>5.60</td></tr>
+    </table>
+  </section>
+
+  <section class="card drug-card">
+    <div class="drug-title">Drug Cost per Patient by Department</div>
+    <div class="dept-row">
+      <div class="dept-block" style="background:#1173cf;">
+        <div class="icon">🔪</div>
+        <div class="dept-name">Surgery</div>
+        <div class="dept-cost">$1,175</div>
+      </div>
+      <div class="dept-block" style="background:#20aaa4;">
+        <div class="icon">⚕</div>
+        <div class="dept-name">Internal<br>Medicine</div>
+        <div class="dept-cost">$934</div>
+      </div>
+      <div class="dept-block" style="background:#6a44b2;">
+        <div class="icon">🧸</div>
+        <div class="dept-name">Pediatrics</div>
+        <div class="dept-cost">$1,093</div>
+      </div>
+      <div class="dept-block" style="background:#f38b24;">
+        <div class="icon">🦴</div>
+        <div class="dept-name">Orthopedics</div>
+        <div class="dept-cost">$917</div>
+      </div>
+      <div class="dept-block" style="background:#ffc023;">
+        <div class="icon">🧓</div>
+        <div class="dept-name">Geriatrics</div>
+        <div class="dept-cost">$757</div>
+      </div>
+      <div class="dept-block" style="background:#cf3e83;">
+        <div class="icon">♀</div>
+        <div class="dept-name">Gynecology</div>
+        <div class="dept-cost">$639</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card equipment-card">
+    <div class="equipment-title">Bottom three med. Equipment Utilization Rate</div>
+    <div id="equipmentChart"></div>
+  </section>
+
+  <section class="card satisfaction">
+    <div class="sat-title">Patient Satisfaction</div>
+    <div class="sat-value">81% <span style="color:#ff3b54;font-size:18px;">(-3%)</span></div>
+    <div class="sat-sub">(% Changes prev. month)</div>
+    <div class="sat-bar"><div class="sat-fill"></div></div>
+  </section>
+
+  <section class="card follow-card">
+    <div class="follow-title">Follow up Rate by Department</div>
+    <div id="followChart"></div>
+  </section>
+
+  <section class="card missed-card">
+    <div class="missed-title">Percentage of Missed Appointments</div>
+    <div id="missedChart"></div>
+  </section>
+</div>
+
+<script>
+  var equipmentChart = echarts.init(document.getElementById('equipmentChart'));
+  equipmentChart.setOption({
+    animation: false,
+    grid: { left: 125, right: 28, top: 10, bottom: 28 },
+    xAxis: {
+      type: 'value',
+      min: 0,
+      max: 50,
+      axisLabel: { color: '#fff', fontSize: 12 },
+      name: 'Utilization Rate (%)',
+      nameLocation: 'middle',
+      nameGap: 26,
+      splitLine: { show: false }
+    },
+    yAxis: {
+      type: 'category',
+      inverse: true,
+      data: ['Simple Spirometry', 'Ultrasonic Nebulizers', 'Add Text Here'],
+      axisLabel: { color: '#fff', fontSize: 12 }
+    },
+    series: [{
+      type: 'bar',
+      data: [41, 44, 46],
+      barWidth: 14,
+      itemStyle: { color: '#2f83f1' },
+      label: {
+        show: true,
+        position: 'right',
+        formatter: '{c}%',
+        color: '#fff',
+        fontSize: 12
+      }
+    }]
+  });
+
+  var followChart = echarts.init(document.getElementById('followChart'));
+  followChart.setOption({
+    animation: false,
+    grid: { left: 100, right: 35, top: 10, bottom: 28 },
+    xAxis: {
+      type: 'value',
+      min: 0,
+      max: 50,
+      axisLabel: { color: '#fff', fontSize: 11 },
+      name: 'Percentage (%)',
+      nameLocation: 'middle',
+      nameGap: 26
+    },
+    yAxis: {
+      type: 'category',
+      inverse: true,
+      data: ['Internal Medicine', 'Geriatrics', 'Orthopaedics', 'Surgery', 'Gynecology', 'Pediatrics'],
+      axisLabel: { color: '#fff', fontSize: 11 }
+    },
+    series: [{
+      type: 'bar',
+      data: [22, 26, 27, 31, 33, 35],
+      barWidth: 9,
+      itemStyle: { color: '#54ce48' },
+      label: {
+        show: true,
+        position: 'right',
+        formatter: '{c}%',
+        color: '#fff',
+        fontSize: 12
+      }
+    }]
+  });
+
+  var missedChart = echarts.init(document.getElementById('missedChart'));
+  missedChart.setOption({
+    animation: false,
+    color: ['#ff7218', '#3f87df'],
+    legend: {
+      bottom: 4,
+      left: 'center',
+      itemWidth: 11,
+      itemHeight: 11,
+      textStyle: { color: '#fff', fontSize: 12 },
+      data: ['% Cancelled', '% Missed']
+    },
+    grid: { left: 38, right: 18, top: 20, bottom: 48 },
+    xAxis: {
+      type: 'category',
+      data: ['Au \'22'],
+      axisLabel: { color: '#fff', fontSize: 12 },
+      nameLocation: 'middle',
+      nameGap: 26
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: 20,
+      axisLabel: { color: '#fff', fontSize: 12 },
+      name: 'Percentage (%)',
+      nameLocation: 'middle',
+      nameGap: 38
+    },
+    series: [{
+      type: 'bar',
+      data: [10, 14],
+      barWidth: 55,
+      label: {
+        show: true,
+        position: 'top',
+        formatter: '{c}%',
+        color: '#fff',
+        fontSize: 13
+      }
+    }]
+  });
+</script>
+</body>
+</html>

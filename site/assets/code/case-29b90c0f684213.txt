@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Feedback Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #020817;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      color: #ffffff;
+      background:
+        radial-gradient(circle at 83% 19%, rgba(72, 168, 255, 0.42) 0, rgba(72, 168, 255, 0.16) 130px, transparent 290px),
+        radial-gradient(circle at 85% 87%, rgba(210, 70, 255, 0.36) 0, rgba(210, 70, 255, 0.14) 160px, transparent 320px),
+        linear-gradient(110deg, #061429 0%, #08224d 36%, #0e3672 64%, #362281 100%);
+    }
+
+    .artboard::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(136, 200, 255, 0.16) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(136, 200, 255, 0.12) 1px, transparent 1px);
+      background-size: 82px 82px;
+      opacity: 0.28;
+      mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.8) 42%, rgba(0,0,0,0.35) 68%, rgba(0,0,0,0.95) 100%);
+      pointer-events: none;
+    }
+
+    .artboard::after {
+      content: "";
+      position: absolute;
+      left: 670px;
+      top: -80px;
+      width: 620px;
+      height: 950px;
+      background:
+        linear-gradient(90deg, transparent 0 20px, rgba(121, 202, 255, 0.45) 21px, transparent 22px),
+        linear-gradient(90deg, transparent 0 70px, rgba(218, 88, 255, 0.38) 71px, transparent 72px),
+        linear-gradient(90deg, transparent 0 118px, rgba(115, 180, 255, 0.36) 119px, transparent 120px),
+        linear-gradient(90deg, transparent 0 210px, rgba(255, 204, 84, 0.32) 211px, transparent 212px),
+        linear-gradient(rgba(120, 210, 255, 0.2) 1px, transparent 1px);
+      background-size: 64px 100%, 78px 100%, 62px 100%, 80px 100%, 96px 96px;
+      opacity: 0.7;
+      transform: rotate(18deg);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      position: absolute;
+      left: 80px;
+      top: 104px;
+      font-size: 20px;
+      letter-spacing: 1.1px;
+      font-weight: 600;
+      color: rgba(198, 212, 235, 0.72);
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    .headline {
+      position: absolute;
+      left: 80px;
+      top: 152px;
+      width: 608px;
+      color: #ffffff;
+      font-size: 50px;
+      line-height: 1.3;
+      font-weight: 800;
+      letter-spacing: -1.8px;
+      z-index: 2;
+    }
+
+    .section-title {
+      position: absolute;
+      left: 80px;
+      top: 399px;
+      font-size: 30px;
+      color: #86c9ff;
+      font-weight: 700;
+      z-index: 2;
+    }
+
+    .description {
+      position: absolute;
+      left: 80px;
+      top: 462px;
+      width: 582px;
+      color: #ffffff;
+      font-size: 20.5px;
+      line-height: 1.32;
+      z-index: 2;
+    }
+
+    .cta {
+      position: absolute;
+      left: 80px;
+      bottom: 108px;
+      color: #87d0ff;
+      font-size: 19px;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      z-index: 2;
+    }
+
+    .supporting-text {
+      position: absolute;
+      left: 758px;
+      top: 96px;
+      width: 525px;
+      color: #ffffff;
+      font-size: 29px;
+      line-height: 1.35;
+      text-align: left;
+      z-index: 2;
+    }
+
+    .laptop {
+      position: absolute;
+      left: 742px;
+      top: 266px;
+      width: 542px;
+      height: 392px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #b9c5db 0%, #d8dbe2 35%, #cfd2d9 100%);
+      box-shadow:
+        0 20px 35px rgba(0, 0, 0, 0.28),
+        inset 0 0 0 8px #d8dce5;
+      z-index: 3;
+    }
+
+    .laptop-base {
+      position: absolute;
+      left: 672px;
+      top: 637px;
+      width: 670px;
+      height: 28px;
+      background: linear-gradient(180deg, #f1f4f8 0%, #cfd6df 100%);
+      border-radius: 0 0 50% 50%;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.22);
+      z-index: 2;
+    }
+
+    .laptop-screen {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      width: 518px;
+      height: 338px;
+      border-radius: 11px;
+      overflow: hidden;
+      background: #f7f9fb;
+      border: 1px solid rgba(121, 132, 148, 0.25);
+    }
+
+    .forum-placeholder {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 518px;
+      height: 338px;
+      object-fit: cover;
+      opacity: 0.38;
+    }
+
+    .ui-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .nav {
+      position: absolute;
+      left: 26px;
+      top: 12px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 8px;
+      color: #4d5560;
+      border-bottom: 1px solid #e6ebef;
+    }
+
+    .avatar-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #24313f;
+      border: 1px solid #fff;
+    }
+
+    .search {
+      position: absolute;
+      left: 23px;
+      top: 42px;
+      width: 470px;
+      height: 22px;
+      border: 1px solid #d7dde4;
+      border-radius: 5px;
+      color: #9aa4ad;
+      font-size: 9px;
+      padding-left: 13px;
+      background: rgba(255,255,255,0.72);
+    }
+
+    .cards-grid {
+      position: absolute;
+      left: 22px;
+      top: 70px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+
+    .card {
+      height: 55px;
+      border-radius: 5px;
+      color: white;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 8px 10px;
+      position: relative;
+    }
+
+    .card.blue { background: #1577df; }
+    .card.purple { background: #9654d7; }
+    .card.green { background: #15a15b; }
+    .card.orange { background: #ff7307; }
+    .card.teal { background: #10a8a3; }
+    .card.magenta { background: #c4339a; }
+
+    .card-icon {
+      position: absolute;
+      right: 10px;
+      top: 9px;
+      width: 20px;
+      height: 20px;
+      border: 1.8px solid #fff;
+      border-radius: 50%;
+    }
+
+    .dashboard {
+      position: absolute;
+      left: 23px;
+      top: 160px;
+      width: 473px;
+      height: 120px;
+      display: grid;
+      grid-template-columns: 116px 1fr;
+      gap: 8px;
+      border-top: 1px solid #e3e8ed;
+      background: rgba(255,255,255,0.58);
+    }
+
+    .sidebar {
+      color: #4f5b66;
+      font-size: 8.5px;
+      padding-top: 6px;
+    }
+
+    .side-title {
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .side-item {
+      height: 15px;
+      border-radius: 3px;
+      background: #f1f5f8;
+      margin-bottom: 4px;
+    }
+
+    .threads {
+      padding: 4px 0 0 0;
+      border-left: 1px solid #e4e9ee;
+    }
+
+    .thread-row {
+      height: 26px;
+      border-bottom: 1px solid #e4e9ee;
+      display: grid;
+      grid-template-columns: 82px 114px 80px 60px;
+      font-size: 7.2px;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 1.5px 4px;
+      border-radius: 3px;
+      color: #27743a;
+      background: #ddf6e5;
+      font-size: 6.5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="eyebrow">BE CUSTOMER OBSESSED</div>
+
+    <div class="headline">
+      Take a zero-distance<br>
+      approach by listening<br>
+      to your customers
+    </div>
+
+    <div class="section-title">GitHub Feedback</div>
+
+    <div class="description">
+      These forums enable users to share suggestions for product improvements with the community and GitHub.
+      GitHub also hosts Product Roundtables &amp; Customer Advisory Boards.
+    </div>
+
+    <div class="cta">github.com/github/feedback/discussions</div>
+
+    <div class="supporting-text">
+      Gathering customer feedback early and often is key to building empathy between engineers and customers.
+    </div>
+
+    <div class="laptop">
+      <div class="laptop-screen">
+        <img class="forum-placeholder" src="https://placehold.co/640x360?text=Feedback+Forum+UI" alt="Feedback Forum UI placeholder" />
+        <div class="ui-overlay">
+          <div class="nav">
+            <span class="avatar-dot"></span>
+            <span>Home</span>
+            <span>Discussions</span>
+            <span>Categories</span>
+            <span>Leaders</span>
+            <span>About</span>
+          </div>
+
+          <div class="search">Search discussions or ask a question...</div>
+
+          <div class="cards-grid">
+            <div class="card blue">
+              Feature<br>Requests
+              <span class="card-icon"></span>
+            </div>
+            <div class="card purple">
+              Bug Reports
+              <span class="card-icon"></span>
+            </div>
+            <div class="card green">
+              Community<br>Support
+              <span class="card-icon"></span>
+            </div>
+            <div class="card orange">
+              Product<br>Ideation
+              <span class="card-icon"></span>
+            </div>
+            <div class="card teal">
+              Integration<br>Feedback
+              <span class="card-icon"></span>
+            </div>
+            <div class="card magenta">
+              General<br>Discussion
+              <span class="card-icon"></span>
+            </div>
+          </div>
+
+          <div class="dashboard">
+            <div class="sidebar">
+              <div class="side-title">All Categories</div>
+              <div class="side-item"></div>
+              <div class="side-item"></div>
+              <div class="side-item"></div>
+              <div class="side-item"></div>
+              <div class="side-item"></div>
+            </div>
+            <div class="threads">
+              <div class="thread-row">
+                <span>API Rate Limit Adjustments</span>
+                <span>API Rate Limit Adjustments</span>
+                <span class="status-pill">Active</span>
+                <span>12</span>
+              </div>
+              <div class="thread-row">
+                <span>New Issue Triage Process Feedback</span>
+                <span>New issue triage process feedback</span>
+                <span class="status-pill">In Progress</span>
+                <span>19</span>
+              </div>
+              <div class="thread-row">
+                <span>Mobile App Syncing Issues</span>
+                <span>Mobile app syncing issues</span>
+                <span class="status-pill">New</span>
+                <span>8</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="laptop-base"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>AI vs. Human Comparison</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #050817;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 22% 50%, rgba(100, 72, 255, 0.28), transparent 28%),
+      radial-gradient(circle at 78% 40%, rgba(0, 180, 255, 0.20), transparent 30%),
+      linear-gradient(110deg, #190924 0%, #121231 45%, #071e3a 100%);
+    color: #fff;
+  }
+
+  .title {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 1376px;
+    text-align: center;
+    font-size: 43px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #ffffff;
+    text-shadow: 0 2px 12px rgba(255,255,255,0.22);
+  }
+
+  /* Central icon */
+  .center-icon {
+    position: absolute;
+    top: 91px;
+    left: 620px;
+    width: 136px;
+    height: 136px;
+    border: 2px solid #7c6cff;
+    border-radius: 50%;
+    background: rgba(41, 86, 255, 0.20);
+    box-shadow:
+      0 0 24px rgba(255, 180, 255, 0.38),
+      0 0 38px rgba(62, 215, 255, 0.26);
+    z-index: 4;
+  }
+
+  .center-icon::before {
+    content: "";
+    position: absolute;
+    left: 66px;
+    top: 0;
+    width: 2px;
+    height: 136px;
+    background: rgba(255,255,255,0.34);
+    box-shadow: 0 0 12px #8ff0ff;
+  }
+
+  .brain-half {
+    position: absolute;
+    left: 24px;
+    top: 20px;
+    width: 54px;
+    height: 88px;
+    border: 2px solid #7762ff;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 34px 28px, rgba(255,255,255,0.65) 0 5px, transparent 6px),
+      radial-gradient(circle at 32px 52px, rgba(255,255,255,0.50) 0 5px, transparent 6px),
+      linear-gradient(140deg, rgba(92,255,255,0.12), rgba(255,112,255,0.20));
+  }
+
+  .circuit-half {
+    position: absolute;
+    right: 24px;
+    top: 20px;
+    width: 56px;
+    height: 88px;
+    border-left: 1px solid #6ff2ff;
+    background:
+      linear-gradient(90deg, transparent 0 12px, #6ff2ff 12px 14px, transparent 14px 24px, #6ff2ff 24px 26px, transparent 26px 38px, #6ff2ff 38px 40px, transparent 40px),
+      linear-gradient(0deg, transparent 0 30px, #6ff2ff 30px 32px, transparent 32px 46px, #6ff2ff 46px 48px, transparent 48px);
+  }
+
+  .cpu {
+    position: absolute;
+    right: 36px;
+    top: 44px;
+    width: 28px;
+    height: 28px;
+    background: #21f4ff;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 18px #6ff0ff;
+  }
+
+  /* Top connector */
+  .top-line-left,
+  .top-line-right {
+    position: absolute;
+    top: 152px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #5ff2ff, transparent);
+    box-shadow: 0 0 10px #5ff2ff;
+    z-index: 2;
+  }
+
+  .top-line-left {
+    left: 510px;
+    width: 120px;
+  }
+
+  .top-line-right {
+    right: 510px;
+    width: 120px;
+  }
+
+  /* Column headers */
+  .ai-header,
+  .human-header {
+    position: absolute;
+    height: 58px;
+    border-radius: 30px;
+    color: #fff;
+    font-weight: 800;
+    font-size: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 22px rgba(120, 255, 255, 0.22), inset 0 0 22px rgba(255,255,255,0.17);
+    z-index: 3;
+  }
+
+  .ai-header {
+    left: 55px;
+    top: 123px;
+    width: 430px;
+    background: linear-gradient(90deg, #1e73e3 0%, #4ec9e4 46%, #34b7d0 100%);
+  }
+
+  .human-header {
+    right: 55px;
+    top: 123px;
+    width: 430px;
+    background: linear-gradient(90deg, #1e83a9 0%, #48d4c6 48%, #48c796 100%);
+  }
+
+  /* AI and Human body cards */
+  .ai-card,
+  .human-card {
+    position: absolute;
+    width: 430px;
+    min-height: 88px;
+    border-radius: 18px;
+    padding: 10px 16px 10px 16px;
+    color: #fff;
+    font-size: 17px;
+    line-height: 1.24;
+    display: flex;
+    align-items: center;
+    z-index: 3;
+    box-shadow: 0 0 20px rgba(0, 180, 255, 0.20), inset 0 0 18px rgba(255,255,255,0.08);
+  }
+
+  .ai-card {
+    left: 55px;
+    background: linear-gradient(100deg, rgba(28,103,160,0.92), rgba(70,85,205,0.74) 58%, rgba(112,70,225,0.88));
+    border: 1px solid rgba(80, 255, 255, 0.45);
+  }
+
+  .human-card {
+    right: 55px;
+    background: linear-gradient(100deg, rgba(12,94,120,0.92), rgba(22,142,125,0.78) 50%, rgba(32,126,108,0.90));
+    border: 1px solid rgba(96, 255, 230, 0.45);
+  }
+
+  .ai1 { top: 192px; }
+  .ai2 { top: 303px; }
+  .ai3 { top: 413px; }
+  .ai4 { top: 522px; }
+  .ai5 { top: 631px; }
+
+  .human1 { top: 192px; }
+  .human2 { top: 303px; }
+  .human3 { top: 413px; }
+  .human4 { top: 522px; }
+  .human5 { top: 631px; }
+
+  /* Middle comparison labels */
+  .pill {
+    position: absolute;
+    left: 557px;
+    width: 278px;
+    height: 45px;
+    border-radius: 24px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 5;
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.23), inset 0 0 20px rgba(255,255,255,0.10);
+  }
+
+  .p1 { top: 225px; background: linear-gradient(90deg, #ff8324, #a749f1); }
+  .p2 { top: 333px; background: linear-gradient(90deg, #ff932a, #a23df2); }
+  .p3 { top: 442px; background: linear-gradient(90deg, #ff902b, #9f39ef); }
+  .p4 { top: 551px; background: linear-gradient(90deg, #ff912f, #a23ef0); }
+  .p5 { top: 658px; background: linear-gradient(90deg, #ff8a2d, #a23ff1); }
+
+  /* Row connector lines */
+  .row-line {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #8df4ff, transparent);
+    box-shadow: 0 0 8px #8df4ff;
+    z-index: 2;
+  }
+
+  .line1 { left: 430px; top: 242px; width: 84px; }
+  .line2 { left: 430px; top: 352px; width: 84px; }
+  .line3 { left: 430px; top: 461px; width: 84px; }
+  .line4 { left: 430px; top: 570px; width: 84px; }
+  .line5 { left: 430px; top: 677px; width: 84px; }
+
+  .line1r { right: 430px; top: 242px; width: 84px; }
+  .line2r { right: 430px; top: 352px; width: 84px; }
+  .line3r { right: 430px; top: 461px; width: 84px; }
+  .line4r { right: 430px; top: 570px; width: 84px; }
+  .line5r { right: 430px; top: 677px; width: 84px; }
+
+  .spark {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #7ff7ff;
+    box-shadow: 0 0 18px #7ff7ff;
+    z-index: 3;
+  }
+
+  .spark.s1 { left: 430px; top: 239px; }
+  .spark.s2 { left: 430px; top: 348px; }
+  .spark.s3 { left: 430px; top: 458px; }
+  .spark.s4 { left: 430px; top: 567px; }
+  .spark.s5 { left: 430px; top: 675px; }
+
+  .spark.s1r { right: 430px; top: 239px; }
+  .spark.s2r { right: 430px; top: 348px; }
+  .spark.s3r { right: 430px; top: 458px; }
+  .spark.s4r { right: 430px; top: 567px; }
+  .spark.s5r { right: 430px; top: 675px; }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">AI vs. Human Comparison</div>
+
+    <div class="center-icon" aria-hidden="true">
+      <div class="brain-half"></div>
+      <div class="circuit-half"></div>
+      <div class="cpu"></div>
+    </div>
+
+    <div class="top-line-left"></div>
+    <div class="top-line-right"></div>
+
+    <div class="ai-header">Artificial Intelligence</div>
+    <div class="human-header">Human Intelligence</div>
+
+    <div class="ai-card ai1">
+      <div>Rapid Data Processing: Capable of analyzing massive datasets at incredible speeds with high precision, often surpassing human calculation abilities.</div>
+    </div>
+    <div class="ai-card ai2">
+      <div>Reliance on Algorithms: Operates within predefined sets of rules and code, requiring structured data to function effectively and lacking inherent intuition.</div>
+    </div>
+    <div class="ai-card ai3">
+      <div>Limited Genuine Emotion: Cannot truly feel or understand complex human emotions, only simulating responses based on programmed parameters.</div>
+    </div>
+    <div class="ai-card ai4">
+      <div>Pattern-Based Creativity: Generates new outputs by identifying and recombining patterns from existing data, without original inspiration or abstract thought.</div>
+    </div>
+    <div class="ai-card ai5">
+      <div>High Consistency: Performs repetitive tasks endlessly without fatigue or variation, maintaining uniform quality and output.</div>
+    </div>
+
+    <div class="human-card human1">
+      <div>Slower Contextual Understanding: Processes information at a slower pace but excels at grasping nuance, ambiguity, and complex context in real-world situations.</div>
+    </div>
+    <div class="human-card human2">
+      <div>Learning from Experience: Adapts and refines understanding through accumulated personal experience, observation, and social interactions over time.</div>
+    </div>
+    <div class="human-card human3">
+      <div>Rich Emotional Understanding: Possesses deep empathy, emotional intelligence, and the ability to understand and respond to the feelings of others.</div>
+    </div>
+    <div class="human-card human4">
+      <div>Creativity Driven by Emotion: Produces original ideas and works inspired by personal experiences, feelings, abstract thinking, and imagination.</div>
+    </div>
+    <div class="human-card human5">
+      <div>Variable Consistency: Performance and reliability can fluctuate due to fatigue, stress, and mood, but is supported by judgment and adaptability.</div>
+    </div>
+
+    <div class="pill p1">Speed And Accuracy</div>
+    <div class="pill p2">Learning and Adaptability</div>
+    <div class="pill p3">Emotional Intelligence</div>
+    <div class="pill p4">Creativity</div>
+    <div class="pill p5">Consistency and Reliability</div>
+
+    <div class="row-line line1"></div>
+    <div class="row-line line2"></div>
+    <div class="row-line line3"></div>
+    <div class="row-line line4"></div>
+    <div class="row-line line5"></div>
+
+    <div class="row-line line1r"></div>
+    <div class="row-line line2r"></div>
+    <div class="row-line line3r"></div>
+    <div class="row-line line4r"></div>
+    <div class="row-line line5r"></div>
+
+    <div class="spark s1"></div>
+    <div class="spark s2"></div>
+    <div class="spark s3"></div>
+    <div class="spark s4"></div>
+    <div class="spark s5"></div>
+
+    <div class="spark s1r"></div>
+    <div class="spark s2r"></div>
+    <div class="spark s3r"></div>
+    <div class="spark s4r"></div>
+    <div class="spark s5r"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1376, initial-scale=1.0" />
+  <title>Monitoring and assessing infrastructure</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #d8dbe0;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background: #dedfe2;
+    }
+
+    .header {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 120px;
+      background: #284873;
+      color: #ffffff;
+    }
+
+    .title {
+      position: absolute;
+      left: 66px;
+      top: 33px;
+      width: 1020px;
+      font-size: 48px;
+      line-height: 1.1;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+    }
+
+    .corner-ribbon {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 250px;
+      height: 120px;
+      overflow: hidden;
+    }
+
+    .stripe {
+      position: absolute;
+      width: 22px;
+      height: 120px;
+      transform: skewX(-38deg);
+      opacity: 0.95;
+    }
+
+    .stripe.s1 {
+      right: 0;
+      top: 0;
+      background: linear-gradient(180deg, #e9f7fb 0%, #4172a9 45%, #14365f 100%);
+    }
+
+    .stripe.s2 {
+      right: 24px;
+      top: -28px;
+      background: linear-gradient(180deg, #76cde2 0%, #1c8cd2 55%, #173962 100%);
+    }
+
+    .stripe.s3 {
+      right: 50px;
+      top: -52px;
+      background: linear-gradient(180deg, #a7e5ef 0%, #249ed8 52%, #113664 100%);
+    }
+
+    .stripe.s4 {
+      right: 76px;
+      top: -72px;
+      background: linear-gradient(180deg, #75d5dc 0%, #268fd8 50%, #0f335a 100%);
+    }
+
+    .stripe.s5 {
+      right: 102px;
+      top: -58px;
+      background: linear-gradient(180deg, #27d8d7 0%, #0b87d1 50%, #082445 100%);
+    }
+
+    .stripe.s6 {
+      right: 128px;
+      top: -38px;
+      background: linear-gradient(180deg, #59d5de 0%, #148fd3 45%, #184a7d 100%);
+    }
+
+    .card {
+      position: absolute;
+      top: 188px;
+      width: 394px;
+      height: 528px;
+      background: #ffffff;
+      border: 1px solid #eef0f2;
+      box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.18);
+    }
+
+    .card.left {
+      left: 66px;
+    }
+
+    .card.middle {
+      left: 497px;
+    }
+
+    .card.right {
+      left: 928px;
+    }
+
+    .card-heading {
+      position: absolute;
+      top: 48px;
+      left: 30px;
+      width: 334px;
+      color: #25446b;
+      font-size: 30px;
+      line-height: 1.22;
+      font-weight: 650;
+      text-align: center;
+    }
+
+    .rule {
+      position: absolute;
+      top: 112px;
+      left: 148px;
+      width: 96px;
+      height: 4px;
+      background: #258bd1;
+    }
+
+    .bullets {
+      position: absolute;
+      top: 146px;
+      left: 30px;
+      width: 334px;
+      color: #111111;
+      font-size: 22px;
+      line-height: 1.22;
+      font-weight: 400;
+    }
+
+    .bullets ul {
+      margin: 0;
+      padding-left: 23px;
+    }
+
+    .bullets li {
+      margin-bottom: 22px;
+      padding-left: 0;
+    }
+
+    .bullets li::marker {
+      color: #245f86;
+      font-size: 17px;
+    }
+
+    .middle .card-heading {
+      top: 46px;
+      width: 330px;
+    }
+
+    .middle .bullets {
+      top: 168px;
+      width: 318px;
+    }
+
+    .right .card-heading {
+      top: 46px;
+      width: 330px;
+    }
+
+    .right .bullets {
+      top: 168px;
+      width: 326px;
+    }
+
+    .middle .rule,
+    .right .rule {
+      top: 140px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="header">
+      <div class="title">Monitoring and assessing infrastructure</div>
+      <div class="corner-ribbon" aria-hidden="true">
+        <div class="stripe s1"></div>
+        <div class="stripe s2"></div>
+        <div class="stripe s3"></div>
+        <div class="stripe s4"></div>
+        <div class="stripe s5"></div>
+        <div class="stripe s6"></div>
+      </div>
+    </div>
+
+    <section class="card left">
+      <div class="card-heading">Microsoft Sentinel</div>
+      <div class="rule"></div>
+      <div class="bullets">
+        <ul>
+          <li>Uncover sophisticated threats and respond decisively with an intelligent, comprehensive security information and event management (SIEM) solution for proactive threat detection, investigation, and response.</li>
+          <li>Streamline security operations with integrated automation and orchestration capabilities across your entire digital estate.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card middle">
+      <div class="card-heading">Microsoft Defender<br>for Endpoint</div>
+      <div class="rule"></div>
+      <div class="bullets">
+        <ul>
+          <li>Prevent, detect, investigate, and respond to advanced threats on endpoints.</li>
+          <li>Use Microsoft Defender for Endpoints P2 – Students to protect student devices.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card right">
+      <div class="card-heading">Microsoft Defender<br>for Cloud Apps</div>
+      <div class="rule"></div>
+      <div class="bullets">
+        <ul>
+          <li>Monitor and assess workloads for servers, storage, containers, SQL, and more.</li>
+          <li>Leverage Microsoft Defender for Identity to detect compromised identities and malicious insider actions across infrastructure.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

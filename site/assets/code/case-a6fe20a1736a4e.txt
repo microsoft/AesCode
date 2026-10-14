@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Healthcare Data Security Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #ece8df;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 16% 88%, rgba(105, 178, 207, 0.34) 0px, rgba(105, 178, 207, 0.18) 180px, rgba(105, 178, 207, 0.04) 330px, transparent 480px),
+        radial-gradient(circle at 88% 92%, rgba(240, 168, 111, 0.28) 0px, rgba(240, 168, 111, 0.14) 180px, rgba(240, 168, 111, 0.04) 340px, transparent 490px),
+        linear-gradient(180deg, #f4f1e9 0%, #efeae1 100%);
+    }
+
+    .title {
+      position: absolute;
+      left: 90px;
+      top: 50px;
+      width: 1200px;
+      text-align: center;
+      font-size: 48px;
+      line-height: 1.22;
+      font-weight: 800;
+      color: #114d5e;
+      letter-spacing: -1.6px;
+    }
+
+    .subtitle {
+      position: absolute;
+      left: 190px;
+      top: 174px;
+      width: 1000px;
+      text-align: center;
+      font-size: 29px;
+      line-height: 1.24;
+      font-weight: 600;
+      color: #72337e;
+      letter-spacing: -0.2px;
+    }
+
+    .cards-row {
+      position: absolute;
+      left: 60px;
+      top: 291px;
+      width: 1256px;
+      height: 392px;
+      display: flex;
+      gap: 35px;
+      justify-content: space1;
+    }
+
+    .card {
+      position: relative;
+      width: 291px;
+      height: 392px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 20px;
+      box-shadow: 0 11px 22px rgba(0, 0, 0, 0.21);
+      padding: 28px 20px 18px 20px;
+      text-align: center;
+    }
+
+    .card-heading {
+      font-size: 23px;
+      line-height: 1.24;
+      font-weight: 500;
+      color: #111111;
+      min-height: 86px;
+      letter-spacing: -0.2px;
+    }
+
+    .metric-area {
+      padding: 18px 8px 18px 8px;
+      min-height: 180px;
+    }
+
+    .metric-label {
+      color: #74307f;
+      font-weight: 800;
+      font-size: 31px;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+
+    .metric {
+      display: block;
+      color: #74307f;
+      font-weight: 900;
+      font-size: 70px;
+      line-height: 0.96;
+      letter-spacing: -3px;
+      white-space: nowrap;
+    }
+
+    .metric-label-small {
+      color: #74307f;
+      font-size: 26px;
+      line-height: 1.05;
+      margin-bottom: -3px;
+      white-space: nowrap;
+    }
+
+    .metric-small {
+      display: block;
+      color: #74307f;
+      font-weight: 900;
+      font-size: 56px;
+      line-height: 1.02;
+      letter-spacing: -2.5px;
+      white-space: nowrap;
+    }
+
+    .metric-days {
+      color: #74307f;
+      font-weight: 900;
+      font-size: 52px;
+      line-height: 1.08;
+      letter-spacing: -2.5px;
+    }
+
+    .metric-days .days-word {
+      display: block;
+      font-size: 46px;
+      letter-spacing: -1.8px;
+    }
+
+    .explanation {
+      margin-top: 0;
+      color: #111111;
+      font-size: 20px;
+      line-height: 1.22;
+      font-weight: 400;
+      letter-spacing: -0.2px;
+    }
+
+    .footnote {
+      position: absolute;
+      left: 60px;
+      bottom: 21px;
+      width: 1140px;
+      color: #1f4a70;
+      font-size: 13px;
+      line-height: 1.3;
+      font-weight: 400;
+    }
+
+    .footnote a {
+      color: #2472a7;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Healthcare organizations today must manage<br>and share data safely and securely</div>
+
+    <div class="subtitle">Patients/members care deeply about privacy, and breaching that trust<br>has significant financial and reputational consequences.</div>
+
+    <div class="cards-row">
+      <div class="card">
+        <div class="card-heading">Attacks against the<br>global healthcare<br>sector increased</div>
+        <div class="metric-area">
+          <span class="metric">82%</span>
+        </div>
+        <div class="explanation">Between 2022 and 2023</div>
+      </div>
+
+      <div class="card">
+        <div class="card-heading">Global average cost<br>of a data breach in<br>healthcare is</div>
+        <div class="metric-area">
+          <div class="metric-label">USD</div>
+          <span class="metric">$9.77M</span>
+        </div>
+        <div class="explanation">The highest across all<br>industries</div>
+      </div>
+
+      <div class="card">
+        <div class="card-heading">When organizations<br>fall victim to<br>ransomware, it takes</div>
+        <div class="metric-area">
+          <div class="metric-days">
+            297
+            <span class="days-word">days</span>
+          </div>
+        </div>
+        <div class="explanation">on average to identify<br>and contain a disruptive<br>attack</div>
+      </div>
+
+      <div class="card">
+        <div class="card-heading">Customer confidence<br>after a breach<br>remains low</div>
+        <div class="metric-area">
+          <span class="metric">12%</span>
+        </div>
+        <div class="explanation">of organizations have<br>regained customer<br>confidence after their<br>data breach</div>
+      </div>
+    </div>
+
+    <div class="footnote">
+      1. Source: IBM Security, <a href="#">Cost of a Data Breach Report 2023</a>.<br>
+      2. Source: Check Point Research, <a href="#">Cyber Attack Trends: Mid-Year Report 2023</a>.
+    </div>
+  </div>
+</body>
+</html>

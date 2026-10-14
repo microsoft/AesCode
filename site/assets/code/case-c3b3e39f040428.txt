@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Top security concerns when adopting AI</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #dfe3e8;
+    color: #171717;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 720px;
+    background: #dfe3e8;
+  }
+
+  .card {
+    position: absolute;
+    left: 29px;
+    top: 25px;
+    width: 1222px;
+    height: 640px;
+    background: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.13);
+  }
+
+  .title {
+    position: absolute;
+    top: 21px;
+    left: 0;
+    width: 1222px;
+    text-align: center;
+    font-size: 48px;
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: -1.7px;
+    color: #161616;
+  }
+
+  .panel {
+    position: absolute;
+    top: 104px;
+    width: 339px;
+    height: 500px;
+    text-align: center;
+  }
+
+  .panel.left {
+    left: 42px;
+  }
+
+  .panel.middle {
+    left: 442px;
+  }
+
+  .panel.right {
+    left: 842px;
+  }
+
+  .divider-left {
+    position: absolute;
+    left: 409px;
+    top: 101px;
+    width: 2px;
+    height: 450px;
+    background: #11a9ae;
+    border-radius: 3px;
+  }
+
+  .divider-left::after {
+    content: "";
+    position: absolute;
+    left: -3px;
+    bottom: -7px;
+    width: 9px;
+    height: 14px;
+    border-left: 2px solid #11a9ae;
+    border-bottom: 2px solid #11a9ae;
+    border-radius: 0 0 0 12px;
+    transform: rotate(-90deg);
+  }
+
+  .divider-right {
+    position: absolute;
+    left: 811px;
+    top: 101px;
+    width: 2px;
+    height: 450px;
+    background: #ec5292;
+    border-radius: 3px;
+  }
+
+  .divider-right::after {
+    content: "";
+    position: absolute;
+    left: -3px;
+    bottom: -7px;
+    width: 9px;
+    height: 14px;
+    border-right: 2px solid #ec5292;
+    border-bottom: 2px solid #ec5292;
+    border-radius: 0 0 12px 0;
+    transform: rotate(90deg);
+  }
+
+  .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 339px;
+    height: 72px;
+    border-radius: 16px;
+    background: #ffffff;
+    border: 2px solid #d8dde2;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    padding: 0 15px 0 24px;
+  }
+
+  .icon-circle {
+    width: 58px;
+    height: 58px;
+    min-width: 58px;
+    border-radius: 50%;
+    margin-right: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 800;
+  }
+
+  .icon-left {
+    background: #11a9ae;
+  }
+
+  .icon-middle {
+    background: #6753a7;
+  }
+
+  .icon-right {
+    background: #ec5292;
+  }
+
+  .header-text {
+    font-size: 16px;
+    line-height: 1.24;
+    font-weight: 700;
+    color: #171717;
+  }
+
+  .chart-wrap {
+    position: absolute;
+    top: 90px;
+    left: 49px;
+    width: 242px;
+    height: 242px;
+  }
+
+  .chart {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 242px;
+    height: 242px;
+    z-index: 1;
+  }
+
+  .center-label {
+    position: absolute;
+    left: 0;
+    top: 85px;
+    width: 242px;
+    height: 72px;
+    z-index: 3;
+    font-size: 45px;
+    line-height: 72px;
+    color: #11a9ae;
+    font-weight: 800;
+    letter-spacing: -1px;
+  }
+
+  .center-label.middle-label {
+    color: #6753a7;
+  }
+
+  .center-label.right-label {
+    color: #ec5292;
+    font-size: 48px;
+  }
+
+  .body-text {
+    position: absolute;
+    top: 347px;
+    left: 20px;
+    width: 299px;
+    font-size: 17px;
+    line-height: 1.35;
+    color: #171717;
+    text-align: center;
+  }
+
+  .footnotes {
+    position: absolute;
+    left: 36px;
+    bottom: 26px;
+    width: 1120px;
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: #1b1b1b;
+    text-align: left;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="card">
+      <div class="title">Top security concerns when adopting AI</div>
+
+      <div class="divider-left"></div>
+      <div class="divider-right"></div>
+
+      <section class="panel left" aria-label="Lack of controls to protect sensitive data in AI">
+        <div class="header">
+          <div class="icon-circle icon-left">🔒</div>
+          <div class="header-text">Lack of controls to<br>protect sensitive data in AI</div>
+        </div>
+        <div class="chart-wrap">
+          <div id="leftDonutChart" class="chart" aria-label="80 percent plus donut chart"></div>
+          <div class="center-label">80%+</div>
+        </div>
+        <div class="body-text">of leaders cited leakage of sensitive data as their main concern¹.</div>
+      </section>
+
+      <section class="panel middle" aria-label="Lack of visibility into vulnerabilities as AI apps proliferate in environments">
+        <div class="header">
+          <div class="icon-circle icon-middle">◉</div>
+          <div class="header-text">Lack of visibility into<br>vulnerabilities as AI apps<br>proliferate in environments</div>
+        </div>
+        <div class="chart-wrap">
+          <div id="middleDonutChart" class="chart" aria-label="66 percent donut chart"></div>
+          <div class="center-label middle-label">66%</div>
+        </div>
+        <div class="body-text">of enterprises are testing, planning, or already developing their own AI applications².</div>
+      </section>
+
+      <section class="panel right" aria-label="Increased regulatory liability and uncertainty">
+        <div class="header">
+          <div class="icon-circle icon-right">⚖</div>
+          <div class="header-text">Increased regulatory liability<br>and uncertainty</div>
+        </div>
+        <div class="chart-wrap">
+          <div id="rightDonutChart" class="chart" aria-label="55 percent donut chart"></div>
+          <div class="center-label right-label">55%</div>
+        </div>
+        <div class="body-text">of leaders lack understanding of how AI is and will be regulated and are seeking guidance on how to adhere to these requirements¹.</div>
+      </section>
+
+      <div class="footnotes">
+        <div>1. AI Security Outlook 2024: Executive Perspectives on Risk and Trust, SecureFuture Research.</div>
+        <div>2. Internal Research: The State of AI Adoption in the Enterprise, SecureFuture Analytics, March 2024.</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    const leftChart = echarts.init(document.getElementById('leftDonutChart'));
+    leftChart.setOption({
+      animation: false,
+      color: ['#11a9ae', '#d3d4d5'],
+      series: [
+        {
+          type: 'pie',
+          radius: ['57%', '91%'],
+          center: ['50%', '50%'],
+          startAngle: 90,
+          clockwise: true,
+          avoidLabelOverlap: false,
+          label: { show: false },
+          labelLine: { show: false },
+          data: [80, 20]
+        }
+      ]
+    });
+
+    const middleChart = echarts.init(document.getElementById('middleDonutChart'));
+    middleChart.setOption({
+      animation: false,
+      color: ['#6753a7', '#d3d4d5'],
+      series: [
+        {
+          type: 'pie',
+          radius: ['57%', '91%'],
+          center: ['50%', '50%'],
+          startAngle: 90,
+          clockwise: true,
+          label: { show: false },
+          labelLine: { show: false },
+          data: [66, 34]
+        }
+      ]
+    });
+
+    const rightChart = echarts.init(document.getElementById('rightDonutChart'));
+    rightChart.setOption({
+      animation: false,
+      color: ['#ec5292', '#d3d4d5'],
+      series: [
+        {
+          type: 'pie',
+          radius: ['57%', '91%'],
+          center: ['50%', '50%'],
+          startAngle: 90,
+          clockwise: true,
+          label: { show: false },
+          labelLine: { show: false },
+          data: [55, 45]
+        }
+      ]
+    });
+  </script>
+</body>
+</html>

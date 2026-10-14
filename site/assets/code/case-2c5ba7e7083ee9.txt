@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The evolution of Dynamics 365 Customer Insights</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #ddd;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background: #efefeb;
+      color: #050505;
+    }
+
+    .title {
+      position: absolute;
+      top: 44px;
+      left: 120px;
+      width: 1136px;
+      text-align: center;
+      font-size: 42px;
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: -1.3px;
+    }
+
+    .subtitle {
+      position: absolute;
+      top: 102px;
+      left: 290px;
+      width: 800px;
+      text-align: center;
+      font-size: 27px;
+      line-height: 1.2;
+      font-weight: 400;
+    }
+
+    /* Timeline */
+    .timeline-line {
+      position: absolute;
+      left: 103px;
+      top: 238px;
+      width: 9px;
+      height: 380px;
+      background: #aaaeb2;
+      border-radius: 8px;
+    }
+
+    .node {
+      position: absolute;
+      left: 72px;
+      width: 63px;
+      height: 63px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 4px solid #ffffff;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.16);
+      z-index: 3;
+    }
+
+    .node-inner {
+      position: absolute;
+      left: 7px;
+      top: 7px;
+      width: 49px;
+      height: 49px;
+      border-radius: 50%;
+    }
+
+    .n2019 {
+      top: 177px;
+    }
+    .n2021 {
+      top: 294px;
+    }
+    .n2022 {
+      top: 385px;
+    }
+    .n2023 {
+      top: 502px;
+    }
+    .n2024 {
+      top: 616px;
+    }
+
+    .blue {
+      background: #2275bb;
+    }
+    .orange {
+      background: #ff8b12;
+    }
+    .green {
+      background: #338f3b;
+    }
+    .purple {
+      background: #7343b3;
+    }
+    .red {
+      background: #ed252c;
+    }
+
+    .event {
+      position: absolute;
+      left: 166px;
+      width: 330px;
+      z-index: 4;
+    }
+
+    .event-year {
+      font-size: 27px;
+      line-height: 1;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .event-desc {
+      font-size: 19px;
+      line-height: 1.28;
+      font-weight: 400;
+    }
+
+    .e2019 {
+      top: 179px;
+    }
+    .e2021 {
+      top: 295px;
+    }
+    .e2022 {
+      top: 385px;
+    }
+    .e2023 {
+      top: 502px;
+    }
+    .e2024 {
+      top: 617px;
+    }
+
+    /* Card */
+    .card {
+      position: absolute;
+      left: 526px;
+      top: 177px;
+      width: 802px;
+      height: 527px;
+      background: #ffffff;
+      border: 2px solid #dddddc;
+      border-radius: 30px;
+      box-shadow: 0 7px 13px rgba(0,0,0,0.15);
+    }
+
+    .small-left {
+      position: absolute;
+      top: 99px;
+      left: 140px;
+      font-size: 22px;
+      color: #777;
+      font-weight: 400;
+    }
+
+    .two {
+      position: absolute;
+      top: 142px;
+      left: 87px;
+      font-size: 78px;
+      line-height: 1;
+      font-weight: 800;
+      color: #6b44b2;
+      letter-spacing: -3px;
+    }
+
+    .years {
+      position: absolute;
+      top: 244px;
+      left: 135px;
+      font-size: 34px;
+      font-weight: 800;
+      color: #6b44b2;
+    }
+
+    .equals {
+      position: absolute;
+      top: 168px;
+      left: 325px;
+      font-size: 48px;
+      color: #8b8f92;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .small-right {
+      position: absolute;
+      top: 98px;
+      left: 430px;
+      font-size: 22px;
+      color: #777;
+      font-weight: 400;
+    }
+
+    .dozen {
+      position: absolute;
+      top: 136px;
+      left: 426px;
+      font-size: 78px;
+      line-height: 1;
+      font-weight: 800;
+      color: #bd2592;
+      letter-spacing: -3px;
+    }
+
+    .ai-features {
+      position: absolute;
+      top: 239px;
+      left: 464px;
+      font-size: 34px;
+      color: #bd2592;
+      font-weight: 800;
+    }
+
+    .benefits {
+      position: absolute;
+      left: 53px;
+      bottom: 53px;
+      width: 696px;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space1between;
+    }
+
+    .benefit {
+      width: 174px;
+      text-align: center;
+      font-size: 21px;
+      line-height: 1.22;
+      font-weight: 800;
+      padding: 0 10px;
+      border-left: 2px solid #c6c6c6;
+    }
+
+    .benefit:first-child {
+      border-left: none;
+    }
+
+    .benefit:nth-child(2) {
+      padding-left: 12px;
+    }
+
+    .benefit:nth-child(3) {
+      padding-left: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">The evolution of Dynamics 365 Customer Insights</div>
+    <div class="subtitle">The leader in generative AI innovation for marketing</div>
+
+    <div class="timeline-line"></div>
+
+    <div class="node n2019">
+      <div class="node-inner blue"></div>
+    </div>
+    <div class="node n2021">
+      <div class="node-inner orange"></div>
+    </div>
+    <div class="node n2022">
+      <div class="node-inner green"></div>
+    </div>
+    <div class="node n2023">
+      <div class="node-inner purple"></div>
+    </div>
+    <div class="node n2024">
+      <div class="node-inner red"></div>
+    </div>
+
+    <div class="event e2019">
+      <div class="event-year">2019</div>
+      <div class="event-desc">Launch of Dynamics 365 Customer<br>Insights and Marketing</div>
+    </div>
+
+    <div class="event e2021">
+      <div class="event-year">2021</div>
+      <div class="event-desc">Launch of Real-time Marketing</div>
+    </div>
+
+    <div class="event e2022">
+      <div class="event-year">2022</div>
+      <div class="event-desc">First generative AI capability<br>released for content creation</div>
+    </div>
+
+    <div class="event e2023">
+      <div class="event-year">2023</div>
+      <div class="event-desc">Customer Insights merges CDP<br>with marketing automation</div>
+    </div>
+
+    <div class="event e2024">
+      <div class="event-year">2024</div>
+      <div class="event-desc">A new AI-first marketing<br>experience is announced</div>
+    </div>
+
+    <div class="card">
+      <div class="small-left">in just</div>
+      <div class="two">two</div>
+      <div class="years">years</div>
+
+      <div class="small-right">we launched more than a</div>
+      <div class="dozen">dozen</div>
+      <div class="ai-features">AI features</div>
+
+      <div class="equals">=</div>
+
+      <div class="benefits">
+        <div class="benefit">Faster time<br>to insights</div>
+        <div class="benefit">Improved<br>creativity</div>
+        <div class="benefit">Increased<br>personalization</div>
+        <div class="benefit">Time<br>saved</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

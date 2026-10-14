@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>在线课程服务流程</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e8edf4;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1024px;
+      height: 1536px;
+      overflow: hidden;
+      background: #ffffff;
+      color: #072f68;
+    }
+
+    .sidebar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 178px;
+      height: 1536px;
+      background: #062c64;
+      color: #fff;
+      border-right: 1px solid rgba(7, 47, 104, 0.35);
+    }
+
+    .brand-line {
+      position: absolute;
+      top: 30px;
+      left: 216px;
+      font-size: 24px;
+      font-weight: 600;
+      color: #072f68;
+      letter-spacing: 0.2px;
+    }
+
+    .headline {
+      position: absolute;
+      left: 216px;
+      top: 78px;
+      margin: 0;
+      font-size: 68px;
+      line-height: 1.08;
+      font-weight: 900;
+      color: #062f68;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    .red-label {
+      position: absolute;
+      left: 216px;
+      top: 180px;
+      width: 450px;
+      height: 54px;
+      background: #e51b2b;
+      color: #fff;
+      border-radius: 10px;
+      font-size: 30px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0.2px;
+    }
+
+    .subtitle {
+      position: absolute;
+      left: 216px;
+      top: 246px;
+      width: 630px;
+      font-size: 22px;
+      color: #6b7786;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* Sidebar blocks */
+    .side-block {
+      position: absolute;
+      left: 0;
+      width: 178px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .side-block-1 {
+      top: 210px;
+    }
+
+    .side-block-2 {
+      top: 530px;
+    }
+
+    .side-block-3 {
+      top: 880px;
+    }
+
+    .side-circle-icon {
+      width: 70px;
+      height: 70px;
+      border: 2px solid rgba(255,255,255,0.95);
+      border-radius: 50%;
+      margin: 0 auto 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 28px;
+      font-weight: 700;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .side-block-2 .side-circle-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 30px 30px 22px 22px;
+      font-size: 25px;
+    }
+
+    .side-block-3 .side-circle-icon {
+      font-size: 26px;
+    }
+
+    .side-block-text {
+      font-size: 20px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .red-dot {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: #ef2435;
+      border-radius: 50%;
+      right: 23px;
+      bottom: 3px;
+    }
+
+    .side-divider {
+      position: absolute;
+      left: 22px;
+      width: 128px;
+      height: 1px;
+      background: #ff2638;
+      border-radius: 1px;
+    }
+
+    .divider-1 {
+      top: 440px;
+    }
+
+    .divider-2 {
+      top: 790px;
+    }
+
+    .since-badge {
+      position: absolute;
+      left: 42px;
+      bottom: 65px;
+      width: 88px;
+      height: 112px;
+      border: 2px solid #fff;
+      color: #fff;
+      border-radius: 12px;
+      font-size: 17px;
+      line-height: 1.28;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: rgba(255,255,255,0.06);
+      font-weight: 700;
+    }
+
+    /* Process steps */
+    .steps-area {
+      position: absolute;
+      left: 222px;
+      top: 300px;
+      width: 780px;
+      height: 780px;
+    }
+
+    .step-card {
+      position: absolute;
+      left: 0;
+      width: 780px;
+      height: 150px;
+      background: #fff;
+      border: 1.5px solid #aeb7c0;
+      border-radius: 8px;
+      box-shadow: 0 2px 3px rgba(18, 48, 88, 0.06);
+    }
+
+    .step-1 { top: 0; }
+    .step-2 { top: 162px; }
+    .step-3 { top: 324px; }
+    .step-4 { top: 486px; }
+    .step-5 { top: 648px; height: 132px; }
+
+    .num-circle {
+      position: absolute;
+      left: -32px;
+      top: -22px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #ef2032;
+      color: #fff;
+      border: 2px solid #fff;
+      font-size: 27px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 4;
+      box-shadow: 0 2px 5px rgba(239,32,50,0.18);
+    }
+
+    .step-icon {
+      position: absolute;
+      left: 58px;
+      top: 17px;
+      width: 82px;
+      height: 82px;
+      border: 2px solid #072f68;
+      border-radius: 8px;
+      color: #072f68;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fbfdff;
+      font-size: 29px;
+      font-weight: 800;
+    }
+
+    .vertical-red-line {
+      position: absolute;
+      left: 168px;
+      top: 20px;
+      width: 2px;
+      height: 80px;
+      background: #ff3646;
+    }
+
+    .step-content {
+      position: absolute;
+      left: 214px;
+      top: 12px;
+      width: 455px;
+    }
+
+    .step-title {
+      font-size: 27px;
+      color: #062d66;
+      font-weight: 900;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .step-body {
+      font-size: 20px;
+      color: #4e5966;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    /* Service promise */
+    .promise-section {
+      position: absolute;
+      left: 212px;
+      top: 1100px;
+      width: 770px;
+      height: 200px;
+      border: 1.8px solid #072f68;
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .promise-header {
+      width: 100%;
+      height: 42px;
+      background: #062f68;
+      color: #fff;
+      text-align: center;
+      font-size: 24px;
+      line-height: 42px;
+      font-weight: 900;
+    }
+
+    .promise-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 158px;
+      border-top: 1px solid rgba(7,47,104,0.13);
+    }
+
+    .promise-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      border-right: 2px solid #b6bcc4;
+      border-bottom: 1px solid #aeb6bd;
+    }
+
+    .promise-item:nth-child(2),
+    .promise-item:nth-child(4) {
+      border-right: none;
+    }
+
+    .promise-item:nth-child(3) {
+      border-bottom: none;
+    }
+
+    .icon-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #f21f2f;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .promise-text {
+      font-size: 20px;
+      font-weight: 800;
+      color: #072f68;
+    }
+
+    /* Enrollment panel */
+    .enrollment-panel {
+      position: absolute;
+      left: 212px;
+      top: 1300px;
+      width: 770px;
+      height: 166px;
+      background: #f1f4f8;
+      border: 1.8px solid #072f68;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .enroll-left {
+      width: 380px;
+      height: 120px;
+      border-right: 2px dotted #9ba4ad;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      padding-left: 23px;
+    }
+
+    .laptop-icon {
+      width: 86px;
+      height: 86px;
+      border: 3px solid #072f68;
+      border-radius: 8px;
+      color: #072f68;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      background: #e8edf3;
+    }
+
+    .enroll-title {
+      font-size: 35px;
+      color: #072f68;
+      line-height: 1.35;
+      font-weight: 900;
+    }
+
+    .enroll-right {
+      width: 390px;
+      padding-left: 23px;
+      padding-top: 4px;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      height: 43px;
+      font-size: 22px;
+      color: #14315b;
+      font-weight: 700;
+      gap: 12px;
+    }
+
+    .contact-note {
+      margin-top: 5px;
+      color: #ff2032;
+      border-top: 2px solid #ff3646;
+      padding-top: 8px;
+      font-size: 19px;
+      font-weight: 800;
+      width: 242px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <aside class="sidebar">
+      <div class="side-block side-block-1">
+        <div class="side-circle-icon">▣</div>
+        <div class="side-block-text">2025 Spring<br>Intake</div>
+        <div class="red-dot"></div>
+      </div>
+
+      <div class="side-divider divider-1"></div>
+
+      <div class="side-block side-block-2">
+        <div class="side-circle-icon">♟</div>
+        <div class="side-block-text">1对1<br>学习顾问</div>
+        <div class="red-dot"></div>
+      </div>
+
+      <div class="side-divider divider-2"></div>
+
+      <div class="side-block side-block-3">
+        <div class="side-circle-icon">☏</div>
+        <div class="side-block-text">Support<br>09:00–21:00</div>
+        <div class="red-dot"></div>
+      </div>
+
+      <div class="since-badge">Since<br>2018</div>
+    </aside>
+
+    <div class="brand-line">启航 EduStudio</div>
+    <h1 class="headline">在线课程服务流程</h1>
+    <div class="red-label">From Trial to Certificate</div>
+    <div class="subtitle">为成人职业提升课程设计的标准化服务闭环</div>
+
+    <main class="steps-area">
+      <section class="step-card step-1">
+        <div class="num-circle">1</div>
+        <div class="step-icon">♙</div>
+        <div class="vertical-red-line"></div>
+        <div class="step-content">
+          <div class="step-title">STEP 1 试听咨询 Trial Class</div>
+          <div class="step-body">提交基本信息后，顾问将在30分钟内联系；匹配课程方向、英文水平与学习目标。</div>
+        </div>
+      </section>
+
+      <section class="step-card step-2">
+        <div class="num-circle">2</div>
+        <div class="step-icon">☑</div>
+        <div class="vertical-red-line"></div>
+        <div class="step-content">
+          <div class="step-title">STEP 2 能力评估 Assessment</div>
+          <div class="step-body">完成15分钟入学测评，生成Level Report，并确认适合的班型与上课频率。</div>
+        </div>
+      </section>
+
+      <section class="step-card step-3">
+        <div class="num-circle">3</div>
+        <div class="step-icon">¥</div>
+        <div class="vertical-red-line"></div>
+        <div class="step-content">
+          <div class="step-title">STEP 3 方案确认 Plan &amp; Payment</div>
+          <div class="step-body">确认课程包、开课日期与费用。<br>推荐方案：12-week Career English Bootcamp，¥4,980。</div>
+        </div>
+      </section>
+
+      <section class="step-card step-4">
+        <div class="num-circle">4</div>
+        <div class="step-icon">✎</div>
+        <div class="vertical-red-line"></div>
+        <div class="step-content">
+          <div class="step-title">STEP 4 开课学习 Learning Phase</div>
+          <div class="step-body">每周2次直播课 + 1次作业反馈；<br>班主任跟进出勤、作业提交与阶段测验。</div>
+        </div>
+      </section>
+
+      <section class="step-card step-5">
+        <div class="num-circle">5</div>
+        <div class="step-icon">◉</div>
+        <div class="vertical-red-line"></div>
+        <div class="step-content">
+          <div class="step-title">STEP 5 结课认证 Certificate</div>
+          <div class="step-body">完成不少于85%课程并通过Final Review，即可获得电子结业证书。</div>
+        </div>
+      </section>
+    </main>
+
+    <section class="promise-section">
+      <div class="promise-header">服务承诺 Service Promise</div>
+      <div class="promise-grid">
+        <div class="promise-item">
+          <div class="icon-circle">↻</div>
+          <div class="promise-text">24小时内答疑回复</div>
+        </div>
+        <div class="promise-item">
+          <div class="icon-circle">♙</div>
+          <div class="promise-text">7天内可调整班级</div>
+        </div>
+        <div class="promise-item">
+          <div class="icon-circle">▥</div>
+          <div class="promise-text">阶段学习报告可查</div>
+        </div>
+        <div class="promise-item">
+          <div class="icon-circle">▤</div>
+          <div class="promise-text">Invoice available</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="enrollment-panel">
+      <div class="enroll-left">
+        <div class="laptop-icon">▰</div>
+        <div class="enroll-title">报名通道<br>Enrollment</div>
+      </div>
+      <div class="enroll-right">
+        <div class="contact-row">🌐 www.edustudio.cn</div>
+        <div class="contact-row">☏ wechat: EDU-CAREER</div>
+        <div class="contact-note">试听名额每周限 50 人</div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

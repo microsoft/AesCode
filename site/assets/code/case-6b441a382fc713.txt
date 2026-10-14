@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Opportunities driving digital transformation for courts</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #dfe2e4;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background: #e7e9ea;
+    color: #0b0b0b;
+  }
+
+  .title {
+    position: absolute;
+    top: 45px;
+    left: 80px;
+    width: 1216px;
+    text-align: center;
+    font-size: 40px;
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -1.3px;
+    color: #050505;
+  }
+
+  .top-line {
+    position: absolute;
+    top: 174px;
+    left: 60px;
+    width: 1256px;
+    height: 2px;
+    background: #267fc3;
+  }
+
+  .top-dot-left,
+  .top-dot-right {
+    position: absolute;
+    top: 167px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #267fc3;
+  }
+
+  .top-dot-left {
+    left: 50px;
+  }
+
+  .top-dot-right {
+    right: 50px;
+  }
+
+  .theme-pill {
+    position: absolute;
+    top: 140px;
+    left: 440px;
+    width: 512px;
+    height: 70px;
+    border-radius: 38px;
+    background: #2d5f93;
+    box-shadow: 0 7px 10px rgba(0, 0, 0, 0.23);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 700;
+    z-index: 4;
+  }
+
+  .blue-bar {
+    position: absolute;
+    top: 282px;
+    left: 50px;
+    width: 1276px;
+    height: 38px;
+    border-radius: 20px;
+    background: #247fc3;
+  }
+
+  .icon-circle {
+    position: absolute;
+    top: 240px;
+    width: 124px;
+    height: 124px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.20);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon1 { left: 108px; }
+  .icon2 { left: 372px; }
+  .icon3 { left: 636px; }
+  .icon4 { left: 900px; }
+  .icon5 { left: 1164px; }
+
+  .icon-circle svg {
+    width: 72px;
+    height: 72px;
+    fill: none;
+    stroke: #346695;
+    stroke-width: 4.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .icon-circle .fill-blue {
+    fill: #346695;
+    stroke: none;
+  }
+
+  .text-block {
+    position: absolute;
+    text-align: center;
+    color: #151515;
+  }
+
+  .text-block h2 {
+    margin: 0 0 15px 0;
+    color: #114e80;
+    font-size: 21px;
+    line-height: 1.2;
+    font-weight: 800;
+  }
+
+  .text-block p {
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.23;
+    color: #111111;
+    max-width: 215px;
+  }
+
+  .block1 {
+    top: 386px;
+    left: 58px;
+    width: 220px;
+  }
+
+  .block2 {
+    top: 386px;
+    left: 318px;
+    width: 220px;
+  }
+
+  .block3 {
+    top: 386px;
+    left: 578px;
+    width: 250px;
+  }
+
+  .block4 {
+    top: 386px;
+    left: 838px;
+    width: 230px;
+  }
+
+  .block5 {
+    top: 386px;
+    left: 1102px;
+    width: 230px;
+  }
+
+  .metric-banner {
+    position: absolute;
+    left: 50px;
+    bottom: 35px;
+    width: 1276px;
+    height: 82px;
+    border-radius: 41px;
+    background: linear-gradient(90deg, #223868 0%, #285892 47%, #247fc3 100%);
+    display: grid;
+    grid-template-columns: 20% 16% 17.5% 19% 14.5% 11.5%;
+    align-items: center;
+    color: #ffffff;
+    z-index: 3;
+  }
+
+  .metric {
+    text-align: center;
+    font-size: 17px;
+    line-height: 1.16;
+    font-weight: 700;
+    padding: 0 10px;
+  }
+
+  .metric.key {
+    font-size: 22px;
+    font-weight: 800;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="title">Opportunities driving digital transformation for courts</div>
+
+  <div class="top-line"></div>
+  <div class="top-dot-left"></div>
+  <div class="top-dot-right"></div>
+
+  <div class="theme-pill">Modernize court operations</div>
+
+  <div class="blue-bar"></div>
+
+  <div class="icon-circle icon1" aria-hidden="true">
+    <svg viewBox="0 0 100 100">
+      <g transform="translate(8 14)">
+        <path d="M18 62 L54 23" />
+        <path d="M52 20 L74 41 L42 48 L34 28 Z" />
+        <circle cx="72" cy="74" r="18" />
+        <circle cx="72" cy="74" r="12" fill="#ffffff" stroke="#346695" stroke-width="3" />
+        <path d="M62 64 L62 54 L52 52 L49 42 L38 42 L33 31 L22 34 L20 45 L10 50 L10 62 L22 66 L33 57 L45 57 L52 68 Z" />
+      </g>
+    </svg>
+  </div>
+
+  <div class="icon-circle icon2" aria-hidden="true">
+    <svg viewBox="0 0 100 100">
+      <path d="M20 42 L50 22 L80 42 L50 64 Z" />
+      <path d="M22 44 L22 74 L78 74 L78 44" />
+      <path d="M35 50 L45 40 L55 50" />
+      <path d="M30 75 L70 75" />
+      <rect x="56" y="20" width="35" height="32" rx="4" class="fill-blue" />
+      <path d="M67 43 L67 58 L80 58 L80 43" />
+      <circle cx="80" cy="76" r="9" fill="#346695" />
+      <path d="M65 82 L52 88 L52 98 L88 98 L88 80 L76 80 Z" class="fill-blue" />
+    </svg>
+  </div>
+
+  <div class="icon-circle icon3" aria-hidden="true">
+    <svg viewBox="0 0 100 100">
+      <g transform="translate(12 12)">
+        <circle cx="36" cy="22" r="16" fill="#a7c7e1" stroke="#346695" stroke-width="3" />
+        <circle cx="55" cy="31" r="20" fill="#a7c7e1" stroke="#346695" stroke-width="3" />
+        <circle cx="34" cy="43" r="17" fill="#a7c7e1" stroke="#346695" stroke-width="3" />
+        <path d="M20 39 L70 39 L78 72 L23 72 Z" fill="#4f88bd" stroke="#346695" stroke-width="3" />
+        <rect x="18" y="48" width="28" height="23" rx="3" fill="#2f6698" />
+        <circle cx="32" cy="58" r="4" fill="#ffffff" />
+      </g>
+    </svg>
+  </div>
+
+  <div class="icon-circle icon4" aria-hidden="true">
+    <svg viewBox="0 0 100 100">
+      <g transform="translate(18 18)">
+        <ellipse cx="26" cy="32" rx="15" ry="27" fill="#2f6698" />
+        <path d="M11 88 L41 88 M15 72 L37 72" stroke="#346695" stroke-width="2.4" />
+        <path d="M26 42 L58 42 L68 32 L58 22 L26 22 Z" fill="#a8c8e3" stroke="#346695" stroke-width="3" />
+        <path d="M38 28 L50 28 L50 41 L38 41 Z" fill="#346695" />
+      </g>
+    </svg>
+  </div>
+
+  <div class="icon-circle icon5" aria-hidden="true">
+    <svg viewBox="0 0 100 100">
+      <path d="M50 12 C61 26 74 30 82 36 V55 C76 66 66 75 50 84 C34 75 24 66 18 55 V36 C30 30 43 26 50 12 Z" fill="#2f6698" />
+      <path d="M50 16 C58 28 68 32 76 38 V53 C70 63 61 71 50 79 C39 71 30 63 24 53 V38 C33 32 43 28 50 16 Z" fill="#ffffff" opacity="0.85" />
+      <rect x="38" y="48" width="24" height="20" rx="3" fill="#72a8d6" />
+      <circle cx="48" cy="56" r="3.5" fill="#ffffff" />
+      <text x="76" y="20" font-size="12" fill="#111111" font-family="Arial" font-weight="700" text-anchor="middle">01010</text>
+      <text x="83" y="32" font-size="12" fill="#111111" font-family="Arial" font-weight="700" text-anchor="middle">01</text>
+      <text x="84" y="44" font-size="12" fill="#111111" font-family="Arial" font-weight="700" text-anchor="middle">110</text>
+      <text x="76" y="56" font-size="12" fill="#111111" font-family="Arial" font-weight="700" text-anchor="middle">100</text>
+      <text x="75" y="68" font-size="12" fill="#111111" font-family="Arial" font-weight="700" text-anchor="middle">10101</text>
+    </svg>
+  </div>
+
+  <div class="text-block block1">
+    <h2>Boost court efficiencies</h2>
+    <p>Boost court efficiencies, reduce administrative burden, and avoid case delays with smart case management</p>
+  </div>
+
+  <div class="text-block block2">
+    <h2>Increase public accessibility</h2>
+    <p>Increase public accessibility to justice with virtual hearings and remote trials</p>
+  </div>
+
+  <div class="text-block block3">
+    <h2>Ensure security in uploading, sharing, and reviewing evidence</h2>
+    <p>Ensure security in uploading, sharing, and reviewing evidence to enhance transparency, accuracy, and efficiency</p>
+  </div>
+
+  <div class="text-block block4">
+    <h2>Automate court recording and transcription</h2>
+    <p>Automate court recording and transcription to support virtual courts, documentation, accessibility, and case management</p>
+  </div>
+
+  <div class="text-block block5">
+    <h2>Protect data on digital systems</h2>
+    <p>Protect data on digital systems and comply with standards by leveraging advanced cybersecurity measures</p>
+  </div>
+
+  <div class="metric-banner">
+    <div class="metric key">Key metrics</div>
+    <div class="metric">Improve court<br>operation</div>
+    <div class="metric">Increase access<br>to justice</div>
+    <div class="metric">Improve public trust and<br>employee satisfaction</div>
+    <div class="metric">Enhance<br>productivity</div>
+    <div class="metric">Reduce cyber<br>risk and loss</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Personalização do modelo de dados</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #dfe3e6;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background: #f1f3f4;
+      color: #171717;
+    }
+
+    .pill {
+      position: absolute;
+      left: 64px;
+      top: 36px;
+      min-width: 164px;
+      height: 31px;
+      padding: 0 18px;
+      border-radius: 18px;
+      background: #0078d4;
+      color: #ffffff;
+      font-size: 14px;
+      line-height: 31px;
+      font-weight: 650;
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+    }
+
+    .title {
+      position: absolute;
+      left: 65px;
+      top: 78px;
+      font-size: 38px;
+      line-height: 1.12;
+      font-weight: 650;
+      letter-spacing: -1.1px;
+      color: #181818;
+      white-space: nowrap;
+    }
+
+    .subtitle {
+      position: absolute;
+      left: 66px;
+      top: 130px;
+      width: 1130px;
+      font-size: 24px;
+      line-height: 1.22;
+      font-weight: 600;
+      color: #0078d4;
+      letter-spacing: -0.3px;
+    }
+
+    .feature-card {
+      position: absolute;
+      left: 64px;
+      top: 214px;
+      width: 586px;
+      height: 510px;
+      background: #ffffff;
+      border: 1px solid #d7dde1;
+      border-radius: 21px;
+      box-shadow: 0 8px 18px rgba(18, 38, 50, 0.10);
+      padding: 24px 18px 20px 18px;
+    }
+
+    .feature-section {
+      position: relative;
+      padding: 0 0 20px 0;
+    }
+
+    .feature-section.section-1 {
+      height: 147px;
+    }
+
+    .feature-section.section-2 {
+      height: 144px;
+      padding-top: 17px;
+    }
+
+    .feature-section.section-3 {
+      padding-top: 16px;
+    }
+
+    .feature-heading {
+      color: #0078d4;
+      font-size: 22px;
+      line-height: 1.15;
+      font-weight: 650;
+      margin: 0 0 6px 0;
+      letter-spacing: -0.2px;
+    }
+
+    .feature-text {
+      font-size: 17.6px;
+      line-height: 1.20;
+      color: #111111;
+      margin: 0;
+      letter-spacing: -0.1px;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: #c6ccd1;
+      margin-top: 18px;
+    }
+
+    .screenshot-back {
+      position: absolute;
+      left: 818px;
+      top: 230px;
+      width: 506px;
+      height: 286px;
+      z-index: 2;
+      background: #ffffff;
+      border: 1px solid #a9b1b6;
+      border-radius: 4px;
+      box-shadow: 0 12px 24px rgba(22, 35, 45, 0.18);
+      overflow: hidden;
+      transform: scale(0.86);
+      transform-origin: top left;
+    }
+
+    .screenshot-front {
+      position: absolute;
+      left: 708px;
+      top: 342px;
+      width: 622px;
+      height: 374px;
+      z-index: 5;
+      background: #ffffff;
+      border: 1px solid #a9b1b6;
+      border-radius: 4px;
+      box-shadow: 0 15px 27px rgba(22, 35, 45, 0.23);
+      overflow: hidden;
+    }
+
+    .winbar {
+      height: 24px;
+      background: #1e1f20;
+      color: #b9c0c4;
+      font-size: 9px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      gap: 6px;
+      border-bottom: 1px solid #2f3438;
+    }
+
+    .traffic {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ff6258;
+    }
+
+    .dot.green {
+      background: #35b85c;
+    }
+
+    .dot.yellow {
+      background: #f3c238;
+    }
+
+    .tab {
+      width: 98px;
+      height: 13px;
+      background: #2d3136;
+      border-radius: 6px;
+      border: 1px solid #4d555b;
+    }
+
+    .topnav {
+      height: 20px;
+      background: #071f48;
+      border-bottom: 1px solid #778290;
+      color: #d7e1ef;
+    }
+
+    .screenshot-body {
+      position: absolute;
+      top: 43px;
+      left: 0;
+      width: 100%;
+      bottom: 0;
+      background: #fbfbfb;
+      display: flex;
+      border-bottom: 1px solid #d0d5d9;
+    }
+
+    .side-rail {
+      width: 80px;
+      border-right: 1px solid #d0d6da;
+      background: #f5f6f7;
+      padding: 8px 4px;
+    }
+
+    .side-item {
+      font-size: 8.5px;
+      margin: 3px 0;
+      color: #333;
+    }
+
+    .workspace {
+      width: 184px;
+      border-right: 1px solid #d0d6da;
+      padding: 7px 5px;
+      background: #fbfbfb;
+    }
+
+    .workspace-title {
+      font-size: 9px;
+      font-weight: 700;
+      color: #1e5d84;
+      margin-bottom: 8px;
+    }
+
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3px;
+    }
+
+    .tile {
+      border: 1px solid #cbd4da;
+      background: #fff;
+      min-height: 24px;
+      font-size: 7.5px;
+    }
+
+    .canvas {
+      flex: 1;
+      padding: 8px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.85fr;
+      gap: 8px;
+    }
+
+    .mini-chart {
+      background: #fff;
+      border: 1px solid #d2d8de;
+      height: 76px;
+      position: relative;
+    }
+
+    .chart-label {
+      position: absolute;
+      left: 5px;
+      top: 3px;
+      font-size: 7.8px;
+      color: #252525;
+    }
+
+    .placeholder-chart {
+      position: absolute;
+      left: 5px;
+      right: 5px;
+      bottom: 4px;
+      height: 42px;
+    }
+
+    .connector {
+      position: absolute;
+      height: 1.5px;
+      background: #0078d4;
+      z-index: 3;
+    }
+
+    .connector.c1 {
+      left: 648px;
+      top: 313px;
+      width: 180px;
+    }
+
+    .connector.c2 {
+      left: 648px;
+      top: 455px;
+      width: 102px;
+    }
+
+    .connector.c3 {
+      left: 648px;
+      top: 616px;
+      width: 250px;
+    }
+
+    .node {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #0078d4;
+      z-index: 6;
+      border: 1px solid rgba(255,255,255,0.85);
+    }
+
+    .node.n1 {
+      left: 644px;
+      top: 310px;
+    }
+
+    .node.n2 {
+      left: 644px;
+      top: 452px;
+    }
+
+    .node.n3 {
+      left: 644px;
+      top: 613px;
+    }
+
+    .node.n4 {
+      left: 896px;
+      top: 613px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="pill">EXTENSIBILIDADE</div>
+
+    <div class="title">Personalização do modelo de dados</div>
+
+    <div class="subtitle">
+      Estenda relatórios prontos para uso adicionando métricas personalizadas e integrando dados<br>
+      externos mais significativos para sua organização
+    </div>
+
+    <div class="feature-card">
+      <section class="feature-section section-1">
+        <h2 class="feature-heading">Métricas em conjuntos de dados</h2>
+        <p class="feature-text">
+          Adicione entidades personalizadas do Dataverse ou de outras fontes para estender um modelo de dados do Power BI pronto para uso. Isso permite criar novas métricas sobre as existentes, oferecendo insights mais profundos alinhados com suas necessidades específicas e fontes de dados externas.
+        </p>
+        <div class="divider"></div>
+      </section>
+
+      <section class="feature-section section-2">
+        <h2 class="feature-heading">Controle a visibilidade e os privilégios de edição</h2>
+        <p class="feature-text">
+          Utilize funções predefinidas para definir exatamente quais usuários podem editar, publicar e compartilhar o modelo de dados. Mantenha controle granular sobre a visibilidade e os privilégios de edição para garantir a segurança e a integridade das informações.
+        </p>
+        <div class="divider"></div>
+      </section>
+
+      <section class="feature-section section-3">
+        <h2 class="feature-heading">Acessar relatórios personalizados nativamente no Customer Service workspace</h2>
+        <p class="feature-text">
+          Os supervisores podem visualizar e interagir com relatórios personalizados criados no Power BI diretamente no Customer Service workspace. Isso elimina a necessidade de alternar entre sistemas diferentes, otimizando o fluxo de trabalho e centralizando as análises.
+        </p>
+      </section>
+    </div>
+
+    <div class="screenshot-back">
+      <div class="winbar">
+        <div class="traffic">
+          <span class="dot green"></span>
+          <span class="dot yellow"></span>
+          <span class="dot"></span>
+        </div>
+        <div class="tab"></div>
+      </div>
+      <div class="topnav"></div>
+      <div class="screenshot-body">
+        <div class="side-rail">
+          <div class="side-item">Home</div>
+          <div class="side-item">Record</div>
+          <div class="side-item">Reports</div>
+        </div>
+        <div class="workspace">
+          <div class="workspace-title">Dynamics 365<br>Customer Service</div>
+          <div class="tiles">
+            <div class="tile">Cases</div>
+            <div class="tile">Knowledge</div>
+            <div class="tile">Insights</div>
+            <div class="tile">Power BI</div>
+          </div>
+        </div>
+        <div class="canvas">
+          <div class="mini-chart">
+            <div class="chart-label">Desempenho de Vendas por Trimestre</div>
+            <div id="backSalesLine" class="placeholder-chart"></div>
+          </div>
+          <div class="mini-chart">
+            <div class="chart-label">Entidades Personalizadas vs. Pedido</div>
+            <div id="backEntitiesBar" class="placeholder-chart"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screenshot-front">
+      <div class="winbar">
+        <div class="traffic">
+          <span class="dot green"></span>
+          <span class="dot yellow"></span>
+          <span class="dot"></span>
+        </div>
+        <div class="tab"></div>
+      </div>
+      <div class="topnav"></div>
+      <div class="screenshot-body">
+        <div class="side-rail">
+          <div class="side-item">Home</div>
+          <div class="side-item">Record</div>
+          <div class="side-item">Reports</div>
+        </div>
+        <div class="workspace">
+          <div class="workspace-title">Dynamics 365<br>Customer Service</div>
+          <div class="tiles">
+            <div class="tile">Cases</div>
+            <div class="tile">Knowledge</div>
+            <div class="tile">Insights</div>
+            <div class="tile">Power BI</div>
+          </div>
+        </div>
+        <div class="canvas">
+          <div class="mini-chart">
+            <div class="chart-label">Desempenho de Vendas por Trimestre</div>
+            <div id="frontSalesLine" class="placeholder-chart"></div>
+          </div>
+          <div class="mini-chart">
+            <div class="chart-label">Entidades Personalizadas vs. Pedido</div>
+            <div id="frontEntitiesBar" class="placeholder-chart"></div>
+          </div>
+          <div class="mini-chart" style="grid-column: 2; height: 62px;">
+            <div class="chart-label">Alertas</div>
+            <div id="frontAlertsHorizontal" class="placeholder-chart"></div>
+          </div>
+          <div class="mini-chart" style="grid-column: 1 / span 2; height: 62px; margin-top: 0;">
+            <div class="chart-label">Resumo de Entidades</div>
+            <div id="frontSalesDetailPie" class="placeholder-chart"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector c1"></div>
+    <div class="connector c2"></div>
+    <div class="connector c3"></div>
+    <div class="node n1"></div>
+    <div class="node n2"></div>
+    <div class="node n3"></div>
+    <div class="node n4"></div>
+  </div>
+
+  <script>
+    const backSalesLine = echarts.init(document.getElementById('backSalesLine'));
+    backSalesLine.setOption({
+      animation: false,
+      grid: { left: 16, right: 8, top: 10, bottom: 18 },
+      xAxis: { type: 'category', data: ['Q1','Q2','Q3','Q4','Q5','Q6','Q7'], axisLabel: { fontSize: 7 }, axisTick: { show: false } },
+      yAxis: { type: 'value', splitLine: { lineStyle: { color: '#e4e8ec' } }, axisLabel: { fontSize: 7 } },
+      series: [{ type: 'line', data: [22, 38, 42, 55, 82, 61, 100], smooth: true, symbolSize: 4, areaStyle: { color: '#cdeeff' }, lineStyle: { color: '#2d8ee8' } }]
+    });
+
+    const backEntitiesBar = echarts.init(document.getElementById('backEntitiesBar'));
+    backEntitiesBar.setOption({
+      animation: false,
+      grid: { left: 14, right: 8, top: 10, bottom: 18 },
+      xAxis: { type: 'category', data: ['A','B','C','D','E'], axisLabel: { fontSize: 6 }, axisTick: { show: false } },
+      yAxis: { type: 'value', axisLabel: { fontSize: 6 } },
+      series: [{ type: 'bar', data: [4, 7, 5, 9], barWidth: 12, itemStyle: { color: '#2a92e8' } }]
+    });
+
+    const frontSalesLine = echarts.init(document.getElementById('frontSalesLine'));
+    frontSalesLine.setOption({
+      animation: false,
+      grid: { left: 16, right: 8, top: 10, bottom: 18 },
+      xAxis: { type: 'category', data: ['Q1','Q2','Q3','Q4','Q5','Q6','Q7'], axisLabel: { fontSize: 7 }, axisTick: { show: false } },
+      yAxis: { type: 'value', splitLine: { lineStyle: { color: '#e4e8ec' } }, axisLabel: { fontSize: 7 } },
+      series: [{ type: 'line', data: [18, 32, 45, 42, 68, 50, 78], smooth: true, symbolSize: 4, areaStyle: { color: '#cdeeff' }, lineStyle: { color: '#2d8ee8' } }]
+    });
+
+    const frontEntitiesBar = echarts.init(document.getElementById('frontEntitiesBar'));
+    frontEntitiesBar.setOption({
+      animation: false,
+      grid: { left: 14, right: 8, top: 10, bottom: 18 },
+      xAxis: { type: 'category', data: ['A','B','C','D','E'], axisLabel: { fontSize: 6 }, axisTick: { show: false } },
+      yAxis: { type: 'value', axisLabel: { fontSize: 6 } },
+      series: [{ type: 'bar', data: [35, 55, 75, 62, 90], barWidth: 11, itemStyle: { color: '#2a92e8' } }]
+    });
+
+    const frontAlertsHorizontal = echarts.init(document.getElementById('frontAlertsHorizontal'));
+    frontAlertsHorizontal.setOption({
+      animation: false,
+      grid: { left: 14, right: 8, top: 10, bottom: 18 },
+      xAxis: { type: 'value', axisLabel: { fontSize: 6 } },
+      yAxis: { type: 'category', data: ['A','B','C','D','E'], axisLabel: { fontSize: 6 } },
+      series: [{ type: 'bar', data: [96, 88, 71, 54, 38], barWidth: 9, itemStyle: { color: '#3095e8' } }]
+    });
+
+    const frontSalesDetailPie = echarts.init(document.getElementById('frontSalesDetailPie'));
+    frontSalesDetailPie.setOption({
+      animation: false,
+      color: ['#42a9f5', '#e6f1fb'],
+      series: [{
+        type: 'pie',
+        radius: ['42%', '70%'],
+        center: ['50%', '52%'],
+        data: [20, 80],
+        label: { fontSize: 7, color: '#444' },
+        labelLine: { length: 8, length2: 4 }
+      }]
+    });
+  </script>
+</body>
+</html>

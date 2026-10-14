@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cenários de casos de uso - Jurídico</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #d9dde1;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background: #eef1f3;
+    }
+
+    .header {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 86px;
+      background: #0783d8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-title {
+      margin: 0;
+      color: #ffffff;
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 650;
+      letter-spacing: 0.2px;
+    }
+
+    .left-card {
+      position: absolute;
+      left: 66px;
+      top: 132px;
+      width: 865px;
+      height: 574px;
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 10px 24px rgba(28, 44, 58, 0.16);
+      padding: 34px 30px 28px 30px;
+    }
+
+    .section-one-title {
+      margin: 0 0 10px 0;
+      color: #0078bd;
+      font-size: 24px;
+      line-height: 1.18;
+      font-weight: 650;
+    }
+
+    .section-one-text {
+      margin: 0;
+      color: #111111;
+      font-size: 18px;
+      line-height: 1.22;
+      max-width: 800px;
+    }
+
+    .divider {
+      margin: 18px 0 22px 0;
+      border-top: 1px dotted #808080;
+      height: 1px;
+    }
+
+    .section-two-title {
+      margin: 0 0 10px 0;
+      color: #268255;
+      font-size: 24px;
+      line-height: 1.18;
+      font-weight: 650;
+    }
+
+    .benefit-list {
+      margin: 0;
+      padding-left: 18px;
+      color: #111111;
+      font-size: 18px;
+      line-height: 1.24;
+    }
+
+    .benefit-list li {
+      padding-left: 2px;
+      margin-bottom: 4px;
+    }
+
+    .section-three-title {
+      margin: 28px 0 10px 0;
+      color: #0078bd;
+      font-size: 24px;
+      line-height: 1.18;
+      font-weight: 650;
+    }
+
+    .impact-list {
+      margin: 0;
+      padding-left: 18px;
+      color: #111111;
+      font-size: 18px;
+      line-height: 1.24;
+    }
+
+    .impact-list li {
+      padding-left: 2px;
+      margin-bottom: 4px;
+    }
+
+    .right-card {
+      position: absolute;
+      left: 968px;
+      top: 132px;
+      width: 340px;
+      height: 574px;
+      background: linear-gradient(180deg, #f6fbfd 0%, #edf7fb 100%);
+      border-radius: 16px;
+      box-shadow: 0 10px 22px rgba(34, 68, 88, 0.20);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      overflow: hidden;
+    }
+
+    .app-header {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 340px;
+      height: 48px;
+      border-bottom: 1px solid rgba(70, 105, 120, 0.16);
+      display: flex;
+      align-items: center;
+      padding-left: 18px;
+      gap: 10px;
+    }
+
+    .app-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 8px;
+      background: #008a8a;
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 6px 0 0 #168a9d;
+    }
+
+    .app-label {
+      color: #113342;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .chat-row {
+      position: absolute;
+      left: 20px;
+      top: 68px;
+      width: 300px;
+      height: 128px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .challenge-bubble {
+      width: 258px;
+      min-height: 128px;
+      background: #cdeeff;
+      border-radius: 8px;
+      color: #111111;
+      font-size: 13px;
+      line-height: 1.18;
+      padding: 11px 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .profile-photo {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      object-fit: cover;
+      align-self: flex-start;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .response-panel {
+      position: absolute;
+      left: 20px;
+      top: 206px;
+      width: 300px;
+      height: 284px;
+      background: #ffffff;
+      border: 1px solid rgba(190, 205, 214, 0.85);
+      border-radius: 8px;
+      padding: 11px 11px 10px 11px;
+      color: #111111;
+      font-size: 13px;
+      line-height: 1.18;
+    }
+
+    .response-intro {
+      margin: 0 0 10px 0;
+    }
+
+    .action-list {
+      margin: 0;
+      padding-left: 16px;
+      color: #111111;
+    }
+
+    .action-list li {
+      padding-left: 2px;
+      margin-bottom: 8px;
+    }
+
+    .input-area {
+      position: absolute;
+      left: 0;
+      bottom: 22px;
+      width: 340px;
+      height: 34px;
+      border-top: 1px solid rgba(180, 198, 208, 0.35);
+      display: flex;
+      align-items: center;
+      padding-left: 18px;
+      color: #8a8f94;
+      font-size: 13px;
+    }
+
+    .send-icon {
+      margin-left: auto;
+      width: 20px;
+      height: 20px;
+      border: 1px solid #2b88c7;
+      border-radius: 50%;
+      color: #2b88c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <header class="header">
+      <h1 class="header-title">Cenários de casos de uso - Jurídico</h1>
+    </header>
+
+    <main class="left-card">
+      <section>
+        <h2 class="section-one-title">Desafio de negócios – Navegando no espaço de trabalho digital</h2>
+        <p class="section-one-text">
+          Legal departments today operate in an increasingly dynamic and complex landscape. They face escalating volumes of work, rapid regulatory changes, and intricate compliance requirements. Navigating this environment requires agility and the ability to manage speed and complexity efficiently.
+        </p>
+      </section>
+
+      <div class="divider"></div>
+
+      <section>
+        <h2 class="section-two-title">Como os agentes no SharePoint podem ajudar</h2>
+        <ul class="benefit-list">
+          <li>Efficiently finding relevant information across the organization to support critical decision-making.</li>
+          <li>Improving the speed, accuracy, and consistency of contract review and approval processes.</li>
+          <li>Helping summarize and analyze complex regulatory guidelines, statutes, and legal precedents.</li>
+          <li>Clearly documenting and presenting decision-support guidance for legal teams and stakeholders.</li>
+        </ul>
+      </section>
+
+      <div class="divider"></div>
+
+      <section>
+        <h2 class="section-three-title">Áreas de impacto</h2>
+        <ul class="impact-list">
+          <li>Supporting and improving legal advisory services and strategic counsel.</li>
+          <li>Simplifying high-value content production, such as legal briefs and policy documents.</li>
+          <li>Increasing efficiency by ensuring primary documentation is rapidly analyzed and reviewed.</li>
+        </ul>
+      </section>
+    </main>
+
+    <aside class="right-card">
+      <div class="app-header">
+        <span class="app-icon">✣</span>
+        <span class="app-label">Contoso Legal Matters</span>
+      </div>
+
+      <div class="chat-row">
+        <div class="challenge-bubble">
+          The current era of artificial intelligence and digital transformation presents significant legal and compliance challenges. Organizations must adapt quickly to changing regulations while ensuring ethical AI use and data privacy.
+        </div>
+        <img class="profile-photo" src="https://placehold.co/120x120?text=Profile+Photo" alt="Profile Photo" />
+      </div>
+
+      <div class="response-panel">
+        <p class="response-intro">
+          Staying ahead of legal and regulatory change requires a proactive approach.
+        </p>
+        <ol class="action-list">
+          <li>Understand current AI-related regulations and ethical guidelines.</li>
+          <li>Monitor global regulatory changes and emerging legal trends.</li>
+          <li>Assess potential legal and compliance risks associated with AI implementation.</li>
+          <li>Develop comprehensive internal compliance policies and procedures.</li>
+          <li>Provide ongoing training and awareness programs for employees.</li>
+        </ol>
+      </div>
+
+      <div class="input-area">
+        Ask a question about this
+        <span class="send-icon">⌕</span>
+      </div>
+    </aside>
+  </div>
+</body>
+</html>

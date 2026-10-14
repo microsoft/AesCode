@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Places enables location intelligence in Microsoft Graph</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #ece9e5;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 88% 90%, rgba(120, 180, 220, 0.18), transparent 32%),
+      radial-gradient(circle at 15% 16%, rgba(255, 235, 205, 0.65), transparent 36%),
+      linear-gradient(110deg, #f3efe9 0%, #fbfbfb 50%, #f0f4f7 100%);
+  }
+
+  .title {
+    position: absolute;
+    left: 68px;
+    top: 30px;
+    font-size: 42px;
+    line-height: 1.1;
+    font-weight: 750;
+    letter-spacing: -1.4px;
+    color: #050505;
+    white-space: nowrap;
+  }
+
+  .title .blue {
+    color: #0078d4;
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 68px;
+    top: 88px;
+    font-size: 27px;
+    line-height: 1.2;
+    font-weight: 350;
+    color: #555b60;
+    white-space: nowrap;
+  }
+
+  .badge {
+    position: absolute;
+    top: 23px;
+    right: 26px;
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 3px solid #c9e8fb;
+    box-shadow: 0 10px 20px rgba(0, 120, 212, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .badge::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #65e1eb 0%, #4878e8 52%, #9a66e7 100%);
+    opacity: 0.9;
+  }
+
+  .badge .pin {
+    position: relative;
+    z-index: 1;
+    width: 41px;
+    height: 48px;
+    border-radius: 20px 20px 22px 22px;
+    background: linear-gradient(145deg, #38c7eb 0%, #2675ee 50%, #8562e2 100%);
+    clip-path: path("M20.5 0 C31 9 38 20 38 32 C38 44 28.5 53.5 19.5 62 C11.5 53.5 2 45 2 32 C2 20 9 9 20.5 0 Z");
+    box-shadow: 0 4px 9px rgba(0, 110, 200, 0.22);
+  }
+
+  .panel {
+    position: absolute;
+    left: 66px;
+    top: 152px;
+    width: 1244px;
+    height: 560px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow:
+      0 15px 34px rgba(0, 80, 140, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  .connector-svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1244px;
+    height: 560px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .node {
+    position: absolute;
+    z-index: 3;
+    text-align: center;
+    color: #006ca8;
+    font-size: 16px;
+    font-weight: 550;
+  }
+
+  .circle {
+    width: 92px;
+    height: 92px;
+    margin: 0 auto 11px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 38% 28%, rgba(255,255,255,0.98), rgba(238,248,255,0.9) 43%, rgba(198,228,248,0.82) 72%),
+      #f9fdff;
+    border: 3px solid #80bdea;
+    box-shadow:
+      0 10px 16px rgba(0, 110, 190, 0.14),
+      inset 0 0 18px rgba(0, 120, 210, 0.16);
+  }
+
+  .node.user {
+    left: 263px;
+    top: 213px;
+    width: 128px;
+  }
+
+  .node.user .circle {
+    width: 128px;
+    height: 128px;
+    margin-bottom: 10px;
+    border-width: 3px;
+    border-color: #5caee8;
+    background:
+      radial-gradient(circle at 50% 28%, rgba(255,255,255,0.98), rgba(235,248,255,0.95) 45%, rgba(188,226,247,0.78) 75%),
+      #fbfdff;
+    box-shadow:
+      0 14px 20px rgba(0, 110, 190, 0.15),
+      inset 0 0 22px rgba(0, 120, 210, 0.13);
+  }
+
+  .chats {
+    left: 160px;
+    top: 58px;
+  }
+
+  .messages {
+    left: 285px;
+    top: 22px;
+  }
+
+  .tasks-left {
+    left: 27px;
+    top: 161px;
+  }
+
+  .notes {
+    left: 491px;
+    top: 159px;
+  }
+
+  .files {
+    left: 77px;
+    top: 297px;
+  }
+
+  .devices {
+    left: 160px;
+    top: 398px;
+  }
+
+  .meetings {
+    left: 284px;
+    top: 435px;
+  }
+
+  .coworkers {
+    left: 411px;
+    top: 398px;
+  }
+
+  .routers {
+    left: 492px;
+    top: 296px;
+  }
+
+  .tasks-mid {
+    left: 410px;
+    top: 62px;
+  }
+
+  .glyph {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -45%);
+    width: 50px;
+    height: 50px;
+    color: #0073bd;
+  }
+
+  .glyph svg {
+    width: 100%;
+    height: 100%;
+    stroke: #0073bd;
+    fill: none;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .user .glyph {
+    width: 62px;
+    height: 62px;
+  }
+
+  .places-wrap {
+    position: absolute;
+    z-index: 3;
+    right: 70px;
+    top: 126px;
+    width: 310px;
+    height: 298px;
+    text-align: center;
+  }
+
+  .places-circle {
+    position: relative;
+    width: 308px;
+    height: 308px;
+    margin: 0 auto 8px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 33%, rgba(255,255,255,0.98), rgba(229,248,255,0.9) 43%, rgba(179,226,248,0.8) 70%, rgba(181,186,220,0.65) 90%),
+      #fbfdff;
+    border: 3px solid #86c4ef;
+    box-shadow:
+      0 14px 22px rgba(0, 100, 190, 0.15),
+      inset 0 0 25px rgba(0, 120, 210, 0.14);
+  }
+
+  .places-marker {
+    position: absolute;
+    left: 86px;
+    top: 67px;
+    width: 140px;
+    height: 154px;
+    background: linear-gradient(145deg, #63d6e6 0%, #2f85df 45%, #825ad6 72%, #43c4e5 100%);
+    clip-path: path("M70 14 C88 32 101 48 101 68 C101 88 86 103 70 121 C54 103 39 88 39 68 C39 48 52 32 70 14 Z");
+    opacity: 0.96;
+    filter: drop-shadow(0 8px 10px rgba(0, 100, 200, 0.12));
+  }
+
+  .places-marker::after {
+    content: "";
+    position: absolute;
+    width: 58px;
+    height: 66px;
+    left: 41px;
+    top: 45px;
+    background: #ffffff;
+    border-radius: 50% 50% 52px 52px;
+    opacity: 0.98;
+  }
+
+  .places-text {
+    color: #006ca8;
+    font-size: 17px;
+    line-height: 1.35;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .places-text strong {
+    font-weight: 750;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title"><span class="blue">Places enables</span> location intelligence in Microsoft Graph</div>
+    <div class="subtitle">Space and location are now an integral part of the Microsoft 365 Graph &amp; Copilot</div>
+
+    <div class="badge" aria-label="Generic location badge">
+      <div class="pin"></div>
+    </div>
+
+    <div class="panel">
+      <svg class="connector-svg" viewBox="0 0 1244 560" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#92b9e4"></path>
+          </marker>
+        </defs>
+
+        <!-- Chat and related flows -->
+        <path d="M211 103 C300 151, 360 182, 410 160" stroke="#94b9e6" stroke-width="1.2" fill="none"/>
+        <path d="M211 103 C290 180, 350 235, 395 210" stroke="#94b9e6" stroke-width="1.2" fill="none" marker-end="url(#arrow)"/>
+        <path d="M211 103 C270 220, 330 290, 390 220" stroke="#94b9e6" stroke-width="1.1" fill="none"/>
+
+        <!-- Messages -->
+        <path d="M377 72 C440 110, 505 122, 560 123" stroke="#94b9e6" stroke-width="1.15" fill="none"/>
+        <path d="M377 72 C450 135, 510 182, 580 184" stroke="#94b9e6" stroke-width="1.1" fill="none"/>
+        <path d="M377 72 C460 142, 540 186, 630 191" stroke="#94b9e6" stroke-width="1.05" fill="none"/>
+
+        <!-- Tasks left -->
+        <path d="M349 117 C420 150, 480 174, 560 180" stroke="#94b9e6" stroke-width="1.15" fill="none"/>
+        <path d="M349 117 C420 190, 490 230, 560 208" stroke="#94b9e6" stroke-width="1.1" fill="none" marker-end="url(#arrow)"/>
+        <path d="M349 117 C425 220, 485 265, 560 238" stroke="#94b9e6" stroke-width="1.05" fill="none"/>
+
+        <!-- Notes -->
+        <path d="M585 198 C680 225, 770 248, 900 252" stroke="#94b9e6" stroke-width="1.12" fill="none"/>
+        <path d="M585 198 C675 250, 755 289, 900 270" stroke="#94b9e6" stroke-width="1.05" fill="none"/>
+        <path d="M585 198 C678 280, 750 326, 900 288" stroke="#94b9e6" stroke-width="1.02" fill="none"/>
+
+        <!-- Files -->
+        <path d="M122 342 C220 405, 310 443, 390 338" stroke="#94b9e6" stroke-width="1.15" fill="none" marker-end="url(#arrow)"/>
+        <path d="M122 342 C220 410, 330 450, 440 326" stroke="#94b9e6" stroke-width="1.08" fill="none"/>
+
+        <!-- Devices -->
+        <path d="M223 444 C330 485, 440 492, 560 372" stroke="#94b9e6" stroke-width="1.12" fill="none"/>
+        <path d="M223 444 C330 490, 435 502, 560 412" stroke="#94b9e6" stroke-width="1.06" fill="none"/>
+
+        <!-- Meetings -->
+        <path d="M376 480 C470 502, 560 494, 670 408" stroke="#94b9e6" stroke-width="1.1" fill="none"/>
+        <path d="M376 480 C470 508, 560 512, 680 338" stroke="#94b9e6" stroke-width="1.04" fill="none"/>
+
+        <!-- Coworkers -->
+        <path d="M498 444 C580 475, 660 488, 780 384" stroke="#94b9e6" stroke-width="1.1" fill="none"/>
+        <path d="M498 444 C580 482, 660 502, 765 298" stroke="#94b9e6" stroke-width="1.03" fill="none"/>
+
+        <!-- Routers -->
+        <path d="M598 340 C680 360, 760 370, 900 306" stroke="#94b9e6" stroke-width="1.12" fill="none"/>
+        <path d="M598 340 C678 380, 755 400, 900 327" stroke="#94b9e6" stroke-width="1.06" fill="none"/>
+
+        <!-- User central fanout to right -->
+        <path d="M383 277 C550 282, 720 288, 900 252" stroke="#94b9e6" stroke-width="1.15" fill="none"/>
+        <path d="M383 277 C550 300, 720 340, 900 270" stroke="#94b9e6" stroke-width="1.1" fill="none"/>
+        <path d="M383 277 C550 330, 720 390, 900 288" stroke="#94b9e6" stroke-width="1.05" fill="none"/>
+        <path d="M383 277 C550 360, 720 430, 900 306" stroke="#94b9e6" stroke-width="1.0" fill="none"/>
+        <path d="M383 277 C550 380, 720 460, 900 327" stroke="#94b9e6" stroke-width="0.96" fill="none"/>
+        <path d="M383 277 C550 400, 720 488, 900 346" stroke="#94b9e6" stroke-width="0.92" fill="none"/>
+      </svg>
+
+      <div class="node chats">
+        <div class="circle">
+          <div class="glyph">
+            <svg viewBox="0 0 64 64">
+              <rect x="11" y="14" width="42" height="30" rx="5"></rect>
+              <path d="M22 44 L11 55 L11 34 L30 34"></path>
+            </svg>
+          </div>
+        </div>
+        Chats
+      </div>
+
+      <div class="node messages">
+        <div class="circle">
+          <div class="glyph">
+            <svg viewBox="0 0 64 64">
+              <rect x="10" y="16" width="44" height="32" rx="3"></rect>
+              <path d="M18 16 L32 28 L46 16"></path>
+              <path d="M18 48 L32 36 L46 48"></path>
+            </svg>
+          </div>
+        </div>
+        Messages
+      </div>
+
+      <div class="node tasks-left">
+        <div class="circle">
+          <div class="glyph">
+            <svg viewBox="0 0 64 64">
+              <path d="M17 18 H48 V52 H17 Z"></path>
+              <circle cx="18" cy="18" r="4" fill="#0073bd" stroke="none"></circle>
+              <path d="M28 28 H48"></path>
+              <path d="M28 38 H48"></path>
+            </svg>
+          </div>
+        </div>
+        Tasks
+      </div>
+
+      <div class="node notes">
+        <div class="circle">
+          <div class="glyph">
+            <svg viewBox="0 0 64 64">
+              <rect x="15" y="16" width="34" height="38" rx="2"></rect>
+              <path d="M24 16 V12 H36 V16"></path>
+              <path d="M22 28 H42"></path>
+              <path d="M22 36 H42"></path>
+              <path d="M22 44 H34"></path>
+            </svg>
+          </div>
+        </div>
+        Notes
+      </div>
+
+      <div class="node files">
+        <div class="circle">
+          <div class="glyph">
+            <svg viewBox="0 0 64 64">
+              <path d="M18 18 H38 V52 H18 Z"></path>
+              <path d="M38 18 H47 V27"></path>
+              <path d="M24 32 H43"></path>
+              <path d="M24 40 H43"></path>
+            </svg>
+          </div>
+        </div>
+        Files
+      </div>
+
+      <div class="node devices">
+        <div class="circle">
+          <div class="glyph">
+            <svg viewBox="0 0 64 64">
+              <rect x="18" y="14" width="28" height="42" rx="3"></rect>
+              <circle cx="32" cy="25" r="2" fill="#0073bd"></circle>
+              <path d="M24 46 H40"></path>
+            </svg>
+          </div>
+        </div>
+        Devices
+      </div>
+
+      <div class="node meetings">
+        <div class="circle">
+          <div class="glyph">
+            <svg viewBox="0 0 64 64">
+              <rect x="12" y="16" width="40" height="32"></rect>
+              <path d="M18 16 V12 H32"></path>
+              <circle cx="46" cy="48" r="12" fill="#fbfdff" stroke="#0073bd"></circle>
+              <path d="M42 48 V44 H46 Z"></path>
+            </svg>
+          </div>
+        </div>
+        Meetings
+      </div>
+
+      <div class="node coworkers">
+        <div class="circle">
+          <div class="glyph">
+            <svg viewBox="0 0 64 64">
+              <circle cx="20" cy="24" r="7"></circle>
+              <circle cx="41" cy="20" r="8"></circle>
+              <circle cx="32" cy="38" r="9"></circle>
+              <path d="M8 52 C15 40, 28 42, 37 46 C30 50, 22 50, 13 46 Z"></path>
+            </svg>
+          </div>
+        </div>
+        Coworkers
+      </div>
+
+      <div class="node routers">
+        <div class="circle">
+          <div class="glyph">
+            <svg viewBox="0 0 64 64">
+              <path d="M12 26 H24 V38 H12 Z"></path>
+              <path d="M25 27 H46 V39 H25 Z"></path>
+              <path d="M24 27 L24 38"></path>
+              <path d="M26 18 H38"></path>
+            </svg>
+          </div>
+        </div>
+        Routers
+      </div>
+
+      <div class="node tasks-mid">
+        <div class="circle">
+          <div class="glyph">
+            <svg viewBox="0 0 64 64">
+              <rect x="14" y="13" width="38" height="39" rx="2"></rect>
+              <path d="M20 25 L26 31 L33 23"></path>
+              <path d="M20 37 L27 44 L35 36"></path>
+              <path d="M20 49 L28 56"></path>
+            </svg>
+          </div>
+        </div>
+        Tasks
+      </div>
+
+      <div class="node user">
+        <div class="circle">
+          <div class="glyph">
+            <svg viewBox="0 0 72 72">
+              <circle cx="36" cy="24" r="13"></circle>
+              <ellipse cx="36" cy="46" rx="24" ry="11"></ellipse>
+            </svg>
+          </div>
+        </div>
+        User
+      </div>
+
+      <div class="places-wrap">
+        <div class="places-circle">
+          <div class="places-marker"></div>
+        </div>
+        <div class="places-text">
+          <strong>Location Intelligence</strong><br />
+          Spatial Data (Places Directory)<br />
+          Location Context (Workplace Presence)
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

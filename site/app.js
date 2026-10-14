@@ -35,6 +35,121 @@
     overlay.hidden = false;
   }
 
+  const codeCache = new Map();
+  const viewer = $('#code-viewer');
+  const codeOutput = $('#code-viewer-code');
+  const copyButton = $('#code-copy');
+  let codeToken = 0;
+  let codeText = '';
+  let lastFocus = null;
+  let copyReset;
+
+  // Minimal HTML tokenizer: comments, doctype, tags, attribute names and values.
+  function highlight(source) {
+    const fragment = document.createDocumentFragment();
+    const push = (text, className) => {
+      if (!text) return;
+      fragment.append(className ? create('span', className, text) : document.createTextNode(text));
+    };
+    const pattern = /<!--[\s\S]*?-->|<!doctype[^>]*>|<\/?[a-zA-Z][^>]*>/g;
+    let index = 0;
+    for (let match; (match = pattern.exec(source));) {
+      push(source.slice(index, match.index));
+      const chunk = match[0];
+      index = match.index + chunk.length;
+      if (chunk.startsWith('<!--')) { push(chunk, 'c'); continue; }
+      if (/^<!doctype/i.test(chunk)) { push(chunk, 'd'); continue; }
+      const name = /^<\/?[a-zA-Z][\w:-]*/.exec(chunk)[0];
+      push(name, 't');
+      const rest = chunk.slice(name.length);
+      const attribute = /([\w:.-]+)(\s*=\s*)("[^"]*"|'[^']*'|[^\s>]+)?/g;
+      let cursor = 0;
+      for (let found; (found = attribute.exec(rest));) {
+        push(rest.slice(cursor, found.index));
+        push(found[1], 'n');
+        push(found[2]);
+        push(found[3], 'v');
+        cursor = found.index + found[0].length;
+      }
+      push(rest.slice(cursor));
+    }
+    push(source.slice(index));
+    return fragment;
+  }
+
+  function closeCode() {
+    if (viewer.hidden) return;
+    viewer.hidden = true;
+    codeToken += 1;
+    document.body.style.overflow = '';
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  }
+
+  async function openCode(item) {
+    lastFocus = document.activeElement;
+    const token = ++codeToken;
+    $('#code-viewer-title').textContent = item.title;
+    $('#code-viewer-category').textContent = `${item.category} · GENERATED HTML`;
+    const image = $('#code-viewer-image');
+    image.src = item.src;
+    image.alt = item.alt;
+    $('#code-viewer-size').textContent = '';
+    $('#code-viewer-lines').textContent = 'Loading source…';
+    codeOutput.replaceChildren();
+    codeText = '';
+    copyButton.disabled = true;
+    viewer.hidden = false;
+    document.body.style.overflow = 'hidden';
+    $('#code-close').focus();
+    try {
+      if (!codeCache.has(item.id)) {
+        const response = await fetch(`assets/code/${item.id}.txt`);
+        if (!response.ok) throw new Error(String(response.status));
+        codeCache.set(item.id, await response.text());
+      }
+      if (token !== codeToken) return;
+      const source = codeCache.get(item.id);
+      codeText = source;
+      codeOutput.replaceChildren(highlight(source));
+      $('#code-viewer-size').textContent = `${Math.round(source.length / 1024)} KB`;
+      $('#code-viewer-lines').textContent = `${source.split('\n').length} lines`;
+      copyButton.disabled = false;
+    } catch (error) {
+      if (token !== codeToken) return;
+      $('#code-viewer-lines').textContent = 'Source unavailable for this example.';
+      codeOutput.replaceChildren(document.createTextNode(''));
+    }
+  }
+
+  copyButton.addEventListener('click', async () => {
+    if (!codeText) return;
+    try {
+      await navigator.clipboard.writeText(codeText);
+      copyButton.textContent = 'Copied';
+      copyButton.classList.add('is-done');
+      clearTimeout(copyReset);
+      copyReset = setTimeout(() => {
+        copyButton.textContent = 'Copy';
+        copyButton.classList.remove('is-done');
+      }, 1600);
+    } catch (error) {
+      const range = document.createRange();
+      range.selectNodeContents(codeOutput);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      codeOutput.parentElement.focus();
+      copyButton.textContent = 'Selected — press Ctrl+C';
+      clearTimeout(copyReset);
+      copyReset = setTimeout(() => { copyButton.textContent = 'Copy'; }, 2600);
+    }
+  });
+  $('#code-close').addEventListener('click', closeCode);
+  viewer.addEventListener('click', event => { if (event.target.hasAttribute('data-close')) closeCode(); });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !viewer.hidden) { event.preventDefault(); closeCode(); }
+  });
+
   const narrowGallery = window.matchMedia('(max-width: 800px)');
   function galleryCard(item, ordinal = gallery.indexOf(item) + 1) {
     const article = create('article', 'gallery-card');
@@ -42,9 +157,9 @@
     article.classList.toggle('is-peeked', highlightedId === item.id);
     const preview = create('button', 'gallery-image');
     preview.type = 'button';
-    preview.setAttribute('aria-label', `Highlight ${item.title}`);
-    preview.setAttribute('aria-pressed', String(highlightedId === item.id));
-    preview.addEventListener('click', () => highlightCard(highlightedId === item.id ? null : item.id));
+    preview.setAttribute('aria-label', `View the HTML behind ${item.title}`);
+    preview.setAttribute('aria-haspopup', 'dialog');
+    preview.addEventListener('click', () => openCode(item));
     const image = create('img');
     Object.assign(image, {src: item.src, alt: item.alt, loading: 'lazy', decoding: 'async'});
     if (item.width && item.height) { image.width = item.width; image.height = item.height; }

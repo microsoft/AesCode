@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Evently Conference Landing Page</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #ece7df;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #111b4b;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 853px;
+    height: 1280px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 72% 18%, rgba(108, 89, 255, 0.10) 0, rgba(108, 89, 255, 0.02) 240px, transparent 360px),
+      linear-gradient(180deg, #f8f4ec 0%, #fbfaf7 45%, #f7f3ee 100%);
+  }
+
+  /* Decorative spots */
+  .blob-top {
+    position: absolute;
+    left: -34px;
+    top: 48px;
+    width: 124px;
+    height: 72px;
+    background: #7d61dc;
+    border-radius: 52% 48% 0 0;
+    transform: rotate(-48deg);
+    opacity: 0.9;
+  }
+
+  /* NAV */
+  .nav {
+    position: absolute;
+    left: 74px;
+    top: 14px;
+    width: 705px;
+    height: 44px;
+    background: rgba(255,255,255,0.96);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    box-shadow: 0 8px 24px rgba(54, 42, 104, 0.08);
+    z-index: 10;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 800;
+    color: #111848;
+    margin-right: 42px;
+  }
+
+  .brand-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #7a5bdb;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 900;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    flex: 1;
+    font-size: 9.5px;
+    color: #4c5573;
+    justify-content: center;
+  }
+
+  .nav-links span {
+    white-space: nowrap;
+  }
+
+  .nav-button {
+    border: 0;
+    background: #7858d9;
+    color: white;
+    height: 26px;
+    min-width: 88px;
+    padding: 0 13px;
+    border-radius: 8px;
+    font-size: 9.5px;
+    font-weight: 700;
+  }
+
+  /* HERO */
+  .hero-card {
+    position: absolute;
+    left: 35px;
+    top: 82px;
+    width: 784px;
+    height: 294px;
+    background: rgba(255,255,255,0.55);
+    border-radius: 26px;
+    border: 1px solid rgba(255,255,255,0.75);
+    box-shadow: 0 18px 40px rgba(42, 31, 80, 0.08);
+    padding: 30px 32px;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .meta-pill {
+    height: 23px;
+    min-width: 120px;
+    border: 1px solid #d9cfe3;
+    border-radius: 6px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 10px;
+    color: #4d5468;
+    font-weight: 700;
+  }
+
+  .hero-left {
+    position: absolute;
+    left: 33px;
+    top: 58px;
+    width: 310px;
+  }
+
+  .hero-title {
+    margin: 0 0 12px;
+    font-size: 42px;
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+    color: #0c174e;
+    font-weight: 850;
+  }
+
+  .hero-desc {
+    margin: 0 0 18px;
+    font-size: 12px;
+    line-height: 1.45;
+    color: #4e576f;
+    max-width: 285px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 22px;
+  }
+
+  .primary-small {
+    height: 32px;
+    min-width: 112px;
+    border: 0;
+    border-radius: 8px;
+    background: #7a58db;
+    color: white;
+    font-size: 10.5px;
+    font-weight: 750;
+  }
+
+  .text-link {
+    font-size: 10.5px;
+    color: #162058;
+    font-weight: 700;
+  }
+
+  .avatar-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 10px;
+    color: #586177;
+  }
+
+  .avatar-strip {
+    display: flex;
+    gap: -8px;
+  }
+
+  .avatar-strip img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+
+  .avatar-strip .dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px dashed #c8c2d4;
+    background: #f8f5f2;
+  }
+
+  .hero-illustration {
+    position: absolute;
+    right: 24px;
+    top: 24px;
+    width: 420px;
+    height: 240px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .hero-illustration img {
+    width: 420px;
+    height: 280px;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+
+  /* SPEAKERS */
+  .speakers-card {
+    position: absolute;
+    left: 34px;
+    top: 392px;
+    width: 786px;
+    height: 216px;
+    background: #f1f0fb;
+    border-radius: 20px;
+    padding: 15px 34px 18px;
+  }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+    color: #101a52;
+  }
+
+  .view-link {
+    font-size: 10px;
+    font-weight: 700;
+    color: #45506e;
+  }
+
+  .speaker-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  .speaker-card {
+    width: 168px;
+    height: 145px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #dfe3ed;
+    padding: 10px 9px 8px;
+    box-shadow: 0 8px 18px rgba(60, 52, 110, 0.06);
+  }
+
+  .speaker-card img {
+    width: 140px;
+    height: 82px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto 8px;
+  }
+
+  .speaker-name {
+    font-size: 10.5px;
+    font-weight: 800;
+    margin: 0 0 2px;
+    color: #182258;
+  }
+
+  .speaker-role {
+    margin: 0 0 6px;
+    font-size: 9.5px;
+    color: #687188;
+  }
+
+  .tag-pill {
+    display: inline-block;
+    border-radius: 6px;
+    padding: 3px 7px;
+    font-size: 8.5px;
+    font-weight: 700;
+    background: #e9e7fb;
+    color: #7558c6;
+  }
+
+  /* AGENDA */
+  .agenda-card {
+    position: absolute;
+    left: 82px;
+    top: 632px;
+    width: 690px;
+    height: 226px;
+    background: #fff;
+    border-radius: 18px;
+    padding: 13px 14px 12px;
+  }
+
+  .agenda-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 11px;
+  }
+
+  .agenda-title {
+    font-size: 18px;
+    color: #101a52;
+    font-weight: 850;
+    margin: 0;
+  }
+
+  .agenda-head .view-link {
+    font-size: 10px;
+  }
+
+  .agenda-body {
+    display: flex;
+    height: 160px;
+  }
+
+  .day-selector {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .day-button {
+    height: 42px;
+    border-radius: 7px;
+    background: #7c5bd9;
+    color: white;
+    padding: 7px 9px;
+    font-size: 10px;
+    line-height: 1.1;
+    font-weight: 700;
+  }
+
+  .day-button.light {
+    background: #ebe8ff;
+    color: #453695;
+  }
+
+  .timeline {
+    width: 580px;
+    border-collapse: collapse;
+    border: 1px solid #e2dfed;
+    border-radius: 9px;
+    overflow: hidden;
+    font-size: 8.5px;
+  }
+
+  .timeline td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #e8e5f1;
+    vertical-align: middle;
+    height: 27px;
+  }
+
+  .timeline tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .time-col {
+    width: 62px;
+    color: #4d5670;
+    font-weight: 800;
+  }
+
+  .timeline-line {
+    position: absolute;
+    left: 59px;
+    top: 23px;
+    width: 2px;
+    height: 127px;
+    background: #c2a9ee;
+    z-index: 0;
+  }
+
+  .bullet {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid #7758d2;
+    background: #fff;
+    position: relative;
+    z-index: 2;
+  }
+
+  .session-title {
+    color: #263163;
+    font-weight: 800;
+  }
+
+  .session-desc {
+    color: #788098;
+    font-size: 8px;
+  }
+
+  .location-pill {
+    float: right;
+    background: #f0eaff;
+    color: #7658c8;
+    border-radius: 5px;
+    padding: 2px 5px;
+    font-size: 8px;
+  }
+
+  /* VENUE */
+  .venue-card {
+    position: absolute;
+    left: 34px;
+    top: 882px;
+    width: 786px;
+    height: 186px;
+    background: #eef8f3;
+    border-radius: 20px;
+    padding: 14px 34px;
+    display: flex;
+  }
+
+  .venue-text {
+    width: 230px;
+    padding-left: 0;
+  }
+
+  .venue-heading {
+    font-size: 17px;
+    font-weight: 850;
+    color: #132058;
+    margin: 0 0 7px;
+  }
+
+  .venue-block {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 7px;
+    font-size: 9.5px;
+    color: #4d576e;
+  }
+
+  .venue-block strong {
+    font-size: 10.5px;
+    margin-right: 2px;
+  }
+
+  .map-area {
+    position: absolute;
+    left: 260px;
+    top: 11px;
+    width: 420px;
+    height: 162px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #dff0ef;
+  }
+
+  .map-area img {
+    width: 420px;
+    height: 162px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .marker {
+    position: absolute;
+    left: 162px;
+    top: 55px;
+    width: 24px;
+    height: 24px;
+    background: #df4437;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+  }
+
+  .marker:after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    left: 8px;
+    top: 8px;
+  }
+
+  .venue-photo-card {
+    position: absolute;
+    right: 22px;
+    top: 10px;
+    width: 174px;
+    height: 138px;
+    background: white;
+    border-radius: 9px;
+    padding: 8px;
+    z-index: 5;
+    box-shadow: 0 9px 20px rgba(80, 72, 110, 0.10);
+  }
+
+  .venue-photo-card img {
+    width: 158px;
+    height: 68px;
+    border-radius: 6px;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .venue-photo-title {
+    margin: 0 0 6px;
+    font-size: 10px;
+    color: #222d63;
+  }
+
+  .direction-button {
+    width: 100%;
+    height: 22px;
+    border: 0;
+    border-radius: 5px;
+    background: #7857d7;
+    color: white;
+    font-size: 8.5px;
+    font-weight: 750;
+  }
+
+  /* CTA */
+  .cta-banner {
+    position: absolute;
+    left: 34px;
+    top: 1086px;
+    width: 786px;
+    height: 78px;
+    background: linear-gradient(135deg, #6f54d2 0%, #7d58d0 52%, #7459d0 100%);
+    border-radius: 28px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space2between;
+    padding: 0 36px 0 42px;
+  }
+
+  .cta-left {
+    width: 335px;
+  }
+
+  .cta-heading {
+    font-size: 18px;
+    font-weight: 850;
+    margin: 0 0 5px;
+  }
+
+  .cta-sub {
+    font-size: 9.5px;
+    line-height: 1.25;
+    color: #f4effe;
+    margin: 0;
+    max-width: 290px;
+  }
+
+  .cta-button {
+    height: 30px;
+    min-width: 122px;
+    border: 0;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.96);
+    color: #7658d1;
+    font-size: 9.5px;
+    font-weight: 800;
+  }
+
+  /* FOOTER */
+  .footer {
+    position: absolute;
+    left: 72px;
+    bottom: 17px;
+    width: 700px;
+    height: 118px;
+    display: flex;
+    gap: 36px;
+  }
+
+  .footer-brand {
+    width: 155px;
+  }
+
+  .footer-brand-title {
+    font-size: 14px;
+    font-weight: 850;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 8px;
+  }
+
+  .footer-brand-text {
+    font-size: 8.5px;
+    line-height: 1.25;
+    color: #566078;
+  }
+
+  .footer-col {
+    width: 88px;
+  }
+
+  .footer-col h4 {
+    font-size: 10px;
+    margin: 0 0 6px;
+  }
+
+  .footer-col p {
+    font-size: 8.5px;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .copyright {
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    width: 853px;
+    text-align: center;
+    color: #7d8599;
+    font-size: 8.5px;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="blob-top"></div>
+
+    <nav class="nav">
+      <div class="brand"><span class="brand-icon">✣</span><span>Evently</span></div>
+      <div class="nav-links">
+        <span>Home</span>
+        <span>About</span>
+        <span>Speakers</span>
+        <span>Agenda</span>
+        <span>Venue</span>
+        <span>Sponsors</span>
+        <span>FAQ</span>
+      </div>
+      <button class="nav-button">Register Now</button>
+    </nav>
+
+    <section class="hero-card">
+      <div class="hero-left">
+        <div class="hero-meta">
+          <div class="meta-pill">▣ June 21-22, 2025</div>
+          <div class="meta-pill">● Austin, Texas</div>
+        </div>
+        <h1 class="hero-title">Design Beyond<br>Limits</h1>
+        <p class="hero-desc">A two-day conference for designers, developers, and creative thinkers to inspire, learn, and connect.</p>
+        <div class="hero-actions">
+          <button class="primary-small">Register Now →</button>
+          <span class="text-link">Learn More →</span>
+        </div>
+        <div class="avatar-row">
+          <span>Join 1,200+ creative minds</span>
+          <div class="avatar-strip">
+            <img src="https://placehold.co/140x140?text=S1" width="24" height="24" alt="avatar 1">
+            <img src="https://placehold.co/140x140?text=S2" width="24" height="24" alt="avatar 2">
+            <img src="https://placehold.co/140x140?text=S3" width="24" height="24" alt="avatar 3">
+            <img src="https://placehold.co/140x140?text=S4" width="24" height="24" alt="avatar 4">
+            <span class="dot"></span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-illustration">
+        <img src="https://placehold.co/420x280?text=Conference+Illustration" width="420" height="280" alt="Conference Illustration">
+      </div>
+    </section>
+
+    <section class="speakers-card">
+      <div class="section-head">
+        <h2 class="section-title">Featured Speakers</h2>
+        <div class="view-link">View All Speakers →</div>
+      </div>
+      <div class="speaker-row">
+        <div class="speaker-card">
+          <img src="https://placehold.co/140x140?text=Speaker" width="140" height="82" alt="Sarah Chen headshot">
+          <p class="speaker-name">Sarah Chen</p>
+          <p class="speaker-role">Design Lead at Figma</p>
+          <span class="tag-pill">Design Systems</span>
+        </div>
+        <div class="speaker-card">
+          <img src="https://placehold.co/140x140?text=Speaker" width="140" height="82" alt="Daniel Morgan headshot">
+          <p class="speaker-name">Daniel Morgan</p>
+          <p class="speaker-role">Staff Engineer at Linear</p>
+          <span class="tag-pill">Product & Engineering</span>
+        </div>
+        <div class="speaker-card">
+          <img src="https://placehold.co/140x140?text=Speaker" width="140" height="82" alt="Maya Johnson headshot">
+          <p class="speaker-name">Maya Johnson</p>
+          <p class="speaker-role">Founder of Contrast</p>
+          <span class="tag-pill">Accessibility</span>
+        </div>
+        <div class="speaker-card">
+          <img src="https://placehold.co/140x140?text=Speaker" width="140" height="82" alt="Kevin Williams headshot">
+          <p class="speaker-name">Kevin Williams</p>
+          <p class="speaker-role">Designer at Webflow</p>
+          <span class="tag-pill">Web Design</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="agenda-card">
+      <div class="agenda-head">
+        <h2 class="agenda-title">Agenda</h2>
+        <div class="view-link">View Full Agenda →</div>
+      </div>
+      <div class="agenda-body">
+        <div class="day-selector">
+          <div class="day-button">▣ Day 1<br>June 21</div>
+          <div class="day-button light">▣ Day 2<br>June 22</div>
+        </div>
+        <table class="timeline">
+          <tr>
+            <td class="time-col"><span class="bullet"></span>9:00 AM</td>
+            <td class="session-title">Opening Keynote</td>
+            <td class="session-desc">The future of design in a connected world.</td>
+            <td class="location-pill">Main Stage</td>
+          </tr>
+          <tr>
+            <td class="time-col"><span class="bullet"></span>10:00 AM</td>
+            <td class="session-title">Design Systems that Scale</td>
+            <td class="session-desc">Build consistent, flexible, and scalable systems.</td>
+            <td class="location-pill">Room A</td>
+          </tr>
+          <tr>
+            <td class="time-col"><span class="bullet"></span>11:30 AM</td>
+            <td class="session-title">Coffee Break</td>
+            <td class="session-desc">Networking & refreshments.</td>
+            <td class="location-pill">Lounge</td>
+          </tr>
+          <tr>
+            <td class="time-col"><span class="bullet"></span>1:00 PM</td>
+            <td class="session-title">Beyond the Interface</td>
+            <td class="session-desc">Designing meaningful experiences.</td>
+            <td class="location-pill">Room B</td>
+          </tr>
+          <tr>
+            <td class="time-col"><span class="bullet"></span>2:30 PM</td>
+            <td class="session-title">Building with AI</td>
+            <td class="session-desc">Tools, workflows, and the future of creativity.</td>
+            <td class="location-pill">Room A</td>
+          </tr>
+          <tr>
+            <td class="time-col"><span class="bullet"></span>4:00 PM</td>
+            <td class="session-title">Panel Discussion</td>
+            <td class="session-desc">Leaders share insights and take your questions.</td>
+            <td class="location-pill">Main Stage</td>
+          </tr>
+        </table>
+        <div class="timeline-line"></div>
+      </div>
+    </section>
+
+    <section class="venue-card">
+      <div class="venue-text">
+        <h2 class="venue-heading">Venue</h2>
+        <div class="venue-block"><span>◆</span><strong>Austin Convention Center</strong>500 E Cesar Chavez St, Austin, TX 78701, USA</div>
+        <div class="venue-block"><span>▱</span><strong>Parking</strong>On-site parking available at the Convention Center garage.</div>
+        <div class="venue-block"><span>▱</span><strong>Public Transit</strong>Conveniently accessible via buses and the MetroRail.</div>
+      </div>
+      <div class="map-area">
+        <img src="https://placehold.co/420x260?text=Map" width="420" height="162" alt="Map">
+        <div class="marker"></div>
+      </div>
+      <div class="venue-photo-card">
+        <img src="https://placehold.co/220x140?text=Venue+Photo" width="158" height="68" alt="Venue Photo">
+        <p class="venue-photo-title">Austin Convention Center</p>
+        <button class="direction-button">Get Directions →</button>
+      </div>
+    </section>
+
+    <section class="cta-banner">
+      <div class="cta-left">
+        <h2 class="cta-heading">Ready to be inspired?</h2>
+        <p class="cta-sub">Join 1,200+ designers, developers, and creators for two days of insights, connections, and unforgettable experiences.</p>
+      </div>
+      <button class="cta-button">Register Now →</button>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">
+        <div class="footer-brand-title"><span class="brand-icon">✣</span><span>Evently</span></div>
+        <p class="footer-brand-text">Events that inspire, connect, and empower the creative community.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <p>About<br>About<br>Schedule<br>Venue<br>Sponsors</p>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <p>FAQ<br>Contact Us<br>Accessibility<br>Privacy Policy<br>Terms of Service</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>hello@evently.com<br>+1 (512) 555-0198<br>Austin, Texas, USA</p>
+      </div>
+    </footer>
+    <div class="copyright">© 2025 Evently. All rights reserved.</div>
+  </div>
+</body>
+</html>

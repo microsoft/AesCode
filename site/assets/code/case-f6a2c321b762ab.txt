@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EnergyTrack Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #050812;
+    font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #dbeafe;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 853px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 28% 18%, rgba(130, 83, 255, 0.14), transparent 260px),
+      radial-gradient(circle at 80% 30%, rgba(40, 218, 130, 0.10), transparent 260px),
+      linear-gradient(180deg, #081020 0%, #07101d 52%, #060b17 100%);
+    border: 1px solid #1b3052;
+  }
+
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 172px;
+    height: 853px;
+    background: #060d1c;
+    border-right: 1px solid #21385c;
+    padding: 20px 12px 16px;
+  }
+
+  .brand-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 4px 16px;
+    font-weight: 800;
+    color: #f5f8ff;
+    font-size: 13px;
+  }
+
+  .bolt-small {
+    width: 17px;
+    height: 26px;
+    background: linear-gradient(140deg, #6558ff, #22c98f);
+    clip-path: polygon(35% 0, 83% 0, 48% 43%, 92% 43%, 21% 100%, 54% 52%, 10% 52%);
+    flex: 0 0 auto;
+  }
+
+  .brand-sub {
+    font-size: 9px;
+    color: #93a2c2;
+    margin-top: 3px;
+  }
+
+  .nav-item {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 8px;
+    border-radius: 7px;
+    color: #a8b5d0;
+    font-size: 10px;
+    margin-bottom: 7px;
+    border: 1px solid transparent;
+  }
+
+  .nav-item.active {
+    background: linear-gradient(90deg, #4e55ff, #27338b);
+    color: #fff;
+    border-color: #4f65ff;
+    box-shadow: 0 0 16px rgba(81, 88, 255, 0.28);
+  }
+
+  .nav-icon {
+    width: 14px;
+    height: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: currentColor;
+  }
+
+  .side-card {
+    position: absolute;
+    left: 12px;
+    bottom: 74px;
+    width: 148px;
+    height: 192px;
+    background: rgba(12, 22, 39, 0.82);
+    border: 1px solid #2c4770;
+    border-radius: 8px;
+    padding: 14px 12px;
+  }
+
+  .side-card h4 {
+    margin: 0 0 7px;
+    font-size: 10px;
+    color: #9ba8c2;
+    font-weight: 600;
+  }
+
+  .side-card .big {
+    color: #56f092;
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .side-card .small {
+    margin-top: 6px;
+    color: #cbd6e8;
+    font-size: 9px;
+    line-height: 1.4;
+  }
+
+  .profile {
+    position: absolute;
+    left: 12px;
+    bottom: 18px;
+    width: 148px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #cdd8ef;
+    font-size: 10px;
+  }
+
+  .avatar {
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    background: #8477ff;
+    border: 2px solid #6d5dff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  .profile-name {
+    font-weight: 700;
+  }
+
+  .profile-role {
+    margin-top: 2px;
+    font-size: 8.5px;
+    color: #9ca8bd;
+  }
+
+  .main {
+    position: absolute;
+    left: 180px;
+    top: 14px;
+    width: 1086px;
+    height: 825px;
+  }
+
+  .header {
+    height: 43px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .title-block h1 {
+    margin: 0 0 3px;
+    font-size: 16px;
+    color: #eef4ff;
+    letter-spacing: 0.1px;
+    font-weight: 800;
+  }
+
+  .subtitle {
+    font-size: 10px;
+    color: #9aa6bd;
+    font-weight: 600;
+  }
+
+  .filters {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .filter {
+    height: 28px;
+    min-width: 124px;
+    border: 1px solid #304870;
+    background: rgba(8, 18, 34, 0.65);
+    border-radius: 6px;
+    color: #b9c6db;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space2between;
+    padding: 0 10px;
+  }
+
+  .export {
+    min-width: 100px;
+    height: 28px;
+    border: 1px solid #875cff;
+    color: #f5d5ff;
+    background: rgba(112, 78, 255, 0.12);
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  .kpis {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    height: 124px;
+    margin-bottom: 13px;
+  }
+
+  .kpi-card {
+    position: relative;
+    background: linear-gradient(180deg, rgba(13, 28, 50, 0.96), rgba(8, 19, 38, 0.96));
+    border: 1px solid #284573;
+    border-radius: 7px;
+    padding: 14px 16px;
+    overflow: hidden;
+  }
+
+  .kpi-card::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 140px;
+    height: 80px;
+    opacity: 0.55;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(115, 88, 255, 0.38), transparent 70%);
+    filter: blur(8px);
+  }
+
+  .kpi-left::after {
+    background: radial-gradient(circle, rgba(48, 220, 126, 0.32), transparent 70%);
+  }
+
+  .kpi-icon {
+    position: absolute;
+    left: 14px;
+    top: 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #454aff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: 0 0 22px rgba(85, 85, 255, 0.32);
+  }
+
+  .kpi-left .kpi-icon {
+    background: #3b46ff;
+  }
+
+  .kpi-left .kpi-icon span {
+    width: 24px;
+    height: 30px;
+    background: #fff;
+    clip-path: polygon(50% 0, 88% 0, 33% 48%, 100% 48%, 18% 100%, 52% 52%, 0 52%);
+    display: block;
+  }
+
+  .kpi-label {
+    position: relative;
+    z-index: 2;
+    font-size: 11px;
+    font-weight: 800;
+    color: #f3f7ff;
+    margin-left: 80px;
+    margin-bottom: 4px;
+  }
+
+  .kpi-value {
+    position: relative;
+    z-index: 2;
+    font-size: 28px;
+    color: #f4f8ff;
+    font-weight: 850;
+    letter-spacing: 0.6px;
+    margin-left: 80px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .kpi-value .unit {
+    font-size: 12px;
+    color: #97a5bf;
+    font-weight: 500;
+  }
+
+  .change {
+    position: relative;
+    z-index: 2;
+    margin-left: 80px;
+    margin-top: 8px;
+    color: #55f386;
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  .kpi-caption {
+    position: absolute;
+    bottom: 12px;
+    left: 84px;
+    color: #9ba8bf;
+    font-size: 9px;
+    z-index: 2;
+  }
+
+  .sparkline-kpi {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    width: 180px;
+    height: 74px;
+    z-index: 1;
+    opacity: 0.78;
+  }
+
+  .middle-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.15fr;
+    gap: 14px;
+    height: 290px;
+    margin-bottom: 14px;
+  }
+
+  .chart-card {
+    background: linear-gradient(180deg, rgba(10, 24, 45, 0.96), rgba(7, 18, 36, 0.96));
+    border: 1px solid #27456f;
+    border-radius: 7px;
+    padding: 12px 12px 8px;
+    position: relative;
+  }
+
+  .card-title {
+    font-size: 11px;
+    color: #e8f0ff;
+    font-weight: 800;
+    margin: 0 0 5px;
+  }
+
+  .ellipsis {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: #8da0c9;
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  .chart {
+    width: 100%;
+    height: 235px;
+  }
+
+  .bottom-row {
+    display: grid;
+    grid-template-columns: 1.85fr 0.95fr;
+    gap: 14px;
+    height: 290px;
+  }
+
+  .table-card {
+    background: linear-gradient(180deg, rgba(10, 24, 45, 0.96), rgba(7, 18, 36, 0.96));
+    border: 1px solid #27456f;
+    border-radius: 7px;
+    padding: 12px 12px 10px;
+    position: relative;
+  }
+
+  .table-card table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px;
+    color: #b8c6dc;
+    margin-top: 8px;
+    table-layout: fixed;
+  }
+
+  .table-card th {
+    color: #9ba8c2;
+    font-size: 9px;
+    text-align: left;
+    height: 28px;
+    border-bottom: 1px solid #243c61;
+    font-weight: 700;
+  }
+
+  .table-card td {
+    height: 33px;
+    border-bottom: 1px solid #1a2e49;
+    font-weight: 600;
+  }
+
+  .building {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .pos {
+    color: #49f183;
+  }
+
+  .neg {
+    color: #ff5565;
+  }
+
+  .spark-trend {
+    width: 78px;
+    height: 20px;
+    display: inline-block;
+    position: relative;
+  }
+
+  .spark-trend::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 14px;
+    border-radius: 10px;
+    background: #111;
+  }
+
+  .spark-trend span {
+    position: absolute;
+    bottom: 4px;
+    width: 3px;
+    height: 8px;
+    background: var(--color);
+  }
+
+  .table-footer {
+    position: absolute;
+    bottom: 12px;
+    left: 18px;
+    color: #9ba8bf;
+    font-size: 9px;
+  }
+
+  .pager {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    display: flex;
+    gap: 7px;
+    color: #9ba8bf;
+    font-size: 12px;
+  }
+
+  .pager .page-current {
+    background: #3845bb;
+    color: #dfeaff;
+    border: 1px solid #626fd2;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+  }
+
+  .donut-card {
+    background: linear-gradient(180deg, rgba(10, 24, 45, 0.96), rgba(7, 18, 36, 0.96));
+    border: 1px solid #27456f;
+    border-radius: 7px;
+    padding: 12px 12px 10px;
+    position: relative;
+  }
+
+  .donut-chart {
+    width: 190px;
+    height: 190px;
+    margin: 14px auto 0;
+  }
+
+  .legend-list {
+    position: absolute;
+    right: 16px;
+    top: 42px;
+    width: 110px;
+    color: #aebbd1;
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  .legend-item {
+    margin-bottom: 10px;
+  }
+
+  .dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--dot);
+    margin-right: 8px;
+  }
+
+  .footer-link {
+    position: absolute;
+    right: 12px;
+    bottom: 11px;
+    color: #3d7cff;
+    font-size: 10px;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <aside class="sidebar">
+    <div class="brand-top">
+      <div class="bolt-small"></div>
+      <div>
+        <div>EnergyTrack</div>
+        <div class="brand-sub">Consumption Analytics</div>
+      </div>
+    </div>
+
+    <div class="nav-item active"><span class="nav-icon">⌂</span>Overview</div>
+    <div class="nav-item"><span class="nav-icon">⌁</span>Consumption</div>
+    <div class="nav-item"><span class="nav-icon">〰</span>Real-time</div>
+    <div class="nav-item"><span class="nav-icon">▤</span>Reports</div>
+    <div class="nav-item"><span class="nav-icon">♧</span>Alerts</div>
+    <div class="nav-item"><span class="nav-icon">▥</span>Benchmarks</div>
+    <div class="nav-item"><span class="nav-icon">⚙</span>Settings</div>
+
+    <div class="side-card">
+      <h4>Environmental Impact</h4>
+      <div class="big">1,245 kg</div>
+      <div class="small">CO2 Emissions Avoided<br>▲ 12.6% vs May 19 - Jun 18</div>
+      <div style="height:55px;background:linear-gradient(120deg, transparent 70%, rgba(40,218,128,0.28) 80%, rgba(40,218,128,0.75) 100%);"></div>
+      <div style="font-size:9px;color:#9ba8bf;">View Details →</div>
+    </div>
+
+    <div class="profile">
+      <div class="avatar">●</div>
+      <div>
+        <div class="profile-name">Jane Smith</div>
+        <div class="profile-role">Energy Manager</div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <section class="header">
+      <div class="title-block">
+        <h1>Energy Consumption Dashboard</h1>
+        <div class="subtitle">Monitor and analyze energy usage across buildings and systems.</div>
+      </div>
+      <div class="filters">
+        <div class="filter">▣ May 20 - Jun 19, 2024</div>
+        <div class="filter">▤ All Buildings</div>
+        <div class="filter">ϟ All Energy Types</div>
+        <button class="export">⇧ Export</button>
+      </div>
+    </section>
+
+    <section class="kpis">
+      <div class="kpi-card kpi-left">
+        <div class="kpi-icon"><span></span></div>
+        <div class="kpi-label">Total Energy Consumption</div>
+        <div class="kpi-value">2,347.8<span class="unit">MWh</span></div>
+        <div class="change">▲ 8.4% vs May 19 - Jun 18, 2024</div>
+        <div class="kpi-caption">May 19 - Jun 18, 2024</div>
+        <div id="spark-total-kpi" class="sparkline-kpi"></div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:#18b265;color:#0d3828;">ϟ</div>
+        <div class="kpi-label">Average Daily Consumption</div>
+        <div class="kpi-value">78.3<span class="unit">MWh</span></div>
+        <div class="change">▼ 5.7% vs May 19 - Jun 18, 2024</div>
+        <div class="kpi-caption">May 19 - Jun 18, 2024</div>
+        <div id="spark-average-kpi" class="sparkline-kpi"></div>
+      </div>
+    </section>
+
+    <section class="middle-row">
+      <div class="chart-card">
+        <h3 class="card-title">Consumption vs. Temperature</h3>
+        <div class="ellipsis">...</div>
+        <div id="scatter-chart" class="chart"></div>
+      </div>
+      <div class="chart-card">
+        <h3 class="card-title">Consumption Distribution (Daily)</h3>
+        <div class="ellipsis">...</div>
+        <div id="box-chart" class="chart"></div>
+      </div>
+      <div class="chart-card">
+        <h3 class="card-title">Total Energy Consumption Over Time</h3>
+        <div class="ellipsis">...</div>
+        <div id="trend-chart" class="chart"></div>
+      </div>
+    </section>
+
+    <section class="bottom-row">
+      <div class="table-card">
+        <h3 class="card-title">Top Buildings by Energy Consumption</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Building</th>
+              <th>Total Consumption (MWh)</th>
+              <th>Avg. Daily (MWh)</th>
+              <th>Change (%)</th>
+              <th>Trend (vs. May 19 - Jun 18)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><div class="building">▣ Building A</div></td>
+              <td>612.4</td>
+              <td>20.4</td>
+              <td class="pos">▲ 12.1%</td>
+              <td><span class="spark-trend" style="--color:#48f183"><span style="left:10%;"></span><span style="left:26%;"></span><span style="left:42%;"></span><span style="left:58%;"></span><span style="left:74%;"></span><span style="left:90%;"></span></span></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><div class="building">▣ Building B</div></td>
+              <td>498.7</td>
+              <td>16.6</td>
+              <td class="pos">▲ 7.3%</td>
+              <td><span class="spark-trend" style="--color:#48f183"><span style="left:12%;"></span><span style="left:28%;"></span><span style="left:44%;"></span><span style="left:60%;"></span><span style="left:76%;"></span><span style="left:92%;"></span></span></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><div class="building">▣ Building C</div></td>
+              <td>452.1</td>
+              <td>15.1</td>
+              <td class="neg">▼ -3.2%</td>
+              <td><span class="spark-trend" style="--color:#ff5565"><span style="left:10%;"></span><span style="left:26%;"></span><span style="left:42%;"></span><span style="left:58%;"></span><span style="left:74%;"></span><span style="left:90%;"></span></span></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><div class="building">▣ Building D</div></td>
+              <td>398.6</td>
+              <td>13.3</td>
+              <td class="neg">▼ -6.7%</td>
+              <td><span class="spark-trend" style="--color:#ff5565"><span style="left:12%;"></span><span style="left:28%;"></span><span style="left:44%;"></span><span style="left:60%;"></span><span style="left:76%;"></span><span style="left:92%;"></span></span></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><div class="building">▣ Building E</div></td>
+              <td>386.0</td>
+              <td>12.9</td>
+              <td class="pos">▲ 4.8%</td>
+              <td><span class="spark-trend" style="--color:#48f183"><span style="left:10%;"></span><span style="left:26%;"></span><span style="left:42%;"></span><span style="left:58%;"></span><span style="left:74%;"></span><span style="left:90%;"></span></span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="table-footer">Showing 1 to 5 of 5 buildings</div>
+        <div class="pager"><span>‹</span><span class="page-current">1</span><span>›</span></div>
+      </div>
+
+      <div class="donut-card">
+        <h3 class="card-title">Energy Mix</h3>
+        <div id="donut-chart" class="donut-chart"></div>
+        <div class="legend-list">
+          <div class="legend-item"><span class="dot" style="--dot:#4286ff"></span>Electricity<br>1,345.2 MWh (57.3%)</div>
+          <div class="legend-item"><span class="dot" style="--dot:#8256ff"></span>Natural Gas<br>643.6 MWh (27.4%)</div>
+          <div class="legend-item"><span class="dot" style="--dot:#33cf72"></span>Solar<br>197.8 MWh (8.4%)</div>
+          <div class="legend-item"><span class="dot" style="--dot:#ffbd35"></span>Wind<br>98.7 MWh (4.2%)</div>
+          <div class="legend-item"><span class="dot" style="--dot:#ff7a45"></span>Other<br>62.5 MWh (2.7%)</div>
+        </div>
+        <div class="footer-link">View full report →</div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  const axisColor = '#7f8ba8';
+  const splitColor = 'rgba(130,145,180,0.18)';
+  const textColor = '#b8c6dc';
+
+  echarts.init(document.getElementById('spark-total-kpi')).setOption({
+    animation: false,
+    grid: { left: 0, right: 0, top: 4, bottom: 0 },
+    xAxis: { type: 'category', show: false, data: ['1','2','3','4','5','6','7','8','9','10','11','12'] },
+    yAxis: { type: 'value', show: false },
+    series: [{
+      type: 'line',
+      data: [58, 63, 60, 69, 72, 80, 78, 86, 90, 94, 112, 105],
+      smooth: true,
+      symbol: 'none',
+      areaStyle: { color: 'rgba(81,72,255,0.70)' },
+      lineStyle: { color: '#8869ff', width: 2 }
+    }]
+  });
+
+  echarts.init(document.getElementById('spark-average-kpi')).setOption({
+    animation: false,
+    grid: { left: 0, right: 0, top: 4, bottom: 0 },
+    xAxis: { type: 'category', show: false, data: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24'] },
+    yAxis: { type: 'value', show: false },
+    series: [{
+      type: 'line',
+      data: [54, 61, 66, 69, 72, 70, 79, 76, 86, 91, 84, 89, 80, 77, 86, 88, 97, 90, 95, 92, 98, 94, 88, 84],
+      smooth: true,
+      symbol: 'none',
+      areaStyle: { color: 'rgba(34,203,130,0.68)' },
+      lineStyle: { color: '#30e285', width: 2 }
+    }]
+  });
+
+  echarts.init(document.getElementById('scatter-chart')).setOption({
+    animation: false,
+    grid: { left: 42, right: 12, top: 24, bottom: 52 },
+    xAxis: {
+      type: 'value',
+      name: 'Average Temperature (°C)',
+      nameLocation: 'middle',
+      nameGap: 26,
+      min: 5,
+      max: 35,
+      axisLabel: { color: axisColor, fontSize: 9 },
+      nameTextStyle: { color: textColor, fontSize: 9 },
+      splitLine: { lineStyle: { color: splitColor } }
+    },
+    yAxis: {
+      type: 'value',
+      name: 'Energy Consumption (MWh)',
+      min: 0,
+      max: 140,
+      nameLocation: 'middle',
+      nameGap: 34,
+      axisLabel: { color: axisColor, fontSize: 9 },
+      nameTextStyle: { color: textColor, fontSize: 9 },
+      splitLine: { lineStyle: { color: splitColor } }
+    },
+    series: [{
+      type: 'scatter',
+      data: [[6, 116], [7, 129], [8, 103], [8.5, 92], [9, 112], [10, 123], [11, 97], [12, 108], [12.5, 85], [13, 90], [14, 78], [15, 96], [15.5, 72], [16, 84], [17, 76], [17.5, 65], [18, 82], [19, 71], [19.5, 60], [20, 76], [20.5, 58], [21, 64], [22, 51], [22.5, 68], [23, 55], [23.5, 43], [24, 61], [25, 48], [25.5, 36], [26, 52], [27, 45], [27.5, 33], [28, 40], [28.5, 29], [29, 48], [30, 34], [30.5, 25], [31, 38], [32, 28], [33, 36], [35, 42]],
+      symbolSize: 7,
+      itemStyle: {
+        color: function(params) {
+          const colors = ['#5567ff', '#7959ff', '#9e4cff', '#bd42ff', '#dc45f4'];
+          return colors[Math.floor(params.dataIndex / 8)];
+        },
+        opacity: 0.88
+      }
+    }]
+  });
+
+  echarts.init(document.getElementById('box-chart')).setOption({
+    animation: false,
+    grid: { left: 44, right: 12, top: 24, bottom: 52 },
+    xAxis: {
+      type: 'category',
+      data: ['Building A', 'Building B', 'Building C', 'Building D', 'Building E'],
+      axisLabel: { color: axisColor, fontSize: 9 },
+      splitLine: { lineStyle: { color: splitColor } }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: 140,
+      axisLabel: { color: axisColor, fontSize: 9 },
+      splitLine: { lineStyle: { color: splitColor } }
+    },
+    series: [
+      {
+        type: 'boxplot',
+        data: [[30, 48, 64, 78, 101], [26, 47, 60, 73, 102], [28, 43, 55, 66, 78], [28, 48, 60, 71, 92], [28, 46, 56, 64, 84]],
+        itemStyle: {
+          color: '#6058ff',
+          borderColor: '#8f8cff',
+          borderWidth: 1.5
+        }
+      },
+      {
+        type: 'scatter',
+        data: [[0, 120], [1, 113], [2, 93], [3, 105], [4, 102]],
+        symbolSize: 5,
+        itemStyle: { color: '#945cff' },
+        name: 'Outlier'
+      }
+    ],
+    legend: {
+      bottom: 0,
+      left: 0,
+      textStyle: { color: '#9fa9c0', fontSize: 9 },
+      data: ['Outlier']
+    }
+  });
+
+  echarts.init(document.getElementById('trend-chart')).setOption({
+    animation: false,
+    grid: { left: 42, right: 28, top: 24, bottom: 48 },
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      min: 'dataMin',
+      max: 'dataMax',
+      data: ['May 20','May 22','May 24','May 26','May 28','May 30','May 31','Jun 01','Jun 02','Jun 03','Jun 04','Jun 05','Jun 06','Jun 07','Jun 08','Jun 09','Jun 10','Jun 11','Jun 12','Jun 13','Jun 14','Jun 15','Jun 16','Jun 17','Jun 18','Jun 19','Jun 20','Jun 21','Jun 22','Jun 23','Jun 24'],
+      axisLabel: { color: axisColor, fontSize: 9 },
+      splitLine: { lineStyle: { color: splitColor } }
+    },
+    yAxis: {
+      type: 'value',
+      name: 'Energy Consumption (MWh)',
+      min: 0,
+      max: 140,
+      nameTextStyle: { color: textColor, fontSize: 9 },
+      axisLabel: { color: axisColor, fontSize: 9 },
+      splitLine: { lineStyle: { color: splitColor } }
+    },
+    series: [{
+      type: 'line',
+      data: [66, 82, 64, 61, 66, 68, 63, 94, 79, 108, 91, 74, 92, 104, 81, 107, 103, 86, 75, 84, 72, 88, 96, 98.6, 82, 76, 68, 75, 91, 96, 102],
+      smooth: true,
+      symbol: 'circle',
+      symbolSize: 4,
+      lineStyle: { color: '#5778ff', width: 2.2 },
+      areaStyle: {
+        color: {
+          type: 'linear',
+          x: 0, y: 0, x2: 0, y2: 1,
+          colorStops: [
+            { offset: 0, color: 'rgba(89,120,255,0.60)' },
+            { offset: 1, color: 'rgba(89,120,255,0.10)' }
+          ]
+        }
+      },
+      label: {
+        show: true,
+        formatter: function(params) {
+          return params.dataIndex === 23 ? 'Jun 12, 2024\nTotal Consumption: 98.6 MWh' : '';
+        },
+        position: 'top',
+        color: '#fff',
+        backgroundColor: '#121d31',
+        borderColor: '#4564ff',
+        borderWidth: 1,
+        padding: [4, 5],
+        fontSize: 9
+      }
+    }]
+  });
+
+  echarts.init(document.getElementById('donut-chart')).setOption({
+    animation: false,
+    color: ['#4286ff', '#8256ff', '#33cf72', '#ffbd35', '#ff7a45'],
+    series: [{
+      type: 'pie',
+      radius: ['42%', '70%'],
+      center: ['50%', '54%'],
+      avoidLabelOverlap: true,
+      label: { show: false },
+      labelLine: { show: false },
+      itemStyle: { borderColor: '#111', borderWidth: 2 },
+      data: [1345.2, 643.6, 197.8, 98.7, 62.5]
+    }],
+    graphic: [{
+      type: 'text',
+      left: 'center',
+      top: '40%',
+      style: {
+        text: '2,347.8\nMWh',
+        fill: '#eef4ff',
+        fontSize: 14,
+        fontWeight: 800,
+        textAlign: 'center'
+      }
+    }, {
+      type: 'text',
+      left: 'center',
+      top: '62%',
+      style: {
+        text: 'Total',
+        fill: '#9ba8bf',
+        fontSize: 9,
+        textAlign: 'center'
+      }
+    }]
+  });
+</script>
+</body>
+</html>

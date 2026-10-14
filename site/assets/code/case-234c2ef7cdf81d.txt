@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Examples of Agent Templates in Copilot Studio</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    background: #ffffff;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #d7f6fb 0%, #f6edf8 52%, #f7e6e8 100%);
+    color: #111111;
+  }
+
+  .top-label {
+    position: absolute;
+    left: 56px;
+    top: 16px;
+    width: 154px;
+    height: 36px;
+    background: #5b3294;
+    color: #ffffff;
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 650;
+    letter-spacing: 0.1px;
+    z-index: 3;
+  }
+
+  .banner {
+    position: absolute;
+    left: 0;
+    top: 50px;
+    width: 1376px;
+    height: 69px;
+    background: #6b45bf;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 67px;
+  }
+
+  .title {
+    margin: 0;
+    color: #ffffff;
+    font-size: 39px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    line-height: 1.15;
+  }
+
+  .content-card {
+    position: absolute;
+    left: 65px;
+    top: 151px;
+    width: 1246px;
+    height: 570px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 11px 23px rgba(47, 33, 70, 0.21);
+    padding: 16px 13px 18px 13px;
+  }
+
+  .intro {
+    margin: 0 0 11px 0;
+    font-size: 19px;
+    line-height: 1.22;
+    color: #151515;
+    max-width: 1190px;
+  }
+
+  .templates-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 18px;
+    color: #111111;
+  }
+
+  .templates-table col:first-child {
+    width: 94px;
+  }
+
+  .templates-table col:nth-child(2) {
+    width: 233px;
+  }
+
+  .templates-table col:nth-child(3) {
+    width: auto;
+  }
+
+  .templates-table thead th {
+    height: 39px;
+    background: #6845bc;
+    color: #ffffff;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    padding: 6px 8px;
+  }
+
+  .templates-table thead th:first-child {
+    text-align: center;
+    color: transparent;
+    border-right: 1px solid rgba(255,255,255,0.35);
+  }
+
+  .templates-table thead th:nth-child(2),
+  .templates-table thead th:nth-child(3) {
+    border-left: 1px solid rgba(255,255,255,0.35);
+  }
+
+  .templates-table tbody td {
+    vertical-align: middle;
+    height: 82px;
+    border-bottom: 1px solid #d4d4d4;
+    background: #ffffff;
+  }
+
+  .templates-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .icon-cell {
+    text-align: center;
+    padding-top: 3px;
+  }
+
+  .icon-box {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 7px auto;
+    border-radius: 16px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.23);
+  }
+
+  .icon-box.cart {
+    background: #1686c8;
+    border-color: #2aa3ee;
+    clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+    font-size: 22px;
+  }
+
+  .icon-box.leaf {
+    background: #4c9935;
+    border-color: #64bc44;
+    clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+    font-size: 25px;
+  }
+
+  .icon-box.trophy {
+    background: #f5b312;
+    border-color: #ffd145;
+    border-radius: 12px;
+    font-size: 22px;
+  }
+
+  .icon-box.tools {
+    background: #dc4338;
+    border-color: #ef6057;
+    clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+    font-size: 23px;
+  }
+
+  .icon-box.cloud {
+    background: #fb8528;
+    border-color: #ff9e39;
+    border-radius: 50%;
+    font-size: 24px;
+  }
+
+  .agent-name-cell {
+    padding: 0 10px 0 1px;
+    text-align: left;
+  }
+
+  .agent-link {
+    color: #0078a8;
+    text-decoration: underline;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .description-cell {
+    padding: 0 1px 0 0;
+    text-align: left;
+    font-size: 18px;
+    line-height: 1.22;
+    color: #111111;
+  }
+
+  .description-cell p {
+    margin: 0;
+  }
+
+  em {
+    font-style: italic;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="top-label">Copilot Studio</div>
+
+    <div class="banner">
+      <h1 class="title">Examples of agent templates in Copilot Studio</h1>
+    </div>
+
+    <section class="content-card" aria-label="Agent templates overview">
+      <p class="intro">
+        Copilot Studio helps you build powerful, custom AI-powered agents designed to improve business processes, enhance productivity, and streamline operations across your organization. Pre-built agent templates are a great way to get started, offering foundational capabilities and common use cases that can be easily customized to meet your specific needs and goals.
+      </p>
+
+      <table class="templates-table" aria-label="Examples of agent templates">
+        <colgroup>
+          <col />
+          <col />
+          <col />
+        </colgroup>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Agent Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="icon-cell">
+              <div class="icon-box cart" aria-hidden="true">🛒</div>
+            </td>
+            <td class="agent-name-cell">
+              <span class="agent-link">Store Operations</span>
+            </td>
+            <td class="description-cell">
+              <p>
+                Improves the efficiency of retail frontline workers by enabling easy access to <em>store procedures and policies</em>, providing real-time information on product availability, and assisting with tasks like inventory checks and customer service inquiries.
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="icon-cell">
+              <div class="icon-box leaf" aria-hidden="true">♻</div>
+            </td>
+            <td class="agent-name-cell">
+              <span class="agent-link">Sustainability Insights</span>
+            </td>
+            <td class="description-cell">
+              <p>
+                Helps users get <em>insights and data</em> about their company’s <em>sustainability goals and progress</em> by aggregating information from various sources, tracking key performance indicators, and generating reports on environmental impact and carbon footprint.
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="icon-cell">
+              <div class="icon-box trophy" aria-hidden="true">🏆</div>
+            </td>
+            <td class="agent-name-cell">
+              <span class="agent-link">Awards and Recognition</span>
+            </td>
+            <td class="description-cell">
+              <p>
+                Streamlines the process of <em>nominating and recognizing employees</em> for their contributions and achievements, fostering a positive work culture by allowing peer-to-peer and manager-led recognition through integrated platforms.
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="icon-cell">
+              <div class="icon-box tools" aria-hidden="true">🛠</div>
+            </td>
+            <td class="agent-name-cell">
+              <span class="agent-link">IT Helpdesk</span>
+            </td>
+            <td class="description-cell">
+              <p>
+                Uses the organization’s <em>knowledge base</em> to enhance <em>operational efficiency</em>, improve employee satisfaction by resolving common IT issues quickly, and <em>optimize resource utilization</em> in helpdesk scenarios through automated ticket triage and self-service solutions.
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="icon-cell">
+              <div class="icon-box cloud" aria-hidden="true">☀☁</div>
+            </td>
+            <td class="agent-name-cell">
+              <span class="agent-link">Weather</span>
+            </td>
+            <td class="description-cell">
+              <p>
+                Acts as an assistant for getting <em>weather forecasts</em> in Teams or on a website, allowing users to ask about <em>weather anywhere in the world</em> with current conditions, hourly updates, and multi-day outlooks to aid in planning and scheduling.
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</body>
+</html>

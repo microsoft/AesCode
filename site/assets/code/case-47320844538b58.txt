@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1376, initial-scale=1.0" />
+  <title>Multi-layered security in Power Platform</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f2f2f2;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .security-banner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 218px;
+      height: 40px;
+      background: #008a4b;
+      display: flex;
+      align-items: center;
+      padding-left: 49px;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .title {
+      position: absolute;
+      top: 72px;
+      left: 50px;
+      width: 680px;
+      font-size: 48px;
+      line-height: 1.22;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+    }
+
+    .intro {
+      position: absolute;
+      top: 196px;
+      left: 50px;
+      width: 700px;
+      font-size: 22px;
+      line-height: 1.3;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+    }
+
+    .body-copy {
+      position: absolute;
+      top: 268px;
+      left: 50px;
+      width: 678px;
+      font-size: 20px;
+      line-height: 1.28;
+      color: #111111;
+    }
+
+    .body-copy p {
+      margin: 0 0 10px 0;
+    }
+
+    .stack {
+      position: absolute;
+      top: 30px;
+      left: 784px;
+      width: 562px;
+      height: 700px;
+    }
+
+    .layer {
+      position: relative;
+      width: 562px;
+      border: 1px solid #ffffff;
+    }
+
+    .tenant-layer {
+      height: 130px;
+    }
+
+    .platform-layer {
+      height: 132px;
+      margin-top: 10px;
+    }
+
+    .environment-layer {
+      height: 154px;
+      margin-top: 10px;
+    }
+
+    .application-layer {
+      height: 118px;
+      margin-top: 12px;
+    }
+
+    .solution-layer {
+      height: 118px;
+      margin-top: 12px;
+    }
+
+    .band {
+      height: 54px;
+      background: #68246c;
+      color: #ffffff;
+      font-size: 27px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ffffff;
+    }
+
+    .platform-layer .band,
+    .environment-layer .band {
+      background: #74277d;
+      height: 58px;
+    }
+
+    .application-layer .band {
+      background: #5d4a9e;
+      height: 54px;
+    }
+
+    .solution-layer .band {
+      background: #246f9e;
+      height: 50px;
+    }
+
+    .sub-band {
+      position: absolute;
+      left: 0;
+      top: 54px;
+      width: 562px;
+      height: 74px;
+      display: grid;
+      background: #e4e4e4;
+      border: 2px solid #ffffff;
+    }
+
+    .tenant-layer .sub-band {
+      height: 78px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .platform-layer .sub-band {
+      height: 74px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .environment-layer .sub-band {
+      top: 58px;
+      height: 86px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .application-layer .sub-band {
+      top: 54px;
+      height: 64px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .solution-layer .sub-band {
+      top: 50px;
+      height: 72px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #050505;
+      font-size: 20px;
+      line-height: 1.25;
+      font-weight: 700;
+      border-right: 4px solid #ffffff;
+    }
+
+    .cell:last-child {
+      border-right: none;
+    }
+
+    .environment-layer .cell {
+      font-size: 20px;
+    }
+
+    .triangle {
+      position: absolute;
+      left: 256px;
+      top: 48px;
+      width: 0;
+      height: 0;
+      border-left: 18px solid transparent;
+      border-right: 18px solid transparent;
+      border-top: 18px solid #8a8a8a;
+      z-index: 5;
+      opacity: 0.9;
+    }
+
+    .platform-layer .triangle {
+      top: 48px;
+    }
+
+    .environment-layer .triangle {
+      top: 48px;
+    }
+
+    .application-layer .triangle {
+      top: 48px;
+    }
+
+    .solution-layer .triangle {
+      top: 46px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="security-banner">SECURITY</div>
+
+    <div class="title">
+      Multi-layered security in<br />
+      Power Platform
+    </div>
+
+    <div class="intro">
+      The Power Platform employs a multi-layered security approach to ensure robust data protection and compliance.
+    </div>
+
+    <div class="body-copy">
+      <p>Power Platform security is built on a foundation of layers designed to manage access and protect information at every stage. It begins with managing access at the tenant and environment levels, providing granular control over who can access resources and under what conditions.</p>
+
+      <p>Within Dataverse, security is further enhanced through row-level and field-level security, allowing organizations to restrict access to specific records or individual data fields based on user roles and business requirements.</p>
+
+      <p>Furthermore, all data is encrypted at rest and in transit, safeguarding information from unauthorized access during storage and transmission.</p>
+
+      <p>Application-level controls offer additional security for specific apps and components, defining user permissions and actions within applications.</p>
+
+      <p>Compliance and governance tools, such as data loss prevention (DLP) policies, help prevent accidental data leakage, while comprehensive audit logs track user activities and system changes for accountability.</p>
+
+      <p>Together, these layers provide a comprehensive security framework that safeguards data, ensures compliance with industry standards, and builds trust in the platform.</p>
+    </div>
+
+    <div class="stack">
+      <div class="layer tenant-layer">
+        <div class="band">Tenant</div>
+        <div class="sub-band">
+          <div class="cell">Platform</div>
+          <div class="cell">Purview</div>
+        </div>
+        <div class="triangle"></div>
+      </div>
+
+      <div class="layer platform-layer">
+        <div class="band">Platform</div>
+        <div class="sub-band">
+          <div class="cell">Data</div>
+          <div class="cell">Analytics</div>
+          <div class="cell">DLP</div>
+        </div>
+        <div class="triangle"></div>
+      </div>
+
+      <div class="layer environment-layer">
+        <div class="band">Environment</div>
+        <div class="sub-band">
+          <div class="cell">Environment<br />administration</div>
+          <div class="cell">Environment<br />configuration</div>
+          <div class="cell">Information<br />protection</div>
+        </div>
+        <div class="triangle"></div>
+      </div>
+
+      <div class="layer application-layer">
+        <div class="band">Application</div>
+        <div class="sub-band">
+          <div class="cell">Feature</div>
+          <div class="cell">Capability</div>
+        </div>
+        <div class="triangle"></div>
+      </div>
+
+      <div class="layer solution-layer">
+        <div class="band">Solution</div>
+        <div class="sub-band">
+          <div class="cell">Information</div>
+          <div class="cell">Access</div>
+          <div class="cell">Identity</div>
+        </div>
+        <div class="triangle"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

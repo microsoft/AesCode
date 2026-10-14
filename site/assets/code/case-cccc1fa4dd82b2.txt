@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Customer Acquisition Funnel Conversion Rates by Stage</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #ece8df;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 768px;
+    height: 1376px;
+    overflow: hidden;
+    background: #f7f4ee;
+    color: #080808;
+  }
+
+  /* Background rings */
+  .bg-ring {
+    position: absolute;
+    border: 1.4px solid rgba(62, 185, 110, 0.18);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .ring-a {
+    width: 210px;
+    height: 210px;
+    top: -100px;
+    left: -90px;
+  }
+
+  .ring-b {
+    width: 230px;
+    height: 230px;
+    top: 130px;
+    right: -115px;
+    border-color: rgba(36, 160, 171, 0.18);
+  }
+
+  .ring-c {
+    width: 250px;
+    height: 250px;
+    bottom: -110px;
+    right: -105px;
+    border-color: rgba(242, 101, 101, 0.20);
+  }
+
+  .ring-d {
+    width: 180px;
+    height: 180px;
+    top: 420px;
+    left: -82px;
+    border-color: rgba(54, 133, 152, 0.16);
+  }
+
+  /* Soft color circles */
+  .soft-circle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.78;
+  }
+
+  .circle-top-left {
+    width: 128px;
+    height: 128px;
+    top: -60px;
+    left: 28px;
+    background: #32b6b1;
+    opacity: 0.22;
+  }
+
+  .circle-top-right {
+    width: 118px;
+    height: 118px;
+    top: -55px;
+    right: 52px;
+    background: #f39999;
+  }
+
+  .circle-mid-left {
+    width: 96px;
+    height: 96px;
+    top: 230px;
+    left: -28px;
+    background: #f59d9d;
+  }
+
+  .circle-mid-right {
+    width: 120px;
+    height: 120px;
+    top: 128px;
+    right: -36px;
+    background: #77cfc0;
+  }
+
+  .circle-bottom-left {
+    width: 108px;
+    height: 108px;
+    bottom: -23px;
+    left: 92px;
+    background: #f39c9c;
+  }
+
+  .circle-bottom-right {
+    width: 112px;
+    height: 112px;
+    bottom: 51px;
+    right: -37px;
+    background: #82cce2;
+    opacity: 0.47;
+  }
+
+  .dot {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #f0bd5f;
+    opacity: 0.85;
+  }
+
+  .dot.d1 { top: 32px; left: 58px; }
+  .dot.d2 { top: 28px; left: 255px; width: 6px; height: 6px; background: #f0bd5f; }
+  .dot.d3 { top: 40px; right: 180px; width: 6px; height: 6px; background: #d4cfc7; }
+  .dot.d4 { top: 205px; right: 72px; }
+  .dot.d5 { top: 370px; right: 56px; width: 5px; height: 5px; background: #bfc5cb; }
+  .dot.d6 { top: 982px; right: 46px; width: 7px; height: 7px; background: #f0bd5f; }
+  .dot.d7 { top: 1209px; left: 450px; width: 5px; height: 5px; background: #f0bd5f; }
+
+  /* Header */
+  .subtitle {
+    position: absolute;
+    top: 58px;
+    left: 96px;
+    width: 576px;
+    text-align: center;
+    font-size: 23px;
+    letter-spacing: 1.5px;
+    color: #34302a;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .title {
+    position: absolute;
+    top: 94px;
+    left: 52px;
+    width: 664px;
+    text-align: center;
+    color: #344355;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 1.06;
+    text-transform: uppercase;
+    font-size: 48px;
+  }
+
+  .title span {
+    display: block;
+  }
+
+  /* Intro box */
+  .intro-box {
+    position: absolute;
+    top: 242px;
+    left: 107px;
+    width: 554px;
+    height: 108px;
+    background: #ffffff;
+    border: 1.2px solid #aab0bd;
+    border-radius: 23px;
+    text-align: center;
+    padding: 15px 22px 12px;
+    font-size: 19px;
+    line-height: 1.25;
+  }
+
+  /* Funnel stage labels and icons */
+  .stage-labels {
+    position: absolute;
+    top: 374px;
+    left: 48px;
+    width: 670px;
+    height: 38px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .stage-icons {
+    position: absolute;
+    top: 421px;
+    left: 50px;
+    width: 668px;
+    height: 112px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .icon-circle {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f2d0b8;
+  }
+
+  .icon-1 { background: #f2d0b8; }
+  .icon-2 { background: #f1e5c8; }
+  .icon-3 { background: #e4d3a7; }
+  .icon-4 { background: #b2e0dc; }
+  .icon-5 { background: #b7dcf3; }
+
+  .icon-circle svg {
+    width: 64px;
+    height: 64px;
+    stroke: #171717;
+    fill: none;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Grid metric and description cards */
+  .grid-row {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 330px 330px;
+    column-gap: 24px;
+    min-height: 146px;
+    width: 684px;
+  }
+
+  .row-1 { top: 545px; left: 48px; }
+  .row-2 { top: 699px; left: 48px; }
+  .row-3 { top: 853px; left: 48px; }
+  .row-4 { top: 1007px; left: 48px; }
+  .row-5 { top: 1161px; left: 48px; }
+
+  .metric-card {
+    border-radius: 16px;
+    background: #f6dfc9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 12px 18px 10px;
+  }
+
+  .metric-card.row-1 & {
+    background: #f6dfc9;
+  }
+  .metric-card.row-2 & {
+    background: #f4ead9;
+  }
+  .metric-card.row-3 & {
+    background: #e7d9ba;
+  }
+  .metric-card.row-4 & {
+    background: #f4e4aa;
+  }
+  .metric-card.row-5 & {
+    background: #f6c999;
+  }
+
+  .metric-label {
+    font-size: 19px;
+    margin-bottom: 5px;
+  }
+
+  .metric-percent {
+    font-size: 58px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: -1px;
+  }
+
+  .desc-card {
+    border-radius: 16px;
+    background: #b3e2d1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 12px 18px 10px;
+    min-height: 146px;
+  }
+
+  .row-1 .desc-card {
+    background: #b3e2d1;
+  }
+  .row-2 .desc-card {
+    background: #a8d7e6;
+  }
+  .row-3 .desc-card {
+    background: #c5e4bd;
+  }
+  .row-4 .desc-card {
+    background: #c6afe9;
+  }
+  .row-5 .desc-card {
+    background: #71bde3;
+  }
+
+  .desc-heading {
+    font-size: 24px;
+    font-weight: 900;
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
+  }
+
+  .desc-text {
+    font-size: 18px;
+    line-height: 1.25;
+  }
+
+  /* Footer dot */
+  .footer-dot {
+    position: absolute;
+    bottom: 38px;
+    left: 468px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #d9d9d8;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="bg-ring ring-a"></div>
+  <div class="bg-ring ring-b"></div>
+  <div class="bg-ring ring-c"></div>
+  <div class="bg-ring ring-d"></div>
+
+  <div class="soft-circle circle-top-left"></div>
+  <div class="soft-circle circle-top-right"></div>
+  <div class="soft-circle circle-mid-left"></div>
+  <div class="soft-circle circle-mid-right"></div>
+  <div class="soft-circle circle-bottom-left"></div>
+  <div class="soft-circle circle-bottom-right"></div>
+
+  <div class="dot d1"></div>
+  <div class="dot d2"></div>
+  <div class="dot d3"></div>
+  <div class="dot d4"></div>
+  <div class="dot d5"></div>
+  <div class="dot d6"></div>
+  <div class="dot d7"></div>
+
+  <div class="subtitle">Customer Acquisition Funnel:</div>
+
+  <div class="title">
+    <span>CONVERSION</span>
+    <span>RATES BY STAGE</span>
+  </div>
+
+  <div class="intro-box">
+    The customer acquisition funnel shows how potential customers move from discovering a brand to completing a purchase.
+  </div>
+
+  <div class="stage-labels">
+    <div>Awareness</div>
+    <div>Interest</div>
+    <div>Consideration</div>
+    <div>Intent</div>
+    <div>Purchase</div>
+  </div>
+
+  <div class="stage-icons">
+    <div class="icon-circle icon-1" aria-label="Awareness megaphone icon">
+      <svg viewBox="0 0 64 64">
+        <path d="M8 33l19 9 9-20-19-9z"/>
+        <path d="M20 23l16 8-7 17-19-10z"/>
+        <path d="M27 31l17-9 12 18-17 9z"/>
+        <path d="M25 42l15 8"/>
+        <circle cx="48" cy="25" r="5"/>
+        <path d="M53 16l8-8"/>
+        <path d="M58 24l9 3"/>
+        <path d="M51 30l-3 12"/>
+      </svg>
+    </div>
+
+    <div class="icon-circle icon-2" aria-label="Interest magnifying glass icon">
+      <svg viewBox="0 0 64 64">
+        <circle cx="27" cy="24" r="15"/>
+        <circle cx="27" cy="24" r="9"/>
+        <path d="M41 38l12 12"/>
+        <path d="M31 20V10"/>
+        <path d="M18 28h-9"/>
+        <rect x="36" y="34" width="8" height="18"/>
+        <rect x="26" y="25" width="8" height="18"/>
+        <rect x="16" y="21" width="8" height="20"/>
+      </svg>
+    </div>
+
+    <div class="icon-circle icon-3" aria-label="Consideration clipboard icon">
+      <svg viewBox="0 0 64 64">
+        <rect x="16" y="11" width="35" height="48"/>
+        <path d="M22 11h17"/>
+        <circle cx="33" cy="8" r="4"/>
+        <path d="M20 27l6 6 10-12"/>
+        <path d="M20 39l6 6 10-12"/>
+        <path d="M20 51l6 6 10-12"/>
+        <path d="M40 27h11"/>
+        <path d="M40 39h11"/>
+        <path d="M40 51h11"/>
+      </svg>
+    </div>
+
+    <div class="icon-circle icon-4" aria-label="Intent shopping cart icon">
+      <svg viewBox="0 0 64 64">
+        <path d="M10 26l22 8 17-16"/>
+        <path d="M18 30v16l21 7 22-7V30l-14-4z"/>
+        <circle cx="20" cy="51" r="4"/>
+        <circle cx="47" cy="51" r="4"/>
+        <path d="M34 18v-11h8v11h11v8H34v-8z"/>
+        <path d="M18 18h8v8h-8z"/>
+      </svg>
+    </div>
+
+    <div class="icon-circle icon-5" aria-label="Purchase documents icon">
+      <svg viewBox="0 0 64 64">
+        <path d="M16 12h28l10 10v30H16z"/>
+        <path d="M44 12h10l8 8v20H44z"/>
+        <path d="M21 22h17"/>
+        <path d="M21 30h20"/>
+        <path d="M21 38h18"/>
+        <path d="M21 46h14"/>
+        <path d="M39 20h11"/>
+        <path d="M39 27h11"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="grid-row row-1">
+    <div class="metric-card">
+      <div class="metric-label">Average reach:</div>
+      <div class="metric-percent">100%</div>
+    </div>
+    <div class="desc-card">
+      <div class="desc-heading">AWARENESS</div>
+      <div class="desc-text">Customers first discover a brand through marketing channels.</div>
+    </div>
+  </div>
+
+  <div class="grid-row row-2">
+    <div class="metric-card">
+      <div class="metric-label">Engagement rate:</div>
+      <div class="metric-percent">48%</div>
+    </div>
+    <div class="desc-card">
+      <div class="desc-heading">INTEREST</div>
+      <div class="desc-text">Some users begin exploring products or services.</div>
+    </div>
+  </div>
+
+  <div class="grid-row row-3">
+    <div class="metric-card">
+      <div class="metric-label">Conversion rate:</div>
+      <div class="metric-percent">26%</div>
+    </div>
+    <div class="desc-card">
+      <div class="desc-heading">CONSIDERATION</div>
+      <div class="desc-text">Potential customers compare options before deciding.</div>
+    </div>
+  </div>
+
+  <div class="grid-row row-4">
+    <div class="metric-card">
+      <div class="metric-label">Intent rate:</div>
+      <div class="metric-percent">12%</div>
+    </div>
+    <div class="desc-card">
+      <div class="desc-heading">INTENT</div>
+      <div class="desc-text">Users show strong interest by adding items to a cart or requesting a demo.</div>
+    </div>
+  </div>
+
+  <div class="grid-row row-5">
+    <div class="metric-card">
+      <div class="metric-label">Final conversion rate:</div>
+      <div class="metric-percent">5%</div>
+    </div>
+    <div class="desc-card">
+      <div class="desc-heading">PURCHASE</div>
+      <div class="desc-text">A portion of prospects complete the transaction.</div>
+    </div>
+  </div>
+
+  <div class="footer-dot"></div>
+</div>
+</body>
+</html>

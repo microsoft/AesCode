@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1536, initial-scale=1.0" />
+  <title>Automatiza tareas y procesos con agentes</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #d8efff;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      color: #071f46;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1536px;
+      height: 1024px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 84% 15%, rgba(255,255,255,0.85) 0, rgba(255,255,255,0.35) 18%, rgba(255,255,255,0) 36%),
+        linear-gradient(135deg, #e8f7ff 0%, #d9efff 40%, #c9edff 68%, #b9eff0 100%);
+    }
+
+    .artboard::before {
+      content: "";
+      position: absolute;
+      right: -145px;
+      top: -110px;
+      width: 460px;
+      height: 370px;
+      border-radius: 50%;
+      border-left: 28px solid rgba(56, 172, 255, 0.22);
+      transform: rotate(-28deg);
+      opacity: 0.65;
+    }
+
+    .artboard::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      bottom: 50px;
+      width: 270px;
+      height: 180px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(78,163,255,0.55), rgba(33,128,248,0.28));
+      filter: blur(8px);
+      opacity: 0.55;
+    }
+
+    .decor-dots {
+      position: absolute;
+      top: 12px;
+      right: 22px;
+      width: 74px;
+      height: 74px;
+      display: grid;
+      grid-template-columns: repeat(4, 6px);
+      grid-template-rows: repeat(4, 6px);
+      gap: 8px;
+      opacity: 0.55;
+    }
+
+    .decor-dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ba6ff;
+    }
+
+    .sparkle {
+      position: absolute;
+      background: #268df7;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 5px rgba(38,141,247,0.35));
+    }
+
+    .sparkle.s1 {
+      width: 28px;
+      height: 28px;
+      right: 172px;
+      top: 46px;
+      clip-path: polygon(50% 0%, 64% 36%, 100% 50%, 64% 64%, 50% 100%, 36% 64%, 0% 50%, 36% 36%);
+    }
+
+    .sparkle.s2 {
+      width: 42px;
+      height: 42px;
+      right: 88px;
+      top: 70px;
+      background: linear-gradient(135deg, #29c4df, #2474ff);
+      clip-path: polygon(50% 0%, 64% 36%, 100% 50%, 64% 64%, 50% 100%, 36% 64%, 0% 50%, 36% 36%);
+    }
+
+    .sparkle.s3 {
+      width: 30px;
+      height: 30px;
+      right: 48px;
+      top: 118px;
+      background: #7b86ff;
+    }
+
+    .hero-title {
+      position: absolute;
+      top: 56px;
+      left: 220px;
+      width: 730px;
+      font-size: 49px;
+      line-height: 1.18;
+      font-weight: 800;
+      letter-spacing: -1.8px;
+      color: #061b45;
+    }
+
+    .logo-bubble {
+      position: absolute;
+      left: 58px;
+      top: 46px;
+      width: 122px;
+      height: 122px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #27c9ff 0%, #2f80ff 52%, #a358e8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-bubble::after {
+      content: "";
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      right: -18px;
+      top: 28px;
+      border-radius: 50%;
+      background: rgba(184, 91, 255, 0.28);
+    }
+
+    .speech {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      background: #ffffff;
+      position: relative;
+      box-shadow: 0 8px 16px rgba(20, 76, 126, 0.18);
+    }
+
+    .speech::before,
+    .speech::after {
+      content: "";
+      position: absolute;
+      top: 26px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #5379e6;
+    }
+
+    .speech::before {
+      left: 16px;
+    }
+
+    .speech::after {
+      right: 16px;
+    }
+
+    .intro-copy {
+      position: absolute;
+      top: 202px;
+      left: 58px;
+      width: 882px;
+      font-size: 22px;
+      line-height: 1.43;
+      color: #071f46;
+    }
+
+    .how-paragraph {
+      position: absolute;
+      top: 388px;
+      left: 58px;
+      width: 882px;
+      font-size: 21px;
+      line-height: 1.42;
+      color: #071f46;
+    }
+
+    .subheading {
+      position: absolute;
+      top: 514px;
+      left: 58px;
+      font-size: 26px;
+      line-height: 1.18;
+      font-weight: 700;
+      color: #062455;
+    }
+
+    .cards-row {
+      position: absolute;
+      top: 568px;
+      left: 50px;
+      width: 1385px;
+      height: 288px;
+      display: flex;
+      gap: 26px;
+    }
+
+    .agent-card {
+      position: relative;
+      width: 262px;
+      height: 288px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 9px 20px rgba(66, 150, 210, 0.18);
+      text-align: center;
+      padding: 26px 22px 16px;
+      overflow: hidden;
+    }
+
+    .icon-circle {
+      width: 116px;
+      height: 116px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-circle.purple {
+      background: linear-gradient(135deg, #ad68ea, #5675e6);
+    }
+
+    .icon-circle.green {
+      background: linear-gradient(135deg, #63cc87, #21b9bf);
+    }
+
+    .icon-circle.blue {
+      background: linear-gradient(135deg, #45d5e7, #2678e5);
+    }
+
+    .icon-circle.orange {
+      background: linear-gradient(135deg, #ffba42, #ff6c54);
+    }
+
+    .icon-circle.deep-purple {
+      background: linear-gradient(135deg, #8365e0, #446bd0);
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 750;
+      color: #061b45;
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 18px;
+      line-height: 1.34;
+      color: #15233a;
+    }
+
+    .final-paragraph {
+      position: absolute;
+      top: 884px;
+      left: 172px;
+      width: 1228px;
+      font-size: 20px;
+      line-height: 1.35;
+      color: #071f46;
+    }
+
+    .org-icon {
+      position: absolute;
+      left: 58px;
+      top: 881px;
+      width: 98px;
+      height: 60px;
+      border: 3px solid #2e86e8;
+      border-radius: 8px;
+    }
+
+    .org-icon::before {
+      content: "";
+      position: absolute;
+      right: -25px;
+      top: -24px;
+      width: 42px;
+      height: 42px;
+      border: 3px solid #2e86e8;
+      border-radius: 50%;
+      background: #59b5ff;
+    }
+
+    .footer-note {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 1536px;
+      height: 70px;
+      border-top: 1px solid rgba(118, 181, 228, 0.55);
+      display: flex;
+      align-items: center;
+      padding-left: 62px;
+      color: #096bd4;
+      font-size: 17px;
+      background: rgba(210, 236, 255, 0.68);
+    }
+
+    .info-circle {
+      width: 27px;
+      height: 27px;
+      border: 2px solid #096bd4;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 24px;
+      flex: 0 0 auto;
+    }
+
+    .chat-ui {
+      position: absolute;
+      right: 62px;
+      top: 108px;
+      width: 448px;
+      height: 410px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.55);
+      box-shadow: 0 15px 38px rgba(60, 140, 200, 0.18);
+      border: 1px solid rgba(255,255,255,0.72);
+      z-index: 1;
+    }
+
+    .chat-head {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 448px;
+      height: 82px;
+      border-bottom: 1px solid rgba(196, 224, 245, 0.45);
+      background: rgba(245, 250, 255, 0.52);
+      display: flex;
+      align-items: center;
+      padding-left: 22px;
+      color: #081d46;
+      font-weight: 750;
+      font-size: 18px;
+    }
+
+    .chat-head .mini-mark {
+      width: 25px;
+      height: 25px;
+      border-radius: 8px;
+      margin-right: 11px;
+      background: conic-gradient(#28c6ff, #8b4de0, #ff7a56, #28c6ff);
+    }
+
+    .chat-side {
+      position: absolute;
+      left: 0;
+      top: 82px;
+      width: 82px;
+      height: 295px;
+      border-right: 1px solid rgba(200, 224, 245, 0.55);
+      background: rgba(225, 241, 255, 0.38);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 22px;
+      gap: 22px;
+    }
+
+    .chat-side .line {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 3px solid #7795c0;
+      opacity: 0.8;
+    }
+
+    .chat-main {
+      position: absolute;
+      left: 82px;
+      top: 82px;
+      width: 366px;
+      height: 295px;
+      background: rgba(248, 252, 255, 0.48);
+      padding: 24px 20px;
+    }
+
+    .placeholder {
+      height: 28px;
+      border-radius: 7px;
+      background: rgba(177, 210, 235, 0.48);
+      margin-bottom: 18px;
+    }
+
+    .placeholder.small {
+      width: 138px;
+    }
+
+    .placeholder.long {
+      width: 184px;
+    }
+
+    .agent-panel {
+      position: absolute;
+      right: 55px;
+      top: 202px;
+      width: 224px;
+      height: 298px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.68);
+      border: 1px solid rgba(255,255,255,0.9);
+      padding: 22px 15px 18px;
+      z-index: 3;
+    }
+
+    .agent-panel-title {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 17px;
+      margin-bottom: 24px;
+    }
+
+    .agent-panel-title .circle {
+      width: 37px;
+      height: 37px;
+      border-radius: 50%;
+      background: #2687e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .get-button {
+      height: 38px;
+      border-radius: 8px;
+      background: #1379d6;
+      color: #fff;
+      margin: 0 0 22px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="decor-dots" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="sparkle s1" aria-hidden="true"></div>
+    <div class="sparkle s2" aria-hidden="true"></div>
+    <div class="sparkle s3" aria-hidden="true"></div>
+
+    <div class="logo-bubble" aria-hidden="true">
+      <div class="speech"></div>
+    </div>
+
+    <div class="hero-title">Automatiza tareas y procesos con agentes</div>
+
+    <div class="intro-copy">
+      <p>En Copilot Chat, los agentes usan la IA para hacer que tu experiencia sea más personalizada e inteligente. Pueden automatizar tareas y procesos, ayudarte a obtener información más rápido y liberar tiempo para que te enfoques en lo que más importa.</p>
+      <p>Explora nuestra biblioteca de plantillas de agentes para comenzar rápidamente o crea agentes personalizados para satisfacer las necesidades únicas de tu trabajo.</p>
+    </div>
+
+    <div class="how-paragraph">
+      <p>Para comenzar a usar plantillas de agentes, selecciona “Obtener agentes” en el panel derecho de Copilot Chat. Desde allí, puedes buscar una plantilla específica o explorar la biblioteca para encontrar el agente adecuado para ti.</p>
+    </div>
+
+    <div class="subheading">Agentes de Microsoft para probar hoy:</div>
+
+    <div class="cards-row">
+      <div class="agent-card">
+        <div class="icon-circle purple" aria-hidden="true">
+          <div style="font-size:43px;">☑</div>
+        </div>
+        <div class="card-title">Instrucción asesor</div>
+        <div class="card-desc">Crear instrucciones para Copilot eficaces</div>
+      </div>
+
+      <div class="agent-card">
+        <div class="icon-circle green" aria-hidden="true">
+          <div style="font-size:42px;">♢</div>
+        </div>
+        <div class="card-title">Asesor de ideas</div>
+        <div class="card-desc">Obtener ayuda para la lluvia de ideas</div>
+      </div>
+
+      <div class="agent-card">
+        <div class="icon-circle blue" aria-hidden="true">
+          <div style="font-size:38px;">✎</div>
+        </div>
+        <div class="card-title">Asesor de redacción</div>
+        <div class="card-desc">Perfecciona tu escritura</div>
+      </div>
+
+      <div class="agent-card">
+        <div class="icon-circle orange" aria-hidden="true">
+          <div style="font-size:42px;">▣</div>
+        </div>
+        <div class="card-title">Asesor de carrera</div>
+        <div class="card-desc">Obtén asesoramiento profesional personalizado y planes de acción</div>
+      </div>
+
+      <div class="agent-card">
+        <div class="icon-circle deep-purple" aria-hidden="true">
+          <div style="font-size:41px;">▱</div>
+        </div>
+        <div class="card-title">Asesor de aprendizaje</div>
+        <div class="card-desc">Aprende sobre los temas y perfecciona tus habilidades</div>
+      </div>
+    </div>
+
+    <div class="final-paragraph">
+      Además de los agentes de Microsoft, tu organización puede haber creado agentes especialmente para ti. Puedes encontrarlos en la sección “Creado para su organización” de la biblioteca de agentes, donde se agrupan los agentes personalizados de tu empresa.
+    </div>
+
+    <div class="footer-note">
+      <div class="info-circle" aria-hidden="true">i</div>
+      La creación de agentes puede no estar disponible para todos los usuarios. Depende de si el administrador de tu organización ha habilitado esta capacidad.
+    </div>
+  </div>
+</body>
+</html>

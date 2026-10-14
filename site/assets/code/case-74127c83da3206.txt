@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Riverstone Bakery 12-Month Growth Roadmap</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #050812;
+    font-family: "Arial Narrow", "Trebuchet MS", Impact, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 84% 12%, rgba(48, 212, 255, 0.22), transparent 21%),
+      radial-gradient(circle at 39% 69%, rgba(35, 124, 255, 0.16), transparent 29%),
+      linear-gradient(180deg, #071020 0%, #071527 42%, #061222 100%);
+    color: #eef8ff;
+  }
+
+  .brand-badge {
+    position: absolute;
+    left: 22px;
+    top: 25px;
+    width: 330px;
+    height: 49px;
+    border: 1.7px solid #25d7ff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    color: #f5f8ff;
+    font-weight: 800;
+    letter-spacing: 7px;
+    text-transform: uppercase;
+  }
+
+  .brand-leaf {
+    width: 23px;
+    height: 31px;
+    color: #dffaff;
+  }
+
+  .title {
+    position: absolute;
+    left: 30px;
+    top: 90px;
+    width: 690px;
+    color: #f4f7fb;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 50px;
+    line-height: 1.06;
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 31px;
+    top: 229px;
+    color: #8edfff;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .growth-line {
+    position: absolute;
+    right: 25px;
+    top: 50px;
+    width: 320px;
+    height: 220px;
+  }
+
+  .growth-line svg {
+    width: 320px;
+    height: 220px;
+    display: block;
+  }
+
+  .band {
+    position: absolute;
+    left: 20px;
+    width: 984px;
+    border: 1px solid rgba(70, 190, 255, 0.45);
+    border-radius: 9px;
+    overflow: hidden;
+  }
+
+  .band1 {
+    top: 271px;
+    height: 162px;
+    background: rgba(7, 20, 38, 0.94);
+  }
+
+  .band2 {
+    top: 435px;
+    height: 172px;
+    background: linear-gradient(90deg, rgba(22, 82, 144, 0.95), rgba(8, 32, 65, 0.96));
+  }
+
+  .band3 {
+    top: 610px;
+    height: 157px;
+    background: rgba(8, 22, 43, 0.95);
+  }
+
+  .band4 {
+    top: 770px;
+    height: 163px;
+    background: linear-gradient(90deg, rgba(20, 108, 216, 0.98), rgba(8, 39, 82, 0.98));
+    border-color: #71e9ff;
+    box-shadow: inset 0 0 24px rgba(56, 192, 255, 0.55), 0 0 18px rgba(56, 192, 255, 0.18);
+  }
+
+  .band5 {
+    top: 935px;
+    height: 166px;
+    background: rgba(8, 24, 48, 0.96);
+  }
+
+  .band6 {
+    top: 1103px;
+    height: 160px;
+    background: rgba(8, 24, 48, 0.96);
+  }
+
+  .icon-circle {
+    position: absolute;
+    left: 32px;
+    top: 13px;
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #2590ff, #113777);
+    border: 2px solid rgba(120, 220, 255, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .phase-title {
+    position: absolute;
+    left: 320px;
+    top: 13px;
+    color: #f6f8ff;
+    font-size: 23px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .month-pill {
+    position: absolute;
+    left: 178px;
+    top: 16px;
+    width: 120px;
+    height: 33px;
+    border: 1.2px solid #39ddff;
+    border-radius: 7px;
+    color: #4feaff;
+    font-size: 16px;
+    font-weight: 800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .bullets {
+    position: absolute;
+    left: 322px;
+    top: 58px;
+    width: 338px;
+    margin: 0;
+    padding: 0 0 0 14px;
+    list-style: none;
+    color: #f4f8ff;
+    font-size: 15.8px;
+    line-height: 1.55;
+  }
+
+  .bullets li {
+    position: relative;
+    padding-left: 17px;
+    margin-bottom: 2px;
+  }
+
+  .bullets li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #47dfff;
+  }
+
+  .connector {
+    position: absolute;
+    left: 98px;
+    width: 1px;
+    height: 55px;
+    border-left: 2px dotted rgba(76, 201, 255, 0.68);
+  }
+
+  .connector::after {
+    content: "";
+    position: absolute;
+    left: -4px;
+    bottom: -5px;
+    width: 8px;
+    height: 8px;
+    border-left: 2px solid rgba(76, 201, 255, 0.85);
+    border-bottom: 2px solid rgba(76, 201, 255, 0.85);
+    transform: rotate(45deg);
+  }
+
+  .c1 { top: 138px; }
+  .c2 { top: 302px; }
+  .c3 { top: 475px; }
+  .c4 { top: 635px; }
+  .c5 { top: 800px; }
+
+  .kpi-chip {
+    position: absolute;
+    right: 20px;
+    top: 16px;
+    width: 270px;
+    height: 98px;
+    border: 1.2px dashed rgba(135, 213, 255, 0.45);
+    border-radius: 13px;
+    background: rgba(12, 30, 60, 0.88);
+  }
+
+  .kpi-chip .kpi-label {
+    position: absolute;
+    right: 16px;
+    top: 10px;
+    font-size: 17px;
+    color: #f7fbff;
+  }
+
+  .kpi-chip .kpi-value {
+    position: absolute;
+    right: 11px;
+    top: 43px;
+    color: #53e7ff;
+    font-size: 29px;
+    font-weight: 900;
+  }
+
+  .side-note {
+    position: absolute;
+    right: 19px;
+    top: 13px;
+    width: 268px;
+    height: 126px;
+    border-radius: 8px;
+    border: 1px solid rgba(74, 192, 255, 0.42);
+    background: rgba(13, 33, 70, 0.88);
+    padding: 10px 12px;
+    color: #f4f8ff;
+  }
+
+  .side-note .note-title {
+    color: #48ddff;
+    font-size: 16px;
+  }
+
+  .side-note .note-body {
+    font-size: 14.2px;
+    line-height: 1.5;
+  }
+
+  .metric-row {
+    position: absolute;
+    right: 15px;
+    top: 12px;
+    width: 294px;
+    height: 120px;
+    display: flex;
+    gap: 3px;
+    border: 1px solid rgba(92, 185, 255, 0.45);
+    border-radius: 8px;
+    background: rgba(12, 28, 56, 0.9);
+  }
+
+  .metric-mini {
+    width: 92px;
+    text-align: center;
+    border-right: 1px solid rgba(92, 185, 255, 0.55);
+    padding-top: 8px;
+  }
+
+  .metric-mini:last-child {
+    border-right: 0;
+  }
+
+  .metric-mini .mini-top {
+    font-size: 16px;
+    color: #45dfff;
+  }
+
+  .metric-mini .mini-value {
+    font-size: 23px;
+    font-weight: 800;
+    margin-top: 4px;
+  }
+
+  .metric-mini .mini-label {
+    font-size: 12.8px;
+    margin-top: 1px;
+  }
+
+  .digital-kpi {
+    position: absolute;
+    right: 18px;
+    top: 12px;
+    width: 270px;
+    height: 114px;
+    border-radius: 8px;
+    background: rgba(13, 36, 74, 0.86);
+    border: 1px solid rgba(77, 190, 255, 0.43);
+  }
+
+  .digital-kpi .small-icon {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: #207bf4;
+    border: 1px solid #72edff;
+  }
+
+  .digital-kpi .goal-text {
+    position: absolute;
+    left: 86px;
+    top: 13px;
+    font-size: 15.5px;
+    color: #48ddff;
+  }
+
+  .digital-kpi .goal-number {
+    position: absolute;
+    left: 86px;
+    top: 42px;
+    font-size: 35px;
+    color: #53e8ff;
+    font-weight: 900;
+  }
+
+  .digital-kpi .goal-unit {
+    position: absolute;
+    left: 86px;
+    top: 80px;
+    color: #f6fbff;
+    font-size: 15px;
+  }
+
+  .channel-table {
+    position: absolute;
+    right: 21px;
+    top: 12px;
+    width: 301px;
+    height: 136px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(74, 190, 255, 0.42);
+    background: rgba(12, 28, 55, 0.85);
+  }
+
+  .channel-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.6px;
+    color: #f7fbff;
+  }
+
+  .channel-table th {
+    color: #47ddff;
+    font-size: 11.2px;
+    background: rgba(30, 76, 120, 0.26);
+  }
+
+  .channel-table td {
+    border: 1px solid rgba(88, 168, 230, 0.32);
+    padding: 5px 5px;
+    text-align: center;
+  }
+
+  .channel-table .goal {
+    color: #44e6ff;
+    font-weight: 800;
+  }
+
+  .decision-area {
+    position: absolute;
+    right: 18px;
+    top: 12px;
+    width: 290px;
+    height: 125px;
+    color: #f6fbff;
+  }
+
+  .decision-title {
+    text-align: center;
+    color: #46ddff;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .decision-box {
+    margin-top: 8px;
+    border: 1px solid rgba(84, 180, 255, 0.44);
+    border-radius: 7px;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 8px;
+    font-size: 12.3px;
+  }
+
+  .or-pill {
+    text-align: center;
+    margin: 4px 0 3px;
+    height: 26px;
+    color: #52e6ff;
+    font-size: 13px;
+  }
+
+  .summary-panel {
+    position: absolute;
+    left: 20px;
+    top: 1273px;
+    width: 984px;
+    height: 156px;
+    border: 1.4px solid rgba(70, 185, 255, 0.75);
+    border-radius: 10px;
+    background: rgba(8, 24, 48, 0.9);
+  }
+
+  .summary-title {
+    position: absolute;
+    top: 6px;
+    left: 343px;
+    color: #57dfff;
+    font-size: 16px;
+    letter-spacing: 3px;
+    font-weight: 800;
+  }
+
+  .metric-card {
+    position: absolute;
+    top: 46px;
+    height: 94px;
+    border-radius: 7px;
+    border: 1px solid rgba(89, 209, 255, 0.58);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 12px;
+  }
+
+  .card1 {
+    left: 21px;
+    width: 287px;
+    background: linear-gradient(90deg, rgba(11, 74, 140, 0.9), rgba(8, 26, 60, 0.88));
+  }
+
+  .card2 {
+    left: 328px;
+    width: 300px;
+    background: linear-gradient(90deg, rgba(11, 82, 82, 0.94), rgba(9, 38, 53, 0.92));
+    border-color: rgba(93, 234, 255, 0.66);
+  }
+
+  .card3 {
+    left: 652px;
+    width: 300px;
+    background: linear-gradient(90deg, rgba(88, 52, 160, 0.92), rgba(39, 29, 74, 0.88));
+    border-color: rgba(176, 121, 255, 0.65);
+  }
+
+  .metric-card .mini-circle {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    flex: 0 0 auto;
+  }
+
+  .metric-card .text-block {
+    font-size: 13.8px;
+    color: #f5fbff;
+  }
+
+  .metric-card .big-number {
+    color: #eff9ff;
+    font-size: 28px;
+    font-weight: 900;
+    margin-top: 2px;
+  }
+
+  .footer {
+    position: absolute;
+    left: 20px;
+    bottom: 21px;
+    width: 984px;
+    height: 51px;
+    border-top: 1px solid rgba(61, 180, 255, 0.65);
+    display: flex;
+    justify-content: center;
+    gap: 26px;
+    color: #eef7ff;
+    font-size: 13px;
+  }
+
+  .footer-item {
+    border-right: 1px solid rgba(76, 190, 255, 0.62);
+    padding-right: 22px;
+  }
+
+  .footer-item:last-child {
+    border-right: 0;
+  }
+
+  svg {
+    display: block;
+  }
+
+  .cyan-line-left {
+    position: absolute;
+    left: 686px;
+    top: 282px;
+    width: 1px;
+    height: 126px;
+    border-left: 2px solid rgba(78, 210, 255, 0.85);
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="brand-badge">
+    <svg class="brand-leaf" viewBox="0 0 32 42" aria-hidden="true">
+      <path d="M16 3 L26 7 C27 9 27 12 25 15 L16 22 L7 15 C5 12 5 9 7 7 L16 3 Z" fill="none" stroke="#dffaff" stroke-width="2.2"/>
+      <path d="M16 14 L25 19 C26 21 26 24 24 27 L16 34 L8 27 C7 25 7 22 8 20 L16 14 Z" fill="none" stroke="#dffaff" stroke-width="1.7"/>
+      <circle cx="16" cy="16" r="2.2" fill="#dffaff"/>
+    </svg>
+    <span>RIVERSTONE BAKERY</span>
+  </div>
+
+  <div class="title">12-MONTH<br>GROWTH ROADMAP</div>
+  <div class="subtitle">From neighborhood pastry shop to multi-channel dessert brand</div>
+
+  <div class="growth-line" aria-hidden="true">
+    <svg viewBox="0 0 320 220">
+      <defs>
+        <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="5" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      <path d="M38 156 C82 132, 125 160, 168 130 C205 105, 236 73, 281 31"
+            fill="none" stroke="#56e5ff" stroke-width="4" filter="url(#glow)"/>
+      <circle cx="38" cy="156" r="8" fill="#46dfff"/>
+      <circle cx="168" cy="130" r="10" fill="#6cecff"/>
+      <circle cx="281" cy="31" r="10" fill="#6cecff"/>
+      <circle cx="238" cy="70" r="8" fill="#57e4ff"/>
+      <path d="M288 19 L306 10" stroke="#6deaff" stroke-width="3"/>
+    </svg>
+  </div>
+
+  <div class="band band1">
+    <div class="icon-circle">
+      <svg width="62" height="62" viewBox="0 0 62 62" fill="none" stroke="#fff" stroke-width="1.7">
+        <ellipse cx="31" cy="18" rx="25" ry="10"/>
+        <path d="M7 18 V39 C12 44, 20 48, 31 48 C42 48, 50 44, 55 39 V18"/>
+        <path d="M8 31 C16 36, 24 38, 31 38 C38 38, 46 36, 54 31"/>
+        <circle cx="31" cy="12" r="5"/>
+        <path d="M31 18 V32"/>
+      </svg>
+    </div>
+    <div class="month-pill">JAN–FEB</div>
+    <div class="phase-title">PHASE 1 — FOUNDATION</div>
+    <ul class="bullets">
+      <li>Recipe costing &amp; portion control</li>
+      <li>Supplier contracts &amp; negotiations</li>
+      <li>Menu engineering &amp; price audit</li>
+    </ul>
+    <div class="kpi-chip">
+      <div class="kpi-label">Target food cost:</div>
+      <div class="kpi-value">28%</div>
+    </div>
+  </div>
+
+  <div class="band band2">
+    <div class="icon-circle">
+      <svg width="62" height="62" viewBox="0 0 62 62" fill="none" stroke="#fff" stroke-width="1.7">
+        <path d="M10 15 H52 L42 39 H20 L10 15 Z"/>
+        <path d="M20 15 V35 H31 V24 H42 V35 H52"/>
+      </svg>
+    </div>
+    <div class="month-pill">MAR–APR</div>
+    <div class="phase-title">PHASE 2 — STORE READY</div>
+    <ul class="bullets">
+      <li>Operations setup &amp; SOPs</li>
+      <li>Staff onboarding &amp; training</li>
+      <li>Packaging standards &amp; branding</li>
+      <li>Soft opening: 18 April 2026</li>
+    </ul>
+    <div class="side-note">
+      <div class="note-title">Side note</div>
+      <div class="note-body">Avg ticket goal: $14.00<br>Morning traffic goal:<br>120+ orders/day</div>
+    </div>
+  </div>
+
+  <div class="band band3">
+    <div class="icon-circle">
+      <svg width="62" height="62" viewBox="0 0 62 62" fill="none" stroke="#fff" stroke-width="1.7">
+        <path d="M20 32 L13 47 L28 38"/>
+        <path d="M17 22 L8 37 L23 28"/>
+        <path d="M28 28 C40 20, 48 18, 52 19 L57 27 L45 31 Z"/>
+        <path d="M39 16 L48 10"/>
+      </svg>
+    </div>
+    <div class="month-pill">MAY–JUN</div>
+    <div class="phase-title">PHASE 3 — LOCAL LAUNCH</div>
+    <ul class="bullets">
+      <li>Neighborhood marketing &amp; events</li>
+      <li>Influencer tasting &amp; collaborations</li>
+      <li>Paid social ads &amp; A/B creative tests</li>
+      <li>Launch 3 signature viennoiserie lines</li>
+    </ul>
+    <div class="metric-row">
+      <div class="metric-mini">
+        <div class="mini-top">◉</div>
+        <div class="mini-value">120K</div>
+        <div class="mini-label">Reach</div>
+      </div>
+      <div class="metric-mini">
+        <div class="mini-top">↗</div>
+        <div class="mini-value">3.2%</div>
+        <div class="mini-label">Conversion</div>
+      </div>
+      <div class="metric-mini">
+        <div class="mini-top">↻</div>
+        <div class="mini-value">28%</div>
+        <div class="mini-label">Repeat Visits</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band band4">
+    <div class="icon-circle">
+      <svg width="58" height="58" viewBox="0 0 58 58" fill="none" stroke="#fff" stroke-width="1.7">
+        <rect x="15" y="8" width="29" height="42" rx="4"/>
+        <path d="M21 21 H35"/>
+        <circle cx="25" cy="29" r="7"/>
+        <circle cx="32" cy="29" r="7"/>
+        <path d="M25 38 L28 45 L35 38"/>
+      </svg>
+    </div>
+    <div class="month-pill">JUL–AUG</div>
+    <div class="phase-title">PHASE 4 — DIGITAL SALES</div>
+    <ul class="bullets">
+      <li>Delivery platform optimization</li>
+      <li>Preorder bundles &amp; seasonal boxes</li>
+      <li>Email capture &amp; loyalty sign-ups</li>
+      <li>Online preorder goal: 120 orders/week</li>
+    </ul>
+    <div class="digital-kpi">
+      <div class="small-icon"></div>
+      <div class="goal-text">Online preorder goal</div>
+      <div class="goal-number">120</div>
+      <div class="goal-unit">orders /week</div>
+    </div>
+  </div>
+
+  <div class="band band5">
+    <div class="icon-circle">
+      <svg width="62" height="62" viewBox="0 0 62 62" fill="none" stroke="#fff" stroke-width="1.7">
+        <path d="M17 25 L27 15 L38 22"/>
+        <path d="M20 33 L27 24 L35 29"/>
+        <path d="M12 22 L19 28"/>
+        <path d="M38 13 L45 23"/>
+        <circle cx="22" cy="38" r="4"/>
+        <circle cx="40" cy="36" r="4"/>
+      </svg>
+    </div>
+    <div class="month-pill">SEP–OCT</div>
+    <div class="phase-title">PHASE 5 — CATERING &amp; B2B</div>
+    <ul class="bullets">
+      <li>Office dessert trays &amp; subscriptions</li>
+      <li>Hotel coffee partners &amp; cross-sell</li>
+      <li>Event sampling &amp; pop-up activations</li>
+      <li>Secure 8 recurring corporate clients</li>
+    </ul>
+    <div class="channel-table">
+      <table>
+        <tr>
+          <th>CHANNEL</th>
+          <th>FOCUS</th>
+          <th>GOAL (MONTHLY)</th>
+        </tr>
+        <tr>
+          <td>Corporate</td>
+          <td>Office trays &amp; subscriptions</td>
+          <td class="goal">$18K+</td>
+        </tr>
+        <tr>
+          <td>Café / Hotel</td>
+          <td>Coffee partners &amp; cross-sell</td>
+          <td class="goal">$10K+</td>
+        </tr>
+        <tr>
+          <td>Events</td>
+          <td>Sampling &amp; pop-ups</td>
+          <td class="goal">$7K+</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="band band6">
+    <div class="icon-circle">
+      <svg width="62" height="62" viewBox="0 0 62 62" fill="none" stroke="#fff" stroke-width="1.7">
+        <path d="M12 48 H23 V32 H12 Z"/>
+        <path d="M28 48 H39 V24 H28 Z"/>
+        <path d="M44 48 H55 V16 H44 Z"/>
+        <path d="M14 30 L32 15 L48 11"/>
+        <path d="M44 12 H52 V20"/>
+      </svg>
+    </div>
+    <div class="month-pill">NOV–DEC</div>
+    <div class="phase-title">PHASE 6 — SCALE DECISION</div>
+    <ul class="bullets">
+      <li>Annual review &amp; KPI assessment</li>
+      <li>Holiday production planning</li>
+      <li>Second-site feasibility analysis</li>
+      <li>Revenue milestone: $780,000 annualized run rate</li>
+    </ul>
+    <div class="decision-area">
+      <div class="decision-title">DECISION PATHS</div>
+      <div class="decision-box">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="1.6">
+          <path d="M5 18 H27"/>
+          <path d="M6 10 H14 V18 H6"/>
+          <path d="M18 10 H26 V18 H18"/>
+        </svg>
+        <div>Rename current store<br><span style="font-size:10px;">Increase capacity &amp; experience</span></div>
+      </div>
+      <div class="or-pill">OR</div>
+      <div class="decision-box">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="1.6">
+          <path d="M3 12 H29 L23 22 H9 L5 16 H3 Z"/>
+          <path d="M5 12 V23 H13"/>
+        </svg>
+        <div>Open kiosk<br><span style="font-size:10px;">Expand reach in high-traffic area</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector c1"></div>
+  <div class="connector c2"></div>
+  <div class="connector c3"></div>
+  <div class="connector c4"></div>
+  <div class="connector c5"></div>
+  <div class="cyan-line-left"></div>
+
+  <div class="summary-panel">
+    <div class="summary-title">12 - MONTH TARGET SUMMARY</div>
+
+    <div class="metric-card card1">
+      <div class="mini-circle" style="background:#1d8bf8;border:1px solid rgba(108,226,255,0.65);"></div>
+      <div>
+        <div class="text-block">Average order value goal:</div>
+        <div class="big-number">$18.50</div>
+      </div>
+    </div>
+
+    <div class="metric-card card2">
+      <div class="mini-circle" style="background:#107777;border:1px solid rgba(112,238,255,0.75);"></div>
+      <div>
+        <div class="text-block">Customer retention goal:</div>
+        <div class="big-number">32%+</div>
+        <div>Repeat rate</div>
+      </div>
+    </div>
+
+    <div class="metric-card card3">
+      <div class="mini-circle" style="background:#5f42bb;border:1px solid rgba(188,142,255,0.75);"></div>
+      <div>
+        <div class="text-block">Wholesale sales share goal:</div>
+        <div class="big-number">22%</div>
+        <div>Of total revenue</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-item">♙ &nbsp; 123 Riverstone Way, Portland, OR 97201</div>
+    <div class="footer-item">☏ &nbsp; (503) 555-0188</div>
+    <div class="footer-item">✉ &nbsp; hello@riverstonebakery.com</div>
+    <div class="footer-item">◎ &nbsp; riverstonebakery.com</div>
+    <div>▣ &nbsp; Planning update issued 06 Jan 2026</div>
+  </div>
+</div>
+</body>
+</html>

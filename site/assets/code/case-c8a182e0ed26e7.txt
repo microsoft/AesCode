@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>联合办公参观日程表</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9eef0;
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background: #ffffff;
+    color: #123f4a;
+  }
+
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 238px;
+    height: 1536px;
+    background: linear-gradient(180deg, #075964 0%, #07747d 45%, #075f69 100%);
+    color: #ffffff;
+    border-right: 2px solid #d8e8ea;
+  }
+
+  .brand-logo {
+    position: absolute;
+    top: 58px;
+    left: 62px;
+    width: 100px;
+    height: 100px;
+  }
+
+  .brand-logo .line {
+    position: absolute;
+    border: 3px solid #ffffff;
+    border-left: none;
+    opacity: 0.95;
+  }
+
+  .brand-logo .l1 {
+    width: 24px;
+    height: 46px;
+    left: 24px;
+    top: 50px;
+    transform: skewY(32deg);
+  }
+
+  .brand-logo .l2 {
+    width: 22px;
+    height: 76px;
+    left: 48px;
+    top: 18px;
+    height: 82px;
+  }
+
+  .brand-logo .l3 {
+    width: 24px;
+    height: 52px;
+    left: 70px;
+    top: 34px;
+    height: 60px;
+  }
+
+  .brand-name {
+    position: absolute;
+    top: 172px;
+    left: 32px;
+    text-align: center;
+    font-size: 25px;
+    letter-spacing: 5px;
+    font-weight: 700;
+  }
+
+  .brand-name-en {
+    margin-top: 8px;
+    font-size: 11px;
+    letter-spacing: 4px;
+    font-weight: 600;
+  }
+
+  .side-rule {
+    position: absolute;
+    left: 42px;
+    width: 154px;
+    height: 2px;
+    background: rgba(255,255,255,0.9);
+  }
+
+  .rule-1 {
+    top: 292px;
+  }
+
+  .side-circle {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(112, 210, 207, 0.48);
+    border: 2px solid rgba(160, 235, 235, 0.42);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .circle-visit {
+    top: 355px;
+    left: 76px;
+  }
+
+  .circle-location {
+    top: 628px;
+    left: 76px;
+  }
+
+  .visit-title {
+    position: absolute;
+    top: 454px;
+    left: 42px;
+    font-size: 29px;
+    font-weight: 700;
+    letter-spacing: 3px;
+  }
+
+  .visit-days {
+    position: absolute;
+    top: 512px;
+    left: 42px;
+    font-size: 20px;
+    color: #f2fbfb;
+  }
+
+  .rule-2 {
+    top: 576px;
+  }
+
+  .location-text {
+    position: absolute;
+    top: 720px;
+    left: 42px;
+    width: 154px;
+    font-size: 22px;
+    line-height: 1.55;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .rule-3 {
+    top: 832px;
+  }
+
+  .map-card {
+    position: absolute;
+    left: 32px;
+    top: 882px;
+    width: 174px;
+    height: 138px;
+    border: 2px solid #e8f4f5;
+    border-radius: 8px;
+    background: #eef5f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .map-card img {
+    width: 150px;
+    height: 80px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .building-lines {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 238px;
+    height: 430px;
+    opacity: 0.34;
+  }
+
+  .building-lines svg {
+    width: 238px;
+    height: 430px;
+    display: block;
+  }
+
+  .main {
+    position: absolute;
+    left: 238px;
+    top: 0;
+    width: 786px;
+    height: 1536px;
+    background: #ffffff;
+  }
+
+  .headline {
+    position: absolute;
+    top: 64px;
+    left: 38px;
+    width: 620px;
+    font-size: 46px;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #134b54;
+  }
+
+  .subtitle {
+    position: absolute;
+    top: 148px;
+    left: 38px;
+    font-size: 27px;
+    color: #686d70;
+    letter-spacing: 2px;
+  }
+
+  .time-badge {
+    position: absolute;
+    top: 108px;
+    right: 40px;
+    width: 164px;
+    height: 52px;
+    background: #f27a18;
+    color: #fff;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .top-divider {
+    position: absolute;
+    top: 208px;
+    left: 38px;
+    width: 710px;
+    height: 1px;
+    background: #c7ced1;
+  }
+
+  .section-title {
+    position: absolute;
+    left: 38px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 54px;
+    height: 44px;
+    background: #f27a18;
+    color: white;
+    font-size: 27px;
+    font-weight: 700;
+  }
+
+  .section-tag::after {
+    content: "";
+    position: absolute;
+    right: -16px;
+    top: 0;
+    border-top: 22px solid transparent;
+    border-bottom: 22px solid transparent;
+    border-left: 16px solid #f27a18;
+    width: 0;
+    height: 0;
+  }
+
+  .section-title-text {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  .schedule-title {
+    top: 230px;
+  }
+
+  .schedule-table {
+    position: absolute;
+    top: 288px;
+    left: 38px;
+    width: 710px;
+    height: 328px;
+    border-collapse: collapse;
+    background: #fff;
+    border: 2px solid #a9bbc0;
+    color: #144852;
+  }
+
+  .schedule-table th {
+    background: #075f6a;
+    color: white;
+    height: 44px;
+    border: 1px solid #92aeb3;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .schedule-table th:first-child {
+    width: 230px;
+  }
+
+  .schedule-table th:last-child {
+    width: 480px;
+  }
+
+  .schedule-table td {
+    height: 50px;
+    border-bottom: 1px dashed #c4ccd0;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+    color: #4e585c;
+  }
+
+  .schedule-table td:first-child {
+    font-size: 24px;
+    font-weight: 700;
+    color: #104853;
+  }
+
+  .divider-2 {
+    position: absolute;
+    top: 646px;
+    left: 38px;
+    width: 710px;
+    height: 1px;
+    background: #c7ccd0;
+  }
+
+  .亮点-title {
+    top: 658px;
+  }
+
+  .feature-row {
+    position: absolute;
+    top: 716px;
+    left: 38px;
+    width: 710px;
+    display: flex;
+    gap: 28px;
+  }
+
+  .feature-card {
+    position: relative;
+    width: 224px;
+    height: 205px;
+    border: 1.5px solid #448c96;
+    border-radius: 8px;
+    background: #fbfbfb;
+    text-align: center;
+    padding-top: 18px;
+  }
+
+  .feature-card::after {
+    content: "";
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    border-top: 15px solid #f27a18;
+    border-left: 15px solid transparent;
+    width: 0;
+    height: 0;
+  }
+
+  .feature-icon {
+    height: 68px;
+    color: #16717b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+  }
+
+  .feature-heading {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 4px;
+    color: #125b64;
+  }
+
+  .feature-copy {
+    margin-top: 8px;
+    font-size: 16px;
+    color: #555f63;
+    line-height: 1.45;
+  }
+
+  .divider-3 {
+    position: absolute;
+    top: 942px;
+    left: 38px;
+    width: 710px;
+    height: 1px;
+    background: #c7ccd0;
+  }
+
+  .户型-title {
+    top: 954px;
+  }
+
+  .pricing-row {
+    position: absolute;
+    top: 1012px;
+    left: 38px;
+    width: 710px;
+    display: flex;
+    gap: 22px;
+  }
+
+  .pricing-card {
+    position: relative;
+    width: 224px;
+    height: 270px;
+    border: 1.5px solid #aeb8bd;
+    border-radius: 7px;
+    background: #fff;
+    padding: 16px 14px 10px;
+  }
+
+  .pricing-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 20px;
+    color: #145a64;
+    font-weight: 700;
+  }
+
+  .pricing-price {
+    margin-top: 12px;
+    color: #f27a18;
+    font-size: 26px;
+    text-align: center;
+  }
+
+  .pricing-note {
+    margin-top: 8px;
+    text-align: center;
+    color: #7b8286;
+    font-size: 14px;
+    border-top: 1px solid #c8ced2;
+    padding-top: 4px;
+  }
+
+  .pricing-benefits {
+    margin-top: 6px;
+    padding-left: 2px;
+    font-size: 15px;
+    color: #555f63;
+  }
+
+  .pricing-benefits li {
+    margin-bottom: 5px;
+  }
+
+  .benefit-dot {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #15737c;
+    color: #fff;
+    margin-right: 8px;
+    font-size: 11px;
+    text-align: center;
+    line-height: 15px;
+    font-weight: 700;
+  }
+
+  .divider-4 {
+    position: absolute;
+    top: 1282px;
+    left: 38px;
+    width: 710px;
+    height: 1px;
+    background: #c7ccd0;
+  }
+
+  .contact-title {
+    top: 1292px;
+  }
+
+  .contact-panel {
+    position: absolute;
+    left: 0;
+    top: 1350px;
+    width: 786px;
+    height: 118px;
+    border: 1.5px solid #a8bcc0;
+    border-radius: 9px;
+    background: #edf8f8;
+    display: flex;
+    align-items: center;
+    padding-left: 74px;
+  }
+
+  .contact-icon {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: #268e97;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 26px;
+    margin-right: 20px;
+  }
+
+  .contact-line {
+    font-size: 20px;
+    color: #13616b;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  .contact-phone {
+    margin-left: 12px;
+    font-size: 28px;
+    font-weight: 800;
+    color: #13616b;
+  }
+
+  .contact-note {
+    margin-top: 14px;
+    font-size: 16px;
+    color: #425156;
+  }
+
+  .qr-box {
+    position: absolute;
+    right: 24px;
+    top: 1312px;
+    width: 150px;
+    height: 158px;
+    background: #eff6f7;
+    border: 1.5px solid #428b95;
+    border-radius: 7px;
+    text-align: center;
+    padding-top: 12px;
+  }
+
+  .qr-box img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    background: white;
+    border: 1px solid #d5e0e2;
+  }
+
+  .qr-label {
+    font-size: 14px;
+    color: #555f63;
+    margin-top: 6px;
+  }
+
+  svg.icon {
+    width: 56px;
+    height: 56px;
+    stroke: #16717b;
+    fill: none;
+    stroke-width: 3.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .small-svg {
+    width: 62px;
+    height: 58px;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <aside class="sidebar">
+      <div class="brand-logo" aria-label="CSS line building logo">
+        <span class="line l1"></span>
+        <span class="line l2"></span>
+        <span class="line l3"></span>
+      </div>
+
+      <div class="brand-name">
+        星港国际中心
+        <div class="brand-name-en">XINGANG INTERNATIONAL<br>CENTER</div>
+      </div>
+
+      <div class="side-rule rule-1"></div>
+
+      <div class="side-circle circle-visit">
+        <svg width="48" height="48" viewBox="0 0 48 48" aria-label="calendar icon">
+          <rect x="10" y="14" width="28" height="28" rx="3"></rect>
+          <path d="M18 10v6M30 10v6M14 20h20M14 27h20"></path>
+        </svg>
+      </div>
+      <div class="visit-title">预约参观</div>
+      <div class="visit-days">周三 / 周五 / 周六</div>
+
+      <div class="side-rule rule-2"></div>
+
+      <div class="side-circle circle-location">
+        <svg width="48" height="48" viewBox="0 0 48 48" aria-label="location icon">
+          <circle cx="24" cy="20" r="8"></circle>
+          <path d="M10 36c2.8-8 8-12 14-12s11.2 4 14 12"></path>
+          <circle cx="24" cy="16" r="3"></circle>
+        </svg>
+      </div>
+      <div class="location-text">深圳市南山区<br>科苑路88号</div>
+
+      <div class="side-rule rule-3"></div>
+
+      <div class="map-card">
+        <img src="https://placehold.co/180x120" alt="placeholder map card" />
+      </div>
+
+      <div class="building-lines" aria-hidden="true">
+        <svg viewBox="0 0 238 430">
+          <polygon points="40,100 135,180 90,360 10,310" fill="none" stroke="#b9ecf0" stroke-width="1.5"/>
+          <polygon points="160,220 205,255 180,380 120,350" fill="none" stroke="#b9ecf0" stroke-width="1.2"/>
+          <path d="M20 270 L180 320 L220 350" fill="none" stroke="#b9ecf0" stroke-width="1.2"/>
+          <path d="M55 140 L140 200 L210 260" fill="none" stroke="#b9ecf0" stroke-width="1"/>
+        </svg>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="headline">联合办公参观日程表</div>
+      <div class="subtitle">星港国际中心 · 2026春季开放日</div>
+      <div class="time-badge">09:00-18:00</div>
+      <div class="top-divider"></div>
+
+      <div class="section-title schedule-title">
+        <span class="section-tag">01</span>
+        <span class="section-title-text">当日日程</span>
+      </div>
+
+      <table class="schedule-table">
+        <tr>
+          <th>时间</th>
+          <th>活动内容</th>
+        </tr>
+        <tr>
+          <td>09:00</td>
+          <td>签到与咖啡接待</td>
+        </tr>
+        <tr>
+          <td>10:00</td>
+          <td>项目总览与区位介绍</td>
+        </tr>
+        <tr>
+          <td>11:30</td>
+          <td>样板办公区导览</td>
+        </tr>
+        <tr>
+          <td>14:00</td>
+          <td>租赁政策说明会</td>
+        </tr>
+        <tr>
+          <td>15:30</td>
+          <td>企业服务与配套答疑</td>
+        </tr>
+        <tr>
+          <td>17:00</td>
+          <td>自由洽谈与签约咨询</td>
+        </tr>
+      </table>
+
+      <div class="divider-2"></div>
+
+      <div class="section-title 亮点-title">
+        <span class="section-tag">02</span>
+        <span class="section-title-text">空间亮点</span>
+      </div>
+
+      <div class="feature-row">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg class="icon" viewBox="0 0 64 64" aria-label="desk icon">
+              <rect x="18" y="14" width="28" height="20"></rect>
+              <path d="M24 34h16M24 40h16M14 42h36M16 52h28"></path>
+            </svg>
+          </div>
+          <div class="feature-heading">灵活工位</div>
+          <div class="feature-copy">按需选择，灵活扩缩，助力企业轻松成长。</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg class="icon" viewBox="0 0 64 64" aria-label="meeting icon">
+              <circle cx="22" cy="20" r="7"></circle><circle cx="42" cy="20" r="7"></circle><circle cx="16" cy="36" r="8"></circle><circle cx="48" cy="35" r="8"></circle>
+              <path d="M12 52h22M30 52h22M18 42l-10 10M46 42l10 10"></path>
+            </svg>
+          </div>
+          <div class="feature-heading">共享会议室</div>
+          <div class="feature-copy">配备智能会议设备，高效连接每一次会议。</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg class="icon" viewBox="0 0 64 64" aria-label="coffee icon">
+              <path d="M20 16h22c8 0 14 6 14 14v12c0 6-4 10-10 12H16c-6-2-10-6-10-12V30c0-8 6-14 14-14z"></path>
+              <path d="M20 16h-8M32 16h-8"></path>
+            </svg>
+          </div>
+          <div class="feature-heading">企业配套</div>
+          <div class="feature-copy">茶水间、休闲区、打印区等配套一应俱全。</div>
+        </div>
+      </div>
+
+      <div class="divider-3"></div>
+
+      <div class="section-title 户型-title">
+        <span class="section-tag">03</span>
+        <span class="section-title-text">今日可选户型</span>
+      </div>
+
+      <div class="pricing-row">
+        <div class="pricing-card">
+          <div class="pricing-top">
+            <svg class="small-svg" viewBox="0 0 64 64" aria-label="open desk icon">
+              <path d="M16 28h32M16 28v14M48 28v14M18 42h28M14 42v12M50 42v12M14 54h40"></path>
+            </svg>
+            <span>开放工位</span>
+          </div>
+          <div class="pricing-price">¥ 89 / 天</div>
+          <div class="pricing-note">每日保洁 · 高速互联 · 茶水间使用</div>
+          <ul class="pricing-benefits">
+            <li><span class="benefit-dot">✓</span>高速互联网</li>
+            <li><span class="benefit-dot">✓</span>每日保洁</li>
+            <li><span class="benefit-dot">✓</span>茶水间使用</li>
+            <li><span class="benefit-dot">✓</span>打印配额</li>
+          </ul>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-top">
+            <svg class="small-svg" viewBox="0 0 64 64" aria-label="private room icon">
+              <path d="M14 18h36M22 18l8 14l8-14M18 26v24M34 26v24M50 26v24"></path>
+            </svg>
+            <span>6人独立间<br><strong>36㎡</strong></span>
+          </div>
+          <div class="pricing-price">¥ 6,800 / 月</div>
+          <div class="pricing-note">适合团队办公与小型会议</div>
+          <ul class="pricing-benefits">
+            <li><span class="benefit-dot">✓</span>高速互联网</li>
+            <li><span class="benefit-dot">✓</span>每日保洁</li>
+            <li><span class="benefit-dot">✓</span>茶水间使用</li>
+            <li><span class="benefit-dot">✓</span>每月会议室2小时</li>
+          </ul>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-top">
+            <svg class="small-svg" viewBox="0 0 64 64" aria-label="suite icon">
+              <path d="M12 20h40M20 20l12 18l12-18M14 28v22M28 28v22M42 28v22M50 28v22"></path>
+            </svg>
+            <span>定制总部套间<br><strong>220㎡</strong></span>
+          </div>
+          <div class="pricing-price">¥ 38,800 / 月</div>
+          <div class="pricing-note">专属办公空间，满足总部需求</div>
+          <ul class="pricing-benefits">
+            <li><span class="benefit-dot">✓</span>高速互联网</li>
+            <li><span class="benefit-dot">✓</span>每日保洁</li>
+            <li><span class="benefit-dot">✓</span>茶水间使用</li>
+            <li><span class="benefit-dot">✓</span>每月会议室10小时</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="divider-4"></div>
+
+      <div class="section-title contact-title">
+        <span class="section-tag">04</span>
+        <span class="section-title-text">联系咨询</span>
+      </div>
+
+      <div class="contact-panel">
+        <div class="contact-icon">
+          <svg width="36" height="36" viewBox="0 0 48 48" aria-label="person icon">
+            <circle cx="24" cy="16" r="10"></circle>
+            <path d="M13 34c2-10 7-14 11-14s9 4 11 14H13z"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="contact-line">招商顾问：林若彤</div>
+          <div class="contact-phone">138-2046-7719</div>
+          <div class="contact-note">扫码预约可享首月服务费减免</div>
+        </div>
+      </div>
+
+      <div class="qr-box">
+        <img src="https://placehold.co/140x140" alt="placeholder QR code" />
+        <div class="qr-label">扫码预约</div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

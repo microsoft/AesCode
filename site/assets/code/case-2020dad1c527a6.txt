@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>2020年企业KPI信息图</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #0c0d0f;
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1088px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 20% 18%, rgba(255,255,255,0.05) 0 1px, transparent 2px),
+      radial-gradient(circle at 72% 28%, rgba(255,255,255,0.045) 0 1px, transparent 2px),
+      linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px),
+      linear-gradient(135deg, rgba(255,255,255,0.025), rgba(0,0,0,0.18)),
+      #121314;
+    background-size: 16px 16px, 22px 22px, 12px 12px, 12px 12px, 100% 100%, 100% 100%;
+    color: #fff;
+  }
+
+  /* Shared styles */
+  .year-label {
+    position: absolute;
+    left: 80px;
+    top: 32px;
+    width: 186px;
+    height: 58px;
+    background: #d00000;
+    color: #fff;
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 58px;
+    text-align: center;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.65);
+    z-index: 3;
+  }
+
+  .title {
+    font-size: 46px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #f8f8f8;
+    text-shadow: 0 3px 5px rgba(0,0,0,0.55);
+    z-index: 2;
+  }
+
+  /* Left top profit block */
+  .profit-block {
+    position: absolute;
+    left: 80px;
+    top: 88px;
+    width: 720px;
+    height: 360px;
+    z-index: 2;
+  }
+
+  .profit-title {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 47px;
+  }
+
+  .profit-number-row {
+    position: absolute;
+    top: 72px;
+    left: 0;
+    width: 570px;
+    height: 200px;
+    display: flex;
+    align-items: stretch;
+    gap: 7px;
+  }
+
+  .profit-tile {
+    width: 178px;
+    height: 195px;
+    background: linear-gradient(180deg, #ff2828 0%, #bd0000 58%, #8a0000 100%);
+    border: 2px solid #ff3030;
+    border-radius: 9px;
+    box-shadow:
+      inset 0 7px 12px rgba(255,255,255,0.25),
+      inset 0 -12px 17px rgba(0,0,0,0.22),
+      0 8px 12px rgba(0,0,0,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profit-tile span {
+    font-size: 138px;
+    color: #fff;
+    text-shadow: 0 4px 5px rgba(0,0,0,0.45);
+    font-weight: 800;
+  }
+
+  .profit-unit {
+    position: absolute;
+    left: 592px;
+    top: 140px;
+    font-size: 39px;
+    line-height: 1.35;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .profit-growth {
+    position: absolute;
+    left: 160px;
+    top: 290px;
+    font-size: 30px;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  /* Left middle staff block */
+  .staff-block {
+    position: absolute;
+    left: 80px;
+    top: 420px;
+    width: 720px;
+    height: 320px;
+    z-index: 2;
+  }
+
+  .staff-title {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 47px;
+  }
+
+  .increase-label {
+    position: absolute;
+    left: 0;
+    top: 62px;
+    width: 162px;
+    height: 44px;
+    background: #f4f4f4;
+    color: #1c1c1c;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 44px;
+    z-index: 1;
+  }
+
+  .staff-counter {
+    position: absolute;
+    left: 0;
+    top: 102px;
+    width: 605px;
+    height: 148px;
+    border: 2px solid rgba(255,255,255,0.65);
+    border-radius: 12px;
+    box-shadow: 0 8px 12px rgba(0,0,0,0.65), inset 0 2px 4px rgba(255,255,255,0.28);
+    background: #141414;
+    padding: 12px;
+    display: flex;
+    gap: 7px;
+    align-items: stretch;
+    z-index: 2;
+  }
+
+  .staff-tile {
+    width: 188px;
+    height: 122px;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #f8f8f8, #dcdcdc);
+    font-size: 92px;
+    font-weight: 900;
+    box-shadow: inset 0 3px 4px rgba(0,0,0,0.35);
+  }
+
+  .staff-tile.mid {
+    background: linear-gradient(180deg, #ff2222 0%, #bd0000 60%, #7e0000 100%);
+    border-color: #ff3333;
+    color: #fff;
+  }
+
+  .staff-unit {
+    position: absolute;
+    left: 624px;
+    top: 170px;
+    font-size: 50px;
+    color: #fff;
+  }
+
+  /* Left bottom awards block */
+  .awards-block {
+    position: absolute;
+    left: 80px;
+    top: 725px;
+    width: 630px;
+    height: 310px;
+    z-index: 2;
+  }
+
+  .awards-title {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 45px;
+  }
+
+  .awards-box {
+    position: absolute;
+    left: 0;
+    top: 70px;
+    width: 618px;
+    height: 175px;
+    border: 4px solid #f4f4f4;
+    border-radius: 22px;
+    background: #131313;
+    box-shadow: 0 7px 12px rgba(0,0,0,0.55), inset 0 1px 4px rgba(255,255,255,0.16);
+    display: flex;
+    overflow: hidden;
+  }
+
+  .awards-number {
+    width: 440px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 142px;
+    color: #f1f1f1;
+    font-weight: 800;
+  }
+
+  .awards-red-side {
+    width: 178px;
+    height: 100%;
+    background: linear-gradient(180deg, #df1111, #8f0000);
+    border-left: 2px solid rgba(255,255,255,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 35px;
+    font-weight: 900;
+  }
+
+  .awards-subtitle {
+    position: absolute;
+    left: 60px;
+    top: 245px;
+    font-size: 28px;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  /* Right top employment block */
+  .employment-block {
+    position: absolute;
+    left: 1000px;
+    top: 80px;
+    width: 800px;
+    height: 320px;
+    z-index: 3;
+  }
+
+  .employment-title {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 48px;
+    letter-spacing: 3px;
+  }
+
+  .employment-card {
+    position: absolute;
+    left: 0;
+    top: 82px;
+    width: 788px;
+    height: 192px;
+    border: 5px solid #f5f5f5;
+    border-radius: 42px;
+    background: #c90000;
+    box-shadow:
+      inset 0 8px 12px rgba(255,255,255,0.22),
+      0 8px 12px rgba(0,0,0,0.55);
+    display: flex;
+    align-items: stretch;
+  }
+
+  .employment-main-num {
+    width: 430px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 138px;
+    color: #fff;
+    font-weight: 800;
+  }
+
+  .employment-ten-thousand {
+    width: 180px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b00000;
+    font-size: 42px;
+    font-weight: 900;
+    border-left: 2px solid rgba(0,0,0,0.25);
+  }
+
+  .employment-growth {
+    width: 170px;
+    background: #d10000;
+    padding: 18px 10px;
+    font-size: 27px;
+    color: #fff;
+    font-weight: 800;
+    text-align: center;
+    border-left: 2px solid rgba(255,255,255,0.25);
+  }
+
+  .employment-growth strong {
+    display: block;
+    font-size: 46px;
+    margin-top: 4px;
+  }
+
+  /* Right middle sales block */
+  .sales-block {
+    position: absolute;
+    left: 1000px;
+    top: 430px;
+    width: 810px;
+    height: 320px;
+    z-index: 2;
+  }
+
+  .sales-title {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 46px;
+  }
+
+  .sales-bar {
+    position: absolute;
+    left: 0;
+    top: 72px;
+    width: 650px;
+    height: 150px;
+    display: flex;
+  }
+
+  .sales-total {
+    width: 260px;
+    height: 150px;
+    background: linear-gradient(145deg, #ee1111, #a40000);
+    clip-path: polygon(0 0, 100% 0, 86% 100%, 0 100%);
+    border: 3px solid #f4f4f4;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .sales-number-box {
+    width: 390px;
+    height: 150px;
+    background: linear-gradient(145deg, #f7f7f7, #dcdcdc);
+    clip-path: polygon(14% 0, 100% 0, 88% 100%, 0 100%);
+    border: 2px solid rgba(0,0,0,0.45);
+    border-left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c90000;
+    font-size: 88px;
+    font-weight: 900;
+  }
+
+  .sales-unit {
+    position: absolute;
+    left: 666px;
+    top: 112px;
+    font-size: 37px;
+    line-height: 1.35;
+    color: #fff;
+    font-weight: 800;
+  }
+
+  .sales-caption {
+    position: absolute;
+    left: 110px;
+    top: 238px;
+    font-size: 29px;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  /* Right bottom product sales block */
+  .product-block {
+    position: absolute;
+    left: 955px;
+    top: 755px;
+    width: 820px;
+    height: 280px;
+    z-index: 2;
+  }
+
+  .product-tag {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 60px;
+    background: #d30000;
+    color: #fff;
+    border: 3px solid #ff3333;
+    border-bottom: 0;
+    border-radius: 16px 16px 0 0;
+    text-align: center;
+    line-height: 58px;
+    font-size: 31px;
+    font-weight: 900;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.35);
+  }
+
+  .product-card {
+    position: absolute;
+    left: 0;
+    top: 60px;
+    width: 418px;
+    height: 185px;
+    border: 5px solid #e00000;
+    background: linear-gradient(180deg, #f7f7f7, #dcdcdc);
+    border-radius: 23px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #202020;
+    font-size: 110px;
+    font-weight: 800;
+  }
+
+  .product-text {
+    position: absolute;
+    left: 445px;
+    top: 70px;
+    width: 365px;
+    font-size: 39px;
+    line-height: 1.45;
+    font-weight: 800;
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="year-label">2020年</div>
+
+    <!-- Left top profit block -->
+    <section class="profit-block">
+      <div class="title profit-title">全年实现利润</div>
+      <div class="profit-number-row">
+        <div class="profit-tile"><span>6</span></div>
+        <div class="profit-tile"><span>0</span></div>
+        <div class="profit-tile"><span>9</span></div>
+      </div>
+      <div class="profit-unit">亿元<br>人民币</div>
+      <div class="profit-growth">同比增长30%</div>
+    </section>
+
+    <!-- Left middle staff block -->
+    <section class="staff-block">
+      <div class="title staff-title">员工总数</div>
+      <div class="increase-label">增加到</div>
+      <div class="staff-counter">
+        <div class="staff-tile"><span>5</span></div>
+        <div class="staff-tile mid"><span>4</span></div>
+        <div class="staff-tile"><span>6</span></div>
+      </div>
+      <div class="staff-unit">人</div>
+    </section>
+
+    <!-- Left bottom awards block -->
+    <section class="awards-block">
+      <div class="title awards-title">荣获各类奖项</div>
+      <div class="awards-box">
+        <div class="awards-number">728</div>
+        <div class="awards-red-side">多个</div>
+      </div>
+      <div class="awards-subtitle">获得国家专项补贴支持</div>
+    </section>
+
+    <!-- Right top employment block -->
+    <section class="employment-block">
+      <div class="title employment-title">全年新增就业</div>
+      <div class="employment-card">
+        <div class="employment-main-num">728</div>
+        <div class="employment-ten-thousand">万人</div>
+        <div class="employment-growth">连续增长<br><strong>25%</strong></div>
+      </div>
+    </section>
+
+    <!-- Right middle sales block -->
+    <section class="sales-block">
+      <div class="title sales-title">企业销售</div>
+      <div class="sales-bar">
+        <div class="sales-total">总额</div>
+        <div class="sales-number-box">343</div>
+      </div>
+      <div class="sales-unit">亿元<br>人民币</div>
+      <div class="sales-caption">截至2020年底</div>
+    </section>
+
+    <!-- Right bottom product sales block -->
+    <section class="product-block">
+      <div class="product-tag">产品销售</div>
+      <div class="product-card">738</div>
+      <div class="product-text">
+        产品销售全球<br>
+        100多个国家和地区
+      </div>
+    </section>
+  </div>
+</body>
+</html>

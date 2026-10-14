@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>How does Blockchain Technology Works? (2/2)</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #091024;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      color: #ffffff;
+      background:
+        radial-gradient(circle at 19% 52%, rgba(70, 140, 255, 0.18), transparent 17%),
+        radial-gradient(circle at 44% 53%, rgba(120, 130, 255, 0.15), transparent 18%),
+        radial-gradient(circle at 71% 50%, rgba(80, 190, 220, 0.13), transparent 17%),
+        radial-gradient(circle at 91% 48%, rgba(120, 210, 190, 0.12), transparent 17%),
+        linear-gradient(180deg, #111b4b 0%, #1b2448 50%, #303848 100%);
+    }
+
+    .top-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1376px;
+      height: 4px;
+      background: linear-gradient(90deg, #3458ff 0%, #8fd3d1 100%);
+      opacity: 0.8;
+    }
+
+    .title {
+      position: absolute;
+      top: 23px;
+      left: 32px;
+      width: 1280px;
+      text-align: left;
+      font-size: 38px;
+      line-height: 1.15;
+      font-weight: 300;
+      letter-spacing: 0.4px;
+      color: #f7fbff;
+    }
+
+    .subtitle {
+      position: absolute;
+      top: 82px;
+      left: 32px;
+      width: 1280px;
+      font-size: 14px;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .timeline-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1376px;
+      height: 768px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .pin-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1376px;
+      height: 768px;
+      z-index: 2;
+    }
+
+    .step {
+      position: absolute;
+      width: 120px;
+      height: 260px;
+      text-align: center;
+    }
+
+    .step-01 { left: 128px; top: 228px; }
+    .step-02 { left: 302px; top: 336px; }
+    .step-03 { left: 472px; top: 228px; }
+    .step-04 { left: 640px; top: 308px; }
+    .step-05 { left: 820px; top: 228px; }
+    .step-06 { left: 990px; top: 336px; }
+    .step-07 { left: 1160px; top: 228px; }
+
+    .badge {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 80px;
+      height: 80px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: #f8fdff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #275fae;
+      font-size: 27px;
+      font-weight: 700;
+      box-shadow: 0 0 0 8px rgba(49, 107, 190, 0.32), 0 0 22px rgba(90, 150, 255, 0.45);
+    }
+
+    .pin {
+      position: absolute;
+      top: 64px;
+      left: 50%;
+      width: 118px;
+      height: 144px;
+      transform: translateX(-50%);
+      background: radial-gradient(circle at 50% 36%, rgba(255,255,255,0.95), rgba(111,164,255,0.65) 40%, rgba(83,127,210,0.82) 74%);
+      clip-path: polygon(50% 0%, 100% 18%, 90% 75%, 50% 100%, 10% 75%, 0% 18%);
+      box-shadow: 0 0 24px rgba(110, 165, 255, 0.65), inset 0 0 20px rgba(255,255,255,0.30);
+    }
+
+    .step-02 .pin,
+    .step-02 .badge {
+      width: 82px;
+      height: 82px;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .step-02 .pin {
+      top: 64px;
+      width: 118px;
+      height: 144px;
+    }
+
+    .step-04 .badge,
+    .step-04 .pin {
+      width: 88px;
+      height: 88px;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .step-04 .pin {
+      width: 124px;
+      height: 152px;
+      top: 64px;
+    }
+
+    .step-06 .badge,
+    .step-06 .pin {
+      width: 82px;
+      height: 82px;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .step-06 .pin {
+      width: 118px;
+      height: 144px;
+      top: 64px;
+    }
+
+    .pin-05 {
+      background: radial-gradient(circle at 50% 36%, #fff, #8fd2e1 42%, #63acd5 76%);
+      box-shadow: 0 0 25px rgba(120, 210, 220, 0.62);
+    }
+
+    .pin-07 {
+      background: radial-gradient(circle at 50% 36%, #fff, #b7e5d6 42%, #80cfae 76%);
+      box-shadow: 0 0 25px rgba(120, 210, 190, 0.62);
+    }
+
+    .icon-circle {
+      position: absolute;
+      top: 46px;
+      left: 50%;
+      width: 88px;
+      height: 88px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      box-shadow: 0 0 18px rgba(255,255,255,0.30);
+    }
+
+    .step-02 .icon-circle,
+    .step-04 .icon-circle,
+    .step-06 .icon-circle {
+      top: 10px;
+      width: 66px;
+      height: 66px;
+    }
+
+    .icon-circle svg {
+      width: 52px;
+      height: 52px;
+      fill: none;
+      stroke: #3770a9;
+      stroke-width: 3.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .step-05 .icon-circle svg,
+    .step-07 .icon-circle svg {
+      stroke: #41a9ad;
+    }
+
+    .step-03 .icon-circle svg,
+    .step-04 .icon-circle svg {
+      stroke: #5268c6;
+    }
+
+    .step-02 .icon-circle svg,
+    .step-06 .icon-circle svg {
+      stroke-width: 3.1;
+    }
+
+    .connector {
+      position: absolute;
+      top: 230px;
+      left: 50%;
+      width: 1px;
+      height: 118px;
+      border-left: 2px dashed rgba(255,255,255,0.62);
+    }
+
+    .step-01 .connector { top: 212px; height: 96px; }
+    .step-02 .connector { top: 226px; height: 138px; }
+    .step-03 .connector { top: 212px; height: 120px; }
+    .step-04 .connector { top: 212px; height: 120px; }
+    .step-05 .connector { top: 212px; height: 118px; }
+    .step-06 .connector { top: 226px; height: 138px; }
+    .step-07 .connector { top: 212px; height: 118px; }
+
+    .connector::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: -7px;
+      width: 16px;
+      height: 2px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 2px;
+    }
+
+    .under-label {
+      position: absolute;
+      top: 362px;
+      left: 0;
+      width: 120px;
+      text-align: center;
+      color: #fff;
+      font-size: 16px;
+      line-height: 1.25;
+      z-index: 4;
+    }
+
+    .step-01 .under-label { top: 322px; }
+    .step-02 .under-label { top: 478px; }
+    .step-03 .under-label { top: 358px; }
+    .step-04 .under-label { top: 358px; }
+    .step-05 .under-label { top: 352px; }
+    .step-06 .under-label { top: 478px; }
+    .step-07 .under-label { top: 330px; }
+
+    .above-label {
+      position: absolute;
+      z-index: 5;
+      color: #fff;
+      text-align: center;
+      font-size: 15.5px;
+      line-height: 1.3;
+    }
+
+    .above-02 {
+      left: 286px;
+      top: 268px;
+      width: 132px;
+    }
+
+    .above-03 {
+      left: 464px;
+      top: 166px;
+      width: 140px;
+      font-size: 16px;
+    }
+
+    .above-05 {
+      left: 984px;
+      top: 266px;
+      width: 140px;
+      font-size: 16px;
+    }
+
+    .glow-dot {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #9fe8ff;
+      z-index: 4;
+      box-shadow: 0 0 12px #78d9ff;
+    }
+
+    .dot-a { left: 90px; top: 362px; }
+    .dot-b { left: 258px; top: 406px; }
+    .dot-c { left: 434px; top: 406px; }
+    .dot-d { left: 606px; top: 406px; }
+    .dot-e { left: 778px; top: 406px; }
+    .dot-f { left: 950px; top: 406px; }
+    .dot-g { left: 1268px; top: 362px; }
+
+    .bottom-glow {
+      position: absolute;
+      z-index: 0;
+      border-radius: 50%;
+      background: rgba(88, 170, 255, 0.13);
+      filter: blur(12px);
+    }
+
+    .bg-glow-1 {
+      left: 160px;
+      top: 445px;
+      width: 80px;
+      height: 28px;
+    }
+
+    .bg-glow-2 {
+      left: 350px;
+      top: 550px;
+      width: 82px;
+      height: 26px;
+      opacity: 0.65;
+    }
+
+    .bg-glow-3 {
+      left: 500px;
+      top: 450px;
+      width: 84px;
+      height: 26px;
+      opacity: 0.7;
+    }
+
+    .bg-glow-4 {
+      left: 840px;
+      top: 450px;
+      width: 84px;
+      height: 26px;
+    }
+
+    .bg-glow-5 {
+      left: 1028px;
+      top: 550px;
+      width: 82px;
+      height: 26px;
+      opacity: 0.65;
+    }
+
+    .bg-glow-6 {
+      left: 1160px;
+      top: 445px;
+      width: 80px;
+      height: 28px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="top-line"></div>
+
+    <div class="title">How does Blockchain Technology Works? (2/2)</div>
+    <div class="subtitle">
+      This slide depicts how blockchain technology works in the network by covering the details of a task from request to completion.
+    </div>
+
+    <svg class="timeline-svg" viewBox="0 0 1376 768" aria-hidden="true">
+      <polyline points="0,368 90,368 155,276 260,410 342,382 438,276 528,410 622,406 712,280 805,410 900,410 990,382 1076,276 1178,410 1268,368 1376,368"
+        fill="none"
+        stroke="rgba(170,210,255,0.82)"
+        stroke-width="2"
+        stroke-dasharray="3 5"
+        stroke-linecap="round"
+      />
+    </svg>
+
+    <div class="glow-dot dot-a"></div>
+    <div class="glow-dot dot-b"></div>
+    <div class="glow-dot dot-c"></div>
+    <div class="glow-dot dot-d"></div>
+    <div class="glow-dot dot-e"></div>
+    <div class="glow-dot dot-f"></div>
+    <div class="glow-dot dot-g"></div>
+
+    <div class="bottom-glow bg-glow-1"></div>
+    <div class="bottom-glow bg-glow-2"></div>
+    <div class="bottom-glow bg-glow-3"></div>
+    <div class="bottom-glow bg-glow-4"></div>
+    <div class="bottom-glow bg-glow-5"></div>
+    <div class="bottom-glow bg-glow-6"></div>
+
+    <div class="above-label above-02">
+      Block represents<br>the task created
+    </div>
+
+    <div class="above-label above-03">
+      Nodes validates<br>the operation
+    </div>
+
+    <div class="above-label above-05">
+      Block is added to<br>existing blockchain
+    </div>
+
+    <div class="pin-layer">
+      <div class="step step-01">
+        <div class="badge">01</div>
+        <div class="pin">
+          <div class="icon-circle">
+            <svg viewBox="0 0 64 64">
+              <path d="M19 13h22a4 4 0 0 1 4 4v24a4 4 0 0 1-4 4H24l-8 7v-7h-4a4 4 0 0 1-4-4V17a4 4 0 0 1 4-4z"/>
+              <path d="M23 18h16"/>
+              <path d="M20 24h18"/>
+              <path d="M20 30h15"/>
+              <circle cx="44" cy="45" r="10"/>
+              <path d="M36 42l4 4 8-9"/>
+            </svg>
+          </div>
+        </div>
+        <div class="connector"></div>
+        <div class="under-label">A task is<br>requested</div>
+      </div>
+
+      <div class="step step-02">
+        <div class="badge">02</div>
+        <div class="pin">
+          <div class="icon-circle">
+            <svg viewBox="0 0 64 64">
+              <circle cx="32" cy="18" r="9"/>
+              <circle cx="18" cy="32" r="9"/>
+              <circle cx="46" cy="32" r="9"/>
+              <circle cx="32" cy="50" r="9"/>
+              <path d="M27 30l7 4"/>
+              <path d="M29 23l9 9"/>
+              <path d="M38 27l-7 7"/>
+              <path d="M32 12l-10 20"/>
+            </svg>
+          </div>
+        </div>
+        <div class="connector"></div>
+        <div class="under-label">Block sent to each<br>node in the network</div>
+      </div>
+
+      <div class="step step-03">
+        <div class="badge">03</div>
+        <div class="pin">
+          <div class="icon-circle">
+            <svg viewBox="0 0 64 64">
+              <path d="M18 16a14 14 0 1 0 28 0"/>
+              <circle cx="36" cy="32" r="12"/>
+              <path d="M20 50a12 12 0 1 0 24 0"/>
+              <path d="M17 28l8 8"/>
+              <path d="M40 20l8 8"/>
+              <path d="M34 9l8 8"/>
+              <circle cx="18" cy="18" r="3"/>
+              <circle cx="46" cy="18" r="3"/>
+              <circle cx="18" cy="46" r="3"/>
+              <circle cx="46" cy="46" r="3"/>
+            </svg>
+          </div>
+        </div>
+        <div class="connector"></div>
+        <div class="under-label">Nodes validates<br>the operation</div>
+      </div>
+
+      <div class="step step-04">
+        <div class="badge">04</div>
+        <div class="pin">
+          <div class="icon-circle">
+            <svg viewBox="0 0 64 64">
+              <path d="M18 18l12 12-12 12"/>
+              <path d="M46 18L34 30l12 12"/>
+              <path d="M22 18h20"/>
+              <path d="M22 46h20"/>
+              <circle cx="32" cy="32" r="8"/>
+              <circle cx="32" cy="32" r="14"/>
+              <path d="M43 16l8-8"/>
+              <path d="M42 20l10 10"/>
+              <path d="M21 16l-8-8"/>
+              <path d="M22 20l-10 10"/>
+            </svg>
+          </div>
+        </div>
+        <div class="connector"></div>
+        <div class="under-label">Validation and<br>propagation across<br>the network</div>
+      </div>
+
+      <div class="step step-05">
+        <div class="badge">05</div>
+        <div class="pin pin-05">
+          <div class="icon-circle">
+            <svg viewBox="0 0 64 64">
+              <rect x="15" y="20" width="35" height="24"/>
+              <path d="M18 14h20l4-6"/>
+              <path d="M20 27h24v8H20z"/>
+              <circle cx="48" cy="44" r="11"/>
+              <path d="M46 35l4 5 8-10"/>
+            </svg>
+          </div>
+        </div>
+        <div class="connector"></div>
+        <div class="under-label">Nodes receive<br>rewards for the<br>proof of work</div>
+      </div>
+
+      <div class="step step-06">
+        <div class="badge">06</div>
+        <div class="pin">
+          <div class="icon-circle">
+            <svg viewBox="0 0 64 64">
+              <path d="M20 18l13 13-13 13"/>
+              <path d="M44 18L31 31l13 13"/>
+              <path d="M32 14l18 18-18 18"/>
+              <path d="M38 18l8 8"/>
+              <path d="M26 42l-8-8"/>
+              <circle cx="48" cy="47" r="8"/>
+            </svg>
+          </div>
+        </div>
+        <div class="connector"></div>
+        <div class="under-label">Block is added to<br>existing blockchain</div>
+      </div>
+
+      <div class="step step-07">
+        <div class="badge">07</div>
+        <div class="pin pin-07">
+          <div class="icon-circle">
+            <svg viewBox="0 0 64 64">
+              <circle cx="28" cy="18" r="10"/>
+              <path d="M14 30l14 11 14-11"/>
+              <path d="M20 36l8 6 8-6"/>
+              <path d="M18 42l18 18"/>
+              <path d="M40 27l10 11"/>
+              <circle cx="46" cy="42" r="10"/>
+              <path d="M38 35l5 5 9-10"/>
+            </svg>
+          </div>
+        </div>
+        <div class="connector"></div>
+        <div class="under-label">Task is<br>completed</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

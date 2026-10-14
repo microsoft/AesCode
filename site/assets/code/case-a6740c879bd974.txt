@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stages of Fundraising Slide Template</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f2f4f8;
+      font-family: "Arial Narrow", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background: #ffffff;
+      color: #071238;
+    }
+
+    .title {
+      position: absolute;
+      top: 16px;
+      left: 0;
+      width: 1280px;
+      text-align: center;
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -1.4px;
+      color: #071238;
+    }
+
+    .stage-label {
+      position: absolute;
+      top: 105px;
+      font-size: 17px;
+      font-weight: 800;
+      color: #4e3aa5;
+      white-space: nowrap;
+    }
+
+    .label-seed {
+      left: 143px;
+    }
+
+    .label-early {
+      left: 444px;
+      color: #3f2b8f;
+    }
+
+    .label-later {
+      left: 733px;
+      color: #158066;
+    }
+
+    .label-ipo {
+      left: 932px;
+      color: #555555;
+      font-weight: 700;
+    }
+
+    .label-public {
+      left: 1034px;
+      color: #555555;
+      font-weight: 700;
+    }
+
+    .band {
+      position: absolute;
+      top: 133px;
+      height: 474px;
+      border-radius: 12px;
+      border: 2px solid rgba(120, 120, 140, 0.22);
+      box-shadow: 0 3px 9px rgba(40, 40, 60, 0.18);
+    }
+
+    .seed-band {
+      left: 102px;
+      width: 226px;
+      background: linear-gradient(180deg, #ece8fb 0%, #f0edfb 100%);
+    }
+
+    .early-dark {
+      left: 335px;
+      width: 163px;
+      height: 479px;
+      top: 132px;
+      background: linear-gradient(180deg, #a689df 0%, #aa92e1 100%);
+    }
+
+    .early-light {
+      left: 500px;
+      width: 166px;
+      height: 479px;
+      top: 132px;
+      background: linear-gradient(180deg, #d2c4f2 0%, #d7cdf4 100%);
+    }
+
+    .later-band {
+      left: 679px;
+      width: 216px;
+      background: linear-gradient(180deg, #d9f0ed 0%, #ddf2ee 100%);
+    }
+
+    .ipo-band {
+      left: 903px;
+      width: 80px;
+      background: linear-gradient(180deg, #eeeeef 0%, #e8e8e8 100%);
+    }
+
+    .public-band {
+      left: 993px;
+      width: 235px;
+      background: linear-gradient(180deg, #cfd2d7 0%, #d1d3d6 100%);
+    }
+
+    .angels {
+      position: absolute;
+      left: 148px;
+      top: 166px;
+      font-size: 20px;
+      color: #1e2073;
+      font-weight: 800;
+    }
+
+    .break-even {
+      position: absolute;
+      left: 110px;
+      top: 456px;
+      font-size: 17px;
+      color: #18223d;
+    }
+
+    .valley {
+      position: absolute;
+      left: 116px;
+      top: 576px;
+      font-size: 17px;
+      color: #18223d;
+    }
+
+    .dashed-line {
+      position: absolute;
+      left: 111px;
+      top: 482px;
+      width: 190px;
+      height: 1px;
+      border-top: 2px dashed #8c8f95;
+    }
+
+    .vc-label {
+      position: absolute;
+      left: 380px;
+      top: 155px;
+      width: 246px;
+      min-height: 65px;
+      border-radius: 10px;
+      background: #ffffff;
+      color: #332384;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.25;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(80, 70, 120, 0.22);
+      border: 1px solid rgba(90, 80, 140, 0.15);
+    }
+
+    .letter-a {
+      position: absolute;
+      left: 402px;
+      top: 552px;
+      font-size: 40px;
+      color: #ffffff;
+      font-weight: 900;
+      text-shadow: 0 3px 5px rgba(25, 25, 60, 0.35);
+    }
+
+    .letter-b {
+      position: absolute;
+      left: 572px;
+      top: 552px;
+      font-size: 40px;
+      color: #ffffff;
+      font-weight: 900;
+      text-shadow: 0 3px 5px rgba(25, 25, 60, 0.35);
+    }
+
+    .letter-c {
+      position: absolute;
+      left: 740px;
+      top: 550px;
+      font-size: 42px;
+      color: #177a63;
+      font-weight: 900;
+    }
+
+    .mezzanine {
+      position: absolute;
+      left: 808px;
+      top: 578px;
+      font-size: 16px;
+      color: #177a63;
+      font-weight: 800;
+    }
+
+    .secondary {
+      position: absolute;
+      left: 1038px;
+      top: 178px;
+      font-size: 19px;
+      color: #070707;
+      font-weight: 800;
+    }
+
+    .axis-y-label {
+      position: absolute;
+      left: 34px;
+      top: 310px;
+      width: 35px;
+      height: 125px;
+      color: #111111;
+      font-size: 25px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 3px;
+      transform: rotate(-90deg);
+      transform-origin: center;
+    }
+
+    .axis-x-label {
+      position: absolute;
+      left: 612px;
+      top: 634px;
+      width: 76px;
+      height: 30px;
+      color: #111111;
+      font-size: 25px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 2px;
+    }
+
+    .chart {
+      position: absolute;
+      left: 80px;
+      top: 130px;
+      width: 1125px;
+      height: 480px;
+      z-index: 4;
+    }
+
+    .bottom-line {
+      position: absolute;
+      left: 80px;
+      top: 613px;
+      width: 1160px;
+      height: 2px;
+      background: #0b1b47;
+      z-index: 2;
+    }
+
+    .bottom-line:after {
+      content: "";
+      position: absolute;
+      right: -10px;
+      top: -6px;
+      width: 0;
+      height: 0;
+      border-left: 12px solid #0b1b47;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+    }
+
+    .left-line {
+      position: absolute;
+      left: 80px;
+      top: 133px;
+      width: 3px;
+      height: 480px;
+      background: #0b1b47;
+      z-index: 2;
+    }
+
+    .left-line:before {
+      content: "";
+      position: absolute;
+      left: -7px;
+      top: -12px;
+      width: 0;
+      height: 0;
+      border-bottom: 13px solid #0b1b47;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+    }
+
+    .source-note {
+      position: absolute;
+      right: 15px;
+      bottom: 12px;
+      color: rgba(20, 30, 60, 0.18);
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Stages of Fundraising Slide Template</div>
+
+    <div class="stage-label label-seed">SEED CAPITAL</div>
+    <div class="stage-label label-early">EARLY STAGE</div>
+    <div class="stage-label label-later">LATER STAGE</div>
+    <div class="stage-label label-ipo">IPO</div>
+    <div class="stage-label label-public">PUBLIC MARKET</div>
+
+    <div class="band seed-band"></div>
+    <div class="band later-band"></div>
+    <div class="band ipo-band"></div>
+    <div class="band public-band"></div>
+    <div class="band early-dark"></div>
+    <div class="band early-light"></div>
+
+    <div class="angels">Angels, F&F</div>
+    <div class="break-even">Break Even</div>
+    <div class="valley">Valley of Death</div>
+    <div class="dashed-line"></div>
+
+    <div class="vc-label">VCs, Acquisition/Mergers<br>&amp; Strategic Alliances</div>
+    <div class="letter-a">A</div>
+    <div class="letter-b">B</div>
+    <div class="letter-c">C</div>
+    <div class="mezzanine">Mezzanine</div>
+    <div class="secondary">Secondary Offers</div>
+
+    <div class="axis-y-label">REVENUE</div>
+    <div class="axis-x-label">TIME</div>
+    <div class="left-line"></div>
+    <div class="bottom-line"></div>
+
+    <div id="revenueChart" class="chart"></div>
+
+    <div class="source-note">Slide template by presentation designer</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    const chart = echarts.init(document.getElementById('revenueChart'), null, {
+      renderer: 'canvas',
+      width: 1125,
+      height: 480
+    });
+
+    chart.setOption({
+      animation: false,
+      grid: {
+        left: 0,
+        right: 0,
+        top: 22,
+        bottom: 30,
+        containLabel: false
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['Seed', 'Valley', 'Series A', 'Series B', 'Mezzanine', 'Public'],
+        axisLine: { show: false },
+        axisTick: { show: false },
+        axisLabel: { show: false },
+        splitLine: { show: false }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 40,
+        axisLine: { show: false },
+        axisTick: { show: false },
+        axisLabel: { show: false },
+        splitLine: { show: false }
+      },
+      series: [
+        {
+          type: 'line',
+          data: [10, 5, 15, 20, 28, 35],
+          symbol: 'circle',
+          symbolSize: 13,
+          smooth: false,
+          showSymbol: true,
+          lineStyle: {
+            color: '#0b215f',
+            width: 3.2
+          },
+          itemStyle: {
+            color: '#ffffff',
+            borderColor: '#0b215f',
+            borderWidth: 3
+          },
+          emphasis: {
+            disabled: true
+          },
+          z: 5
+        }
+      ],
+      tooltip: {
+        show: false
+      }
+    });
+  </script>
+</body>
+</html>

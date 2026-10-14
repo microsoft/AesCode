@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>APP Page Shares Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #d8efff;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #c9efff 0%, #aee0ff 48%, #c5eaff 100%);
+  }
+
+  .title-block {
+    position: absolute;
+    left: 72px;
+    top: 53px;
+  }
+
+  .main-title {
+    margin: 0;
+    font-size: 46px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    color: #ff6a12;
+  }
+
+  .subtitle {
+    margin-top: 13px;
+    font-size: 22px;
+    color: #666c73;
+  }
+
+  .kpi-card {
+    position: absolute;
+    width: 260px;
+    height: 210px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 3px solid rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 18px 34px rgba(82, 154, 202, 0.20);
+  }
+
+  .kpi-left {
+    left: 70px;
+    top: 178px;
+  }
+
+  .kpi-right {
+    left: 360px;
+    top: 178px;
+  }
+
+  .kpi-heading {
+    text-align: center;
+    margin-top: 20px;
+    color: #0d66ad;
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .kpi-box {
+    position: absolute;
+    left: 20px;
+    top: 61px;
+    width: 220px;
+    height: 136px;
+    border-radius: 14px;
+    background: #d9f0ff;
+  }
+
+  .kpi-number {
+    position: absolute;
+    top: 13px;
+    left: 0;
+    width: 220px;
+    text-align: center;
+    color: #5b94f0;
+    font-size: 58px;
+    line-height: 1;
+    font-weight: 800;
+  }
+
+  .kpi-label {
+    position: absolute;
+    bottom: 0;
+    width: 220px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2175bc;
+    font-size: 18px;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .mini-icon {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #bce4ff;
+    border: 2px solid rgba(255, 255, 255, 0.95);
+    opacity: 0.9;
+  }
+
+  .section-pill {
+    position: absolute;
+    height: 49px;
+    width: 548px;
+    border-radius: 27px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.88);
+    box-shadow: 0 10px 21px rgba(65, 150, 202, 0.14);
+    display: flex;
+    align-items: center;
+  }
+
+  .pill-one {
+    left: 70px;
+    top: 414px;
+  }
+
+  .pill-two {
+    left: 70px;
+    top: 570px;
+  }
+
+  .pill-left {
+    width: 326px;
+    height: 49px;
+    border-radius: 27px;
+    background: linear-gradient(90deg, #22a8e4 0%, #25c8e8 100%);
+    color: #fff;
+    font-size: 23px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 2px 3px rgba(255,255,255,0.25);
+  }
+
+  .pill-right {
+    margin-left: 20px;
+    color: #b9c0c5;
+    font-size: 22px;
+    white-space: nowrap;
+  }
+
+  .bullet-text {
+    position: absolute;
+    left: 116px;
+    width: 480px;
+    color: #15181b;
+    font-size: 17px;
+    line-height: 1.38;
+    margin: 0;
+  }
+
+  .bullet-one {
+    top: 480px;
+  }
+
+  .bullet-two {
+    top: 635px;
+  }
+
+  .bullet-point {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    min-width: 9px;
+    border-radius: 50%;
+    background: #47b8f4;
+    margin-right: 12px;
+    vertical-align: middle;
+  }
+
+  .chart-panel {
+    position: absolute;
+    right: 63px;
+    top: 72px;
+    width: 655px;
+    height: 612px;
+    background: rgba(255, 255, 255, 0.88);
+    border: 3px solid rgba(255, 255, 255, 0.95);
+    border-radius: 28px;
+    box-shadow: 0 22px 40px rgba(61, 144, 192, 0.28);
+  }
+
+  .chart-title {
+    position: absolute;
+    top: 24px;
+    left: 0;
+    width: 655px;
+    text-align: center;
+    color: #1168ad;
+    font-size: 27px;
+    font-weight: 800;
+  }
+
+  .chart-wrap {
+    position: absolute;
+    left: 13px;
+    top: 76px;
+    width: 629px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.63);
+    border-radius: 20px;
+  }
+
+  #comboChart {
+    position: absolute;
+    left: 17px;
+    top: 26px;
+    width: 592px;
+    height: 448px;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title-block">
+      <h1 class="main-title">APP Page Shares</h1>
+      <div class="subtitle">APP Page Forwarding Volume</div>
+    </div>
+
+    <div class="kpi-card kpi-left">
+      <div class="kpi-heading">Page A Top Shares</div>
+      <div class="kpi-box">
+        <div class="kpi-number">134</div>
+        <div class="kpi-label">Shares <span class="mini-icon"></span></div>
+      </div>
+    </div>
+
+    <div class="kpi-card kpi-right">
+      <div class="kpi-heading">Page B Top Shares</div>
+      <div class="kpi-box">
+        <div class="kpi-number">128</div>
+        <div class="kpi-label">Shares <span class="mini-icon"></span></div>
+      </div>
+    </div>
+
+    <div class="section-pill pill-one">
+      <div class="pill-left">Data Findings</div>
+      <div class="pill-right">Data Structure</div>
+    </div>
+
+    <p class="bullet-text bullet-one">
+      <span class="bullet-point"></span>30% of content tied to trending news. Of 26 videos on viral web events, bus driver-passenger clips and Halloween drew less attention.
+    </p>
+
+    <div class="section-pill pill-two">
+      <div class="pill-left">Root Cause Analysis</div>
+      <div class="pill-right">Cause</div>
+    </div>
+
+    <p class="bullet-text bullet-two">
+      <span class="bullet-point"></span>Trending topics drive traffic fast. Low-cost compilation content is worth considering.
+    </p>
+
+    <div class="chart-panel">
+      <div class="chart-title">APPPage Data Analysis</div>
+      <div class="chart-wrap">
+        <div id="comboChart"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const chart = echarts.init(document.getElementById('comboChart'), null, {
+    renderer: 'canvas',
+    width: 592,
+    height: 448
+  });
+
+  chart.setOption({
+    animation: false,
+    color: ['#4f8ee8', '#72c8ef'],
+    grid: {
+      left: 47,
+      right: 47,
+      top: 40,
+      bottom: 58
+    },
+    legend: {
+      bottom: 0,
+      left: 'center',
+      itemWidth: 30,
+      itemHeight: 16,
+      textStyle: {
+        color: '#3b3f42',
+        fontSize: 15
+      },
+      data: ['Page A', 'Page B']
+    },
+    tooltip: {
+      trigger: 'axis'
+    },
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      data: ['Day1', 'Day2', 'Day3', 'Day4', 'Day5', 'Day6', 'Day7'],
+      axisTick: {
+        show: false
+      },
+      axisLine: {
+        lineStyle: {
+          color: '#7f878b'
+        }
+      },
+      axisLabel: {
+        color: '#393d40',
+        fontSize: 14
+      }
+    },
+    yAxis: [
+      {
+        type: 'value',
+        min: 0,
+        max: 160,
+        interval: 20,
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: '#8f989c'
+          }
+        },
+        axisTick: {
+          show: false
+        },
+        splitLine: {
+          lineStyle: {
+            color: '#c7d5de'
+          }
+        },
+        axisLabel: {
+          color: '#3d4245',
+          fontSize: 14
+        }
+      },
+      {
+        type: 'value',
+        min: 60,
+        max: 140,
+        interval: 20,
+        position: 'right',
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: '#8f989c'
+          }
+        },
+        axisTick: {
+          show: false
+        },
+        splitLine: {
+          show: false
+        },
+        axisLabel: {
+          color: '#3d4245',
+          fontSize: 14
+        }
+      }
+    ],
+    series: [
+      {
+        name: 'Page A',
+        type: 'bar',
+        data: [120, 90, 135, 125, 130, 100, 130],
+        barWidth: 42,
+        itemStyle: {
+          color: '#4f8ee8'
+        },
+        label: {
+          show: true,
+          position: 'top',
+          color: '#2b2f32',
+          fontSize: 15
+        }
+      },
+      {
+        name: 'Page B',
+        type: 'line',
+        yAxisIndex: 1,
+        smooth: true,
+        data: [60, 140, 80, 40, 110, 140, 120],
+        symbol: 'circle',
+        symbolSize: 14,
+        lineStyle: {
+          width: 4,
+          color: '#72c8ef'
+        },
+        itemStyle: {
+          color: '#d8f4ff',
+          borderColor: '#72c8ef',
+          borderWidth: 4
+        },
+        label: {
+          show: true,
+          position: 'top',
+          color: '#2b2f32',
+          fontSize: 15
+        }
+      }
+    ]
+  });
+</script>
+</body>
+</html>

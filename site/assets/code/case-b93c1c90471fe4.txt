@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>API Aurora Documentation</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #ddd8d0;
+      color: #262b2f;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 853px;
+      height: 1280px;
+      overflow: hidden;
+      background: #f6f4ef;
+      border: 1px solid #d8d2c8;
+    }
+
+    /* Header */
+    .topbar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 853px;
+      height: 54px;
+      background: #111d26;
+      border-bottom: 1px solid #2c3840;
+      display: flex;
+      align-items: center;
+      color: #e8e3dc;
+      z-index: 10;
+    }
+
+    .brand {
+      width: 190px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-left: 28px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 17px;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      width: 21px;
+      height: 21px;
+      position: relative;
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      background: #e8e1d7;
+      border-radius: 1px;
+      left: 10px;
+      top: 0;
+      width: 1px;
+      height: 21px;
+    }
+
+    .brand-mark::after {
+      transform: rotate(90deg);
+    }
+
+    .nav {
+      display: flex;
+      gap: 26px;
+      align-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10px;
+      color: #d8d1c8;
+      flex: 1;
+      padding-left: 22px;
+    }
+
+    .nav span:nth-child(4) {
+      color: #ebe5dc;
+      font-weight: 700;
+    }
+
+    .header-tools {
+      width: 146px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      padding-right: 23px;
+    }
+
+    .search-small {
+      width: 106px;
+      height: 27px;
+      border: 1px solid #57636c;
+      border-radius: 3px;
+      color: #c9c2bb;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9px;
+      padding-left: 8px;
+    }
+
+    .login {
+      height: 28px;
+      padding: 0 12px;
+      border: 0;
+      border-radius: 4px;
+      background: #c9ad77;
+      color: #362d23;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    /* Main layout */
+    .left-sidebar {
+      position: absolute;
+      left: 0;
+      top: 54px;
+      width: 190px;
+      height: 1068px;
+      background: #f7f6f2;
+      border-right: 1px solid #ded7ce;
+      padding: 28px 19px 0 21px;
+    }
+
+    .doc-title {
+      color: #5a554e;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10px;
+      letter-spacing: 1.2px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .doc-subtitle {
+      color: #6a625b;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin-bottom: 21px;
+    }
+
+    .side-card {
+      background: #eeeadd;
+      border: 1px solid #e1d9ce;
+      border-radius: 3px;
+      padding: 8px 8px 10px;
+      min-height: 95px;
+      margin-bottom: 10px;
+    }
+
+    .side-card .group-title {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #564f48;
+      font-size: 10px;
+      margin-bottom: 8px;
+    }
+
+    .side-card .item {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #7b746d;
+      font-size: 9.5px;
+      padding-left: 10px;
+      line-height: 22px;
+      border-left: 3px solid #c6ad79;
+    }
+
+    .side-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #57524c;
+      padding: 7px 0;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10.5px;
+    }
+
+    .side-nav-item .ico {
+      color: #8b8279;
+      width: 12px;
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .help-box {
+      position: absolute;
+      left: 19px;
+      bottom: 53px;
+      width: 152px;
+      height: 170px;
+      background: #f1eee9;
+      border: 1px solid #ded7ce;
+      border-radius: 4px;
+      padding: 12px 10px;
+    }
+
+    .help-circle {
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      border: 1px solid #9c8967;
+      color: #7a6952;
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 700;
+    }
+
+    .help-heading {
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 700;
+      color: #48413b;
+      font-size: 11.5px;
+    }
+
+    .help-text {
+      color: #7a726a;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9.5px;
+      line-height: 1.35;
+    }
+
+    .help-link {
+      color: #785f40;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10px;
+    }
+
+    .main {
+      position: absolute;
+      top: 54px;
+      left: 190px;
+      width: 602px;
+      height: 1068px;
+      background: #faf9f6;
+      padding: 12px 21px 0 23px;
+    }
+
+    .breadcrumb {
+      color: #8b8279;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8.5px;
+      margin: 0 0 18px 0;
+    }
+
+    .intro-pill {
+      display: inline-block;
+      background: #eeeadd;
+      border: 1px solid #d8c8ab;
+      border-radius: 2px;
+      color: #574f47;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8.8px;
+      font-weight: 700;
+      padding: 4px 8px;
+      margin-bottom: 9px;
+    }
+
+    .main h1 {
+      margin: 0 0 11px 0;
+      font-size: 25px;
+      line-height: 1.15;
+      color: #262b2f;
+    }
+
+    .main p {
+      margin: 0 0 13px 0;
+      color: #525455;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10.8px;
+      line-height: 1.45;
+    }
+
+    .basebox {
+      border: 1px solid #d5cdc1;
+      background: #fbfaf7;
+      border-radius: 3px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      color: #625b53;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9.5px;
+    }
+
+    .basebox .dot {
+      background: #98a88a;
+      color: #fff;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+    }
+
+    .code-line {
+      color: #6c825a;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      margin-top: 16px;
+      margin-bottom: 7px;
+    }
+
+    .feature-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .feature-card {
+      width: 118px;
+      height: 120px;
+      border: 1px solid #dcd4c8;
+      border-radius: 4px;
+      background: #fbfbfa;
+      padding: 10px 8px;
+      text-align: center;
+    }
+
+    .feature-icon {
+      color: #8f857c;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .feature-title {
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      margin-bottom: 7px;
+    }
+
+    .feature-desc {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8.8px;
+      color: #6b655f;
+      line-height: 1.35;
+    }
+
+    .steps {
+      margin-top: 2px;
+    }
+
+    .step-heading {
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 700;
+      color: #303438;
+      font-size: 11.8px;
+      margin: 0 0 5px 0;
+    }
+
+    .step-small {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #69625b;
+      font-size: 9.5px;
+    }
+
+    .codeblock {
+      background: #17222b;
+      color: #cfd7df;
+      border-radius: 4px;
+      margin-top: 6px;
+      height: 59px;
+      padding: 9px 9px 6px;
+      position: relative;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 8.8px;
+      line-height: 1.35;
+    }
+
+    .codeblock .tag {
+      position: absolute;
+      left: 6px;
+      top: 6px;
+      color: #c1c8cf;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8.5px;
+      background: #17222b;
+    }
+
+    .copy {
+      position: absolute;
+      right: 8px;
+      top: 5px;
+      color: #dbe3e8;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8.8px;
+    }
+
+    .codeblock pre {
+      margin: 0;
+      color: #e4e9ed;
+    }
+
+    .codeblock .muted {
+      color: #899299;
+    }
+
+    .codeblock .green {
+      color: #78b78b;
+    }
+
+    .json-block {
+      height: 182px;
+      font-size: 8.3px;
+      line-height: 1.28;
+      padding-top: 8px;
+    }
+
+    .hint {
+      border: 1px solid #d8cdc0;
+      background: #f6f3ee;
+      border-radius: 3px;
+      color: #787068;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9px;
+      margin-top: 6px;
+      padding: 7px 9px;
+    }
+
+    .right-sidebar {
+      position: absolute;
+      top: 54px;
+      left: 792px;
+      width: 61px;
+      height: 1068px;
+      background: #f7f6f2;
+      border-left: 1px solid #e0d9cf;
+      padding: 71px 8px 0 13px;
+    }
+
+    .right-title {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #5a524c;
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: .8px;
+      margin-bottom: 15px;
+    }
+
+    .right-list a {
+      display: block;
+      color: #706860;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8.8px;
+      padding: 4px 0;
+      text-decoration: none;
+    }
+
+    /* Footer */
+    .footer {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 853px;
+      height: 158px;
+      background: #f2efe9;
+      border-top: 1px solid #ded7ce;
+    }
+
+    .footer-brand {
+      position: absolute;
+      left: 30px;
+      top: 15px;
+      width: 150px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 16px;
+      color: #343331;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .footer-tag {
+      color: #6d665f;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8.8px;
+      margin-top: 10px;
+      line-height: 1.35;
+      width: 132px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .social {
+      width: 17px;
+      height: 17px;
+      border: 1px solid #656059;
+      border-radius: 50%;
+      color: #605a54;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8px;
+      font-weight: 700;
+      background: #f8f6f2;
+    }
+
+    .footer-cols {
+      position: absolute;
+      top: 17px;
+      left: 298px;
+      width: 430px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      column-gap: 23px;
+    }
+
+    .foot-col h4 {
+      margin: 0 0 8px 0;
+      color: #423f3b;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9.2px;
+      font-weight: 700;
+      letter-spacing: .8px;
+    }
+
+    .foot-col a {
+      display: block;
+      color: #6d665f;
+      text-decoration: none;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8.8px;
+      padding: 2px 0;
+    }
+
+    .copyright {
+      position: absolute;
+      bottom: 5px;
+      left: 30px;
+      color: #938b82;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8px;
+    }
+
+    .footer-links {
+      position: absolute;
+      right: 28px;
+      bottom: 8px;
+      display: flex;
+      gap: 23px;
+      color: #787067;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8.3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        AURORA
+      </div>
+      <nav class="nav">
+        <span>Produtos</span>
+        <span>Soluções</span>
+        <span>Preços</span>
+        <span>Documentação</span>
+        <span>Blog</span>
+        <span>Contato</span>
+      </nav>
+      <div class="header-tools">
+        <input class="search-small" value="" placeholder="Buscar na documentação..." />
+        <button class="login">Entrar</button>
+      </div>
+    </header>
+
+    <aside class="left-sidebar">
+      <div class="doc-title">DOCUMENTAÇÃO</div>
+      <div class="doc-subtitle">API AURORA</div>
+
+      <div class="side-card">
+        <div class="group-title">Guia de Início</div>
+        <div class="item">Introdução</div>
+        <div class="item">Primeiros Passos</div>
+        <div class="item">Autenticação</div>
+        <div class="item">Ambientes</div>
+      </div>
+
+      <div class="side-nav-item"><span class="ico">▢</span>Fundamentos</div>
+      <div class="side-nav-item"><span class="ico">⚙</span>Recursos da API</div>
+      <div class="side-nav-item"><span class="ico">□</span>Guias</div>
+      <div class="side-nav-item"><span class="ico">✣</span>SDKs e Bibliotecas</div>
+      <div class="side-nav-item"><span class="ico">☁</span>Webhooks</div>
+      <div class="side-nav-item"><span class="ico">!</span>Erros</div>
+      <div class="side-nav-item"><span class="ico">ⓘ</span>Limites da API</div>
+      <div class="side-nav-item"><span class="ico">↻</span>Changelog</div>
+
+      <div class="help-box">
+        <div class="help-circle">?</div>
+        <div class="help-heading">Precisa de ajuda?</div>
+        <div class="help-text">Confira nossa central de ajuda ou entre em contato com o nosso suporte.</div>
+        <div class="help-link">Acessar ajuda →</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="breadcrumb">Documentação &gt; API Aurora &gt; Guia de Início &gt; Introdução</div>
+
+      <div class="intro-pill">INTRODUÇÃO</div>
+      <h1>Bem-vindo à API Aurora</h1>
+      <p>A API Aurora permite que você integre poderosas funcionalidades aos seus aplicativos de forma simples, segura e escalável. Esta documentação irá guiá-lo nos primeiros passos.</p>
+
+      <div class="basebox">
+        <div class="dot">i</div>
+        <div>
+          <div>Base URL da API</div>
+          <div class="code-line">https://api.aurora.dev/v1</div>
+        </div>
+      </div>
+
+      <div class="section-title">O que você pode construir</div>
+      <p>Com a API Aurora, você pode gerenciar usuários, processar pagamentos, enviar e-mails, analisar dados e muito mais.</p>
+
+      <div class="feature-row">
+        <div class="feature-card">
+          <div class="feature-icon">♙</div>
+          <div class="feature-title">Usuários</div>
+          <div class="feature-desc">Gerencie usuários e permissões com facilidade.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">▭</div>
+          <div class="feature-title">Pagamentos</div>
+          <div class="feature-desc">Processe pagamentos com segurança via nossa API.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✉</div>
+          <div class="feature-title">Notificações</div>
+          <div class="feature-desc">Envie e-mails e notificações em tempo real.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">▥</div>
+          <div class="feature-title">Analytics</div>
+          <div class="feature-desc">Obtenha insights valiosos com nossos dados.</div>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="section-title">Primeiros Passos</div>
+        <p>Siga os passos abaixo para realizar sua primeira requisição.</p>
+
+        <div class="step-heading">1. Autentique sua requisição</div>
+        <div class="step-small">Todas as requisições exigem um token de API no cabeçalho de autorização.</div>
+        <div class="codeblock">
+          <div class="tag">http</div>
+          <div class="copy">Copiar</div>
+          <pre>GET /v1/usuarios HTTP/1.1
+Authorization: Bearer {seu_token_aqui}
+Host: api.aurora.dev</pre>
+        </div>
+
+        <div class="step-heading">2. Faça sua primeira requisição</div>
+        <div class="step-small">Exemplo de requisição para listar usuários.</div>
+        <div class="codeblock">
+          <div class="tag">bash</div>
+          <div class="copy">Copiar</div>
+          <pre>curl -X GET https://api.aurora.dev/v1/usuarios \
+  -H 'Authorization: Bearer {seu_token_aqui}' \
+  -H 'Content-Type: application/json'</pre>
+        </div>
+
+        <div class="step-heading">3. Resposta de exemplo</div>
+        <div class="step-small">Resposta de sucesso com a lista de usuários.</div>
+        <div class="codeblock json-block">
+          <div class="tag">json</div>
+          <div class="copy">Copiar</div>
+          <pre>{
+  "data": [
+    {
+      "id": "us-12345",
+      "nome": "João Silva",
+      "email": "joao@example.com",
+      "criado_em": "2024-05-20T10:30:00Z"
+    }
+  ],
+  "meta": {
+    "total": 1,
+    "pagina": 1,
+    "por_pagina": 20
+  }
+}</pre>
+        </div>
+      </div>
+
+      <div class="hint">Dica: Explore os outros guias e referências para aproveitar ao máximo a API Aurora.</div>
+    </main>
+
+    <aside class="right-sidebar">
+      <div class="right-title">NESTA PÁGINA</div>
+      <div class="right-list">
+        <a>Bem-vindo à API Aurora</a>
+        <a>O que você pode construir</a>
+        <a>Primeiros Passos</a>
+        <a>Autentique sua requisição</a>
+        <a>Faça sua primeira requisição</a>
+        <a>Resposta de exemplo</a>
+      </div>
+    </aside>
+
+    <footer class="footer">
+      <div class="footer-brand">
+        AURORA
+        <div class="footer-tag">A plataforma completa para integrar, automatizar e escalar seu negócio com tecnologia de ponta.</div>
+      </div>
+      <div class="socials">
+        <div class="social">G</div>
+        <div class="social">t</div>
+        <div class="social">in</div>
+        <div class="social">▶</div>
+      </div>
+
+      <div class="footer-cols">
+        <div class="foot-col">
+          <h4>PRODUTOS</h4>
+          <a>API Aurora</a>
+          <a>SDKs</a>
+          <a>Webhooks</a>
+        </div>
+        <div class="foot-col">
+          <h4>RECURSOS</h4>
+          <a>Documentação</a>
+          <a>Blog</a>
+          <a>Casos de Uso</a>
+        </div>
+        <div class="foot-col">
+          <h4>EMPRESA</h4>
+          <a>Sobre nós</a>
+          <a>Carreiras</a>
+          <a>Política de Privacidade</a>
+        </div>
+        <div class="foot-col">
+          <h4>CONTATO</h4>
+          <a>suporte@aurora.dev</a>
+          <a>+55 (11) 99999-9999</a>
+          <a>São Paulo, Brasil</a>
+        </div>
+      </div>
+
+      <div class="copyright">© 2024 Aurora. Todos os direitos reservados.</div>
+      <div class="footer-links">
+        <span>Termos de Uso</span>
+        <span>Política de Privacidade</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

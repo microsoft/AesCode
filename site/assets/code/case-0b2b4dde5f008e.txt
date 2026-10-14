@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Skill-building for AI Engineering</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #071f2b;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #062a38;
+    color: #ffffff;
+  }
+
+  .title-main {
+    position: absolute;
+    left: 18px;
+    top: 16px;
+    font-size: 39px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+    color: #ffffff;
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 18px;
+    top: 66px;
+    font-size: 24px;
+    color: #ffffff;
+    font-weight: 400;
+  }
+
+  .top-banner {
+    position: absolute;
+    left: 552px;
+    top: 14px;
+    width: 708px;
+    height: 62px;
+    border: 2px solid #19d4e5;
+    border-radius: 10px;
+    background: #0a3544;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+  }
+
+  .banner-logo {
+    width: 68px;
+    height: 42px;
+    margin-right: 22px;
+    border-right: 1px solid rgba(255,255,255,0.35);
+    padding-right: 16px;
+    display: flex;
+    align-items: center;
+  }
+
+  .banner-title {
+    font-size: 25px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .sparkle {
+    color: #22dff2;
+    font-size: 22px;
+    margin-left: 12px;
+  }
+
+  .role-node {
+    position: absolute;
+    left: 18px;
+    top: 118px;
+    width: 258px;
+    height: 92px;
+    border: 1.5px solid rgba(255,255,255,0.85);
+    border-radius: 10px;
+    background: #092b38;
+    display: flex;
+    align-items: center;
+    padding-left: 26px;
+    gap: 20px;
+  }
+
+  .role-icon {
+    font-size: 46px;
+    color: #20d7e6;
+    font-weight: 900;
+  }
+
+  .role-label {
+    font-size: 23px;
+    font-weight: 800;
+    color: #f4f8fb;
+  }
+
+  .connector {
+    position: absolute;
+    left: 274px;
+    top: 164px;
+    width: 730px;
+    height: 2px;
+    background: #c8edf0;
+  }
+
+  .connector::before,
+  .connector::after {
+    content: "";
+    position: absolute;
+    top: -4px;
+    width: 12px;
+    height: 12px;
+    background: #25d8e5;
+    border-radius: 50%;
+    border: 1px solid #fff;
+  }
+
+  .connector::before {
+    left: 50px;
+  }
+
+  .connector::after {
+    left: 462px;
+  }
+
+  .course-card {
+    position: absolute;
+    background: #ffffff;
+    color: #050a0d;
+    border: 1.5px solid rgba(255,255,255,0.9);
+    border-radius: 8px;
+    box-shadow: 0 0 12px rgba(100,210,220,0.18);
+  }
+
+  .ai102-card {
+    left: 330px;
+    top: 84px;
+    width: 406px;
+    height: 190px;
+    padding: 10px 18px 12px 18px;
+    display: flex;
+    gap: 16px;
+  }
+
+  .azure-mark {
+    font-size: 52px;
+    font-weight: 900;
+    color: #2387d7;
+    line-height: 1;
+    flex: 0 0 auto;
+  }
+
+  .course-title {
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .course-desc {
+    font-size: 13.6px;
+    line-height: 1.36;
+    margin: 0;
+  }
+
+  .preview-link {
+    color: #075ca8;
+    text-decoration: underline;
+    font-size: 13.5px;
+  }
+
+  .duration-pill {
+    position: absolute;
+    right: 16px;
+    bottom: 11px;
+    min-width: 80px;
+    height: 26px;
+    border-radius: 16px;
+    background: #0879dc;
+    color: #fff;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .gh100-card {
+    left: 750px;
+    top: 84px;
+    width: 230px;
+    height: 190px;
+    padding: 8px 12px 8px 13px;
+  }
+
+  .gh500-card {
+    left: 998px;
+    top: 84px;
+    width: 258px;
+    height: 190px;
+    padding: 8px 12px 8px 13px;
+  }
+
+  .small-course-top {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .github-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #0b0b0b;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-top: 1px;
+  }
+
+  .small-title {
+    font-size: 13.7px;
+    line-height: 1.15;
+    font-weight: 800;
+  }
+
+  .small-desc {
+    font-size: 12.2px;
+    line-height: 1.28;
+    margin-top: 5px;
+  }
+
+  .order-bar {
+    position: absolute;
+    left: 18px;
+    top: 280px;
+    width: 1244px;
+    height: 24px;
+    border: 1px solid rgba(255,255,255,0.85);
+    border-radius: 5px;
+    background: #0a2d3a;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-align: center;
+    padding-top: 3px;
+  }
+
+  .order-bar .arrow {
+    position: absolute;
+    top: 4px;
+    font-size: 22px;
+    color: #22d9e6;
+    font-weight: 700;
+  }
+
+  .order-bar .arrow.left {
+    left: 14px;
+  }
+
+  .order-bar .arrow.right {
+    right: 16px;
+  }
+
+  .section {
+    position: absolute;
+    background: #0a787f;
+    border: 2px solid rgba(120,230,235,0.8);
+    border-radius: 10px;
+  }
+
+  .learning-section {
+    left: 18px;
+    top: 310px;
+    width: 444px;
+    height: 320px;
+  }
+
+  .applied-section {
+    left: 474px;
+    top: 310px;
+    width: 798px;
+    height: 320px;
+  }
+
+  .section-heading {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    padding: 0 13px 0 26px;
+    color: #ffffff;
+    font-size: 16.5px;
+    font-weight: 800;
+    border-bottom: 1px solid rgba(255,255,255,0.55);
+    gap: 12px;
+  }
+
+  .section-icon {
+    color: #ffffff;
+    font-size: 18px;
+  }
+
+  .small-card {
+    position: absolute;
+    left: 9px;
+    width: 425px;
+    height: 101px;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.95);
+    color: #070c10;
+  }
+
+  .ai900-card {
+    top: 38px;
+  }
+
+  .ai3017-card {
+    top: 149px;
+  }
+
+  .small-card-inner {
+    display: flex;
+    gap: 12px;
+    padding: 8px 10px;
+  }
+
+  .small-card .az-mark {
+    font-size: 38px;
+    color: #2087df;
+    flex: 0 0 auto;
+  }
+
+  .small-card .mini-title {
+    font-size: 14.3px;
+    font-weight: 800;
+    line-height: 1.18;
+  }
+
+  .small-card .mini-desc {
+    font-size: 11.8px;
+    line-height: 1.25;
+    margin-top: 4px;
+  }
+
+  .cta-row {
+    position: absolute;
+    left: 9px;
+    bottom: 8px;
+    width: 425px;
+    height: 47px;
+    border-radius: 8px;
+    background: #0f9119;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 26px;
+    font-size: 14.5px;
+    font-weight: 800;
+  }
+
+  .cta-icon {
+    font-size: 30px;
+    border: 2px solid rgba(255,255,255,0.95);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .applied-list-card {
+    position: absolute;
+    left: 9px;
+    top: 30px;
+    width: 290px;
+    height: 280px;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.95);
+    color: #070b0f;
+  }
+
+  .applied-list-title {
+    font-size: 13.2px;
+    font-weight: 800;
+    padding: 8px 8px 5px 8px;
+    line-height: 1.18;
+  }
+
+  .module-list {
+    margin: 0 8px;
+    padding: 0 0 0 0;
+    font-size: 11.6px;
+    line-height: 1.35;
+  }
+
+  .module-list li {
+    margin: 6px 0;
+    padding-left: 0;
+  }
+
+  .module-list .check {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #129b96;
+    color: #fff;
+    font-size: 9px;
+    text-align: center;
+    margin-right: 5px;
+  }
+
+  .applied-note {
+    position: absolute;
+    left: 8px;
+    bottom: 4px;
+    width: 240px;
+    border-top: 1px solid #d3d3d3;
+    padding-top: 7px;
+    font-size: 11.2px;
+  }
+
+  .applied-small-card {
+    position: absolute;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.95);
+    color: #070b0f;
+    padding: 8px 10px;
+  }
+
+  .applied-small-1 {
+    left: 308px;
+    top: 30px;
+    width: 240px;
+    height: 140px;
+  }
+
+  .applied-small-2 {
+    left: 560px;
+    top: 30px;
+    width: 220px;
+    height: 140px;
+  }
+
+  .applied-small-3 {
+    left: 308px;
+    top: 178px;
+    width: 472px;
+    height: 92px;
+  }
+
+  .applied-small-title {
+    font-size: 13.4px;
+    line-height: 1.18;
+    font-weight: 800;
+    margin-bottom: 5px;
+  }
+
+  .applied-small-desc {
+    font-size: 11.8px;
+    line-height: 1.28;
+    margin: 0;
+  }
+
+  .applied-note-line {
+    position: absolute;
+    left: 9px;
+    bottom: 8px;
+    font-size: 11.2px;
+    color: #ffffff;
+  }
+
+  .legend-row {
+    position: absolute;
+    left: 232px;
+    bottom: 12px;
+    width: 818px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .legend-pill {
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 0 14px;
+    font-size: 12.8px;
+    color: #111;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
+  }
+
+  .legend-pill.gray {
+    width: 198px;
+    background: #eeeeee;
+    color: #111;
+  }
+
+  .legend-pill.green {
+    width: 222px;
+    background: #d5f0ca;
+    color: #111;
+  }
+
+  .legend-dot {
+    width: 50px;
+    height: 36px;
+    border-left: 1px solid rgba(255,255,255,0.55);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 8px;
+    color: #ffffff;
+    font-size: 12.4px;
+  }
+
+  .circle-dot {
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    background: #1290d7;
+    border: 2px solid rgba(255,255,255,0.85);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="title-main">Skill-building for AI</div>
+  <div class="subtitle">AI engineering</div>
+
+  <div class="top-banner">
+    <div class="banner-logo">A</div>
+    <div class="banner-title">Innovate with Azure AI apps and agents</div>
+    <div class="sparkle">✦</div>
+  </div>
+
+  <div class="role-node">
+    <div class="role-icon">⌘</div>
+    <div class="role-label">AI engineer</div>
+  </div>
+
+  <div class="connector"></div>
+
+  <div class="course-card ai102-card">
+    <div class="azure-mark">A</div>
+    <div>
+      <div class="course-title">AI-102: Develop AI solutions<br>in Azure</div>
+      <p class="course-desc">
+        Learn how to design and develop AI-powered applications by using Azure AI services, including Azure OpenAI Service, Azure AI Search, computer vision, and more.
+      </p>
+      <div class="preview-link" style="position:absolute;left:18px;bottom:11px;">Course preview</div>
+    </div>
+    <div class="duration-pill">◷ 5 days</div>
+  </div>
+
+  <div class="course-card gh100-card">
+    <div class="small-course-top">
+      <div class="github-icon">●</div>
+      <div>
+        <div class="small-title">GH-100: GitHub fundamentals: Administration basics and product features</div>
+        <p class="small-desc">
+          Learn best practices for building, hosting, and maintaining a secure repository on GitHub.
+        </p>
+      </div>
+    </div>
+    <div class="duration-pill" style="position:absolute;right:12px;bottom:10px;">◷ 1 day</div>
+  </div>
+
+  <div class="course-card gh500-card">
+    <div class="small-course-top">
+      <div class="github-icon">●</div>
+      <div>
+        <div class="small-title">GH-500: GitHub Advanced Security</div>
+        <p class="small-desc">
+          Learn how to enhance software security using GitHub Advanced Security throughout the development lifecycle.
+        </p>
+      </div>
+    </div>
+    <div class="duration-pill" style="position:absolute;right:12px;bottom:10px;">◷ 1 day</div>
+  </div>
+
+  <div class="order-bar">
+    <div class="arrow left">←</div>
+    <div>COURSES MAY BE TAKEN IN ANY ORDER</div>
+    <div class="arrow right">→</div>
+  </div>
+
+  <div class="section learning-section">
+    <div class="section-heading"><span class="section-icon">♟</span><span>Learning for everyone</span></div>
+
+    <div class="small-card ai900-card">
+      <div class="small-card-inner">
+        <div class="az-mark">A</div>
+        <div>
+          <div class="mini-title">AI-900: Introduction to AI in Azure</div>
+          <p class="mini-desc">
+            Learn how to identify common AI workloads and the benefits of using AI, as well as the Azure services that support them.
+          </p>
+        </div>
+      </div>
+      <div class="preview-link" style="position:absolute;left:22px;bottom:10px;">Course preview</div>
+      <div class="duration-pill" style="position:absolute;right:10px;bottom:8px;">◷ 1 day</div>
+    </div>
+
+    <div class="small-card ai3017-card">
+      <div class="small-card-inner">
+        <div class="az-mark">♙</div>
+        <div>
+          <div class="mini-title">AI-3017: AI for business leaders</div>
+          <p class="mini-desc">
+            Learn how to plan, strategize, and scale AI adoption responsibly across your organization.
+          </p>
+        </div>
+      </div>
+      <div class="duration-pill" style="position:absolute;right:10px;bottom:8px;">◷ 3 hours</div>
+    </div>
+
+    <div class="cta-row">
+      <div class="cta-icon">⌕</div>
+      <div>Explore digital skill-building plans for this role ›</div>
+    </div>
+  </div>
+
+  <div class="section applied-section">
+    <div class="section-heading"><span class="section-icon">★</span><span>Applied Skills</span></div>
+
+    <div class="applied-list-card">
+      <div class="applied-list-title">Applied Skills modules in Course AI-102: Develop AI solutions in Azure</div>
+      <ul class="module-list">
+        <li><span class="check">✓</span>AI-3002: Develop AI information extraction solutions in Azure*</li>
+        <li><span class="check">✓</span>AI-3003: Develop natural language solutions in Azure</li>
+        <li><span class="check">✓</span>AI-3004: Develop computer vision solutions in Azure</li>
+        <li><span class="check">✓</span>AI-3016: Develop generative AI apps in Azure <span style="text-decoration:underline;color:#0870d2;">(Course preview)</span></li>
+        <li><span class="check">✓</span>AI-3026: Develop AI agents on Azure <span style="text-decoration:underline;color:#0870d2;">(Course preview)</span></li>
+      </ul>
+      <div class="applied-note">Each course is one day and may be taken together as Course AI-102.</div>
+      <div class="duration-pill" style="position:absolute;right:10px;bottom:8px;">◷ 1 day</div>
+    </div>
+
+    <div class="applied-small-card applied-small-1">
+      <div class="applied-small-title">AI-3019: Build AI Apps with Azure Database for PostgreSQL</div>
+      <p class="applied-small-desc">
+        Learn to build AI-powered apps by integrating Azure AI and Azure Machine Learning with Azure Database for PostgreSQL – Flexible Server.
+      </p>
+      <div class="duration-pill" style="position:absolute;right:10px;bottom:8px;">◷ 1 day</div>
+    </div>
+
+    <div class="applied-small-card applied-small-2">
+      <div class="applied-small-title">AI-3022: Implement knowledge mining with Azure AI Search</div>
+      <p class="applied-small-desc">
+        Learn to implement Azure AI Search by creating search resources and enriching indexes.
+      </p>
+      <div class="duration-pill" style="position:absolute;right:10px;bottom:8px;">◷ 1 day</div>
+    </div>
+
+    <div class="applied-small-card applied-small-3">
+      <div class="applied-small-title">AZ-2005: Develop Generative AI solutions using Azure OpenAI and the Semantic Kernel SDK</div>
+      <p class="applied-small-desc">
+        Learn how to use the Semantic Kernel SDK to build intelligent applications that automate tasks.
+      </p>
+      <div class="preview-link" style="position:absolute;left:10px;bottom:8px;">Course preview</div>
+      <div class="duration-pill" style="position:absolute;right:10px;bottom:8px;">◷ 1 day</div>
+    </div>
+
+    <div class="applied-note-line">*Applied Skills assessment not applicable</div>
+  </div>
+
+  <div class="legend-row">
+    <div class="legend-pill gray">▣ Instructor-led training</div>
+    <div class="legend-pill green">▤ Self-paced learning path(s)</div>
+    <div class="legend-dot"><div class="circle-dot">✓</div>Certification</div>
+    <div class="legend-dot"><div class="circle-dot">★</div>Applied Skills</div>
+  </div>
+</div>
+</body>
+</html>

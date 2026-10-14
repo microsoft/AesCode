@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DataInvestigator Search Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      background: #e9edf3;
+      color: #1f2937;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background: #ffffff;
+      border: 1px solid #d7dde5;
+    }
+
+    .topbar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 48px;
+      border-bottom: 1px solid #dfe4e9;
+      background: #fbfcfe;
+      display: flex;
+      align-items: center;
+      z-index: 5;
+    }
+
+    .brand {
+      width: 142px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      padding-left: 23px;
+      gap: 9px;
+      font-weight: 700;
+      font-size: 14px;
+      color: #202124;
+    }
+
+    .shield {
+      width: 20px;
+      height: 20px;
+      border-radius: 7px 7px 9px 9px;
+      background: #2769d6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .search-wrap {
+      position: absolute;
+      left: 364px;
+      top: 8px;
+      width: 540px;
+      height: 32px;
+      border: 1px solid #d6dde5;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      padding: 0 11px;
+      background: #fff;
+      color: #667085;
+      font-size: 12px;
+    }
+
+    .search-icon {
+      font-size: 16px;
+      color: #6b7280;
+      margin-right: 12px;
+    }
+
+    .top-icons {
+      margin-left: auto;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-right: 22px;
+    }
+
+    .circle-icon {
+      width: 22px;
+      height: 22px;
+      border: 1.5px solid #7b8794;
+      border-radius: 50%;
+      color: #4b5563;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+
+    .avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #1f6fe5;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .user-name {
+      font-size: 12px;
+      color: #263242;
+      margin-left: 6px;
+    }
+
+    .nav-rail {
+      position: absolute;
+      left: 0;
+      top: 48px;
+      width: 142px;
+      height: 672px;
+      border-right: 1px solid #e0e5eb;
+      background: #fbfcfe;
+    }
+
+    .nav-item {
+      height: 42px;
+      display: flex;
+      align-items: center;
+      padding-left: 22px;
+      gap: 13px;
+      color: #566170;
+      font-size: 12px;
+      position: relative;
+    }
+
+    .nav-item.active {
+      background: #eaf2ff;
+      color: #1558c8;
+      font-weight: 650;
+    }
+
+    .nav-item.active:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 3px;
+      height: 26px;
+      background: #2368dc;
+      border-radius: 0 3px 3px 0;
+    }
+
+    .nav-icon {
+      width: 17px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .collapse {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 142px;
+      height: 46px;
+      border-top: 1px solid #e0e5eb;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-left: 22px;
+      color: #566170;
+      font-size: 12px;
+    }
+
+    .main {
+      position: absolute;
+      left: 142px;
+      top: 48px;
+      width: 1138px;
+      height: 672px;
+      background: #ffffff;
+    }
+
+    .breadcrumb {
+      height: 38px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-left: 28px;
+      color: #485468;
+      font-size: 12px;
+    }
+
+    .page-header {
+      position: absolute;
+      top: 36px;
+      left: 28px;
+      width: 1080px;
+      height: 54px;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      color: #101828;
+      line-height: 28px;
+    }
+
+    .subtitle {
+      margin-top: 6px;
+      color: #596678;
+      font-size: 12px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: -2px;
+    }
+
+    .btn {
+      height: 29px;
+      min-width: 122px;
+      border: 1px solid #276fe8;
+      background: white;
+      color: #256bd8;
+      border-radius: 3px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    .btn.primary {
+      background: #1764d7;
+      color: white;
+      min-width: 100px;
+    }
+
+    .kpis {
+      position: absolute;
+      top: 102px;
+      left: 28px;
+      width: 1082px;
+      height: 80px;
+      display: flex;
+      gap: 11px;
+      border: 1px solid #e1e6ef;
+      border-radius: 6px;
+      background: #fbfbfc;
+    }
+
+    .kpi-card {
+      width: 520px;
+      height: 78px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 20px;
+      border-right: 1px solid #e6ebf2;
+    }
+
+    .kpi-card:last-child {
+      border-right: none;
+    }
+
+    .kpi-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #eaf2ff;
+      color: #1868d8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+    }
+
+    .kpi-number {
+      font-size: 26px;
+      font-weight: 800;
+      color: #1862d3;
+      line-height: 28px;
+    }
+
+    .kpi-caption {
+      font-size: 12px;
+      color: #404a5a;
+    }
+
+    .kpi-ring {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      border: 7px solid #1766d8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #1862d3;
+      background: white;
+    }
+
+    .cards {
+      position: absolute;
+      left: 28px;
+      top: 191px;
+      width: 1082px;
+      height: 429px;
+      display: grid;
+      grid-template-columns: 504px 566px;
+      grid-template-rows: 200px 209px;
+      gap: 10px;
+    }
+
+    .card {
+      position: relative;
+      background: #ffffff;
+      border: 1px solid #e0e6ef;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      height: 38px;
+      padding: 10px 12px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 750;
+      color: #202a38;
+    }
+
+    .card-subtitle {
+      margin-top: 2px;
+      padding-left: 12px;
+      color: #5a6474;
+      font-size: 11px;
+    }
+
+    .chart-box {
+      position: absolute;
+      left: 18px;
+      top: 55px;
+      width: 190px;
+      height: 130px;
+    }
+
+    .list-box {
+      position: absolute;
+      right: 15px;
+      top: 64px;
+      width: 285px;
+    }
+
+    .card.sits-card {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .card.sits-card .list-box {
+      right: 21px;
+      width: 318px;
+    }
+
+    .card.attach-card {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .card.people-card {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space4between;
+      min-height: 26px;
+      font-size: 12px;
+      color: #3b4556;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 9px;
+    }
+
+    .count {
+      color: #444f60;
+    }
+
+    .size {
+      color: #7a8493;
+      margin-left: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="topbar">
+      <div class="brand"><span class="shield">✓</span><span>DataInvestigator</span></div>
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <span>Search cases, users, locations, or keywords...</span>
+      </div>
+      <div class="top-icons">
+        <span class="circle-icon">?</span>
+        <span class="circle-icon">!</span>
+        <span class="avatar">MK</span>
+        <span class="user-name">Mona Kane</span>
+      </div>
+    </div>
+
+    <div class="nav-rail">
+      <div class="nav-item"><span class="nav-icon">⌂</span><span>Home</span></div>
+      <div class="nav-item"><span class="nav-icon">◫</span><span>Cases</span></div>
+      <div class="nav-item active"><span class="nav-icon">⌕</span><span>Search</span></div>
+      <div class="nav-item"><span class="nav-icon">▤</span><span>Data sources</span></div>
+      <div class="nav-item"><span class="nav-icon">♧</span><span>People</span></div>
+      <div class="nav-item"><span class="nav-icon">◇</span><span>Labels</span></div>
+      <div class="nav-item"><span class="nav-icon">▥</span><span>Reports</span></div>
+      <div class="nav-item"><span class="nav-icon">⚙</span><span>Settings</span></div>
+      <div class="collapse"><span>≪</span><span>Collapse</span></div>
+    </div>
+
+    <div class="main">
+      <div class="breadcrumb">← <span style="color:#1768d8;">Cases</span> › Case-2024-0415 - Project Orion</div>
+
+      <div class="page-header">
+        <div class="title-row">
+          <div>
+            <h1>Search</h1>
+            <div class="subtitle">Review and analyze search estimates before adding results to the investigation.</div>
+          </div>
+          <div class="action-buttons">
+            <div class="btn primary">Add to scope</div>
+            <div class="btn">▽ Refine search</div>
+            <div class="btn">⊕ View samples</div>
+            <div class="btn">↓ Download report</div>
+            <div class="btn">⟳ Refresh view</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi-card">
+          <div class="kpi-icon">⊞</div>
+          <div>
+            <div class="kpi-number">53,603</div>
+            <div class="kpi-caption">items to be added to investigation</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-ring">100%</div>
+          <div>
+            <div class="kpi-number">100%</div>
+            <div class="kpi-caption">of search results</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-header">
+            <div><span class="card-title">Top locations</span></div>
+          </div>
+          <div class="card-subtitle">Top locations present in the data set.</div>
+          <div id="chart_locations" class="chart-box"></div>
+          <div class="list-box">
+            <div class="item-row"><span class="dot" style="background:#2977e6;"></span><span>EXO</span><span class="count">30,254 items</span></div>
+            <div class="item-row"><span class="dot" style="background:#00a9a9;"></span><span>SPO</span><span class="count">18,153 items</span></div>
+            <div class="item-row"><span class="dot" style="background:#ffad18;"></span><span>Teams</span><span class="count">12,306 items</span></div>
+            <div class="item-row"><span class="dot" style="background:#9e86e5;"></span><span>Other</span><span class="count">8,890 items</span></div>
+          </div>
+        </div>
+
+        <div class="card sits-card">
+          <div class="card-header">
+            <div><span class="card-title">Top sensitive information types (SITs)</span></div>
+          </div>
+          <div class="card-subtitle">Sensitive information types found in the search results.</div>
+          <div id="chart_sits" class="chart-box"></div>
+          <div class="list-box">
+            <div class="item-row"><span class="dot" style="background:#2977e6;"></span><span>SSN</span><span class="count">15,092 items</span><span class="size">2.45 GB</span></div>
+            <div class="item-row"><span class="dot" style="background:#00a9a9;"></span><span>PIN Numbers</span><span class="count">8,612 items</span><span class="size">1.21 GB</span></div>
+            <div class="item-row"><span class="dot" style="background:#ffad18;"></span><span>Credit card number</span><span class="count">6,493 items</span><span class="size">1.03 GB</span></div>
+            <div class="item-row"><span class="dot" style="background:#ff6e68;"></span><span>Bank accounts</span><span class="count">4,306 items</span><span class="size">812 MB</span></div>
+            <div class="item-row"><span class="dot" style="background:#9e86e5;"></span><span>Company numbers</span><span class="count">4,094 items</span><span class="size">623 MB</span></div>
+            <div class="item-row"><span class="dot" style="background:#a9adba;"></span><span>Other</span><span class="count">4,006 items</span><span class="size">587 MB</span></div>
+          </div>
+        </div>
+
+        <div class="card people-card">
+          <div class="card-header">
+            <div><span class="card-title">Top people impacted</span></div>
+          </div>
+          <div class="card-subtitle">Top people related to the data set.</div>
+          <div id="chart_people" class="chart-box"></div>
+          <div class="list-box">
+            <div class="item-row"><span class="dot" style="background:#2977e6;"></span><span>Mona Kane</span><span class="count">18,755 items</span></div>
+            <div class="item-row"><span class="dot" style="background:#00a9a9;"></span><span>Maria Cameron</span><span class="count">16,080 items</span></div>
+            <div class="item-row"><span class="dot" style="background:#ffad18;"></span><span>Carlos Garcia</span><span class="count">10,714 items</span></div>
+            <div class="item-row"><span class="dot" style="background:#9e86e5;"></span><span>Other</span><span class="count">8,054 items</span></div>
+          </div>
+        </div>
+
+        <div class="card attach-card">
+          <div class="card-header">
+            <div><span class="card-title">Top attachment types</span></div>
+          </div>
+          <div class="card-subtitle">Top file types present as attachments.</div>
+          <div id="chart_attachments" class="chart-box"></div>
+          <div class="list-box">
+            <div class="item-row"><span class="dot" style="background:#2977e6;"></span><span>PDFs</span><span class="count">23,846 items</span><span class="size">12.34 GB</span></div>
+            <div class="item-row"><span class="dot" style="background:#00a9a9;"></span><span>Excel files</span><span class="count">14,913 items</span><span class="size">7.21 GB</span></div>
+            <div class="item-row"><span class="dot" style="background:#ffad18;"></span><span>Word files</span><span class="count">8,924 items</span><span class="size">4.15 GB</span></div>
+            <div class="item-row"><span class="dot" style="background:#ff6e68;"></span><span>Emails</span><span class="count">5,957 items</span><span class="size">2.83 GB</span></div>
+            <div class="item-row"><span class="dot" style="background:#9e86e5;"></span><span>SharePoint folders</span><span class="count">5,963 items</span><span class="size">1.92 GB</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function makePie(id, colors, data, radius) {
+      var chart = echarts.init(document.getElementById(id), null, { renderer: "canvas" });
+      chart.setOption({
+        animation: false,
+        color: colors,
+        series: [{
+          type: "pie",
+          radius: radius,
+          center: ["50%", "50%"],
+          avoidLabelOverlap: false,
+          label: {
+            show: true,
+            position: "inside",
+            color: "#ffffff",
+            fontWeight: 700,
+            fontSize: 12,
+            formatter: "{d}%"
+          },
+          labelLine: { show: false },
+          itemStyle: {
+            borderColor: "#ffffff",
+            borderWidth: 2
+          },
+          data: data
+        }]
+      });
+    }
+
+    makePie("chart_locations", ["#2977e6", "#00a9a9", "#ffad18", "#9e86e5"], [40, 25, 20, 15], ["35%", "62%"]);
+    makePie("chart_sits", ["#2977e6", "#00a9a9", "#ffad18", "#ff6e68", "#9e86e5", "#a9adba"], [35, 20, 15, 10, 10, 10], ["35%", "62%"]);
+    makePie("chart_people", ["#2977e6", "#00a9a9", "#ffad18", "#9e86e5"], [35, 30, 20, 15], ["35%", "62%"]);
+    makePie("chart_attachments", ["#2977e6", "#00a9a9", "#ffad18", "#ff6e68", "#9e86e5"], [40, 25, 15, 10, 10], ["35%", "62%"]);
+  </script>
+</body>
+</html>

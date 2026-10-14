@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Grade 7 Learning Schedule</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #020b1e;
+    font-family: "Arial", "Helvetica", sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 18% 12%, rgba(36, 120, 255, 0.24), transparent 28%),
+      radial-gradient(circle at 80% 24%, rgba(0, 206, 255, 0.14), transparent 30%),
+      radial-gradient(circle at 50% 73%, rgba(31, 112, 255, 0.16), transparent 38%),
+      linear-gradient(180deg, #061835 0%, #02102b 48%, #031735 100%);
+    color: #fff;
+  }
+
+  .header {
+    position: absolute;
+    left: 22px;
+    top: 38px;
+    width: 980px;
+    height: 222px;
+    border: 2px solid #2e91ff;
+    border-radius: 28px;
+    background: linear-gradient(90deg, rgba(12, 59, 128, 0.36), rgba(6, 28, 62, 0.62));
+    box-shadow: 0 0 20px rgba(27, 133, 255, 0.45), inset 0 0 24px rgba(46, 172, 255, 0.18);
+  }
+
+  .school-badge {
+    position: absolute;
+    left: 28px;
+    top: 14px;
+    width: 168px;
+    height: 168px;
+    border: 3px solid #56b4ff;
+    border-radius: 50%;
+    background: radial-gradient(circle, #13386c 0%, #061835 62%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 18px rgba(65, 180, 255, 0.45), inset 0 0 22px rgba(88, 202, 255, 0.16);
+  }
+
+  .badge-shield {
+    width: 48px;
+    height: 54px;
+    margin-bottom: 8px;
+    border: 2px solid #ffffff;
+    clip-path: polygon(50% 0%, 92% 14%, 82% 72%, 50% 100%, 18% 72%, 8% 14%);
+    background: rgba(255,255,255,0.12);
+    position: relative;
+  }
+
+  .badge-shield:before {
+    content: "";
+    position: absolute;
+    left: 11px;
+    top: 9px;
+    width: 22px;
+    height: 15px;
+    border: 1.5px solid #fff;
+    border-radius: 10px 10px 0 0;
+    transform: rotate(180deg);
+    opacity: .85;
+  }
+
+  .badge-text {
+    text-align: center;
+    font-weight: 800;
+    font-size: 25px;
+    letter-spacing: 1px;
+    color: #fff;
+    line-height: 1.05;
+  }
+
+  .badge-mini {
+    margin-top: 8px;
+    color: #7be0ff;
+    font-size: 10px;
+    font-style: italic;
+  }
+
+  .header-title {
+    position: absolute;
+    left: 260px;
+    top: 25px;
+    font-size: 67px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: -2px;
+    color: #ffffff;
+    text-shadow: 0 6px 13px rgba(0,0,0,.38), 0 0 16px rgba(80,180,255,.28);
+  }
+
+  .header-subtitle {
+    position: absolute;
+    left: 262px;
+    top: 148px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #72d3ff;
+  }
+
+  .room-pill {
+    position: absolute;
+    right: 30px;
+    top: 138px;
+    width: 210px;
+    height: 55px;
+    border: 2px solid #48c2ff;
+    border-radius: 30px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: rgba(10, 72, 138, 0.35);
+    font-size: 19px;
+    font-weight: 700;
+  }
+
+  .info-strip {
+    position: absolute;
+    left: 22px;
+    top: 280px;
+    width: 980px;
+    height: 88px;
+    border: 2px solid #35a6ff;
+    border-radius: 16px;
+    background: rgba(7, 32, 70, 0.68);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    padding: 8px 14px;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .info-icon {
+    width: 38px;
+    height: 38px;
+    color: #4fd9ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .info-text {
+    font-size: 18px;
+    color: #f4fbff;
+    font-weight: 700;
+    line-height: 1.25;
+    padding-left: 10px;
+  }
+
+  .schedule-card {
+    position: absolute;
+    top: 402px;
+    width: 318px;
+    height: 730px;
+    border: 2px solid #2f9fff;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(22, 92, 194, 0.86), rgba(3, 22, 56, 0.86));
+    box-shadow: 0 0 22px rgba(31, 138, 255, 0.38), inset 0 0 30px rgba(79, 204, 255, 0.11);
+  }
+
+  .monday { left: 22px; }
+  .wednesday { left: 360px; }
+  .friday { left: 698px; }
+
+  .card-head {
+    height: 102px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1159cf 0%, #1083df 54%, #096bd0 100%);
+    border-bottom: 1px solid #2faeff;
+  }
+
+  .day-name {
+    font-size: 31px;
+    font-weight: 900;
+    color: #fff;
+  }
+
+  .day-date {
+    margin-top: 6px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #87dfff;
+  }
+
+  .schedule-table {
+    width: 290px;
+    margin: 9px auto 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  .schedule-table th,
+  .schedule-table td {
+    border: 1.5px solid rgba(58, 162, 255, 0.58);
+    border-radius: 8px;
+    height: 56px;
+    color: #fff;
+    font-size: 19px;
+    font-weight: 700;
+    background: rgba(8, 39, 83, 0.82);
+  }
+
+  .schedule-table th {
+    font-size: 12px;
+    color: #9fe9ff;
+    text-align: left;
+    font-weight: 800;
+    height: 36px;
+  }
+
+  .schedule-table td:first-child {
+    width: 90px;
+    text-align: center;
+  }
+
+  .schedule-table td:nth-child(2) {
+    border-left: 1px solid rgba(130, 210, 255,.62);
+    font-size: 17px;
+  }
+
+  .card-note {
+    position: absolute;
+    left: 26px;
+    bottom: 24px;
+    width: 245px;
+    font-size: 19px;
+    font-weight: 700;
+    color: #68d8ff;
+  }
+
+  .lower-left {
+    position: absolute;
+    left: 22px;
+    top: 1160px;
+    width: 482px;
+    height: 270px;
+    border: 2px solid #32a7ff;
+    border-radius: 20px;
+    background: linear-gradient(90deg, rgba(6, 51, 100, .43), rgba(7, 28, 67, .48));
+    padding: 14px 16px;
+  }
+
+  .lower-right {
+    position: absolute;
+    left: 526px;
+    top: 1160px;
+    width: 476px;
+    height: 270px;
+    border: 2px solid #32a7ff;
+    border-radius: 20px;
+    background: linear-gradient(90deg, rgba(6, 51, 100, .43), rgba(7, 28, 67, .48));
+    padding: 14px 16px;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .round-icon {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 2px solid #52c8ff;
+    background: #1047a8;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+  }
+
+  .section-title {
+    font-size: 29px;
+    font-weight: 900;
+    color: #fff;
+    padding-bottom: 8px;
+    border-bottom: 4px solid #147bff;
+    width: 285px;
+  }
+
+  .lower-right .section-title {
+    width: 260px;
+  }
+
+  .bullets {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .bullets li {
+    font-size: 21px;
+    font-weight: 800;
+    color: #fff;
+    margin: 13px 0;
+  }
+
+  .bullet-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #34baff;
+    border-radius: 50%;
+    margin-right: 13px;
+  }
+
+  .footer {
+    position: absolute;
+    left: 22px;
+    bottom: 22px;
+    width: 980px;
+    height: 72px;
+    border: 2px solid #31a7ff;
+    border-radius: 18px;
+    background: linear-gradient(90deg, rgba(9, 52, 118, .48), rgba(6, 31, 75, .48));
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    font-size: 17px;
+    color: #fff;
+  }
+
+  .footer div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(86, 177, 255,.72);
+  }
+
+  .footer div:last-child {
+    border-right: none;
+  }
+
+  .footer-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5bd5ff;
+  }
+
+  .tiny-dots {
+    position: absolute;
+    right: 17px;
+    bottom: 10px;
+    width: 90px;
+    height: 35px;
+    background-image: radial-gradient(rgba(41, 172, 255, .55) 2px, transparent 2.3px);
+    background-size: 13px 11px;
+    opacity: .55;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="header">
+    <div class="school-badge">
+      <div class="badge-shield"></div>
+      <div class="badge-text">RIVERSIDE<br>PREP</div>
+      <div class="badge-mini">Middle School Weekly Schedule</div>
+    </div>
+
+    <div class="header-title">Grade 7 Learning Schedule</div>
+    <div class="header-subtitle">Spring Term • Week of March 18–22</div>
+    <div class="room-pill">Room B-204</div>
+  </div>
+
+  <div class="info-strip">
+    <div class="info-item">
+      <div class="info-icon">●</div>
+      <div class="info-text">Adviser:<br>Ms. Elena Brooks</div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">◷</div>
+      <div class="info-text">School Hours<br>8:15 AM–3:20 PM</div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">♣</div>
+      <div class="info-text">Clubs on Friday</div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">▭</div>
+      <div class="info-text">Bring Chromebook<br>Daily</div>
+    </div>
+  </div>
+
+  <div class="schedule-card monday">
+    <div class="card-head">
+      <div class="day-name">MONDAY</div>
+      <div class="day-date">March 18</div>
+    </div>
+    <table class="schedule-table">
+      <tr><th>Time</th><th>Monday March 18</th></tr>
+      <tr><td>8:15</td><td>Homeroom</td></tr>
+      <tr><td>8:30</td><td>Mathematics</td></tr>
+      <tr><td>9:25</td><td>English Language Arts</td></tr>
+      <tr><td>10:20</td><td>Science Lab</td></tr>
+      <tr><td>11:10</td><td>Advisory</td></tr>
+      <tr><td>11:30</td><td>Lunch</td></tr>
+      <tr><td>12:10</td><td>World History</td></tr>
+      <tr><td>1:05</td><td>Physical Education</td></tr>
+      <tr><td>2:00</td><td>Study Hall</td></tr>
+    </table>
+    <div class="card-note">Quiz: Fractions</div>
+  </div>
+
+  <div class="schedule-card wednesday">
+    <div class="card-head">
+      <div class="day-name">WEDNESDAY</div>
+      <div class="day-date">March 20</div>
+    </div>
+    <table class="schedule-table">
+      <tr><th>Time</th><th>Wednesday March 20</th></tr>
+      <tr><td>8:15</td><td>Homeroom</td></tr>
+      <tr><td>8:30</td><td>Life Science</td></tr>
+      <tr><td>9:25</td><td>Algebra Skills</td></tr>
+      <tr><td>10:20</td><td>Reading Workshop</td></tr>
+      <tr><td>11:10</td><td>Art &amp; Design</td></tr>
+      <tr><td>11:50</td><td>Lunch</td></tr>
+      <tr><td>12:30</td><td>Computer Science</td></tr>
+      <tr><td>1:20</td><td>Music Ensemble</td></tr>
+      <tr><td>2:10</td><td>Library</td></tr>
+    </table>
+    <div class="card-note">Lab coats required</div>
+  </div>
+
+  <div class="schedule-card friday">
+    <div class="card-head">
+      <div class="day-name">FRIDAY</div>
+      <div class="day-date">March 22</div>
+    </div>
+    <table class="schedule-table">
+      <tr><th>Time</th><th>Friday March 22</th></tr>
+      <tr><td>8:15</td><td>Homeroom</td></tr>
+      <tr><td>8:30</td><td>Geography</td></tr>
+      <tr><td>9:25</td><td>Writing Studio</td></tr>
+      <tr><td>10:20</td><td>PE Fitness</td></tr>
+      <tr><td>11:05</td><td>Lunch</td></tr>
+      <tr><td>11:45</td><td>Spanish I</td></tr>
+      <tr><td>12:35</td><td>Makerspace</td></tr>
+      <tr><td>1:25</td><td>Community Circle</td></tr>
+      <tr><td>2:05</td><td>Clubs &amp; Dismissal</td></tr>
+    </table>
+    <div class="card-note">House meeting at 1:25 PM</div>
+  </div>
+
+  <div class="lower-left">
+    <div class="section-head">
+      <div class="round-icon">☆</div>
+      <div class="section-title">This Week Highlights</div>
+    </div>
+    <ul class="bullets">
+      <li><span class="bullet-dot"></span>Tuesday: Science project check-in</li>
+      <li><span class="bullet-dot"></span>Wednesday: Library books due</li>
+      <li><span class="bullet-dot"></span>Thursday: Math homework review</li>
+      <li><span class="bullet-dot"></span>Friday: After-school chess club</li>
+    </ul>
+  </div>
+
+  <div class="lower-right">
+    <div class="section-head">
+      <div class="round-icon">♧</div>
+      <div class="section-title">Important Reminders</div>
+    </div>
+    <ul class="bullets">
+      <li><span class="bullet-dot"></span>Wear PE shoes on Monday</li>
+      <li><span class="bullet-dot"></span>Submit reading log by Thursday</li>
+      <li><span class="bullet-dot"></span>Bring headphones for Computer Science</li>
+      <li><span class="bullet-dot"></span>Parent pickup uses North Gate</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <div><span class="footer-icon">♙</span>Riverside Preparatory School</div>
+    <div><span class="footer-icon">✉</span>Contact: office@riversideprep.edu</div>
+    <div><span class="footer-icon">▣</span>Updated 03/15/2024</div>
+  </div>
+
+  <div class="tiny-dots"></div>
+</div>
+</body>
+</html>

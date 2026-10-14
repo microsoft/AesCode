@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Smart Education Infographic</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #eef7ff;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 10% 14%, rgba(96, 178, 255, 0.20) 0 55px, rgba(96, 178, 255, 0.08) 56px 120px, transparent 122px),
+      radial-gradient(circle at 88% 53%, rgba(86, 165, 240, 0.18) 0 110px, rgba(86, 165, 240, 0.06) 111px 220px, transparent 221px),
+      linear-gradient(115deg, #ffffff 0%, #f8fcff 42%, #edf8ff 70%, #f8fdff 100%);
+    color: #111;
+  }
+
+  /* Background wave and circle effects */
+  .bg-wave-left {
+    position: absolute;
+    left: -120px;
+    top: 260px;
+    width: 800px;
+    height: 270px;
+    opacity: 0.42;
+    border-radius: 50%;
+    border: 1px solid rgba(55, 151, 230, 0.28);
+    border-top-color: transparent;
+    border-left-color: transparent;
+    transform: rotate(-18deg);
+    box-shadow:
+      0 0 0 24px rgba(58, 150, 230, 0.055),
+      0 0 0 48px rgba(58, 150, 230, 0.045),
+      0 0 0 72px rgba(58, 150, 230, 0.035),
+      0 0 0 96px rgba(58, 150, 230, 0.028);
+    filter: blur(0.2px);
+  }
+
+  .bg-wave-right {
+    position: absolute;
+    right: -140px;
+    top: 220px;
+    width: 620px;
+    height: 260px;
+    opacity: 0.34;
+    border-radius: 50%;
+    border: 1px solid rgba(62, 151, 230, 0.22);
+    border-top-color: transparent;
+    border-left-color: transparent;
+    transform: rotate(30deg);
+    box-shadow:
+      0 0 0 38px rgba(62, 151, 230, 0.048),
+      0 0 0 76px rgba(62, 151, 230, 0.035),
+      0 0 0 114px rgba(62, 151, 230, 0.024);
+  }
+
+  .tiny-line {
+    position: absolute;
+    border: 1px solid rgba(72, 155, 230, 0.18);
+    border-radius: 50%;
+    opacity: 0.65;
+  }
+
+  .tiny-line.t1 {
+    width: 130px;
+    height: 130px;
+    left: 872px;
+    top: 135px;
+    border-top-color: transparent;
+    border-left-color: transparent;
+  }
+
+  .tiny-line.t2 {
+    width: 92px;
+    height: 92px;
+    right: 136px;
+    top: 250px;
+    border-top-color: transparent;
+  }
+
+  .tiny-line.t3 {
+    width: 98px;
+    height: 98px;
+    left: 922px;
+    bottom: 88px;
+    border-bottom-color: transparent;
+  }
+
+  .dot {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(74, 150, 225, 0.36);
+  }
+
+  .dot.d1 { left: 872px; top: 142px; }
+  .dot.d2 { left: 1125px; top: 143px; }
+  .dot.d3 { left: 1014px; top: 402px; }
+  .dot.d4 { left: 928px; top: 664px; }
+
+  /* Title and icon */
+  .title-icon {
+    position: absolute;
+    top: 54px;
+    left: 78px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .orb-icon {
+    position: relative;
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(58, 154, 235, 0.22) 0 36px, rgba(58, 154, 235, 0.05) 37px 62px, transparent 63px);
+  }
+
+  .orb-icon::before {
+    content: "";
+    position: absolute;
+    left: 26px;
+    top: 26px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #22bfff, #2763d5);
+    box-shadow: 0 0 18px rgba(38, 162, 255, 0.45);
+  }
+
+  .orb-icon::after {
+    content: "";
+    position: absolute;
+    left: 42px;
+    top: 42px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid rgba(30, 110, 180, 0.55);
+  }
+
+  .title {
+    font-size: 48px;
+    line-height: 1;
+    color: #2883e5;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  /* Left feature blocks */
+  .feature-stack {
+    position: absolute;
+    left: 76px;
+    top: 172px;
+    width: 626px;
+    height: 545px;
+  }
+
+  .feature-card {
+    position: absolute;
+    left: 0;
+    width: 626px;
+    height: 120px;
+    border: 1.5px solid #2393ef;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.68);
+    display: flex;
+    align-items: center;
+    padding: 12px 22px 12px 24px;
+    box-shadow: inset 0 0 18px rgba(66, 160, 238, 0.06);
+  }
+
+  .feature-card.card1 { top: 0; }
+  .feature-card.card2 { top: 145px; }
+  .feature-card.card3 { top: 290px; }
+  .feature-card.card4 { top: 434px; }
+
+  .feature-icon {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+    margin-right: 20px;
+    color: #2891f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    font-weight: 700;
+  }
+
+  .feature-text h2 {
+    margin: 0 0 6px 0;
+    color: #0756a0;
+    font-size: 20px;
+    line-height: 1.22;
+    font-weight: 800;
+  }
+
+  .feature-text p {
+    margin: 0;
+    color: #070707;
+    font-size: 14.2px;
+    line-height: 1.34;
+    font-weight: 400;
+  }
+
+  /* Phone mockup */
+  .phone-wrap {
+    position: absolute;
+    left: 928px;
+    top: 166px;
+    width: 204px;
+    height: 440px;
+    z-index: 5;
+    filter: drop-shadow(0 16px 20px rgba(0, 72, 140, 0.14));
+  }
+
+  .phone-wrap img {
+    width: 204px;
+    height: 440px;
+    display: block;
+    border-radius: 30px;
+    border: 7px solid #111820;
+    background: #fff;
+    object-fit: cover;
+  }
+
+  .phone-screen {
+    position: absolute;
+    left: 46px;
+    top: 100px;
+    width: 112px;
+    height: 250px;
+    z-index: 6;
+    color: #111;
+  }
+
+  .phone-screen h3 {
+    margin: 0 0 8px 0;
+    font-size: 22px;
+    line-height: 1.15;
+    font-weight: 800;
+  }
+
+  .phone-screen p {
+    margin: 0 0 12px 0;
+    font-size: 10.5px;
+    line-height: 1.32;
+  }
+
+  .chat-bubble {
+    height: 19px;
+    border-radius: 10px;
+    background: #eef4ff;
+    margin-bottom: 12px;
+  }
+
+  .chat-bubble.one {
+    width: 82px;
+    position: relative;
+  }
+
+  .chat-bubble.one::after {
+    content: "";
+    position: absolute;
+    right: 3px;
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #2e8fe9;
+  }
+
+  .chat-bubble.two {
+    width: 102px;
+    background: #dbe9ff;
+  }
+
+  .chat-bubble.three {
+    width: 88px;
+    background: #e8eef8;
+    opacity: 0.65;
+  }
+
+  .chat-bubble.four {
+    width: 96px;
+    background: #dbe9ff;
+  }
+
+  /* Badges */
+  .badge {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #33a8ee 0%, #216fd2 100%);
+    border: 2px solid #b9d8ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    font-size: 14.8px;
+    font-weight: 800;
+    line-height: 1.2;
+    z-index: 4;
+    box-shadow:
+      0 0 0 12px rgba(255, 255, 255, 0.62),
+      0 0 0 14px rgba(161, 206, 255, 0.44),
+      0 10px 24px rgba(22, 91, 170, 0.15);
+    padding: 14px;
+  }
+
+  .badge.b-top-left {
+    left: 761px;
+    top: 210px;
+  }
+
+  .badge.b-top-right {
+    right: 78px;
+    top: 210px;
+  }
+
+  .badge.b-bottom-left {
+    left: 761px;
+    top: 468px;
+  }
+
+  .badge.b-bottom-right {
+    right: 78px;
+    top: 468px;
+  }
+
+  /* Interaction line icons */
+  .small-tech-lines {
+    position: absolute;
+    left: 858px;
+    top: 155px;
+    width: 56px;
+    height: 56px;
+    z-index: 2;
+    opacity: 0.45;
+  }
+
+  .small-tech-lines svg,
+  .small-tech-lines-bottom svg {
+    width: 56px;
+    height: 56px;
+    stroke: rgba(62, 150, 220, 0.48);
+    fill: none;
+    stroke-width: 1.2;
+  }
+
+  .small-tech-lines-bottom {
+    position: absolute;
+    left: 858px;
+    top: 622px;
+    width: 56px;
+    height: 56px;
+    z-index: 2;
+    opacity: 0.42;
+  }
+
+  .signal-icon {
+    position: absolute;
+    right: 118px;
+    top: 148px;
+    width: 42px;
+    height: 42px;
+    z-index: 2;
+    opacity: 0.42;
+  }
+
+  .signal-icon svg {
+    width: 42px;
+    height: 42px;
+    stroke: rgba(62, 150, 220, 0.52);
+    fill: none;
+    stroke-width: 1.3;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="bg-wave-left"></div>
+  <div class="bg-wave-right"></div>
+  <div class="tiny-line t1"></div>
+  <div class="tiny-line t2"></div>
+  <div class="tiny-line t3"></div>
+  <div class="dot d1"></div>
+  <div class="dot d2"></div>
+  <div class="dot d3"></div>
+  <div class="dot d4"></div>
+
+  <div class="title-icon">
+    <div class="orb-icon"></div>
+    <div class="title">Smart Education</div>
+  </div>
+
+  <div class="feature-stack">
+    <div class="feature-card card1">
+      <div class="feature-icon">⌕</div>
+      <div class="feature-text">
+        <h2>Development of Personalized Learning Plans</h2>
+        <p>According to the student's learning progress and ability, an AI assistant can customize personalized learning plans, optimizing educational efficiency and helping each student reach their full potential.</p>
+      </div>
+    </div>
+
+    <div class="feature-card card2">
+      <div class="feature-icon">☏</div>
+      <div class="feature-text">
+        <h2>Intelligent Tutoring and Q&amp;A</h2>
+        <p>By utilizing advanced natural language processing technology, the AI can provide immediate, real-time answers to students' questions and offer on-demand one-on-one intelligent tutoring support.</p>
+      </div>
+    </div>
+
+    <div class="feature-card card3">
+      <div class="feature-icon">◎</div>
+      <div class="feature-text">
+        <h2>Language Learning Aid Tool</h2>
+        <p>The AI serves as a powerful assistant for language learning, offering features such as interactive pronunciation practice, real-time grammar analysis, and vocabulary building to accelerate the language acquisition process.</p>
+      </div>
+    </div>
+
+    <div class="feature-card card4">
+      <div class="feature-icon">▤</div>
+      <div class="feature-text">
+        <h2>Automatic Generation of Teaching Resources</h2>
+        <p>Based on the teaching syllabus and course requirements, the AI can automatically generate rich and diverse teaching resources, including quizzes, lesson plans, and study guides, reducing the burden on teachers in lesson preparation.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="small-tech-lines">
+    <svg viewBox="0 0 60 60" aria-hidden="true">
+      <circle cx="18" cy="20" r="3"/>
+      <circle cx="28" cy="12" r="3"/>
+      <circle cx="38" cy="22" r="3"/>
+      <circle cx="30" cy="34" r="3"/>
+      <line x1="21" y1="19" x2="27" y2="13"/>
+      <line x1="30" y1="14" x2="36" y2="21"/>
+      <line x1="30" y1="34" x2="37" y2="23"/>
+      <circle cx="24" cy="45" r="3"/>
+      <line x1="24" y1="38" x2="24" y2="43"/>
+    </svg>
+  </div>
+
+  <div class="small-tech-lines-bottom">
+    <svg viewBox="0 0 60 60" aria-hidden="true">
+      <circle cx="18" cy="20" r="3"/>
+      <circle cx="28" cy="12" r="3"/>
+      <circle cx="38" cy="22" r="3"/>
+      <circle cx="30" cy="34" r="3"/>
+      <line x1="21" y1="19" x2="27" y2="13"/>
+      <line x1="30" y1="14" x2="36" y2="21"/>
+      <line x1="30" y1="34" x2="37" y2="23"/>
+      <circle cx="24" cy="45" r="3"/>
+      <line x1="24" y1="38" x2="24" y2="43"/>
+    </svg>
+  </div>
+
+  <div class="signal-icon">
+    <svg viewBox="0 0 48 48" aria-hidden="true">
+      <circle cx="24" cy="24" r="6"/>
+      <circle cx="24" cy="24" r="13"/>
+      <circle cx="24" cy="24" r="20"/>
+      <path d="M16 19c4-4 8-5 12-5v12c-4 0-8-1-12-5z"/>
+      <path d="M24 13c5 0 9 1 13 4"/>
+      <path d="M32 20c3 2 5 4 7 7"/>
+    </svg>
+  </div>
+
+  <div class="phone-wrap">
+    <img src="https://placehold.co/204x440/eaf5ff/1f2937?text=AI+Education" alt="Smartphone mockup displaying a chat-based AI assistant" />
+    <div class="phone-screen">
+      <h3>Hi! I am<br>Cloudweave</h3>
+      <p>I can help search, answer questions, and write. Please leave your task.</p>
+      <div class="chat-bubble one"></div>
+      <div class="chat-bubble two"></div>
+      <div class="chat-bubble three"></div>
+      <div class="chat-bubble four"></div>
+    </div>
+  </div>
+
+  <div class="badge b-top-left">Development of Personalized Learning Plans</div>
+  <div class="badge b-top-right">Intelligent Tutoring and Q&amp;A</div>
+  <div class="badge b-bottom-left">Automatic Generation of Teaching Resources</div>
+  <div class="badge b-bottom-right">Language Learning Aid Tool</div>
+</div>
+</body>
+</html>

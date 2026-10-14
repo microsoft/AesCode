@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Microsoft Unified Net New | Incubation Offerings</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #d9d7d2;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    color: #111;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background: #f2f1ef;
+  }
+
+  .title {
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    width: 1300px;
+    text-align: left;
+    font-size: 30px;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+
+  .purpose-band {
+    position: absolute;
+    top: 66px;
+    left: 40px;
+    width: 1300px;
+    height: 60px;
+    background: #fbfbfa;
+    border-radius: 32px;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.18);
+  }
+
+  .purpose-pill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 180px;
+    height: 48px;
+    border-radius: 28px;
+    background: #4b912f;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding-left: 52px;
+    font-weight: 800;
+    font-size: 19px;
+  }
+
+  .purpose-pill .mini-icon {
+    position: absolute;
+    left: 13px;
+    top: 9px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #b9ef9a;
+    border: 2px solid rgba(255,255,255,0.55);
+  }
+
+  .purpose-pill .mini-icon:before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    width: 10px;
+    height: 10px;
+    border-top: 3px solid #fff;
+    border-right: 3px solid #fff;
+    transform: rotate(45deg);
+  }
+
+  .purpose-text {
+    position: absolute;
+    left: 198px;
+    top: 7px;
+    width: 1080px;
+    font-size: 16px;
+    line-height: 1.28;
+  }
+
+  .accel-box {
+    position: absolute;
+    top: 154px;
+    left: 36px;
+    width: 988px;
+    height: 340px;
+    background: #fff;
+    border: 2px solid #d8d8d8;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.11);
+  }
+
+  .section-tab-blue {
+    position: absolute;
+    top: -21px;
+    left: 22px;
+    width: 216px;
+    height: 42px;
+    border-radius: 22px;
+    background: #9fe5e0;
+    color: #fff;
+    text-align: center;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 42px;
+    z-index: 3;
+  }
+
+  .accel-table {
+    position: absolute;
+    left: 13px;
+    top: 32px;
+    width: 960px;
+    height: 302px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    border: 1px solid #c8c8c8;
+    font-size: 15.5px;
+  }
+
+  .accel-table th {
+    background: #9fe5e0;
+    color: #111;
+    font-weight: 800;
+    height: 28px;
+    border: 1px solid #c5c5c5;
+    text-align: center;
+  }
+
+  .accel-table td {
+    border: 1px solid #c8c8c8;
+    padding: 6px 8px;
+    vertical-align: top;
+    line-height: 1.18;
+  }
+
+  .accel-table td:first-child {
+    font-weight: 700;
+  }
+
+  .call-box {
+    position: absolute;
+    top: 140px;
+    right: 13px;
+    width: 318px;
+    height: 310px;
+    background: #fff;
+    border: 3px solid #0b76d9;
+    border-radius: 20px;
+    box-shadow: 0 4px 9px rgba(0,0,0,0.12);
+  }
+
+  .call-tab {
+    position: absolute;
+    top: -25px;
+    left: 56px;
+    width: 264px;
+    height: 42px;
+    border-radius: 22px;
+    background: #087bd3;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 42px;
+  }
+
+  .call-subhead {
+    position: absolute;
+    top: 16px;
+    left: 10px;
+    width: 298px;
+    height: 26px;
+    background: #f1f1f1;
+    border: 1px solid #bfbfbf;
+    text-align: center;
+    font-weight: 800;
+    line-height: 26px;
+    font-size: 15.5px;
+  }
+
+  .call-bullets {
+    position: absolute;
+    top: 50px;
+    left: 11px;
+    width: 296px;
+    font-size: 14.5px;
+    line-height: 1.16;
+  }
+
+  .call-bullets ul {
+    margin: 0;
+    padding-left: 15px;
+  }
+
+  .call-bullets li {
+    margin-bottom: 7px;
+  }
+
+  .roles-box {
+    position: absolute;
+    top: 514px;
+    left: 36px;
+    width: 988px;
+    height: 184px;
+    background: #fff;
+    border-radius: 15px;
+    border: 1px solid #dfdfdf;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  }
+
+  .roles-tab {
+    position: absolute;
+    top: -22px;
+    left: 22px;
+    width: 216px;
+    height: 42px;
+    border-radius: 22px;
+    background: #bca7e9;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 42px;
+  }
+
+  .roles-table {
+    position: absolute;
+    top: 21px;
+    left: 12px;
+    width: 960px;
+    height: 146px;
+    border-collapse: collapse;
+    font-size: 15.5px;
+    table-layout: fixed;
+  }
+
+  .roles-table th,
+  .roles-table td {
+    border: 1px solid #bfc0c0;
+    height: 39px;
+    vertical-align: top;
+  }
+
+  .roles-table th {
+    width: 190px;
+    background: #e4def0;
+    font-weight: 800;
+  }
+
+  .roles-table td {
+    padding-left: 10px;
+    line-height: 1.2;
+  }
+
+  .links-box {
+    position: absolute;
+    top: 474px;
+    right: 14px;
+    width: 318px;
+    height: 224px;
+    background: #fff;
+    border: 3px solid #2a939b;
+    border-radius: 20px;
+    box-shadow: 0 4px 9px rgba(0,0,0,0.12);
+  }
+
+  .links-tab {
+    position: absolute;
+    top: -25px;
+    left: 56px;
+    width: 264px;
+    height: 42px;
+    border-radius: 22px;
+    background: #2f9aa1;
+    color: #fff;
+    text-align: center;
+    line-height: 42px;
+    font-weight: 800;
+    font-size: 17px;
+  }
+
+  .links-content {
+    position: absolute;
+    top: 20px;
+    left: 12px;
+    width: 292px;
+    font-size: 14.5px;
+    line-height: 1.2;
+  }
+
+  .links-content .subhead {
+    font-weight: 800;
+    margin-bottom: 2px;
+  }
+
+  .links-content a {
+    color: #006e9e;
+    text-decoration: underline;
+    display: block;
+    margin-bottom: 1px;
+  }
+
+  .footer-center {
+    position: absolute;
+    bottom: 13px;
+    left: 0;
+    width: 1376px;
+    text-align: center;
+    font-size: 13px;
+    color: #777;
+  }
+
+  .footer-right {
+    position: absolute;
+    right: 15px;
+    bottom: 12px;
+    width: 245px;
+    text-align: right;
+    font-size: 13px;
+    color: #0063c9;
+    line-height: 1.45;
+  }
+
+  .footer-right .line {
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="title">Microsoft Unified Net New | Incubation Offerings (Digital Natives and Modern Commerce)</div>
+
+  <div class="purpose-band">
+    <div class="purpose-pill">
+      <span class="mini-icon"></span>
+      Purpose
+    </div>
+    <div class="purpose-text">
+      Secure new customers who have never held a Unified agreement by leveraging tailored solutions to enhance their digital capabilities, optimize their operations, and support long-term sustainable growth.
+    </div>
+  </div>
+
+  <div class="accel-box">
+    <div class="section-tab-blue">Accelerator Details</div>
+    <table class="accel-table">
+      <tr>
+        <th>Description of Program</th>
+        <th>Accelerator Outcomes</th>
+      </tr>
+      <tr>
+        <td>
+          <strong>Program Objectives</strong><br>
+          <strong>Engage and Onboard New Customers:</strong> Target and connect with organizations that have not previously held a Unified Agreement to introduce them to Microsoft's comprehensive support and digital solutions.<br><br>
+          <strong>Enhance Digital Capabilities:</strong> Tailor solutions specifically for Digital Native and Modern Commerce businesses to improve their technological infrastructure and operational efficiency.<br><br>
+          <strong>Support Long-term Growth:</strong> Offer proactive solutions and strategic add-ons designed to foster continuous development, ensuring they become long-term, satisfied users of Microsoft Unified.
+        </td>
+        <td>
+          <strong>Targeted SBR:</strong> Achieve targeted Support Billed Revenue by converting net new opportunities into billable Unified agreements.<br><br>
+          <strong>&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;Modern Commerce:</strong> FY24 New Customer Growth examples: E-commerce platforms, FinTech startups, Direct-to-Consumer brands.<br><br>
+          <strong>&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;Digital Natives:</strong> FY24 New Customer Growth examples: Cloud-first companies, SaaS providers, App developers.<br><br>
+          <strong>Insights: Customer Insights:</strong> Gather deep understanding of customer needs and challenges within these segments to refine future offerings.<br><br>
+          <strong>Market Trends:</strong> Monitor and analyze market trends to stay ahead of competitors and adapt strategies accordingly.
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="call-box">
+    <div class="call-tab">Call to Action</div>
+    <div class="call-subhead">Process to Leverage Accelerator</div>
+    <div class="call-bullets">
+      <ul>
+        <li><strong>Engage with Targeted Customers:</strong> Identify and reach out to customers meeting the Digital Native and Modern Commerce criteria.</li>
+        <li><strong>Utilize Sales Accelerator Tool:</strong> Leverage the dedicated tool to track and drive the status of each opportunity.</li>
+        <li><strong>Coordinate with SMEs:</strong> Work closely with Unified Net New and EAMCA resources for specialized support.</li>
+        <li><strong>Leverage EAMCAM process:</strong> Use the established process to move opportunities effectively through the sales funnel.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="roles-box">
+    <div class="roles-tab">Activities by Role</div>
+    <table class="roles-table">
+      <tr>
+        <th>Role</th>
+        <th>Activities</th>
+      </tr>
+      <tr>
+        <td>Accelerator SMEs v-team:</td>
+        <td>Define strategy, accelerate opportunities, provide specialized knowledge, and ensure successful onboarding.</td>
+      </tr>
+      <tr>
+        <td>Field Sellers (SSSPs):</td>
+        <td>Drive customer engagement, execute sales motions, identify needs, and convert leads into Unified agreements.</td>
+      </tr>
+      <tr>
+        <td>Program Lead:</td>
+        <td>Orchestrate the overall program, monitor progress, gather insights, and provide feedback for continuous improvement.</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="links-box">
+    <div class="links-tab">Key Links &amp; Resources</div>
+    <div class="links-content">
+      <div class="subhead">Digital Natives:</div>
+      <a>Customer Presentation Deck</a>
+      <a>Quick Reference Guide</a>
+      <a>Seller Training Materials</a>
+      <a>Private Preview Documents</a>
+      <br>
+      <div class="subhead">Modern Commerce:</div>
+      <a>Customer Presentation Deck</a>
+      <a>Quick Reference Guide</a>
+      <a>Seller Training Materials</a>
+      <a>Private Preview Documents</a>
+    </div>
+  </div>
+
+  <div class="footer-center">Microsoft Confidential – Internal Only</div>
+  <div class="footer-right">
+    <div class="line"><strong>Program Owner:</strong> Jane Doe</div>
+    <div class="line"><strong>Program Team:</strong> Unified Net New Team</div>
+  </div>
+</div>
+</body>
+</html>

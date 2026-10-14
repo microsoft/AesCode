@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>2025 Travel Data Report</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #2b0712;
+    font-family: Arial, "Helvetica Neue", Helvetica, "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background: #f3eddf;
+    color: #6c1020;
+  }
+
+  .header {
+    position: relative;
+    height: 170px;
+    background: #6a091a;
+    color: #fff8e8;
+    padding: 26px 42px;
+    border-bottom: 1px solid rgba(255,255,255,.15);
+  }
+
+  .header .kicker {
+    color: #dfc49a;
+    font-weight: 800;
+    letter-spacing: 4px;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .header .main-title {
+    font-size: 40px;
+    line-height: 1.12;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .header .subtitle {
+    margin-top: 12px;
+    color: #e3c293;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .header .globe-dot {
+    position: absolute;
+    right: 14px;
+    top: 30px;
+    width: 140px;
+    height: 110px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.25);
+    background:
+      radial-gradient(circle at 35px 40px, transparent 22px, rgba(255,255,255,.28) 23px 25px, transparent 26px),
+      repeating-linear-gradient(90deg, transparent 0 18px, rgba(255,255,255,.18) 19px 21px),
+      repeating-linear-gradient(0deg, transparent 0 17px, rgba(255,255,255,.16) 18px 20px);
+    opacity: .55;
+  }
+
+  .kpi-band {
+    height: 192px;
+    background: #fbf6eb;
+    padding: 19px 42px 18px;
+    display: flex;
+    justify-content: space2between;
+    gap: 18px;
+  }
+
+  .kpi-card {
+    position: relative;
+    height: 155px;
+    background: rgba(255,255,255,.82);
+    border: 1.5px solid #a86a45;
+    border-radius: 11px;
+    padding: 15px 16px;
+    text-align: center;
+  }
+
+  .kpi-icon {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 10px;
+    border-radius: 50%;
+    background: #f1e4cb;
+    color: #8a2d34;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+  }
+
+  .kpi-label {
+    font-size: 15px;
+    font-weight: 700;
+    min-height: 34px;
+  }
+
+  .kpi-label span {
+    display: block;
+    font-size: 12px;
+    color: #3d241e;
+    margin-top: 2px;
+  }
+
+  .kpi-value {
+    margin-top: 9px;
+    border-top: 1px solid #ba7a58;
+    padding-top: 10px;
+    color: #7b0b1e;
+    font-size: 45px;
+    font-weight: 900;
+  }
+
+  .metrics-band {
+    position: relative;
+    height: 305px;
+    background: linear-gradient(180deg, #750b1e 0%, #3d0715 100%);
+    padding: 20px 38px 18px;
+    color: #fff7ec;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 22px;
+    font-weight: 900;
+    margin-bottom: 7px;
+  }
+
+  .section-title .cn {
+    color: #fff4e7;
+  }
+
+  .section-title .en {
+    color: #f4dfc3;
+  }
+
+  .mini-icon {
+    width: 34px;
+    height: 34px;
+    border: 1.5px solid #f2d7b2;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #f2d7b2;
+    font-size: 18px;
+    flex: 0 0 auto;
+  }
+
+  #barChart {
+    width: 930px;
+    height: 210px;
+    margin-top: 2px;
+  }
+
+  .footnote {
+    color: #f4eadb;
+    font-size: 13px;
+    font-style: italic;
+    padding-top: 3px;
+  }
+
+  .dest-band {
+    height: 255px;
+    background: #fbf6eb;
+    padding: 15px 42px 13px;
+  }
+
+  .dest-title {
+    font-size: 22px;
+    color: #841325;
+    font-weight: 900;
+    margin-bottom: 10px;
+  }
+
+  table {
+    width: 940px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    background: rgba(255,255,255,.85);
+    border: 1.5px solid #a74f56;
+  }
+
+  td {
+    border: 1px solid #b46255;
+    padding: 8px 10px;
+    font-size: 17px;
+    text-align: center;
+    color: #32241d;
+    height: 32px;
+  }
+
+  th {
+    background: #f3e7cf;
+    color: #7b1525;
+    height: 30px;
+    padding: 5px 8px;
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .passenger-band {
+    height: 270px;
+    background: #fbf7ed;
+    padding: 12px 42px 11px;
+    display: flex;
+    position: relative;
+  }
+
+  .pass-left {
+    width: 500px;
+    height: 238px;
+    position: relative;
+  }
+
+  #donutChart {
+    position: absolute;
+    left: 18px;
+    top: 20px;
+    width: 310px;
+    height: 190px;
+  }
+
+  .legend {
+    position: absolute;
+    right: 10px;
+    top: 76px;
+    font-size: 16px;
+  }
+
+  .legend-row {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #3c2820;
+  }
+
+  .swatch {
+    width: 17px;
+    height: 17px;
+    display: inline-block;
+  }
+
+  .pass-right {
+    flex: 1;
+    height: 225px;
+    border-left: 1.5px dashed #c9785e;
+    padding-left: 20px;
+  }
+
+  .insight-card {
+    height: 67px;
+    border: 1.5px solid #b97058;
+    border-radius: 10px;
+    background: rgba(255,255,255,.82);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 17px;
+    color: #2f201b;
+  }
+
+  .insight-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #8a1125;
+    color: #fff1df;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+  }
+
+  .experience-band {
+    height: 165px;
+    background: #73091f;
+    color: #fff8ee;
+    padding: 13px 42px 11px;
+  }
+
+  .experience-title {
+    font-size: 21px;
+    font-weight: 900;
+    margin-bottom: 10px;
+  }
+
+  .metric-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .metric-block {
+    width: 296px;
+    height: 86px;
+    background: #fff5eb;
+    border: 1.5px solid #b97058;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 11px 13px;
+    gap: 14px;
+    color: #301c17;
+  }
+
+  .metric-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #8a1125;
+    color: #fff1df;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+
+  .metric-text strong {
+    display: block;
+    font-size: 30px;
+    margin-top: 2px;
+    color: #8a1125;
+  }
+
+  .source-line {
+    text-align: center;
+    font-size: 13px;
+    color: #f4dfc9;
+    margin-top: 1px;
+  }
+
+  .takeaway-band {
+    height: 179px;
+    background: #f8f1e5;
+    padding: 13px 42px 10px;
+  }
+
+  .takeaway-box {
+    height: 82px;
+    border: 1.5px solid #b93e47;
+    border-radius: 8px;
+    background: rgba(255,255,255,.65);
+    display: flex;
+    align-items: center;
+    padding: 10px 13px;
+    gap: 15px;
+  }
+
+  .takeaway-icon {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: #931327;
+    color: #fff1df;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+  }
+
+  .takeaway-title {
+    color: #821525;
+    font-size: 20px;
+    font-weight: 900;
+  }
+
+  .takeaway-copy {
+    font-size: 16px;
+    color: #2b201a;
+    margin-top: 4px;
+  }
+
+  .bottom-footer {
+    text-align: center;
+    margin-top: 10px;
+    border-top: 1.5px solid #b93e47;
+    padding-top: 9px;
+    color: #7c1424;
+    font-size: 14px;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <section class="header">
+    <div class="kicker">2025 TRAVEL DATA REPORT</div>
+    <div class="main-title">云航旅游数据报告 SkyLink Air &amp; Travel</div>
+    <div class="subtitle">Spring–Summer Performance Snapshot | 中国出行趋势与航线表现</div>
+    <div class="globe-dot"></div>
+  </section>
+
+  <section class="kpi-band">
+    <div class="kpi-card">
+      <div class="kpi-icon">♟</div>
+      <div class="kpi-label">总旅客量<span>Total Passengers</span></div>
+      <div class="kpi-value">8.42M</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon">◉</div>
+      <div class="kpi-label">国际航线恢复率<span>International Recovery</span></div>
+      <div class="kpi-value">87%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon">▰</div>
+      <div class="kpi-label">平均客座率<span>Average Load Factor</span></div>
+      <div class="kpi-value">81.6%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon">▰</div>
+      <div class="kpi-label">Ancillary Revenue<span>per Pax</span></div>
+      <div class="kpi-value">¥126</div>
+    </div>
+  </section>
+
+  <section class="metrics-band">
+    <div class="section-title"><span class="mini-icon">▥</span><span class="cn">核心指标</span><span class="en">Core Metrics</span></div>
+    <div id="barChart"></div>
+    <div class="footnote">单位 Unit: thousand passengers</div>
+  </section>
+
+  <section class="dest-band">
+    <div class="dest-title">● 热门目的地 Top Destinations</div>
+    <table>
+      <tr>
+        <th>Rank</th>
+        <th>City</th>
+        <th>Route Share</th>
+        <th>Avg Fare</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Shanghai</td>
+        <td>18%</td>
+        <td>¥980</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Chengdu</td>
+        <td>14%</td>
+        <td>¥860</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Tokyo</td>
+        <td>12%</td>
+        <td>¥2,460</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Singapore</td>
+        <td>9%</td>
+        <td>¥2,180</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Sanya</td>
+        <td>8%</td>
+        <td>¥1,120</td>
+      </tr>
+    </table>
+  </section>
+
+  <section class="passenger-band">
+    <div class="pass-left">
+      <div id="donutChart"></div>
+      <div class="legend">
+        <div class="legend-row"><span class="swatch" style="background:#8b1024"></span>Leisure (42%)</div>
+        <div class="legend-row"><span class="swatch" style="background:#c95867"></span>Business (28%)</div>
+        <div class="legend-row"><span class="swatch" style="background:#dfb26f"></span>Family (18%)</div>
+        <div class="legend-row"><span class="swatch" style="background:#617182"></span>Student (12%)</div>
+      </div>
+    </div>
+    <div class="pass-right">
+      <div class="insight-card"><div class="insight-icon">♛</div><div>Leisure travelers lead weekend departures</div></div>
+      <div class="insight-card"><div class="insight-icon">▦</div><div>Business demand peaks on Tuesday</div></div>
+      <div class="insight-card"><div class="insight-icon">▯</div><div>Mobile bookings account for 73%</div></div>
+    </div>
+  </section>
+
+  <section class="experience-band">
+    <div class="experience-title"><span class="mini-icon">★</span><span>服务体验 Service Experience</span></div>
+    <div class="metric-row">
+      <div class="metric-block"><div class="metric-icon">◷</div><div><span>On-time Performance</span><strong>89.4%</strong></div></div>
+      <div class="metric-block"><div class="metric-icon">👍</div><div><span>NPS 净推荐值</span><strong>+46</strong></div></div>
+      <div class="metric-block"><div class="metric-icon">▤</div><div><span>Baggage Mishandling Rate</span><strong>2.1 / 1,000</strong></div></div>
+    </div>
+    <div class="source-line">Sample window: 2025.01–2025.06　|　Source: SkyLink Analytics Center</div>
+  </section>
+
+  <section class="takeaway-band">
+    <div class="takeaway-box">
+      <div class="takeaway-icon">↗</div>
+      <div>
+        <div class="takeaway-title">Management Takeaway</div>
+        <div class="takeaway-copy">Premium leisure routes and short-haul international markets are the primary growth engine for H1 2025.</div>
+      </div>
+    </div>
+    <div class="bottom-footer">Prepared for Route Strategy Review</div>
+  </section>
+</div>
+
+<script>
+  const barChart = echarts.init(document.getElementById('barChart'));
+  barChart.setOption({
+    animation: false,
+    grid: { left: 55, right: 20, top: 12, bottom: 44 },
+    tooltip: { show: false },
+    legend: {
+      bottom: 0,
+      left: 'center',
+      itemWidth: 14,
+      itemHeight: 14,
+      textStyle: { color: '#fff1e7', fontSize: 14 },
+      data: ['Domestic', 'International']
+    },
+    xAxis: {
+      type: 'category',
+      data: ['Jan','Feb','Mar','Apr','May','Jun'],
+      axisLine: { lineStyle: { color: '#f3d9b6' } },
+      axisTick: { show: false },
+      axisLabel: { color: '#fff2e8', fontSize: 15, fontWeight: 700 }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: 1500,
+      interval: 300,
+      axisLine: { show: false },
+      splitLine: { lineStyle: { type: 'dotted', color: '#d9a882' } },
+      axisLabel: { color: '#fff2e8', fontSize: 14 }
+    },
+    series: [
+      {
+        name: 'Domestic',
+        type: 'bar',
+        data: [920, 880, 1010, 1120, 1180, 1260],
+        itemStyle: { color: '#f1ce8b' },
+        barWidth: 40,
+        label: { show: true, position: 'top', color: '#fff2e8', fontSize: 14, fontWeight: 700 }
+      },
+      {
+        name: 'International',
+        type: 'bar',
+        data: [310, 340, 420, 510, 590, 680],
+        itemStyle: { color: '#cf6170' },
+        barWidth: 40,
+        label: { show: true, position: 'top', color: '#fff2e8', fontSize: 14, fontWeight: 700 }
+      }
+    ]
+  });
+
+  const donutChart = echarts.init(document.getElementById('donutChart'));
+  donutChart.setOption({
+    animation: false,
+    tooltip: { show: false },
+    color: ['#8b1024', '#c95867', '#dfb26f', '#617182'],
+    series: [
+      {
+        type: 'pie',
+        radius: ['38%', '72%'],
+        center: ['50%', '52%'],
+        avoidLabelOverlap: false,
+        label: {
+          show: true,
+          color: '#f8e8d5',
+          fontSize: 14,
+          formatter: '{b}: {c}%'
+        },
+        labelLine: { show: true, length: 11, length2: 14, lineStyle: { color: '#fff1df' } },
+        data: [
+          {value: 42, name: 'Leisure'},
+          {value: 28, name: 'Business'},
+          {value: 18, name: 'Family'},
+          {value: 12, name: 'Student'}
+        ]
+      }
+    ]
+  });
+</script>
+</body>
+</html>

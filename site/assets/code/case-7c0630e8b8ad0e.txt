@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SQ3R Reading Method: Mental Model</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e9e9e9;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background: #ffffff;
+      color: #111111;
+    }
+
+    .title {
+      position: absolute;
+      top: 62px;
+      left: 0;
+      width: 1376px;
+      text-align: center;
+      font-size: 42px;
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      color: #050505;
+    }
+
+    .intro {
+      position: absolute;
+      top: 130px;
+      left: 124px;
+      width: 1128px;
+      text-align: center;
+      font-size: 21px;
+      line-height: 1.32;
+      color: #1f1f1f;
+      font-weight: 400;
+    }
+
+    .process-band {
+      position: absolute;
+      left: 0;
+      top: 262px;
+      width: 1376px;
+      height: 22px;
+      background: #eeeeee;
+      border-radius: 10px;
+    }
+
+    .marker {
+      position: absolute;
+      top: 258px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #d8d8d8;
+      border: 4px solid #9f9f9f;
+      box-shadow: 0 0 5px rgba(0,0,0,0.15);
+      z-index: 8;
+    }
+
+    .marker.orange {
+      background: #f6c061;
+      border-color: #e59b31;
+    }
+
+    .marker.m1 { left: 178px; }
+    .marker.m2 { left: 430px; }
+    .marker.m3 { left: 682px; }
+    .marker.m4 { left: 934px; }
+    .marker.m5 { left: 1186px; }
+
+    .connector {
+      position: absolute;
+      width: 0;
+      border-left: 2px dotted #c9c9c9;
+      height: 70px;
+      top: 282px;
+      z-index: 2;
+    }
+
+    .connector.c1 { left: 190px; }
+    .connector.c2 { left: 442px; }
+    .connector.c3 { left: 694px; }
+    .connector.c4 { left: 946px; }
+    .connector.c5 { left: 1198px; }
+
+    .card {
+      position: absolute;
+      top: 342px;
+      width: 222px;
+      height: 326px;
+      background: #ffffff;
+      border: 1px solid #ececec;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.18);
+      z-index: 4;
+    }
+
+    .card_survey { left: 82px; }
+    .card_question { left: 334px; }
+    .card_read { left: 586px; }
+    .card_recite { left: 838px; }
+    .card_review { left: 1088px; }
+
+    .card-shape {
+      position: absolute;
+      top: -38px;
+      left: 38px;
+      width: 146px;
+      height: 128px;
+      background: #fff7ec;
+      border: 9px solid #efb14b;
+      clip-path: polygon(50% 0%, 100% 22%, 100% 78%, 50% 100%, 0% 78%, 0% 22%);
+      z-index: 3;
+    }
+
+    .card-question .card-shape,
+    .card-recite .card-shape {
+      border-color: #a9a9a9;
+      background: #eeeeee;
+    }
+
+    .shield-letter {
+      position: absolute;
+      top: 38px;
+      left: 0;
+      width: 146px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+      font-weight: 800;
+      color: #e99a31;
+      z-index: 5;
+    }
+
+    .card-question .shield-letter,
+    .card-recite .shield-letter {
+      color: #565656;
+    }
+
+    .step-label {
+      position: absolute;
+      top: 150px;
+      left: 0;
+      width: 222px;
+      text-align: center;
+      font-size: 24px;
+      line-height: 1.15;
+      font-weight: 800;
+      color: #101010;
+    }
+
+    .description {
+      position: absolute;
+      top: 196px;
+      left: 12px;
+      width: 198px;
+      text-align: center;
+      font-size: 17px;
+      line-height: 1.32;
+      color: #1f1f1f;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">SQ3R Reading Method: Mental Model</div>
+
+    <div class="intro">
+      The SQ3R reading method emphasizes active learning to help people process information more effectively,<br>
+      boosting learning efficiency, deeper understanding, and knowledge retention. It is widely used in education and<br>
+      everyday learning to support better comprehension and problem-solving.
+    </div>
+
+    <div class="process-band"></div>
+
+    <div class="marker m1 orange"></div>
+    <div class="marker m2"></div>
+    <div class="marker m3 orange"></div>
+    <div class="marker m4"></div>
+    <div class="marker m5 orange"></div>
+
+    <div class="connector c1"></div>
+    <div class="connector c2"></div>
+    <div class="connector c3"></div>
+    <div class="connector c4"></div>
+    <div class="connector c5"></div>
+
+    <div class="card card_survey">
+      <div class="card-shape">
+        <div class="shield-letter">S</div>
+      </div>
+      <div class="step-label">Survey</div>
+      <div class="description">Quickly scan before<br>diving in.</div>
+    </div>
+
+    <div class="card card_question">
+      <div class="card-shape">
+        <div class="shield-letter">Q</div>
+      </div>
+      <div class="step-label">Question</div>
+      <div class="description">Proactively ask<br>questions about the<br>content.</div>
+    </div>
+
+    <div class="card card_read">
+      <div class="card-shape">
+        <div class="shield-letter">R</div>
+      </div>
+      <div class="step-label">Read</div>
+      <div class="description">Focus on key<br>concepts and critical<br>information as you<br>read.</div>
+    </div>
+
+    <div class="card card_recite">
+      <div class="card-shape">
+        <div class="shield-letter">R</div>
+      </div>
+      <div class="step-label">Recite</div>
+      <div class="description">Answer the<br>questions you raised<br>to reinforce<br>understanding.</div>
+    </div>
+
+    <div class="card card_review">
+      <div class="card-shape">
+        <div class="shield-letter">R</div>
+      </div>
+      <div class="step-label">Review</div>
+      <div class="description">Regularly review to<br>ensure long-term<br>retention.</div>
+    </div>
+  </div>
+</body>
+</html>

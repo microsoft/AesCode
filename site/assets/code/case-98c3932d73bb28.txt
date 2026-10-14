@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Employee Engagement Framework Infographic</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #dcdcdc;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background: #eeeeef;
+    color: #202020;
+  }
+
+  .headline {
+    position: absolute;
+    top: 52px;
+    left: 96px;
+    width: 1184px;
+    text-align: center;
+    font-size: 48px;
+    line-height: 1.28;
+    font-weight: 650;
+    letter-spacing: -1.5px;
+    color: #181818;
+  }
+
+  /* Panels */
+  .panel {
+    position: absolute;
+    background: #ffffff;
+    border-radius: 26px;
+    box-shadow: 0 12px 22px rgba(0,0,0,0.16);
+    z-index: 4;
+  }
+
+  .panel h3 {
+    margin: 0 0 10px 0;
+    color: #5a2d78;
+    font-size: 22px;
+    line-height: 1.25;
+    font-weight: 700;
+    letter-spacing: 0.1px;
+  }
+
+  .panel p {
+    margin: 0;
+    color: #1f1f1f;
+    font-size: 17px;
+    line-height: 1.22;
+    font-weight: 430;
+  }
+
+  .top-left-panel {
+    left: 66px;
+    top: 232px;
+    width: 380px;
+    height: 212px;
+    padding: 24px 28px 22px 28px;
+  }
+
+  .bottom-left-panel {
+    left: 66px;
+    top: 470px;
+    width: 422px;
+    height: 210px;
+    padding: 30px 28px 23px 28px;
+  }
+
+  .top-right-panel {
+    right: 68px;
+    top: 232px;
+    width: 400px;
+    height: 212px;
+    padding: 24px 28px 22px 28px;
+    text-align: center;
+  }
+
+  .bottom-right-panel {
+    right: 64px;
+    top: 470px;
+    width: 382px;
+    height: 210px;
+    padding: 24px 26px 20px 26px;
+    text-align: center;
+  }
+
+  /* Framework circle */
+  .framework {
+    position: absolute;
+    left: 422px;
+    top: 194px;
+    width: 532px;
+    height: 510px;
+    z-index: 3;
+  }
+
+  .outer-ring {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 532px;
+    height: 510px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 16px solid #f3f3f4;
+    box-shadow:
+      0 18px 28px rgba(0,0,0,0.15),
+      inset 0 0 0 16px #f3f3f4;
+  }
+
+  .outer-ring::before,
+  .outer-ring::after {
+    content: "";
+    position: absolute;
+    border: 2px solid #d4b2e6;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    opacity: 0.85;
+  }
+
+  .outer-ring::before {
+    width: 220px;
+    height: 220px;
+    left: 145px;
+    top: 34px;
+    transform: rotate(28deg);
+  }
+
+  .outer-ring::after {
+    width: 245px;
+    height: 245px;
+    left: 135px;
+    top: 135px;
+    transform: rotate(-38deg);
+  }
+
+  .ring-label {
+    position: absolute;
+    color: #4a2065;
+    font-size: 26px;
+    font-style: italic;
+    font-weight: 700;
+    z-index: 7;
+    letter-spacing: 0.2px;
+  }
+
+  .label-understand {
+    left: 50px;
+    top: 42px;
+    transform: rotate(-48deg);
+  }
+
+  .label-analyze {
+    right: 38px;
+    top: 38px;
+    transform: rotate(40deg);
+  }
+
+  .label-act {
+    right: 52px;
+    bottom: 60px;
+    transform: rotate(38deg);
+  }
+
+  .label-impact {
+    left: 70px;
+    bottom: 65px;
+    transform: rotate(-44deg);
+  }
+
+  .arrow {
+    position: absolute;
+    z-index: 8;
+    color: #8c65bd;
+    font-size: 42px;
+    font-weight: 800;
+  }
+
+  .arrow.top-right {
+    left: 246px;
+    top: 8px;
+    transform: rotate(45deg);
+  }
+
+  .arrow.right-bottom {
+    right: 68px;
+    top: 234px;
+    transform: rotate(44deg);
+  }
+
+  .arrow.bottom-left {
+    left: 238px;
+    bottom: 30px;
+    transform: rotate(135deg);
+  }
+
+  .arrow.left-top {
+    left: 28px;
+    top: 234px;
+    transform: rotate(136deg);
+  }
+
+  /* Inner quadrants */
+  .inner-circle {
+    position: absolute;
+    left: 72px;
+    top: 58px;
+    width: 388px;
+    height: 388px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: conic-gradient(
+      from -90deg,
+      #b279e8 0deg 90deg,
+      #8668d3 90deg 180deg,
+      #8950bd 180deg 270deg,
+      #8265cf 270deg 360deg
+    );
+    z-index: 5;
+    box-shadow: inset 0 0 0 12px rgba(255,255,255,0.68);
+  }
+
+  .divider-vertical {
+    position: absolute;
+    top: 0;
+    left: 194px;
+    width: 12px;
+    height: 388px;
+    background: rgba(255,255,255,0.96);
+    z-index: 7;
+  }
+
+  .divider-horizontal {
+    position: absolute;
+    left: 0;
+    top: 194px;
+    width: 388px;
+    height: 12px;
+    background: rgba(255,255,255,0.96);
+    z-index: 7;
+  }
+
+  .icon {
+    position: absolute;
+    width: 78px;
+    height: 78px;
+    z-index: 8;
+    color: #ffffff;
+  }
+
+  .icon-heart {
+    left: 78px;
+    top: 68px;
+  }
+
+  .icon-search {
+    right: 68px;
+    top: 70px;
+  }
+
+  .icon-plane {
+    left: 78px;
+    bottom: 72px;
+  }
+
+  .icon-target {
+    right: 72px;
+    bottom: 72px;
+  }
+
+  /* SVG inline icons */
+  svg {
+    display: block;
+  }
+
+  /* Center circle */
+  .center-circle {
+    position: absolute;
+    left: 132px;
+    top: 162px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: #5b2a76;
+    border: 8px solid #e9e9ec;
+    box-shadow:
+      0 8px 12px rgba(0,0,0,0.22),
+      inset 0 0 0 10px #d9d9df;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .center-circle div {
+    color: #ffffff;
+    font-size: 22px;
+    line-height: 1.22;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="headline">
+    Understand and improve employee engagement to drive business outcomes with Microsoft Viva Glint
+  </div>
+
+  <div class="panel top-left-panel">
+    <h3>Scalable org-wide<br>engagement programs</h3>
+    <p>
+      This framework uses the latest people science to guide holistic listening and engagement programs across the entire organization, ensuring scalability and consistency.
+    </p>
+  </div>
+
+  <div class="panel bottom-left-panel">
+    <h3>Enable meaningful change</h3>
+    <p>
+      By correlating engagement data against key business KPIs such as revenue, profit, customer satisfaction, and innovation, this approach empowers organizations to drive actionable, measurable change.
+    </p>
+  </div>
+
+  <div class="panel top-right-panel">
+    <h3>Immediate visibility into the<br>employee experience</h3>
+    <p>
+      Organizations can significantly decrease time to action by leveraging advanced ML/AI/NLP, industry-leading benchmarks, and customizable dashboards for rapid, deep insights.
+    </p>
+  </div>
+
+  <div class="panel bottom-right-panel">
+    <h3>Support employee growth<br>with recommended actions</h3>
+    <p>
+      Leaders and managers can maximize their impact by routing personalized insights and prescriptive actions directly to the right people, fostering continuous development and growth.
+    </p>
+  </div>
+
+  <div class="framework">
+    <div class="outer-ring"></div>
+
+    <div class="arrow top-right">›</div>
+    <div class="arrow right-bottom">›</div>
+    <div class="arrow bottom-left">›</div>
+    <div class="arrow left-top">›</div>
+
+    <div class="ring-label label-understand">Understand</div>
+    <div class="ring-label label-analyze">Analyze</div>
+    <div class="ring-label label-act">Act</div>
+    <div class="ring-label label-impact">Impact</div>
+
+    <div class="inner-circle">
+      <div class="divider-vertical"></div>
+      <div class="divider-horizontal"></div>
+
+      <div class="icon icon-heart">
+        <svg width="78" height="78" viewBox="0 0 78 78" aria-hidden="true">
+          <path d="M18 39 C20 25, 34 20, 42 34 C46 24, 54 20, 60 26 C66 32, 62 42, 52 46 C46 50, 43 54, 44 61"
+                fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M18 40 C24 42, 29 48, 36 48 C43 48, 45 41, 51 41"
+                fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="icon icon-search">
+        <svg width="78" height="78" viewBox="0 0 78 78" aria-hidden="true">
+          <circle cx="30" cy="30" r="22" fill="none" stroke="#ffffff" stroke-width="2.8"/>
+          <path d="M40 40 L62 62" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+          <path d="M22 38 C30 38, 32 30, 38 30 C44 30, 48 35, 50 40"
+                fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="icon icon-plane">
+        <svg width="78" height="78" viewBox="0 0 78 78" aria-hidden="true">
+          <path d="M38 16 L62 38 L38 60 L18 38 Z" fill="none" stroke="#ffffff" stroke-width="2.8"/>
+          <path d="M24 42 L50 42" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M16 52 L44 52" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="icon icon-target">
+        <svg width="78" height="78" viewBox="0 0 78 78" aria-hidden="true">
+          <circle cx="35" cy="42" r="28" fill="none" stroke="#ffffff" stroke-width="3"/>
+          <circle cx="35" cy="42" r="17" fill="none" stroke="#ffffff" stroke-width="3"/>
+          <circle cx="35" cy="42" r="8" fill="none" stroke="#ffffff" stroke-width="3"/>
+          <path d="M42 28 L52 38 L62 28 L72 38 L52 58" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="center-circle">
+      <div>
+        Building a<br>
+        Feedback Culture
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

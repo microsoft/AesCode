@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SalesPro - Analytics > Sales Overview</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #070d16;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #eaf1fb;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 731px;
+    overflow: hidden;
+    background: #111827;
+  }
+
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 178px;
+    height: 731px;
+    background: #0b1220;
+    border-right: 1px solid #243144;
+  }
+
+  .brand {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 0 14px;
+    border-bottom: 1px solid #243144;
+    font-weight: 800;
+    font-size: 14px;
+    color: #f4f8ff;
+  }
+
+  .logo {
+    width: 18px;
+    height: 18px;
+    background: linear-gradient(135deg, #4fc3ff 0%, #4fc3ff 48%, #8b5cf6 48%, #8b5cf6 100%);
+    clip-path: polygon(50% 0, 100% 25%, 100% 76%, 50% 100%, 0 75%, 0 25%);
+    border-radius: 4px;
+  }
+
+  .nav {
+    padding: 10px 8px;
+  }
+
+  .nav-item {
+    height: 34px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 10px;
+    color: #c9d3e3;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  .nav-item.active {
+    background: #173a73;
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .nav-icon {
+    width: 15px;
+    height: 15px;
+    border: 1.7px solid currentColor;
+    border-radius: 3px;
+    opacity: .9;
+    position: relative;
+  }
+
+  .nav-item.active .nav-icon {
+    background: rgba(255,255,255,.18);
+    border-color: #ffffff;
+  }
+
+  .side-bottom {
+    position: absolute;
+    bottom: 18px;
+    left: 8px;
+    width: 162px;
+  }
+
+  .theme-toggle {
+    height: 41px;
+    border: 1px solid #34445d;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space1between;
+    padding: 0 10px;
+    gap: 10px;
+    background: #121b2a;
+    color: #d7e0ec;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .collapse {
+    height: 30px;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-left: 10px;
+    font-size: 12px;
+    color: #b8c3d3;
+    font-weight: 600;
+  }
+
+  .main-topbar {
+    position: absolute;
+    top: 0;
+    left: 178px;
+    width: 1102px;
+    height: 45px;
+    border-bottom: 1px solid #243144;
+    background: #0d1421;
+  }
+
+  .breadcrumb {
+    position: absolute;
+    left: 22px;
+    top: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #eef4ff;
+  }
+
+  .top-icons {
+    position: absolute;
+    right: 13px;
+    top: 8px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .tiny-icon {
+    width: 15px;
+    height: 15px;
+    border: 1.4px solid #aeb9c9;
+    border-radius: 50%;
+    opacity: .9;
+  }
+
+  .avatar {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #6c7788;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+  }
+
+  .main {
+    position: absolute;
+    top: 45px;
+    left: 178px;
+    width: 1102px;
+    height: 686px;
+    background: #111827;
+  }
+
+  .page-title {
+    position: absolute;
+    left: 22px;
+    top: 6px;
+    width: 480px;
+  }
+
+  .page-title h1 {
+    margin: 0 0 4px 0;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -.1px;
+  }
+
+  .page-title p {
+    margin: 0;
+    color: #9eb0c4;
+    font-size: 12px;
+  }
+
+  .filters {
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .pill {
+    height: 29px;
+    border: 1px solid #38475e;
+    border-radius: 4px;
+    background: #182233;
+    color: #d8e2ee;
+    padding: 0 11px;
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+  }
+
+  .card {
+    position: absolute;
+    background: #172033;
+    border: 1px solid #324057;
+    border-radius: 5px;
+  }
+
+  .heatmap-card {
+    left: 22px;
+    top: 72px;
+    width: 490px;
+    height: 304px;
+    padding: 13px 13px 10px 13px;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 5px;
+    color: #f2f7ff;
+  }
+
+  .heat-controls {
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #dce6f3;
+  }
+
+  #heatmap {
+    width: 463px;
+    height: 160px;
+    margin-left: -8px;
+  }
+
+  .legend-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 3px;
+    color: #aebbd0;
+    font-size: 11px;
+  }
+
+  .gradient-bar {
+    height: 8px;
+    width: 135px;
+    background: linear-gradient(90deg, #254778, #254778 24%, #316488 44%, #488878 64%, #75c86b 82%, #b9ef83 100%);
+    border-radius: 10px;
+  }
+
+  .reps-card {
+    left: 527px;
+    top: 72px;
+    width: 560px;
+    height: 304px;
+    padding: 13px 12px 10px 12px;
+  }
+
+  .reps-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .view-all {
+    color: #4f83ff;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  #repsChart {
+    width: 535px;
+    height: 220px;
+  }
+
+  .summary-card {
+    left: 22px;
+    top: 392px;
+    width: 1057px;
+    height: 270px;
+    padding: 12px 12px 9px 12px;
+  }
+
+  .summary-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 9px;
+    border-bottom: 1px solid #2f3d52;
+  }
+
+  .summary-head strong {
+    font-size: 13px;
+    color: #f2f7ff;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    color: #c7d1e1;
+  }
+
+  th {
+    text-align: left;
+    color: #e4ebf5;
+    font-weight: 800;
+    height: 29px;
+    border-bottom: 1px solid #2f3d52;
+    padding: 0 8px;
+  }
+
+  td {
+    height: 30px;
+    border-bottom: 1px solid #243144;
+    padding: 0 8px;
+  }
+
+  .pager {
+    height: 26px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 13px;
+    color: #9fb0c3;
+    font-size: 11px;
+    padding-right: 2px;
+  }
+
+  .page-num {
+    min-width: 21px;
+    text-align: center;
+  }
+
+  .active-page {
+    color: #4f83ff;
+    border: 1px solid #4f83ff;
+    border-radius: 50%;
+    padding: 2px 5px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <aside class="sidebar">
+    <div class="brand"><span class="logo"></span>SalesPro</div>
+    <div class="nav">
+      <div class="nav-item"><span class="nav-icon"></span>Overview</div>
+      <div class="nav-item"><span class="nav-icon"></span>Dashboard</div>
+      <div class="nav-item active"><span class="nav-icon"></span>Analytics</div>
+      <div class="nav-item"><span class="nav-icon"></span>Reports</div>
+      <div class="nav-item"><span class="nav-icon"></span>Orders</div>
+      <div class="nav-item"><span class="nav-icon"></span>Products</div>
+      <div class="nav-item"><span class="nav-icon"></span>Customers</div>
+      <div class="nav-item"><span class="nav-icon"></span>Sales Reps</div>
+      <div class="nav-item"><span class="nav-icon"></span>Marketing</div>
+      <div class="nav-item"><span class="nav-icon"></span>Settings</div>
+    </div>
+    <div class="side-bottom">
+      <div class="theme-toggle">☾ Dark</div>
+      <div class="collapse">‹ Collapse</div>
+    </div>
+  </aside>
+
+  <div class="main-topbar">
+    <div class="breadcrumb">Analytics &nbsp;›&nbsp; Sales Overview</div>
+    <div class="top-icons">
+      <span class="tiny-icon"></span>
+      <span class="tiny-icon"></span>
+      <span class="tiny-icon"></span>
+      <span class="avatar">AS</span>
+    </div>
+  </div>
+
+  <main class="main">
+    <section class="page-title">
+      <h1>Sales Overview</h1>
+      <p>Track sales performance and key metrics</p>
+    </section>
+
+    <div class="filters">
+      <div class="pill">📅 May 1 – May 31, 2025</div>
+      <div class="pill">Compare to: Apr 1 – Apr 30, 2025</div>
+      <div class="pill">▽ Filters</div>
+    </div>
+
+    <section class="card heatmap-card">
+      <div class="card-title">Sales Heatmap</div>
+      <div class="heat-controls"><span>‹</span><span>May 2025</span><span>›</span></div>
+      <div id="heatmap"></div>
+      <div class="legend-row">
+        <span>Low Sales</span>
+        <span class="gradient-bar"></span>
+        <span>High Sales</span>
+      </div>
+    </section>
+
+    <section class="card reps-card">
+      <div class="reps-title">
+        <div class="card-title">Top Performing Sales Reps</div>
+        <div class="view-all">View all</div>
+      </div>
+      <div id="repsChart"></div>
+    </section>
+
+    <section class="card summary-card">
+      <div class="summary-head">
+        <strong>Sales Summary</strong>
+        <div style="font-size:11px;color:#b7c2d3;">Columns &nbsp; Download</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Total Sales</th>
+            <th>Orders</th>
+            <th>Average Order Value</th>
+            <th>New Customers</th>
+            <th>Returning Customers</th>
+            <th>Conversion Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>May 31, 2025</td><td>$48,730.25</td><td>152</td><td>$320.61</td><td>28</td><td>124</td><td>2.73%</td></tr>
+          <tr><td>May 30, 2025</td><td>$65,210.40</td><td>201</td><td>$324.93</td><td>35</td><td>166</td><td>3.12%</td></tr>
+          <tr><td>May 29, 2025</td><td>$52,471.80</td><td>167</td><td>$314.20</td><td>31</td><td>136</td><td>2.85%</td></tr>
+          <tr><td>May 28, 2025</td><td>$44,382.15</td><td>138</td><td>$321.61</td><td>24</td><td>114</td><td>2.48%</td></tr>
+          <tr><td>May 27, 2025</td><td>$39,654.10</td><td>125</td><td>$317.23</td><td>22</td><td>103</td><td>2.31%</td></tr>
+        </tbody>
+      </table>
+      <div class="pager">
+        <span>Rows per page:</span>
+        <span>10</span>
+        <span>1–10 of 31</span>
+        <span class="page-num">1</span>
+        <span class="page-num active-page">1</span>
+        <span>2</span>
+        <span>3</span>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  const heatmap = echarts.init(document.getElementById('heatmap'));
+  heatmap.setOption({
+    animation: false,
+    backgroundColor: 'transparent',
+    grid: {
+      left: 14,
+      right: 14,
+      top: 30,
+      bottom: 24
+    },
+    tooltip: {
+      show: false
+    },
+    xAxis: {
+      type: 'category',
+      data: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      boundaryGap: false,
+      axisLine: { lineStyle: { color: '#36455b' } },
+      axisTick: { show: false },
+      splitArea: { show: true },
+      axisLabel: {
+        color: '#9eb0c2',
+        fontSize: 10
+      }
+    },
+    yAxis: {
+      type: 'category',
+      data: ['1', '2', '3', '4', '5', '6', '7'],
+      axisLine: { lineStyle: { color: '#36455b' } },
+      axisTick: { show: false },
+      splitLine: { lineStyle: { color: '#28374b' } },
+      axisLabel: {
+        color: '#708099',
+        fontSize: 10
+      }
+    },
+    visualMap: {
+      min: 5,
+      max: 95,
+      calculable: false,
+      orient: 'horizontal',
+      left: 'center',
+      bottom: 0,
+      text: ['High Sales', 'Low Sales'],
+      textStyle: {
+        color: '#aebbd0',
+        fontSize: 10
+      },
+      inRange: {
+        color: ['#254778', '#316488', '#488878', '#75c86b', '#b9ef83']
+      }
+    },
+    series: [{
+      name: 'Sales Heatmap',
+      type: 'heatmap',
+      data: [[0, 0, 5], [1, 0, 8], [2, 0, 7], [3, 0, 9], [4, 0, 40], [5, 0, 55], [6, 0, 25], [0, 1, 28], [1, 1, 52], [2, 1, 31], [3, 1, 22], [4, 1, 82], [5, 1, 36], [6, 1, 29], [0, 2, 30], [1, 2, 33], [2, 2, 34], [3, 2, 35], [4, 2, 90], [5, 2, 42], [6, 2, 28], [0, 3, 58], [1, 3, 72], [2, 3, 60], [3, 3, 29], [4, 3, 88], [5, 3, 70], [6, 3, 24], [0, 4, 72], [1, 4, 32], [2, 4, 35], [3, 4, 55], [4, 4, 95], [5, 4, 78], [6, 4, 31], [0, 5, 8], [1, 5, 7], [2, 5, 6], [3, 5, 8], [4, 5, 7], [5, 5, 6], [6, 5, 5]],
+      itemStyle: {
+        borderColor: '#203148',
+        borderWidth: 1
+      },
+      label: {
+        show: true,
+        color: '#dce6f1',
+        fontSize: 10,
+        position: 'inside'
+      }
+    }]
+  });
+
+  const repsChart = echarts.init(document.getElementById('repsChart'));
+  repsChart.setOption({
+    animation: false,
+    backgroundColor: 'transparent',
+    grid: {
+      left: 74,
+      right: 46,
+      top: 17,
+      bottom: 30
+    },
+    tooltip: {
+      show: false
+    },
+    xAxis: {
+      type: 'value',
+      min: 0,
+      max: 150000,
+      axisLabel: {
+        color: '#9fb0c3',
+        fontSize: 10,
+        formatter: function(value) {
+          if (value === 0) return '$0';
+          if (value === 50000) return '$50K';
+          if (value === 100000) return '$100K';
+          if (value === 150000) return '$150K';
+          return '';
+        }
+      },
+      splitLine: { lineStyle: { color: '#28374b' } },
+      axisLine: { show: false }
+    },
+    yAxis: {
+      type: 'category',
+      inverse: true,
+      data: ['Sarah Johnson', 'Michael Brown', 'David Lee', 'Emily Davis', 'James Wilson', 'Lisa Anderson', 'Robert Taylor', 'Jennifer Martinez'],
+      axisLine: { show: false },
+      axisTick: { show: false },
+      axisLabel: {
+        color: '#c7d1e1',
+        fontSize: 10
+      }
+    },
+    series: [{
+      name: 'Sales',
+      type: 'bar',
+      data: [128450, 98760, 76430, 65210, 54380, 43870, 37560, 28430],
+      barWidth: 18,
+      itemStyle: {
+        borderRadius: 3,
+        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+          { offset: 0, color: '#7c5cff' },
+          { offset: 1, color: '#8b6cff' }
+        ])
+      },
+      label: {
+        show: true,
+        position: 'right',
+        color: '#dce6ef',
+        fontSize: 10,
+        formatter: function(params) {
+          return '$' + Number(params.value).toLocaleString('en-US');
+        }
+      }
+    }]
+  });
+</script>
+</body>
+</html>

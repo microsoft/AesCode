@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Core Functions Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #dfefff;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 80% 22%, rgba(87, 170, 255, 0.25) 0, rgba(87, 170, 255, 0.12) 24%, rgba(87, 170, 255, 0) 50%),
+        radial-gradient(circle at 22% 84%, rgba(108, 190, 255, 0.24) 0, rgba(108, 190, 255, 0.10) 28%, rgba(108, 190, 255, 0) 52%),
+        linear-gradient(180deg, #d8efff 0%, #eff9ff 50%, #f7fbff 100%);
+    }
+
+    .artboard::before {
+      content: "";
+      position: absolute;
+      left: -110px;
+      top: 310px;
+      width: 700px;
+      height: 420px;
+      background:
+        radial-gradient(ellipse at 25% 40%, rgba(92, 166, 255, 0.40) 0 14%, rgba(92, 166, 255, 0.08) 25%, rgba(92, 166, 255, 0) 46%),
+        radial-gradient(ellipse at 78% 70%, rgba(102, 180, 255, 0.28) 0 24%, rgba(102, 180, 255, 0.08) 38%, rgba(102, 180, 255, 0) 58%);
+      border-radius: 50%;
+      transform: rotate(-18deg);
+      opacity: 0.85;
+      filter: blur(3px);
+    }
+
+    .artboard::after {
+      content: "";
+      position: absolute;
+      right: -180px;
+      top: 60px;
+      width: 760px;
+      height: 380px;
+      background:
+        repeating-linear-gradient(145deg, rgba(60, 140, 255, 0.18) 0 3px, rgba(60, 140, 255, 0.05) 3px 12px, rgba(60, 140, 255, 0) 12px 22px),
+        radial-gradient(ellipse at center, rgba(90, 180, 255, 0.32), rgba(90, 180, 255, 0.08) 50%, rgba(90, 180, 255, 0) 74%);
+      border-radius: 50%;
+      opacity: 0.58;
+      filter: blur(1px);
+    }
+
+    .title-row {
+      position: absolute;
+      left: 48px;
+      top: 40px;
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      z-index: 3;
+    }
+
+    .main-icon {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #5fd8ff 0%, #2798f5 36%, #1564cf 72%, rgba(20, 92, 210, 0.42) 100%);
+      border: 4px solid rgba(255, 255, 255, 0.48);
+      box-shadow: 0 12px 22px rgba(24, 103, 208, 0.26);
+      position: relative;
+    }
+
+    .main-icon::before {
+      content: "";
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(180, 230, 255, 0.68);
+      background:
+        radial-gradient(circle, rgba(255,255,255,0.48) 0 16%, rgba(255,255,255,0.12) 17% 22%, transparent 23%),
+        repeating-radial-gradient(circle, transparent 0 7px, rgba(180, 235, 255, 0.48) 8px 10px);
+      opacity: 0.8;
+    }
+
+    .title {
+      font-size: 44px;
+      font-weight: 650;
+      color: #2778d8;
+      letter-spacing: 1px;
+    }
+
+    .cards {
+      position: absolute;
+      left: 70px;
+      top: 204px;
+      width: 1236px;
+      height: 460px;
+      display: flex;
+      justify-content: space2between;
+      gap: 34px;
+      z-index: 2;
+    }
+
+    .card {
+      position: relative;
+      width: 286px;
+      height: 458px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(250,255,255,0.96) 58%, rgba(240,250,255,0.96) 100%);
+      border: 2px solid rgba(52, 150, 255, 0.48);
+      box-shadow: 0 15px 26px rgba(32, 112, 205, 0.20);
+      padding: 66px 14px 20px 14px;
+    }
+
+    .badge {
+      position: absolute;
+      left: 50%;
+      top: -42px;
+      transform: translateX(-50%);
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #55cfff 0%, #2594f2 36%, #1465d4 76%, #1157bb 100%);
+      border: 9px solid rgba(255, 255, 255, 0.45);
+      box-shadow: 0 11px 20px rgba(22, 100, 210, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      font-weight: 700;
+      color: #fff;
+      z-index: 4;
+    }
+
+    .heading {
+      text-align: center;
+      font-size: 24px;
+      line-height: 1.16;
+      color: #063b78;
+      font-weight: 750;
+      min-height: 64px;
+      margin-top: 0;
+    }
+
+    .pill {
+      width: 236px;
+      height: 48px;
+      margin: 18px auto 22px auto;
+      border-radius: 25px;
+      background: linear-gradient(180deg, #8bd5ff 0%, #67c4f5 100%);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      line-height: 1.15;
+      text-align: center;
+      padding: 0 12px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.26);
+    }
+
+    .features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .features li {
+      position: relative;
+      padding-left: 25px;
+      margin-bottom: 17px;
+      color: #111;
+      font-size: 17px;
+      line-height: 1.34;
+      min-height: 38px;
+    }
+
+    .features li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #bddcff;
+      border: 1px solid #8fc7ff;
+    }
+
+    .features li::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 16px;
+      width: 1px;
+      height: 36px;
+      background: rgba(128, 180, 225, 0.25);
+    }
+
+    .metric {
+      color: #116ad3;
+      font-weight: 700;
+    }
+
+    .card:nth-child(2) .heading {
+      font-size: 23px;
+    }
+
+    .card:nth-child(3) .features li {
+      margin-bottom: 14px;
+      min-height: 36px;
+    }
+
+    .card:nth-child(4) .pill {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title-row">
+      <div class="main-icon" aria-hidden="true"></div>
+      <div class="title">Core Functions</div>
+    </div>
+
+    <div class="cards">
+      <section class="card">
+        <div class="badge">01</div>
+        <h2 class="heading">Smart Document<br>Processing</h2>
+        <div class="pill">Quick analysis of diverse<br>documents</div>
+        <ul class="features">
+          <li>Support <span class="metric">12</span> Seed File<br>format</li>
+          <li>Single document parsing<br>speed <span class="metric">≤0.8 Second</span></li>
+          <li>Automatic summary<br>generation accuracy <span class="metric">91%</span></li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <div class="badge">02</div>
+        <h2 class="heading">Real-time voice<br>interaction</h2>
+        <div class="pill">Intelligent Translation of<br>Multiple Languages</div>
+        <ul class="features">
+          <li>Support <span class="metric">43</span> Country Real-<br>time Language translation</li>
+          <li>Average response time<br><span class="metric">178ms</span></li>
+          <li>Voiceprint recognition<br>accuracy rate <span class="metric">95.7%</span></li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <div class="badge">03</div>
+        <h2 class="heading">Multimodal<br>generation</h2>
+        <div class="pill">Intelligent Creation of<br>Multiple Versions of Content</div>
+        <ul class="features">
+          <li>Intelligent Error Correction<br>for Data Tables</li>
+          <li>Text-to-image resolution<br><span class="metric">4096 x 4096</span></li>
+          <li>Support Markdown /<br><span class="metric">Mixed typesetting</span></li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <div class="badge">04</div>
+        <h2 class="heading">Knowledge Graph<br>Construction</h2>
+        <div class="pill">Enhance node Strength,<br>Strengthen Library Connectivity</div>
+        <ul class="features">
+          <li>Average daily new nodes<br><span class="metric">830,000</span></li>
+          <li>Single document parsing<br>speed <span class="metric">≤0.8 Seconds</span></li>
+          <li>Supports isolated training<br>with <span class="metric">Private knowledge<br>bases</span></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

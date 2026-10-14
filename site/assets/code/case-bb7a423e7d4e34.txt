@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1024, initial-scale=1.0" />
+<title>竞擎数据产品介绍海报</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9edf3;
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", Arial, sans-serif;
+    color: #071f43;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background: #f7f8fa;
+  }
+
+  /* 左侧导视条 */
+  .side-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 123px;
+    height: 1536px;
+    background: #062755;
+    border-right: 1px solid rgba(255,255,255,0.18);
+  }
+
+  .side-red-line {
+    position: absolute;
+    left: 68px;
+    top: 0;
+    width: 3px;
+    height: 1308px;
+    background: #ff1717;
+  }
+
+  .side-dot {
+    position: absolute;
+    left: 25px;
+    top: 51px;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #ff1717;
+    border-radius: 50%;
+    background: #062755;
+  }
+
+  .side-vertical-text {
+    position: absolute;
+    left: 23px;
+    top: 358px;
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: 10px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+  }
+
+  .side-subtext {
+    position: absolute;
+    left: 28px;
+    top: 788px;
+    color: #d9e2ef;
+    font-size: 16px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: 6px;
+    font-weight: 700;
+  }
+
+  .side-line-deco-1 {
+    position: absolute;
+    left: 34px;
+    top: 238px;
+    width: 32px;
+    height: 46px;
+    border-left: 2px solid #cfd7e2;
+    border-bottom: 2px solid #cfd7e2;
+    transform: skewY(45deg);
+  }
+
+  .side-chevrons {
+    position: absolute;
+    left: 25px;
+    top: 142px;
+    color: #c8d2df;
+    font-size: 26px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: 22px;
+  }
+
+  .side-line-deco-2 {
+    position: absolute;
+    left: 23px;
+    top: 730px;
+    width: 23px;
+    height: 1px;
+    background: #c7d0dc;
+  }
+
+  .side-dots {
+    position: absolute;
+    left: 11px;
+    bottom: 47px;
+    width: 30px;
+    height: 170px;
+    background-image: radial-gradient(#d5deea 1.8px, transparent 2px);
+    background-size: 12px 12px;
+    opacity: 0.9;
+  }
+
+  .side-corner {
+    position: absolute;
+    left: 47px;
+    bottom: 68px;
+    width: 30px;
+    height: 80px;
+    border-right: 2px solid #ff1717;
+    border-bottom: 2px solid #ff1717;
+    transform: skewX(35deg);
+  }
+
+  /* 内容区 */
+  .main {
+    position: absolute;
+    left: 123px;
+    top: 0;
+    width: 901px;
+    height: 1536px;
+    background: #fbfcfd;
+  }
+
+  /* 顶部品牌 */
+  .brand-area {
+    position: absolute;
+    left: 42px;
+    top: 28px;
+    width: 420px;
+    height: 98px;
+  }
+
+  .logo-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 84px;
+    height: 84px;
+    background: #072756;
+    border-radius: 0 0 3px 3px;
+  }
+
+  .logo-icon:before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    top: 30px;
+    width: 44px;
+    height: 34px;
+    border-left: 5px solid #ffffff;
+    border-top: 5px solid #ffffff;
+    transform: skewY(-38deg) rotate(38deg);
+    border-radius: 3px;
+  }
+
+  .logo-dot {
+    position: absolute;
+    left: 22px;
+    top: -18px;
+    width: 36px;
+    height: 36px;
+    background: #f51818;
+    border: 2px solid #ff3333;
+    border-radius: 50%;
+  }
+
+  .brand-name {
+    position: absolute;
+    left: 102px;
+    top: 0;
+    font-size: 38px;
+    color: #072253;
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+
+  .brand-sub {
+    position: absolute;
+    left: 105px;
+    top: 62px;
+    color: #071f43;
+    font-size: 13px;
+    letter-spacing: 5px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  /* 右上卖点卡 */
+  .feature-card {
+    position: absolute;
+    right: 36px;
+    top: 28px;
+    width: 212px;
+    height: 138px;
+    border: 2px solid #072755;
+    border-radius: 6px;
+    padding: 13px 12px;
+    background: #ffffff;
+  }
+
+  .feature-card div {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 20px;
+    color: #071f43;
+    font-weight: 800;
+  }
+
+  .feature-card .dot {
+    width: 8px;
+    height: 8px;
+    background: #f41919;
+    border-radius: 50%;
+    flex: 0 0 auto;
+  }
+
+  .season-tag {
+    position: absolute;
+    right: 20px;
+    top: 184px;
+    width: 176px;
+    height: 42px;
+    background: #f21818;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 42px;
+    font-size: 24px;
+    font-weight: 800;
+  }
+
+  /* 主标题 */
+  .headline {
+    position: absolute;
+    left: 38px;
+    top: 160px;
+    width: 700px;
+  }
+
+  .headline-line-1 {
+    font-size: 48px;
+    color: #072253;
+    line-height: 1.12;
+    letter-spacing: 1px;
+    font-weight: 900;
+  }
+
+  .headline-line-2 {
+    margin-top: 8px;
+    font-size: 34px;
+    color: #072253;
+    font-weight: 900;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .headline-line-2:before,
+  .headline-line-2:after {
+    content: "";
+    width: 42px;
+    height: 5px;
+    background: #ff1717;
+  }
+
+  .subtitle {
+    margin-top: 17px;
+    font-size: 17px;
+    color: #1d2733;
+    font-weight: 600;
+  }
+
+  /* 功能概览 */
+  .overview-title {
+    position: absolute;
+    left: 38px;
+    top: 357px;
+    font-size: 26px;
+    color: #072253;
+    font-weight: 900;
+    padding-left: 10px;
+    border-left: 5px solid #ff1717;
+  }
+
+  .function-grid {
+    position: absolute;
+    left: 38px;
+    top: 402px;
+    width: 505px;
+    height: 326px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 17px 20px;
+  }
+
+  .function-card {
+    position: relative;
+    height: 150px;
+    background: #ffffff;
+    border: 1px solid #d5dbe4;
+    border-radius: 11px;
+    padding: 17px 16px;
+    box-shadow: 0 3px 8px rgba(7,31,67,0.04);
+  }
+
+  .function-card:before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: -7px;
+    width: 205px;
+    height: 3px;
+    background: #ff1717;
+    border-radius: 3px;
+  }
+
+  .card-title {
+    position: absolute;
+    top: 14px;
+    right: 12px;
+    width: 122px;
+    color: #072253;
+    font-size: 21px;
+    font-weight: 900;
+    text-align: center;
+  }
+
+  .card-icon {
+    position: absolute;
+    left: 16px;
+    top: 25px;
+    width: 58px;
+    height: 58px;
+    color: #072755;
+    font-size: 38px;
+    font-weight: 800;
+  }
+
+  .card-desc {
+    position: absolute;
+    left: 84px;
+    top: 65px;
+    width: 170px;
+    color: #26313c;
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 500;
+  }
+
+  /* 指标看板 */
+  .dashboard-title {
+    position: absolute;
+    left: 560px;
+    top: 358px;
+    color: #072253;
+    font-size: 25px;
+    font-weight: 900;
+    padding-left: 11px;
+    border-left: 4px solid #ff1717;
+  }
+
+  .dashboard-card {
+    position: absolute;
+    left: 560px;
+    top: 403px;
+    width: 320px;
+    height: 342px;
+    background: #f1f2f4;
+    border: 1px solid #d6dbe3;
+    border-radius: 13px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0;
+  }
+
+  .metric {
+    position: relative;
+    text-align: center;
+    padding-top: 17px;
+  }
+
+  .metric:nth-child(2),
+  .metric:nth-child(4) {
+    border-left: 1px solid #d3d7dc;
+  }
+
+  .metric:nth-child(1),
+  .metric:nth-child(3) {
+    border-bottom: 1px solid #d3d7dc;
+  }
+
+  .metric-label {
+    font-size: 16px;
+    color: #1c2530;
+    font-weight: 800;
+    margin-bottom: 7px;
+  }
+
+  .metric-number {
+    color: #f41919;
+    font-weight: 900;
+    font-size: 50px;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .metric-small {
+    color: #072253;
+    font-size: 23px;
+    margin-left: 2px;
+    font-weight: 800;
+  }
+
+  .metric-icon {
+    margin-top: 8px;
+    font-size: 33px;
+    color: #072755;
+    font-weight: 800;
+  }
+
+  /* 折线图 */
+  .chart-title {
+    position: absolute;
+    left: 38px;
+    top: 776px;
+    color: #072253;
+    font-size: 25px;
+    font-weight: 900;
+    padding-left: 11px;
+    border-left: 4px solid #ff1717;
+  }
+
+  .chart-card {
+    position: absolute;
+    left: 38px;
+    top: 807px;
+    width: 840px;
+    height: 315px;
+    background: #fff;
+    border: 1px solid #d5dbe4;
+    border-radius: 10px;
+  }
+
+  #lineChart {
+    position: absolute;
+    left: 22px;
+    top: 14px;
+    width: 795px;
+    height: 258px;
+  }
+
+  .chart-note {
+    position: absolute;
+    bottom: 17px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #495460;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* 案例与服务 */
+  .case-title {
+    position: absolute;
+    left: 38px;
+    top: 1111px;
+    color: #072253;
+    font-size: 25px;
+    font-weight: 900;
+    padding-left: 10px;
+    border-left: 4px solid #ff1717;
+  }
+
+  .case-card {
+    position: absolute;
+    left: 38px;
+    top: 1152px;
+    width: 478px;
+    height: 228px;
+    background: #072755;
+    color: #f3f7ff;
+    border-radius: 9px;
+    padding: 30px 25px;
+  }
+
+  .club-name {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 900;
+    margin-bottom: 8px;
+  }
+
+  .club-desc {
+    text-align: center;
+    font-size: 16px;
+    color: #d8e2ef;
+    font-weight: 600;
+  }
+
+  .case-achievement {
+    margin-top: 13px;
+    display: flex;
+    justify-content: space1around;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px dashed rgba(255,255,255,0.28);
+    padding-top: 8px;
+  }
+
+  .case-achievement span:first-child {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .case-achievement span:last-child {
+    color: #ff1717;
+    font-size: 33px;
+    font-weight: 900;
+  }
+
+  .service-title {
+    position: absolute;
+    left: 560px;
+    top: 1111px;
+    color: #072253;
+    font-size: 25px;
+    font-weight: 900;
+    padding-left: 10px;
+    border-left: 4px solid #ff1717;
+  }
+
+  .service-list {
+    position: absolute;
+    left: 560px;
+    top: 1152px;
+    width: 328px;
+    height: 228px;
+    background: #fbfbfb;
+    border: 1px solid #d6dbe3;
+    border-radius: 9px;
+    padding: 10px 0;
+  }
+
+  .service-row {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 15px;
+    border-bottom: 1px dashed #d4d8de;
+    color: #1e2732;
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .service-row:last-child {
+    border-bottom: none;
+  }
+
+  .service-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #072755;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+  }
+
+  /* 免责声明 */
+  .disclaimer {
+    position: absolute;
+    top: 1383px;
+    left: 230px;
+    width: 560px;
+    text-align: center;
+    color: #4a535d;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  /* 底部信息栏 */
+  .footer-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1024px;
+    height: 135px;
+    background: #072755;
+    display: flex;
+    color: #f1f6ff;
+    z-index: 10;
+  }
+
+  .footer-scene {
+    width: 330px;
+    padding-left: 42px;
+    border-right: 2px solid rgba(255,255,255,0.35);
+  }
+
+  .footer-version {
+    width: 310px;
+    text-align: center;
+    border-right: 2px solid rgba(255,255,255,0.35);
+    padding-left: 55px;
+  }
+
+  .footer-demo {
+    width: 384px;
+    padding-left: 58px;
+    border-left: 1px solid rgba(255,255,255,0.18);
+  }
+
+  .footer-title {
+    font-size: 19px;
+    font-weight: 900;
+    margin-bottom: 4px;
+    color: #fff;
+  }
+
+  .footer-sub {
+    font-size: 14px;
+    color: #d8e3ef;
+    line-height: 1.45;
+    font-weight: 600;
+  }
+
+  .price {
+    color: #ff1717;
+    font-size: 25px;
+    font-weight: 900;
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="side-bar">
+      <div class="side-red-line"></div>
+      <div class="side-dot"></div>
+      <div class="side-vertical-text">PRODUCT SHEET</div>
+      <div class="side-subtext">DATA / ANALYSIS / COACHING</div>
+      <div class="side-line-deco-1"></div>
+      <div class="side-chevrons">››››</div>
+      <div class="side-line-deco-2"></div>
+      <div class="side-dots"></div>
+      <div class="side-corner"></div>
+    </div>
+
+    <div class="main">
+      <div class="brand-area">
+        <div class="logo-icon"><div class="logo-dot"></div></div>
+        <div class="brand-name">竞擎数据</div>
+        <div class="brand-sub">ESPORTS PERFORMANCE<br>INTELLIGENCE PLATFORM</div>
+      </div>
+
+      <div class="feature-card">
+        <div><span class="dot"></span>实时采集</div>
+        <div><span class="dot"></span>多端协同</div>
+        <div><span class="dot"></span>分钟级复盘</div>
+      </div>
+      <div class="season-tag">2026 赛季版</div>
+
+      <div class="headline">
+        <div class="headline-line-1">职业战队训练数据中台</div>
+        <div class="headline-line-2">数据驱动，胜在每一刻</div>
+        <div class="subtitle">为俱乐部、赛事运营方与青训体系提供统一的数据采集、分析与决策支持。</div>
+      </div>
+
+      <div class="overview-title">产品功能概览</div>
+      <div class="function-grid">
+        <div class="function-card">
+          <div class="card-icon">☁</div>
+          <div class="card-title">赛事数据接入</div>
+          <div class="card-desc">对接主流赛事与平台数据，支持实时流与历史数据统一接入。</div>
+        </div>
+        <div class="function-card">
+          <div class="card-icon">↗</div>
+          <div class="card-title">训练表现分析</div>
+          <div class="card-desc">多维度评估选手表现，分钟级同步生成个人与团队分析报告。</div>
+        </div>
+        <div class="function-card">
+          <div class="card-icon">❤</div>
+          <div class="card-title">选手健康监测</div>
+          <div class="card-desc">持续监测心率、负荷等生理指标，评估疲劳度与恢复状态。</div>
+        </div>
+        <div class="function-card">
+          <div class="card-icon">▣</div>
+          <div class="card-title">教练复盘面板</div>
+          <div class="card-desc">战术片段标注与回放，支持关键事件检索与团队复盘协作。</div>
+        </div>
+      </div>
+
+      <div class="dashboard-title">核心指标看板</div>
+      <div class="dashboard-card">
+        <div class="metric">
+          <div class="metric-label">战术执行率</div>
+          <div class="metric-number">92<span class="metric-small">%</span></div>
+          <div class="metric-icon">◎</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">团战响应时延</div>
+          <div class="metric-number">0.8<span class="metric-small">s</span></div>
+          <div class="metric-icon">◷</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">训练完成度</div>
+          <div class="metric-number">87<span class="metric-small">%</span></div>
+          <div class="metric-icon">☑</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">伤病风险预警</div>
+          <div class="metric-number">12<span class="metric-small">%</span></div>
+          <div class="metric-icon">⚠</div>
+        </div>
+      </div>
+
+      <div class="chart-title">近6周训练评分趋势</div>
+      <div class="chart-card">
+        <div id="lineChart"></div>
+        <div class="chart-note">评分由操作稳定性、沟通效率、战术执行三项加权生成</div>
+      </div>
+
+      <div class="case-title">客户案例</div>
+      <div class="case-card">
+        <div class="club-name">华曜电子竞技俱乐部</div>
+        <div class="club-desc">接入竞擎数据平台后，8 周内：</div>
+        <div class="case-achievement">
+          <span>复盘效率提升</span>
+          <span>34%</span>
+        </div>
+        <div class="case-achievement">
+          <span>训练计划达成率提升</span>
+          <span>19%</span>
+        </div>
+      </div>
+
+      <div class="service-title">部署与服务</div>
+      <div class="service-list">
+        <div class="service-row"><div class="service-icon">▤</div>本地私有化部署</div>
+        <div class="service-row"><div class="service-icon">☁</div>SaaS 订阅</div>
+        <div class="service-row"><div class="service-icon">♕</div>赛事临时项目版</div>
+        <div class="service-row"><div class="service-icon">☏</div>7×12 小时技术支持</div>
+      </div>
+
+      <div class="disclaimer">* 所示数据为 2025 年样本项目统计结果</div>
+
+      <div class="footer-bar">
+        <div class="footer-scene">
+          <div class="footer-title">适用场景：</div>
+          <div class="footer-sub">职业电竞、青训中心、赛事裁判后台、体育科技实验室</div>
+        </div>
+        <div class="footer-version">
+          <div class="footer-title">标准版</div>
+          <div class="price">¥98,000/年</div>
+        </div>
+        <div class="footer-demo">
+          <div class="footer-title">预约演示：</div>
+          <div class="footer-sub">demo@jingqingdata.cn</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    var chart = echarts.init(document.getElementById('lineChart'));
+    chart.setOption({
+      animation: false,
+      color: ['#ff1717'],
+      grid: {
+        left: 43,
+        right: 18,
+        top: 34,
+        bottom: 35
+      },
+      legend: {
+        right: 12,
+        top: 0,
+        icon: 'circle',
+        itemWidth: 12,
+        itemHeight: 8,
+        textStyle: {
+          color: '#1d2733',
+          fontSize: 13,
+          fontWeight: 600
+        },
+        data: ['综合评分']
+      },
+      xAxis: {
+        type: 'category',
+        data: ['第1周','第2周','第3周','第4周','第5周','第6周'],
+        axisLine: { lineStyle: { color: '#9fa5ad' } },
+        axisTick: { show: false },
+        axisLabel: {
+          color: '#1f2832',
+          fontSize: 12,
+          fontWeight: 600,
+          margin: 12
+        }
+      },
+      yAxis: {
+        type: 'value',
+        min: 50,
+        max: 100,
+        interval: 10,
+        name: '评分（分）',
+        nameLocation: 'end',
+        nameTextStyle: {
+          color: '#222b34',
+          fontSize: 12,
+          fontWeight: 600,
+          align: 'left'
+        },
+        axisLabel: {
+          color: '#1f2832',
+          fontSize: 12
+        },
+        splitLine: {
+          lineStyle: {
+            color: '#d7dde3',
+            type: 'dashed'
+          }
+        }
+      },
+      series: [
+        {
+          name: '综合评分',
+          type: 'line',
+          data: [71, 74, 76, 81, 79, 85],
+          symbol: 'circle',
+          symbolSize: 15,
+          lineStyle: {
+            width: 3,
+            color: '#ff1717'
+          },
+          itemStyle: {
+            color: '#ffffff',
+            borderColor: '#ff1717',
+            borderWidth: 3
+          },
+          label: {
+            show: true,
+            position: 'top',
+            color: '#ff1717',
+            fontSize: 18,
+            fontWeight: 800
+          }
+        }
+      ],
+      tooltip: {
+        trigger: 'axis',
+        backgroundColor: 'rgba(7,31,67,0.95)',
+        borderColor: '#ff1717',
+        textStyle: { color: '#ffffff' }
+      }
+    });
+  </script>
+</body>
+</html>

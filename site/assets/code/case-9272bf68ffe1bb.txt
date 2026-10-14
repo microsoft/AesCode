@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Quality Control Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #dfe7ef;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #1f2937;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 853px;
+    overflow: hidden;
+    background: #f6f9fb;
+    border: 1px solid #dce5ed;
+  }
+
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 84px;
+    height: 853px;
+    background: #f2f6f8;
+    border-right: 1px solid #dce5ed;
+  }
+
+  .logo-box {
+    width: 84px;
+    height: 70px;
+    background: #0f593f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 1.1;
+  }
+
+  .logo-icon {
+    width: 29px;
+    height: 29px;
+    border: 2px solid white;
+    border-radius: 8px;
+    position: relative;
+    margin-bottom: 5px;
+  }
+
+  .logo-icon:before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    width: 10px;
+    height: 6px;
+    border-left: 3px solid white;
+    border-bottom: 3px solid white;
+    transform: rotate(-45deg);
+  }
+
+  .nav-item {
+    height: 68px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #607083;
+  }
+
+  .nav-item.active {
+    background: #e6f4ef;
+    color: #156146;
+  }
+
+  .nav-icon {
+    font-size: 18px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .collapse {
+    position: absolute;
+    bottom: 20px;
+    left: 12px;
+    color: #69798d;
+    font-size: 11px;
+  }
+
+  .main {
+    position: absolute;
+    left: 84px;
+    top: 0;
+    width: 1196px;
+    height: 853px;
+  }
+
+  .header {
+    position: absolute;
+    left: 31px;
+    top: 18px;
+    width: 1130px;
+    height: 52px;
+  }
+
+  .title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    color: #203047;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    color: #66778a;
+    font-weight: 600;
+  }
+
+  .filters {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .filter {
+    width: 185px;
+    height: 28px;
+    border: 1px solid #d8e3eb;
+    border-radius: 6px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space300;
+    color: #4d5f73;
+    font-size: 11px;
+    padding: 0 10px;
+  }
+
+  .filter.wide {
+    width: 204px;
+  }
+
+  .status {
+    border-left: 1px solid #dce5ed;
+    padding-left: 18px;
+    font-size: 11px;
+    color: #63768a;
+    font-weight: 600;
+    line-height: 1.15;
+  }
+
+  .kpi-row {
+    position: absolute;
+    left: 31px;
+    top: 84px;
+    width: 1130px;
+    height: 112px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .kpi-card {
+    background: white;
+    border: 1px solid #d9e4ed;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(30, 60, 80, 0.09);
+    position: relative;
+    padding: 12px 13px;
+  }
+
+  .kpi-icon {
+    position: absolute;
+    left: 14px;
+    top: 12px;
+    width: 51px;
+    height: 51px;
+    border-radius: 8px;
+    background: #e9f8f3;
+    color: #157558;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+  }
+
+  .kpi-label {
+    position: absolute;
+    left: 75px;
+    top: 11px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .kpi-value {
+    position: absolute;
+    left: 75px;
+    top: 36px;
+    font-size: 30px;
+    font-weight: 800;
+  }
+
+  .kpi-value.purple {
+    color: #6941dc;
+  }
+
+  .kpi-trend {
+    position: absolute;
+    left: 75px;
+    bottom: 14px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .spark {
+    position: absolute;
+    right: 13px;
+    top: 30px;
+    width: 68px;
+    height: 40px;
+    opacity: 0.85;
+  }
+
+  .panel {
+    position: absolute;
+    background: white;
+    border: 1px solid #d9e4ed;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(30, 60, 80, 0.08);
+  }
+
+  .sankey-panel {
+    left: 31px;
+    top: 216px;
+    width: 384px;
+    height: 328px;
+  }
+
+  .line-panel {
+    left: 434px;
+    top: 216px;
+    width: 382px;
+    height: 328px;
+  }
+
+  .radar-panel {
+    left: 841px;
+    top: 216px;
+    width: 351px;
+    height: 328px;
+  }
+
+  .panel-title {
+    position: absolute;
+    top: 10px;
+    left: 13px;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .chart {
+    position: absolute;
+  }
+
+  #sankeyChart {
+    left: 8px;
+    top: 36px;
+    width: 360px;
+    height: 242px;
+  }
+
+  #lineChart {
+    left: 12px;
+    top: 34px;
+    width: 356px;
+    height: 225px;
+  }
+
+  #radarChart {
+    left: 13px;
+    top: 34px;
+    width: 319px;
+    height: 230px;
+  }
+
+  .sankey-footer {
+    position: absolute;
+    bottom: 14px;
+    text-align: center;
+    color: #6545d7;
+    font-size: 11px;
+  }
+
+  .sankey-footer strong {
+    display: block;
+    font-size: 13px;
+    color: #5935d1;
+  }
+
+  .table-panel {
+    position: absolute;
+    left: 31px;
+    top: 568px;
+    width: 696px;
+    height: 257px;
+  }
+
+  .table-panel .panel-title {
+    top: 8px;
+  }
+
+  table {
+    position: absolute;
+    left: 7px;
+    top: 40px;
+    width: 678px;
+    border-collapse: collapse;
+    font-size: 10.5px;
+  }
+
+  th {
+    background: #f3f7fa;
+    color: #536478;
+    font-weight: 700;
+    height: 24px;
+    border-bottom: 1px solid #dbe6ee;
+  }
+
+  td {
+    border-bottom: 1px solid #e4ebf1;
+    height: 29px;
+  }
+
+  th:first-child,
+  td:first-child {
+    color: #263850;
+  }
+
+  .table-link {
+    position: absolute;
+    bottom: 20px;
+    right: 56px;
+    color: #5c39d9;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .alerts-panel {
+    position: absolute;
+    left: 822px;
+    top: 568px;
+    width: 369px;
+    height: 257px;
+  }
+
+  .alerts-panel .panel-title {
+    top: 8px;
+    left: 12px;
+  }
+
+  .view-all {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    color: #6241d3;
+    font-size: 10px;
+  }
+
+  .alert-list {
+    position: absolute;
+    left: 11px;
+    top: 39px;
+    width: 343px;
+  }
+
+  .alert-row {
+    height: 44px;
+    border-bottom: 1px solid #edf2f6;
+    display: grid;
+    grid-template-columns: 24px 151px 102px 36px;
+    align-items: center;
+    gap: 7px;
+    font-size: 10px;
+  }
+
+  .alert-row:last-child {
+    border-bottom: 0;
+  }
+
+  .alert-icon {
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 10px;
+    text-align: center;
+    line-height: 17px;
+    font-weight: 800;
+  }
+
+  .alert-icon.red {
+    background: #f04444;
+  }
+
+  .alert-icon.orange {
+    background: #ff8a1a;
+  }
+
+  .alert-icon.blue {
+    background: #6544db;
+  }
+
+  .alert-title {
+    font-weight: 800;
+  }
+
+  .alert-desc {
+    color: #738397;
+    font-size: 9px;
+  }
+
+  .pill {
+    text-align: center;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 800;
+  }
+
+  .pill.high {
+    background: #ffe7e7;
+    color: #ff4949;
+  }
+
+  .pill.medium {
+    background: #fff1df;
+    color: #ff9428;
+  }
+
+  .pill.info {
+    background: #f1e9ff;
+    color: #6544db;
+  }
+
+  .footer-note {
+    position: absolute;
+    bottom: 12px;
+    left: 250px;
+    color: #7a8b9d;
+    font-size: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <aside class="sidebar">
+    <div class="logo-box">
+      <div class="logo-icon"></div>
+      <div>Quality</div>
+    </div>
+
+    <div class="nav-item active">
+      <div class="nav-icon">⌂</div>
+      <div>Overview</div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">♙</div>
+      <div>Production</div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">♢</div>
+      <div>Quality</div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">▤</div>
+      <div>Reports</div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">♧</div>
+      <div>Alerts</div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">⚙</div>
+      <div>Settings</div>
+    </div>
+
+    <div class="collapse">‹ Collapse</div>
+  </aside>
+
+  <main class="main">
+    <section class="header">
+      <div class="title">Quality Control Dashboard</div>
+      <div class="subtitle">Real-time monitoring of manufacturing quality performance</div>
+
+      <div class="filters">
+        <div class="filter">▣ May 20 – May 26, 2024</div>
+        <div class="filter">All Plants</div>
+        <div class="filter wide">All Production Lines</div>
+        <div class="status">↻ Last updated<br>2 min ago</div>
+      </div>
+    </section>
+
+    <section class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-icon">♢</div>
+        <div class="kpi-label">Overall Yield</div>
+        <div class="kpi-value">98.35%</div>
+        <div class="kpi-trend">▲ 1.65 pp vs May 13 – May 19</div>
+        <div id="spark1" class="spark"></div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:#f0eefb;color:#6844d6;">▤</div>
+        <div class="kpi-label">Total Inspections</div>
+        <div class="kpi-value purple">12,842</div>
+        <div class="kpi-trend">▲ 8.7% vs May 13 – May 19</div>
+        <div id="spark2" class="spark"></div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon">△</div>
+        <div class="kpi-label">Defect Rate</div>
+        <div class="kpi-value">1.65%</div>
+        <div class="kpi-trend">▼ -0.35 pp vs May 13 – May 19</div>
+        <div id="spark3" class="spark"></div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:#f0eefb;color:#6844d6;">✕</div>
+        <div class="kpi-label">Defective Units</div>
+        <div class="kpi-value purple">212</div>
+        <div class="kpi-trend">▼ -18.2% vs May 13 – May 19</div>
+        <div id="spark4" class="spark"></div>
+      </div>
+    </section>
+
+    <section class="panel sankey-panel">
+      <div class="panel-title">Defect Flow by Category and Source</div>
+      <div id="sankeyChart" class="chart"></div>
+      <div class="sankey-footer">
+        Total Defects
+        <strong>12,842</strong>
+      </div>
+    </section>
+
+    <section class="panel line-panel">
+      <div class="panel-title">Defect Rate Over Time (%)</div>
+      <div id="lineChart" class="chart"></div>
+
+      <div style="position:absolute;left:12px;bottom:12px;width:356px;height:37px;background:#fbfbfd;border:1px solid #e4ebf1;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;font-size:10px;font-weight:700;color:#556578;">
+        <div>Period Average<br>1.99%</div>
+        <div>Best Day<br>May 25&nbsp;&nbsp; <span style="color:#19a66f;">1.42%</span></div>
+        <div>Worst Day<br>May 23&nbsp;&nbsp; <span style="color:#7a48df;">2.45%</span></div>
+      </div>
+    </section>
+
+    <section class="panel radar-panel">
+      <div class="panel-title">Quality Performance by Dimension</div>
+      <div id="radarChart" class="chart"></div>
+    </section>
+
+    <section class="panel table-panel">
+      <div class="panel-title">Top Defect Types</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Defect Type</th>
+            <th>Category</th>
+            <th>Defective Units</th>
+            <th>Defect Rate (%)</th>
+            <th>Trend (vs Last Week)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Out of Tolerance</td>
+            <td>Dimensional</td>
+            <td>3,169</td>
+            <td>0.41%</td>
+            <td>▼ -12.3%</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Wrong Size</td>
+            <td>Dimensional</td>
+            <td>2,843</td>
+            <td>0.37%</td>
+            <td>▼ -8.7%</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Scratches</td>
+            <td>Surface Finish</td>
+            <td>2,194</td>
+            <td>0.29%</td>
+            <td>▼ -4.5%</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Assembly Issue</td>
+            <td>Functional</td>
+            <td>1,902</td>
+            <td>0.25%</td>
+            <td>▼ -15.8%</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Cracks</td>
+            <td>Surface Finish</td>
+            <td>1,567</td>
+            <td>0.20%</td>
+            <td>▲ 3.2%</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="table-link">View All Defect Types ›</div>
+    </section>
+
+    <section class="panel alerts-panel">
+      <div class="panel-title">Recent Quality Alerts</div>
+      <div class="view-all">View All</div>
+
+      <div class="alert-list">
+        <div class="alert-row">
+          <div class="alert-icon red">!</div>
+          <div>
+            <div class="alert-title">High defect rate detected on Assembly Line 2</div>
+            <div class="alert-desc">Defect Rate: 2.89% (Threshold: 2.00%)</div>
+          </div>
+          <div>May 26, 09:15 AM</div>
+          <div class="pill high">High</div>
+        </div>
+
+        <div class="alert-row">
+          <div class="alert-icon orange">△</div>
+          <div>
+            <div class="alert-title">Dimensional defects above threshold</div>
+            <div class="alert-desc">Defect Rate: 0.52% (Threshold: 0.50%)</div>
+          </div>
+          <div>May 26, 08:47 AM</div>
+          <div class="pill medium">Medium</div>
+        </div>
+
+        <div class="alert-row">
+          <div class="alert-icon blue">i</div>
+          <div>
+            <div class="alert-title">Calibration due for Measuring Station 4</div>
+            <div class="alert-desc">Due in 1 day</div>
+          </div>
+          <div>May 26, 07:30 AM</div>
+          <div class="pill info">Info</div>
+        </div>
+
+        <div class="alert-row">
+          <div class="alert-icon blue">i</div>
+          <div>
+            <div class="alert-title">Preventive maintenance completed</div>
+            <div class="alert-desc">Assembly Line 1</div>
+          </div>
+          <div>May 25, 04:20 PM</div>
+          <div class="pill info">Info</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  function sparkline(id, data, color) {
+    var chart = echarts.init(document.getElementById(id));
+    chart.setOption({
+      animation: false,
+      grid: { left: 0, right: 0, top: 4, bottom: 4 },
+      xAxis: { type: 'category', show: false, data: ['1','2','3','4','5','6','7','8','9','10','11'] },
+      yAxis: { type: 'value', show: false },
+      series: [{
+        type: 'line',
+        data: data,
+        symbol: 'none',
+        smooth: false,
+        lineStyle: { color: color, width: 1.3 },
+        areaStyle: { opacity: 0 }
+      }]
+    });
+  }
+
+  sparkline('spark1', [98.1, 98.8, 98.45, 98.62, 98.31, 98.24, 98.49, 98.18, 98.38, 98.08, 98.35], '#21a972');
+  sparkline('spark2', [12650, 13220, 12980, 13100, 12890, 12970, 12620, 12840, 12720, 12580, 12842], '#7a48df');
+  sparkline('spark3', [2.1, 1.98, 1.92, 1.75, 1.81, 1.67, 1.54, 1.61, 1.48, 1.56, 1.65], '#21a972');
+  sparkline('spark4', [252, 236, 241, 226, 220, 228, 211, 217, 204, 198, 212], '#7a48df');
+
+  var sankey = echarts.init(document.getElementById('sankeyChart'));
+  sankey.setOption({
+    animation: false,
+    tooltip: { trigger: 'item' },
+    series: [{
+      type: 'sankey',
+      left: 0,
+      right: 0,
+      top: 5,
+      bottom: 5,
+      nodeWidth: 6,
+      nodeGap: 10,
+      draggable: false,
+      emphasis: { focus: 'adjacency' },
+      label: { fontSize: 9, color: '#263850' },
+      lineStyle: { color: 'gradient', curveness: 0.5, opacity: 0.23 },
+      data: [
+        { name: 'Assembly Line 1' },
+        { name: 'Assembly Line 2' },
+        { name: 'Component Line' },
+        { name: 'Packaging Line' },
+        { name: 'Other' },
+        { name: 'Dimensional' },
+        { name: 'Surface Finish' },
+        { name: 'Functional' },
+        { name: 'Material' },
+        { name: 'Wrong Size' },
+        { name: 'Out of Tolerance' },
+        { name: 'Scratches' },
+        { name: 'Cracks' },
+        { name: 'Assembly Issue' },
+        { name: 'Other Defect' }
+      ],
+      links: [
+        { source: 'Assembly Line 1', target: 'Dimensional', value: 2100 },
+        { source: 'Assembly Line 1', target: 'Surface Finish', value: 1050 },
+        { source: 'Assembly Line 1', target: 'Functional', value: 920 },
+        { source: 'Assembly Line 1', target: 'Material', value: 451 },
+        { source: 'Assembly Line 2', target: 'Dimensional', value: 1600 },
+        { source: 'Assembly Line 2', target: 'Surface Finish', value: 760 },
+        { source: 'Assembly Line 2', target: 'Functional', value: 640 },
+        { source: 'Assembly Line 2', target: 'Material', value: 218 },
+        { source: 'Component Line', target: 'Dimensional', value: 1300 },
+        { source: 'Component Line', target: 'Surface Finish', value: 620 },
+        { source: 'Component Line', target: 'Functional', value: 560 },
+        { source: 'Component Line', target: 'Material', value: 305 },
+        { source: 'Packaging Line', target: 'Dimensional', value: 620 },
+        { source: 'Packaging Line', target: 'Surface Finish', value: 520 },
+        { source: 'Packaging Line', target: 'Functional', value: 200 },
+        { source: 'Packaging Line', target: 'Material', value: 112 },
+        { source: 'Other', target: 'Dimensional', value: 392 },
+        { source: 'Other', target: 'Surface Finish', value: 295 },
+        { source: 'Other', target: 'Functional', value: 92 },
+        { source: 'Other', target: 'Material', value: 87 },
+        { source: 'Dimensional', target: 'Wrong Size', value: 2843 },
+        { source: 'Dimensional', target: 'Out of Tolerance', value: 3169 },
+        { source: 'Surface Finish', target: 'Scratches', value: 2194 },
+        { source: 'Surface Finish', target: 'Cracks', value: 1051 },
+        { source: 'Functional', target: 'Assembly Issue', value: 1902 },
+        { source: 'Functional', target: 'Cracks', value: 510 },
+        { source: 'Material', target: 'Cracks', value: 6 },
+        { source: 'Material', target: 'Other Defect', value: 1167 }
+      ]
+    }]
+  });
+
+  var line = echarts.init(document.getElementById('lineChart'));
+  line.setOption({
+    animation: false,
+    grid: { left: 32, right: 12, top: 15, bottom: 40 },
+    tooltip: { trigger: 'axis' },
+    xAxis: {
+      type: 'category',
+      data: ['May 20', 'May 21', 'May 22', 'May 23', 'May 24', 'May 25', 'May 26'],
+      boundaryGap: false,
+      axisLabel: { fontSize: 9 }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: 5,
+      interval: 1,
+      axisLabel: { fontSize: 9 }
+    },
+    series: [
+      {
+        type: 'line',
+        data: [2.35, 2.18, 1.95, 2.45, 1.89, 1.42, 1.65],
+        symbol: 'circle',
+        symbolSize: 6,
+        lineStyle: { width: 2, color: '#6941dc' },
+        itemStyle: { color: '#ffffff', borderColor: '#6941dc', borderWidth: 1.5 },
+        label: {
+          show: true,
+          position: 'top',
+          fontSize: 9,
+          color: '#263850'
+        },
+        areaStyle: { opacity: 0.07 }
+      },
+      {
+        type: 'line',
+        data: [0.18, 0.2, 0.17, 0.19, 0.18, 0.2, 0.17],
+        symbol: 'none',
+        lineStyle: { width: 1, color: '#8bd3a8', opacity: 0.4 }
+      },
+      {
+        type: 'line',
+        data: [0.3, 0.25, 0.28, 0.24, 0.26, 0.23, 0.25],
+        symbol: 'none',
+        lineStyle: { width: 1, color: '#93b9e9', opacity: 0.4 }
+      },
+      {
+        type: 'line',
+        data: [0.31, 0.29, 0.3, 0.28, 0.29, 0.27, 0.28],
+        symbol: 'none',
+        lineStyle: { width: 1, color: '#d8b5ff', opacity: 0.4 }
+      },
+      {
+        type: 'line',
+        data: [0.41, 0.36, 0.39, 0.37, 0.38, 0.35, 0.36],
+        symbol: 'none',
+        lineStyle: { width: 1, color: '#f0a7a7', opacity: 0.4 }
+      },
+      {
+        type: 'line',
+        data: [0.48, 0.43, 0.44, 0.41, 0.42, 0.39, 0.41],
+        symbol: 'none',
+        lineStyle: { width: 1, color: '#777', opacity: 0.35 }
+      }
+    ]
+  });
+
+  var radar = echarts.init(document.getElementById('radarChart'));
+  radar.setOption({
+    animation: false,
+    legend: {
+      bottom: 0,
+      itemWidth: 26,
+      itemHeight: 8,
+      textStyle: { fontSize: 9, color: '#526174' },
+      data: ['This Period', 'Last Period']
+    },
+    radar: {
+      center: ['50%', '46%'],
+      radius: 92,
+      splitNumber: 4,
+      axisName: { fontSize: 10, color: '#263850' },
+      indicator: [
+        { name: 'Dimensional', max: 100 },
+        { name: 'Surface Finish', max: 100 },
+        { name: 'Functionality', max: 100 },
+        { name: 'Packaging', max: 100 },
+        { name: 'Material', max: 100 }
+      ],
+      axisLine: { lineStyle: { color: '#cdd8e2' } },
+      splitLine: { lineStyle: { color: '#d8e3ee' } }
+    },
+    series: [{
+      type: 'radar',
+      data: [
+        {
+          value: [98.6, 98.2, 96.5, 97.1, 97.8],
+          name: 'This Period',
+          symbol: 'circle',
+          symbolSize: 4,
+          lineStyle: { width: 2, color: '#6b43dc' },
+          itemStyle: { color: '#ffffff', borderColor: '#6b43dc' },
+          label: {
+            show: true,
+            position: 'outside',
+            formatter: function(params) {
+              var labels = {
+                0: 'Dimensional\n98.6%',
+                1: 'Surface Finish\n98.2%',
+                2: 'Functionality\n96.5%',
+                3: 'Packaging\n97.1%',
+                4: 'Material\n97.8%'
+              };
+              return labels[params.dataIndex];
+            },
+            color: '#263850',
+            fontSize: 10
+          }
+        },
+        {
+          value: [97.8, 97.5, 95.8, 96.6, 97.0],
+          name: 'Last Period',
+          symbol: 'none',
+          lineStyle: { width: 1.2, color: '#9fa9b8', type: 'dashed' },
+          areaStyle: { opacity: 0 }
+        }
+      ]
+    }]
+  });
+
+  window.addEventListener('resize', function () {
+    sankey.resize();
+    line.resize();
+    radar.resize();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Future-ready apps require resilience and reliability</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #050b18;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      color: #ffffff;
+      background:
+        radial-gradient(circle at 88% 20%, rgba(180, 80, 255, 0.22), transparent 30%),
+        radial-gradient(circle at 18% 16%, rgba(43, 122, 190, 0.28), transparent 34%),
+        linear-gradient(118deg, #173f66 0%, #0d1d35 44%, #131328 68%, #2d2456 100%);
+    }
+
+    .artboard::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 52px;
+      height: 768px;
+      opacity: 0.28;
+      background-image:
+        linear-gradient(rgba(105, 150, 210, 0.28) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(105, 150, 210, 0.28) 1px, transparent 1px);
+      background-size: 12px 12px;
+      border-right: 1px solid rgba(150, 180, 220, 0.25);
+      pointer-events: none;
+    }
+
+    .artboard::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 48px;
+      height: 768px;
+      opacity: 0.19;
+      background-image:
+        linear-gradient(rgba(160, 120, 200, 0.28) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(160, 120, 200, 0.28) 1px, transparent 1px);
+      background-size: 11px 11px;
+      pointer-events: none;
+    }
+
+    .kicker {
+      position: absolute;
+      top: 60px;
+      left: 80px;
+      font-size: 18px;
+      letter-spacing: 4px;
+      color: rgba(220, 230, 255, 0.82);
+      font-weight: 600;
+    }
+
+    .title-line-1 {
+      position: absolute;
+      top: 104px;
+      left: 83px;
+      width: 1210px;
+      font-size: 66px;
+      line-height: 1.08;
+      font-weight: 750;
+      color: #f7f9ff;
+      letter-spacing: -2px;
+    }
+
+    .title-line-2 {
+      position: absolute;
+      top: 192px;
+      left: 83px;
+      width: 1210px;
+      font-size: 66px;
+      line-height: 1.08;
+      font-weight: 760;
+      letter-spacing: -1.8px;
+      background: linear-gradient(90deg, #7b83f5 0%, #ad77e6 45%, #df64d8 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .feature-row {
+      position: absolute;
+      left: 82px;
+      top: 322px;
+      width: 1212px;
+      height: 360px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      column-gap: 40px;
+    }
+
+    .feature {
+      position: relative;
+      height: 360px;
+      text-align: center;
+    }
+
+    .feature-bar {
+      height: 9px;
+      width: 278px;
+      margin: 0 auto 29px auto;
+      border-radius: 1px;
+      background: linear-gradient(90deg, #34a7f8 0%, #8666e9 52%, #c163e2 100%);
+    }
+
+    .feature:nth-child(2) .feature-bar {
+      width: 278px;
+      background: linear-gradient(90deg, #8657e3 0%, #c058df 56%, #8e72e6 100%);
+    }
+
+    .feature:nth-child(3) .feature-bar {
+      width: 278px;
+      background: linear-gradient(90deg, #a360df 0%, #8969e5 50%, #52a9f1 100%);
+    }
+
+    .feature:nth-child(4) .feature-bar {
+      width: 278px;
+      background: linear-gradient(90deg, #43a8f7 0%, #65a6ef 52%, #4ca5f1 100%);
+    }
+
+    .circle-icon {
+      width: 132px;
+      height: 132px;
+      margin: 0 auto 18px auto;
+      border: 3px solid rgba(125, 128, 245, 0.72);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(18, 31, 55, 0.62);
+      color: #ffffff;
+    }
+
+    .feature:nth-child(2) .circle-icon {
+      border-color: #b663de;
+    }
+
+    .feature:nth-child(3) .circle-icon {
+      border-color: #837be7;
+    }
+
+    .feature:nth-child(4) .circle-icon {
+      border-color: #5ba7ee;
+    }
+
+    .feature-label {
+      font-size: 27px;
+      font-weight: 760;
+      color: #f5f7ff;
+      margin-bottom: 10px;
+    }
+
+    .feature-text {
+      width: 268px;
+      margin: 0 auto;
+      font-size: 17px;
+      line-height: 1.22;
+      color: rgba(245, 248, 255, 0.92);
+      font-weight: 400;
+    }
+
+    /* Thermometer icon */
+    .thermometer-icon {
+      position: relative;
+      width: 82px;
+      height: 78px;
+    }
+
+    .thermometer-icon .tube {
+      position: absolute;
+      left: 26px;
+      top: 10px;
+      width: 15px;
+      height: 53px;
+      border: 3px solid #f2f5fb;
+      border-bottom: none;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .thermometer-icon .bulb {
+      position: absolute;
+      left: 18px;
+      top: 54px;
+      width: 28px;
+      height: 28px;
+      border: 3px solid #f2f5fb;
+      border-radius: 50%;
+      background: transparent;
+    }
+
+    .thermometer-icon .cap {
+      position: absolute;
+      left: 23px;
+      top: 2px;
+      width: 16px;
+      height: 12px;
+      border: 3px solid #f2f5fb;
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .thermometer-icon .pulse {
+      position: absolute;
+      left: 55px;
+      top: 28px;
+      width: 25px;
+      height: 18px;
+      border-left: 3px solid #f2f5fb;
+      border-bottom: 3px solid #f2f5fb;
+      transform: skewX(-18deg) rotate(135deg);
+      border-radius: 2px;
+    }
+
+    /* Monitor icon */
+    .monitor-icon {
+      position: relative;
+      width: 82px;
+      height: 72px;
+    }
+
+    .monitor-icon .screen {
+      position: absolute;
+      left: 11px;
+      top: 11px;
+      width: 59px;
+      height: 42px;
+      border: 3px solid #f2f5fb;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .monitor-icon .stand {
+      position: absolute;
+      left: 35px;
+      top: 53px;
+      width: 12px;
+      height: 11px;
+      border-left: 3px solid #f2f5fb;
+      border-right: 3px solid #f2f5fb;
+      border-bottom: 3px solid #f2f5fb;
+    }
+
+    .monitor-icon .base {
+      position: absolute;
+      left: 26px;
+      top: 63px;
+      width: 30px;
+      height: 3px;
+      background: #f2f5fb;
+      border-radius: 2px;
+    }
+
+    .monitor-icon .arrow-line {
+      position: absolute;
+      left: 29px;
+      top: 27px;
+      width: 25px;
+      height: 3px;
+      background: #f2f5fb;
+      transform: rotate(0deg);
+    }
+
+    .monitor-icon .arrow-head {
+      position: absolute;
+      left: 52px;
+      top: 22px;
+      width: 12px;
+      height: 12px;
+      border-top: 3px solid #f2f5fb;
+      border-right: 3px solid #f2f5fb;
+      transform: rotate(45deg);
+    }
+
+    /* Team network icon */
+    .team-icon {
+      position: relative;
+      width: 86px;
+      height: 86px;
+    }
+
+    .team-icon .person {
+      position: absolute;
+      width: 21px;
+      height: 21px;
+      border: 3px solid #f2f5fb;
+      border-radius: 50%;
+    }
+
+    .team-icon .head-1 {
+      left: 32px;
+      top: 11px;
+    }
+
+    .team-icon .head-2 {
+      left: 8px;
+      top: 48px;
+    }
+
+    .team-icon .head-3 {
+      right: 8px;
+      top: 48px;
+    }
+
+    .team-icon .body {
+      position: absolute;
+      width: 30px;
+      height: 16px;
+      border-bottom: 3px solid #f2f5fb;
+      border-left: 3px solid #f2f5fb;
+      border-radius: 0 0 0 22px;
+    }
+
+    .team-icon .body-2 {
+      left: 10px;
+      top: 70px;
+      transform: scaleX(-1);
+    }
+
+    .team-icon .body-3 {
+      right: 10px;
+      top: 70px;
+    }
+
+    .team-icon .link-a {
+      position: absolute;
+      left: 21px;
+      top: 28px;
+      width: 30px;
+      height: 30px;
+      border-top: 3px solid #f2f5fb;
+      border-right: 3px solid #f2f5fb;
+      border-radius: 0 22px 0 0;
+    }
+
+    .team-icon .link-b {
+      position: absolute;
+      left: 29px;
+      top: 29px;
+      width: 30px;
+      height: 30px;
+      border-left: 3px solid #f2f5fb;
+      border-bottom: 3px solid #f2f5fb;
+      border-radius: 0 0 0 22px;
+    }
+
+    /* Shift-left wedge icon */
+    .shift-icon {
+      position: relative;
+      width: 72px;
+      height: 72px;
+    }
+
+    .shift-icon .wedge {
+      position: absolute;
+      left: 21px;
+      top: 10px;
+      width: 31px;
+      height: 52px;
+      border-left: 4px solid #f2f5fb;
+      border-bottom: 4px solid #f2f5fb;
+      transform: rotate(45deg);
+      border-radius: 0 0 0 13px;
+    }
+
+    .shift-icon .arrow-line {
+      position: absolute;
+      left: 47px;
+      top: 31px;
+      width: 25px;
+      height: 3px;
+      background: #f2f5fb;
+    }
+
+    .shift-icon .arrow-head {
+      position: absolute;
+      left: 32px;
+      top: 37px;
+      width: 13px;
+      height: 13px;
+      border-left: 3px solid #f2f5fb;
+      border-bottom: 3px solid #f2f5fb;
+      transform: rotate(45deg);
+    }
+
+    .bottom-divider {
+      position: absolute;
+      left: 490px;
+      bottom: 28px;
+      width: 808px;
+      height: 1px;
+      background: rgba(150, 180, 220, 0.58);
+    }
+
+    .tagline {
+      position: absolute;
+      left: 76px;
+      bottom: 14px;
+      font-size: 13px;
+      letter-spacing: 6px;
+      color: rgba(215, 228, 255, 0.88);
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="kicker">BUILD FOR RESILIENCE</div>
+
+    <div class="title-line-1">Future-ready apps require</div>
+    <div class="title-line-2">resilience and reliability</div>
+
+    <div class="feature-row">
+      <div class="feature">
+        <div class="feature-bar"></div>
+        <div class="circle-icon" aria-hidden="true">
+          <div class="thermometer-icon">
+            <div class="cap"></div>
+            <div class="tube"></div>
+            <div class="bulb"></div>
+            <div class="pulse"></div>
+          </div>
+        </div>
+        <div class="feature-label">Site health</div>
+        <div class="feature-text">
+          Outages and downtime can result in millions of dollars of lost revenue, significant brand damage, and widespread customer dissatisfaction.
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-bar"></div>
+        <div class="circle-icon" aria-hidden="true">
+          <div class="monitor-icon">
+            <div class="screen"></div>
+            <div class="arrow-line"></div>
+            <div class="arrow-head"></div>
+            <div class="stand"></div>
+            <div class="base"></div>
+          </div>
+        </div>
+        <div class="feature-label">Digitization</div>
+        <div class="feature-text">
+          COVID-19 is accelerating the digitization of crucial services and processes. Consequently, outages can cause even more severe problems and widespread disruptions.
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-bar"></div>
+        <div class="circle-icon" aria-hidden="true">
+          <div class="team-icon">
+            <div class="person head-1"></div>
+            <div class="person head-2"></div>
+            <div class="person head-3"></div>
+            <div class="body body-2"></div>
+            <div class="body body-3"></div>
+            <div class="link-a"></div>
+            <div class="link-b"></div>
+          </div>
+        </div>
+        <div class="feature-label">DevOps</div>
+        <div class="feature-text">
+          Interconnected systems and continuous deployment practices with frequent updates expose problems and dependencies more quickly, requiring robust processes for stability.
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-bar"></div>
+        <div class="circle-icon" aria-hidden="true">
+          <div class="shift-icon">
+            <div class="wedge"></div>
+            <div class="arrow-line"></div>
+            <div class="arrow-head"></div>
+          </div>
+        </div>
+        <div class="feature-label">Shift-left</div>
+        <div class="feature-text">
+          Developers are taking on a larger, more proactive role in validating application quality, performance, security, and scalability earlier in the development lifecycle.
+        </div>
+      </div>
+    </div>
+
+    <div class="tagline">ACCELERATING INNOVATION WITH DEVOPS</div>
+    <div class="bottom-divider"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>瑜伽馆常见问题 FAQ</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #ddd;
+    font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background: #fbf5ee;
+    color: #4b2a1f;
+  }
+
+  .top-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 8% 10%, rgba(236, 204, 162, .45) 0 110px, transparent 112px),
+      radial-gradient(circle at 95% 20%, rgba(224, 190, 140, .28) 0 180px, transparent 182px),
+      linear-gradient(180deg, #fbf7f0 0%, #f8f1e7 58%, #f3e7d2 100%);
+  }
+
+  .top-title {
+    position: absolute;
+    top: 90px;
+    left: 0;
+    width: 1024px;
+    text-align: center;
+    z-index: 2;
+  }
+
+  .main-title {
+    font-size: 58px;
+    line-height: 1.12;
+    letter-spacing: 3px;
+    font-weight: 800;
+    color: #4b2b20;
+    margin: 0 0 18px 0;
+  }
+
+  .sub-title {
+    font-size: 29px;
+    letter-spacing: 3px;
+    color: #4b2a1f;
+    margin: 0 0 22px 0;
+  }
+
+  .tag-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    min-width: 640px;
+    padding: 0 30px;
+    border: 1.5px solid #c89445;
+    border-radius: 24px;
+    background: rgba(238, 210, 170, .72);
+    color: #4b2a1f;
+    font-size: 22px;
+  }
+
+  .tag-pill::before,
+  .tag-pill::after {
+    content: "•";
+    color: #c89445;
+    margin: 0 10px;
+    font-weight: 700;
+  }
+
+  .lotus {
+    position: absolute;
+    top: 38px;
+    right: 48px;
+    width: 104px;
+    height: 82px;
+    z-index: 2;
+  }
+
+  .intro-band {
+    position: absolute;
+    top: 322px;
+    left: 0;
+    width: 1024px;
+    height: 200px;
+    background: linear-gradient(90deg, #f6e9cd 0%, #f3dcad 58%, #f5dfc4 100%);
+    border-top: 1px solid rgba(255,255,255,.85);
+    border-bottom: 1px solid rgba(255,255,255,.85);
+  }
+
+  .info-card {
+    position: absolute;
+    left: 38px;
+    top: 20px;
+    width: 428px;
+    height: 160px;
+    background: rgba(255,255,255,.82);
+    border: 1.5px solid rgba(190,150,90,.45);
+    border-radius: 15px;
+    box-shadow: 0 7px 12px rgba(130,90,40,.22);
+    padding: 20px 22px;
+  }
+
+  .store-name {
+    font-size: 29px;
+    color: #4b2a1f;
+    margin-bottom: 12px;
+  }
+
+  .info-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+
+  .info-label {
+    width: 45px;
+    height: 45px;
+    border: 2px solid #c89445;
+    color: #c89445;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+
+  .info-text {
+    font-size: 23px;
+    color: #4b2a1f;
+    white-space: nowrap;
+  }
+
+  .badge-group {
+    position: absolute;
+    left: 510px;
+    top: 26px;
+    width: 460px;
+    height: 140px;
+    display: flex;
+    justify-content: space2between;
+    align-items: center;
+  }
+
+  .badge-item {
+    width: 135px;
+    text-align: center;
+  }
+
+  .badge-icon {
+    width: 104px;
+    height: 104px;
+    margin: 0 auto 8px auto;
+    border: 2px solid #c89445;
+    border-radius: 50%;
+    background: rgba(255,255,255,.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .badge-label {
+    display: inline-flex;
+    min-width: 120px;
+    height: 38px;
+    padding: 0 10px;
+    border-radius: 5px;
+    background: #c89445;
+    color: #fff;
+    font-size: 21px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .qa-band {
+    position: absolute;
+    left: 0;
+    width: 1024px;
+    height: 124px;
+    padding: 0 158px 0 52px;
+    border-bottom: 1px solid rgba(255,255,255,.85);
+  }
+
+  .qa1 { top: 542px; background: linear-gradient(90deg, #fbf7ef 0%, #f9f2e8 62%, #f6ecdd 100%); }
+  .qa2 { top: 666px; background: linear-gradient(90deg, #f5ecd1 0%, #efd6b3 50%, #f7f1e8 100%); }
+  .qa3 { top: 790px; background: linear-gradient(90deg, #fbf7ef 0%, #f8f2e8 62%, #f5eddc 100%); }
+  .qa4 { top: 914px; background: linear-gradient(90deg, #f5ecd0 0%, #efd7b4 50%, #f8f2e8 100%); }
+  .qa5 { top: 1038px; background: linear-gradient(90deg, #fbf7ef 0%, #f8f2e8 62%, #f6eddf 100%); }
+  .qa6 { top: 1162px; background: linear-gradient(90deg, #f5ecd0 0%, #efd7b4 50%, #f8f2e8 100%); }
+
+  .qa-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    height: 100px;
+    border-right: 2px dashed rgba(190,150,90,.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .qa-circle {
+    width: 80px;
+    height: 80px;
+    border: 2px solid rgba(190,150,90,.65);
+    background: #d9ad55;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    font-weight: 700;
+  }
+
+  .qa-right {
+    position: absolute;
+    left: 120px;
+    top: 0;
+    width: 815px;
+    height: 100px;
+    padding-top: 8px;
+  }
+
+  .qa-title {
+    font-size: 29px;
+    line-height: 1.2;
+    font-weight: 800;
+    color: #4b2a1f;
+    margin-bottom: 9px;
+  }
+
+  .qa-divider {
+    height: 1px;
+    background: rgba(200,148,69,.72);
+    margin-bottom: 5px;
+  }
+
+  .qa-answer {
+    font-size: 21px;
+    line-height: 1.38;
+    color: #4b2a1f;
+    max-height: 62px;
+  }
+
+  .tip-band {
+    position: absolute;
+    top: 1286px;
+    left: 0;
+    width: 1024px;
+    height: 150px;
+    background: #f7efcf;
+    display: flex;
+    justify-content: space2between;
+    padding: 10px 48px;
+    gap: 28px;
+  }
+
+  .tip-card {
+    width: 292px;
+    height: 128px;
+    background: rgba(255,255,255,.82);
+    border: 1.5px solid #c89445;
+    border-radius: 12px;
+    box-shadow: 0 5px 8px rgba(130,90,40,.18);
+    padding: 10px 12px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .tip-icon {
+    flex: 0 0 45px;
+    width: 45px;
+    height: 45px;
+    border: 1.5px solid #c89445;
+    border-radius: 50%;
+    background: #d9ad55;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .tip-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #4b2a1f;
+    margin-bottom: 8px;
+  }
+
+  .tip-title::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 2px;
+    background: #c89445;
+    margin-bottom: 6px;
+  }
+
+  .tip-list {
+    margin: 0;
+    padding-left: 14px;
+    font-size: 17px;
+    line-height: 1.45;
+    color: #4b2a1f;
+  }
+
+  .footer-line {
+    position: absolute;
+    top: 1438px;
+    left: 0;
+    width: 1024px;
+    height: 14px;
+    border-top: 2px solid #c89445;
+    border-bottom: 2px solid #c89445;
+    background: rgba(255,255,255,.85);
+  }
+
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1024px;
+    height: 118px;
+    background: #4b2a1f;
+    color: #f4e6d0;
+    text-align: center;
+    padding-top: 14px;
+    font-size: 25px;
+    line-height: 1.6;
+    letter-spacing: 2px;
+  }
+
+  .footer .price {
+    font-size: 30px;
+    color: #ffc857;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="top-bg"></div>
+
+  <svg class="lotus" viewBox="0 0 120 95" aria-label="瑜伽莲花线性图标">
+    <g fill="none" stroke="#c89445" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M60 10 C72 28 88 36 102 40 C90 46 72 50 60 62 C48 50 30 46 18 40 C32 36 48 28 60 10Z"/>
+      <path d="M60 18 C52 32 36 40 20 42 C30 48 44 52 54 62 C45 52 38 44 34 34 C46 32 54 26 60 18Z"/>
+      <path d="M60 18 C68 32 84 40 100 42 C90 48 76 52 66 62 C75 52 82 44 86 34 C74 32 66 26 60 18Z"/>
+      <path d="M26 48 C38 56 52 58 60 64 C68 58 82 56 94 48"/>
+      <circle cx="60" cy="28" r="4.5" fill="#c89445"/>
+    </g>
+  </svg>
+
+  <section class="top-title">
+    <h1 class="main-title">瑜伽馆常见问题 FAQ</h1>
+    <div class="sub-title">初学者上课、预约、装备与恢复指南</div>
+    <div class="tag-pill">适用门店：静息瑜伽 Space &amp; Flow · 2026春季版</div>
+  </section>
+
+  <section class="intro-band">
+    <div class="info-card">
+      <div class="store-name">静息瑜伽 Space &amp; Flow</div>
+      <div class="info-row">
+        <span class="info-label">◷</span>
+        <span class="info-text">营业时间　07:00–21:30</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">☎</span>
+        <span class="info-text">咨询电话　021-6488-2036</span>
+      </div>
+    </div>
+
+    <div class="badge-group">
+      <div class="badge-item">
+        <div class="badge-icon">
+          <svg width="58" height="58" viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="18" r="10" fill="#c89445"></circle>
+            <path d="M16 42 C18 32 28 28 32 20 C36 28 46 32 48 42 Z" fill="#c89445"></path>
+            <circle cx="32" cy="42" r="8" fill="#fbf7ef" stroke="#c89445" stroke-width="4"></circle>
+          </svg>
+        </div>
+        <div class="badge-label">新手友好</div>
+      </div>
+      <div class="badge-item">
+        <div class="badge-icon">
+          <svg width="62" height="62" viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="18" r="11" fill="#c89445"></circle>
+            <circle cx="18" cy="28" r="8" fill="#c89445"></circle>
+            <circle cx="46" cy="28" r="8" fill="#c89445"></circle>
+            <path d="M18 42 C18 52 28 58 32 50 C36 58 46 52 46 42 Z" fill="#c89445"></path>
+            <path d="M8 44 C10 52 18 58 28 58" fill="none" stroke="#c89445" stroke-width="5" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <div class="badge-label">小班课程</div>
+      </div>
+      <div class="badge-item">
+        <div class="badge-icon">
+          <svg width="62" height="62" viewBox="0 0 64 64" aria-hidden="true">
+            <ellipse cx="24" cy="20" rx="18" ry="8" fill="#c89445"></ellipse>
+            <path d="M8 22 L28 38 L48 30 L18 24 Z" fill="#c89445"></path>
+            <path d="M12 38 L52 42 L38 54 L10 48 Z" fill="#c89445"></path>
+          </svg>
+        </div>
+        <div class="badge-label">提供垫子</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="qa-band qa1">
+    <div class="qa-left"><div class="qa-circle">Q1</div></div>
+    <div class="qa-right">
+      <div class="qa-title">Q1 第一次上瑜伽课，需要提前多久到？</div>
+      <div class="qa-divider"></div>
+      <div class="qa-answer">建议首次到店提前15分钟，完成签到、健康问询和呼吸说明。</div>
+    </div>
+  </section>
+
+  <section class="qa-band qa2">
+    <div class="qa-left"><div class="qa-circle">Q2</div></div>
+    <div class="qa-right">
+      <div class="qa-title">Q2 零基础可以参加吗？</div>
+      <div class="qa-divider"></div>
+      <div class="qa-answer">零基础可以参加，建议从“基础流动”或“舒缓伸展”课程开始，老师会提供替代动作。</div>
+    </div>
+  </section>
+
+  <section class="qa-band qa3">
+    <div class="qa-left"><div class="qa-circle">Q3</div></div>
+    <div class="qa-right">
+      <div class="qa-title">Q3 需要自带瑜伽垫吗？</div>
+      <div class="qa-divider"></div>
+      <div class="qa-answer">馆内可免费提供基础瑜伽垫，如需防滑体验也可自带。</div>
+    </div>
+  </section>
+
+  <section class="qa-band qa4">
+    <div class="qa-left"><div class="qa-circle">Q4</div></div>
+    <div class="qa-right">
+      <div class="qa-title">Q4 课程开始前多久不能进食？</div>
+      <div class="qa-divider"></div>
+      <div class="qa-answer">建议课前1.5到2小时避免正餐，如有低血糖可在课前30分钟少量补充香蕉或苏打饼干。</div>
+    </div>
+  </section>
+
+  <section class="qa-band qa5">
+    <div class="qa-left"><div class="qa-circle">Q5</div></div>
+    <div class="qa-right">
+      <div class="qa-title">Q5 预约后临时不能来怎么办？</div>
+      <div class="qa-divider"></div>
+      <div class="qa-answer">开课前4小时可在小程序免费取消，逾时将扣除一次课时。</div>
+    </div>
+  </section>
+
+  <section class="qa-band qa6">
+    <div class="qa-left"><div class="qa-circle">Q6</div></div>
+    <div class="qa-right">
+      <div class="qa-title">Q6 练习后酸痛正常吗？</div>
+      <div class="qa-divider"></div>
+      <div class="qa-answer">轻微酸胀通常正常，建议补水、拉伸和休息；若出现刺痛或眩晕应立即停止并联系医生。</div>
+    </div>
+  </section>
+
+  <section class="tip-band">
+    <div class="tip-card">
+      <div class="tip-icon">▤</div>
+      <div>
+        <div class="tip-title">课前准备</div>
+        <ul class="tip-list">
+          <li>避免空腹或过饱上课</li>
+          <li>提前如厕，保持身体舒适</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-icon">👚</div>
+      <div>
+        <div class="tip-title">上课着装</div>
+        <ul class="tip-list">
+          <li>穿着贴身但可活动的运动服</li>
+          <li>取下饰品，避免影响练习</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-icon">♡</div>
+      <div>
+        <div class="tip-title">特殊情况</div>
+        <ul class="tip-list">
+          <li>孕期、术后恢复或高血压会员，请先与老师沟通</li>
+          <li>如感不适，及时告知老师</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-line"></div>
+  <footer class="footer">
+    <div>地址：上海市徐汇区衡山路88号 3F</div>
+    <div>扫码预约体验课 · 首次到店体验价 <span class="price">¥69</span></div>
+  </footer>
+</div>
+</body>
+</html>

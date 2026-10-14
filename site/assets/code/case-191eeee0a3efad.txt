@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>SEC Cybersecurity Exam Results</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #d9e3e8;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 768px;
+    height: 1376px;
+    overflow: hidden;
+    background: #e8f0f4;
+    color: #17364f;
+  }
+
+  .top-banner {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    width: 740px;
+    height: 72px;
+    background: #1f77a6;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .main-title {
+    margin: 0;
+    color: #ffffff;
+    font-size: 31px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+  }
+
+  .subtitle {
+    position: absolute;
+    top: 98px;
+    left: 0;
+    width: 768px;
+    text-align: center;
+    font-size: 16px;
+    color: #2b3540;
+    font-weight: 600;
+  }
+
+  /* Top monitor grid */
+  .monitor-grid {
+    position: absolute;
+    left: 38px;
+    top: 162px;
+    width: 342px;
+    height: 262px;
+    display: grid;
+    grid-template-columns: repeat(8, 34px);
+    grid-auto-rows: 34px;
+    gap: 8px;
+  }
+
+  .monitor-icon {
+    width: 32px;
+    height: 28px;
+    background: #1688c9;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .monitor-icon::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    width: 14px;
+    height: 11px;
+    background: #c8f4ff;
+    border-radius: 2px;
+    border: 1px solid #105f95;
+  }
+
+  .monitor-icon::after {
+    content: "";
+    position: absolute;
+    left: 13px;
+    bottom: -7px;
+    width:5px;
+    height: 8px;
+    background: #1688c9;
+  }
+
+  .monitor-icon.green {
+    background: #48b798;
+  }
+
+  .policies-label {
+    position: absolute;
+    left: 390px;
+    top: 162px;
+    width: 352px;
+    height: 34px;
+    background: #2486bd;
+    color: #ffffff;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .policies-percent {
+    position: absolute;
+    left: 514px;
+    top: 210px;
+    font-size: 52px;
+    color: #204b70;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+  }
+
+  .policy-text {
+    position: absolute;
+    left: 514px;
+    top: 282px;
+    width: 228px;
+    font-size: 11.7px;
+    line-height: 1.22;
+    color: #222;
+  }
+
+  /* Mid panels */
+  .risk-label {
+    position: absolute;
+    left: 26px;
+    top: 484px;
+    width: 346px;
+    height: 34px;
+    background: #2188bf;
+    color: #ffffff;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .risk-percent-top {
+    position: absolute;
+    left: 160px;
+    top: 528px;
+    font-size: 38px;
+    color: #204b70;
+    font-weight: 900;
+  }
+
+  .risk-text-top {
+    position: absolute;
+    left: 160px;
+    top: 570px;
+    width: 212px;
+    font-size: 11.2px;
+    line-height: 1.18;
+  }
+
+  .thumbs-circle {
+    position: absolute;
+    left: 38px;
+    top: 596px;
+    width: 102px;
+    height: 102px;
+    border-radius: 50%;
+    background: #59c99b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .thumb-up {
+    width: 56px;
+    height: 56px;
+    background: #f7fbfb;
+    border: 2px solid #8fc8d3;
+    border-radius: 10px 10px 10px 0;
+    transform: rotate(-22deg);
+    position: relative;
+  }
+
+  .thumb-up::before {
+    content: "";
+    position: absolute;
+    left: 11px;
+    top: 7px;
+    width: 15px;
+    height: 36px;
+    background: #2796cc;
+    border-radius: 5px;
+  }
+
+  .thumb-up::after {
+    content: "";
+    position: absolute;
+    right: 12px;
+    top: 18px;
+    width: 23px;
+    height: 18px;
+    background: #eaf7f8;
+    border-radius: 6px 8px 8px 3px;
+    border: 1px solid #8fc8d3;
+  }
+
+  .risk-percent-bottom {
+    position: absolute;
+    left: 160px;
+    top: 660px;
+    font-size: 38px;
+    color: #204b70;
+    font-weight: 900;
+  }
+
+  .risk-text-bottom {
+    position: absolute;
+    left: 160px;
+    top: 698px;
+    width: 212px;
+    font-size: 11.2px;
+    line-height: 1.18;
+  }
+
+  .incidents-label {
+    position: absolute;
+    left: 390px;
+    top: 484px;
+    width: 352px;
+    height: 34px;
+    background: #1f77a6;
+    color: #ffffff;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .incident-monitor {
+    position: absolute;
+    left: 412px;
+    top: 595px;
+    width: 86px;
+    height: 72px;
+    background: #748494;
+    border-radius: 3px;
+    border: 2px solid #556576;
+    box-shadow: 0 0 0 4px #d9e7ee inset;
+  }
+
+  .incident-monitor::before {
+    content: "!";
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 86px;
+    text-align: center;
+    font-size: 28px;
+    color: #ef5246;
+    font-weight: 900;
+  }
+
+  .incident-percent {
+    position: absolute;
+    left: 532px;
+    top: 539px;
+    font-size: 50px;
+    color: #204b70;
+    font-weight: 900;
+  }
+
+  .incident-text {
+    position: absolute;
+    left: 530px;
+    top: 609px;
+    width: 210px;
+    font-size: 11.2px;
+    line-height: 1.18;
+  }
+
+  /* Lower panels */
+  .vendors-box {
+    position: absolute;
+    left: 26px;
+    top: 799px;
+    width: 346px;
+    height: 204px;
+    background: #ffffff;
+    border: 1.5px solid #37566d;
+    border-radius: 6px;
+  }
+
+  .vendors-title {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 346px;
+    height: 30px;
+    background: #718394;
+    border-radius: 5px 5px 0 0;
+    color: #ffffff;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .vendors-text {
+    position: absolute;
+    left: 10px;
+    top: 43px;
+    width: 190px;
+    font-size: 11.4px;
+    line-height: 1.18;
+  }
+
+  .document-icon {
+    position: absolute;
+    right: 20px;
+    top: 35px;
+    width: 62px;
+    height: 75px;
+    background: #d8eff6;
+    border: 1.5px solid #5c7990;
+    border-radius: 3px;
+  }
+
+  .document-icon::before {
+    content: "";
+    position: absolute;
+    right: -1.5px;
+    top: -1.5px;
+    width: 24px;
+    height: 24px;
+    background: #f9fbfb;
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    border-left: 1.5px solid #5c7990;
+    border-bottom: 1.5px solid #5c7990;
+  }
+
+  .ciso-header {
+    position: absolute;
+    left: 26px;
+    top: 1028px;
+    width: 346px;
+    height: 32px;
+    background: #1f77a6;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .person-grid {
+    position: absolute;
+    left: 38px;
+    top: 1076px;
+    width: 162px;
+    height: 180px;
+    display: grid;
+    grid-template-columns: repeat(5, 24px);
+    grid-auto-rows: 27px;
+    gap: 6px;
+  }
+
+  .person {
+    width: 20px;
+    height: 23px;
+    position: relative;
+    background: #2486bd;
+    border-radius: 7px 7px 4px 4px;
+  }
+
+  .person.orange {
+    background: #f38d37;
+  }
+
+  .person.gray {
+    background: #8b9096;
+  }
+
+  .person::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: -8px;
+    width: 8px;
+    height: 8px;
+    background: inherit;
+    border-radius: 50%;
+  }
+
+  .ciso-text {
+    position: absolute;
+    left: 206px;
+    top: 1075px;
+    width: 136px;
+    font-size: 11.2px;
+    line-height: 1.18;
+  }
+
+  .attacks-panel {
+    position: absolute;
+    left: 390px;
+    top: 799px;
+    width: 352px;
+    height: 488px;
+    background: #ffffff;
+    border: 1.5px solid #235d87;
+    border-radius: 6px;
+  }
+
+  .attacks-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 352px;
+    height: 30px;
+    background: #1f77a6;
+    border-radius: 5px 5px 0 0;
+    color: #ffffff;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .attacks-bullets {
+    position: absolute;
+    left: 18px;
+    top: 43px;
+    width: 162px;
+    font-size: 11.2px;
+    line-height: 1.18;
+  }
+
+  .attacks-bullets div {
+    margin-bottom: 8px;
+  }
+
+  .attacks-number {
+    position: absolute;
+    left: 195px;
+    top: 50px;
+    font-size: 36px;
+    color: #204b70;
+    font-weight: 900;
+  }
+
+  .attacks-explain {
+    position: absolute;
+    left: 195px;
+    top: 96px;
+    width: 130px;
+    font-size: 11.2px;
+    line-height: 1.18;
+  }
+
+  #pieChart {
+    position: absolute;
+    left: 20px;
+    top: 250px;
+    width: 220px;
+    height: 160px;
+  }
+
+  .pie-legend {
+    position: absolute;
+    left: 86px;
+    top: 428px;
+    width: 190px;
+    text-align: center;
+    font-size: 10.3px;
+  }
+
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 768px;
+    height: 66px;
+    background: #d5e4ea;
+    border-top: 1px solid rgba(20, 70, 100, 0.22);
+  }
+
+  .source-note {
+    position: absolute;
+    left: 26px;
+    top: 12px;
+    width: 525px;
+    font-size: 9.5px;
+    line-height: 1.2;
+    color: #253340;
+  }
+
+  .vendor-logo {
+    position: absolute;
+    right: 25px;
+    top: 8px;
+    width: 82px;
+    height: 42px;
+    border: 2px solid #2783b8;
+    background: #e7f6fb;
+    color: #205781;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: 900;
+  }
+
+  .vendor-logo span:last-child {
+    font-size: 9px;
+    letter-spacing: 0.6px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="top-banner">
+    <h1 class="main-title">SEC Cybersecurity Exam Results</h1>
+  </div>
+
+  <div class="subtitle">Summary of how broker-dealers and advisors fared in the Cybersecurity Exam</div>
+
+  <div class="monitor-grid" aria-label="Grid of examined firms represented by monitor icons">
+    <div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div>
+    <div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div>
+    <div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div>
+    <div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div>
+    <div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon green" aria-hidden="true"></div>
+    <div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon green" aria-hidden="true"></div>
+    <div class="monitor-icon" aria-hidden="true"></div><div class="monitor-icon green" aria-hidden="true"></div><div class="monitor-icon green" aria-hidden="true"></div><div class="monitor-icon green" aria-hidden="true"></div><div class="monitor-icon green" aria-hidden="true"></div><div class="monitor-icon green" aria-hidden="true"></div><div class="monitor-icon green" aria-hidden="true"></div><div class="monitor-icon green" aria-hidden="true"></div>
+    <div class="monitor-icon green" aria-hidden="true"></div><div class="monitor-icon green" aria-hidden="true"></div><div class="monitor-icon green" aria-hidden="true"></div><div class="monitor-icon green" aria-hidden="true"></div><div class="monitor-icon green" aria-hidden="true"></div><div class="monitor-icon green" aria-hidden="true"></div><div class="monitor-icon green" aria-hidden="true"></div><div class="monitor-icon green" aria-hidden="true"></div>
+  </div>
+
+  <div class="policies-label">Policies In Place</div>
+  <div class="policies-percent">93%</div>
+  <div class="policy-text">
+    The vast majority of broker-dealers and investment advisers examined have adopted written information security policies and conduct periodic audits to assess their cybersecurity readiness.<br><br>
+    These firms have implemented governance structures and are taking steps to protect sensitive customer information and firm data, demonstrating a commitment to regulatory compliance and data security.
+  </div>
+
+  <div class="risk-label">Risk Assessments</div>
+  <div class="risk-percent-top">93%</div>
+  <div class="risk-text-top">
+    Most firms conduct periodic risk assessments to identify and prioritize cybersecurity threats, vulnerabilities, and the potential business consequences of a security event, allowing for informed decisions on security controls.
+  </div>
+  <div class="thumbs-circle" aria-hidden="true">
+    <div class="thumb-up"></div>
+  </div>
+  <div class="risk-percent-bottom">32%</div>
+  <div class="risk-text-bottom">
+    A smaller portion of firms require risk assessments of their vendors or advisers that have access to their networks or data, indicating an area for improvement in third party risk management.
+  </div>
+
+  <div class="incidents-label">Cyber Related Incidents</div>
+  <div class="incident-monitor" aria-hidden="true"></div>
+  <div class="incident-percent">88%</div>
+  <div class="incident-text">
+    A significant majority of broker-dealers and advisers reported experiencing cyber attacks or incidents, with many cases involving malware, phishing attempts, and fraudulent emails aimed at compromising information or funds. These incidents underscore the persistent threat landscape.
+  </div>
+
+  <div class="vendors-box">
+    <div class="vendors-title">3rd Party Vendors</div>
+    <div class="vendors-text">
+      Most broker-dealers incorporate cybersecurity requirements into their contracts with vendors and business partners to manage supply chain risks.<br><br>
+      However, fewer advisers include such explicit terms in their vendor agreements, presenting a potential vulnerability.
+    </div>
+    <div class="document-icon" aria-hidden="true"></div>
+  </div>
+
+  <div class="ciso-header">Chief Information Security Officer</div>
+  <div class="person-grid" aria-label="Person icons showing proportions">
+    <div class="person"></div><div class="person"></div><div class="person"></div><div class="person"></div><div class="person"></div>
+    <div class="person"></div><div class="person"></div><div class="person"></div><div class="person"></div><div class="person"></div>
+    <div class="person"></div><div class="person"></div><div class="person"></div><div class="person"></div><div class="person"></div>
+    <div class="person"></div><div class="person"></div><div class="person"></div><div class="person"></div><div class="person orange"></div>
+    <div class="person"></div><div class="person gray"></div><div class="person"></div><div class="person gray"></div><div class="person gray"></div>
+    <div class="person"></div><div class="person gray"></div><div class="person gray"></div><div class="person gray"></div><div class="person gray"></div>
+    <div class="person gray"></div><div class="person gray"></div><div class="person gray"></div><div class="person gray"></div><div class="person gray"></div>
+  </div>
+  <div class="ciso-text">
+    Approximately two-thirds of broker-dealers have an individual explicitly assigned as the firm's Chief Information Security Officer (CISO).<br><br>
+    Fewer firms formally designate the CISO title, with some assigning cybersecurity oversight responsibilities to other senior officers or engaging third-party consultants for this critical role.
+  </div>
+
+  <div class="attacks-panel">
+    <div class="attacks-title">Cyber Attacks</div>
+    <div class="attacks-bullets">
+      <div>• Over half of broker-dealers and many advisers reported receiving fraudulent emails seeking to transfer client funds or access accounts.</div>
+      <div>• A portion of firms reported actual financial losses related to fraudulent emails, with some losses exceeding $5,000.</div>
+      <div>• In many instances, these threats were tied to employees not following established identity authentication procedures or falling victim to social engineering.</div>
+    </div>
+    <div class="attacks-number">25%</div>
+    <div class="attacks-explain">
+      25% of firms reported losses related to fraudulent emails, highlighting the significant financial risk associated with phishing and business email compromise (BEC).
+    </div>
+    <div id="pieChart"></div>
+    <div class="pie-legend">
+      Law Enforcement Notifications (65%)<br>
+      Other Categories (28%)<br>
+      Residual Category (7%)
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="source-note">
+      SOURCE: Office of Compliance Inspections and Examinations (OCIE) Cybersecurity Examination Sweep Summary<br>
+      Data and insights are based on examination findings and industry trends as reported by the SEC.
+    </div>
+    <div class="vendor-logo">
+      <div>TBC</div>
+      <span>SECURITY</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  const chart = echarts.init(document.getElementById('pieChart'));
+  chart.setOption({
+    animation: false,
+    color: ['#2e8ed5', '#f38d37', '#777'],
+    tooltip: {
+      trigger: 'item'
+    },
+    series: [
+      {
+        type: 'pie',
+        radius: ['42%', '70%'],
+        center: ['50%', '54%'],
+        avoidLabelOverlap: true,
+        label: {
+          show: true,
+          formatter: '{d}%',
+          color: '#25323d',
+          fontSize: 10
+        },
+        labelLine: {
+          length: 10,
+          length2: 8,
+          lineStyle: {
+            color: '#b8c7d0'
+          }
+        },
+        data: [65, 28, 7]
+      }
+    ]
+  });
+</script>
+</body>
+</html>

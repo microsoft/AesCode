@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Sales Industry Data Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #d9efff;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1536px;
+    height: 1024px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #e9f7ff 0%, #eef9ff 100%);
+    color: #183a5d;
+  }
+
+  .header-title {
+    position: absolute;
+    left: 12px;
+    top: 13px;
+    width: 450px;
+    height: 62px;
+    background: linear-gradient(135deg, #186fe0 0%, #1f7ee8 58%, #2f8df2 100%);
+    border-radius: 3px;
+    color: #fff;
+    font-weight: 800;
+    font-size: 37px;
+    letter-spacing: 0.4px;
+    line-height: 62px;
+    padding-left: 18px;
+    box-shadow: 0 6px 14px rgba(32, 112, 211, 0.18);
+  }
+
+  .header-title:after {
+    content: "";
+    position: absolute;
+    right: -22px;
+    top: -13px;
+    width: 48px;
+    height: 78px;
+    background: #fff;
+    transform: rotate(42deg);
+    transform-origin: center;
+    opacity: 0.9;
+  }
+
+  .subtitle-bar {
+    position: absolute;
+    left: 480px;
+    top: 22px;
+    width: 635px;
+    height: 43px;
+    background: #c8d7e5;
+    color: #454a51;
+    font-size: 19px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%);
+  }
+
+  .kpi-card {
+    position: absolute;
+    top: 96px;
+    width: 246px;
+    height: 248px;
+    border-radius: 12px;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 10px 22px rgba(30, 110, 200, 0.13);
+  }
+
+  .kpi-card-1 {
+    left: 17px;
+    background: linear-gradient(180deg, #589df0 0%, #1471d7 48%, #1f83e3 100%);
+  }
+
+  .kpi-card-2 {
+    left: 280px;
+    background: linear-gradient(180deg, #ffa354 0%, #ff7b25 48%, #fb7420 100%);
+  }
+
+  .kpi-card-3 {
+    left: 542px;
+    background: linear-gradient(180deg, #5c9bf0 0%, #2577d7 48%, #2680e2 100%);
+  }
+
+  .money-icon {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 72px;
+    height: 72px;
+    z-index: 2;
+  }
+
+  .money-bag {
+    position: absolute;
+    left: 11px;
+    top: 22px;
+    width: 50px;
+    height: 42px;
+    background: #fff;
+    border-radius: 26px 26px 20px 20px;
+    box-shadow: 0 4px 9px rgba(0,0,0,0.13);
+  }
+
+  .money-bag:before {
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: 13px;
+    width: 23px;
+    height: 14px;
+    background: #fff;
+    border-radius: 0 0 15px 15px;
+    border-top: 4px solid #fff;
+  }
+
+  .money-bag:after {
+    content: "$";
+    position: absolute;
+    top: 8px;
+    left: 18px;
+    font-size: 27px;
+    font-weight: 800;
+    color: #2f87e5;
+  }
+
+  .kpi-heading {
+    position: absolute;
+    top: 110px;
+    left: 0;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .kpi-divider {
+    position: absolute;
+    top: 140px;
+    left: 48px;
+    width: 150px;
+    height: 2px;
+    background: rgba(255,255,255,0.72);
+  }
+
+  .kpi-dot {
+    position: absolute;
+    top: 137px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+  }
+
+  .kpi-value {
+    position: absolute;
+    left: 0;
+    bottom: 32px;
+    width: 100%;
+    font-size: 39px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+  }
+
+  .task-panel {
+    position: absolute;
+    top: 352px;
+    width: 246px;
+    height: 184px;
+    background: #fff;
+    border-radius: 11px;
+    color: #222;
+    text-align: center;
+    box-shadow: 0 10px 22px rgba(80, 140, 180, 0.12);
+  }
+
+  .task-1 { left: 17px; }
+  .task-2 { left: 280px; }
+  .task-3 { left: 542px; }
+
+  .gauge-arc {
+    position: absolute;
+    left: 31px;
+    top: 20px;
+    width: 185px;
+    height: 92px;
+    border-radius: 185px 185px 0 0;
+    border: 14px solid #4f8fe2;
+    border-bottom-color: transparent;
+  }
+
+  .task-2 .gauge-arc {
+    border-color: #ff7b25;
+  }
+
+  .task-3 .gauge-arc {
+    border-color: #437fd3;
+  }
+
+  .gauge-arc:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 185px 185px 0 0;
+    border: 13px solid rgba(200, 205, 210, 0.48);
+    border-bottom-color: transparent;
+  }
+
+  .task-percent {
+    position: absolute;
+    top: 56px;
+    left: 0;
+    width: 100%;
+    font-size: 42px;
+    font-weight: 800;
+    color: #2d72d2;
+  }
+
+  .task-2 .task-percent {
+    color: #ff7420;
+  }
+
+  .task-caption {
+    position: absolute;
+    top: 128px;
+    left: 0;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 700;
+    color: #30333a;
+  }
+
+  .monthly-panel {
+    position: absolute;
+    left: 755px;
+    top: 90px;
+    width: 760px;
+    height: 462px;
+    background: rgba(255,255,255,0.88);
+    border-radius: 12px;
+    box-shadow: 0 10px 22px rgba(110, 160, 200, 0.13);
+  }
+
+  .monthly-title-pill {
+    position: absolute;
+    top: 20px;
+    left: 213px;
+    width: 334px;
+    height: 32px;
+    background: linear-gradient(180deg, #2d84eb 0%, #2879e1 100%);
+    color: #fff;
+    border-radius: 17px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .chart-note {
+    position: absolute;
+    top: 58px;
+    left: 20px;
+    color: #1f5fbf;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  #monthlyChart {
+    position: absolute;
+    left: 24px;
+    top: 70px;
+    width: 710px;
+    height: 350px;
+  }
+
+  .region-panel {
+    position: absolute;
+    left: 14px;
+    top: 564px;
+    width: 726px;
+    height: 432px;
+    background: rgba(255,255,255,0.88);
+    border-radius: 10px;
+    box-shadow: 0 10px 22px rgba(110, 160, 200, 0.13);
+  }
+
+  .region-title {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    color: #1e60d1;
+    font-size: 18px;
+    font-weight: 800;
+    text-align: center;
+  }
+
+  #regionChart {
+    position: absolute;
+    left: 34px;
+    top: 42px;
+    width: 658px;
+    height: 366px;
+  }
+
+  .legend-inline {
+    position: absolute;
+    top: 34px;
+    left: 230px;
+    width: 300px;
+    display: flex;
+    justify-content: space3;
+    gap: 20px;
+    color: #333;
+    font-size: 12px;
+    z-index: 5;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .legend-swatch {
+    width: 13px;
+    height: 12px;
+    border-radius: 1px;
+    display: inline-block;
+  }
+
+  .legend-swatch.blue { background: #357ee1; }
+  .legend-swatch.orange { background: #ff7420; }
+
+  .product-panel {
+    position: absolute;
+    left: 761px;
+    top: 564px;
+    width: 760px;
+    height: 432px;
+    background: rgba(255,255,255,0.88);
+    border-radius: 10px;
+    box-shadow: 0 10px 22px rgba(110, 160, 200, 0.13);
+  }
+
+  .product-title {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 900;
+    color: #276fd3;
+    letter-spacing: 0.2px;
+  }
+
+  #productChart {
+    position: absolute;
+    left: 26px;
+    top: 55px;
+    width: 705px;
+    height: 358px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="header-title">Sales Industry Data</div>
+  <div class="subtitle-bar">Regional Annual Sales Analysis for Home Appliance Products</div>
+
+  <div class="kpi-card kpi-card-1">
+    <div class="money-icon">
+      <div class="money-bag"></div>
+    </div>
+    <div class="kpi-heading">Cumulative Units Sold</div>
+    <div class="kpi-divider"></div>
+    <div class="kpi-dot"></div>
+    <div class="kpi-value">1.28M units</div>
+  </div>
+
+  <div class="kpi-card kpi-card-2">
+    <div class="money-icon">
+      <div class="money-bag"></div>
+    </div>
+    <div class="kpi-heading">Cumulative Sales Revenue</div>
+    <div class="kpi-divider"></div>
+    <div class="kpi-dot"></div>
+    <div class="kpi-value">$54M</div>
+  </div>
+
+  <div class="kpi-card kpi-card-3">
+    <div class="money-icon">
+      <div class="money-bag"></div>
+    </div>
+    <div class="kpi-heading">Cumulative New Customers</div>
+    <div class="kpi-divider"></div>
+    <div class="kpi-dot"></div>
+    <div class="kpi-value">72,980</div>
+  </div>
+
+  <div class="task-panel task-1">
+    <div class="gauge-arc"></div>
+    <div class="task-percent">72%</div>
+    <div class="task-caption">Task Completion Rate</div>
+  </div>
+
+  <div class="task-panel task-2">
+    <div class="gauge-arc"></div>
+    <div class="task-percent">68%</div>
+    <div class="task-caption">Task Completion Rate</div>
+  </div>
+
+  <div class="task-panel task-3">
+    <div class="gauge-arc"></div>
+    <div class="task-percent">83%</div>
+    <div class="task-caption">Task Completion Rate</div>
+  </div>
+
+  <div class="monthly-panel">
+    <div class="monthly-title-pill">Monthly Revenue (Full Year)</div>
+    <div class="chart-note">Revenue (K USD)</div>
+    <div id="monthlyChart"></div>
+  </div>
+
+  <div class="region-panel">
+    <div class="region-title">Sales by RegionTarget Achievement</div>
+    <div class="legend-inline">
+      <div class="legend-item"><span class="legend-swatch blue"></span><span>Sales (K USD)</span></div>
+      <div class="legend-item"><span class="legend-swatch orange"></span><span>Target (K USD)</span></div>
+    </div>
+    <div id="regionChart"></div>
+  </div>
+
+  <div class="product-panel">
+    <div class="product-title">TOP10PRODUCT SALES REVENUE</div>
+    <div id="productChart"></div>
+  </div>
+</div>
+
+<script>
+  var monthlyChart = echarts.init(document.getElementById('monthlyChart'));
+  monthlyChart.setOption({
+    animation: false,
+    color: ['#357ee1', '#ff7420'],
+    grid: {
+      left: 48,
+      right: 48,
+      top: 32,
+      bottom: 58
+    },
+    legend: {
+      data: ['Sales Revenue', 'Growth Rate'],
+      bottom: 0,
+      left: 'center',
+      icon: 'roundRect',
+      itemWidth: 24,
+      itemHeight: 9,
+      textStyle: {
+        color: '#333',
+        fontSize: 12
+      }
+    },
+    tooltip: {
+      trigger: 'axis'
+    },
+    xAxis: {
+      type: 'category',
+      data: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+      axisTick: { show: false },
+      axisLine: { lineStyle: { color: '#707b85' } },
+      axisLabel: {
+        color: '#333',
+        fontSize: 12
+      }
+    },
+    yAxis: [
+      {
+        type: 'value',
+        min: 2700,
+        max: 3600,
+        interval: 100,
+        axisLine: { show: false },
+        axisTick: { show: false },
+        splitLine: { show: false },
+        axisLabel: {
+          color: '#333',
+          fontSize: 12
+        }
+      },
+      {
+        type: 'value',
+        min: -5.0,
+        max: 6.0,
+        interval: 2.0,
+        axisLine: { show: false },
+        axisTick: { show: false },
+        splitLine: { show: false },
+        axisLabel: {
+          color: '#ff7420',
+          fontSize: 12,
+          formatter: function(value) {
+            return value.toFixed(2) + '%';
+          }
+        }
+      }
+    ],
+    series: [
+      {
+        name: 'Sales Revenue',
+        type: 'bar',
+        barWidth: 31,
+        data: [3000, 3200, 2900, 3500, 3050, 2950, 3000, 3100, 3300, 3400, 3350, 3600],
+        itemStyle: {
+          color: '#357ee1'
+        },
+        label: {
+          show: true,
+          position: 'top',
+          color: '#2167dc',
+          fontSize: 12,
+          fontWeight: 700
+        }
+      },
+      {
+        name: 'Growth Rate',
+        type: 'line',
+        yAxisIndex: 1,
+        symbol: 'circle',
+        symbolSize: 11,
+        lineStyle: {
+          color: '#ff7420',
+          width: 2
+        },
+        itemStyle: {
+          color: '#ff7420',
+          borderColor: '#fff',
+          borderWidth: 1
+        },
+        data: [1.5, 3.2, -2.0, 4.5, -1.0, -0.5, 0.8, 1.2, 2.1, 3.0, 2.5, 4.0],
+        label: {
+          show: true,
+          color: '#ff7420',
+          fontSize: 12,
+          fontWeight: 700,
+          formatter: '{c}%'
+        }
+      }
+    ]
+  });
+
+  var regionChart = echarts.init(document.getElementById('regionChart'));
+  regionChart.setOption({
+    animation: false,
+    color: ['#357ee1', '#ff7420'],
+    grid: {
+      left: 140,
+      right: 40,
+      top: 35,
+      bottom: 46
+    },
+    tooltip: {
+      trigger: 'axis'
+    },
+    xAxis: {
+      type: 'value',
+      min: 0,
+      max: 16000,
+      interval: 2000,
+      axisLine: { lineStyle: { color: '#889199' } },
+      axisTick: { show: false },
+      splitLine: {
+        lineStyle: {
+          color: '#d9d9d9',
+          type: 'dashed'
+        }
+      },
+      axisLabel: {
+        color: '#333',
+        fontSize: 12
+      }
+    },
+    yAxis: {
+      type: 'category',
+      inverse: true,
+      data: ['NORTH CHINA','SOUTHWEST CHINA','EAST CHINA','CENTRAL CHINA','SOUTH CHINA'],
+      axisLine: { show: false },
+      axisTick: { show: false },
+      axisLabel: {
+        color: '#333',
+        fontSize: 12,
+        width: 130,
+        overflow: 'break'
+      }
+    },
+    series: [
+      {
+        name: 'Sales',
+        type: 'bar',
+        data: [4587, 4228, 13582, 9809, 6202],
+        barWidth: 18,
+        barGap: '35%',
+        label: {
+          show: true,
+          position: 'right',
+          color: '#2367dc',
+          fontSize: 12
+        }
+      },
+      {
+        name: 'Target',
+        type: 'bar',
+        data: [4000, 3800, 12000, 9000, 5800],
+        barWidth: 18,
+        label: {
+          show: true,
+          position: 'right',
+          color: '#ff7420',
+          fontSize: 12
+        }
+      }
+    ]
+  });
+
+  var productChart = echarts.init(document.getElementById('productChart'));
+  productChart.setOption({
+    animation: false,
+    color: ['#357ee1'],
+    grid: {
+      left: 45,
+      right: 20,
+      top: 25,
+      bottom: 60
+    },
+    tooltip: {
+      trigger: 'axis'
+    },
+    xAxis: {
+      type: 'category',
+      data: ['Air\nConditioners','TVs','Refrigerators','Washing\nMachines','Small\nAppliances','Range\nHoods','Cooktops &\nOvens','Water\nHeaters','Water\nPurifiers','Chest\nFreezers'],
+      axisLine: { lineStyle: { color: '#7b858d' } },
+      axisTick: { show: false },
+      axisLabel: {
+        color: '#333',
+        fontSize: 12,
+        interval: 0
+      }
+    },
+    yAxis: {
+      type: 'value',
+      axisLine: { show: false },
+      axisTick: { show: false },
+      splitLine: {
+        lineStyle: {
+          color: '#d9d9d9',
+          type: 'dashed'
+        }
+      },
+      axisLabel: {
+        color: '#333',
+        fontSize: 12
+      }
+    },
+    series: [
+      {
+        name: 'Revenue',
+        type: 'bar',
+        barWidth: 35,
+        data: [7104, 5529.6, 5184, 4800, 3609.6, 3532.8, 3379.2, 1996.8, 1766.4, 1497.6],
+        label: {
+          show: true,
+          position: 'top',
+          color: '#2367dc',
+          fontSize: 12
+        }
+      }
+    ]
+  });
+</script>
+</body>
+</html>

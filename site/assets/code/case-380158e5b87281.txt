@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Hengan Insurance 20 Years Anniversary Poster</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9edf3;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background: #ffffff;
+    color: #0b2963;
+  }
+
+  /* Top band */
+  .top-band {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 376px;
+    background: #0c2759;
+    color: #ffffff;
+  }
+
+  .top-red-line {
+    position: absolute;
+    top: 16px;
+    left: 0;
+    width: 1024px;
+    height: 5px;
+    background: #e43436;
+  }
+
+  .brand-mark {
+    position: absolute;
+    top: 48px;
+    left: 512px;
+    width: 100px;
+    height: 112px;
+  }
+
+  .mark-shield {
+    position: absolute;
+    left: 12px;
+    top: 0;
+    width: 76px;
+    height: 98px;
+    border: 5px solid #ffffff;
+    border-top-width: 7px;
+    clip-path: polygon(50% 0%, 100% 18%, 88% 72%, 50% 100%, 12% 72%, 0% 18%);
+  }
+
+  .mark-letter {
+    position: absolute;
+    left: 34px;
+    top: 26px;
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -6px;
+  }
+
+  .title-main {
+    position: absolute;
+    top: 157px;
+    left: 167px;
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  .anniversary {
+    position: absolute;
+    top: 222px;
+    left: 170px;
+    font-size: 62px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  .subtitle {
+    position: absolute;
+    top: 296px;
+    left: 340px;
+    font-size: 24px;
+    letter-spacing: 6px;
+    font-weight: 700;
+  }
+
+  .subtitle-left-line,
+  .subtitle-right-line {
+    position: absolute;
+    top: 311px;
+    height: 2px;
+    background: #e43436;
+  }
+
+  .subtitle-left-line {
+    left: 224px;
+    width: 88px;
+  }
+
+  .subtitle-right-line {
+    right: 224px;
+    width: 88px;
+  }
+
+  .subtitle-dot-left,
+  .subtitle-dot-right {
+    position: absolute;
+    top: 306px;
+    width: 9px;
+    height: 9px;
+    background: #e43436;
+    border-radius: 50%;
+  }
+
+  .subtitle-dot-left {
+    left: 308px;
+  }
+
+  .subtitle-dot-right {
+    right: 308px;
+  }
+
+  .year-badge {
+    position: absolute;
+    right: 52px;
+    top: 66px;
+    width: 220px;
+    height: 50px;
+    background: #e43436;
+    border: 3px solid #ff7678;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    font-weight: 800;
+  }
+
+  /* Timeline band */
+  .timeline-band {
+    position: absolute;
+    left: 0;
+    top: 376px;
+    width: 1024px;
+    height: 250px;
+    background: #ffffff;
+    color: #0b2963;
+  }
+
+  .timeline-heading {
+    position: absolute;
+    top: 16px;
+    left: 280px;
+    width: 464px;
+    text-align: center;
+    font-size: 31px;
+    font-weight: 800;
+  }
+
+  .heading-rule-left,
+  .heading-rule-right {
+    position: absolute;
+    top: 30px;
+    height: 2px;
+    background: #0b2963;
+  }
+
+  .heading-rule-left {
+    left: 84px;
+    width: 176px;
+  }
+
+  .heading-rule-right {
+    right: 84px;
+    width: 176px;
+  }
+
+  .heading-rule-left::after,
+  .heading-rule-right::before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    width: 6px;
+    height: 6px;
+    background: #e43436;
+    border-radius: 50%;
+  }
+
+  .heading-rule-left::after {
+    right: -3px;
+  }
+
+  .heading-rule-right::before {
+    left: -3px;
+  }
+
+  .timeline-line {
+    position: absolute;
+    left: 84px;
+    top: 85px;
+    width: 856px;
+    height: 4px;
+    background: #0b2963;
+  }
+
+  .timeline-node {
+    position: absolute;
+    top: 71px;
+    width: 30px;
+    height: 30px;
+    background: #e43436;
+    border: 3px solid #ff6163;
+    border-radius: 50%;
+    z-index: 3;
+  }
+
+  .node-1 { left: 152px; }
+  .node-2 { left: 384px; }
+  .node-3 { left: 616px; }
+  .node-4 { left: 848px; }
+
+  .timeline-dash-1,
+  .timeline-dash-2,
+  .timeline-dash-3,
+  .timeline-dash-4 {
+    position: absolute;
+    top: 104px;
+    width: 2px;
+    height: 28px;
+    border-left: 2px dashed #bfc7d2;
+  }
+
+  .timeline-dash-1 { left: 167px; }
+  .timeline-dash-2 { left: 400px; }
+  .timeline-dash-3 { left: 632px; }
+  .timeline-dash-4 { left: 864px; }
+
+  .milestone {
+    position: absolute;
+    text-align: center;
+    color: #0b2963;
+  }
+
+  .milestone .year {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  .milestone .note {
+    margin-top: 7px;
+    font-size: 17px;
+    line-height: 1.25;
+    font-weight: 600;
+  }
+
+  .m1 { left: 100px; top: 130px; width: 130px; }
+  .m2 { left: 280px; top: 130px; width: 200px; }
+  .m3 { left: 520px; top: 130px; width: 185px; }
+  .m4 { left: 780px; top: 130px; width: 160px; }
+
+  /* Achievements band */
+  .achievements-band {
+    position: absolute;
+    left: 0;
+    top: 626px;
+    width: 1024px;
+    height: 237px;
+    background: #0c2759;
+    color: #ffffff;
+  }
+
+  .ach-heading {
+    position: absolute;
+    top: 12px;
+    left: 310px;
+    width: 404px;
+    text-align: center;
+    font-size: 27px;
+    font-weight: 800;
+  }
+
+  .ach-rule-left,
+  .ach-rule-right {
+    position: absolute;
+    top: 28px;
+    height: 2px;
+    background: #ffffff;
+  }
+
+  .ach-rule-left {
+    left: 84px;
+    width: 180px;
+  }
+
+  .ach-rule-right {
+    right: 84px;
+    width: 180px;
+  }
+
+  .ach-rule-left::after,
+  .ach-rule-right::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    width: 8px;
+    height: 8px;
+    background: #e43436;
+    border-radius: 50%;
+  }
+
+  .ach-rule-left::after {
+    right: -4px;
+  }
+
+  .ach-rule-right::before {
+    left: -4px;
+  }
+
+  .stat-card {
+    position: absolute;
+    top: 70px;
+    width: 272px;
+    height: 150px;
+    border: 3px solid #ffffff;
+    border-top-color: #e43436;
+    background: #0c2759;
+    text-align: center;
+    padding-top: 14px;
+  }
+
+  .card-1 { left: 76px; }
+  .card-2 { left: 376px; }
+  .card-3 { left: 676px; }
+
+  .stat-label {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  .stat-value {
+    font-size: 39px;
+    line-height: 1.1;
+    font-weight: 800;
+  }
+
+  .stat-sub {
+    margin-top: 6px;
+    font-size: 21px;
+  }
+
+  /* Business mix band */
+  .business-band {
+    position: absolute;
+    left: 0;
+    top: 863px;
+    width: 1024px;
+    height: 312px;
+    background: #ffffff;
+    color: #0b2963;
+  }
+
+  .business-heading {
+    position: absolute;
+    top: 11px;
+    left: 335px;
+    width: 354px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 800;
+  }
+
+  .business-rule-left,
+  .business-rule-right {
+    position: absolute;
+    top: 26px;
+    height: 2px;
+    background: #e43436;
+  }
+
+  .business-rule-left {
+    left: 78px;
+    width: 225px;
+  }
+
+  .business-rule-right {
+    right: 78px;
+    width: 225px;
+  }
+
+  .business-rule-left::after,
+  .business-rule-right::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    width: 8px;
+    height: 8px;
+    background: #e43436;
+    border-radius: 50%;
+  }
+
+  .business-rule-left::after {
+    right: -4px;
+  }
+
+  .business-rule-right::before {
+    left: -4px;
+  }
+
+  #businessPie {
+    position: absolute;
+    left: 292px;
+    top: 74px;
+    width: 280px;
+    height: 240px;
+  }
+
+  .legend {
+    position: absolute;
+    left: 645px;
+    top: 107px;
+    width: 230px;
+    font-size: 20px;
+  }
+
+  .legend-row {
+    display: flex;
+    align-items: center;
+    height: 37px;
+    gap: 10px;
+  }
+
+  .legend-swatch {
+    width: 28px;
+    height: 22px;
+    border: 1px solid #b9c3cf;
+  }
+
+  .legend-name-auto { background: #0b2963; }
+  .legend-name-health { background: #e43436; }
+  .legend-name-property { background: #5c91cf; }
+  .legend-name-life { background: #b9c9dc; }
+
+  /* Message band */
+  .message-band {
+    position: absolute;
+    left: 0;
+    top: 1175px;
+    width: 1024px;
+    height: 220px;
+    background: #0c2759;
+    color: #ffffff;
+  }
+
+  .message-heading {
+    position: absolute;
+    top: 12px;
+    left: 288px;
+    width: 448px;
+    text-align: center;
+    font-size: 27px;
+    font-weight: 800;
+  }
+
+  .message-rule-left,
+  .message-rule-right {
+    position: absolute;
+    top: 29px;
+    height: 2px;
+    background: #ffffff;
+  }
+
+  .message-rule-left {
+    left: 84px;
+    width: 135px;
+  }
+
+  .message-rule-right {
+    right: 84px;
+    width: 135px;
+  }
+
+  .message-rule-left::after,
+  .message-rule-right::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    width: 6px;
+    height: 6px;
+    background: #e43436;
+    border-radius: 50%;
+  }
+
+  .quote-box {
+    position: absolute;
+    left: 98px;
+    top: 70px;
+    width: 828px;
+    height: 96px;
+    background: #ffffff;
+    border: 3px solid #a7b5c6;
+    border-radius: 8px;
+    color: #0b2963;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 31px;
+    font-weight: 800;
+  }
+
+  .quote-mark-left,
+  .quote-mark-right {
+    display: inline-block;
+    color: #0b2963;
+    font-size: 52px;
+    vertical-align: middle;
+  }
+
+  .quote-text {
+    display: inline-block;
+    margin-left: 26px;
+  }
+
+  .signature {
+    position: absolute;
+    top: 164px;
+    left: 352px;
+    width: 320px;
+    text-align: center;
+    font-size: 21px;
+    color: #ffffff;
+  }
+
+  /* Footer band */
+  .footer-band {
+    position: absolute;
+    left: 0;
+    top: 1395px;
+    width: 1024px;
+    height: 141px;
+    background: #ffffff;
+    color: #0b2963;
+    border-top: 2px solid #0b2963;
+  }
+
+  .footer-top-accent-left,
+  .footer-top-accent-right {
+    position: absolute;
+    top: 12px;
+    height: 2px;
+    background: #e43436;
+  }
+
+  .footer-top-accent-left {
+    left: 335px;
+    width: 142px;
+  }
+
+  .footer-top-accent-right {
+    right: 335px;
+    width: 142px;
+  }
+
+  .footer-top-accent-left::after,
+  .footer-top-accent-right::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    width: 7px;
+    height: 7px;
+    background: #e43436;
+    border-radius: 50%;
+  }
+
+  .footer-top-accent-left::after {
+    right: -4px;
+  }
+
+  .footer-top-accent-right::before {
+    left: -4px;
+  }
+
+  .footer-shield {
+    position: absolute;
+    top: 0;
+    left: 507px;
+    width: 25px;
+    height: 28px;
+    background: #e43436;
+    clip-path: polygon(50% 0%, 100% 22%, 88% 78%, 50% 100%, 12% 78%, 0% 22%);
+    border: 2px solid #ff7678;
+  }
+
+  .footer-title {
+    position: absolute;
+    top: 39px;
+    left: 298px;
+    width: 428px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 800;
+  }
+
+  .footer-bottom-line-left,
+  .footer-bottom-line-right {
+    position: absolute;
+    top: 54px;
+    height: 2px;
+    background: #e43436;
+  }
+
+  .footer-bottom-line-left {
+    left: 220px;
+    width: 58px;
+  }
+
+  .footer-bottom-line-right {
+    right: 220px;
+    width: 58px;
+  }
+
+  .footer-dot-left,
+  .footer-dot-right {
+    position: absolute;
+    top: 50px;
+    width: 7px;
+    height: 7px;
+    background: #e43436;
+    border-radius: 50%;
+  }
+
+  .footer-dot-left {
+    left: 280px;
+  }
+
+  .footer-dot-right {
+    right: 280px;
+  }
+
+  .contact-line {
+    position: absolute;
+    top: 84px;
+    left: 280px;
+    width: 464px;
+    text-align: center;
+    font-size: 18px;
+    color: #0b2963;
+    letter-spacing: .5px;
+    white-space: nowrap;
+  }
+
+  .globe-icon {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #0b2963;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 7px;
+    background:
+      radial-gradient(circle at 50% 50%, transparent 8px, #0b2963 8.3px),
+      linear-gradient(#0b2963, #0b2963);
+  }
+
+  .phone-icon {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-left: 16px;
+    vertical-align: middle;
+    border: 2px solid #0b2963;
+    border-radius: 50%;
+    transform: rotate(45deg);
+    border-left-color: transparent;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <!-- Top band -->
+  <section class="top-band">
+    <div class="top-red-line"></div>
+    <div class="brand-mark" aria-label="Company shield mark">
+      <div class="mark-shield"></div>
+      <div class="mark-letter">H</div>
+    </div>
+    <div class="title-main">恒安保险 HENGAN INSURANCE</div>
+    <div class="anniversary">20 YEARS OF TRUST</div>
+    <div class="subtitle">周年庆暨发展里程碑</div>
+    <div class="subtitle-left-line"></div>
+    <div class="subtitle-right-line"></div>
+    <div class="subtitle-dot-left"></div>
+    <div class="subtitle-dot-right"></div>
+    <div class="year-badge">2004 — 2024</div>
+  </section>
+
+  <!-- Timeline band -->
+  <section class="timeline-band">
+    <div class="heading-rule-left"></div>
+    <div class="heading-rule-right"></div>
+    <div class="timeline-heading">Milestone Timeline 里程碑时间轴</div>
+    <div class="timeline-line"></div>
+    <div class="timeline-node node-1"></div>
+    <div class="timeline-node node-2"></div>
+    <div class="timeline-node node-3"></div>
+    <div class="timeline-node node-4"></div>
+    <div class="timeline-dash-1"></div>
+    <div class="timeline-dash-2"></div>
+    <div class="timeline-dash-3"></div>
+    <div class="timeline-dash-4"></div>
+    <div class="milestone m1">
+      <div class="year">2004</div>
+      <div class="note">成立于上海</div>
+    </div>
+    <div class="milestone m2">
+      <div class="year">2010</div>
+      <div class="note">全国服务网点突破120城</div>
+    </div>
+    <div class="milestone m3">
+      <div class="year">2016</div>
+      <div class="note">Digital Claims<br>Platform Launch</div>
+    </div>
+    <div class="milestone m4">
+      <div class="year">2024</div>
+      <div class="note">服务客户<br>8.6 Million</div>
+    </div>
+  </section>
+
+  <!-- Achievements band -->
+  <section class="achievements-band">
+    <div class="ach-rule-left"></div>
+    <div class="ach-rule-right"></div>
+    <div class="ach-heading">核心成果 Key Achievements</div>
+    <div class="stat-card card-1">
+      <div class="stat-label">累计承保保单</div>
+      <div class="stat-value">32,480,000</div>
+      <div class="stat-sub">Policies Issued</div>
+    </div>
+    <div class="stat-card card-2">
+      <div class="stat-label">理赔时效平均</div>
+      <div class="stat-value">1.8 天</div>
+      <div class="stat-sub">Claim Turnaround</div>
+    </div>
+    <div class="stat-card card-3">
+      <div class="stat-label">客户满意度</div>
+      <div class="stat-value">97.4%</div>
+      <div class="stat-sub">Satisfaction</div>
+    </div>
+  </section>
+
+  <!-- Business mix band -->
+  <section class="business-band">
+    <div class="business-rule-left"></div>
+    <div class="business-rule-right"></div>
+    <div class="business-heading">2024 Business Mix</div>
+    <div id="businessPie" aria-label="2024 Business Mix Donut Chart"></div>
+    <div class="legend">
+      <div class="legend-row">
+        <span class="legend-swatch legend-name-auto"></span>
+        <span>38% &nbsp; Auto</span>
+      </div>
+      <div class="legend-row">
+        <span class="legend-swatch legend-name-health"></span>
+        <span>27% &nbsp; Health</span>
+      </div>
+      <div class="legend-row">
+        <span class="legend-swatch legend-name-property"></span>
+        <span>21% &nbsp; Property</span>
+      </div>
+      <div class="legend-row">
+        <span class="legend-swatch legend-name-life"></span>
+        <span>14% &nbsp; Life</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Message band -->
+  <section class="message-band">
+    <div class="message-rule-left"></div>
+    <div class="message-rule-right"></div>
+    <div class="message-heading">董事长寄语 Chairman's Message</div>
+    <div class="quote-box">
+      <span class="quote-mark-left">“</span>
+      <span class="quote-text">以长期主义守护每一份托付</span>
+      <span class="quote-mark-right">”</span>
+    </div>
+    <div class="signature">李沐晨 / Chairman &amp; CEO</div>
+  </section>
+
+  <!-- Footer band -->
+  <section class="footer-band">
+    <div class="footer-top-accent-left"></div>
+    <div class="footer-top-accent-right"></div>
+    <div class="footer-shield"></div>
+    <div class="footer-title">Annual Anniversary Report · 2024</div>
+    <div class="footer-bottom-line-left"></div>
+    <div class="footer-bottom-line-right"></div>
+    <div class="footer-dot-left"></div>
+    <div class="footer-dot-right"></div>
+    <div class="contact-line">
+      <span class="globe-icon"></span>www.hengan-insurance.cn&nbsp;&nbsp; | &nbsp;&nbsp;<span class="phone-icon"></span>95518
+    </div>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script>
+  var chart = echarts.init(document.getElementById('businessPie'));
+  chart.setOption({
+    animation: false,
+    color: ['#0b2963', '#e43436', '#5c91cf', '#b9c9dc'],
+    tooltip: {
+      trigger: 'item'
+    },
+    series: [
+      {
+        type: 'pie',
+        radius: ['42%', '72%'],
+        center: ['50%', '50%'],
+        avoidLabelOverlap: true,
+        label: {
+          show: true,
+          position: 'inside',
+          color: '#ffffff',
+          fontSize: 18,
+          formatter: function(params) {
+            return params.value + '%';
+          }
+        },
+        labelLine: {
+          show: false
+        },
+        itemStyle: {
+          borderColor: '#ffffff',
+          borderWidth: 3
+        },
+        data: [
+          {name: 'Auto', value: 38},
+          {name: 'Health', value: 27},
+          {name: 'Property', value: 21},
+          {name: 'Life', value: 14}
+        ]
+      }
+    ],
+    graphic: [
+      {
+        type: 'circle',
+        left: 'center',
+        top: 'center',
+        shape: {r: 56},
+        style: {fill: '#ffffff'}
+      },
+      {
+        type: 'text',
+        left: 'center',
+        top: 'center',
+        style: {
+          text: '▲',
+          fill: '#0b2963',
+          fontSize: 28,
+          fontWeight: 800,
+          textAlign: 'center',
+          textVerticalAlign: 'middle'
+        }
+      }
+    ]
+  });
+</script>
+</body>
+</html>

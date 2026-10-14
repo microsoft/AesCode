@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1376, initial-scale=1.0" />
+  <title>Copilot Dashboard Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background: linear-gradient(110deg, #f7eedf 0%, #efe8f0 44%, #e5def3 72%, #f4f4f4 100%);
+      color: #111111;
+    }
+
+    .left-panel {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 948px;
+      height: 768px;
+      border-top-right-radius: 36px;
+      border-bottom-right-radius: 86px;
+      background:
+        linear-gradient(98deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 40%, rgba(255,255,255,0.16) 100%),
+        linear-gradient(100deg, #f3ecd9 0%, #f3eff5 48%, #e5def2 100%);
+      box-shadow: inset 16px 0 34px rgba(52, 82, 156, 0.07);
+    }
+
+    .header-bar {
+      position: absolute;
+      left: 0;
+      top: 59px;
+      width: 378px;
+      height: 55px;
+      border-radius: 0 28px 28px 0;
+      background: linear-gradient(90deg, #7235c6 0%, #1679d7 58%, #0096d9 100%);
+      display: flex;
+      align-items: center;
+      padding-left: 88px;
+      box-shadow: 0 6px 10px rgba(33, 60, 126, 0.28);
+      z-index: 4;
+      color: #ffffff;
+      font-weight: 750;
+      font-size: 27px;
+      letter-spacing: 0.1px;
+      white-space: nowrap;
+    }
+
+    .headline {
+      position: absolute;
+      left: 66px;
+      top: 144px;
+      width: 610px;
+      color: #2d78dc;
+      font-size: 49px;
+      line-height: 1.21;
+      font-weight: 700;
+      letter-spacing: -1.2px;
+      background: linear-gradient(90deg, #0f81d1 0%, #6761d7 52%, #8d54d4 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .description {
+      position: absolute;
+      left: 66px;
+      top: 290px;
+      width: 800px;
+      font-size: 22px;
+      line-height: 1.28;
+      font-weight: 700;
+      font-style: italic;
+      color: #111111;
+    }
+
+    .body-one {
+      position: absolute;
+      left: 66px;
+      top: 370px;
+      width: 660px;
+      font-size: 20px;
+      line-height: 1.25;
+      color: #111111;
+    }
+
+    .body-two {
+      position: absolute;
+      left: 66px;
+      top: 536px;
+      width: 660px;
+      font-size: 20px;
+      line-height: 1.23;
+      color: #111111;
+    }
+
+    .preview-footer {
+      position: absolute;
+      left: 66px;
+      bottom: 32px;
+      color: #666a70;
+      font-size: 14px;
+    }
+
+    .divider-line-top {
+      position: absolute;
+      left: 1038px;
+      top: 56px;
+      width: 2px;
+      height: 137px;
+      background: #2887cf;
+      border-radius: 2px;
+    }
+
+    .divider-line-bottom {
+      position: absolute;
+      left: 1038px;
+      top: 583px;
+      width: 2px;
+      height: 117px;
+      background: #2887cf;
+      border-radius: 2px;
+    }
+
+    .dashboard-card {
+      position: absolute;
+      left: 740px;
+      top: 196px;
+      width: 620px;
+      height: 386px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(220, 228, 239, 0.95);
+      box-shadow:
+        0 13px 26px rgba(52, 68, 95, 0.28),
+        0 0 28px rgba(66, 120, 177, 0.24);
+      z-index: 3;
+    }
+
+    .toolbar {
+      position: absolute;
+      left: 15px;
+      top: 16px;
+      height: 25px;
+      width: 584px;
+      background: linear-gradient(90deg, #f3f3f3 0%, #f7f8fb 100%);
+      border-bottom: 1px solid #e6eaf1;
+      padding-left: 6px;
+    }
+
+    .pill-filter {
+      display: inline-flex;
+      height: 23px;
+      padding: 0 11px;
+      align-items: center;
+      border-radius: 12px;
+      border: 1px solid #d5dbe2;
+      background: #ffffff;
+      color: #222529;
+      font-size: 12px;
+      margin-right: 8px;
+      white-space: nowrap;
+      box-shadow: inset 0 0 4px rgba(130, 145, 166, 0.05);
+    }
+
+    .table-wrap {
+      position: absolute;
+      left: 15px;
+      top: 53px;
+      width: 584px;
+      height: 318px;
+      border-radius: 7px;
+      overflow: hidden;
+      background: #ffffff;
+      border: 1px solid #e4e8ed;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 12px;
+    }
+
+    thead th {
+      height: 29px;
+      text-align: left;
+      font-weight: 700;
+      color: #222528;
+      border-bottom: 1px solid #dfe4e8;
+      padding: 0 8px;
+    }
+
+    tbody td {
+      height: 31px;
+      border-bottom: 1px solid #e7ebef;
+      padding: 0 8px;
+      color: #222428;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    th:first-child,
+    td:first-child {
+      width: 200px;
+      color: #27292d;
+    }
+
+    th:nth-child(2),
+    td:nth-child(2) {
+      width: 61px;
+      text-align: right;
+    }
+
+    th:nth-child(3),
+    td:nth-child(3) {
+      width: 58px;
+    }
+
+    th:nth-child(4),
+    td:nth-child(4) {
+      width: 58px;
+    }
+
+    th:nth-child(5),
+    td:nth-child(5) {
+      width: 60px;
+    }
+
+    th:nth-child(6),
+    td:nth-child(6) {
+      width: 52px;
+    }
+
+    th:nth-child(7),
+    td:nth-child(7) {
+      width: 52px;
+    }
+
+    th:nth-child(8),
+    td:nth-child(8) {
+      width: 60px;
+    }
+
+    .disclaimer {
+      position: absolute;
+      right: 20px;
+      bottom: 7px;
+      width: 400px;
+      text-align: right;
+      color: #202429;
+      font-size: 13.7px;
+      line-height: 1.28;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <section class="left-panel"></section>
+
+    <div class="header-bar">Copilot Dashboard</div>
+
+    <div class="headline">
+      <div>Prompt categories for</div>
+      <div>Copilot Chat (work)</div>
+    </div>
+
+    <div class="description">
+      Understand how employees are using Copilot Chat with new (work) prompt categories in the Dashboard.
+    </div>
+
+    <div class="body-one">
+      Gaining visibility into Copilot Chat usage patterns is essential for leaders to optimize workplace productivity and collaboration. By analyzing employee interactions across scenarios such as ‘Ask and Find’, ‘Catch Up’, and ‘Draft and Brainstorm’, organizations can uncover valuable insights into how teams are leveraging AI assistance.
+    </div>
+
+    <div class="body-two">
+      These insights enable leaders to identify emerging trends, understand common workflows, and tailor enablement strategies to drive greater adoption and maximize the value of Copilot across the workforce. Effective data analysis helps in pinpointing areas for training and refining resource allocation to meet employee needs better.
+    </div>
+
+    <div class="preview-footer">Already live! (Public Preview)</div>
+
+    <div class="divider-line-top"></div>
+    <div class="divider-line-bottom"></div>
+
+    <section class="dashboard-card">
+      <div class="toolbar">
+        <span class="pill-filter">Metric: Number of active Copilot users</span>
+        <span class="pill-filter">View by: Scope</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Prompt category</th>
+              <th>Totals</th>
+              <th>Cecil F.</th>
+              <th>Mona K.</th>
+              <th>David P.</th>
+              <th>MJ P.</th>
+              <th>Kat L.</th>
+              <th>Kaye M.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>All users</td>
+              <td>124,560</td>
+              <td>1,234</td>
+              <td>1,150</td>
+              <td>1,320</td>
+              <td>1,280</td>
+              <td>1,190</td>
+              <td>1,250</td>
+            </tr>
+            <tr>
+              <td>Teams</td>
+              <td>85,340</td>
+              <td>850</td>
+              <td>790</td>
+              <td>910</td>
+              <td>870</td>
+              <td>820</td>
+              <td>860</td>
+            </tr>
+            <tr>
+              <td>Outlook</td>
+              <td>72,120</td>
+              <td>710</td>
+              <td>660</td>
+              <td>760</td>
+              <td>730</td>
+              <td>690</td>
+              <td>720</td>
+            </tr>
+            <tr>
+              <td>Word</td>
+              <td>45,780</td>
+              <td>450</td>
+              <td>420</td>
+              <td>490</td>
+              <td>470</td>
+              <td>440</td>
+              <td>460</td>
+            </tr>
+            <tr>
+              <td>PowerPoint</td>
+              <td>31,900</td>
+              <td>310</td>
+              <td>290</td>
+              <td>340</td>
+              <td>320</td>
+              <td>300</td>
+              <td>320</td>
+            </tr>
+            <tr>
+              <td>Excel</td>
+              <td>24,550</td>
+              <td>240</td>
+              <td>220</td>
+              <td>260</td>
+              <td>250</td>
+              <td>230</td>
+              <td>240</td>
+            </tr>
+            <tr>
+              <td>Copilot Chat (work)</td>
+              <td>98,700</td>
+              <td>980</td>
+              <td>920</td>
+              <td>1,050</td>
+              <td>1,010</td>
+              <td>950</td>
+              <td>1,000</td>
+            </tr>
+            <tr>
+              <td>Ask &amp; Find prompts</td>
+              <td>54,320</td>
+              <td>540</td>
+              <td>500</td>
+              <td>580</td>
+              <td>550</td>
+              <td>520</td>
+              <td>560</td>
+            </tr>
+            <tr>
+              <td>Draft &amp; brainstorm prompts</td>
+              <td>67,890</td>
+              <td>670</td>
+              <td>630</td>
+              <td>720</td>
+              <td>690</td>
+              <td>650</td>
+              <td>680</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="disclaimer">
+      <div>Confidential - For NDA discussions only</div>
+      <div>Forward looking dates and scope are subject to change</div>
+    </div>
+  </div>
+</body>
+</html>

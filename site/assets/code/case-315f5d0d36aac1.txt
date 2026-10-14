@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>EY Rapid Foundation for M&amp;A architecture</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #0b1118;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #070d12;
+    color: #ffffff;
+  }
+
+  .title {
+    position: absolute;
+    left: 28px;
+    top: 28px;
+    width: 820px;
+    font-size: 30px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    color: #ffffff;
+  }
+
+  .left-copy {
+    position: absolute;
+    left: 28px;
+    top: 94px;
+    width: 335px;
+    font-size: 16px;
+    line-height: 1.42;
+    color: #f2f7fb;
+  }
+
+  .left-copy p {
+    margin: 0 0 30px 0;
+  }
+
+  .access-band {
+    position: absolute;
+    left: 398px;
+    top: 86px;
+    width: 856px;
+    height: 70px;
+    border: 1px solid #666d75;
+    background: #22282f;
+  }
+
+  .access-label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 168px;
+    height: 70px;
+    background: #d9dde1;
+    color: #1e252c;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.25;
+    padding: 15px 10px 8px 13px;
+  }
+
+  .access-button {
+    position: absolute;
+    top: 15px;
+    width: 168px;
+    height: 40px;
+    border: 1px solid #777f89;
+    background: #171d22;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .btn1 { left: 178px; }
+  .btn2 { left: 358px; }
+  .btn3 { left: 538px; width: 150px; }
+  .btn4 { left: 704px; width: 142px; }
+
+  .assets-band {
+    position: absolute;
+    left: 398px;
+    top: 164px;
+    width: 856px;
+    height: 72px;
+    background: #ffd600;
+    border: 1px solid #f1cf00;
+    display: flex;
+    align-items: center;
+  }
+
+  .assets-title {
+    width: 172px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #070d12;
+    border-right: 1px solid #474747;
+  }
+
+  .asset-tile {
+    height: 62px;
+    margin-right: 6px;
+    min-width: 93px;
+    background: #ffe94a;
+    border: 1px solid #f0d000;
+    color: #070d12;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.15;
+    text-align: center;
+    padding: 8px 5px 5px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .asset-tile.small {
+    min-width: 86px;
+  }
+
+  .asset-tile.tiny {
+    min-width: 78px;
+  }
+
+  .architecture-panel {
+    position: absolute;
+    left: 398px;
+    top: 254px;
+    width: 856px;
+    height: 388px;
+    border: 1px solid #697078;
+    background: #111820;
+  }
+
+  .included-section {
+    position: absolute;
+    left: 9px;
+    top: 2px;
+    width: 838px;
+    height: 150px;
+    border: 1px solid #747c84;
+    background: #20262c;
+  }
+
+  .optional-section {
+    position: absolute;
+    left: 9px;
+    top: 162px;
+    width: 838px;
+    height: 214px;
+    border: 1px solid #747c84;
+    background: #1b2128;
+  }
+
+  .section-heading {
+    height: 32px;
+    background: #2b3138;
+    color: #f8fbff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 32px;
+    text-align: center;
+    border-bottom: 1px solid #727980;
+  }
+
+  .included-grid {
+    position: absolute;
+    top: 42px;
+    left: 8px;
+    width: 822px;
+    height: 100px;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 7px;
+  }
+
+  .included-grid .cell {
+    border: 1px dashed #f5f5f5;
+    background: #070d12;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.45;
+    height: 90px;
+  }
+
+  .optional-grid {
+    position: absolute;
+    top: 42px;
+    left: 8px;
+    width: 822px;
+    height: 158px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-auto-rows: 80px;
+    gap: 8px;
+  }
+
+  .optional-grid .cell {
+    border: 1px dashed #d8dde2;
+    background: #343a40;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.4;
+    height: 80px;
+  }
+
+  .optional-grid .cell.large {
+    height: 76px;
+  }
+
+  .footer {
+    position: absolute;
+    left: 28px;
+    bottom: 22px;
+    width: 720px;
+    height: 14px;
+    color: #eef3f8;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  .footer-item {
+    white-space: nowrap;
+  }
+
+  .footer-spacer {
+    width: 12px;
+    border-left: 1px solid #a9b0b8;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">EY Rapid Foundation for M&amp;A architecture</div>
+
+    <div class="left-copy">
+      <p>EY Rapid Foundation for M&amp;A is a preconfigured solution built on Microsoft cloud technologies to accelerate deal execution and value realization. It leverages Microsoft’s secure, scalable, and intelligent cloud platform to reduce complexity, mitigate risk, and drive faster time to value.</p>
+
+      <p>The solution delivers consistent, intuitive user experiences across browser and mobile devices, empowering users to collaborate and act with confidence from anywhere, at any time. Role-based access and streamlined navigation promote productivity, adoption, and data-driven decisions.</p>
+
+      <p>Built on Microsoft Dynamics 365, the foundation includes Finance, Supply Chain, and Sales capabilities to support core business operations across the enterprise. It provides a flexible, extensible platform that adapts to your unique M&amp;A requirements and scales with your business as you grow.</p>
+    </div>
+
+    <div class="access-band">
+      <div class="access-label">Access by browser<br>and mobile device</div>
+      <div class="access-button btn1">Google Chrome</div>
+      <div class="access-button btn2">Microsoft Edge</div>
+      <div class="access-button btn3">Apple Safari</div>
+      <div class="access-button btn4">Mobile device</div>
+    </div>
+
+    <div class="assets-band">
+      <div class="assets-title">EY templated assets</div>
+      <div class="asset-tile">Baseline<br>configuration</div>
+      <div class="asset-tile small">Business<br>processes</div>
+      <div class="asset-tile small">Design<br>documents</div>
+      <div class="asset-tile tiny">Project<br>plan</div>
+      <div class="asset-tile tiny">Chart of<br>accounts</div>
+      <div class="asset-tile small">Role-based<br>security</div>
+      <div class="asset-tile tiny">Test<br>scripts</div>
+      <div class="asset-tile tiny">Training<br>plans</div>
+    </div>
+
+    <div class="architecture-panel">
+      <div class="included-section">
+        <div class="section-heading">Microsoft Dynamics 365 included functions</div>
+        <div class="included-grid">
+          <div class="cell">General<br>ledger</div>
+          <div class="cell">Accounts<br>payable</div>
+          <div class="cell">Accounts<br>receivable</div>
+          <div class="cell">Fixed<br>assets</div>
+          <div class="cell">Cash &amp; bank<br>management</div>
+          <div class="cell">Budgeting</div>
+          <div class="cell">Account<br>management</div>
+          <div class="cell">Procurement</div>
+          <div class="cell">Cost<br>management</div>
+        </div>
+      </div>
+
+      <div class="optional-section">
+        <div class="section-heading">Microsoft Dynamics 365 optional functions</div>
+        <div class="optional-grid">
+          <div class="cell">Tax<br>management</div>
+          <div class="cell">Sales &amp;<br>marketing</div>
+          <div class="cell">Opportunities<br>management</div>
+          <div class="cell">Lead<br>management</div>
+          <div class="cell">Quotation<br>management</div>
+          <div class="cell">Inventory<br>management</div>
+          <div class="cell">Product<br>information<br>management</div>
+          <div class="cell large" style="grid-column: span 2;">Warehouse<br>management</div>
+          <div class="cell large" style="grid-column: span 2;">Master<br>planning</div>
+          <div class="cell large" style="grid-column: span 2;">Consolidation</div>
+          <div class="cell large" style="grid-column: span 2;">Production<br>control</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-item">Page 1</div>
+      <div class="footer-spacer"></div>
+      <div class="footer-item">7 February 2026</div>
+      <div class="footer-spacer"></div>
+      <div class="footer-item">EY Rapid Foundation for M&amp;A Client Meeting Deck</div>
+    </div>
+  </div>
+</body>
+</html>

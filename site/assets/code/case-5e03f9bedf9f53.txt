@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Healthcare data solutions in Microsoft Fabric</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f4f6f8;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      background: #ffffff;
+      color: #0f2438;
+    }
+
+    .title {
+      position: absolute;
+      left: 68px;
+      top: 56px;
+      margin: 0;
+      font-size: 42px;
+      line-height: 1.12;
+      font-weight: 700;
+      letter-spacing: 0.1px;
+      color: #10253a;
+    }
+
+    .subtitle {
+      position: absolute;
+      left: 68px;
+      top: 114px;
+      margin: 0;
+      font-size: 27px;
+      line-height: 1.15;
+      font-weight: 650;
+      color: #7b47ad;
+    }
+
+    .description {
+      position: absolute;
+      left: 68px;
+      top: 158px;
+      width: 1210px;
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.25;
+      color: #111111;
+    }
+
+    .main-panel {
+      position: absolute;
+      left: 64px;
+      top: 232px;
+      width: 1248px;
+      height: 432px;
+      background: #ffffff;
+      border: 2px solid #d8dce0;
+      border-radius: 24px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+    }
+
+    .top-note {
+      position: absolute;
+      top: 24px;
+      left: 380px;
+      width: 488px;
+      text-align: center;
+      font-size: 16px;
+      line-height: 1.2;
+      color: #008379;
+    }
+
+    .center-circle-outer {
+      position: absolute;
+      left: 504px;
+      top: 86px;
+      width: 240px;
+      height: 280px;
+      border: 2px solid #9bd6d0;
+      border-radius: 50%;
+      background: #fbfbfb;
+    }
+
+    .center-circle-inner {
+      position: absolute;
+      left: 536px;
+      top: 116px;
+      width: 176px;
+      height: 176px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 8px solid #e7e7e7;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+      z-index: 8;
+      text-align: center;
+    }
+
+    .icon {
+      position: absolute;
+      top: 30px;
+      left: 50px;
+      width: 76px;
+      height: 76px;
+      z-index: 10;
+    }
+
+    .icon .dot {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: #8a56bd;
+      border-radius: 50%;
+    }
+
+    .icon .dot.top {
+      top: 0;
+      left: 29px;
+    }
+
+    .icon .dot.left {
+      top: 41px;
+      left: 8px;
+      background: #8d57ba;
+    }
+
+    .icon .dot.right {
+      top: 41px;
+      left: 50px;
+      background: #8d57ba;
+    }
+
+    .icon .line-a {
+      position: absolute;
+      left: 28px;
+      top: 19px;
+      width: 26px;
+      height: 32px;
+      border-left: 4px solid #9a68c0;
+      border-top: 4px solid #9a68c0;
+      transform: rotate(60deg);
+      border-radius: 9px 0 0 0;
+    }
+
+    .icon .line-b {
+      position: absolute;
+      left: 28px;
+      top: 44px;
+      width: 44px;
+      height: 5px;
+      background: #9a68c0;
+      border-radius: 4px;
+    }
+
+    .icon .line-c {
+      position: absolute;
+      left: 28px;
+      top: 19px;
+      width: 27px;
+      height: 32px;
+      border-right: 4px solid #9a68c0;
+      border-top: 4px solid #9a68c0;
+      transform: rotate(-60deg);
+      border-radius: 0 9px 0 0;
+    }
+
+    .center-label {
+      position: absolute;
+      top: 102px;
+      left: 0;
+      width: 176px;
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 700;
+      color: #7b47ad;
+      text-align: center;
+    }
+
+    .node {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      background: #2ba69d;
+      border-radius: 50%;
+      border: 3px solid #d7f2ee;
+      z-index: 12;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+    }
+
+    .node.n1 {
+      left: 486px;
+      top: 132px;
+    }
+
+    .node.n2 {
+      left: 462px;
+      top: 212px;
+    }
+
+    .node.n3 {
+      left: 486px;
+      top: 288px;
+    }
+
+    .node.n4 {
+      left: 742px;
+      top: 132px;
+    }
+
+    .node.n5 {
+      left: 766px;
+      top: 212px;
+    }
+
+    .node.n6 {
+      left: 742px;
+      top: 288px;
+    }
+
+    .data-box {
+      position: absolute;
+      width: 268px;
+      min-height: 66px;
+      border-radius: 8px;
+      color: #ffffff;
+      background: #387fbd;
+      border: 2px solid #e4eef5;
+      box-shadow: 0 6px 9px rgba(0, 0, 0, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 19px;
+      line-height: 1.18;
+      font-weight: 700;
+      z-index: 6;
+    }
+
+    .box-clinical {
+      left: 61px;
+      top: 82px;
+      background: #1568ad;
+      min-height: 66px;
+    }
+
+    .box-imaging {
+      left: 61px;
+      top: 188px;
+      min-height: 66px;
+    }
+
+    .box-patient {
+      left: 61px;
+      top: 296px;
+      min-height: 66px;
+    }
+
+    .box-dax {
+      right: 53px;
+      top: 82px;
+      min-height: 66px;
+    }
+
+    .box-social {
+      right: 53px;
+      top: 188px;
+      min-height: 66px;
+    }
+
+    .box-claims {
+      right: 53px;
+      top: 296px;
+      min-height: 66px;
+    }
+
+    .connector {
+      position: absolute;
+      background: #9bd6d0;
+      z-index: 1;
+    }
+
+    .conn-clinical-a {
+      left: 328px;
+      top: 113px;
+      width: 108px;
+      height: 2px;
+    }
+
+    .conn-clinical-b {
+      left: 435px;
+      top: 113px;
+      width: 2px;
+      height: 32px;
+      height: 32px;
+    }
+
+    .conn-imaging {
+      left: 328px;
+      top: 219px;
+      width: 134px;
+      height: 2px;
+    }
+
+    .conn-patient-a {
+      left: 328px;
+      top: 327px;
+      width: 108px;
+      height: 2px;
+    }
+
+    .conn-patient-b {
+      left: 435px;
+      top: 296px;
+      width: 2px;
+      height: 32px;
+    }
+
+    .conn-dax-a {
+      right: 211px;
+      top: 113px;
+      width: 2px;
+      height: 32px;
+    }
+
+    .conn-dax-b {
+      right: 319px;
+      top: 113px;
+      width: 107px;
+      height: 2px;
+    }
+
+    .conn-social {
+      right: 211px;
+      top: 219px;
+      width: 154px;
+      height: 2px;
+    }
+
+    .conn-claims-a {
+      right: 211px;
+      top: 296px;
+      width: 2px;
+      height: 32px;
+    }
+
+    .conn-claims-b {
+      right: 319px;
+      top: 327px;
+      width: 107px;
+      height: 2px;
+    }
+
+    .bottom-source {
+      position: absolute;
+      left: 483px;
+      bottom: 14px;
+      width: 282px;
+      height: 38px;
+      border-radius: 8px;
+      background: #bdbdbd;
+      border: 3px solid #e7e7e7;
+      box-shadow: inset 0 0 0 4px #e7e7e7, 0 4px 5px rgba(0, 0, 0, 0.16);
+    }
+
+    .legend {
+      position: absolute;
+      left: 970px;
+      top: 686px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      font-size: 16px;
+      color: #111111;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .legend-swatch {
+      width: 23px;
+      height: 23px;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+      border: 2px solid #ffffff;
+    }
+
+    .swatch-ga {
+      background: #174786;
+    }
+
+    .swatch-pp {
+      background: #4f83c6;
+    }
+
+    .swatch-future {
+      background: #b8b8b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <h1 class="title">Healthcare data solutions in Microsoft Fabric</h1>
+    <h2 class="subtitle">Healthcare Data Model</h2>
+    <p class="description">
+      This data model is comprehensive and familiar, and can handle many business domains in healthcare
+      (clinical, administrative, financial, and social) and supports analyzing FHIR clinical data with
+      traditional SQL tooling by providing FHIR data in a relational form.
+    </p>
+
+    <section class="main-panel" aria-label="Healthcare Data Model infographic">
+      <div class="top-note">
+        A unified Silver data model based on industry standards<br>
+        (e.g. Relational FHIR store, DICOM Metadata store) and more.
+      </div>
+
+      <div class="connector conn-clinical-a"></div>
+      <div class="connector conn-clinical-b"></div>
+      <div class="connector conn-imaging"></div>
+      <div class="connector conn-patient-a"></div>
+      <div class="connector conn-patient-b"></div>
+
+      <div class="connector conn-dax-a"></div>
+      <div class="connector conn-dax-b"></div>
+      <div class="connector conn-social"></div>
+      <div class="connector conn-claims-a"></div>
+      <div class="connector conn-claims-b"></div>
+
+      <div class="center-circle-outer"></div>
+
+      <div class="center-circle-inner">
+        <div class="icon" aria-hidden="true">
+          <div class="line-a"></div>
+          <div class="line-b"></div>
+          <div class="line-c"></div>
+          <div class="dot top"></div>
+          <div class="dot left"></div>
+          <div class="dot right"></div>
+        </div>
+        <div class="center-label">Healthcare<br>Data Model</div>
+      </div>
+
+      <div class="node n1"></div>
+      <div class="node n2"></div>
+      <div class="node n3"></div>
+      <div class="node n4"></div>
+      <div class="node n5"></div>
+      <div class="node n6"></div>
+
+      <div class="data-box box-clinical">Clinical Records Data</div>
+      <div class="data-box box-imaging">Imaging Data</div>
+      <div class="data-box box-patient">Patient Engagement Data</div>
+
+      <div class="data-box box-dax">DAX Copilot Data</div>
+      <div class="data-box box-social">Social Determinants of<br>Health Data</div>
+      <div class="data-box box-claims">Claims Data</div>
+
+      <div class="bottom-source"></div>
+    </section>
+
+    <div class="legend" aria-label="Legend">
+      <div class="legend-item">
+        <span class="legend-swatch swatch-ga"></span>
+        <span>GA</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-swatch swatch-pp"></span>
+        <span>Public Preview</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-swatch swatch-future"></span>
+        <span>Future</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

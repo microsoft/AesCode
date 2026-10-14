@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Benefits Impact Infographic</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #07172a;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background: linear-gradient(115deg, #0b1838 0%, #083248 42%, #0f5d67 69%, #19bbb2 100%);
+  }
+
+  .left-panel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 530px;
+    height: 768px;
+  }
+
+  .chart-icon {
+    position: absolute;
+    left: 70px;
+    top: 66px;
+    width: 92px;
+    height: 86px;
+  }
+
+  .chart-icon .axis-line-v,
+  .chart-icon .axis-line-h {
+    position: absolute;
+    background: rgba(255,255,255,0.95);
+    border-radius: 2px;
+  }
+
+  .chart-icon .axis-line-v {
+    left: 2px;
+    top: 0;
+    width: 4px;
+    height: 82px;
+  }
+
+  .chart-icon .axis-line-h {
+    left: 0;
+    bottom: 0;
+    width: 88px;
+    height: 4px;
+  }
+
+  .chart-icon .bar {
+    position: absolute;
+    bottom: 14px;
+    width: 4px;
+    background: #42d7bd;
+    border-radius: 3px;
+  }
+
+  .chart-icon .b1 {
+    left: 14px;
+    height: 17px;
+  }
+
+  .chart-icon .b2 {
+    left: 29px;
+    height: 32px;
+  }
+
+  .chart-icon .b3 {
+    left: 44px;
+    height: 20px;
+  }
+
+  .chart-icon .trend {
+    position: absolute;
+    left: 14px;
+    top: 24px;
+    width: 64px;
+    height: 38px;
+    border-top: 4px solid #42d7bd;
+    border-right: 4px solid #42d7bd;
+    transform: skewY(-38deg) rotate(-13deg);
+    border-radius: 1px;
+  }
+
+  .chart-icon .arrow-head {
+    position: absolute;
+    right: 2px;
+    top: 10px;
+    width: 12px;
+    height: 12px;
+    border-top: 4px solid #42d7bd;
+    border-right: 4px solid #42d7bd;
+  }
+
+  .decor-line {
+    position: absolute;
+    left: 70px;
+    top: 185px;
+    width: 136px;
+    height: 6px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #3f78e8 0%, #38e3c6 100%);
+    box-shadow: 0 0 10px rgba(58, 227, 207, 0.25);
+  }
+
+  .headline {
+    position: absolute;
+    left: 70px;
+    top: 223px;
+    width: 410px;
+    margin: 0;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 55px;
+    line-height: 1.25;
+    letter-spacing: -2px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.22);
+  }
+
+  .headline .teal-word {
+    color: #35d7b4;
+    font-weight: 900;
+  }
+
+  .card {
+    position: absolute;
+    left: 568px;
+    top: 46px;
+    width: 750px;
+    height: 676px;
+    background: #f8fbff;
+    border-radius: 17px;
+    box-shadow: 0 16px 32px rgba(3, 20, 39, 0.26);
+    padding: 32px 28px 28px 22px;
+  }
+
+  .benefit-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 72px;
+    height: 72px;
+  }
+
+  .icon-circle {
+    width: 64px;
+    height: 64px;
+    flex: 0 0 64px;
+    border-radius: 50%;
+    background: #2f7fc2;
+    border: 3px solid #5aa7e8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 27px;
+    color: #ffffff;
+    box-shadow: inset 0 0 12px rgba(255,255,255,0.10);
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  .benefit-text {
+    font-size: 25px;
+    font-weight: 500;
+    color: #080d12;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+  }
+
+  .divider {
+    position: absolute;
+    left: 92px;
+    right: 0;
+    bottom: 0;
+    height: 1.5px;
+    border-radius: 2px;
+  }
+
+  .divider.blue {
+    background: #2f7fc2;
+  }
+
+  .divider.green {
+    background: #64cbd5;
+  }
+
+  .icon-circle svg {
+    width: 38px;
+    height: 38px;
+    display: block;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="left-panel">
+      <div class="chart-icon" aria-hidden="true">
+        <div class="axis-line-v"></div>
+        <div class="axis-line-h"></div>
+        <div class="bar b1"></div>
+        <div class="bar b2"></div>
+        <div class="bar b3"></div>
+        <div class="trend"></div>
+        <div class="arrow-head"></div>
+      </div>
+      <div class="decor-line"></div>
+      <h1 class="headline">
+        <span class="teal-word">Benefits</span><br>
+        that impact<br>
+        the bottom<br>
+        line
+      </h1>
+    </div>
+
+    <div class="card">
+      <div class="benefit-row">
+        <div class="icon-circle" aria-hidden="true">
+          <svg viewBox="0 0 48 48">
+            <circle cx="14" cy="33" r="6"></circle>
+            <path d="M26 10v14l10-8 5 5-14 14"></path>
+            <path d="M31 10h9v9"></path>
+          </svg>
+        </div>
+        <div class="benefit-text">Increase sales with 24/7 availability</div>
+        <div class="divider blue"></div>
+      </div>
+
+      <div class="benefit-row">
+        <div class="icon-circle" aria-hidden="true">
+          <svg viewBox="0 0 48 48">
+            <path d="M8 37h32"></path>
+            <path d="M12 33V25"></path>
+            <path d="M20 33V19"></path>
+            <path d="M28 33V14"></path>
+            <path d="M36 33V9"></path>
+            <path d="M10 22l13-11 10 8 8-9"></path>
+            <path d="M35 9h7v7"></path>
+          </svg>
+        </div>
+        <div class="benefit-text">Drive higher throughput at peak times</div>
+        <div class="divider green"></div>
+      </div>
+
+      <div class="benefit-row">
+        <div class="icon-circle" aria-hidden="true">
+          <svg viewBox="0 0 48 48">
+            <circle cx="30" cy="13" r="5"></circle>
+            <circle cx="39" cy="30" r="5"></circle>
+            <path d="M10 24h27l-4 14H14z"></path>
+            <path d="M22 20h18"></path>
+            <path d="M20 36h19"></path>
+          </svg>
+        </div>
+        <div class="benefit-text">Reduce checkout labor costs and cart abandonment</div>
+        <div class="divider blue"></div>
+      </div>
+
+      <div class="benefit-row">
+        <div class="icon-circle" aria-hidden="true">
+          <svg viewBox="0 0 48 48">
+            <circle cx="22" cy="15" r="5"></circle>
+            <path d="M9 35c1-8 5-11 13-9 6 1 9 6 10 13"></path>
+            <circle cx="35" cy="18" r="6"></circle>
+            <path d="M28 18l7 7"></path>
+            <circle cx="31" cy="31" r="5"></circle>
+          </svg>
+        </div>
+        <div class="benefit-text">Enable staff focus on high value tasks</div>
+        <div class="divider green"></div>
+      </div>
+
+      <div class="benefit-row">
+        <div class="icon-circle" aria-hidden="true">
+          <svg viewBox="0 0 48 48">
+            <rect x="8" y="10" width="22" height="28"></rect>
+            <rect x="24" y="24" width="18" height="17"></rect>
+            <path d="M11 18h13"></path>
+            <path d="M11 26h15"></path>
+            <path d="M28 31h11"></path>
+            <path d="M28 38h9"></path>
+            <path d="M20 10l8-5"></path>
+          </svg>
+        </div>
+        <div class="benefit-text">Gain efficiencies with food prep and out-of-stocks</div>
+        <div class="divider blue"></div>
+      </div>
+
+      <div class="benefit-row">
+        <div class="icon-circle" aria-hidden="true">
+          <svg viewBox="0 0 48 48">
+            <circle cx="20" cy="18" r="8"></circle>
+            <path d="M8 32l12 8 12-8"></path>
+            <path d="M30 30c0-7 4-11 10-12"></path>
+            <circle cx="35" cy="25" r="6"></circle>
+            <circle cx="38" cy="36" r="5"></circle>
+          </svg>
+        </div>
+        <div class="benefit-text">Optimize loss prevention and energy usage</div>
+        <div class="divider green"></div>
+      </div>
+
+      <div class="benefit-row">
+        <div class="icon-circle" aria-hidden="true">
+          <svg viewBox="0 0 48 48">
+            <rect x="10" y="8" width="20" height="20"></rect>
+            <rect x="8" y="29" width="18" height="13"></rect>
+            <path d="M31 20h8l-5 10h10"></path>
+            <path d="M14 14l-4 4"></path>
+            <path d="M25 15l5 5"></path>
+          </svg>
+        </div>
+        <div class="benefit-text">Optimize store layout and flow</div>
+        <div class="divider blue"></div>
+      </div>
+
+      <div class="benefit-row">
+        <div class="icon-circle" aria-hidden="true">
+          <svg viewBox="0 0 48 48">
+            <rect x="7" y="10" width="20" height="28"></rect>
+            <circle cx="30" cy="29" r="8"></circle>
+            <path d="M35 24l10 10"></path>
+            <path d="M14 18h8"></path>
+            <path d="M14 25h10"></path>
+            <path d="M14 32h8"></path>
+          </svg>
+        </div>
+        <div class="benefit-text">Make data-driven decisions on store operations</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

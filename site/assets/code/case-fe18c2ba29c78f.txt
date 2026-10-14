@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>垃圾分类投放指南</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #020708;
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    color: #e7eeee;
+    background:
+      linear-gradient(rgba(32, 255, 45, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(32, 255, 45, 0.035) 1px, transparent 1px),
+      radial-gradient(circle at 50% 12%, rgba(52, 255, 66, 0.13), transparent 21%),
+      linear-gradient(180deg, #031112 0%, #051819 42%, #031112 100%);
+    background-size: 18px 18px, 18px 18px, auto, auto;
+  }
+
+  .artboard::before {
+    content: "";
+    position: absolute;
+    inset: 18px 18px 18px 18px;
+    border: 1.5px solid #4dff3c;
+    border-radius: 12px;
+    opacity: 0.95;
+  }
+
+  .artboard::after {
+    content: "";
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    right: 30px;
+    bottom: 30px;
+    border: 1px solid rgba(71, 255, 70, 0.45);
+    border-radius: 18px;
+    pointer-events: none;
+  }
+
+  .inner {
+    position: absolute;
+    left: 120px;
+    top: 42px;
+    width: 784px;
+    height: 1450px;
+    z-index: 2;
+  }
+
+  .notice-tag {
+    position: absolute;
+    top: 0;
+    left: 240px;
+    width: 304px;
+    height: 58px;
+    border: 1.5px solid #5dff45;
+    border-radius: 11px;
+    color: #79ff6b;
+    font-size: 28px;
+    line-height: 50px;
+    text-align: center;
+    letter-spacing: 10px;
+    font-weight: 700;
+    background: rgba(0, 20, 20, 0.28);
+    box-shadow:
+      0 0 13px rgba(80, 255, 82, 0.65),
+      inset 0 0 10px rgba(80, 255, 82, 0.35);
+  }
+
+  .main-title {
+    position: absolute;
+    top: 92px;
+    left: 0;
+    width: 784px;
+    color: #84ff58;
+    text-align: center;
+    font-size: 64px;
+    line-height: 1.12;
+    font-weight: 900;
+    letter-spacing: 9px;
+    text-shadow:
+      0 0 10px rgba(130, 255, 88, 0.9),
+      0 7px 0 rgba(42, 200, 40, 0.35);
+  }
+
+  .subtitle {
+    position: absolute;
+    top: 182px;
+    left: 0;
+    width: 784px;
+    text-align: center;
+    font-size: 28px;
+    color: #d9e0e1;
+    font-weight: 600;
+    letter-spacing: 3px;
+  }
+
+  .top-divider {
+    position: absolute;
+    top: 232px;
+    left: 0;
+    width: 784px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #6cff50 18%, #8dff65 50%, #6cff50 82%, transparent);
+    border-radius: 10px;
+    box-shadow: 0 0 14px #6cff50;
+  }
+
+  .info-card {
+    position: absolute;
+    top: 260px;
+    left: 0;
+    width: 784px;
+    height: 188px;
+    border: 1.2px solid rgba(200, 218, 220, 0.45);
+    border-radius: 16px;
+    background: rgba(10, 25, 28, 0.72);
+    box-shadow: inset 0 0 18px rgba(115, 255, 126, 0.08);
+  }
+
+  .info-row {
+    position: absolute;
+    left: 56px;
+    width: 670px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .info-row.row1 {
+    top: 18px;
+  }
+
+  .info-row.row2 {
+    top: 72px;
+  }
+
+  .info-row.row3 {
+    top: 126px;
+  }
+
+  .info-icon {
+    width: 42px;
+    height: 42px;
+    border: 2px solid #6dff58;
+    border-radius: 7px;
+    color: #7cff63;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex: 0 0 auto;
+  }
+
+  .info-text {
+    font-size: 26px;
+    color: #e8eeee;
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
+
+  .info-text.green {
+    color: #81ff60;
+    font-size: 25px;
+  }
+
+  .category-card {
+    position: absolute;
+    left: 0;
+    width: 784px;
+    height: 126px;
+    border: 1.7px solid #6cff50;
+    border-radius: 16px;
+    background: rgba(5, 21, 22, 0.82);
+    display: flex;
+    align-items: center;
+    box-shadow: inset 0 0 12px rgba(80, 255, 88, 0.10);
+  }
+
+  .cat1 { top: 472px; }
+  .cat2 { top: 612px; }
+  .cat3 { top: 752px; }
+  .cat4 { top: 892px; }
+
+  .cat-icon {
+    width: 146px;
+    height: 82px;
+    border-right: 1.5px solid rgba(111, 255, 97, 0.58);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cat-content {
+    width: 490px;
+    padding-left: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+  }
+
+  .cat-title {
+    font-size: 34px;
+    line-height: 1.2;
+    color: #82ff60;
+    font-weight: 900;
+    letter-spacing: 8px;
+    margin-bottom: 12px;
+  }
+
+  .cat-body {
+    font-size: 22px;
+    color: #e8eeee;
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
+
+  .tip-box {
+    position: absolute;
+    top: 1050px;
+    left: 0;
+    width: 784px;
+    height: 138px;
+    border: 1.8px dashed #6cff50;
+    border-radius: 16px;
+    background: rgba(5, 22, 23, 0.68);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 30px 16px 46px;
+  }
+
+  .tip-icon {
+    width: 50px;
+    height: 50px;
+    color: #7cff63;
+    border: 2px solid #7cff63;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+  }
+
+  .tip-text {
+    font-size: 22px;
+    color: #dce4e5;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 2px;
+  }
+
+  .tip-text .tip-title {
+    color: #83ff60;
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 7px;
+  }
+
+  .contact-block {
+    position: absolute;
+    top: 1212px;
+    left: 0;
+    width: 784px;
+    height: 150px;
+    border: 1.2px solid rgba(205, 219, 220, 0.45);
+    border-radius: 16px;
+    background: rgba(12, 29, 31, 0.72);
+    text-align: center;
+  }
+
+  .contact-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 72px;
+    border-bottom: 1px dashed rgba(116, 255, 98, 0.23);
+    gap: 18px;
+  }
+
+  .contact-line:last-child {
+    height: 78px;
+    border-bottom: none;
+  }
+
+  .contact-icon {
+    width: 44px;
+    height: 44px;
+    border: 2px solid #7cff63;
+    border-radius: 7px;
+    color: #7cff63;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    background: rgba(0, 255, 88, 0.08);
+  }
+
+  .contact-text {
+    font-size: 25px;
+    color: #f0f5f5;
+    font-weight: 500;
+    letter-spacing: 2px;
+  }
+
+  .footer-note {
+    position: absolute;
+    bottom: 28px;
+    left: 0;
+    width: 784px;
+    text-align: center;
+    color: #82a384;
+    font-size: 20px;
+    letter-spacing: 3px;
+  }
+
+  .footer-note::before,
+  .footer-note::after {
+    content: "";
+    display: inline-block;
+    width: 110px;
+    height: 1px;
+    background: rgba(128, 255, 120, 0.32);
+    margin: 0 20px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="inner">
+      <div class="notice-tag">社区环保通知</div>
+
+      <div class="main-title">垃圾分类投放指南</div>
+      <div class="subtitle">请按分类准确投放，共建清洁家园</div>
+      <div class="top-divider"></div>
+
+      <div class="info-card">
+        <div class="info-row row1">
+          <div class="info-icon">▣</div>
+          <div class="info-text">执行时间：2026年4月1日起</div>
+        </div>
+        <div class="info-row row2">
+          <div class="info-icon">⌖</div>
+          <div class="info-text">适用范围：锦溪花园A区、B区全体住户</div>
+        </div>
+        <div class="info-row row3">
+          <div class="info-icon">◷</div>
+          <div class="info-text green">投放时间：每日 07:00–09:00 / 18:00–20:00</div>
+        </div>
+      </div>
+
+      <div class="category-card cat1">
+        <div class="cat-icon" aria-hidden="true">
+          <svg width="78" height="70" viewBox="0 0 78 70" fill="none" stroke="#7cff63" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 49 L60 49 L39 12" />
+            <path d="M20 48 L14 30 L28 30" />
+            <path d="M60 48 L50 31 L38 31" />
+            <path d="M39 14 L51 48 L24 48" />
+          </svg>
+        </div>
+        <div class="cat-content">
+          <div class="cat-title">可回收物</div>
+          <div class="cat-body">纸箱、塑料瓶、金属、玻璃</div>
+        </div>
+      </div>
+
+      <div class="category-card cat2">
+        <div class="cat-icon" aria-hidden="true">
+          <svg width="82" height="70" viewBox="0 0 82 70" fill="none" stroke="#7cff63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 47 C28 56, 48 49, 53 29 C57 16, 41 14, 38 27" />
+            <path d="M26 13 C17 18, 18 32, 33 38" />
+            <path d="M48 22 C57 20, 62 33, 54 42" />
+            <path d="M61 50 C52 58, 36 51, 32 32" />
+            <circle cx="29" cy="30" r="7" />
+          </svg>
+        </div>
+        <div class="cat-content">
+          <div class="cat-title">厨余垃圾</div>
+          <div class="cat-body">剩饭剩菜、果皮、茶叶渣</div>
+        </div>
+      </div>
+
+      <div class="category-card cat3">
+        <div class="cat-icon" aria-hidden="true">
+          <svg width="78" height="70" viewBox="0 0 78 70" fill="none" stroke="#7cff63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="18" y="13" width="42" height="52" rx="4" />
+            <path d="M39 15 V25" />
+            <path d="M29 23 H49" />
+            <path d="M26 42 H52" />
+            <path d="M29 53 H49" />
+          </svg>
+        </div>
+        <div class="cat-content">
+          <div class="cat-title">有害垃圾</div>
+          <div class="cat-body">废电池、过期药品、废灯管</div>
+        </div>
+      </div>
+
+      <div class="category-card cat4">
+        <div class="cat-icon" aria-hidden="true">
+          <svg width="82" height="70" viewBox="0 0 82 70" fill="none" stroke="#7cff63" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 16 H64 L53 54 H29 L18 16" />
+            <path d="M23 25 H58" />
+            <path d="M24 36 V52" />
+            <path d="M42 36 V52" />
+            <path d="M60 36 V52" />
+          </svg>
+        </div>
+        <div class="cat-content">
+          <div class="cat-title">其他垃圾</div>
+          <div class="cat-body">受污染纸巾、一次性餐盒、陶瓷碎片</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">♧</div>
+        <div class="tip-text">
+          <div class="tip-title">投放提醒</div>
+          请破袋投放，严禁混投混放。<br>
+          满载包装请压扁后投入，感谢您的配合！
+        </div>
+      </div>
+
+      <div class="contact-block">
+        <div class="contact-line">
+          <div class="contact-icon">♧</div>
+          <div class="contact-text">咨询电话：021-5843-1768</div>
+        </div>
+        <div class="contact-line">
+          <div class="contact-icon">✉</div>
+          <div class="contact-text">监督邮箱：greenoffice@jinxigarden.cn</div>
+        </div>
+      </div>
+
+      <div class="footer-note">锦溪花园物业服务中心 宣</div>
+    </div>
+  </div>
+</body>
+</html>

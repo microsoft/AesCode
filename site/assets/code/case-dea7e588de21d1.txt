@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>心理咨询常见问题 FAQ</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #05050a;
+    font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    color: #fff;
+    background:
+      radial-gradient(circle at 93% 7%, rgba(202, 60, 255, 0.30) 0, rgba(202, 60, 255, 0.12) 135px, transparent 270px),
+      radial-gradient(circle at 100% 208px, rgba(255, 92, 220, 0.26) 0, rgba(255, 92, 220, 0.08) 60px, transparent 110px),
+      radial-gradient(circle at 98% 388px, rgba(120, 60, 255, 0.20) 0, rgba(120, 60, 255, 0.06) 80px, transparent 145px),
+      linear-gradient(180deg, #05050a 0%, #0c0719 30%, #11081c 60%, #150822 100%);
+  }
+
+  /* 光晕装饰 */
+  .orb-top-right {
+    position: absolute;
+    right: -92px;
+    top: -82px;
+    width: 305px;
+    height: 245px;
+    border-radius: 50%;
+    border: 32px solid rgba(255, 102, 230, 0.32);
+    box-shadow:
+      0 0 60px rgba(142, 55, 255, 0.28),
+      inset 0 0 55px rgba(185, 60, 255, 0.18);
+    opacity: 0.9;
+  }
+
+  .small-orb {
+    position: absolute;
+    right: 24px;
+    top: 279px;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #f167ff 0%, #9e41ff 45%, rgba(130, 55, 255, 0.20) 72%, transparent 86%);
+    box-shadow: 0 0 36px rgba(255, 80, 230, 0.32);
+  }
+
+  .top-left-glow {
+    position: absolute;
+    left: -86px;
+    top: 294px;
+    width: 110px;
+    height: 180px;
+    border-radius: 50%;
+    border: 20px solid rgba(135, 70, 255, 0.20);
+    box-shadow: inset 0 0 40px rgba(145, 60, 255, 0.12);
+  }
+
+  .corner-ring {
+    position: absolute;
+    right: -66px;
+    top: 555px;
+    width: 122px;
+    height: 230px;
+    border: 2px solid rgba(170, 70, 255, 0.30);
+    border-radius: 50%;
+    opacity: 0.8;
+  }
+
+  /* 顶标与图标 */
+  .badge {
+    position: absolute;
+    left: 44px;
+    top: 40px;
+    width: 220px;
+    height: 62px;
+    border: 2px solid #8f52ff;
+    border-radius: 28px;
+    background: rgba(18, 12, 42, 0.45);
+    color: #fff;
+    font-size: 27px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 14px rgba(255, 80, 230, 0.22);
+  }
+
+  .badge::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border: 1.5px solid #ff5fe6;
+    border-radius: 28px;
+    pointer-events: none;
+  }
+
+  .top-icon {
+    position: absolute;
+    right: 61px;
+    top: 47px;
+    width: 88px;
+    height: 88px;
+    opacity: 0.88;
+  }
+
+  .top-icon .hex {
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    width: 68px;
+    height: 68px;
+    background: transparent;
+    border: 2px solid #f1d8ff;
+    clip-path: polygon(25% 4%, 75% 4%, 100% 50%, 75% 96%, 25% 96%, 0% 50%);
+  }
+
+  .top-icon .heart {
+    position: absolute;
+    left: 24px;
+    top: 16px;
+    width: 40px;
+    height: 36px;
+    border: 3px solid #f1d8ff;
+    border-top: 3px solid #f1d8ff;
+    transform: rotate(-45deg);
+    border-radius: 8px;
+  }
+
+  .top-icon .heart::before,
+  .top-icon .heart::after {
+    content: "";
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: 3px solid #f1d8ff;
+    border-radius: 50%;
+    top: -15px;
+  }
+
+  .top-icon .heart::before {
+    left: -14px;
+  }
+
+  .top-icon .heart::after {
+    right: -14px;
+  }
+
+  .top-icon .pin {
+    position: absolute;
+    right: 5px;
+    bottom: 9px;
+    width: 35px;
+    height: 35px;
+    border-left: 3px solid #f1d8ff;
+    border-bottom: 3px solid #f1d8ff;
+    border-radius: 0 0 0 18px;
+    transform: rotate(-45deg);
+  }
+
+  /* 标题区 */
+  .title {
+    position: absolute;
+    left: 58px;
+    top: 151px;
+    width: 910px;
+    text-align: left;
+  }
+
+  .title h1 {
+    margin: 0;
+    font-size: 63px;
+    line-height: 1.12;
+    letter-spacing: 3px;
+    color: #fff;
+    font-weight: 900;
+    text-shadow: 0 0 12px rgba(255,255,255,0.10);
+  }
+
+  .subtitle {
+    margin-top: 25px;
+    color: #e7e7ef;
+    font-size: 28px;
+    letter-spacing: 2px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .divider-top {
+    position: absolute;
+    left: 62px;
+    top: 321px;
+    width: 798px;
+    height: 4px;
+    background: linear-gradient(90deg, #5d5cff 0%, #ff49e5 58%, #ff73a8 100%);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(255, 80, 230, 0.42);
+  }
+
+  /* 卡片网格 */
+  .cards {
+    position: absolute;
+    left: 48px;
+    top: 370px;
+    width: 930px;
+    height: 750px;
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+    grid-template-rows: repeat(2, 355px);
+    column-gap: 22px;
+    row-gap: 18px;
+  }
+
+  .card {
+    position: relative;
+    background: rgba(12, 8, 28, 0.72);
+    border: 1.4px solid rgba(160, 80, 255, 0.48);
+    border-radius: 20px;
+    box-shadow:
+      0 12px 30px rgba(0,0,0,0.18),
+      inset 0 0 30px rgba(170, 80, 255, 0.05);
+    padding: 31px 27px 24px;
+    overflow: hidden;
+  }
+
+  .card::after {
+    content: "";
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,90,255,0.20), transparent 72%);
+    pointer-events: none;
+  }
+
+  .num {
+    position: absolute;
+    left: 16px;
+    top: 12px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 3px solid #a756ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 29px;
+    color: #fff;
+    font-weight: 800;
+    background: rgba(150, 60, 255, 0.18);
+    z-index: 2;
+  }
+
+  .num::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 2px solid #ff50e3;
+  }
+
+  .question {
+    margin-top: 37px;
+    font-size: 33px;
+    line-height: 1.42;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px rgba(255,255,255,0.10);
+    min-height: 112px;
+  }
+
+  .question-underline {
+    width: 62px;
+    height: 3px;
+    margin-top: 10px;
+    background: linear-gradient(90deg, #565cff, #ff49e3);
+    border-radius: 3px;
+    box-shadow: 0 0 8px rgba(255, 80, 230, 0.55);
+  }
+
+  .answer {
+    margin-top: 19px;
+    color: #e2e2ef;
+    font-size: 22px;
+    line-height: 1.65;
+    letter-spacing: 1.3px;
+    font-weight: 450;
+    text-align: left;
+  }
+
+  /* 信息带 */
+  .info-band {
+    position: absolute;
+    left: 48px;
+    top: 1160px;
+    width: 928px;
+    height: 116px;
+    border: 1.2px solid rgba(180, 80, 255, 0.58);
+    border-radius: 17px;
+    background: rgba(18, 11, 34, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: space1between;
+    padding: 17px 26px 15px;
+  }
+
+  .info-item {
+    width: 300px;
+    height: 78px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-right: 1.5px solid rgba(200, 200, 255, 0.36);
+    padding-right: 17px;
+  }
+
+  .info-item:first-of-type {
+    padding-left: 0;
+  }
+
+  .info-item:last-of-type {
+    border-right: 0;
+    padding-left: 14px;
+  }
+
+  .info-icon {
+    width: 62px;
+    height: 62px;
+    flex: 0 0 62px;
+    border: 3px solid #c667ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    font-weight: 800;
+    background: rgba(255, 100, 255, 0.06);
+  }
+
+  .info-text {
+    font-size: 17px;
+    line-height: 1.45;
+    letter-spacing: 0.6px;
+    color: #fff;
+  }
+
+  .info-text strong {
+    color: #ff56f0;
+    font-weight: 800;
+  }
+
+  /* 底部 */
+  .bottom-area {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1024px;
+    height: 235px;
+    border-top: 1px solid rgba(180, 80, 255, 0.46);
+    background: linear-gradient(180deg, rgba(18,9,34,0.86), #06040b);
+  }
+
+  .warning {
+    position: absolute;
+    left: 80px;
+    top: 50px;
+    width: 520px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .shield {
+    width: 82px;
+    height: 82px;
+    border: 3px solid #c45cff;
+    border-top-width: 4px;
+    border-radius: 24px 24px 34px 34px;
+    clip-path: polygon(50% 0%, 100% 20%, 91% 82%, 50% 100%, 9% 82%, 0% 20%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .shield span {
+    width: 38px;
+    height: 31px;
+    border: 3px solid #ff68e2;
+    transform: rotate(-45deg);
+    border-radius: 8px;
+  }
+
+  .warn-text {
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.75;
+    letter-spacing: 1px;
+  }
+
+  .vertical-separator {
+    position: absolute;
+    left: 640px;
+    top: 22px;
+    width: 1px;
+    height: 148px;
+    background: rgba(255,255,255,0.55);
+  }
+
+  .qr-block {
+    position: absolute;
+    right: 70px;
+    top: 29px;
+    width: 160px;
+    text-align: center;
+  }
+
+  .qr-block img {
+    width: 160px;
+    height: 160px;
+    display: block;
+    border: 4px solid rgba(255,255,255,0.95);
+    border-radius: 10px;
+    background: #fff;
+  }
+
+  .qr-label {
+    margin-top: 8px;
+    color: #ff56ea;
+    font-size: 19px;
+    letter-spacing: 3px;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="orb-top-right"></div>
+    <div class="small-orb"></div>
+    <div class="top-left-glow"></div>
+    <div class="corner-ring"></div>
+
+    <div class="badge">安宁心理门诊</div>
+
+    <div class="top-icon" aria-hidden="true">
+      <div class="hex"></div>
+      <div class="heart"></div>
+      <div class="pin"></div>
+    </div>
+
+    <header class="title">
+      <h1>心理咨询常见问题 FAQ</h1>
+      <div class="subtitle">面向成人情绪困扰、睡眠问题与压力管理的初诊说明</div>
+    </header>
+
+    <div class="divider-top"></div>
+
+    <main class="cards">
+      <section class="card">
+        <div class="num">01</div>
+        <div class="question">第一次来访<br>会做什么？</div>
+        <div class="question-underline"></div>
+        <div class="answer">首次评估通常 50 分钟，包含症状梳理、目标确认与风险评估。</div>
+      </section>
+
+      <section class="card">
+        <div class="num">02</div>
+        <div class="question">咨询适合<br>哪些情况？</div>
+        <div class="question-underline"></div>
+        <div class="answer">咨询适合焦虑、情绪低落、人际压力、失眠与工作倦怠等情况。</div>
+      </section>
+
+      <section class="card">
+        <div class="num">03</div>
+        <div class="question">是否需要<br>提前预约？</div>
+        <div class="question-underline"></div>
+        <div class="answer">建议至少提前24小时预约，以便我们为您安排合适的时间。</div>
+      </section>
+
+      <section class="card">
+        <div class="num">04</div>
+        <div class="question">单次咨询<br>费用是多少？</div>
+        <div class="question-underline"></div>
+        <div class="answer">初诊 380 元 / 50 分钟<br>复诊 320 元 / 50 分钟<br>费用清晰透明，无隐形消费。</div>
+      </section>
+
+      <section class="card">
+        <div class="num">05</div>
+        <div class="question">隐私会被<br>保护吗？</div>
+        <div class="question-underline"></div>
+        <div class="answer">我们严格遵循保密原则，除法律规定与紧急风险外，不会向第三方披露您的任何信息。</div>
+      </section>
+
+      <section class="card">
+        <div class="num">06</div>
+        <div class="question">可以线上<br>咨询吗？</div>
+        <div class="question-underline"></div>
+        <div class="answer">可以。我们支持视频复诊与稳定期随访，方便您在家中获得持续支持。</div>
+      </section>
+    </main>
+
+    <section class="info-band">
+      <div class="info-item">
+        <div class="info-icon">◷</div>
+        <div class="info-text"><strong>门诊时间：</strong><br>周二至周日<br>09:00–20:30</div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">⌖</div>
+        <div class="info-text"><strong>地址：</strong><br>杭州市拱墅区文晖路318号<br>安宁心理中心 5层</div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">☎</div>
+        <div class="info-text"><strong>预约电话：</strong><br>0571-8823-6149</div>
+      </div>
+    </section>
+
+    <footer class="bottom-area">
+      <div class="warning">
+        <div class="shield"><span></span></div>
+        <div class="warn-text">若出现自伤、自杀想法或明显精神危机，<br>请立即拨打当地急救电话或前往最近<br>医院急诊。</div>
+      </div>
+      <div class="vertical-separator"></div>
+      <div class="qr-block">
+        <img src="https://placehold.co/160x160?text=%E9%A2%84%E7%BA%A6%E4%BA%8C%E7%BB%B4%E7%A0%81" alt="预约二维码占位图">
+        <div class="qr-label">扫码预约初诊</div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

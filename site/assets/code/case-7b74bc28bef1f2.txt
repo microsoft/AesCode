@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=853, initial-scale=1.0" />
+  <title>Créa'Pulse - Tendances design 2024</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e9edf7;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: #263044;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 853px;
+      height: 1280px;
+      overflow: hidden;
+      background: #f8fbff;
+    }
+
+    /* Top navigation */
+    .navbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 853px;
+      height: 40px;
+      background: #06102f;
+      display: flex;
+      align-items: center;
+      padding: 0 72px;
+      z-index: 10;
+      box-shadow: 0 5px 18px rgba(15, 12, 42, 0.28);
+    }
+
+    .logo {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+      margin-right: 106px;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 33px;
+      color: #d9def4;
+      font-size: 9px;
+      align-items: center;
+      flex: 1;
+    }
+
+    .nav-links span {
+      opacity: 0.88;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: #dce5ff;
+      font-size: 12px;
+    }
+
+    .cta {
+      background: linear-gradient(135deg, #8357ff, #ff674b);
+      color: white !important;
+      border: none;
+      border-radius: 999px;
+      padding: 7px 15px;
+      min-width: 72px;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: default;
+    }
+
+    /* Hero */
+    .hero {
+      position: absolute;
+      top: 40px;
+      left: 0;
+      width: 853px;
+      height: 238px;
+      background: linear-gradient(110deg, #3736ff 0%, #c93bd0 46%, #ff5f47 70%, #ff8a35 100%);
+      overflow: hidden;
+      border-bottom-left-radius: 82px;
+      border-bottom-right-radius: 82px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      border: 28px solid rgba(255,255,255,0.08);
+      right: -120px;
+      top: 40px;
+      z-index: 0;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      border: 25px solid rgba(255,255,255,0.08);
+      right: 30px;
+      top: 12px;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: absolute;
+      z-index: 2;
+      left: 92px;
+      top: 24px;
+      width: 420px;
+      color: #fff;
+    }
+
+    .pill-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 18px;
+      padding: 0 11px;
+      border: 1px solid rgba(255,255,255,0.65);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.10);
+      color: #fff;
+      font-size: 8px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 31px;
+      line-height: 1.15;
+      font-weight: 850;
+      letter-spacing: -0.9px;
+    }
+
+    .hero-subtitle {
+      margin-top: 10px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.82);
+      width: 370px;
+    }
+
+    .author-line {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 14px;
+      font-size: 10px;
+      font-weight: 650;
+    }
+
+    .author-line img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.85);
+      object-fit: cover;
+    }
+
+    .author-line span {
+      opacity: 0.82;
+    }
+
+    .hero-illustration {
+      position: absolute;
+      z-index: 1;
+      right: 40px;
+      top: 22px;
+      width: 300px;
+      height: 210px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .hero-illustration img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 24px;
+      box-shadow: 0 22px 38px rgba(114, 32, 92, 0.25);
+    }
+
+    /* Main content */
+    .main {
+      position: absolute;
+      top: 278px;
+      left: 0;
+      width: 853px;
+      height: 818px;
+      background: #fbfcff;
+    }
+
+    .article-card {
+      position: absolute;
+      left: 92px;
+      top: 0;
+      width: 440px;
+      height: 790px;
+      background: #fff;
+      border: 1px solid #edf0f6;
+      box-shadow: 0 13px 30px rgba(30, 45, 80, 0.08);
+      padding: 13px 0 0 0;
+    }
+
+    .intro-text {
+      padding: 0 0 11px 0;
+      font-size: 10.5px;
+      color: #5f6778;
+      line-height: 1.5;
+      margin-bottom: 2px;
+    }
+
+    .section {
+      margin: 0 0 14px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #252b3a;
+      margin-bottom: 7px;
+    }
+
+    .number-label {
+      background: #e7d8ff;
+      color: #7042cf;
+      border-radius: 999px;
+      padding: 4px 8px;
+      min-width: 23px;
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .section p {
+      font-size: 10.2px;
+      color: #697184;
+      line-height: 1.5;
+      margin: 0 0 7px 0;
+    }
+
+    .section img {
+      width: 380px;
+      height: 122px;
+      object-fit: cover;
+      display: block;
+      border-radius: 6px;
+      border: 1px solid #e4e8f1;
+      background: #eceff7;
+    }
+
+    .impact-card {
+      margin-top: 2px;
+      margin-bottom: 11px;
+      width: 380px;
+      height: 92px;
+      border-radius: 8px;
+      background: #062f82;
+      color: white;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space3;
+    }
+
+    .impact-card h3 {
+      font-size: 35px;
+      line-height: 1;
+      margin: 0 0 0 0;
+      letter-spacing: -1.7px;
+    }
+
+    .impact-card small {
+      font-size: 10px;
+      width: 72px;
+    }
+
+    .conclusion {
+      padding-top: 2px;
+    }
+
+    .conclusion h3 {
+      margin: 0 0 5px 0;
+      font-size: 12.7px;
+      color: #7652cf;
+    }
+
+    .tags-row {
+      margin: 7px 0 12px 0;
+      border-top: 1px solid #e9ebf0;
+      padding-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 9.5px;
+      color: #646c7c;
+    }
+
+    .tag-pill {
+      background: #f1edff;
+      color: #7754c8;
+      border: 1px solid #ded7fb;
+      border-radius: 999px;
+      padding: 4px 7px;
+      font-size: 8.8px;
+    }
+
+    .share-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 11px;
+      font-size: 9px;
+      color: #6a7283;
+    }
+
+    .socials {
+      display: flex;
+      gap: 4px;
+    }
+
+    .socials span {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #4a86e8;
+      color: white;
+      font-size: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bio-card {
+      display: flex;
+      gap: 13px;
+      background: #f0eaff;
+      border: 1px solid #e4d8ff;
+      border-radius: 9px;
+      padding: 9px 10px;
+      margin-bottom: 9px;
+    }
+
+    .bio-card img {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .bio-text strong {
+      font-size: 11px;
+    }
+
+    .bio-text p {
+      font-size: 9.2px;
+      margin: 3px 0 0 0;
+      color: #697080;
+    }
+
+    .comments-title {
+      font-size: 10px;
+      color: #4f5869;
+      margin-bottom: 11px;
+    }
+
+    .comment-form {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    textarea,
+    input {
+      border: 1px solid #e1e5ef;
+      border-radius: 6px;
+      padding: 8px;
+      font-family: inherit;
+      background: #fbfcff;
+      font-size: 9px;
+      outline: none;
+    }
+
+    .comment-submit {
+      background: #8357ff;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: absolute;
+      top: 18px;
+      right: 66px;
+      width: 220px;
+    }
+
+    .widget {
+      width: 220px;
+      background: #fff;
+      border: 1px solid #edf0f7;
+      border-radius: 11px;
+      box-shadow: 0 10px 22px rgba(31, 44, 75, 0.06);
+      padding: 12px 10px;
+      margin-bottom: 12px;
+    }
+
+    .widget h4 {
+      margin: 0 0 11px 0;
+      font-size: 11.5px;
+      color: #2f3648;
+    }
+
+    .popular-item {
+      display: flex;
+      gap: 8px;
+      margin: 0 0 10px 0;
+      align-items: center;
+    }
+
+    .popular-item img {
+      width: 52px;
+      height: 42px;
+      border-radius: 5px;
+      object-fit: cover;
+    }
+
+    .popular-item strong {
+      font-size: 9.8px;
+    }
+
+    .popular-item small {
+      font-size: 8.7px;
+      color: #8c93a2;
+    }
+
+    .subscribe {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: linear-gradient(135deg, #784dff, #ff6d39);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 10px;
+      padding: 12px 10px;
+      margin-bottom: 12px;
+      color: white;
+    }
+
+    .subscribe h4 {
+      color: #fff;
+      margin-bottom: 5px;
+    }
+
+    .subscribe input,
+    .subscribe button {
+      width: 105px;
+      height: 24px;
+      border-radius: 5px;
+      font-size: 8.5px;
+      font-weight: 800;
+    }
+
+    .subscribe button {
+      background: #1c2f78;
+      color: white;
+    }
+
+    .categories-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .cat-line {
+      display: flex;
+      justify-content: space3;
+      align-items: center;
+      color: #5f6878;
+      font-size: 9.5px;
+    }
+
+    .cat-line span:first-child {
+      background: #e9e6ff;
+      color: #7853d6;
+      border-radius: 999px;
+      padding: 3px 7px;
+    }
+
+    .cat-line span:last-child {
+      background: #f0edff;
+      color: #7e56c5;
+      border-radius: 999px;
+      min-width: 16px;
+      text-align: center;
+    }
+
+    /* Footer */
+    .footer {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 853px;
+      height: 184px;
+      background: linear-gradient(125deg, #293bff 0%, #a737d0 47%, #ff4761 100%);
+      border-top: 1px solid rgba(255,255,255,0.20);
+      color: #fff;
+      padding-top: 31px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 150px 92px 102px 100px 110px;
+      gap: 20px;
+      padding: 0 72px 17px 92px;
+    }
+
+    .footer h5 {
+      margin: 0 0 8px 0;
+      font-size: 11px;
+    }
+
+    .footer p,
+    .footer li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-size: 8.8px;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.7;
+    }
+
+    .footer ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    .copyright {
+      position: absolute;
+      bottom: 9px;
+      left: 0;
+      width: 853px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.19);
+      font-size: 8.5px;
+      padding-top: 6px;
+      opacity: 0.86;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <nav class="navbar">
+      <div class="logo">Créa'Pulse</div>
+      <div class="nav-links">
+        <span>Accueil</span>
+        <span>À propos</span>
+        <span>Catégories</span>
+        <span>Ressources</span>
+        <span>Contact</span>
+      </div>
+      <div class="nav-actions">
+        <span>⌕</span>
+        <button class="cta">S'abonner</button>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-content">
+        <div class="pill-label">DESIGN</div>
+        <h1>
+          Les tendances design<br />
+          2024 qui vont marquer<br />
+          l’année
+        </h1>
+        <div class="hero-subtitle">
+          Découvrez les courants visuels, typographies et palettes de couleurs qui domineront le monde du design cette année.
+        </div>
+        <div class="author-line">
+          <img src="https://placehold.co/80x80?text=Auteur" alt="Auteur" width="28" height="28" />
+          <span>Par Manon Dubois</span>
+          <span>•</span>
+          <span>15 mai 2024</span>
+          <span>•</span>
+          <span>8 min de lecture</span>
+        </div>
+      </div>
+      <div class="hero-illustration">
+        <img src="https://placehold.co/360x260?text=Illustration+design+2024" alt="Illustration design 2024" />
+      </div>
+    </section>
+
+    <main class="main">
+      <article class="article-card">
+        <div class="intro-text">
+          Le design évolue sans cesse, influencé par les innovations technologiques, les comportements des utilisateurs et les mouvements culturels. En 2024, plusieurs tendances se démarquent et redéfinissent la manière dont nous concevons des expériences visuelles.
+        </div>
+
+        <section class="section">
+          <div class="section-head"><span class="number-label">01.</span><span>Minimalisme expressif</span></div>
+          <p>
+            Le minimalisme reste une valeur sûre, mais en 2024, il s’exprime avec plus de personnalité. On mise sur des compositions épurées, rehaussées d’éléments inattendus : typographies audacieuses, couleurs vives et micro-interactions subtiles.
+          </p>
+          <img src="https://placehold.co/600x220?text=Minimalisme+illustration" alt="Minimalisme illustration" />
+        </section>
+
+        <section class="section">
+          <div class="section-head"><span class="number-label">02.</span><span>Couleurs vibrantes et dégradés</span></div>
+          <p>
+            Les palettes s’éloignent des tons neutres pour embrasser des couleurs saturées et des dégradés dynamiques. Ces jeux de couleurs créent de l’énergie, attirent l’attention et transmettent des émotions fortes.
+          </p>
+          <img src="https://placehold.co/600x220?text=Dégradés+vibrants" alt="Dégradés vibrants" />
+        </section>
+
+        <section class="section">
+          <div class="section-head"><span class="number-label">03.</span><span>Typographies audacieuses</span></div>
+          <p>
+            En 2024, la typographie devient le point focal. Les polices épaisses, expérimentales et surdimensionnées permettent d’affirmer une identité visuelle forte et mémorable.
+          </p>
+          <div class="impact-card">
+            <h3>Impact Visuel</h3>
+            <small>La typo qui parle pour vous.</small>
+          </div>
+        </section>
+
+        <section class="conclusion">
+          <h3>Conclusion</h3>
+          <p>
+            Le design en 2024 est audacieux, expressif et centré sur l’humain. En adoptant ces tendances tout en restant fidèle à votre identité, vous créez des expériences visuelles fortes et durables.
+          </p>
+        </section>
+
+        <div class="tags-row">
+          <span>Tags :</span>
+          <span class="tag-pill">Design</span>
+          <span class="tag-pill">Tendances 2024</span>
+          <span class="tag-pill">UI/UX</span>
+          <span class="tag-pill">Typographie</span>
+          <span class="tag-pill">Couleurs</span>
+        </div>
+
+        <div class="share-row">
+          <span>Partager cet article :</span>
+          <div class="socials">
+            <span>f</span>
+            <span>x</span>
+            <span>in</span>
+          </div>
+        </div>
+
+        <div class="bio-card">
+          <img src="https://placehold.co/80x80?text=Auteur" alt="Auteur" />
+          <div class="bio-text">
+            <strong>À propos de l'auteur</strong>
+            <p>Manon Dubois</p>
+            <p>Designer graphique et UX/UI passionnée, j’aide les marques à créer des expériences visuelles mémorables et intuitives.</p>
+          </div>
+        </div>
+
+        <div class="comments-title">3 commentaires</div>
+
+        <div class="comment-form">
+          <textarea placeholder="Votre commentaire"></textarea>
+          <input type="text" placeholder="Nom" />
+          <input type="email" placeholder="Email" />
+          <input type="url" placeholder="Site web" />
+          <button class="comment-submit">Publier le commentaire</button>
+        </div>
+      </article>
+
+      <aside class="sidebar">
+        <div class="widget">
+          <h4>Articles populaires</h4>
+          <div class="popular-item">
+            <img src="https://placehold.co/60x60?text=UX" alt="UX" />
+            <div>
+              <strong>Les principes UX à ne jamais ignorer</strong>
+              <small>15 mai 2024</small>
+            </div>
+          </div>
+          <div class="popular-item">
+            <img src="https://placehold.co/60x60?text=Palettes" alt="Palettes" />
+            <div>
+              <strong>Comment créer une palette de couleurs harmonieuse</strong>
+              <small>28 avril 2024</small>
+            </div>
+          </div>
+          <div class="popular-item">
+            <img src="https://placehold.co/60x60?text=Fonts" alt="Fonts" />
+            <div>
+              <strong>Les meilleures polices gratuites en 2024</strong>
+              <small>20 avril 2024</small>
+            </div>
+          </div>
+          <div class="popular-item">
+            <img src="https://placehold.co/60x60?text=Interactions" alt="Interactions" />
+            <div>
+              <strong>Micro-interactions : petits détails, grand impact</strong>
+              <small>15 avril 2024</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="subscribe">
+          <div>
+            <h4>Restez inspiré !</h4>
+            <p>Recevez chaque semaine des articles, ressources et conseils directement dans votre boîte mail.</p>
+            <input type="email" placeholder="Votre email" />
+            <button>Je m'inscris</button>
+          </div>
+          <img src="https://placehold.co/260x160?text=Newsletter+illustration" alt="Newsletter illustration" />
+        </div>
+
+        <div class="widget">
+          <h4>Categories</h4>
+          <div class="categories-grid">
+            <div class="cat-line"><span>Design</span><span>14</span></div>
+            <div class="cat-line"><span>UI/UX</span><span>12</span></div>
+            <div class="cat-line"><span>Inspiration</span><span>10</span></div>
+            <div class="cat-line"><span>Ressources</span><span>8</span></div>
+            <div class="cat-line"><span>Outils</span><span>7</span></div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <h5>Créa'Pulse</h5>
+          <p>Le blog dédié au design, à la créativité et aux outils qui boostent vos projets.</p>
+        </div>
+        <div>
+          <h5>Navigation</h5>
+          <ul>
+            <li>Accueil</li>
+            <li>À propos</li>
+            <li>Catégories</li>
+            <li>Ressources</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+        <div>
+          <h5>Catégories</h5>
+          <ul>
+            <li>Design</li>
+            <li>UI/UX</li>
+            <li>Inspiration</li>
+            <li>Ressources</li>
+            <li>Outils</li>
+          </ul>
+        </div>
+        <div>
+          <h5>Ressources</h5>
+          <ul>
+            <li>Guides</li>
+            <li>Tutoriaux</li>
+            <li>Outils gratuits</li>
+            <li>Templates</li>
+            <li>Newsletter</li>
+          </ul>
+        </div>
+        <div>
+          <h5>Contact</h5>
+          <ul>
+            <li>hello@creapulse.fr</li>
+            <li>+33 6 12 34 56 78</li>
+            <li>Paris, France</li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        © 2024 Créa'Pulse. Tous droits réservés. &nbsp;&nbsp; Mentions légales &nbsp;&nbsp; Politique de confidentialité &nbsp;&nbsp; Conditions d’utilisation
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

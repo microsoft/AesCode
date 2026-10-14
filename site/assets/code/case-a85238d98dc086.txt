@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Market Trends Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #eef3f9;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: #1f2937;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 853px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .sidebar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 198px;
+      height: 853px;
+      background: #f8fbff;
+      border-right: 1px solid #e1e8f2;
+    }
+
+    .brand {
+      height: 52px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 8px;
+      color: #0d61d8;
+      font-weight: 800;
+      font-size: 15px;
+      border-bottom: 1px solid #e6edf6;
+    }
+
+    .brand-icon {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #0d61d8;
+      border-top: none;
+      transform: rotate(45deg);
+      border-radius: 2px;
+      position: relative;
+      margin-left: 2px;
+      flex: 0 0 auto;
+    }
+
+    .brand-icon:before {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #0d61d8;
+      border-radius: 50%;
+      top: -6px;
+      left: 5px;
+    }
+
+    .nav {
+      padding-top: 10px;
+    }
+
+    .nav-item {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 0 14px;
+      color: #374151;
+      font-size: 11px;
+      border-radius: 7px;
+      margin-bottom: 3px;
+    }
+
+    .nav-item.active {
+      background: #0d73ee;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(13, 115, 238, 0.25);
+    }
+
+    .nav-icon {
+      width: 15px;
+      height: 15px;
+      border: 1.8px solid currentColor;
+      border-radius: 4px;
+      opacity: 0.9;
+      flex: 0 0 auto;
+    }
+
+    .report-pill {
+      position: absolute;
+      left: 16px;
+      bottom: 80px;
+      width: 152px;
+      height: 32px;
+      border: 1px solid #d6dde7;
+      border-radius: 6px;
+      background: #ffffff;
+      color: #374151;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    .sidebar-note {
+      position: absolute;
+      left: 18px;
+      bottom: 38px;
+      color: #607083;
+      font-size: 11px;
+    }
+
+    .main {
+      position: absolute;
+      left: 198px;
+      top: 0;
+      width: 1082px;
+      height: 853px;
+      background: #fbfcfe;
+    }
+
+    .topbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1082px;
+      height: 92px;
+      border-bottom: 1px solid #e7edf5;
+    }
+
+    .title-block {
+      position: absolute;
+      left: 18px;
+      top: 52px;
+      display: flex;
+      gap: 13px;
+      align-items: flex-start;
+    }
+
+    .mini-chart-icon {
+      width: 28px;
+      height: 24px;
+      position: relative;
+      border-left: 2px solid #1269e5;
+    }
+
+    .mini-chart-icon:before,
+    .mini-chart-icon:after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      width: 8px;
+      height: 10px;
+      border-left: 3px solid #1269e5;
+      border-top: 3px solid #1269e5;
+      border-radius: 4px 4px 0 0;
+    }
+
+    .mini-chart-icon:before {
+      left: 8px;
+    }
+
+    .mini-chart-icon:after {
+      left: 16px;
+    }
+
+    .main-title {
+      font-size: 16px;
+      line-height: 1.1;
+      font-weight: 800;
+      margin: 0 0 4px 0;
+      color: #1f2937;
+    }
+
+    .subtitle {
+      font-size: 10px;
+      color: #6b778c;
+    }
+
+    .filters {
+      position: absolute;
+      right: 14px;
+      top: 64px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .filter-box {
+      min-width: 126px;
+      height: 27px;
+      border: 1px solid #dce3ec;
+      background: #ffffff;
+      border-radius: 5px;
+      color: #374151;
+      font-size: 11px;
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space3-between;
+      gap: 7px;
+    }
+
+    .avatar-name {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: #273244;
+    }
+
+    .avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #dbe5f0;
+      border: 1px solid #d0dae6;
+    }
+
+    .avatar img {
+      width: 30px;
+      height: 30px;
+      display: block;
+      object-fit: cover;
+    }
+
+    .metrics {
+      position: absolute;
+      left: 14px;
+      top: 105px;
+      width: 1054px;
+      height: 126px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .metric-card {
+      width: 255px;
+      height: 126px;
+      background: #ffffff;
+      border: 1px solid #e0e7ef;
+      border-radius: 8px;
+      padding: 15px 14px 10px 16px;
+      position: relative;
+    }
+
+    .metric-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .metric-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #eaf2ff;
+      color: #1269e5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .metric-title {
+      font-size: 11px;
+      color: #273244;
+      font-weight: 650;
+    }
+
+    .metric-value {
+      font-size: 24px;
+      color: #1f2937;
+      font-weight: 800;
+      margin-top: 8px;
+      line-height: 1.1;
+    }
+
+    .metric-change {
+      margin-top: 8px;
+      color: #18a058;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .metric-change.red {
+      color: #ef4444;
+    }
+
+    .spark {
+      position: absolute;
+      right: 10px;
+      bottom: 14px;
+      width: 90px;
+      height: 30px;
+    }
+
+    .card-row-one {
+      position: absolute;
+      left: 14px;
+      top: 245px;
+      width: 1054px;
+      height: 262px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .panel {
+      background: #ffffff;
+      border: 1px solid #e0e7ef;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .price-panel {
+      width: 334px;
+      height: 262px;
+      padding: 12px 12px 10px 12px;
+    }
+
+    .pie-panel {
+      width: 306px;
+      height: 262px;
+      padding: 12px 12px 12px 12px;
+    }
+
+    .radar-panel {
+      width: 344px;
+      height: 262px;
+      padding: 12px 12px 10px 12px;
+    }
+
+    .panel-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: #273244;
+      margin-bottom: 4px;
+    }
+
+    .chart {
+      width: 100%;
+      height: 210px;
+    }
+
+    .bottom-row {
+      position: absolute;
+      left: 14px;
+      top: 520px;
+      width: 1054px;
+      height: 254px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .table-panel {
+      width: 334px;
+      height: 254px;
+      padding: 12px 12px 12px 12px;
+    }
+
+    .bar-panel {
+      width: 708px;
+      height: 254px;
+      padding: 12px 12px 12px 12px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 7px;
+      font-size: 10px;
+      color: #273244;
+    }
+
+    th {
+      background: #f3f7fd;
+      border: 1px solid #e0e7ef;
+      height: 25px;
+      color: #4b5563;
+    }
+
+    td {
+      border: 1px solid #e5ebf2;
+      height: 28px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .table-link {
+      text-align: center;
+      color: #0a73e8;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    .footer {
+      position: absolute;
+      left: 300px;
+      bottom: 26px;
+      color: #667386;
+      font-size: 10px;
+    }
+
+    .tiny-info {
+      position: absolute;
+      right: 18px;
+      top: 12px;
+      border: 1px solid #b9c5d3;
+      border-radius: 50%;
+      width: 13px;
+      height: 13px;
+      color: #7b8798;
+      font-size: 9px;
+      text-align: center;
+      line-height: 11px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon"></div>
+        RealVista
+      </div>
+      <nav class="nav">
+        <div class="nav-item active"><span class="nav-icon"></span>Overview</div>
+        <div class="nav-item"><span class="nav-icon"></span>Market Trends</div>
+        <div class="nav-item"><span class="nav-icon"></span>Properties</div>
+        <div class="nav-item"><span class="nav-icon"></span>Transactions</div>
+        <div class="nav-item"><span class="nav-icon"></span>Locations</div>
+        <div class="nav-item"><span class="nav-icon"></span>Reports</div>
+        <div class="nav-item"><span class="nav-icon"></span>Alerts</div>
+        <div class="nav-item"><span class="nav-icon"></span>Settings</div>
+      </nav>
+      <div class="report-pill">Download Report</div>
+      <div class="sidebar-note">Data as of May 31, 2024</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="title-block">
+          <div class="mini-chart-icon"></div>
+          <div>
+            <h1 class="main-title">Market Trends Dashboard</h1>
+            <div class="subtitle">Real Estate Market Overview</div>
+          </div>
+        </div>
+
+        <div class="filters">
+          <div class="filter-box">May 1 – May 31, 2024</div>
+          <div class="filter-box">All Property Types</div>
+          <div class="filter-box">All Locations</div>
+        </div>
+
+        <div class="avatar-name">
+          <div class="avatar"><img src="https://placehold.co/40x40?text=User" alt="User avatar"></div>
+          John Smith
+        </div>
+      </header>
+
+      <section class="metrics">
+        <div class="metric-card">
+          <div class="metric-top">
+            <div class="metric-icon">⌂</div>
+            <div>
+              <div class="metric-title">Median Sale Price</div>
+              <div class="metric-value">$425,000</div>
+              <div class="metric-change">▲ 6.2%</div>
+            </div>
+          </div>
+          <div id="spark1" class="spark"></div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-top">
+            <div class="metric-icon">◆</div>
+            <div>
+              <div class="metric-title">Total Sales</div>
+              <div class="metric-value">1,248</div>
+              <div class="metric-change">▲ 8.7%</div>
+            </div>
+          </div>
+          <div id="spark2" class="spark"></div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-top">
+            <div class="metric-icon">$</div>
+            <div>
+              <div class="metric-title">Average Price / Sq Ft</div>
+              <div class="metric-value">$276</div>
+              <div class="metric-change">▲ 4.3%</div>
+            </div>
+          </div>
+          <div id="spark3" class="spark"></div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-top">
+            <div class="metric-icon">◔</div>
+            <div>
+              <div class="metric-title">Days on Market</div>
+              <div class="metric-value">32</div>
+              <div class="metric-change red">▼ -11.1%</div>
+            </div>
+          </div>
+          <div id="spark4" class="spark"></div>
+        </div>
+      </section>
+
+      <section class="card-row-one">
+        <div class="panel price-panel">
+          <div class="panel-title">Price Trend (Candlestick)</div>
+          <div id="priceChart" class="chart"></div>
+        </div>
+
+        <div class="panel pie-panel">
+          <div class="panel-title">Sales by Property Type (Polar Chart)</div>
+          <div id="pieChart" class="chart"></div>
+        </div>
+
+        <div class="panel radar-panel">
+          <div class="panel-title">Market Dynamics (Spider Chart)</div>
+          <div id="radarChart" class="chart"></div>
+        </div>
+      </section>
+
+      <section class="bottom-row">
+        <div class="panel table-panel">
+          <div class="panel-title">Top Markets by Median Sale Price</div>
+          <table>
+            <tr>
+              <th>#</th>
+              <th>Location</th>
+              <th>Median Sale Price</th>
+              <th>MoM Change</th>
+              <th>YoY Change</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>San Jose, CA</td>
+              <td>$1,350,000</td>
+              <td>7.2%</td>
+              <td>12.4%</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>San Francisco, CA</td>
+              <td>$1,250,000</td>
+              <td>5.6%</td>
+              <td>9.8%</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Santa Clara, CA</td>
+              <td>$1,120,000</td>
+              <td>6.1%</td>
+              <td>10.3%</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Oakland, CA</td>
+              <td>$870,000</td>
+              <td>3.8%</td>
+              <td>6.7%</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Sunnyvale, CA</td>
+              <td>$980,000</td>
+              <td>4.9%</td>
+              <td>8.9%</td>
+            </tr>
+          </table>
+          <div class="table-link">View All Markets »</div>
+        </div>
+
+        <div class="panel bar-panel">
+          <div class="panel-title">Sales Volume by Price Range (Stacked Bar Chart)</div>
+          <div id="barChart" class="chart"></div>
+        </div>
+      </section>
+
+      <div class="footer">Source: RealVista Market Analytics &nbsp; • &nbsp; Data refreshed: June 1, 2024 8:00 AM PST</div>
+    </main>
+  </div>
+
+  <script>
+    const blue = '#1f73e8';
+    const blue2 = '#4aa1f5';
+    const green = '#38ad69';
+    const purple = '#9a73e6';
+    const orange = '#ffbd2e';
+
+    function sparkline(id, data, color) {
+      echarts.init(document.getElementById(id)).setOption({
+        animation: false,
+        grid: { left: 0, right: 0, top: 6, bottom: 4 },
+        xAxis: { type: 'category', show: false, boundaryGap: false, data: ['1','2','3','4','5','6','7','8','9','10','11','12'] },
+        yAxis: { type: 'value', show: false },
+        series: [{
+          type: 'line',
+          data: data,
+          symbol: 'none',
+          smooth: true,
+          lineStyle: { color: color, width: 2 },
+          areaStyle: { opacity: 0 }
+        }]
+      });
+    }
+
+    sparkline('spark1', [38, 37, 35, 34, 35, 34, 32, 33, 35, 33, 31, 30], blue);
+    sparkline('spark2', [260, 261, 263, 264, 267, 269, 266, 263, 265, 267, 268], blue);
+    sparkline('spark3', [96, 101, 98, 100, 102, 101, 99, 98, 97, 104], blue);
+    sparkline('spark4', [410, 412, 411, 416, 420, 417, 415, 419, 421, 420, 424, 425], blue);
+
+    echarts.init(document.getElementById('priceChart')).setOption({
+      animation: false,
+      grid: { left: 38, right: 14, top: 36, bottom: 30 },
+      legend: {
+        top: 0,
+        left: 0,
+        itemWidth: 8,
+        itemHeight: 8,
+        textStyle: { fontSize: 9, color: '#4b5563' },
+        data: ['Open', 'High', 'Low', 'Close', 'Increasing', 'Decreasing']
+      },
+      xAxis: {
+        type: 'category',
+        data: ['May 1','May 2','May 3','May 4','May 5','May 6','May 7','May 8','May 9','May 10','May 11','May 12','May 13','May 14','May 15','May 16','May 17','May 18','May 19','May 20','May 21','May 22','May 23','May 24','May 25','May 26','May 27','May 28','May 29','May 30','May 31'],
+        boundaryGap: false,
+        axisLabel: { fontSize: 9, color: '#536172' },
+        axisLine: { lineStyle: { color: '#dfe6ef' } }
+      },
+      yAxis: {
+        type: 'value',
+        min: 360000,
+        max: 460000,
+        interval: 20000,
+        axisLabel: {
+          fontSize: 9,
+          color: '#536172',
+          formatter: function(v) { return '$' + (v / 1000) + 'K'; }
+        },
+        splitLine: { lineStyle: { color: '#edf1f6' } }
+      },
+      series: [
+        {
+          type: 'candlestick',
+          data: [[405000, 402000, 398000, 410000], [402000, 392000, 388000, 407000], [392000, 400000, 389000, 406000], [400000, 410000, 397000, 415000], [410000, 418000, 405000, 423000], [418000, 425000, 412000, 430000], [425000, 432000, 420000, 438000], [432000, 425000, 420000, 437000], [425000, 410000, 404000, 431000], [410000, 395000, 390000, 415000], [395000, 402000, 392000, 408000], [402000, 412000, 398000, 418000], [412000, 405000, 399000, 416000], [405000, 395000, 390000, 410000], [395000, 400000, 392000, 405000], [400000, 410000, 396000, 416000], [410000, 422000, 405000, 428000], [422000, 415000, 410000, 430000], [415000, 418000, 408000, 424000], [418000, 410000, 405000, 422000], [410000, 405000, 398000, 416000], [405000, 420000, 400000, 426000], [420000, 432000, 416000, 438000], [432000, 448000, 428000, 456000]],
+          itemStyle: {
+            color: green,
+            color0: '#ef4444',
+            borderColor: green,
+            borderColor0: '#ef4444'
+          }
+        }
+      ]
+    });
+
+    echarts.init(document.getElementById('pieChart')).setOption({
+      animation: false,
+      color: [blue, blue2, purple, '#6a76e8', '#58c7c3'],
+      legend: {
+        orient: 'vertical',
+        right: 10,
+        top: 42,
+        itemWidth: 9,
+        itemHeight: 9,
+        textStyle: { fontSize: 10, color: '#4b5563' },
+        formatter: function(name) {
+          if (name === 'Single Family') return 'Single Family\n38% (474)';
+          if (name === 'Condo') return 'Condo\n28% (349)';
+          if (name === 'Townhouse') return 'Townhouse\n20% (250)';
+          if (name === 'Multi-Family') return 'Multi-Family\n9% (112)';
+          if (name === 'Land') return 'Land\n5% (63)';
+        }
+      },
+      graphic: [
+        {
+          type: 'circle',
+          left: 'center',
+          top: 'center',
+          shape: { r: 38 },
+          style: { fill: '#ffffff', stroke: '#d8e5f5', lineWidth: 2 }
+        },
+        {
+          type: 'text',
+          left: 'center',
+          top: 'center',
+          style: {
+            text: '1,248\nTotal Sales',
+            fill: '#273244',
+            fontSize: 12,
+            textAlign: 'center',
+            textVerticalAlign: 'middle'
+          }
+        }
+      ],
+      series: [{
+        type: 'pie',
+        radius: ['42%', '74%'],
+        center: ['38%', '52%'],
+        avoidLabelOverlap: true,
+        label: { color: '#ffffff', fontSize: 10, formatter: '{d}%' },
+        labelLine: { show: false },
+        data: [{name:'Single Family',value:474},{name:'Condo',value:349},{name:'Townhouse',value:250},{name:'Multi-Family',value:112},{name:'Land',value:63}]
+      }]
+    });
+
+    echarts.init(document.getElementById('radarChart')).setOption({
+      animation: false,
+      color: [blue, '#a8b7c8'],
+      legend: {
+        right: 0,
+        top: 54,
+        itemWidth: 22,
+        itemHeight: 7,
+        textStyle: { fontSize: 10, color: '#4b5563' },
+        data: ['May 1 – May 31, 2024', 'Apr 1 – Apr 30, 2024']
+      },
+      radar: {
+        center: ['40%', '53%'],
+        radius: 72,
+        splitNumber: 5,
+        axisName: { color: '#4b5563', fontSize: 9 },
+        splitLine: { lineStyle: { color: '#e3e9f2' } },
+        splitArea: { areaStyle: { color: ['#fbfdff', '#ffffff'] } },
+        axisLine: { lineStyle: { color: '#dfe6ef' } },
+        indicator: [
+          { name: 'Price Growth', max: 100 },
+          { name: 'Sales Volume', max: 100 },
+          { name: 'Inventory Level', max: 100 },
+          { name: 'Demand', max: 100 },
+          { name: 'Affordability', max: 100 }
+        ]
+      },
+      series: [{
+        type: 'radar',
+        data: [
+          { value: [72, 68, 45, 80, 55], name: 'May 1 – May 31, 2024' },
+          { value: [64, 60, 40, 72, 50], name: 'Apr 1 – Apr 30, 2024' }
+        ],
+        symbolSize: 4
+      }]
+    });
+
+    echarts.init(document.getElementById('barChart')).setOption({
+      animation: false,
+      color: ['#0d73e5', '#78b9f0', '#9a73e6', '#58c7c3', '#ffb22e'],
+      legend: {
+        top: 0,
+        left: 0,
+        itemWidth: 9,
+        itemHeight: 8,
+        textStyle: { fontSize: 10, color: '#4b5563' },
+        data: ['Single Family', 'Condo', 'Townhouse', 'Multi-Family', 'Land']
+      },
+      grid: { left: 42, right: 16, top: 34, bottom: 28 },
+      xAxis: {
+        type: 'category',
+        data: ['< $250K', '$250K – $500K', '$500K – $750K', '$750K – $1M', '$1M – $1.5M', '$1.5M – $2M', '> $2M'],
+        axisLabel: { fontSize: 9, color: '#536172' },
+        axisLine: { lineStyle: { color: '#dfe6ef' } }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 1000,
+        interval: 200,
+        axisLabel: { fontSize: 9, color: '#536172' },
+        splitLine: { lineStyle: { color: '#edf1f6' } }
+      },
+      series: [
+        { name: 'Single Family', type: 'bar', stack: 'total', barWidth: 38, data: [80, 180, 220, 200, 180, 110, 60] },
+        { name: 'Condo', type: 'bar', stack: 'total', barWidth: 38, data: [60, 150, 180, 160, 140, 80, 40] },
+        { name: 'Townhouse', type: 'bar', stack: 'total', barWidth: 38, data: [40, 100, 120, 100, 90, 50, 20] },
+        { name: 'Multi-Family', type: 'bar', stack: 'total', barWidth: 38, data: [30, 60, 70, 60, 50, 30, 10] },
+        { name: 'Land', type: 'bar', stack: 'total', barWidth: 38, data: [20, 30, 40, 30, 30, 20, 5] }
+      ]
+    });
+  </script>
+</body>
+</html>

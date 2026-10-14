@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>金融投资注意事项海报</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #050508;
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 88% 12%, rgba(255, 90, 210, 0.23) 0, rgba(182, 65, 255, 0.09) 11%, rgba(20, 8, 28, 0.1) 27%, rgba(2, 3, 8, 0) 42%),
+      radial-gradient(circle at 72% 41%, rgba(255, 70, 210, 0.17) 0, rgba(130, 50, 255, 0.08) 18%, rgba(0, 0, 0, 0) 36%),
+      linear-gradient(180deg, #050507 0%, #070710 46%, #050509 100%);
+    color: #fff;
+  }
+
+  /* 右上角抽象光环装饰 */
+  .orb-decor {
+    position: absolute;
+    top: -86px;
+    right: -84px;
+    width: 392px;
+    height: 420px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 80, 230, 0.45);
+    box-shadow:
+      0 0 50px rgba(255, 85, 230, 0.42),
+      inset 0 0 70px rgba(180, 80, 255, 0.34);
+    opacity: 0.82;
+  }
+
+  .orb-decor::before {
+    content: "";
+    position: absolute;
+    inset: 31px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 85, 220, 0.32);
+    box-shadow:
+      inset 0 0 42px rgba(255, 100, 255, 0.28),
+      0 0 40px rgba(130, 70, 255, 0.22);
+  }
+
+  .orb-decor::after {
+    content: "";
+    position: absolute;
+    left: 63px;
+    top: 72px;
+    width: 225px;
+    height: 225px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 110, 255, 0.23);
+    background:
+      radial-gradient(circle, rgba(255, 130, 255, 0.68) 0 12%, rgba(122, 70, 255, 0.18) 13%, rgba(255, 255, 255, 0) 24%),
+      linear-gradient(135deg, transparent 0%, rgba(255, 100, 255, 0.62) 50%, transparent 100%);
+    opacity: 0.8;
+    filter: blur(1px);
+  }
+
+  .tag {
+    position: absolute;
+    top: 42px;
+    left: 72px;
+    width: 310px;
+    height: 58px;
+    border: 2px solid #df83ff;
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(182, 82, 255, 0.08);
+    color: #f0d7ff;
+    font-size: 24px;
+    letter-spacing: 3px;
+    font-weight: 800;
+  }
+
+  .main-title {
+    position: absolute;
+    top: 118px;
+    left: 70px;
+    width: 830px;
+    color: #f2e8ff;
+    font-weight: 1000;
+    line-height: 1.08;
+    letter-spacing: 4px;
+    text-shadow: 0 0 12px rgba(255, 110, 255, 0.22);
+  }
+
+  .main-title .line1 {
+    font-size: 64px;
+    display: block;
+  }
+
+  .main-title .line2 {
+    font-size: 68px;
+    display: block;
+    margin-top: 10px;
+  }
+
+  .subtitle {
+    position: absolute;
+    top: 315px;
+    left: 78px;
+    width: 820px;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 27px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-align: left;
+  }
+
+  .card {
+    position: absolute;
+    left: 66px;
+    width: 892px;
+    height: 168px;
+    border-radius: 22px;
+    border: 1.5px solid rgba(220, 80, 255, 0.72);
+    background:
+      linear-gradient(90deg, rgba(50, 40, 80, 0.78), rgba(12, 12, 22, 0.82) 60%, rgba(20, 20, 40, 0.78));
+    box-shadow:
+      inset 0 0 28px rgba(202, 80, 255, 0.08),
+      0 0 14px rgba(190, 60, 255, 0.08);
+  }
+
+  .card1 { top: 382px; }
+  .card2 { top: 558px; }
+  .card3 { top: 734px; }
+  .card4 { top: 910px; }
+  .card5 { top: 1086px; }
+
+  .icon-box {
+    position: absolute;
+    left: 36px;
+    top: 28px;
+    width: 128px;
+    height: 112px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon-box svg {
+    width: 104px;
+    height: 104px;
+    stroke: #e38cff;
+    fill: none;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 8px rgba(255, 100, 255, 0.36));
+  }
+
+  .divider {
+    position: absolute;
+    left: 182px;
+    top: 30px;
+    width: 2px;
+    height: 108px;
+    background: rgba(255, 170, 255, 0.8);
+    border-radius: 4px;
+  }
+
+  .card-text {
+    position: absolute;
+    left: 230px;
+    top: 24px;
+    width: 605px;
+  }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #f0a9ff;
+    font-size: 33px;
+    font-weight: 1000;
+    letter-spacing: 3px;
+    margin-bottom: 13px;
+  }
+
+  .num-pill {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, #d894ff 0%, #64409f 72%, #302058 100%);
+    color: #fff;
+    border: 1px solid rgba(255, 140, 255, 0.65);
+    font-size: 22px;
+    font-weight: 800;
+  }
+
+  .desc {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.93);
+    font-size: 24px;
+    line-height: 1.52;
+    letter-spacing: 3px;
+    font-weight: 700;
+  }
+
+  .warning-bar {
+    position: absolute;
+    left: 66px;
+    top: 1262px;
+    width: 892px;
+    height: 124px;
+    border-radius: 22px;
+    border: 2px solid rgba(230, 80, 255, 0.86);
+    background:
+      linear-gradient(90deg, rgba(80, 30, 180, 0.84), rgba(80, 20, 120, 0.64) 55%, rgba(80, 20, 120, 0.22));
+    box-shadow: 0 0 20px rgba(255, 80, 255, 0.28);
+  }
+
+  .warning-icon {
+    position: absolute;
+    left: 36px;
+    top: 26px;
+    width: 102px;
+    height: 86px;
+  }
+
+  .warning-icon svg {
+    width: 102px;
+    height: 86px;
+    stroke: #f08cff;
+    fill: none;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .warning-divider {
+    position: absolute;
+    left: 182px;
+    top: 28px;
+    width: 2px;
+    height: 72px;
+    background: rgba(255, 170, 255, 0.86);
+    border-radius: 3px;
+  }
+
+  .warning-text {
+    position: absolute;
+    left: 230px;
+    top: 22px;
+    width: 610px;
+  }
+
+  .warning-text .warn-title {
+    color: #f0a7ff;
+    font-size: 33px;
+    font-weight: 1000;
+    letter-spacing: 5px;
+    margin-bottom: 14px;
+  }
+
+  .warning-text .warn-small {
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 3px;
+  }
+
+  .footer-line {
+    position: absolute;
+    left: 68px;
+    top: 1390px;
+    width: 888px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.52);
+  }
+
+  .footer-left {
+    position: absolute;
+    left: 68px;
+    top: 1432px;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 22px;
+    letter-spacing: 2px;
+    font-weight: 700;
+  }
+
+  .footer-right {
+    position: absolute;
+    right: 70px;
+    top: 1432px;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 22px;
+    letter-spacing: 2px;
+    font-weight: 700;
+  }
+
+  .footer-right .phone {
+    color: #fff;
+    font-size: 27px;
+    font-weight: 900;
+    margin-left: 3px;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="orb-decor"></div>
+
+    <div class="tag">金融投资注意事项</div>
+
+    <div class="main-title">
+      <span class="line1">个人投资前</span>
+      <span class="line2">必须确认的 5 件事</span>
+    </div>
+
+    <div class="subtitle">适用于基金、股票、债券及银行理财产品</div>
+
+    <!-- 卡片 1 -->
+    <div class="card card1">
+      <div class="icon-box">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <path d="M60 12 C80 25 97 34 105 40 V66 C105 86 88 104 60 115 C32 104 15 86 15 66 V40 C23 34 40 25 60 12Z"/>
+          <path d="M35 58 L53 76 L84 44"/>
+        </svg>
+      </div>
+      <div class="divider"></div>
+      <div class="card-text">
+        <div class="card-head">
+          <span class="num-pill">1</span>
+          <span>核实产品信息</span>
+        </div>
+        <p class="desc">核对发行机构、产品代码、募集期与到期日，警惕“保本高收益”等误导表述。</p>
+      </div>
+    </div>
+
+    <!-- 卡片 2 -->
+    <div class="card card2">
+      <div class="icon-box">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="51" cy="44" r="33"></circle>
+          <rect x="33" y="59" width="10" height="32"></rect>
+          <rect x="51" y="43" width="10" height="48"></rect>
+          <rect x="69" y="30" width="10" height="61"></rect>
+          <path d="M79 71 L102 94 L80 116 L58 93 L79 71Z" transform="translate(-21 -24)"></path>
+        </svg>
+      </div>
+      <div class="divider"></div>
+      <div class="card-text">
+        <div class="card-head">
+          <span class="num-pill">2</span>
+          <span>评估风险等级</span>
+        </div>
+        <p class="desc">根据自身风险承受能力选择 R1-R5 产品，短期资金不要配置高波动资产。</p>
+      </div>
+    </div>
+
+    <!-- 卡片 3 -->
+    <div class="card card3">
+      <div class="icon-box">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <rect x="24" y="38" width="72" height="60" rx="8"></rect>
+          <path d="M24 38 V28 H76 Q84 28 84 36 V44"></path>
+          <path d="M52 70 H92 Q98 70 98 78 V88 H52"></path>
+          <circle cx="78" cy="58" r="12"></circle>
+        </svg>
+      </div>
+      <div class="divider"></div>
+      <div class="card-text">
+        <div class="card-head">
+          <span class="num-pill">3</span>
+          <span>确认费用结构</span>
+        </div>
+        <p class="desc">关注申购费、管理费、托管费、赎回费，避免只看预期收益率。</p>
+      </div>
+    </div>
+
+    <!-- 卡片 4 -->
+    <div class="card card4">
+      <div class="icon-box">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <path d="M22 20 V95 H94"></path>
+          <path d="M34 75 L58 52 L78 69 L99 36"></path>
+          <circle cx="34" cy="75" r="9"></circle>
+          <circle cx="58" cy="52" r="9"></circle>
+          <circle cx="78" cy="69" r="9"></circle>
+          <circle cx="99" cy="36" r="9"></circle>
+        </svg>
+      </div>
+      <div class="divider"></div>
+      <div class="card-text">
+        <div class="card-head">
+          <span class="num-pill">4</span>
+          <span>避免追涨杀跌</span>
+        </div>
+        <p class="desc">不因短期涨幅盲目加仓，单一资产仓位建议不超过 30%。</p>
+      </div>
+    </div>
+
+    <!-- 卡片 5 -->
+    <div class="card card5">
+      <div class="icon-box">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <path d="M25 24 H82 L58 94 Z"></path>
+          <path d="M36 48 H70 V72 H49 L36 59Z"></path>
+          <path d="M53 66 H66 V80 H53 Z"></path>
+        </svg>
+      </div>
+      <div class="divider"></div>
+      <div class="card-text">
+        <div class="card-head">
+          <span class="num-pill">5</span>
+          <span>保留交易记录</span>
+        </div>
+        <p class="desc">保存合同、风险揭示书、交易截图与回单，至少留存 24 个月。</p>
+      </div>
+    </div>
+
+    <!-- 警示横条 -->
+    <div class="warning-bar">
+      <div class="warning-icon">
+        <svg viewBox="0 0 120 100" aria-hidden="true">
+          <path d="M18 22 H72 L52 82 Z"></path>
+          <circle cx="52" cy="39" r="4"></circle>
+          <circle cx="52" cy="62" r="4"></circle>
+        </svg>
+      </div>
+      <div class="warning-divider"></div>
+      <div class="warning-text">
+        <div class="warn-title">警惕非法荐股与保本承诺</div>
+        <div class="warn-small">市场有风险，投资需谨慎</div>
+      </div>
+    </div>
+
+    <div class="footer-line"></div>
+    <div class="footer-left">投资者教育手册 2025</div>
+    <div class="footer-right">咨询热线 <span class="phone">400-818-2688</span></div>
+  </div>
+</body>
+</html>

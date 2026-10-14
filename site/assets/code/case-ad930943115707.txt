@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Emerging Technologies and Innovations</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #071f38;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    color: #ffffff;
+    background:
+      radial-gradient(circle at 93% 20%, rgba(112, 255, 238, 0.42) 0, rgba(112, 255, 238, 0.12) 13%, rgba(112, 255, 238, 0) 25%),
+      radial-gradient(circle at 80% 84%, rgba(139, 255, 244, 0.42) 0, rgba(139, 255, 244, 0.16) 16%, rgba(139, 255, 244, 0) 32%),
+      radial-gradient(circle at 18% 18%, rgba(0, 170, 255, 0.40) 0, rgba(0, 170, 255, 0.12) 23%, rgba(0, 170, 255, 0) 41%),
+      linear-gradient(125deg, #0b649c 0%, #123f75 28%, #5e64ad 55%, #9a5aa5 74%, #43c4ce 100%);
+  }
+
+  .artboard::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(28deg, rgba(255,255,255,0) 0 35%, rgba(164,255,255,0.18) 36%, rgba(255,255,255,0) 40%),
+      linear-gradient(150deg, rgba(255,255,255,0) 0 63%, rgba(255,255,255,0.16) 64%, rgba(255,255,255,0) 68%);
+    opacity: 0.65;
+    pointer-events: none;
+  }
+
+  .artboard::after {
+    content: "";
+    position: absolute;
+    left: -120px;
+    bottom: -160px;
+    width: 720px;
+    height: 420px;
+    background:
+      linear-gradient(rgba(82,255,255,0.16) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(82,255,255,0.14) 1px, transparent 1px);
+    background-size: 64px 64px, 64px 64px;
+    transform: rotate(-22deg);
+    opacity: 0.42;
+    pointer-events: none;
+  }
+
+  .title {
+    position: absolute;
+    top: 62px;
+    left: 0;
+    width: 1376px;
+    text-align: center;
+    font-size: 48px;
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.34);
+    z-index: 2;
+  }
+
+  .subtitle {
+    position: absolute;
+    top: 132px;
+    left: 0;
+    width: 1376px;
+    text-align: center;
+    font-size: 30px;
+    line-height: 1.25;
+    font-weight: 400;
+    text-shadow: 0 3px 8px rgba(0,0,0,0.34);
+    z-index: 2;
+  }
+
+  .panels {
+    position: absolute;
+    top: 216px;
+    left: 50px;
+    width: 1276px;
+    height: 410px;
+    z-index: 3;
+  }
+
+  .panel {
+    position: absolute;
+    top: 0;
+    width: 202px;
+    height: 410px;
+    padding: 22px 12px 18px 12px;
+    border: 1.5px solid rgba(207, 255, 255, 0.48);
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 52%, rgba(255,255,255,0.10) 100%);
+    box-shadow:
+      0 0 18px rgba(146, 255, 255, 0.14),
+      inset 0 0 25px rgba(150, 255, 255, 0.12);
+  }
+
+  .panel-1 { left: 0; }
+  .panel-2 { left: 218px; }
+  .panel-3 { left: 436px; }
+  .panel-4 { left: 654px; }
+  .panel-5 { left: 872px; }
+  .panel-6 { left: 1090px; }
+
+  .panel-heading {
+    margin: 0 auto 18px auto;
+    min-height: 62px;
+    text-align: center;
+    font-size: 20px;
+    line-height: 1.18;
+    font-weight: 800;
+    color: #f7fbff;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.32);
+  }
+
+  .panel-text {
+    margin: 0;
+    padding: 0 1px;
+    text-align: center;
+    font-size: 15.8px;
+    line-height: 1.18;
+    font-weight: 400;
+    color: #ffffff;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.32);
+  }
+
+  .badge {
+    position: absolute;
+    left: 50%;
+    bottom: -58px;
+    width: 112px;
+    height: 128px;
+    transform: translateX(-50%);
+    border-radius: 28px;
+    background: linear-gradient(145deg, rgba(255,255,255,0.23), rgba(191,255,255,0.16) 54%, rgba(120,255,255,0.16));
+    border: 1.5px solid rgba(220, 255, 255, 0.60);
+    box-shadow:
+      0 0 18px rgba(146, 255, 255, 0.28),
+      inset 0 0 16px rgba(255,255,255,0.16);
+  }
+
+  .badge::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(255,255,255,0.24);
+    clip-path: polygon(28% 0%, 72% 0%, 100% 50%, 72% 100%, 28% 100%, 0% 50%);
+    opacity: 0.8;
+  }
+
+  .badge svg {
+    position: absolute;
+    left: 18px;
+    top: 20px;
+    width: 76px;
+    height: 76px;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 3.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.24));
+  }
+
+  .footer-glow {
+    position: absolute;
+    left: 220px;
+    bottom: 18px;
+    width: 935px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(120,255,255,0), rgba(120,255,255,0.48), rgba(120,255,255,0));
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Emerging Technologies and Innovations</div>
+    <div class="subtitle">Next-generation tools for environmental monitoring and management</div>
+    <div class="footer-glow"></div>
+
+    <div class="panels">
+      <div class="panel panel-1">
+        <div class="panel-heading">Remote Sensing<br>Advances</div>
+        <p class="panel-text">
+          Next-generation satellite and drone-based remote sensing technologies enable real-time, high-resolution monitoring of ecosystems, deforestation, and pollution, improving accuracy in environmental data collection and decision-making.
+        </p>
+        <div class="badge" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <circle cx="36" cy="62" r="18"/>
+            <circle cx="36" cy="42" r="15"/>
+            <circle cx="56" cy="52" r="16"/>
+            <circle cx="28" cy="68" r="12"/>
+            <circle cx="46" cy="74" r="10"/>
+            <circle cx="24" cy="48" r="9"/>
+            <circle cx="52" cy="38" r="9"/>
+            <circle cx="68" cy="60" r="9"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="panel panel-2">
+        <div class="panel-heading">AI for<br>Environmental<br>Analysis</div>
+        <p class="panel-text">
+          Artificial intelligence processes vast environmental datasets to predict climate trends, model ecosystem changes, and optimize resource management, offering scalable solutions for sustainable development challenges.
+        </p>
+        <div class="badge" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="24"/>
+            <circle cx="50" cy="50" r="16" fill="#ffffff"/>
+            <circle cx="50" cy="50" r="8"/>
+            <path d="M30 40 L50 28 L70 40"/>
+            <path d="M70 60 L50 72 L30 60"/>
+            <path d="M41 28 L50 40 L59 28"/>
+            <path d="M41 72 L50 60 L59 72"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="panel panel-3">
+        <div class="panel-heading">IoT in Ecosystem<br>Monitoring</div>
+        <p class="panel-text">
+          Internet of Things (IoT) sensors deployed in forests, oceans, and urban areas continuously collect data on temperature, humidity, and air quality, enabling proactive responses to environmental threats.
+        </p>
+        <div class="badge" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <circle cx="28" cy="34" r="13"/>
+            <circle cx="70" cy="34" r="13"/>
+            <circle cx="50" cy="64" r="13"/>
+            <circle cx="50" cy="50" r="12"/>
+            <path d="M28 22 L50 10 L72 22"/>
+            <path d="M28 46 L50 68 L72 46"/>
+            <path d="M40 28 L60 42"/>
+            <path d="M60 28 L40 42"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="panel panel-4">
+        <div class="panel-heading">Blockchain for<br>Transparency</div>
+        <p class="panel-text">
+          Blockchain technology ensures transparent and tamper-proof tracking of carbon credits, supply chains, and conservation funding, enhancing accountability in sustainability initiatives and reducing greenwashing risks.
+        </p>
+        <div class="badge" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <rect x="28" y="22" width="44" height="19" rx="4"/>
+            <rect x="24" y="50" width="52" height="18" rx="4"/>
+            <rect x="34" y="72" width="36" height="18" rx="4"/>
+            <circle cx="50" cy="41" r="8"/>
+            <circle cx="50" cy="62" r="9" fill="#ffffff"/>
+            <path d="M28 31 L42 46 L50 41" stroke="#ffffff"/>
+            <path d="M72 31 L58 46 L50 41" stroke="#ffffff"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="panel panel-5">
+        <div class="panel-heading">Green<br>Nanotechnology</div>
+        <p class="panel-text">
+          Nanomaterials are being developed for efficient water purification, pollutant detection, and clean energy storage, offering innovative solutions to pressing environmental problems with minimal ecological footprint.
+        </p>
+        <div class="badge" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="22"/>
+            <circle cx="50" cy="50" r="14" fill="#ffffff"/>
+            <circle cx="50" cy="50" r="7"/>
+            <path d="M28 42 L50 26 L72 42"/>
+            <path d="M72 58 L50 74 L28 58"/>
+            <circle cx="28" cy="50" r="6"/>
+            <circle cx="72" cy="50" r="6"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="panel panel-6">
+        <div class="panel-heading">Smart<br>Environmental<br>Platforms</div>
+        <p class="panel-text">
+          Integrated digital platforms combine AI, GIS, and cloud computing to visualize environmental risks, support policy planning, and engage stakeholders in collaborative natural resource management and resilience strategies.
+        </p>
+        <div class="badge" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <polygon points="50,12 82,40 50,68 18,40" fill="#ffffff"/>
+            <circle cx="50" cy="50" r="10" fill="#ffffff"/>
+            <circle cx="28" cy="34" r="9"/>
+            <circle cx="72" cy="34" r="9"/>
+            <circle cx="28" cy="66" r="9"/>
+            <circle cx="72" cy="66" r="9"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

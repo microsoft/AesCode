@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ERP Modernization Approaches</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f5f7fa;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #111111;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .title {
+      position: absolute;
+      left: 68px;
+      top: 52px;
+      font-size: 49px;
+      line-height: 1.08;
+      letter-spacing: 0.3px;
+      color: #22394a;
+      font-weight: 700;
+    }
+
+    .main-card {
+      position: absolute;
+      left: 65px;
+      top: 140px;
+      width: 1248px;
+      height: 566px;
+      background: #ffffff;
+      border-radius: 21px;
+      box-shadow: 0 13px 26px rgba(31, 48, 61, 0.20);
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .left-panel {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 248px;
+      height: 566px;
+      background: #f4f4f4;
+      color: #0870bd;
+      border-radius: 21px 0 0 21px;
+    }
+
+    .nav-row {
+      position: absolute;
+      left: 28px;
+      width: 190px;
+      display: flex;
+      align-items: center;
+      color: #0870bd;
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    .nav-row.why {
+      top: 52px;
+      height: 122px;
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .nav-row.how {
+      top: 246px;
+      height: 88px;
+    }
+
+    .nav-row.need {
+      top: 442px;
+      height: 66px;
+    }
+
+    .divider-horizontal {
+      position: absolute;
+      left: 31px;
+      width: 190px;
+      height: 1px;
+      background: #d1d1d1;
+    }
+
+    .divider-h1 {
+      top: 188px;
+    }
+
+    .divider-h2 {
+      top: 381px;
+    }
+
+    .content-area {
+      position: absolute;
+      left: 248px;
+      top: 0;
+      width: 1000px;
+      height: 566px;
+      background: #ffffff;
+    }
+
+    .row-divider {
+      position: absolute;
+      left: 37px;
+      top: 186px;
+      width: 963px;
+      height: 1px;
+      border-top: 1px dashed #b9d8df;
+    }
+
+    .row-divider.second {
+      top: 375px;
+      width: 963px;
+    }
+
+    .cell {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      min-height: 140px;
+    }
+
+    .cell.one {
+      left: 36px;
+      top: 48px;
+      width: 450px;
+    }
+
+    .cell.two {
+      left: 545px;
+      top: 48px;
+      width: 420px;
+    }
+
+    .cell.three {
+      left: 36px;
+      top: 232px;
+      width: 280px;
+    }
+
+    .cell.four {
+      left: 355px;
+      top: 227px;
+      width: 325px;
+      align-items: flex-start;
+    }
+
+    .cell.five {
+      left: 681px;
+      top: 227px;
+      width: 305px;
+    }
+
+    .cell.six {
+      left: 36px;
+      top: 422px;
+      width: 365px;
+      min-height: 122px;
+    }
+
+    .cell.seven {
+      left: 390px;
+      top: 422px;
+      width: 300px;
+      min-height: 100px;
+    }
+
+    .cell.eight {
+      left: 620px;
+      top: 422px;
+      width: 365px;
+      min-height: 120px;
+    }
+
+    .vertical-divider {
+      position: absolute;
+      top: 32px;
+      width: 1px;
+      height: 114px;
+      background: rgba(0, 93, 142, 0.25);
+    }
+
+    .v1 {
+      left: 490px;
+      top: 43px;
+    }
+
+    .v2 {
+      left: 350px;
+      top: 223px;
+      height: 112px;
+    }
+
+    .v3 {
+      left: 670px;
+      top: 223px;
+      height: 112px;
+    }
+
+    .v4 {
+      left: 625px;
+      top: 422px;
+      height: 116px;
+    }
+
+    .icon-wrap {
+      flex: 0 0 auto;
+      width: 98px;
+      height: 98px;
+      border: 2px solid #1479bf;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1479bf;
+      background: #ffffff;
+      margin-right: 22px;
+    }
+
+    .cell.two .icon-wrap {
+      width: 98px;
+      height: 98px;
+      margin-right: 17px;
+    }
+
+    .cell.three .icon-wrap {
+      margin-right: 17px;
+    }
+
+    .cell.four .icon-wrap {
+      width: 98px;
+      height: 98px;
+      margin-right: 16px;
+    }
+
+    .cell.five .icon-wrap {
+      width: 98px;
+      height: 98px;
+      margin-right: 19px;
+    }
+
+    .cell.six .icon-wrap {
+      margin-right: 14px;
+    }
+
+    .cell.seven .icon-wrap {
+      width: 98px;
+      height: 98px;
+      margin-right: 13px;
+    }
+
+    .cell.eight .icon-wrap {
+      width: 98px;
+      height: 98px;
+      margin-right: 15px;
+    }
+
+    .text-block {
+      font-size: 21px;
+      line-height: 1.23;
+      color: #111111;
+      font-weight: 700;
+      letter-spacing: 0.1px;
+    }
+
+    .small-italic {
+      display: block;
+      margin-top: 3px;
+      color: #1277b2;
+      font-size: 14.5px;
+      line-height: 1.18;
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .tight-text {
+      font-size: 20px;
+      line-height: 1.22;
+    }
+
+    svg {
+      display: block;
+    }
+
+    .icon-stroke {
+      stroke: #1479bf;
+      stroke-width: 2.3;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .icon-stroke-thin {
+      stroke: #1479bf;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .icon-fill-light {
+      fill: #d9efff;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">ERP Modernization Approaches</div>
+
+    <div class="main-card">
+      <aside class="left-panel">
+        <div class="nav-row why">Why buyers are looking to modernize ERP...</div>
+        <div class="divider-horizontal divider-h1"></div>
+        <div class="nav-row how">How they want to transform</div>
+        <div class="divider-horizontal divider-h2"></div>
+        <div class="nav-row need">What they need</div>
+      </aside>
+
+      <main class="content-area">
+        <div class="row-divider"></div>
+        <div class="row-divider second"></div>
+        <div class="vertical-divider v1"></div>
+        <div class="vertical-divider v2"></div>
+        <div class="vertical-divider v3"></div>
+        <div class="vertical-divider v4"></div>
+
+        <section class="cell one">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg width="68" height="68" viewBox="0 0 68 68">
+              <path class="icon-stroke" d="M21 38H14C10.7 38 8 35.3 8 32C8 28.7 10.7 26 14 26H23C24.9 22.2 28.5 20 32.5 20C38 20 42.5 24.2 42.5 29.5C42.5 34.8 38.2 38 32.5 38H21Z" />
+              <path class="icon-stroke" d="M33 26C35.2 26 37 27.8 37 30C37 32.2 35.2 34 33 34C30.8 34 29 32.2 29 30C29 27.8 30.8 26 33 26Z" />
+              <path class="icon-stroke-thin" d="M28 46V37" />
+              <circle class="icon-stroke-thin" cx="28" cy="35" r="3" />
+              <path class="icon-stroke-thin" d="M35 46V38" />
+              <circle class="icon-stroke-thin" cx="35" cy="36" r="3" />
+              <path class="icon-stroke-thin" d="M42 46V36" />
+              <circle class="icon-stroke-thin" cx="42" cy="34" r="3" />
+              <circle class="icon-stroke-thin" cx="21" cy="49" r="3" />
+              <circle class="icon-stroke-thin" cx="34" cy="49" r="3" />
+              <circle class="icon-stroke-thin" cx="47" cy="49" r="3" />
+              <path class="icon-stroke-thin" d="M24 44L21 49L28 47" />
+              <path class="icon-stroke-thin" d="M37 44L34 49L42 48" />
+              <path class="icon-stroke-thin" d="M50 44L47 49" />
+            </svg>
+          </div>
+          <div class="text-block">Migrate to the cloud with confidence | Adopt AI</div>
+        </section>
+
+        <section class="cell two">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg width="68" height="68" viewBox="0 0 68 68">
+              <path class="icon-stroke-thin" d="M18 23C28 20 38 24 44 32" />
+              <path class="icon-stroke-thin" d="M50 17L56 10" />
+              <path class="icon-stroke-thin" d="M33 42V52" />
+              <path class="icon-stroke-thin" d="M25 50H45" />
+              <path class="icon-stroke-thin" d="M32 54H38" />
+              <path class="icon-fill-light" d="M20 36C14 37 10 42 11 48C12 53 16 57 21 57C26 57 29 52 29 47C29 42 25 38 20 36Z" />
+              <path class="icon-stroke" d="M25 27L24 35" />
+              <path class="icon-stroke" d="M20 30L19 38" />
+              <circle class="icon-stroke" cx="41" cy="24" r="12" />
+              <path class="icon-stroke" d="M41 12V18" />
+              <path class="icon-stroke" d="M41 30V36" />
+              <path class="icon-stroke" d="M29 24H35" />
+              <path class="icon-stroke" d="M47 24H53" />
+              <path class="icon-stroke" d="M33 16L38 21" />
+              <path class="icon-stroke" d="M49 18L51 20" />
+            </svg>
+          </div>
+          <div class="text-block">Innovate business models to grow faster</div>
+        </section>
+
+        <section class="cell three">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg width="66" height="66" viewBox="0 0 66 66">
+              <rect class="icon-stroke-thin" x="11" y="16" width="45" height="41" rx="2" />
+              <path class="icon-stroke" d="M17 24H49" />
+              <path class="icon-stroke" d="M17 33H42" />
+              <path class="icon-stroke" d="M17 42H45" />
+              <path class="icon-stroke-thin" d="M17 20H13M17 25H13M17 34H13M17 43H13" />
+              <rect class="icon-stroke-thin" x="42" y="22" width="14" height="15" rx="1" />
+              <rect class="icon-stroke-thin" x="42" y="42" width="15" height="12" rx="1" />
+              <circle class="icon-stroke-thin" cx="22" cy="32" r="3" />
+              <circle class="icon-stroke-thin" cx="22" cy="42" r="3" />
+            </svg>
+          </div>
+          <div class="text-block">Holistically – ERP Platform</div>
+        </section>
+
+        <section class="cell four">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg width="66" height="66" viewBox="0 0 66 66">
+              <rect class="icon-stroke-thin" x="12" y="14" width="19" height="15" rx="1.5" />
+              <rect class="icon-stroke-thin" x="38" y="10" width="18" height="14" rx="1.5" />
+              <rect class="icon-stroke-thin" x="12" y="43" width="20" height="15" rx="1.5" />
+              <rect class="icon-stroke-thin" x="38" y="40" width="18" height="18" rx="1.5" />
+              <circle class="icon-stroke" cx="33" cy="33" r="9" />
+              <circle class="icon-stroke-thin" cx="33" cy="29" r="3" />
+              <circle class="icon-stroke-thin" cx="33" cy="37" r="3" />
+              <circle class="icon-stroke-thin" cx="25" cy="33" r="3" />
+              <circle class="icon-stroke-thin" cx="41" cy="33" r="3" />
+              <path class="icon-stroke-thin" d="M24 32L20 28M39 32L45 28M25 34L20 39M40 34L46 38M26 31L22 24M41 31L48 24" />
+            </svg>
+          </div>
+          <div class="text-block tight-text">Departmentally – point solutions for specific challenges</div>
+        </section>
+
+        <section class="cell five">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg width="68" height="68" viewBox="0 0 68 68">
+              <circle class="icon-stroke-thin" cx="34" cy="34" r="27" />
+              <circle class="icon-stroke-thin" cx="34" cy="34" r="18" />
+              <circle class="icon-stroke-thin" cx="34" cy="34" r="9" />
+              <circle class="icon-stroke-thin" cx="34" cy="7" r="4" />
+              <circle class="icon-stroke-thin" cx="34" cy="61" r="4" />
+              <circle class="icon-stroke-thin" cx="7" cy="34" r="4" />
+              <circle class="icon-stroke-thin" cx="61" cy="34" r="4" />
+              <circle class="icon-stroke-thin" cx="16" cy="16" r="4" />
+              <circle class="icon-stroke-thin" cx="52" cy="16" r="4" />
+              <circle class="icon-stroke-thin" cx="16" cy="52" r="4" />
+              <circle class="icon-stroke-thin" cx="52" cy="52" r="4" />
+              <path class="icon-stroke-thin" d="M13 20L20 13M21 21L30 30M47 13L54 20M50 40L40 50M14 47L21 54M37 21L56 39M12 34H34M34 12V34M34 34H61M34 34V7" />
+            </svg>
+          </div>
+          <div class="text-block tight-text">Geographically Two-tier ERP, and point solutions</div>
+        </section>
+
+        <section class="cell six">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg width="66" height="66" viewBox="0 0 66 66">
+              <rect class="icon-stroke" x="14" y="28" width="31" height="23" rx="2" />
+              <path class="icon-stroke" d="M20 28V19H35V28" />
+              <path class="icon-stroke-thin" d="M20 36H32M20 43H36" />
+              <path class="icon-stroke" d="M38 13L47 13L47 22" />
+              <path class="icon-stroke-thin" d="M43 13L38 18L51 18L46 23" />
+              <circle class="icon-stroke" cx="50" cy="42" r="11" />
+              <path class="icon-stroke-thin" d="M50 31V37M50 47V53M40 42H46M54 42H60M43 35L47 39M57 35L59 37M47 51L52 46M53 46L59 46" />
+            </svg>
+          </div>
+          <div class="text-block">
+            Manufacturing/Retail/CPG<br />
+            Finance + Supply Chain
+            <span class="small-italic">(Supporting Human Resources,<br />Project Operations)</span>
+          </div>
+        </section>
+
+        <section class="cell seven">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg width="66" height="66" viewBox="0 0 66 66">
+              <path class="icon-stroke" d="M18 35V55H29V44H37V55H48V35" />
+              <path class="icon-stroke" d="M25 22V11H41V22" />
+              <rect class="icon-stroke-thin" x="10" y="41" width="9" height="14" rx="1" />
+              <rect class="icon-stroke-thin" x="33" y="41" width="9" height="14" rx="1" />
+              <path class="icon-stroke-thin" d="M29 22V16H37V22" />
+              <path class="icon-stroke-thin" d="M18 29H24M32 29H38M17 34H25M31 34H39" />
+            </svg>
+          </div>
+          <div class="text-block tight-text">Service-based<br />Industries</div>
+        </section>
+
+        <section class="cell eight">
+          <div class="icon-wrap" aria-hidden="true">
+            <svg width="68" height="68" viewBox="0 0 68 68">
+              <path class="icon-stroke-thin" d="M22 22L42 14L60 23V33L42 24L22 33V22Z" />
+              <path class="icon-stroke" d="M18 40H50" />
+              <circle class="icon-stroke-thin" cx="34" cy="24" r="4" />
+              <circle class="icon-stroke-thin" cx="34" cy="39" r="5" />
+              <path class="icon-stroke" d="M34 17V20M34 28V34M24 34H30M42 34H48M27 27L31 31M41 27L45 31M27 40L31 36M41 40L45 36" />
+              <path class="icon-stroke" d="M17 38V53H51V38" />
+              <path class="icon-stroke-thin" d="M21 43H31M37 43H47M22 48H32M36 48H48" />
+            </svg>
+          </div>
+          <div class="text-block tight-text">
+            Finance + Project<br />Operations
+            <span class="small-italic">(Supporting: Human<br />Resources, procurement)</span>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

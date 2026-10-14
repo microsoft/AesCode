@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Customer Touch Points Template</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #dfe5ea;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #0c2a4f;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+  }
+
+  .title {
+    position: absolute;
+    top: 32px;
+    left: 0;
+    width: 1376px;
+    text-align: center;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: #0b2a50;
+  }
+
+  .canvas {
+    position: absolute;
+    left: 72px;
+    top: 101px;
+    width: 1232px;
+    height: 598px;
+    background: #fff;
+    border-radius: 29px;
+    box-shadow: 0 13px 28px rgba(54, 76, 88, 0.18);
+  }
+
+  .left-sidebar,
+  .right-sidebar {
+    position: absolute;
+    top: 131px;
+    width: 70px;
+    height: 341px;
+    background: #fff;
+    border: 2px solid #dce2e6;
+    border-radius: 36px;
+    box-shadow: 0 7px 15px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .left-sidebar {
+    left: 37px;
+  }
+
+  .right-sidebar {
+    right: 37px;
+  }
+
+  .vertical-label {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 22px;
+    font-weight: 700;
+    color: #0c2a4f;
+    letter-spacing: 0.4px;
+  }
+
+  /* Ribbon process flow */
+  .ribbon {
+    position: absolute;
+    left: 78px;
+    top: 258px;
+    width: 1076px;
+    height: 86px;
+  }
+
+  .stage {
+    position: absolute;
+    height: 86px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .stage-1 {
+    left: 0;
+    width: 236px;
+    background: #ef344c;
+    clip-path: polygon(0 0, 81% 0, 100% 50%, 81% 100%, 0 100%, 20% 50%);
+  }
+
+  .stage-2 {
+    left: 208px;
+    width: 236px;
+    background: #f58821;
+    clip-path: polygon(0 0, 78% 0, 100% 50%, 78% 100%, 0 100%, 20% 50%);
+  }
+
+  .stage-3 {
+    left: 426px;
+    width: 242px;
+    background: #72c440;
+    clip-path: polygon(0 0, 78% 0, 100% 50%, 78% 100%, 0 100%, 20% 50%);
+  }
+
+  .stage-4 {
+    left: 650px;
+    width: 242px;
+    background: #51b7c0;
+    clip-path: polygon(0 0, 78% 0, 100% 50%, 78% 100%, 0 100%, 20% 50%);
+  }
+
+  .stage-5 {
+    left: 864px;
+    width: 236px;
+    background: #0d5d82;
+    clip-path: polygon(0 0, 81% 0, 100% 50%, 81% 100%, 0 100%, 20% 50%);
+  }
+
+  /* Top path */
+  .top-path {
+    position: absolute;
+    left: 92px;
+    top: 37px;
+    width: 1048px;
+    height: 208px;
+  }
+
+  .top-svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1048px;
+    height: 208px;
+  }
+
+  .node {
+    position: absolute;
+    width: 63px;
+    height: 63px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 0 6px 9px rgba(0, 0, 0, 0.22), inset 0 0 0 4px rgba(255, 255, 255, 0.32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+  }
+
+  .node .icon {
+    width: 36px;
+    height: 36px;
+    color: white;
+    font-size: 23px;
+    line-height: 36px;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .n-billboard { left: 86px; top: 147px; background: #f25057; }
+  .n-viral { left: 167px; top: 148px; background: #ff6148; }
+  .n-ads { left: 253px; top: 76px; background: #f75b50; }
+  .n-search { left: 334px; top: 76px; background: #f7a03b; }
+  .n-landing { left: 431px; top: 148px; background: #f8942f; }
+  .n-blog { left: 512px; top: 78px; background: #b9cf48; }
+  .n-sites { left: 594px; top: 147px; background: #9bd252; }
+  .n-website { left: 688px; top: 78px; background: #83d355; }
+  .n-mobile { left: 779px; top: 78px; background: #73c8cf; }
+  .n-chat { left: 877px; top: 147px; background: #64c1c7; }
+  .n-newsletter { left: 953px; top: 76px; background: #277d9c; }
+  .n-email { left: 1033px; top: 147px; background: #297d9c; }
+
+  /* Top labels */
+  .t-label {
+    position: absolute;
+    z-index: 6;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.16;
+    text-align: center;
+    color: #0c2a4f;
+  }
+
+  .tl-billboard { left: 77px; top: 100px; width: 78px; }
+  .tl-viral { left: 167px; top: 100px; width: 72px; }
+  .tl-ads { left: 260px; top: 154px; width: 68px; }
+  .tl-search { left: 350px; top: 155px; width: 66px; }
+  .tl-landing { left: 437px; top: 104px; width: 74px; }
+  .tl-blog { left: 540px; top: 154px; width: 58px; }
+  .tl-sites { left: 621px; top: 104px; width: 80px; }
+  .tl-website { left: 710px; top: 153px; width: 68px; }
+  .tl-mobile { left: 803px; top: 153px; width: 64px; }
+  .tl-chat { left: 893px; top: 104px; width: 64px; }
+  .tl-newsletter { left: 952px; top: 40px; width: 110px; text-align: center; }
+  .tl-email { left: 1048px; top: 115px; width: 68px; }
+
+  /* Bottom path */
+  .bottom-path {
+    position: absolute;
+    left: 138px;
+    top: 379px;
+    width: 1013px;
+    height: 170px;
+  }
+
+  .bottom-svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1013px;
+    height: 170px;
+  }
+
+  .p-node {
+    position: absolute;
+    width: 63px;
+    height: 63px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 0 6px 9px rgba(0, 0, 0, 0.18), inset 0 0 0 4px rgba(255, 255, 255, 0.32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+  }
+
+  .p-node .icon {
+    width: 36px;
+    height: 36px;
+    font-size: 23px;
+    line-height: 36px;
+    color: white;
+    text-align: center;
+    font-weight: 800;
+  }
+
+  .p-pr { left: 63px; top: 25px; background: #f5a4a4; }
+  .p-media { left: 238px; top: 22px; background: #f7b58c; }
+  .p-mouth { left: 337px; top: 24px; background: #f7c288; }
+  .p-mail { left: 432px; top: 86px; background: #f7b674; }
+  .p-store { left: 538px; top: 23px; background: #c4df91; }
+  .p-call { left: 668px; top: 82px; background: #9bd9ce; }
+  .p-ivr { left: 738px; top: 24px; background: #b3e1df; }
+  .p-promo { left: 876px; top: 42px; background: #5fb0c9; }
+
+  /* Bottom labels */
+  .pl-label {
+    position: absolute;
+    z-index: 6;
+    color: #0c2a4f;
+    font-size: 18px;
+    line-height: 1.14;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .pl-pr { left: 82px; top: 93px; width: 46px; }
+  .pl-media { left: 220px; top: 22px; width: 95px; }
+  .pl-mouth { left: 318px; top: 85px; width: 86px; }
+  .pl-mail { left: 416px; top: 43px; width: 78px; }
+  .pl-store { left: 545px; top: 92px; width: 72px; }
+  .pl-call { left: 658px; top: 93px; width: 82px; }
+  .pl-ivr { left: 723px; top: 87px; width: 82px; }
+  .pl-promo { left: 854px; top: 40px; width: 105px; }
+
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="title">CUSTOMER TOUCH POINTS TEMPLATE</div>
+
+  <div class="canvas">
+    <div class="left-sidebar">
+      <div class="vertical-label">Digital Touchpoints</div>
+    </div>
+
+    <div class="right-sidebar">
+      <div class="vertical-label">Physical Touchpoints</div>
+    </div>
+
+    <!-- Top digital touchpoint path -->
+    <div class="top-path" aria-label="Digital touchpoint path">
+      <svg class="top-svg" viewBox="0 0 1048 208" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M10 70
+                 C80 10, 150 93, 220 82
+                 C288 72, 288 134, 356 126
+                 C418 118, 409 60, 478 76
+                 C540 90, 538 139, 606 129
+                 C672 119, 665 66, 733 77
+                 C798 88, 792 139, 858 133
+                 C922 127, 920 70, 988 80
+                 C1020 85, 1032 107, 1045 100"
+              fill="none" stroke="#d7dfe3" stroke-width="18" stroke-linecap="round"/>
+      </svg>
+
+      <div class="node n-billboard"><div class="icon">▰</div></div>
+      <div class="node n-viral"><div class="icon">✉</div></div>
+      <div class="node n-ads"><div class="icon">▶</div></div>
+      <div class="node n-search"><div class="icon">⌕</div></div>
+      <div class="node n-landing"><div class="icon">▣</div></div>
+      <div class="node n-blog"><div class="icon">✎</div></div>
+      <div class="node n-sites"><div class="icon">▤</div></div>
+      <div class="node n-website"><div class="icon">◎</div></div>
+      <div class="node n-mobile"><div class="icon">▯</div></div>
+      <div class="node n-chat"><div class="icon">☏</div></div>
+      <div class="node n-newsletter"><div class="icon">✉</div></div>
+      <div class="node n-email"><div class="icon">✉</div></div>
+
+      <div class="t-label tl-billboard">Digital<br>Billboard</div>
+      <div class="t-label tl-viral">Viral<br>Email</div>
+      <div class="t-label tl-ads">Online<br>Ads</div>
+      <div class="t-label tl-search">Search</div>
+      <div class="t-label tl-landing">Landing<br>Page</div>
+      <div class="t-label tl-blog">Blog</div>
+      <div class="t-label tl-sites">3rd Party<br>Sites</div>
+      <div class="t-label tl-website">Website</div>
+      <div class="t-label tl-mobile">Mobile</div>
+      <div class="t-label tl-chat">IM/ Chat</div>
+      <div class="t-label tl-newsletter">Newsletter</div>
+      <div class="t-label tl-email">Email</div>
+    </div>
+
+    <!-- Center journey ribbon -->
+    <div class="ribbon" aria-label="Customer journey stages">
+      <div class="stage stage-1">Awareness</div>
+      <div class="stage stage-2">Consideration</div>
+      <div class="stage stage-3">Purchase</div>
+      <div class="stage stage-4">Service</div>
+      <div class="stage stage-5">Loyalty</div>
+    </div>
+
+    <!-- Bottom physical touchpoint path -->
+    <div class="bottom-path" aria-label="Physical touchpoint path">
+      <svg class="bottom-svg" viewBox="0 0 1013 170" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M22 78
+                 C85 46, 125 100, 180 82
+                 C242 65, 239 117, 307 107
+                 C372 97, 365 56, 435 67
+                 C498 77, 496 117, 562 106
+                 C627 95, 626 54, 692 70
+                 C754 85, 752 124, 818 111
+                 C881 98, 878 63, 938 76
+                 C970 83, 992 88, 1010 80"
+              fill="none" stroke="#d7dfe3" stroke-width="18" stroke-linecap="round"/>
+      </svg>
+
+      <div class="p-node p-pr"><div class="icon">▣</div></div>
+      <div class="p-node p-media"><div class="icon">♬</div></div>
+      <div class="p-node p-mouth"><div class="icon">♣</div></div>
+      <div class="p-node p-mail"><div class="icon">✉</div></div>
+      <div class="p-node p-store"><div class="icon">▥</div></div>
+      <div class="p-node p-call"><div class="icon">☎</div></div>
+      <div class="p-node p-ivr"><div class="icon">☏</div></div>
+      <div class="p-node p-promo"><div class="icon">⚙</div></div>
+
+      <div class="pl-label pl-pr">PR</div>
+      <div class="pl-label pl-media">Radio<br>TV<br>Print<br>Outdoor</div>
+      <div class="pl-label pl-mouth">Word of<br>Mouth</div>
+      <div class="pl-label pl-mail">Direct<br>Mail</div>
+      <div class="pl-label pl-store">Store</div>
+      <div class="pl-label pl-call">Call<br>Centre</div>
+      <div class="pl-label pl-ivr">Call<br>Centre<br>IVR</div>
+      <div class="pl-label pl-promo">Promotion<br>on invoice</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

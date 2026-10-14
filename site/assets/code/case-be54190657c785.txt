@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Green Block Week Poster</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9eef0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #103d46;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .hero {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 392px;
+    background: #dff6f5;
+    border-top: 5px solid #178b88;
+  }
+
+  .badge {
+    position: absolute;
+    left: 28px;
+    top: 26px;
+    width: 132px;
+    height: 132px;
+    border: 3px solid #188f8d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #158988;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+    background: #dff6f5;
+  }
+
+  .badge svg {
+    position: absolute;
+  }
+
+  .title {
+    position: absolute;
+    left: 50px;
+    top: 48px;
+    color: #148784;
+    font-size: 78px;
+    line-height: 1.05;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    z-index: 3;
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 50px;
+    top: 236px;
+    font-size: 31px;
+    font-weight: 800;
+    color: #10555a;
+    z-index: 3;
+  }
+
+  .pill {
+    position: absolute;
+    left: 50px;
+    top: 298px;
+    width: 515px;
+    height: 82px;
+    border: 2px solid #178f8f;
+    border-radius: 17px;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px 10px 22px;
+    background: rgba(255, 255, 255, 0.35);
+  }
+
+  .pill .iconbox {
+    width: 58px;
+    height: 58px;
+    border-right: 2px solid #269b99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 18px;
+    font-size: 25px;
+  }
+
+  .pill .line {
+    margin-left: 15px;
+    font-size: 19px;
+    line-height: 1.45;
+    font-weight: 700;
+  }
+
+  .bin-cluster {
+    position: absolute;
+    right: 42px;
+    top: 120px;
+    width: 410px;
+    height: 245px;
+    opacity: 0.95;
+  }
+
+  .sort-section {
+    position: absolute;
+    left: 0;
+    top: 392px;
+    width: 1024px;
+    height: 426px;
+    background: #ffffff;
+  }
+
+  .sort-heading {
+    position: absolute;
+    top: 18px;
+    left: 0;
+    width: 1024px;
+    text-align: center;
+    color: #126368;
+    font-size: 33px;
+    font-weight: 900;
+    letter-spacing: 1px;
+  }
+
+  .grid {
+    position: absolute;
+    left: 100px;
+    top: 60px;
+    width: 824px;
+    height: 330px;
+    display: grid;
+    grid-template-columns: 398px 398px;
+    grid-template-rows: 148px 148px;
+    gap: 16px 20px;
+  }
+
+  .card {
+    border: 2px solid #199595;
+    border-radius: 10px;
+    background: #fff;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .card.orange {
+    border-color: #ff7421;
+  }
+
+  .card-header {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: #169a9b;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 1px;
+  }
+
+  .card.orange .card-header {
+    background: #ff7421;
+  }
+
+  .card-body {
+    display: flex;
+    height: calc(100% - 42px);
+    border-top: 2px solid #e6f4f4;
+  }
+
+  .card-icon {
+    width: 145px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #189a9c;
+    font-size: 34px;
+    border-right: 2px solid #dff7f7;
+  }
+
+  .card-list {
+    flex: 1;
+    padding: 12px 12px 0 18px;
+    font-size: 18px;
+  }
+
+  .card-list div {
+    margin: 7px 0;
+  }
+
+  .note {
+    position: absolute;
+    top: 370px;
+    left: 0;
+    width: 1024px;
+    text-align: center;
+    color: #117176;
+    font-size: 23px;
+    font-weight: 800;
+  }
+
+  .schedule-section {
+    position: absolute;
+    left: 0;
+    top: 818px;
+    width: 1024px;
+    height: 270px;
+    background: #fff1e8;
+  }
+
+  .schedule-title {
+    position: absolute;
+    left: 150px;
+    top: 16px;
+    color: #ff6112;
+    font-size: 27px;
+    font-weight: 900;
+  }
+
+  .clock {
+    position: absolute;
+    left: 98px;
+    top: 13px;
+    color: #ff6112;
+    font-size: 32px;
+    border: 2px solid #ff6112;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .schedule-card {
+    position: absolute;
+    left: 98px;
+    top: 65px;
+    width: 382px;
+    height: 180px;
+    border: 1.5px solid #ff7421;
+    border-radius: 6px;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  table.dropoff {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .dropoff td {
+    height: 52px;
+    border-bottom: 1px solid #ff9c55;
+    padding: 0 16px;
+  }
+
+  .dropoff tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .dropoff .loc {
+    width: 50%;
+    padding-left: 30px;
+  }
+
+  .dropoff .time {
+    width: 50%;
+    padding-left: 38px;
+    border-left: 1px dotted #ff9c55;
+  }
+
+  .pin {
+    color: #ff6112;
+    font-size: 27px;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+
+  .chart-card {
+    position: absolute;
+    left: 515px;
+    top: 18px;
+    width: 418px;
+    height: 238px;
+    border: 1.5px solid #ffd0a7;
+    border-radius: 10px;
+    background: #fff;
+  }
+
+  #expectedChart {
+    position: absolute;
+    left: 18px;
+    top: 20px;
+    width: 378px;
+    height: 200px;
+  }
+
+  .accepted-section {
+    position: absolute;
+    left: 0;
+    top: 1088px;
+    width: 1024px;
+    height: 248px;
+    background: #ffffff;
+  }
+
+  .accepted-heading {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 1024px;
+    text-align: center;
+    color: #126368;
+    font-size: 31px;
+    font-weight: 900;
+  }
+
+  .check-card {
+    position: absolute;
+    left: 98px;
+    top: 58px;
+    width: 402px;
+    height: 160px;
+    border: 2px solid #189a9b;
+    border-radius: 9px;
+    display: flex;
+    padding: 16px 16px 12px 22px;
+    background: #fff;
+  }
+
+  .check-card .big-check {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: #189a9b;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    font-size: 34px;
+  }
+
+  .check-list {
+    flex: 1;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .warn-card {
+    position: absolute;
+    left: 520px;
+    top: 58px;
+    width: 414px;
+    height: 160px;
+    border: 2px solid #ff7421;
+    border-radius: 9px;
+    padding: 12px 18px;
+    background: #fff;
+  }
+
+  .warn-title {
+    color: #ff6112;
+    font-size: 18px;
+    font-weight: 900;
+    margin-bottom: 6px;
+  }
+
+  .warn-list {
+    border-left: 1.5px solid #ff7421;
+    padding-left: 20px;
+    margin-top: 2px;
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+
+  .warn-list div {
+    border-bottom: 1px dotted #ff7421;
+  }
+
+  .staff-note {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    width: 1024px;
+    text-align: center;
+    font-size: 16px;
+    color: #2b3d40;
+  }
+
+  .closing-section {
+    position: absolute;
+    left: 0;
+    top: 1336px;
+    width: 1024px;
+    height: 140px;
+    background: #dff8f7;
+  }
+
+  .callout {
+    position: absolute;
+    left: 98px;
+    top: 12px;
+    width: 828px;
+    height: 110px;
+    border: 2px solid #178f8f;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 12px 28px 12px 22px;
+    background: rgba(255, 255, 255, 0.65);
+  }
+
+  .callout .caddy-icon {
+    width: 82px;
+    color: #178f8f;
+    font-size: 36px;
+    margin-right: 24px;
+  }
+
+  .callout h3 {
+    margin: 0 0 12px 0;
+    color: #146d72;
+    font-size: 26px;
+    font-weight: 900;
+  }
+
+  .callout p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+    color: #205d62;
+  }
+
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1024px;
+    height: 68px;
+    background: #12928f;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 44px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .footer .divider {
+    width: 2px;
+    height: 32px;
+    background: rgba(255,255,255,0.9);
+  }
+
+  .footer svg {
+    width: 36px;
+    height: 36px;
+    margin-right: 12px;
+    fill: none;
+    stroke: white;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <section class="hero">
+    <div class="badge" aria-label="Clean Community Brighter Future badge">
+      <svg width="92" height="92" viewBox="0 0 92 92" style="position:absolute;">
+        <circle cx="46" cy="46" r="40" fill="none" stroke="#188f8d" stroke-width="3"/>
+        <text x="12" y="21" font-size="9" fill="#188f8d" font-weight="800" text-anchor="middle">CLEAN</text>
+        <text x="46" y="15" font-size="9" fill="#188f8d" font-weight="800" text-anchor="middle">COMMUNITY</text>
+        <text x="74" y="40" font-size="9" fill="#188f8d" font-weight="800" text-anchor="middle">•</text>
+        <text x="40" y="72" font-size="8" fill="#188f8d" font-weight="800" text-anchor="middle">BRIGHTER</text>
+        <text x="58" y="82" font-size="8" fill="#188f8d" font-weight="800" text-anchor="middle">FUTURE</text>
+        <path d="M36 31 L23 53 L45 52 Z" fill="#188f8d"/>
+        <path d="M56 36 L49 62 L75 38 Z" fill="#188f8d"/>
+        <path d="M31 58 L55 65 L38 45 Z" fill="#188f8d"/>
+      </svg>
+    </div>
+
+    <div class="title">GREEN<br>BLOCK WEEK</div>
+    <div class="subtitle">Community Recycling &amp; Sorting Fair</div>
+
+    <div class="pill">
+      <div class="iconbox">▣</div>
+      <div class="line">
+        Saturday, April 27, 2026 · 10:00 AM–4:00 PM<br>
+        Riverside Civic Plaza, Hall B
+      </div>
+    </div>
+
+    <div class="bin-cluster">
+      <svg width="410" height="245" viewBox="0 0 410 245" style="position:absolute;">
+        <ellipse cx="205" cy="205" rx="200" ry="28" fill="#9edfa6"/>
+        <rect x="62" y="62" width="82" height="142" rx="6" fill="#159790" stroke="#075b60" stroke-width="3"/>
+        <rect x="162" y="62" width="82" height="142" rx="6" fill="#ff7a16" stroke="#d35408" stroke-width="3"/>
+        <rect x="262" y="62" width="82" height="142" rx="6" fill="#0b85c9" stroke="#085a70" stroke-width="3"/>
+        <rect x="350" y="62" width="70" height="142" rx="6" fill="#707978" stroke="#374243" stroke-width="3"/>
+        <text x="103" y="110" font-size="14" fill="#fff" font-weight="800">PAPER</text>
+        <text x="192" y="110" font-size="14" fill="#fff" font-weight="800">PLASTIC</text>
+        <text x="285" y="110" font-size="12" fill="#fff" font-weight="800">GLASS<br>&amp; METAL</text>
+        <text x="352" y="110" font-size="12" fill="#fff" font-weight="800">LANDFILL</text>
+        <circle cx="108" cy="160" r="16" fill="none" stroke="#fff" stroke-width="4"/>
+        <circle cx="125" cy="160" r="16" fill="none" stroke="#fff" stroke-width="4"/>
+        <circle cx="116.5" cy="147.5" r="16" fill="none" stroke="#fff" stroke-width="4"/>
+      </svg>
+    </div>
+  </section>
+
+  <section class="sort-section">
+    <div class="sort-heading">How to Sort It</div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">PAPER</div>
+        <div class="card-body">
+          <div class="card-icon">✣</div>
+          <div class="card-list">
+            <div>• newspapers</div>
+            <div>• cardboard</div>
+            <div>• clean office paper</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card orange">
+        <div class="card-header">PLASTIC</div>
+        <div class="card-body">
+          <div class="card-icon">◌</div>
+          <div class="card-list">
+            <div>• bottles</div>
+            <div>• tubs, and containers</div>
+            <div>• #1, #2, #5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">GLASS &amp; METAL</div>
+        <div class="card-body">
+          <div class="card-icon">▥</div>
+          <div class="card-list">
+            <div>• jars</div>
+            <div>• cans</div>
+            <div>• foil trays</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card orange">
+        <div class="card-header">LANDFILL</div>
+        <div class="card-body">
+          <div class="card-icon">♲</div>
+          <div class="card-list">
+            <div>• food-soiled paper</div>
+            <div>• broken ceramics</div>
+            <div>• diapers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">Rinse, Empty, Dry</div>
+  </section>
+
+  <section class="schedule-section">
+    <div class="clock">◷</div>
+    <div class="schedule-title">Drop-off Schedule</div>
+
+    <div class="schedule-card">
+      <table class="dropoff">
+        <tr>
+          <td class="loc"><span class="pin">●</span>North Loop</td>
+          <td class="time">10:00–11:30</td>
+        </tr>
+        <tr>
+          <td class="loc"><span class="pin">●</span>Cedar Square</td>
+          <td class="time">12:00–1:30</td>
+        </tr>
+        <tr>
+          <td class="loc"><span class="pin">●</span>East Market</td>
+          <td class="time">2:00–3:30</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="chart-card">
+      <div id="expectedChart"></div>
+    </div>
+  </section>
+
+  <section class="accepted-section">
+    <div class="accepted-heading">Accepted This Day</div>
+
+    <div class="check-card">
+      <div class="big-check">✓</div>
+      <div class="check-list">
+        flattened cardboard<br>
+        clean bottles<br>
+        aluminum cans<br>
+        e-waste for the special booth
+      </div>
+    </div>
+
+    <div class="warn-card">
+      <div class="warn-title">⚠ Please Do Not Bring</div>
+      <div class="warn-list">
+        <div>paint</div>
+        <div>loose needles</div>
+        <div>gas cylinders</div>
+        <div>leaking batteries</div>
+      </div>
+    </div>
+
+    <div class="staff-note">Staff can refuse unsafe loads.</div>
+  </section>
+
+  <section class="closing-section">
+    <div class="callout">
+      <div class="caddy-icon">▣</div>
+      <div>
+        <h3>Bring 5 sorted items and receive a free kitchen caddy</h3>
+        <p>Hosted by Clean Streets Initiative + City Waste Services</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>
+      <svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true">
+        <circle cx="18" cy="18" r="15" fill="none" stroke="white"/>
+        <path d="M6 18 h24 M18 3 C13 8 13 24 18 24 M18 3 C23 8 23 24 18 24" fill="none" stroke="white"/>
+      </svg>
+      Register at cleanstreets.city/recycle
+    </div>
+    <div class="divider"></div>
+    <div>Questions: hello@cleanstreets.city</div>
+  </footer>
+</div>
+
+<script>
+  const chart = echarts.init(document.getElementById('expectedChart'));
+  chart.setOption({
+    animation: false,
+    title: {
+      text: 'Expected Collection (kg)',
+      left: 30,
+      top: 0,
+      textStyle: {
+        fontSize: 18,
+        fontWeight: 800,
+        color: '#333'
+      }
+    },
+    grid: {
+      left: 45,
+      right: 14,
+      top: 34,
+      bottom: 28
+    },
+    xAxis: {
+      type: 'category',
+      data: ['Paper', 'Plastic', 'Glass/Metal', 'Landfill'],
+      axisTick: { show: false },
+      axisLine: { lineStyle: { color: '#aebec1' } },
+      axisLabel: {
+        color: '#444',
+        fontSize: 12,
+        fontWeight: 600
+      }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: 500,
+      interval: 100,
+      name: 'kg',
+      nameLocation: 'middle',
+      nameGap: 30,
+      axisLabel: {
+        color: '#444',
+        fontSize: 12
+      },
+      splitLine: {
+        lineStyle: {
+          color: '#dfe6e7',
+          type: 'dotted'
+        }
+      }
+    },
+    series: [{
+      type: 'bar',
+      data: [420, 360, 280, 150],
+      barWidth: 38,
+      itemStyle: {
+        color: function(params) {
+          return params.dataIndex % 2 === 0 ? '#189d9d' : '#ff7421';
+        },
+        borderRadius: [3, 3, 0, 0]
+      },
+      label: {
+        show: true,
+        position: 'top',
+        color: '#333',
+        fontSize: 12,
+        fontWeight: 800
+      }
+    }],
+    tooltip: { show: false }
+  });
+</script>
+</body>
+</html>

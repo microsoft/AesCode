@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Customer Results Poster</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #0b0d0f;
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 12%, rgba(86, 255, 159, 0.13), transparent 210px),
+      radial-gradient(circle at 12% 24%, rgba(86, 255, 159, 0.08), transparent 170px),
+      radial-gradient(circle at 88% 28%, rgba(86, 255, 159, 0.06), transparent 180px),
+      linear-gradient(180deg, #101214 0%, #15181a 42%, #111315 100%);
+    color: #f4f7f7;
+  }
+
+  .artboard::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(86, 255, 159, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(86, 255, 159, 0.055) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.28;
+    mask-image: radial-gradient(circle at 50% 44%, black 0%, transparent 38%);
+  }
+
+  .artboard::after {
+    content: "";
+    position: absolute;
+    left: -80px;
+    top: 25px;
+    width: 1180px;
+    height: 1180px;
+    background:
+      linear-gradient(30deg, transparent 48%, rgba(86,255,159,.08) 49%, transparent 50%),
+      linear-gradient(150deg, transparent 48%, rgba(86,255,159,.07) 49%, transparent 50%);
+    opacity: .55;
+    transform: rotate(18deg);
+    pointer-events: none;
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
+    width: 840px;
+    margin: 22px auto 0;
+    text-align: center;
+  }
+
+  .eyebrow {
+    color: #56ff9f;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .headline {
+    margin: 0;
+    font-size: 46px;
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: -1.6px;
+    color: #f7f8f8;
+  }
+
+  .subheading {
+    width: 720px;
+    margin: 13px auto 0;
+    font-size: 21px;
+    line-height: 1.45;
+    color: #bfc3c7;
+    font-weight: 400;
+  }
+
+  .top-rule {
+    width: 420px;
+    height: 1px;
+    margin: 20px auto 22px;
+    background: linear-gradient(90deg, transparent, #56ff9f 48%, #56ff9f 50%, transparent);
+    box-shadow: 0 0 10px rgba(86,255,159,.9);
+    opacity: .95;
+  }
+
+  .case-card {
+    width: 840px;
+    height: 285px;
+    margin: 0 auto 14px;
+    padding: 20px 22px 13px;
+    border: 1px solid rgba(86, 255, 159, .29);
+    border-radius: 18px;
+    background: rgba(14, 18, 21, .88);
+    position: relative;
+    text-align: left;
+  }
+
+  .case-card::before {
+    content: "";
+    position: absolute;
+    left: 22px;
+    top: 26px;
+    width: 52px;
+    height: 52px;
+    color: #56ff9f;
+    font-size: 42px;
+    line-height: 52px;
+    border-radius: 50%;
+    opacity: .95;
+  }
+
+  .case-tag {
+    position: absolute;
+    top: 11px;
+    right: 24px;
+    font-size: 15.5px;
+    color: #56ff9f;
+    font-weight: 700;
+  }
+
+  .company {
+    margin-left: 76px;
+    margin-top: 2px;
+    font-size: 27px;
+    font-weight: 800;
+    color: #f8f9f9;
+  }
+
+  .quote {
+    margin-left: 76px;
+    width: 620px;
+    margin-top: 4px;
+    font-size: 24px;
+    line-height: 1.18;
+    color: #f0f2f2;
+    font-weight: 600;
+    letter-spacing: -.3px;
+  }
+
+  .attribution {
+    margin-left: 76px;
+    margin-top: 2px;
+    font-size: 15px;
+    color: #bfc4c8;
+  }
+
+  .metrics {
+    display: flex;
+    gap: 12px;
+    margin-top: 13px;
+    margin-left: 20px;
+  }
+
+  .metric-pill {
+    width: 242px;
+    height: 64px;
+    border: 1px solid rgba(86, 255, 159, .42);
+    border-radius: 9px;
+    background: rgba(8, 12, 14, .58);
+    padding: 7px 10px 5px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #dffcff;
+  }
+
+  .metric-icon {
+    width: 34px;
+    color: #56ff9f;
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .metric-number {
+    font-size: 28px;
+    color: #56ff9f;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .metric-label {
+    font-size: 12.5px;
+    color: #bfc5c9;
+    margin-top: 2px;
+    white-space: nowrap;
+  }
+
+  .case-summary {
+    position: absolute;
+    left: 28px;
+    right: 28px;
+    bottom: 8px;
+    font-size: 14.5px;
+    color: #c2c7cb;
+  }
+
+  .case-card:nth-of-type(1)::before { content: "▥"; }
+  .case-card:nth-of-type(2)::before { content: "♡"; }
+  .case-card:nth-of-type(3)::before { content: "↗"; }
+
+  .snapshot-title {
+    margin: 14px 0 12px;
+    font-size: 27px;
+    font-weight: 800;
+    color: #f4f6f6;
+  }
+
+  .chart-panel {
+    width: 810px;
+    height: 180px;
+    margin: 0 auto;
+    border: 1px solid rgba(86, 255, 159, .32);
+    border-radius: 16px;
+    background: rgba(13, 18, 22, .82);
+    text-align: center;
+    padding-top: 22px;
+  }
+
+  #barChart {
+    width: 770px;
+    height: 122px;
+    margin: 0 auto;
+  }
+
+  .chart-caption {
+    font-size: 14.5px;
+    color: #bfc5c9;
+    margin-top: -16px;
+    padding-top: 0;
+  }
+
+  .renew-title {
+    margin: 17px 0 10px;
+    font-size: 28px;
+    font-weight: 800;
+    color: #f4f6f6;
+  }
+
+  .feature-list {
+    width: 720px;
+    margin: 0 auto;
+    text-align: left;
+    border-top: 1px solid rgba(86, 255, 159, .24);
+  }
+
+  .feature-row {
+    height: 53px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(86, 255, 159, .28);
+    gap: 18px;
+  }
+
+  .feature-row:last-child {
+    border-bottom: none;
+  }
+
+  .feature-icon {
+    width: 50px;
+    height: 50px;
+    flex: 0 0 50px;
+    border: 1.8px solid #56ff9f;
+    border-radius: 50%;
+    color: #56ff9f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    font-weight: 700;
+  }
+
+  .feature-text h3 {
+    margin: 0 0 2px;
+    font-size: 18px;
+    color: #f6f8f8;
+  }
+
+  .feature-text p {
+    margin: 0;
+    color: #bfcbd0;
+    font-size: 14.5px;
+  }
+
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 22px;
+    width: 1024px;
+    text-align: center;
+    z-index: 2;
+  }
+
+  .demo-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    padding: 0 25px;
+    border-radius: 24px;
+    border: 1px solid #56ff9f;
+    color: #56ff9f;
+    background: rgba(86, 255, 159, .04);
+    font-size: 15px;
+    font-weight: 750;
+    text-decoration: underline;
+  }
+
+  .footer-line {
+    margin-top: 9px;
+    color: #9da3a8;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="content">
+    <div class="eyebrow">CUSTOMER RESULTS</div>
+    <h1 class="headline">Trusted AI, Measurable Impact</h1>
+    <div class="subheading">How three teams used Northstar AI to cut response time, improve quality, and scale support.</div>
+    <div class="top-rule"></div>
+
+    <section class="case-card">
+      <div class="case-tag">Fintech / Customer Ops</div>
+      <div class="company">Lattice Bank</div>
+      <div class="quote">“Northstar AI reduced our average ticket resolution time by 42% in six weeks.”</div>
+      <div class="attribution">Maya Chen, VP of Support</div>
+      <div class="metrics">
+        <div class="metric-pill">
+          <div class="metric-icon">◷</div>
+          <div>
+            <div class="metric-number">42%</div>
+            <div class="metric-label">faster resolution</div>
+          </div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-icon">♙</div>
+          <div>
+            <div class="metric-number">18 hrs</div>
+            <div class="metric-label">saved per agent / month</div>
+          </div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-icon">☆</div>
+          <div>
+            <div class="metric-number">94%</div>
+            <div class="metric-label">CSAT up to 94%</div>
+          </div>
+        </div>
+      </div>
+      <div class="case-summary">Automated triage, drafted replies, and surfaced policy answers from 12,400 internal documents.</div>
+    </section>
+
+    <section class="case-card">
+      <div class="case-tag">HealthTech / Operations</div>
+      <div class="company">BrightHarbor Clinic Network</div>
+      <div class="quote">“We launched an AI assistant across 27 clinics without increasing headcount.”</div>
+      <div class="attribution">Ethan Morales, Director of Operations</div>
+      <div class="metrics">
+        <div class="metric-pill">
+          <div class="metric-icon">▥</div>
+          <div>
+            <div class="metric-number">27</div>
+            <div class="metric-label">clinics onboarded</div>
+          </div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-icon">▮</div>
+          <div>
+            <div class="metric-number">31%</div>
+            <div class="metric-label">lower admin workload</div>
+          </div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-icon">⊙</div>
+          <div>
+            <div class="metric-number">92.6%</div>
+            <div class="metric-label">answer accuracy</div>
+          </div>
+        </div>
+      </div>
+      <div class="case-summary">Staff used guided workflows and compliant knowledge retrieval for scheduling, billing, and intake questions.</div>
+    </section>
+
+    <section class="case-card">
+      <div class="case-tag">SaaS / Revenue Team</div>
+      <div class="company">VectorLane</div>
+      <div class="quote">“The sales team now prepares enterprise account briefs in under 5 minutes.”</div>
+      <div class="attribution">Priya Natarajan, Chief Revenue Officer</div>
+      <div class="metrics">
+        <div class="metric-pill">
+          <div class="metric-icon">◷</div>
+          <div>
+            <div class="metric-number">5 min</div>
+            <div class="metric-label">briefing time</div>
+          </div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-icon">⌕</div>
+          <div>
+            <div class="metric-number">3.1x</div>
+            <div class="metric-label">more account research completed</div>
+          </div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-icon">♕</div>
+          <div>
+            <div class="metric-number">11%</div>
+            <div class="metric-label">higher win rate</div>
+          </div>
+        </div>
+      </div>
+      <div class="case-summary">AI-generated prospect summaries combined CRM notes, product usage signals, and renewal risk flags.</div>
+    </section>
+
+    <div class="snapshot-title">Deployment Snapshot</div>
+    <div class="chart-panel">
+      <div id="barChart"></div>
+      <div class="chart-caption">Time-to-value after kickoff (days)</div>
+    </div>
+
+    <div class="renew-title">Why teams renew</div>
+    <section class="feature-list">
+      <div class="feature-row">
+        <div class="feature-icon">✦</div>
+        <div class="feature-text">
+          <h3>Fast rollout</h3>
+          <p>Live workflows in under 30 days.</p>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">♢</div>
+        <div class="feature-text">
+          <h3>Governed answers</h3>
+          <p>Permission-aware retrieval and audit logs.</p>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">↗</div>
+        <div class="feature-text">
+          <h3>Human-ready output</h3>
+          <p>Drafts, summaries, and citations staff can review before sending.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="demo-button">Book a 20-minute demo</div>
+    <div class="footer-line">northstarai.com / customer stories</div>
+  </footer>
+</div>
+
+<script>
+  const chart = echarts.init(document.getElementById('barChart'));
+  chart.setOption({
+    animation: false,
+    grid: {
+      left: 190,
+      right: 34,
+      top: 10,
+      bottom: 34
+    },
+    xAxis: {
+      type: 'value',
+      min: 0,
+      max: 30,
+      interval: 5,
+      axisLine: { lineStyle: { color: '#7d878d' } },
+      axisLabel: { color: '#9fa6aa', fontSize: 12 },
+      splitLine: { lineStyle: { color: '#293034', type: 'dashed' } }
+    },
+    yAxis: {
+      type: 'category',
+      data: ['Lattice Bank', 'BrightHarbor Clinic Network', 'VectorLane'],
+      inverse: true,
+      axisLine: { lineStyle: { color: '#7d878d' } },
+      axisTick: { show: false },
+      axisLabel: { color: '#d3d9dc', fontSize: 12 }
+    },
+    series: [{
+      type: 'bar',
+      data: [14, 21, 9],
+      barWidth: 14,
+      itemStyle: {
+        color: '#58ff9f',
+        borderRadius: [0, 7, 7, 0]
+      },
+      label: {
+        show: true,
+        position: 'right',
+        color: '#58ff9f',
+        fontSize: 14,
+        fontWeight: 700
+      }
+    }]
+  });
+</script>
+</body>
+</html>

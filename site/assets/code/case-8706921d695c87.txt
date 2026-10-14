@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>2023年公有云费用看板</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #020814;
+    font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    color: #eaf8ff;
+    background:
+      radial-gradient(circle at 50% 40%, rgba(18, 210, 255, 0.18), transparent 25%),
+      radial-gradient(circle at 18% 22%, rgba(255, 190, 60, 0.10), transparent 22%),
+      linear-gradient(180deg, #06111f 0%, #071423 50%, #05101d 100%);
+  }
+
+  .artboard::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 80px 80px, 80px 80px;
+    opacity: 0.25;
+    pointer-events: none;
+  }
+
+  .top-title {
+    position: absolute;
+    top: 8px;
+    left: 0;
+    width: 1376px;
+    text-align: center;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #2eeaff;
+    text-shadow: 0 0 12px rgba(46, 234, 255, 0.75);
+    z-index: 2;
+  }
+
+  .panel {
+    position: absolute;
+    border: 1.5px solid #11d7ff;
+    border-radius: 6px;
+    background: linear-gradient(180deg, rgba(8, 42, 70, 0.68), rgba(4, 20, 38, 0.70));
+    box-shadow:
+      0 0 14px rgba(0, 215, 255, 0.28),
+      inset 0 0 20px rgba(0, 215, 255, 0.12);
+    z-index: 3;
+  }
+
+  .panel-title {
+    position: absolute;
+    top: 5px;
+    left: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #f3fbff;
+    letter-spacing: 1px;
+    z-index: 4;
+  }
+
+  .title-badge {
+    display: inline-block;
+    width: 5px;
+    height: 14px;
+    margin-right: 7px;
+    vertical-align: -2px;
+    background: linear-gradient(180deg, #21fffb, #ffba28);
+    border-radius: 3px;
+  }
+
+  /* Left top */
+  .p-platform-share {
+    left: 18px;
+    top: 39px;
+    width: 292px;
+    height: 218px;
+  }
+
+  .left-chart {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    top: 48px;
+    bottom: 10px;
+  }
+
+  .legend-small {
+    position: absolute;
+    right: 16px;
+    top: 102px;
+    font-size: 11px;
+    color: #e6f8ff;
+    z-index: 4;
+    line-height: 18px;
+  }
+
+  /* Left middle */
+  .p-cloud-trend {
+    left: 18px;
+    top: 273px;
+    width: 292px;
+    height: 228px;
+  }
+
+  .left-chart.trend-chart {
+    top: 32px;
+    bottom: 16px;
+  }
+
+  /* Left bottom */
+  .p-account-share {
+    left: 18px;
+    top: 522px;
+    width: 292px;
+    height: 226px;
+  }
+
+  /* Center KPI */
+  .kpi-band {
+    position: absolute;
+    left: 332px;
+    top: 75px;
+    width: 732px;
+    height: 88px;
+    z-index: 4;
+  }
+
+  .kpi-card {
+    position: absolute;
+    top: 0;
+    width: 228px;
+    height: 88px;
+    border: 1.5px solid #14dcff;
+    border-radius: 5px;
+    background: linear-gradient(180deg, rgba(22, 59, 83, 0.72), rgba(11, 34, 54, 0.85));
+    box-shadow: 0 0 14px rgba(0, 215, 255, 0.35);
+    text-align: center;
+    padding-top: 8px;
+    color: #f6fbff;
+  }
+
+  .kpi-card.k1 {
+    left: 0;
+    background: linear-gradient(180deg, rgba(255, 190, 60, 0.14), rgba(255, 190, 60, 0.05));
+  }
+
+  .kpi-card.k2 {
+    left: 244px;
+    background: linear-gradient(180deg, rgba(0, 238, 255, 0.12), rgba(0, 238, 255, 0.07));
+  }
+
+  .kpi-card.k3 {
+    right: 0;
+    background: linear-gradient(180deg, rgba(0, 238, 255, 0.12), rgba(0, 238, 255, 0.07));
+  }
+
+  .kpi-label {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .kpi-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: #ffc45e;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px rgba(255, 188, 68, 0.35);
+  }
+
+  .kpi-value.cyan {
+    color: #21efff;
+  }
+
+  /* Center ring */
+  .annual-ring {
+    position: absolute;
+    left: 537px;
+    top: 208px;
+    width: 302px;
+    height: 302px;
+    border-radius: 50%;
+    z-index: 3;
+    border: 2px solid rgba(70, 238, 255, 0.85);
+    background:
+      radial-gradient(circle, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.06) 35%, transparent 62%),
+      repeating-conic-gradient(from 0deg, rgba(36, 230, 255, 0.35) 0deg 8deg, transparent 8deg 16deg);
+    box-shadow:
+      0 0 24px rgba(36, 230, 255, 0.65),
+      inset 0 0 24px rgba(255, 190, 60, 0.40);
+  }
+
+  .annual-ring::before,
+  .annual-ring::after {
+    content: "";
+    position: absolute;
+    inset: 30px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 190, 60, 0.65);
+    border-left-color: rgba(36, 230, 255, 0.55);
+    border-bottom-color: rgba(255, 255, 255, 0.28);
+  }
+
+  .annual-ring::before {
+    inset: 22px;
+    border-width: 1.5px;
+  }
+
+  .annual-ring::after {
+    inset: 48px;
+    border-width: 1.5px;
+    border-color: rgba(255, 190, 60, 0.65);
+  }
+
+  .ring-inner {
+    position: absolute;
+    left: 83px;
+    top: 81px;
+    width: 136px;
+    text-align: center;
+    z-index: 4;
+  }
+
+  .ring-label {
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .ring-number {
+    font-size: 30px;
+    font-weight: 800;
+    color: #ffc45e;
+    text-shadow: 0 0 12px rgba(255, 188, 68, 0.45);
+  }
+
+  /* Bar lists */
+  .bar-list {
+    position: absolute;
+    top: 198px;
+    width: 230px;
+    z-index: 4;
+  }
+
+  .bar-list.left {
+    left: 332px;
+  }
+
+  .bar-list.right {
+    left: 858px;
+  }
+
+  .bar-item {
+    height: 61px;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 2px;
+  }
+
+  .bar-name {
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #fbfffb;
+  }
+
+  .mini-bar {
+    height: 10px;
+    width: 112px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.18);
+    overflow: hidden;
+  }
+
+  .mini-bar.gold {
+    background: linear-gradient(90deg, #ffdc72, #f5b42b);
+  }
+
+  .mini-bar.gray {
+    background: linear-gradient(90deg, rgba(255,255,255,0.25), rgba(255,255,255,0.08));
+  }
+
+  /* Right top */
+  .p-region-share {
+    left: 1068px;
+    top: 39px;
+    width: 290px;
+    height: 218px;
+  }
+
+  .region-blocks {
+    position: absolute;
+    left: 17px;
+    top: 48px;
+    width: 256px;
+    height: 160px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .region-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 13px;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.22);
+  }
+
+  .region-block.blue { background: #4f8ec6; }
+  .region-block.yellow { background: #efc94f; }
+  .region-block.gray { background: #778290; }
+  .region-block.orange { background: #ee813e; }
+
+  /* Right middle */
+  .p-region-trend {
+    left: 1068px;
+    top: 273px;
+    width: 290px;
+    height: 228px;
+  }
+
+  .region-chart {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 36px;
+    bottom: 10px;
+  }
+
+  /* Right bottom */
+  .p-project-share {
+    left: 1068px;
+    top: 522px;
+    width: 290px;
+    height: 226px;
+  }
+
+  /* Bottom center */
+  .p-project-trend {
+    left: 332px;
+    top: 531px;
+    width: 732px;
+    height: 217px;
+  }
+
+  .bottom-chart {
+    position: absolute;
+    left: 22px;
+    right: 16px;
+    top: 28px;
+    bottom: 12px;
+  }
+
+  .glow-line {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,255,255,0.45), transparent);
+    z-index: 2;
+  }
+
+  .g1 { left: 0; top: 15px; width: 1376px; }
+  .g2 { left: 335px; top: 16px; width: 706px; }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="glow-line g1"></div>
+  <div class="glow-line g2"></div>
+  <div class="top-title">2023年公有云费用看板</div>
+
+  <section class="panel p-platform-share">
+    <div class="panel-title"><span class="title-badge"></span>云平台占比</div>
+    <div id="platformShare" class="left-chart"></div>
+    <div class="legend-small">AWS<br>Azure</div>
+  </section>
+
+  <section class="panel p-cloud-trend">
+    <div class="panel-title"><span class="title-badge"></span>云平台费用趋势（年度）</div>
+    <div id="cloudTrend" class="left-chart trend-chart"></div>
+  </section>
+
+  <section class="panel p-account-share">
+    <div class="panel-title"><span class="title-badge"></span>云账号占比</div>
+    <div id="accountShare" class="left-chart"></div>
+  </section>
+
+  <div class="kpi-band">
+    <div class="kpi-card k1">
+      <div class="kpi-label">华为云月度账单</div>
+      <div class="kpi-value">2624188.03</div>
+    </div>
+    <div class="kpi-card k2">
+      <div class="kpi-label">月度账单</div>
+      <div class="kpi-value cyan">3065488.82</div>
+    </div>
+    <div class="kpi-card k3">
+      <div class="kpi-label">AWS 月度账单</div>
+      <div class="kpi-value cyan">441300.79</div>
+    </div>
+  </div>
+
+  <div class="bar-list left">
+    <div class="bar-item">
+      <div class="bar-name">HWC-LIO</div>
+      <div class="bar-row">20万元 <span class="mini-bar gold" style="width:40%;"></span> 80万元</div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-name">HWC-DE</div>
+      <div class="bar-row">15万元 <span class="mini-bar gold" style="width:25%;"></span> 70万元</div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-name">HWC-AM</div>
+      <div class="bar-row">10万元 <span class="mini-bar gold" style="width:20%;"></span> 40万元</div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-name">HWC-LB</div>
+      <div class="bar-row">5万元 <span class="mini-bar gold" style="width:13%;"></span> 20万元</div>
+    </div>
+  </div>
+
+  <div class="annual-ring">
+    <div class="ring-inner">
+      <div class="ring-label">年度总账单</div>
+      <div class="ring-number">16004188.03</div>
+    </div>
+  </div>
+
+  <div class="bar-list right">
+    <div class="bar-item">
+      <div class="bar-name" style="text-align:right;">AWS-XMM</div>
+      <div class="bar-row" style="text-align:right;">8万元 <span class="mini-bar gold" style="width:28%;"></span> 30万元</div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-name" style="text-align:right;">AWS-FYM</div>
+      <div class="bar-row" style="text-align:right;">12万元 <span class="mini-bar gold" style="width:30%;"></span> 50万元</div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-name" style="text-align:right;">AWS-ZQ</div>
+      <div class="bar-row" style="text-align:right;">6万元 <span class="mini-bar gold" style="width:22%;"></span> 25万元</div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-name" style="text-align:right;">AWS-ZT</div>
+      <div class="bar-row" style="text-align:right;">3万元 <span class="mini-bar gold" style="width:15%;"></span> 15万元</div>
+    </div>
+  </div>
+
+  <section class="panel p-region-share">
+    <div class="panel-title"><span class="title-badge"></span>区域占比</div>
+    <div class="region-blocks">
+      <div class="region-block blue">地区一<br>25.00%</div>
+      <div class="region-block yellow">地区二<br>25.00%</div>
+      <div class="region-block gray">地区三<br>25.00%</div>
+      <div class="region-block orange">地区四<br>25.00%</div>
+    </div>
+  </section>
+
+  <section class="panel p-region-trend">
+    <div class="panel-title"><span class="title-badge"></span>区域费用趋势（年度）</div>
+    <div id="regionTrend" class="region-chart"></div>
+  </section>
+
+  <section class="panel p-project-share">
+    <div class="panel-title"><span class="title-badge"></span>项目占比</div>
+    <div id="projectShare" class="left-chart"></div>
+  </section>
+
+  <section class="panel p-project-trend">
+    <div class="panel-title" style="text-align:center; left:0; top:4px; width:100%;"><span class="title-badge"></span>项目费用趋势（年度）</div>
+    <div id="projectTrend" class="bottom-chart"></div>
+  </section>
+</div>
+
+<script>
+  const panelText = '#2ef3ff';
+  const axisColor = 'rgba(255,255,255,0.65)';
+  const splitLineColor = 'rgba(255,255,255,0.15)';
+
+  const platformShare = echarts.init(document.getElementById('platformShare'));
+  platformShare.setOption({
+    animation: false,
+    color: ['#28efff', '#f0c94f', '#74a8d8', '#a8b1bc'],
+    series: [{
+      type: 'pie',
+      radius: ['48%', '70%'],
+      center: ['48%', '52%'],
+      avoidLabelOverlap: false,
+      label: {
+        color: '#fff',
+        fontSize: 11
+      },
+      labelLine: {
+        length: 12,
+        length2: 10
+      },
+      itemStyle: {
+        borderColor: '#071729',
+        borderWidth: 2
+      },
+      data: [
+        {name: 'AWS', value: 65.45},
+        {name: 'Azure', value: 34.55}
+      ]
+    }]
+  });
+
+  const cloudTrend = echarts.init(document.getElementById('cloudTrend'));
+  cloudTrend.setOption({
+    animation: false,
+    color: ['#28efff', '#f0c94f', '#aeb9c3'],
+    grid: {left: 34, right: 14, top: 28, bottom: 28},
+    legend: {
+      top: 0,
+      left: 30,
+      itemWidth: 7,
+      itemHeight: 7,
+      textStyle: {color: '#e9fbff', fontSize: 10}
+    },
+    xAxis: {
+      type: 'category',
+      data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+      axisLabel: {color: axisColor, fontSize: 10},
+      axisLine: {lineStyle: {color: splitLineColor}},
+      splitLine: {show: false}
+    },
+    yAxis: {
+      type: 'value',
+      axisLabel: {color: axisColor, fontSize: 10},
+      splitLine: {lineStyle: {color: splitLineColor, type: 'dashed'}}
+    },
+    series: [
+      {
+        name: 'AWS',
+        type: 'line',
+        smooth: true,
+        symbolSize: 5,
+        data: [300, 500, 800, 600, 900, 1100, 1000, 950, 1200, 1300, 900, 1400]
+      },
+      {
+        name: 'Azure',
+        type: 'line',
+        smooth: true,
+        symbolSize: 5,
+        data: [200, 400, 600, 700, 650, 900, 1200, 1150, 1300, 1250, 1100, 1500]
+      },
+      {
+        name: '华为公有云',
+        type: 'line',
+        smooth: true,
+        symbolSize: 5,
+        data: [100, 200, 300, 400, 500, 550, 600, 650, 700, 750, 800, 900]
+      }
+    ]
+  });
+
+  const accountShare = echarts.init(document.getElementById('accountShare'));
+  accountShare.setOption({
+    animation: false,
+    color: ['#28efff', '#f0c94f', '#6f95dc', '#a6b2bb'],
+    series: [{
+      type: 'pie',
+      radius: ['45%', '70%'],
+      center: ['48%', '52%'],
+      label: {
+        color: '#fff',
+        fontSize: 11
+      },
+      labelLine: {
+        length: 12,
+        length2: 10
+      },
+      itemStyle: {
+        borderColor: '#071729',
+        borderWidth: 2
+      },
+      data: [
+        {name: 'HWC-A', value: 40},
+        {name: 'HWC-B', value: 30},
+        {name: 'HWC-C', value: 20},
+        {name: 'HWC-D', value: 10}
+      ]
+    }]
+  });
+
+  const regionTrend = echarts.init(document.getElementById('regionTrend'));
+  regionTrend.setOption({
+    animation: false,
+    color: ['#28efff', '#f0c94f', '#aeb9c3', '#6aa0e0'],
+    grid: {left: 30, right: 12, top: 26, bottom: 24},
+    legend: {
+      top: 0,
+      left: 20,
+      itemWidth: 8,
+      itemHeight: 6,
+      textStyle: {color: '#e9fbff', fontSize: 10}
+    },
+    xAxis: {
+      type: 'category',
+      data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+      axisLabel: {color: axisColor, fontSize: 10},
+      axisLine: {lineStyle: {color: splitLineColor}},
+      splitLine: {show: false}
+    },
+    yAxis: {
+      type: 'value',
+      axisLabel: {color: axisColor, fontSize: 10},
+      splitLine: {lineStyle: {color: splitLineColor, type: 'dashed'}}
+    },
+    series: [
+      {
+        name: 'Region1',
+        type: 'line',
+        smooth: true,
+        symbolSize: 5,
+        data: [500, 600, 550, 700, 800, 900, 950, 1000, 1100, 1050, 1200, 1300]
+      },
+      {
+        name: 'Region2',
+        type: 'line',
+        smooth: true,
+        symbolSize: 5,
+        data: [400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950]
+      },
+      {
+        name: 'Region3',
+        type: 'line',
+        smooth: true,
+        symbolSize: 5,
+        data: [300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850]
+      },
+      {
+        name: 'Region4',
+        type: 'line',
+        smooth: true,
+        symbolSize: 5,
+        data: [200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750]
+      }
+    ]
+  });
+
+  const projectShare = echarts.init(document.getElementById('projectShare'));
+  projectShare.setOption({
+    animation: false,
+    color: ['#28efff', '#f0c94f', '#6f95dc', '#a6b2bb'],
+    series: [{
+      type: 'pie',
+      radius: ['46%', '70%'],
+      center: ['48%', '52%'],
+      label: {
+        color: '#fff',
+        fontSize: 11
+      },
+      labelLine: {
+        length: 12,
+        length2: 10
+      },
+      itemStyle: {
+        borderColor: '#071729',
+        borderWidth: 2
+      },
+      data: [
+        {name: 'Project A', value: 42.64},
+        {name: 'Project B', value: 31.57},
+        {name: 'Project C', value: 18.79},
+        {name: 'Project D', value: 7}
+      ]
+    }]
+  });
+
+  const projectTrend = echarts.init(document.getElementById('projectTrend'));
+  projectTrend.setOption({
+    animation: false,
+    color: ['#28efff', '#f0c94f', '#6f95dc', '#a6b2bb', '#f2913a'],
+    grid: {left: 35, right: 18, top: 28, bottom: 24},
+    legend: {
+      top: 0,
+      left: 'center',
+      itemWidth: 8,
+      itemHeight: 6,
+      textStyle: {color: '#e9fbff', fontSize: 10}
+    },
+    xAxis: {
+      type: 'category',
+      data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+      axisLabel: {color: axisColor, fontSize: 11},
+      axisLine: {lineStyle: {color: splitLineColor}},
+      splitLine: {show: false}
+    },
+    yAxis: {
+      type: 'value',
+      axisLabel: {color: axisColor, fontSize: 10},
+      splitLine: {lineStyle: {color: splitLineColor, type: 'dashed'}}
+    },
+    series: [
+      {name: 'Project A', type: 'line', smooth: true, symbolSize: 5, data: [500, 600, 650, 550, 800, 900, 950, 1000, 1100, 1050, 1200, 1300]},
+      {name: 'Project B', type: 'line', smooth: true, symbolSize: 5, data: [400, 450, 500, 450, 500, 550, 600, 650, 700, 750, 800, 850]},
+      {name: 'Project C', type: 'line', smooth: true, symbolSize: 5, data: [300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850]},
+      {name: 'Project D', type: 'line', smooth: true, symbolSize: 5, data: [200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750]},
+      {name: 'Project E', type: 'line', smooth: true, symbolSize: 5, data: [200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750]}
+    ]
+  });
+</script>
+</body>
+</html>

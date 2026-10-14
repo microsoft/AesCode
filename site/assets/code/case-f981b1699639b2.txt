@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>EAGLENET Executive Summary Infographic</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9eeee;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1824px;
+    height: 1136px;
+    background: #fbfbfb;
+    border: 2px solid #c6c6c6;
+  }
+
+  .left-panel {
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    width: 583px;
+    height: 1118px;
+    background:
+      radial-gradient(circle at 30% 88%, rgba(14, 220, 210, 0.18), transparent 28%),
+      linear-gradient(180deg, #063943 0%, #06323b 52%, #042a34 100%);
+    border-radius: 26px;
+    color: #fff;
+    overflow: hidden;
+    box-shadow: inset 0 0 28px rgba(0,0,0,0.28);
+  }
+
+  .main-heading {
+    position: absolute;
+    left: 48px;
+    top: 48px;
+    font-size: 46px;
+    line-height: 1.22;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .accent-line {
+    position: absolute;
+    left: 48px;
+    width: 100px;
+    height: 8px;
+    background: #20c9c7;
+    border-radius: 8px;
+  }
+
+  .accent-line.one {
+    top: 210px;
+  }
+
+  .accent-line.two {
+    top: 332px;
+    left: 205px;
+    width: 78px;
+  }
+
+  .accent-line.three {
+    top: 606px;
+    left: 205px;
+    width: 78px;
+  }
+
+  .vision-block {
+    position: absolute;
+    left: 202px;
+    top: 268px;
+    width: 330px;
+  }
+
+  .mission-block {
+    position: absolute;
+    left: 202px;
+    top: 560px;
+    width: 330px;
+  }
+
+  .section-title {
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 14px;
+  }
+
+  .section-copy {
+    font-size: 24px;
+    line-height: 1.42;
+    font-weight: 500;
+  }
+
+  .icon-eye {
+    position: absolute;
+    left: 52px;
+    top: 282px;
+    width: 105px;
+    height: 105px;
+  }
+
+  .icon-target {
+    position: absolute;
+    left: 52px;
+    top: 548px;
+    width: 110px;
+    height: 110px;
+  }
+
+  .cityscape {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 583px;
+    height: 340px;
+    opacity: 0.95;
+    background:
+      linear-gradient(160deg, transparent 0 33%, rgba(20,230,220,0.14) 34% 36%, transparent 37%),
+      linear-gradient(20deg, transparent 0 39%, rgba(20,230,220,0.12) 40% 42%, transparent 43%);
+    border-bottom: 1px solid rgba(20,220,210,0.25);
+  }
+
+  .building {
+    position: absolute;
+    bottom: 58px;
+    background: rgba(12, 160, 180, 0.35);
+    border: 1px solid rgba(20,240,230,0.55);
+    clip-path: polygon(50% 0, 96% 18%, 100% 100%, 0 100%, 4% 18%);
+  }
+
+  .building.b1 {
+    left: 68px;
+    width: 86px;
+    height: 135px;
+  }
+
+  .building.b2 {
+    left: 198px;
+    width: 155px;
+    height: 170px;
+  }
+
+  .building.b3 {
+    left: 330px;
+    width: 78px;
+    height: 112px;
+  }
+
+  .bank-text {
+    position: absolute;
+    left: 270px;
+    bottom: 122px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(255,255,255,0.6);
+  }
+
+  .cards-area {
+    position: absolute;
+    left: 645px;
+    top: 60px;
+    width: 1120px;
+    height: 495px;
+  }
+
+  .info-card {
+    position: absolute;
+    width: 550px;
+    height: 230px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #10b5aa 0%, #0b9593 52%, #0a8987 100%);
+    overflow: hidden;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.14);
+  }
+
+  .info-card.card-1 {
+    left: 0;
+    top: 0;
+  }
+
+  .info-card.card-2 {
+    left: 584px;
+    top: 0;
+  }
+
+  .info-card.card-3 {
+    left: 0;
+    top: 255px;
+  }
+
+  .info-card.card-4 {
+    left: 584px;
+    top: 255px;
+  }
+
+  .card-tab {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 170px;
+    height: 128px;
+    background: linear-gradient(145deg, #0a5566 0%, #073848 100%);
+    clip-path: polygon(0 0, 45% 0, 100% 0, 82% 100%, 0 100%);
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 0;
+  }
+
+  .card-title {
+    position: absolute;
+    left: 195px;
+    top: 43px;
+    width: 310px;
+    font-size: 36px;
+    font-weight: 850;
+    color: #fff;
+  }
+
+  .card-text {
+    position: absolute;
+    left: 195px;
+    top: 110px;
+    width: 340px;
+    color: #fff;
+    font-size: 25px;
+    line-height: 1.38;
+    font-weight: 700;
+  }
+
+  .card-icon {
+    position: absolute;
+    left: 50px;
+    top: 34px;
+    width: 70px;
+    height: 70px;
+    color: #fff;
+    z-index: 2;
+  }
+
+  .card-icon.growth {
+    top: 32px;
+    left: 48px;
+    width: 78px;
+    height: 70px;
+  }
+
+  .card-icon.people {
+    left: 45px;
+    width: 82px;
+    height: 72px;
+  }
+
+  .separator {
+    position: absolute;
+    left: 645px;
+    top: 578px;
+    width: 1120px;
+    height: 1px;
+    background: #c6c6c6;
+  }
+
+  .financial-section {
+    position: absolute;
+    left: 645px;
+    top: 610px;
+    width: 580px;
+    height: 480px;
+  }
+
+  .section-title-financial {
+    font-size: 39px;
+    font-weight: 850;
+    color: #074454;
+    margin-bottom: 18px;
+  }
+
+  #barChart {
+    width: 560px;
+    height: 360px;
+  }
+
+  .legend-boxes {
+    display: flex;
+    align-items: center;
+    gap: 42px;
+    justify-content: center;
+    margin-top: 6px;
+    font-size: 20px;
+    color: #1d1d1d;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .legend-swatch {
+    width: 21px;
+    height: 21px;
+    display: inline-block;
+  }
+
+  .swatch-1 {
+    background: #0b8f93;
+  }
+
+  .swatch-2 {
+    background: #22c9c7;
+  }
+
+  .future-section {
+    position: absolute;
+    left: 1270px;
+    top: 610px;
+    width: 505px;
+    height: 450px;
+    border-left: 2px solid #c4c4c4;
+  }
+
+  .section-title-future {
+    font-size: 39px;
+    font-weight: 850;
+    color: #074454;
+    margin-bottom: 24px;
+  }
+
+  .goal-row {
+    position: relative;
+    min-height: 108px;
+    border-bottom: 1px solid #bdbdbd;
+  }
+
+  .goal-row:last-child {
+    border-bottom: none;
+  }
+
+  .circle-arrow {
+    position: absolute;
+    left: 0;
+    top: 20px;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: #0b9198;
+  }
+
+  .circle-arrow::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 15px;
+    width: 25px;
+    height: 25px;
+    border-top: 5px solid #fff;
+    border-right: 5px solid #fff;
+    transform: rotate(45deg);
+  }
+
+  .circle-arrow::after {
+    content: "";
+    position: absolute;
+    left: 13px;
+    top: 25px;
+    width: 35px;
+    height: 5px;
+    background: #fff;
+    border-radius: 4px;
+  }
+
+  .goal-label {
+    position: absolute;
+    left: 91px;
+    top: 14px;
+    font-size: 23px;
+    font-weight: 850;
+    color: #121722;
+    width: 220px;
+    line-height: 1.15;
+  }
+
+  .goal-subtitle {
+    position: absolute;
+    left: 91px;
+    top: 52px;
+    font-size: 21px;
+    color: #6a707e;
+  }
+
+  .goal-amount {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 48px;
+    color: #0a8557;
+    font-weight: 850;
+  }
+
+  .footer {
+    position: absolute;
+    right: 32px;
+    bottom: 23px;
+    color: #777;
+    font-size: 18px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <section class="left-panel">
+    <div class="main-heading">
+      <div>EAGLENET</div>
+      <div>EXECUTIVE SUMMARY</div>
+    </div>
+
+    <div class="accent-line one"></div>
+
+    <svg class="icon-eye" viewBox="0 0 105 105" aria-label="Vision eye icon">
+      <path d="M8 52 C28 28, 42 22, 54 22 C66 22, 80 29, 98 52 C80 76, 66 82, 54 82 C42 82, 28 76, 8 52 Z" fill="none" stroke="#fff" stroke-width="4"/>
+      <circle cx="54" cy="52" r="18" fill="none" stroke="#fff" stroke-width="4"/>
+      <circle cx="54" cy="52" r="8" fill="#fff"/>
+      <line x1="54" y1="7" x2="54" y2="22" stroke="#fff" stroke-width="4"/>
+      <line x1="54" y1="82" x2="54" y2="96" stroke="#fff" stroke-width="4"/>
+      <line x1="12" y1="20" x2="23" y2="28" stroke="#fff" stroke-width="4"/>
+      <line x1="85" y1="20" x2="74" y2="28" stroke="#fff" stroke-width="4"/>
+      <line x1="12" y1="80" x2="24" y2="72" stroke="#fff" stroke-width="4"/>
+      <line x1="85" y1="80" x2="74" y2="72" stroke="#fff" stroke-width="4"/>
+    </svg>
+
+    <div class="vision-block">
+      <div class="section-title">Vision</div>
+      <div class="accent-line two"></div>
+      <div class="section-copy">To be the leading provider of innovative cybersecurity solutions, ensuring the safety and security of banking data worldwide.</div>
+    </div>
+
+    <svg class="icon-target" viewBox="0 0 110 110" aria-label="Mission target icon">
+      <circle cx="52" cy="52" r="44" fill="none" stroke="#fff" stroke-width="5"/>
+      <circle cx="52" cy="52" r="26" fill="none" stroke="#fff" stroke-width="5"/>
+      <circle cx="52" cy="52" r="11" fill="none" stroke="#fff" stroke-width="4"/>
+      <line x1="52" y1="52" x2="79" y2="27" stroke="#fff" stroke-width="6"/>
+      <polygon points="74,16 84,33 65,30" fill="#fff"/>
+    </svg>
+
+    <div class="mission-block">
+      <div class="section-title">Mission</div>
+      <div class="accent-line three"></div>
+      <div class="section-copy">To deliver state-of-the-art cybersecurity services that protect our clients' data, fostering trust through continuous innovation and exceptional customer service.</div>
+    </div>
+
+    <div class="cityscape">
+      <div class="building b1"></div>
+      <div class="building b2"></div>
+      <div class="building b3"></div>
+      <div class="bank-text">BANK</div>
+    </div>
+  </section>
+
+  <section class="cards-area">
+    <div class="info-card card-1">
+      <div class="card-tab"></div>
+      <svg class="card-icon" viewBox="0 0 80 80" aria-label="Business icon">
+        <path d="M12 20 L42 10 L72 20" fill="none" stroke="#fff" stroke-width="5"/>
+        <path d="M22 24 H60 V70 H22 Z" fill="none" stroke="#fff" stroke-width="4"/>
+        <line x1="30" y1="42" x2="30" y2="62" stroke="#fff" stroke-width="4"/>
+        <line x1="44" y1="42" x2="44" y2="62" stroke="#fff" stroke-width="4"/>
+        <line x1="58" y1="42" x2="58" y2="62" stroke="#fff" stroke-width="4"/>
+      </svg>
+      <div class="card-title">Business</div>
+      <div class="card-text">• Comprehensive<br>cybersecurity for banks.</div>
+    </div>
+
+    <div class="info-card card-2">
+      <div class="card-tab"></div>
+      <svg class="card-icon" viewBox="0 0 80 80" aria-label="Target icon">
+        <circle cx="40" cy="40" r="22" fill="none" stroke="#fff" stroke-width="5"/>
+        <circle cx="40" cy="40" r="9" fill="none" stroke="#fff" stroke-width="4"/>
+        <line x1="18" y1="40" x2="62" y2="40" stroke="#fff" stroke-width="5"/>
+        <line x1="40" y1="19" x2="40" y2="64" stroke="#fff" stroke-width="5"/>
+        <circle cx="40" cy="40" r="4" fill="#fff"/>
+      </svg>
+      <div class="card-title">Target</div>
+      <div class="card-text">• Major banks and<br>institutions.</div>
+    </div>
+
+    <div class="info-card card-3">
+      <div class="card-tab"></div>
+      <svg class="card-icon growth" viewBox="0 0 86 80" aria-label="Growth icon">
+        <rect x="14" y="52" width="15" height="20" fill="#fff"/>
+        <rect x="38" y="40" width="15" height="32" fill="#fff"/>
+        <rect x="62" y="22" width="15" height="50" fill="#fff"/>
+        <path d="M14 42 C38 28, 50 22, 72 10" fill="none" stroke="#fff" stroke-width="5"/>
+        <polygon points="58,12 72,10 67,24" fill="#fff"/>
+      </svg>
+      <div class="card-title">Growth</div>
+      <div class="card-text">• Increased revenue<br>and clients.</div>
+    </div>
+
+    <div class="info-card card-4">
+      <div class="card-tab"></div>
+      <svg class="card-icon people" viewBox="0 0 90 80" aria-label="Management icon">
+        <circle cx="46" cy="20" r="12" fill="#fff"/>
+        <circle cx="23" cy="31" r="10" fill="#fff"/>
+        <circle cx="69" cy="31" r="10" fill="#fff"/>
+        <rect x="20" y="48" width="18" height="22" rx="8" fill="#fff"/>
+        <rect x="62" y="48" width="18" height="22" rx="8" fill="#fff"/>
+        <rect x="36" y="49" width="22" height="25" rx="8" fill="#fff"/>
+        <line x1="47" y1="52" x2="47" y2="64" stroke="#063943" stroke-width="4"/>
+        <line x1="40" y1="60" x2="54" y2="60" stroke="#063943" stroke-width="3"/>
+      </svg>
+      <div class="card-title">Management</div>
+      <div class="card-text">• Experienced<br>cybersecurity<br>professionals.</div>
+    </div>
+  </section>
+
+  <div class="separator"></div>
+
+  <section class="financial-section">
+    <div class="section-title-financial">Financial</div>
+    <div id="barChart"></div>
+    <div class="legend-boxes">
+      <div class="legend-item"><span class="legend-swatch swatch-1"></span><span>Series 1</span></div>
+      <div class="legend-item"><span class="legend-swatch swatch-2"></span><span>Series 2</span></div>
+    </div>
+  </section>
+
+  <section class="future-section">
+    <div class="section-title-future">Future Goals</div>
+
+    <div class="goal-row">
+      <div class="circle-arrow"></div>
+      <div class="goal-label">Revenue Target</div>
+      <div class="goal-subtitle">Annual Revenue Goal</div>
+      <div class="goal-amount">$24M</div>
+    </div>
+
+    <div class="goal-row">
+      <div class="circle-arrow"></div>
+      <div class="goal-label">New Clients</div>
+      <div class="goal-subtitle">Client Acquisition</div>
+      <div class="goal-amount">32M</div>
+    </div>
+
+    <div class="goal-row">
+      <div class="circle-arrow"></div>
+      <div class="goal-label">R&amp;D Investment</div>
+      <div class="goal-subtitle">Training and Tech</div>
+      <div class="goal-amount">$18M</div>
+    </div>
+  </section>
+
+  <div class="footer">SLIDEMODEL.COM</div>
+</div>
+
+<script>
+  const chart = echarts.init(document.getElementById('barChart'));
+  chart.setOption({
+    animation: false,
+    grid: {
+      left: 58,
+      right: 20,
+      top: 35,
+      bottom: 70
+    },
+    xAxis: {
+      type: 'category',
+      data: ['Revenue\nGrowth', 'Client\nExpansion', 'New\nProducts', 'Market\nPenetration'],
+      axisLine: { lineStyle: { color: '#8f8f8f' } },
+      axisTick: { show: false },
+      axisLabel: {
+        color: '#1f1f1f',
+        fontSize: 20,
+        lineHeight: 24,
+        interval: 0
+      }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: 5,
+      interval: 1,
+      axisLine: { show: true, lineStyle: { color: '#8f8f8f' } },
+      axisTick: { show: false },
+      splitLine: {
+        lineStyle: {
+          color: '#c9c9c9',
+          type: 'dashed'
+        }
+      },
+      axisLabel: {
+        color: '#222',
+        fontSize: 20
+      }
+    },
+    series: [
+      {
+        name: 'Series 1',
+        type: 'bar',
+        data: [4.2, 2.5, 3.5, 4.4],
+        barWidth: 26,
+        barGap: '38%',
+        itemStyle: {
+          color: '#0b8f93'
+        },
+        label: {
+          show: true,
+          position: 'top',
+          color: '#222',
+          fontSize: 18
+        }
+      },
+      {
+        name: 'Series 2',
+        type: 'bar',
+        data: [2.5, 4.3, 1.9, 2.8],
+        barWidth: 26,
+        itemStyle: {
+          color: '#22c9c7'
+        },
+        label: {
+          show: true,
+          position: 'top',
+          color: '#222',
+          fontSize: 18
+        }
+      }
+    ]
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Aurelia SaaS Marketing Page</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #ece8e4;
+    color: #1f252d;
+    font-family: "Inter", "Avenir", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 853px;
+    height: 1280px;
+    overflow: hidden;
+    background: #fbfaf8;
+  }
+
+  .header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 853px;
+    height: 40px;
+    border-bottom: 1px solid #e6e1dc;
+    background: #fffdfc;
+    display: flex;
+    align-items: center;
+    padding: 0 82px;
+    gap: 32px;
+    z-index: 10;
+    font-size: 9px;
+  }
+
+  .brand {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+    color: #262626;
+  }
+
+  .nav {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    color: #56595d;
+  }
+
+  .nav a {
+    color: #585c61;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 17px;
+    align-items: center;
+  }
+
+  .login {
+    font-size: 9px;
+    color: #363a3f;
+  }
+
+  .start-trial-top {
+    background: #1b2632;
+    color: #fff;
+    border: 0;
+    border-radius: 5px;
+    padding: 8px 13px;
+    font-size: 8.5px;
+    font-weight: 700;
+  }
+
+  /* Hero */
+  .hero {
+    position: absolute;
+    left: 0;
+    top: 40px;
+    width: 853px;
+    height: 304px;
+    background: #fbfbfa;
+    border-bottom: 1px solid #eee9e5;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    position: absolute;
+    left: 82px;
+    top: 47px;
+    width: 315px;
+  }
+
+  .live-pill {
+    display: inline-block;
+    background: #f0ece8;
+    border: 1px solid #dfd6d0;
+    color: #5d574f;
+    border-radius: 3px;
+    padding: 4px 7px;
+    font-size: 8px;
+    margin-bottom: 12px;
+  }
+
+  .hero h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 30px;
+    letter-spacing: -0.9px;
+    line-height: 1.28;
+    margin: 0 0 11px;
+    max-width: 305px;
+    color: #202630;
+  }
+
+  .hero p {
+    margin: 0 0 20px;
+    color: #6d6d6d;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 11px;
+    margin-bottom: 10px;
+  }
+
+  .btn-dark {
+    background: #1c2733;
+    color: #fff;
+    border: 1px solid #1c2733;
+    border-radius: 5px;
+    padding: 9px 20px;
+    min-width: 92px;
+    text-align: center;
+    font-size: 9px;
+    font-weight: 700;
+    box-shadow: 0 8px 18px rgba(30, 35, 42, 0.08);
+  }
+
+  .btn-light {
+    background: #fff;
+    color: #2d3136;
+    border: 1px solid #cfc7c1;
+    border-radius: 5px;
+    padding: 9px 22px;
+    min-width: 84px;
+    text-align: center;
+    font-size: 9px;
+    font-weight: 700;
+  }
+
+  .note {
+    display: flex;
+    gap: 27px;
+    color: #7d7d7d;
+    font-size: 8.5px;
+  }
+
+  .dashboard-card {
+    position: absolute;
+    top: 38px;
+    right: 55px;
+    width: 360px;
+    height: 235px;
+    background: #fff;
+    border: 1px solid #e5ddd7;
+    border-radius: 7px;
+    box-shadow: 0 21px 38px rgba(60, 45, 30, 0.11);
+    padding: 13px;
+    overflow: hidden;
+  }
+
+  .dash-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #6c6c6c;
+    font-size: 8.5px;
+    height: 17px;
+  }
+
+  .dash-greeting {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 9px;
+    margin-top: 8px;
+  }
+
+  .stat {
+    width: 97px;
+    text-align: center;
+    border-right: 1px solid #e8e3de;
+  }
+
+  .stat:last-child {
+    border-right: 0;
+  }
+
+  .stat strong {
+    display: block;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 13px;
+    margin-top: 3px;
+    color: #23272c;
+  }
+
+  .recent-title {
+    margin-top: 10px;
+    font-size: 9px;
+    font-weight: 700;
+    color: #484d54;
+  }
+
+  .projects-list {
+    margin-top: 5px;
+    height: 78px;
+  }
+
+  .project-row {
+    display: flex;
+    align-items: center;
+    justify-content: space5between;
+    gap: 8px;
+    font-size: 8px;
+    color: #747474;
+    margin-bottom: 7px;
+  }
+
+  .project-name {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 9px;
+  }
+
+  .bar-wrap {
+    width: 72px;
+    height: 8px;
+    background: #e8e5e1;
+    border-radius: 99px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .bar-fill {
+    height: 100%;
+    background: #1d2834;
+    border-radius: 99px;
+  }
+
+  .activity-title {
+    margin-top: 5px;
+    font-size: 8.5px;
+    color: #4b5056;
+    font-weight: 700;
+  }
+
+  .activity-line {
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 7.5px;
+    color: #7a7a7a;
+    width: 288px;
+  }
+
+  /* Logo strip */
+  .logo-strip {
+    position: absolute;
+    left: 0;
+    top: 344px;
+    width: 853px;
+    height: 68px;
+    border-bottom: 1px solid #eee9e5;
+    text-align: center;
+    padding-top: 8px;
+  }
+
+  .logo-strip h2 {
+    margin: 0 0 6px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 12px;
+    color: #4c4c4c;
+  }
+
+  .logo-row {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #4c4c4c;
+  }
+
+  /* Features */
+  .features {
+    position: absolute;
+    left: 0;
+    top: 412px;
+    width: 853px;
+    height: 188px;
+    background: #fbfbfa;
+  }
+
+  .features h2 {
+    margin: 0 0 9px;
+    text-align: center;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    color: #282c31;
+  }
+
+  .features-subtitle {
+    text-align: center;
+    color: #777;
+    font-size: 10px;
+    margin-bottom: 13px;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 13px 28px;
+  }
+
+  .feature-card {
+    height: 76px;
+    border: 1px solid #eee7e2;
+    border-radius: 6px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 12px 12px;
+    gap: 11px;
+  }
+
+  .icon-box {
+    width: 28px;
+    height: 28px;
+    background: #f0ece8;
+    border-radius: 6px;
+    flex: 0 0 auto;
+  }
+
+  .feature-card h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 11px;
+    margin: 0 0 4px;
+  }
+
+  .feature-card p {
+    margin: 0;
+    color: #7a7a7a;
+    font-size: 8.5px;
+    line-height: 1.35;
+  }
+
+  /* Pricing */
+  .pricing {
+    position: absolute;
+    left: 0;
+    top: 600px;
+    width: 853px;
+    height: 270px;
+    background: #fbfbfa;
+    text-align: center;
+  }
+
+  .pricing h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    margin: 0 0 6px;
+  }
+
+  .pricing-subtitle {
+    margin: 0 auto 20px;
+    color: #777;
+    font-size: 9px;
+    width: 240px;
+  }
+
+  .pricing-cards {
+    width: 588px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+
+  .price-card {
+    min-height: 165px;
+    border: 1px solid #ddd4cb;
+    border-radius: 6px;
+    background: #fff;
+    padding: 10px 12px 10px;
+    position: relative;
+  }
+
+  .price-card.pro {
+    border: 1px solid #26303a;
+    box-shadow: 0 14px 28px rgba(30, 35, 42, 0.13);
+  }
+
+  .popular {
+    display: inline-block;
+    background: #1d2733;
+    color: #fff;
+    font-size: 7px;
+    font-weight: 800;
+    border-radius: 4px;
+    padding: 3px 10px;
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+
+  .price-card h3 {
+    margin: 0 0 4px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 12px;
+    color: #282c31;
+  }
+
+  .price-card .price {
+    font-size: 19px;
+    font-family: Georgia, "Times New Roman", serif;
+    color: #20262c;
+  }
+
+  .price-card ul {
+    margin: 7px 0 10px;
+    padding-left: 9px;
+    color: #696969;
+    font-size: 8.5px;
+  }
+
+  .price-card li {
+    margin-bottom: 2px;
+  }
+
+  .price-btn {
+    width: 100%;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid #cfc7c1;
+    background: #fff;
+    font-size: 8.5px;
+    font-weight: 700;
+  }
+
+  .price-btn.dark {
+    background: #1e2834;
+    border-color: #1e2834;
+    color: #fff;
+  }
+
+  .trial-note {
+    color: #777;
+    font-size: 8.5px;
+    margin-top: 5px;
+  }
+
+  /* Customers */
+  .customers {
+    position: absolute;
+    left: 0;
+    top: 870px;
+    width: 853px;
+    height: 180px;
+    background: #fbfbfa;
+    text-align: center;
+  }
+
+  .customers h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    margin: 0 0 11px;
+  }
+
+  .testimonial-row {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .testimonial-card {
+    width: 172px;
+    min-height: 87px;
+    border: 1px solid #e5ddd7;
+    border-radius: 6px;
+    background: #fff;
+    padding: 10px;
+    text-align: left;
+  }
+
+  .quote-icon {
+    color: #bcb4ad;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 24px;
+    line-height: 1;
+    display: block;
+  }
+
+  .testimonial-card p {
+    margin: 0 0 7px;
+    color: #6b6b6b;
+    font-size: 8.5px;
+    line-height: 1.35;
+  }
+
+  .person {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 9px;
+    color: #25292e;
+  }
+
+  .person small {
+    display: block;
+    color: #7a7a7a;
+    font-family: "Inter", Arial, sans-serif;
+    font-size: 7.5px;
+  }
+
+  .decor-left {
+    position: absolute;
+    left: -30px;
+    bottom: 30px;
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 40px 0 0 0;
+    opacity: 0.95;
+  }
+
+  .decor-right {
+    position: absolute;
+    right: -18px;
+    bottom: 32px;
+    width: 88px;
+    height: 88px;
+    object-fit: cover;
+    border-radius: 50%;
+    opacity: 0.95;
+  }
+
+  /* Footer */
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 853px;
+    height: 130px;
+    background: #e8e2dc;
+    border-top: 1px solid #ddd1c8;
+    color: #5c554e;
+    padding: 14px 144px;
+  }
+
+  .footer-brand {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+
+  .footer .tagline {
+    font-size: 8.5px;
+    line-height: 1.35;
+    margin-bottom: 8px;
+    width: 145px;
+  }
+
+  .footer-cols {
+    display: grid;
+    grid-template-columns: 72px 80px 80px 78px 110px;
+    gap: 0;
+    font-size: 8px;
+    margin-left: 130px;
+  }
+
+  .foot-col h4 {
+    margin: 0 0 6px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 8.5px;
+    text-transform: uppercase;
+    color: #403932;
+    font-weight: 700;
+  }
+
+  .foot-col a {
+    color: #5e554c;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 3px;
+    font-size: 7.8px;
+  }
+
+  .address {
+    margin-top: -2px;
+    font-size: 7.6px;
+    line-height: 1.35;
+  }
+
+  .copyright {
+    position: absolute;
+    left: 144px;
+    bottom: 8px;
+    color: #777;
+    font-size: 7px;
+  }
+
+  .made {
+    position: absolute;
+    right: 146px;
+    bottom: 8px;
+    color: #777;
+    font-size: 7px;
+  }
+
+  .soft-leaves {
+    position: absolute;
+    right: -18px;
+    top: 51px;
+    width: 92px;
+    height: 160px;
+    opacity: 0.55;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <header class="header">
+    <div class="brand">Aurelia</div>
+    <nav class="nav">
+      <a href="#">Features</a>
+      <a href="#">Pricing</a>
+      <a href="#">Customers</a>
+      <a href="#">Resources</a>
+    </nav>
+    <div class="header-actions">
+      <div class="login">Log in</div>
+      <button class="start-trial-top">Start free trial</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-left">
+      <div class="live-pill">Aurelia 2.0 is now live</div>
+      <h1>Project management<br>made beautifully simple</h1>
+      <p>Aurelia helps teams plan, collaborate, and deliver<br>work that matters. All in one place.</p>
+      <div class="hero-buttons">
+        <button class="btn-dark">Start free trial</button>
+        <button class="btn-light">Book a demo</button>
+      </div>
+      <div class="note">
+        <span>✓ No credit card required</span>
+        <span>✓ Cancel anytime</span>
+      </div>
+    </div>
+
+    <div class="dashboard-card">
+      <div class="dash-top">
+        <div>Aurelia</div>
+        <div>Search anything...</div>
+      </div>
+      <div class="dash-greeting">Good morning, Olivia</div>
+      <div class="stats-row">
+        <div class="stat">
+          <div>Tasks Planned</div>
+          <strong>24</strong>
+        </div>
+        <div class="stat">
+          <div>Tasks Completed</div>
+          <strong>64%</strong>
+        </div>
+        <div class="stat">
+          <div>Team Workload</div>
+          <strong>Balanced</strong>
+        </div>
+      </div>
+      <div class="recent-title">Recent Projects</div>
+      <div class="projects-list">
+        <div class="project-row">
+          <div class="project-name">Website Redesign</div>
+          <div class="bar-wrap"><div class="bar-fill" style="width:75%;"></div></div>
+        </div>
+        <div class="project-row">
+          <div class="project-name">Mobile App Launch</div>
+          <div class="bar-wrap"><div class="bar-fill" style="width:60%;"></div></div>
+        </div>
+        <div class="project-row">
+          <div class="project-name">Marketing Campaign</div>
+          <div class="bar-wrap"><div class="bar-fill" style="width:30%;"></div></div>
+        </div>
+      </div>
+      <div class="activity-title">Team Activity</div>
+      <div class="activity-line">
+        <span>Emma completed Design System update</span>
+        <span style="margin-left:auto;color:#8d8d8d;">2h ago</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="logo-strip">
+    <h2>Trusted by modern teams at</h2>
+    <div class="logo-row">
+      <span>Northwind</span>
+      <span>LessOn</span>
+      <span>CloudBase</span>
+      <span>SiteMark</span>
+      <span>LUMEN</span>
+      <span>vertex</span>
+    </div>
+  </section>
+
+  <section class="features">
+    <h2>FEATURES</h2>
+    <div class="features-subtitle">Everything your team needs to do their best work</div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="icon-box"></div>
+        <div>
+          <h3>Smart Projects</h3>
+          <p>Plan projects with clarity and keep everything organized in one place.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="icon-box"></div>
+        <div>
+          <h3>Task Management</h3>
+          <p>Break work down, set priorities, and get more done together.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="icon-box"></div>
+        <div>
+          <h3>Team Collaboration</h3>
+          <p>Communicate in context and keep everyone aligned.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="icon-box"></div>
+        <div>
+          <h3>Time Tracking</h3>
+          <p>Track time effortlessly and understand what drives results.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="icon-box"></div>
+        <div>
+          <h3>Powerful Reports</h3>
+          <p>Turn data into insights and make confident decisions.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="icon-box"></div>
+        <div>
+          <h3>Integrations</h3>
+          <p>Connect your favorite tools and streamline your workflow.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing">
+    <div class="pricing-label" style="font-size:8px;color:#8c7a67;font-weight:800;">PRICING</div>
+    <h2>Simple, transparent pricing</h2>
+    <div class="pricing-subtitle">Choose the plan that works for your team.</div>
+
+    <div class="pricing-cards">
+      <div class="price-card">
+        <h3>Starter</h3>
+        <div class="price">$0</div>
+        <ul>
+          <li>✓ Up to 5 users</li>
+          <li>✓ 3 projects</li>
+          <li>✓ Basic integrations</li>
+          <li>✓ Community support</li>
+        </ul>
+        <button class="price-btn">Get started</button>
+      </div>
+
+      <div class="price-card pro">
+        <div class="popular">MOST POPULAR</div>
+        <h3>Pro</h3>
+        <div class="price">$9</div>
+        <ul>
+          <li>✓ Unlimited projects</li>
+          <li>✓ Advanced reports</li>
+          <li>✓ Time tracking</li>
+          <li>✓ Team support</li>
+          <li>✓ All integrations</li>
+        </ul>
+        <button class="price-btn dark">Start free trial</button>
+      </div>
+
+      <div class="price-card">
+        <h3>Business</h3>
+        <div class="price">$16</div>
+        <ul>
+          <li>✓ Everything in Pro</li>
+          <li>✓ Custom roles & permissions</li>
+          <li>✓ SLA & onboarding</li>
+          <li>✓ Dedicated support</li>
+        </ul>
+        <button class="price-btn">Contact sales</button>
+      </div>
+    </div>
+
+    <div class="trial-note">All plans include a 14-day free trial. No credit card required.</div>
+  </section>
+
+  <section class="customers">
+    <h2>CUSTOMERS</h2>
+    <h2>Loved by teams around the world</h2>
+
+    <div class="testimonial-row">
+      <div class="testimonial-card">
+        <span class="quote-icon">“</span>
+        <p>Aurelia has completely changed the way we manage projects. It is simple, powerful, and our team loves using it.</p>
+        <div class="person">Sophia Moore<br><small>Product Manager, Northwind</small></div>
+      </div>
+
+      <div class="testimonial-card">
+        <span class="quote-icon">“</span>
+        <p>The dashboards and reports give us visibility we never had before. It is a game-changer.</p>
+        <div class="person">James Carter<br><small>Head of Operations, CloudBase</small></div>
+      </div>
+
+      <div class="testimonial-card">
+        <span class="quote-icon">“</span>
+        <p>Setup was easy and the support team is incredibly responsive. Highly recommended!</p>
+        <div class="person">Maya Patel<br><small>Founder, SiteMark</small></div>
+      </div>
+    </div>
+
+    <img class="decor-left" src="https://placehold.co/200x200?text=Decor+Photo" alt="Decorative office photo">
+    <img class="decor-right" src="https://placehold.co/200x200?text=Decor+Photo" alt="Decorative office photo">
+  </section>
+
+  <footer class="footer">
+    <div class="footer-brand">Aurelia</div>
+    <div class="tagline">Aurelia is the all-in-one project management software for modern teams. Plan, collaborate, and deliver work that matters.</div>
+
+    <div class="footer-cols">
+      <div class="foot-col">
+        <h4>Product</h4>
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Integrations</a>
+      </div>
+      <div class="foot-col">
+        <h4>Resources</h4>
+        <a href="#">Help Center</a>
+        <a href="#">Guides</a>
+        <a href="#">Templates</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#">About Us</a>
+        <a href="#">Careers</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <div class="address">
+          Email: hello@aureliaapp.com<br>
+          Phone: +1 (555) 123-4567<br>
+          Address:<br>
+          123 Market St,<br>
+          CA 94103, USA
+        </div>
+      </div>
+    </div>
+
+    <div class="copyright">© 2024 Aurelia Technologies, Inc. All rights reserved.</div>
+    <div class="made">Made with ♥ by Aurelia</div>
+  </footer>
+</div>
+</body>
+</html>

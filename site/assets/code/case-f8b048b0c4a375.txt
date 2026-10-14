@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Software Architecture Styles Infographic</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    background: #d9f1f7;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1440px;
+    height: 2048px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 40%, rgba(255,255,255,0.75), rgba(214,245,249,0.88) 42%, rgba(190,239,241,0.95) 74%, rgba(200,244,244,1) 100%),
+      linear-gradient(120deg, #c5ecf8 0%, #e7f8f0 50%, #e9f3f0 100%);
+    color: #071a34;
+  }
+
+  .title {
+    position: absolute;
+    top: 18px;
+    left: 0;
+    width: 1440px;
+    text-align: center;
+    font-size: 86px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: -3px;
+    color: #092a78;
+    text-shadow: 0 2px 0 rgba(255,255,255,0.45);
+  }
+
+  /* Central wheel */
+  .wheel {
+    position: absolute;
+    left: 352px;
+    top: 520px;
+    width: 736px;
+    height: 855px;
+    border-radius: 50%;
+    border: 13px solid rgba(255,255,255,0.88);
+    box-shadow:
+      0 0 0 28px rgba(255,255,255,0.65),
+      0 0 0 42px rgba(201,222,225,0.75),
+      0 0 36px rgba(74,132,150,0.35);
+    background: conic-gradient(
+      #4572e6 0deg 50deg,
+      #f6b020 50deg 106deg,
+      #d431a5 106deg 166deg,
+      #f88434 166deg 220deg,
+      #27b8b6 220deg 280deg,
+      #4856d4 280deg 340deg,
+      #4e42d2 340deg 395deg,
+      #178bd3 395deg 450deg,
+      #f89426 450deg 510deg,
+      #3574df 510deg 570deg,
+      #1365bf 570deg 635deg,
+      #22b7bb 635deg 695deg,
+      #ff6935 695deg 750deg,
+      #4572e6 750deg 800deg,
+      #4e42d2 800deg 835deg,
+      #8fd06f 835deg 865deg,
+      #6d74db 865deg 880deg
+    );
+  }
+
+  .wheel::before {
+    content: "";
+    position: absolute;
+    inset: 130px;
+    border-radius: 50%;
+    border: 12px solid rgba(255,255,255,0.95);
+    background: conic-gradient(
+      #55b9e3 0deg 60deg,
+      #73ce78 60deg 120deg,
+      #ffd029 120deg 180deg,
+      #7861d4 180deg 240deg,
+      #27b8b6 240deg 300deg,
+      #d736a4 300deg 360deg
+    );
+  }
+
+  .wheel::after {
+    content: "";
+    position: absolute;
+    inset: 240px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: inset 0 0 22px rgba(90,110,130,0.25);
+    z-index: 3;
+  }
+
+  .center-label {
+    position: absolute;
+    z-index: 4;
+    inset: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 900;
+    color: #0c246e;
+    font-size: 36px;
+    letter-spacing: -1px;
+  }
+
+  .small-seg-label,
+  .outer-seg-label {
+    position: absolute;
+    z-index: 5;
+    color: #fff;
+    font-weight: 800;
+    text-shadow: 0 2px 2px rgba(0,0,0,0.22);
+    text-align: center;
+  }
+
+  .small-seg-label {
+    font-size: 19px;
+    width: 120px;
+  }
+
+  .outer-seg-label {
+    font-size: 22px;
+    width: 140px;
+  }
+
+  /* Text blocks */
+  .block {
+    position: absolute;
+    z-index: 2;
+  }
+
+  .block h2 {
+    margin: 0 0 12px 0;
+    font-size: 30px;
+    line-height: 1.15;
+    font-weight: 900;
+  }
+
+  .block p {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.38;
+    color: #111;
+  }
+
+  .orchestration {
+    left: 42px;
+    top: 155px;
+    width: 350px;
+  }
+
+  .cqrs {
+    left: 550px;
+    top: 155px;
+    width: 420px;
+  }
+
+  .layered {
+    left: 1065px;
+    top: 468px;
+    width: 330px;
+  }
+
+  .microkernel {
+    left: 1108px;
+    top: 640px;
+    width: 310px;
+  }
+
+  .microservice {
+    left: 1095px;
+    top: 1125px;
+    width: 310px;
+  }
+
+  .spacebased {
+    left: 1005px;
+    top: 1560px;
+    width: 385px;
+  }
+
+  .mvp {
+    left: 30px;
+    top: 668px;
+    width: 330px;
+  }
+
+  .event {
+    left: 30px;
+    top: 1280px;
+    width: 340px;
+  }
+
+  .ddd {
+    left: 590px;
+    top: 1440px;
+    width: 340px;
+  }
+
+  /* Layer legend */
+  .layer-stack {
+    position: absolute;
+    left: 1083px;
+    top: 164px;
+    width: 300px;
+  }
+
+  .layer-box {
+    width: 300px;
+    height: 58px;
+    border: 3px solid #246fc8;
+    border-radius: 9px;
+    margin-bottom: 8px;
+    background: #a9d8fb;
+    color: #0a1828;
+    font-weight: 800;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .layer-box:nth-child(2) { background: #b5e7ba; border-color: #45aa42; }
+  .layer-box:nth-child(3) { background: #ffe48d; border-color: #f19a10; }
+  .layer-box:nth-child(4) { background: #d8c4fa; border-color: #7447cc; }
+
+  /* Schematics */
+  .small-schematic {
+    position: absolute;
+    z-index: 2;
+  }
+
+  .orch-diagram {
+    left: 36px;
+    top: 330px;
+    width: 360px;
+    height: 240px;
+  }
+
+  .service-box {
+    position: absolute;
+    width: 108px;
+    height: 52px;
+    border-radius: 9px;
+    border: 4px solid #fff;
+    color: #fff;
+    font-weight: 900;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .box-a { left: 0; top: 0; background: #1697aa; }
+  .box-b { left: 122px; top: 0; background: #ffc336; }
+  .box-c { left: 248px; top: 0; background: #8d72dc; }
+
+  .db-small {
+    position: absolute;
+    width: 52px;
+    height: 62px;
+    top: 120px;
+    border-radius: 50% / 15%;
+    border: 5px solid #fff;
+  }
+
+  .db1 { left: 0; background: #1795a2; }
+  .db2 { left: 132px; background: #ffad17; }
+  .db3 { left: 265px; background: #7853d2; }
+
+  .cylinder {
+    position: absolute;
+    width: 66px;
+    height: 62px;
+    border-radius: 50% / 18%;
+    border: 4px solid #fff;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    color: #fff;
+    font-weight: 800;
+    font-size: 14px;
+  }
+
+  .line {
+    position: absolute;
+    height: 3px;
+    background: #222;
+  }
+
+  .arrow-line {
+    position: absolute;
+    height: 3px;
+    background: #222;
+  }
+
+  .cQRS-diagram {
+    left: 550px;
+    top: 295px;
+    width: 340px;
+    height: 190px;
+  }
+
+  .read-box, .write-box {
+    position: absolute;
+    width: 112px;
+    height: 78px;
+    border: 3px solid #fff;
+    font-weight: 900;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+  }
+
+  .read-box {
+    left: 0;
+    top: 0;
+    background: #c7ead0;
+  }
+
+  .write-box {
+    right: 0;
+    top: 0;
+    background: #b8d4ff;
+  }
+
+  .cQRS-db {
+    position: absolute;
+    left: 125px;
+    top: 92px;
+    width: 110px;
+    height: 62px;
+    border-radius: 50% / 20%;
+    background: #7444d2;
+    border: 4px solid #fff;
+    color: #fff;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* MVP */
+  .mvp-diagram {
+    left: 62px;
+    top: 840px;
+    width: 200px;
+    height: 310px;
+  }
+
+  .mvp-box {
+    position: absolute;
+    width: 180px;
+    height: 64px;
+    border-radius: 8px;
+    border: 4px solid #fff;
+    color: #fff;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .view-box { top: 0; background: #f3a2c9; }
+  .presenter-box { top: 104px; background: #ffd472; }
+  .model-box { top: 210px; background: #c1e4bf; }
+
+  /* Event */
+  .event-diagram {
+    left: 22px;
+    top: 1415px;
+    width: 460px;
+    height: 200px;
+  }
+
+  .checkout-box {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 92px;
+    height: 145px;
+    background: #c4e6bf;
+    border: 3px solid #fff;
+    border-radius: 8px;
+    font-weight: 900;
+  }
+
+  .broker-box {
+    position: absolute;
+    left: 170px;
+    top: 0;
+    width: 88px;
+    height: 138px;
+    background: #ffd06b;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    font-weight: 900;
+    font-size: 18px;
+  }
+
+  .consumer-box {
+    position: absolute;
+    top: 170px;
+    width: 145px;
+    height: 62px;
+    background: #bde4fb;
+    border: 3px solid #fff;
+    border-radius: 8px;
+  }
+
+  .consumer1 { left: 320px; }
+  .consumer2 { left: 320px; top: 228px; background: #cde7bb; }
+  .consumer3 { left: 320px; top: 288px; background: #d5c3fb; }
+
+  /* DDD */
+  .ddd-diagram {
+    left: 580px;
+    top: 1555px;
+    width: 340px;
+    height: 380px;
+  }
+
+  .ddd-layer {
+    position: absolute;
+    width: 330px;
+    height: 64px;
+    border-radius: 9px;
+    border: 4px solid #fff;
+    color: #fff;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ddd-interface { top: 0; background: #1565bc; font-size: 21px; }
+  .ddd-app { top: 92px; background: #46b582; font-size: 18px; }
+  .ddd-domain { top: 185px; background: #f68a22; font-size: 18px; }
+  .ddd-infra { top: 280px; background: #7458cc; font-size: 16px; }
+
+  /* Microservice schematic */
+  .micro-diagram {
+    left: 990px;
+    top: 1240px;
+    width: 400px;
+    height: 230px;
+  }
+
+  .ui-box {
+    position: absolute;
+    left: 110px;
+    top: 0;
+    width: 120px;
+    height: 45px;
+    background: #c7e8fb;
+    border: 3px solid #fff;
+    border-radius: 7px;
+    color: #1a2a38;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .service-node {
+    position: absolute;
+    top: 72px;
+    width: 64px;
+    height: 70px;
+    border: 3px solid #fff;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #071729;
+  }
+
+  .s1 { left: 25px; background: #8bb8ff; }
+  .s2 { left: 105px; background: #b5e4ba; }
+  .s3 { left: 184px; background: #ffc858; }
+  .s4 { left: 264px; background: #d6c2fb; }
+  .s5 { left: 340px; background: #7ed3d2; }
+
+  .mini-db {
+    position: absolute;
+    top: 155px;
+    width: 50px;
+    height: 48px;
+    border-radius: 50% / 18%;
+    border: 3px solid #fff;
+  }
+
+  .dbblue { left: 28px; background: #2781df; }
+  .dbgreen { left: 108px; background: #45bd60; }
+  .dborange { left: 188px; background: #ffad14; }
+  .dbpurple { left: 268px; background: #7751c7; }
+  .dbteal { left: 344px; background: #15b6b8; }
+
+  /* Space-based */
+  .space-diagram {
+    left: 985px;
+    top: 1725px;
+    width: 410px;
+    height: 250px;
+  }
+
+  .processing-row {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400px;
+    height: 80px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .pu {
+    width: 82px;
+    height: 70px;
+    background: #c8ecff;
+    border: 3px solid #fff;
+    border-radius: 8px;
+    color: #112233;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+  }
+
+  .middleware {
+    position: absolute;
+    left: 0;
+    top: 95px;
+    width: 400px;
+    height: 88px;
+    background: #1267b6;
+    border: 3px solid #fff;
+    border-radius: 8px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+  }
+
+  .mid-row {
+    position: absolute;
+    left: 15px;
+    top: 190px;
+    width: 370px;
+    height: 60px;
+    border: 2px solid #fff;
+    border-radius: 7px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .mid-box {
+    width: 105px;
+    height: 46px;
+    border-right: 1px solid rgba(255,255,255,0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+  }
+
+  /* Pattern icons */
+  .patterns {
+    position: absolute;
+    left: 30px;
+    top: 1720px;
+    width: 480px;
+    height: 260px;
+  }
+
+  .patterns h2 {
+    margin: 0 0 20px 0;
+    font-size: 25px;
+  }
+
+  .pattern-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px 14px;
+  }
+
+  .pattern-item {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 800;
+  }
+
+  .pattern-circle {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 6px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .icon-orange { background: #ff7a28; }
+  .icon-green { background: #63c863; }
+  .icon-blue { background: #2578d0; }
+  .icon-purple { background: #743ed0; }
+  .icon-pink { background: #f26a91; }
+  .icon-teal { background: #23b0ad; }
+  .icon-gold { background: #ffbf18; }
+  .icon-sky { background: #4198e8; }
+
+  /* Decorative arrows */
+  .decor-arrow {
+    position: absolute;
+    z-index: 1;
+    width: 240px;
+    height: 110px;
+    border-top: 3px dashed #1596a1;
+    border-radius: 50%;
+    opacity: 0.9;
+  }
+
+  .da1 { left: 340px; top: 390px; transform: rotate(-28deg); }
+  .da2 { left: 880px; top: 420px; width: 260px; border-top-color: #3493df; transform: rotate(235deg); }
+  .da3 { left: 220px; top: 705px; width: 180px; border-top-color: #e033a3; transform: rotate(136deg); }
+  .da4 { left: 440px; top: 1285px; width: 220px; border-top-color: #68d570; transform: rotate(108deg); }
+  .da5 { left: 720px; top: 1330px; width: 86px; border-top-color: #22b7bf; transform: rotate(46deg); }
+  .da6 { left: 880px; top: 1275px; width: 160px; border-top-color: #2275d2; transform: rotate(139deg); }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="title">Software Architecture Styles</div>
+
+  <div class="block orchestration">
+    <h2 style="color:#0d7585;">Orchestration Architecture</h2>
+    <p>A central orchestrator (coordinator) manages the control flow and data flow between services. It handles workflow, decisions, and service interactions.</p>
+  </div>
+
+  <div class="small-schematic orchest-diagram">
+    <div class="service-box box-a">Service A</div>
+    <div class="service-box box-b">Service B</div>
+    <div class="service-box box-c">Service C</div>
+    <div class="db-small db1"></div>
+    <div class="db-small db2"></div>
+    <div class="db-small db3"></div>
+  </div>
+
+  <div class="block cqrs">
+    <h2 style="color:#5227b8;">CQRS Architecture</h2>
+    <p>Separates read and write operations for a data store. Enables independent scaling of read and write workloads.</p>
+  </div>
+
+  <div class="small-schematic cQRS-diagram">
+    <div class="read-box">Read<br>Service</div>
+    <div class="write-box">Write<br>Service</div>
+    <div class="cQRS-db">Database</div>
+  </div>
+
+  <div class="layer-stack">
+    <div class="layer-box">Presentation Layer</div>
+    <div class="layer-box">Business Layer</div>
+    <div class="layer-box">Persistence Layer</div>
+    <div class="layer-box">Database Layer</div>
+  </div>
+
+  <div class="block layered">
+    <h2 style="color:#096bd1;">Layered (n-tier) Architecture</h2>
+    <p>Separates software into logical layers, each with a specific responsibility.</p>
+  </div>
+
+  <div class="block microkernel">
+    <h2 style="color:#e35b19;">Microkernel Architecture</h2>
+    <p>Separates a minimal functional core from extended functionality and customer-specific parts.</p>
+  </div>
+
+  <div class="block microservice">
+    <h2 style="color:#0759c7;">Microservice Architecture</h2>
+    <p>Designs a software application as a suite of independently deployable, small, modular services.</p>
+  </div>
+
+  <div class="small-schematic micro-diagram">
+    <div class="ui-box">UI</div>
+    <div class="service-node s1">Srv<br>1</div>
+    <div class="service-node s2">Srv<br>2</div>
+    <div class="service-node s3">Srv<br>3</div>
+    <div class="service-node s4">Srv<br>4</div>
+    <div class="service-node s5">Srv<br>N</div>
+    <div class="mini-db dbblue"></div>
+    <div class="mini-db dbgreen"></div>
+    <div class="mini-db dborange"></div>
+    <div class="mini-db dbpurple"></div>
+    <div class="mini-db dbteal"></div>
+  </div>
+
+  <div class="block spacebased">
+    <h2 style="color:#0953b2;">Space-Based Architecture</h2>
+    <p>Resolves issues of data consistency, reliable performance, and scalability for large-scale distributed systems.</p>
+  </div>
+
+  <div class="small-schematic space-diagram">
+    <div class="processing-row">
+      <div class="pu">Processing<br>Unit 1</div>
+      <div class="pu">Processing<br>Unit 2</div>
+      <div class="pu">Processing<br>Unit 3</div>
+      <div class="pu">Processing<br>Unit N</div>
+    </div>
+    <div class="middleware">Virtualized Middleware (Data Grid)</div>
+    <div class="mid-row">
+      <div class="mid-box">Messaging</div>
+      <div class="mid-box">Data Grid</div>
+      <div class="mid-box">Partitioning</div>
+    </div>
+  </div>
+
+  <div class="block mvp">
+    <h2 style="color:#c72288;">MVP Architecture</h2>
+    <p>Derived from the Model-View-Controller pattern. Separates the concerns of data management, user interface, and control flow.</p>
+  </div>
+
+  <div class="small-schematic mvp-diagram">
+    <div class="mvp-box view-box">View</div>
+    <div class="mvp-box presenter-box">Presenter</div>
+    <div class="mvp-box model-box">Model</div>
+  </div>
+
+  <div class="block event">
+    <h2 style="color:#0c7c43;">Event-Driven Architecture</h2>
+    <p>Promotes the production, detection, consumption of, and reaction to events.</p>
+  </div>
+
+  <div class="small-schematic event-diagram">
+    <div class="checkout-box">Checkout<br>Service</div>
+    <div class="broker-box">Message<br>Broker</div>
+    <div class="consumer-box consumer1">Email<br>Service</div>
+    <div class="consumer-box consumer2">Inventory<br>Service</div>
+    <div class="consumer-box consumer3">Analytics<br>Service</div>
+  </div>
+
+  <div class="block ddd">
+    <h2 style="color:#157494;">DDD Architecture</h2>
+    <p>Focuses on the domain logic and complexity rather than the technology used.</p>
+  </div>
+
+  <div class="small-schematic ddd-diagram">
+    <div class="ddd-layer ddd-interface">Interfaces (UI / API)</div>
+    <div class="ddd-layer ddd-app">Application (Use Cases)</div>
+    <div class="ddd-layer ddd-domain">Domain (Business Logic)</div>
+    <div class="ddd-layer ddd-infra">Infrastructure (Persistence, Messaging, External Systems)</div>
+  </div>
+
+  <div class="patterns">
+    <h2 style="color:#092a78;">Related Architectural Patterns</h2>
+    <div class="pattern-grid">
+      <div class="pattern-item"><div class="pattern-circle icon-orange">●</div>Client-Server</div>
+      <div class="pattern-item"><div class="pattern-circle icon-green">≡</div>Repository</div>
+      <div class="pattern-item"><div class="pattern-circle icon-blue">☁</div>Hexagonal</div>
+      <div class="pattern-item"><div class="pattern-circle icon-purple">▦</div>Facade</div>
+      <div class="pattern-item"><div class="pattern-circle icon-pink">⚙</div>Adapter</div>
+      <div class="pattern-item"><div class="pattern-circle icon-teal">♟</div>Pipe-and-Filter</div>
+      <div class="pattern-item"><div class="pattern-circle icon-gold">⌬</div>State Machine</div>
+      <div class="pattern-item"><div class="pattern-circle icon-sky">⛓</div>Circuit Breaker</div>
+    </div>
+  </div>
+
+  <div class="decor-arrow da1"></div>
+  <div class="decor-arrow da2"></div>
+  <div class="decor-arrow da3"></div>
+  <div class="decor-arrow da4"></div>
+  <div class="decor-arrow da5"></div>
+  <div class="decor-arrow da6"></div>
+
+  <!-- Central wheel -->
+  <div class="wheel">
+    <div class="center-label">Software<br>Architecture<br>Styles</div>
+
+    <!-- Outer ring labels -->
+    <div class="outer-seg-label" style="left:580px;top:50px;">Orchestration</div>
+    <div class="outer-seg-label" style="left:645px;top:155px;transform:rotate(30deg);">CQRS</div>
+    <div class="outer-seg-label" style="left:620px;top:290px;transform:rotate(-12deg);">Layered<br>(n-tier)</div>
+    <div class="outer-seg-label" style="left:580px;top:420px;transform:rotate(15deg);">Microkernel</div>
+    <div class="outer-seg-label" style="left:455px;top:490px;transform:rotate(10deg);">Microservices</div>
+    <div class="outer-seg-label" style="left:340px;top:500px;transform:rotate(0deg);">Space-Based</div>
+    <div class="outer-seg-label" style="left:220px;top:480px;transform:rotate(-25deg);">Publish-Subscribe</div>
+    <div class="outer-seg-label" style="left:135px;top:390px;transform:rotate(12deg);">Pipe-and-Filter</div>
+    <div class="outer-seg-label" style="left:95px;top:270px;transform:rotate(18deg);">Interpreter</div>
+    <div class="outer-seg-label" style="left:105px;top:160px;transform:rotate(-12deg);">Model-View-Presenter</div>
+    <div class="outer-seg-label" style="left:180px;top:80px;transform:rotate(8deg);">Event-Driven</div>
+    <div class="outer-seg-label" style="left:285px;top:30px;transform:rotate(-10deg);">Service-Oriented</div>
+    <div class="outer-seg-label" style="left:400px;top:15px;transform:rotate(30deg);">Broker</div>
+
+    <!-- Inner concern labels -->
+    <div class="small-seg-label" style="left:502px;top:150px;">Separation<br>of Concern</div>
+    <div class="small-seg-label" style="left:570px;top:260px;">Event-Driven</div>
+    <div class="small-seg-label" style="left:570px;top:390px;">Domain-Driven</div>
+    <div class="small-seg-label" style="left:490px;top:470px;">Data-Centric</div>
+    <div class="small-seg-label" style="left:395px;top:480px;">Concurrency</div>
+    <div class="small-seg-label" style="left:300px;top:440px;">Layered</div>
+    <div class="small-seg-label" style="left:240px;top:385px;">Modularity &amp;<br>Extensibility</div>
+    <div class="small-seg-label" style="left:280px;top:310px;">Scalability</div>
+  </div>
+</div>
+</body>
+</html>

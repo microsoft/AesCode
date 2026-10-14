@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Azure Center for SAP solutions Infographic</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #f4f6fb;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    color: #0b2052;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1536px;
+    height: 1024px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .tag {
+    position: absolute;
+    left: 20px;
+    top: 22px;
+    width: 172px;
+    height: 50px;
+    border-radius: 8px;
+    background: #0b63d8;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.2px;
+  }
+
+  .main-title {
+    position: absolute;
+    top: 98px;
+    left: 72px;
+    width: 1392px;
+    text-align: center;
+    color: #072660;
+    font-size: 44px;
+    line-height: 1.1;
+    font-weight: 750;
+    letter-spacing: -0.8px;
+  }
+
+  .section-heading {
+    position: absolute;
+    font-size: 22px;
+    color: #075bd0;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .section-subtitle {
+    position: absolute;
+    font-size: 16.5px;
+    line-height: 1.35;
+    color: #102033;
+    text-align: center;
+  }
+
+  .products-heading {
+    top: 176px;
+    left: 340px;
+    width: 512px;
+  }
+
+  .products-subtitle {
+    top: 210px;
+    left: 180px;
+    width: 728px;
+  }
+
+  .tools-heading {
+    top: 176px;
+    left: 1042px;
+    width: 180px;
+  }
+
+  .tools-subtitle {
+    top: 210px;
+    left: 955px;
+    width: 260px;
+  }
+
+  .frameworks-heading {
+    top: 176px;
+    left: 1288px;
+    width: 190px;
+  }
+
+  .frameworks-subtitle {
+    top: 210px;
+    left: 1200px;
+    width: 280px;
+  }
+
+  .architecture-box {
+    position: absolute;
+    left: 36px;
+    top: 288px;
+    width: 900px;
+    height: 350px;
+    border: 2px solid #0a58ff;
+    border-radius: 15px;
+    background: linear-gradient(180deg, rgba(226, 242, 255, 0.72), rgba(247, 251, 255, 0.88));
+  }
+
+  .architecture-title {
+    position: absolute;
+    top: 18px;
+    left: 58px;
+    width: 790px;
+    color: #075bd0;
+    font-size: 17px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .sid-block {
+    position: absolute;
+    top: 78px;
+    left: 230px;
+    width: 305px;
+    height: 70px;
+    border-radius: 6px;
+    background: linear-gradient(180deg, #1584e8 0%, #0070d1 100%);
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .connector-vertical {
+    position: absolute;
+    top: 148px;
+    left: 382px;
+    width: 2px;
+    height: 52px;
+    background: #0b5bd6;
+  }
+
+  .connector-horizontal {
+    position: absolute;
+    top: 198px;
+    left: 150px;
+    width: 438px;
+    height: 2px;
+    background: #0b5bd6;
+  }
+
+  .down-arrow-left {
+    position: absolute;
+    top: 212px;
+    left: 148px;
+    width: 12px;
+    height: 22px;
+    border-left: 2px solid #0b5bd6;
+    border-bottom: 2px solid #0b5bd6;
+    transform: rotate(135deg);
+    background: transparent;
+  }
+
+  .down-arrow-mid {
+    position: absolute;
+    top: 212px;
+    left: 376px;
+    width: 12px;
+    height: 22px;
+    border-left: 2px solid #0b5bd6;
+    border-bottom: 2px solid #0b5bd6;
+    transform: rotate(225deg);
+    background: transparent;
+  }
+
+  .down-arrow-right {
+    position: absolute;
+    top: 212px;
+    left: 572px;
+    width: 12px;
+    height: 22px;
+    border-left: 2px solid #0b5bd6;
+    border-bottom: 2px solid #0b5bd6;
+    transform: rotate(135deg);
+    background: transparent;
+  }
+
+  .workload-block {
+    position: absolute;
+    top: 242px;
+    height: 68px;
+    background: #d8efff;
+    border: 1.5px solid #1773e7;
+    border-radius: 7px;
+    color: #06215d;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .scs-block {
+    left: 64px;
+    width: 175px;
+  }
+
+  .app-block {
+    left: 290px;
+    width: 180px;
+  }
+
+  .db-block {
+    left: 508px;
+    width: 142px;
+  }
+
+  .resource-stack {
+    position: absolute;
+    right: 68px;
+    top: 60px;
+    width: 185px;
+    height: 260px;
+    border: 1.7px solid #0b5bd6;
+    border-radius: 9px;
+    display: flex;
+    flex-direction: column;
+    background: #fbfdff;
+  }
+
+  .resource-segment {
+    height: 86.66px;
+    border-bottom: 1.7px solid #0b5bd6;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 18px 0 22px;
+  }
+
+  .resource-segment:last-child {
+    border-bottom: 0;
+  }
+
+  .resource-label {
+    font-size: 16px;
+    font-weight: 750;
+    color: #112052;
+  }
+
+  .mini-compute-icon {
+    width: 42px;
+    height: 48px;
+    border-radius: 4px;
+    background: #0a62d5;
+    position: relative;
+    border: 2px solid #1385ef;
+  }
+
+  .mini-compute-icon:before {
+    content: "";
+    position: absolute;
+    top: 13px;
+    left: 15px;
+    width: 10px;
+    height: 2px;
+    background: #ffffff;
+    box-shadow: 0 11px 0 #ffffff, 0 22px 0 #ffffff;
+    opacity: 0.85;
+  }
+
+  .mini-storage-icon {
+    width: 38px;
+    height: 48px;
+    position: relative;
+  }
+
+  .mini-storage-icon:before,
+  .mini-storage-icon:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 38px;
+    height: 18px;
+    border: 3px solid #0b5bd6;
+    border-radius: 50%;
+    background: #e9fbff;
+  }
+
+  .mini-storage-icon:before {
+    top: 0;
+  }
+
+  .mini-storage-icon:after {
+    top: 14px;
+    box-shadow: 0 10px 0 #e9fbff;
+  }
+
+  .mini-network-icon {
+    width: 44px;
+    height: 44px;
+    border: 2px solid #0b5bd6;
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .mini-network-icon:before,
+  .mini-network-icon:after {
+    content: "";
+    position: absolute;
+    background: #0b5bd6;
+  }
+
+  .mini-network-icon:before {
+    left: 20px;
+    top: 0;
+    width: 2px;
+    height: 40px;
+    box-shadow: -18px 19px 0 -10px #0b5bd6, 18px 19px 0 -10px #0b5bd6;
+  }
+
+  .mini-network-icon:after {
+    top: 20px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    box-shadow: 0 -18px 0 -10px #0b5bd6, 0 18px 0 -10px #0b5bd6;
+  }
+
+  .service-cards-row {
+    position: absolute;
+    left: 36px;
+    top: 656px;
+    width: 890px;
+    height: 275px;
+    display: flex;
+    gap: 7px;
+  }
+
+  .service-card {
+    position: relative;
+    width: 140px;
+    height: 270px;
+    background: #ffffff;
+    border: 1px solid #e0e5ee;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(18, 39, 78, 0.12);
+    overflow: hidden;
+  }
+
+  .service-icon {
+    position: absolute;
+    top: 28px;
+    left: 48px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .service-title {
+    position: absolute;
+    top: 112px;
+    left: 8px;
+    width: 124px;
+    color: #09215d;
+    font-size: 14.2px;
+    line-height: 1.2;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .service-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 140px;
+    height: 62px;
+    background: #eeeeef;
+    color: #111827;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border-top: 1px solid #e1e4ea;
+  }
+
+  .code-icon {
+    border: 4px solid #7b3be8;
+    border-radius: 7px;
+    color: #7b3be8;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .monitor-icon {
+    border: 3px solid #098be6;
+    border-radius: 50%;
+  }
+
+  .advisor-icon {
+    color: #24b6cb;
+    font-size: 42px;
+    transform: rotate(30deg);
+  }
+
+  .cost-icon {
+    background: #61bd3a;
+    color: #ffffff;
+    font-size: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .backup-icon {
+    color: #0b76d8;
+    font-size: 35px;
+    font-weight: 700;
+  }
+
+  .sentinel-icon {
+    background: #1087df;
+    color: #ffffff;
+    border-radius: 50% 50% 45% 45%;
+  }
+
+  .context-caption {
+    position: absolute;
+    top: 940px;
+    left: 270px;
+    width: 990px;
+    color: #075bd0;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 700;
+  }
+
+  .tools-column {
+    position: absolute;
+    left: 968px;
+    top: 288px;
+    width: 232px;
+  }
+
+  .tools-card {
+    width: 232px;
+    height: 320px;
+    background: #ffffff;
+    border: 1px solid #e0e5ec;
+    border-radius: 9px;
+    box-shadow: 0 8px 17px rgba(18, 39, 78, 0.13);
+    text-align: center;
+    position: relative;
+  }
+
+  .tools-card.top {
+    height: 320px;
+  }
+
+  .quality-title {
+    position: absolute;
+    top: 128px;
+    left: 10px;
+    width: 212px;
+    font-size: 18px;
+    line-height: 1.25;
+    font-weight: 760;
+  }
+
+  .check-icon {
+    position: absolute;
+    top: 42px;
+    left: 72px;
+    width: 70px;
+    height: 70px;
+    border: 3px solid #0b5bd6;
+    border-radius: 50%;
+  }
+
+  .check-icon:after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    width: 27px;
+    height: 16px;
+    border-left: 4px solid #0b5bd6;
+    border-bottom: 4px solid #0b5bd6;
+    transform: rotate(45deg);
+  }
+
+  .badge-open {
+    position: absolute;
+    top: 225px;
+    left: 32px;
+    width: 140px;
+    height: 34px;
+    border: 1.6px solid #0b73ec;
+    border-radius: 16px;
+    background: #eef6ff;
+    color: #075bd0;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .inventory-card {
+    position: absolute;
+    top: 340px;
+    left: 0;
+    width: 232px;
+    height: 320px;
+    background: #ffffff;
+    border: 1px solid #e0e5ec;
+    border-radius: 9px;
+    box-shadow: 0 8px 17px rgba(18, 39, 78, 0.13);
+  }
+
+  .list-icon {
+    position: absolute;
+    top: 48px;
+    left: 62px;
+    width: 100px;
+    height: 70px;
+  }
+
+  .list-icon span {
+    position: absolute;
+    left: 22px;
+    height: 3px;
+    background: #0b5bd6;
+  }
+
+  .list-icon span:nth-child(1) {
+    top: 4px;
+    width: 48px;
+  }
+
+  .list-icon span:nth-child(2) {
+    top: 27px;
+    width: 48px;
+  }
+
+  .list-icon span:nth-child(3) {
+    top: 50px;
+    width: 48px;
+  }
+
+  .list-icon i {
+    position: absolute;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #0b5bd6;
+  }
+
+  .list-icon i:nth-child(4) {
+    top: 2px;
+  }
+
+  .list-icon i:nth-child(5) {
+    top: 25px;
+  }
+
+  .list-icon i:nth-child(6) {
+    top: 48px;
+  }
+
+  .inventory-title {
+    position: absolute;
+    top: 138px;
+    left: 15px;
+    width: 198px;
+    text-align: center;
+    font-size: 19px;
+    line-height: 1.2;
+    font-weight: 760;
+  }
+
+  .badge-workbook {
+    position: absolute;
+    top: 216px;
+    left: 28px;
+    width: 150px;
+    height: 35px;
+    border: 1.6px solid #0b73ec;
+    border-radius: 17px;
+    background: #eef6ff;
+    color: #075bd0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .frameworks-column {
+    position: absolute;
+    left: 1212px;
+    top: 288px;
+    width: 280px;
+  }
+
+  .fw-card {
+    width: 280px;
+    height: 210px;
+    background: #ffffff;
+    border: 1px solid #e0e5ec;
+    border-radius: 9px;
+    box-shadow: 0 8px 17px rgba(18, 39, 78, 0.13);
+    text-align: center;
+    position: relative;
+  }
+
+  .fw-card.assessment {
+    height: 210px;
+  }
+
+  .fw-card.framework {
+    height: 210px;
+  }
+
+  .fw-card.checklist {
+    height: 200px;
+    top: 450px;
+  }
+
+  .fw-title {
+    position: absolute;
+    top: 104px;
+    left: 20px;
+    width: 240px;
+    font-size: 18px;
+    line-height: 1.25;
+    font-weight: 760;
+    color: #09205d;
+  }
+
+  .grid-icon {
+    position: absolute;
+    top: 30px;
+    left: 97px;
+    width: 86px;
+    height: 64px;
+    display: grid;
+    grid-template-columns: repeat(2, 30px);
+    gap: 7px;
+  }
+
+  .grid-icon span {
+    border: 2.5px solid #0b5bd6;
+    border-radius: 4px;
+  }
+
+  .doc-icon {
+    position: absolute;
+    top: 38px;
+    left: 100px;
+    width: 80px;
+    height: 70px;
+    border: 3px solid #0b5bd6;
+    border-radius: 4px;
+  }
+
+  .doc-icon:before {
+    content: "";
+    position: absolute;
+    top: -14px;
+    right: 0;
+    width: 26px;
+    height: 26px;
+    border-left: 3px solid #0b5bd6;
+    border-bottom: 3px solid #0b5bd6;
+    background: #ffffff;
+    transform: rotate(-45deg);
+    border-radius: 3px;
+  }
+
+  .doc-icon:after {
+    content: "";
+    position: absolute;
+    left: 13px;
+    top: 16px;
+    width: 46px;
+    height: 3px;
+    background: #0b5bd6;
+    box-shadow: 0 11px 0 #0b5bd6, 0 22px 0 #0b5bd6;
+  }
+
+  .clipboard-icon {
+    position: absolute;
+    top: 28px;
+    left: 95px;
+    width: 90px;
+    height: 70px;
+    border: 3px solid #0b5bd6;
+    border-radius: 4px;
+  }
+
+  .clipboard-icon:before {
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: 34px;
+    width: 20px;
+    height: 12px;
+    border: 3px solid #0b5bd6;
+    border-radius: 7px;
+    background: #ffffff;
+  }
+
+  .clipboard-icon:after {
+    content: "";
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    width: 18px;
+    height: 36px;
+    border-left: 3px solid #0b5bd6;
+    border-top: 3px solid #0b5bd6;
+    box-shadow: 19px 0 0 -8px #0b5bd6, 38px 0 0 -8px #0b5bd6;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="tag">Azure IaaS</div>
+
+    <div class="main-title">Azure Center for SAP solutions: One place to deploy and manage</div>
+
+    <div class="section-heading products-heading">Products and services</div>
+    <div class="section-subtitle products-subtitle">
+      Fully integrated, first-party Azure services that are fully supported<br>
+      and incorporate the latest cloud innovations.
+    </div>
+
+    <div class="section-heading tools-heading">Tools</div>
+    <div class="section-subtitle tools-subtitle">
+      Continuously integrating<br>
+      with products.
+    </div>
+
+    <div class="section-heading frameworks-heading">Frameworks</div>
+    <div class="section-subtitle frameworks-subtitle">
+      Governance and guidance<br>
+      frameworks updated periodically.
+    </div>
+
+    <div class="architecture-box">
+      <div class="architecture-title">Azure Virtual Instances for SAP solutions: Bringing SAP workload awareness to Azure</div>
+      <div class="sid-block">SID</div>
+      <div class="connector-vertical"></div>
+      <div class="connector-horizontal"></div>
+      <div class="down-arrow-left"></div>
+      <div class="down-arrow-mid"></div>
+      <div class="down-arrow-right"></div>
+
+      <div class="workload-block scs-block">(A)SCS</div>
+      <div class="workload-block app-block">App Instance</div>
+      <div class="workload-block db-block">Database</div>
+
+      <div class="resource-stack">
+        <div class="resource-segment">
+          <div class="mini-compute-icon"></div>
+          <div class="resource-label">Compute</div>
+        </div>
+        <div class="resource-segment">
+          <div class="mini-storage-icon"></div>
+          <div class="resource-label">Storage</div>
+        </div>
+        <div class="resource-segment">
+          <div class="mini-network-icon"></div>
+          <div class="resource-label">Networking</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-cards-row">
+      <div class="service-card">
+        <div class="service-icon code-icon">&lt;/&gt;</div>
+        <div class="service-title">SAP Deployment Automation Framework<br>(open source)</div>
+        <div class="service-footer">Available</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon monitor-icon"></div>
+        <div class="service-title">Azure Monitor for SAP solutions</div>
+        <div class="service-footer">Available</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon advisor-icon">●</div>
+        <div class="service-title">Azure Advisor recommendations via Quality Checks</div>
+        <div class="service-footer">Available</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon cost-icon">$</div>
+        <div class="service-title">Azure Cost Management + Billing</div>
+        <div class="service-footer">Available</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon backup-icon">☁</div>
+        <div class="service-title">Azure Backup for SAP</div>
+        <div class="service-footer">Available standalone</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon sentinel-icon">⌂</div>
+        <div class="service-title">Microsoft Sentinel solution for SAP</div>
+        <div class="service-footer">ACSS Integration preview</div>
+      </div>
+    </div>
+
+    <div class="context-caption">Contextual integration with virtual instance</div>
+
+    <div class="tools-column">
+      <div class="tools-card top">
+        <div class="check-icon"></div>
+        <div class="quality-title">Quality Checks for SAP workloads on Azure</div>
+        <div class="badge-open">Open Source</div>
+      </div>
+
+      <div class="inventory-card">
+        <div class="list-icon">
+          <span></span><span></span><span></span>
+          <i></i><i></i><i></i>
+        </div>
+        <div class="inventory-title">Azure Inventory Checks for SAP</div>
+        <div class="badge-workbook">Azure workbook</div>
+      </div>
+    </div>
+
+    <div class="frameworks-column">
+      <div class="fw-card assessment">
+        <div class="grid-icon">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="fw-title">Enterprise scale for SAP on Azure Assessment</div>
+      </div>
+
+      <div class="fw-card framework">
+        <div class="doc-icon"></div>
+        <div class="fw-title">Well-Architected Framework for SAP on Azure</div>
+      </div>
+
+      <div class="fw-card checklist">
+        <div class="clipboard-icon"></div>
+        <div class="fw-title">Deployment Checklist for SAP on Azure</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

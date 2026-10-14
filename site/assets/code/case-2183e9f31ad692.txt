@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Student Performance Analytics Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: #eef2f5;
+    color: #24272d;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 853px;
+    overflow: hidden;
+    background: #f7f8fa;
+  }
+
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 80px;
+    height: 853px;
+    background: #fbfbfc;
+    border-right: 1px solid #e4e7eb;
+    z-index: 5;
+  }
+
+  .brand-icon {
+    position: absolute;
+    top: 17px;
+    left: 16px;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: #ff6b57;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    box-shadow: 0 8px 18px rgba(255,107,87,.18);
+  }
+
+  .nav-item {
+    position: absolute;
+    left: 0;
+    width: 80px;
+    height: 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #666d75;
+    font-size: 11px;
+    gap: 5px;
+  }
+
+  .nav-item.active {
+    background: #ffe7e4;
+    color: #ff6b57;
+  }
+
+  .nav-item .ico {
+    font-size: 18px;
+  }
+
+  .profile-card {
+    position: absolute;
+    bottom: 17px;
+    left: 8px;
+    width: 64px;
+    height: 102px;
+    border-radius: 14px;
+    background: #ffe8e6;
+    border: 1px solid #ffd8d5;
+    padding-top: 11px;
+    text-align: center;
+    font-size: 10px;
+    color: #5d6369;
+  }
+
+  .profile-badge {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ff6b57;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 6px;
+    font-size: 11px;
+  }
+
+  .main {
+    position: absolute;
+    left: 104px;
+    top: 13px;
+    width: 1166px;
+    height: 827px;
+  }
+
+  .topbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1166px;
+    height: 58px;
+  }
+
+  .title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.1px;
+  }
+
+  .subtitle {
+    position: absolute;
+    top: 29px;
+    left: 0;
+    font-size: 12px;
+    color: #777f88;
+  }
+
+  .filter {
+    position: absolute;
+    top: 0;
+    height: 48px;
+    border: 1px solid #dfe3e7;
+    background: #fff;
+    border-radius: 7px;
+    padding: 11px 12px;
+    min-width: 146px;
+    font-size: 12px;
+  }
+
+  .filter.f1 { right: 270px; }
+  .filter.f2 { right: 156px; min-width: 144px; }
+  .filter.f3 { right: 32px; min-width: 174px; justify-content: space5between; }
+  .filter .chev {
+    position: absolute;
+    right: 12px;
+    top: 15px;
+    color: #777;
+  }
+
+  .export-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 40px;
+    min-width: 86px;
+    border: 0;
+    border-radius: 6px;
+    background: #ff6b57;
+    color: #fff;
+    font-size: 12px;
+  }
+
+  .kpis {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 1166px;
+    height: 128px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid #dbe0e5;
+    border-radius: 10px;
+    position: relative;
+  }
+
+  .kpi-card {
+    padding: 19px 22px;
+    display: grid;
+    grid-template-columns: 64px 1fr 120px;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .kpi-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #ffe7e5;
+    color: #ff6b57;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+  }
+
+  .kpi-label {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .kpi-value {
+    font-size: 29px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 7px;
+  }
+
+  .kpi-delta {
+    font-size: 11px;
+    color: #23ad74;
+  }
+
+  .spark {
+    width: 120px;
+    height: 62px;
+  }
+
+  .middle {
+    position: absolute;
+    top: 212px;
+    left: 0;
+    width: 1166px;
+    height: 278px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .line-card {
+    padding: 15px 13px 10px;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 5px;
+  }
+
+  .time-chip {
+    position: absolute;
+    top: 11px;
+    right: 13px;
+    height: 22px;
+    min-width: 52px;
+    border: 1px solid #dce0e5;
+    border-radius: 6px;
+    padding: 5px 7px;
+    font-size: 10px;
+  }
+
+  #lineChart {
+    width: 380px;
+    height: 220px;
+  }
+
+  .pie-card {
+    padding: 15px 20px 10px;
+    text-align: center;
+  }
+
+  #pieChart {
+    width: 350px;
+    height: 160px;
+    margin: 1px auto 8px;
+  }
+
+  .pie-legend {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    font-size: 12px;
+    color: #626971;
+  }
+
+  .pie-legend-item {
+    border-top: 4px solid;
+    padding-top: 8px;
+    text-align: center;
+  }
+
+  .radar-card {
+    padding: 15px 13px 10px;
+  }
+
+  #radarChart {
+    width: 380px;
+    height: 220px;
+  }
+
+  .bottom-row {
+    position: absolute;
+    top: 499px;
+    left: 0;
+    width: 1166px;
+    height: 320px;
+    display: grid;
+    grid-template-columns: 543px 606px;
+    gap: 12px;
+  }
+
+  .sankey-card {
+    padding: 16px 16px 10px;
+  }
+
+  .sankey-title {
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 14px;
+  }
+
+  .sankey-grid {
+    position: relative;
+    width: 512px;
+    height: 220px;
+    background: linear-gradient(90deg, rgba(255,255,255,.78), rgba(255,255,255,.45));
+  }
+
+  .stage-title {
+    position: absolute;
+    font-size: 10px;
+    font-weight: 800;
+  }
+
+  .stage1-title { left: 0; top: 0; }
+  .stage2-title { left: 200px; top: 0; }
+  .stage3-title { left: 390px; top: 0; }
+
+  .block {
+    position: absolute;
+    min-width: 90px;
+    height: 42px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,.85);
+    padding: 7px 8px;
+    text-align: center;
+    font-size: 11px;
+    z-index: 2;
+  }
+
+  .b1a { left: 0; top: 22px; background: #ffd7d3; }
+  .b1b { left: 0; top: 77px; background: #ffe0bb; }
+  .b1c { left: 0; top: 132px; background: #fff0cf; }
+  .b1d { left: 0; top: 187px; background: #ddf3e5; }
+
+  .b2a { left: 185px; top: 53px; width: 102px; background: #e5f1ef; }
+  .b2b { left: 185px; top: 132px; width: 102px; background: #fff0ce; }
+  .b2c { left: 185px; top: 187px; width: 102px; background: #ffd9da; }
+
+  .b3a { left: 370px; top: 22px; width: 128px; background: #dff1e2; }
+  .b3b { left: 370px; top: 102px; width: 128px; background: #fff0ce; }
+  .b3c { left: 370px; top: 158px; width: 128px; background: #ffd9da; }
+
+  .flow-line {
+    position: absolute;
+    height: 10px;
+    border-radius: 999px;
+    opacity: .65;
+    filter: blur(.2px);
+    z-index: 1;
+  }
+
+  .table-card {
+    padding: 14px 17px 10px;
+  }
+
+  .table-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 11px;
+  }
+
+  .table-head-title {
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .view-btn {
+    height: 24px;
+    border: 1px solid #dce0e5;
+    border-radius: 6px;
+    background: #fff;
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+
+  table {
+    width: 568px;
+    border-collapse: collapse;
+    font-size: 11px;
+    color: #535a62;
+  }
+
+  th {
+    text-align: left;
+    height: 22px;
+    color: #737a82;
+    font-size: 10px;
+    border-bottom: 1px solid #edf0f3;
+    font-weight: 700;
+  }
+
+  td {
+    height: 34px;
+    border-bottom: 1px solid #edf0f3;
+    vertical-align: middle;
+  }
+
+  .row-split td {
+    border-bottom: 1px solid #ff9aa0;
+  }
+
+  .student-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .avatar {
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background: #d7e6f3;
+    color: #5c6875;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .trend-up,
+  .trend-down {
+    display: inline-block;
+    width: 58px;
+    height: 14px;
+    position: relative;
+  }
+
+  .trend-up::before,
+  .trend-down::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-top: 2px solid;
+    border-left: 2px solid;
+    border-radius: 50%;
+    transform: rotate(-25deg);
+  }
+
+  .trend-up::before {
+    border-color: #47bd83;
+    box-shadow: 8px 4px 0 -2px #47bd83, 16px 8px 0 -4px #47bd83, 24px 5px 0 -4px #47bd83;
+  }
+
+  .trend-down::before {
+    border-color: #ff6b57;
+    box-shadow: 8px 4px 0 -2px #ff6b57, 16px 8px 0 -4px #ff6b57, 24px 5px 0 -4px #ff6b57;
+  }
+
+  .risk-pill {
+    display: inline-block;
+    min-width: 51px;
+    height: 20px;
+    border-radius: 6px;
+    text-align: center;
+    padding: 4px 0;
+    background: #dff3e7;
+    color: #358a61;
+    font-size: 10px;
+  }
+
+  .risk-pill.high {
+    background: #ffd9d9;
+    color: #c84a4a;
+  }
+
+  .legend {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 11px;
+    color: #4e555d;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <aside class="sidebar">
+    <div class="brand-icon">✉</div>
+    <div class="nav-item active" style="top:88px;"><div class="ico">▣</div><div>Overview</div></div>
+    <div class="nav-item" style="top:162px;"><div class="ico">♙</div><div>Students</div></div>
+    <div class="nav-item" style="top:235px;"><div class="ico">▥</div><div>Courses</div></div>
+    <div class="nav-item" style="top:308px;"><div class="ico">▥</div><div>Analytics</div></div>
+    <div class="nav-item" style="top:382px;"><div class="ico">▤</div><div>Reports</div></div>
+    <div class="nav-item" style="top:456px;"><div class="ico">♟</div><div>Alerts</div></div>
+    <div class="nav-item" style="top:530px;"><div class="ico">⚙</div><div>Settings</div></div>
+    <div class="profile-card">
+      <div class="profile-badge">AM</div>
+      <div>Ava Morris</div>
+      <div style="font-size:9px;color:#9aa1a7;">Admin</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <section class="topbar">
+      <div class="title">Student Performance Analytics</div>
+      <div class="subtitle">Track, analyze and improve student outcomes</div>
+      <div class="filter f1">Academic Year<br><strong>2023–2024</strong><span class="chev">⌄</span></div>
+      <div class="filter f2">Term<br><strong>All Terms</strong><span class="chev">⌄</span></div>
+      <div class="filter f3">▣ May 1 – May 31, 2024 <span class="chev">⌄</span></div>
+      <button class="export-btn">Export</button>
+    </section>
+
+    <section class="kpis">
+      <div class="card kpi-card">
+        <div class="kpi-icon">♙</div>
+        <div>
+          <div class="kpi-label">Overall Pass Rate</div>
+          <div class="kpi-value">78.6%</div>
+          <div class="kpi-delta">↑ 4.3 pp &nbsp; vs Apr 1 – Apr 30, 2024</div>
+        </div>
+        <div id="sparkPass" class="spark"></div>
+      </div>
+      <div class="card kpi-card">
+        <div class="kpi-icon">★</div>
+        <div>
+          <div class="kpi-label">Average Score</div>
+          <div class="kpi-value">82.4%</div>
+          <div class="kpi-delta">↑ 3.7 pp &nbsp; vs Apr 1 – Apr 30, 2024</div>
+        </div>
+        <div id="sparkAvg" class="spark"></div>
+      </div>
+      <div class="card kpi-card">
+        <div class="kpi-icon">▥</div>
+        <div>
+          <div class="kpi-label">At-Risk Students</div>
+          <div class="kpi-value">128</div>
+          <div class="kpi-delta">↓12 &nbsp; vs Apr 30, 2024</div>
+        </div>
+        <div id="sparkRisk" class="spark"></div>
+      </div>
+    </section>
+
+    <section class="middle">
+      <div class="card line-card">
+        <div class="card-title">Average Score Over Time</div>
+        <div class="time-chip">Daily</div>
+        <div id="lineChart"></div>
+      </div>
+      <div class="card pie-card">
+        <div class="card-title">Performance Distribution</div>
+        <div id="pieChart"></div>
+        <div class="pie-legend">
+          <div class="pie-legend-item" style="border-color:#ff6b57;">0–59%<br>15.6%</div>
+          <div class="pie-legend-item" style="border-color:#ff9b39;">60–69%<br>16.8%</div>
+          <div class="pie-legend-item" style="border-color:#88c67d;">70–89%<br>50.2%</div>
+          <div class="pie-legend-item" style="border-color:#41ad88;">90–100%<br>17.4%</div>
+        </div>
+      </div>
+      <div class="card radar-card">
+        <div class="card-title">Performance by Subject</div>
+        <div id="radarChart"></div>
+      </div>
+    </section>
+
+    <section class="bottom-row">
+      <div class="card sankey-card">
+        <div class="sankey-title">Student Flow: Enrollment to Performance</div>
+        <div class="sankey-grid">
+          <div class="stage-title stage1-title">Enrollment: 1,248 Students</div>
+          <div class="stage-title stage2-title">Course Completion</div>
+          <div class="stage-title stage3-title">Performance</div>
+
+          <div class="flow-line" style="left:82px;top:40px;width:136px;background:#ff8a83;transform:rotate(28deg);"></div>
+          <div class="flow-line" style="left:86px;top:88px;width:132px;background:#ff9942;transform:rotate(-8deg);"></div>
+          <div class="flow-line" style="left:88px;top:138px;width:142px;background:#ffcf72;transform:rotate(30deg);"></div>
+          <div class="flow-line" style="left:86px;top:188px;width:122px;background:#a7d8bd;transform:rotate(-16deg);"></div>
+
+          <div class="block b1a">Freshman<br>412</div>
+          <div class="block b1b">Sophomore<br>326</div>
+          <div class="block b1c">Junior<br>282</div>
+          <div class="block b1d">Senior<br>228</div>
+
+          <div class="block b2a">Completed<br>1,026 (80.3%)</div>
+          <div class="block b2b">In Progress<br>146 (11.7%)</div>
+          <div class="block b2c">Dropped<br>100 (8.0%)</div>
+
+          <div class="block b3a">High (70–100%)<br>624 (49.9%)</div>
+          <div class="block b3b">Medium (50–69%)<br>400 (32.1%)</div>
+          <div class="block b3c">Low (0–49%)<br>224 (18.0%)</div>
+        </div>
+      </div>
+
+      <div class="card table-card">
+        <div class="table-head">
+          <div class="table-head-title">Top &amp; At-Risk Students</div>
+          <div class="view-btn">View all</div>
+        </div>
+        <table>
+          <tr>
+            <th>Student</th>
+            <th>Course</th>
+            <th>Average Score</th>
+            <th>Trend</th>
+            <th>Risk Level</th>
+          </tr>
+          <tr>
+            <td><div class="student-cell"><span class="avatar">SJ</span>Sarah Johnson</div></td>
+            <td>Calculus I</td>
+            <td>94.2%</td>
+            <td><span class="trend-up"></span></td>
+            <td><span class="risk-pill">Low</span></td>
+          </tr>
+          <tr>
+            <td><div class="student-cell"><span class="avatar">MC</span>Michael Chen</div></td>
+            <td>Physics I</td>
+            <td>91.1%</td>
+            <td><span class="trend-up"></span></td>
+            <td><span class="risk-pill">Low</span></td>
+          </tr>
+          <tr>
+            <td><div class="student-cell"><span class="avatar">ED</span>Emily Davis</div></td>
+            <td>English Literature</td>
+            <td>88.6%</td>
+            <td><span class="trend-up"></span></td>
+            <td><span class="risk-pill">Low</span></td>
+          </tr>
+          <tr class="row-split">
+            <td><div class="student-cell"><span class="avatar">DM</span>Daniel Martinez</div></td>
+            <td>Chemistry I</td>
+            <td>46.3%</td>
+            <td><span class="trend-down"></span></td>
+            <td><span class="risk-pill high">High</span></td>
+          </tr>
+          <tr>
+            <td><div class="student-cell"><span class="avatar">JW</span>Jessica Wilson</div></td>
+            <td>Calculus I</td>
+            <td>41.7%</td>
+            <td><span class="trend-down"></span></td>
+            <td><span class="risk-pill high">High</span></td>
+          </tr>
+        </table>
+        <div class="legend">
+          <span>Risk Level:</span>
+          <div class="legend-item"><span class="legend-dot" style="background:#ff6b57;"></span>High (0–49%)</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#ff9b39;"></span>Medium (50–69%)</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#88c67d;"></span>Low (70–100%)</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  function spark(id, data, color) {
+    echarts.init(document.getElementById(id)).setOption({
+      animation: false,
+      grid: { left: 2, right: 2, top: 8, bottom: 5 },
+      xAxis: { type: 'category', show: false, boundaryGap: false, data: ['1','2','3','4','5','6','7'] },
+      yAxis: { type: 'value', show: false },
+      series: [{
+        type: 'line',
+        data: data,
+        symbol: 'circle',
+        symbolSize: 4,
+        smooth: false,
+        lineStyle: { color: color, width: 2 },
+        itemStyle: { color: color },
+        areaStyle: { color: color + '18' }
+      }]
+    });
+  }
+
+  spark('sparkPass', [62, 65, 70, 71, 75, 78, 79], '#ff6b57');
+  spark('sparkAvg', [74, 76, 78, 80, 81, 82, 83], '#ff6b57');
+  spark('sparkRisk', [150, 146, 142, 138, 132, 130, 128], '#ff6b57');
+
+  echarts.init(document.getElementById('lineChart')).setOption({
+    animation: false,
+    grid: { left: 48, right: 16, top: 18, bottom: 36 },
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      data: ['May 1','May 2','May 3','May 9','May 14','May 19','May 23','May 26','May 30','May 31'],
+      axisLabel: { interval: 1, color: '#7c8389' },
+      axisLine: { lineStyle: { color: '#dfe3e8' } }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: 100,
+      interval: 20,
+      axisLabel: { formatter: '{value}%', color: '#7c8389' },
+      splitLine: { lineStyle: { color: '#eceff2' } }
+    },
+    series: [{
+      type: 'line',
+      data: [78, 80, 79, 81, 82, 83, 84, 83, 82, 85],
+      symbol: 'circle',
+      symbolSize: 6,
+      lineStyle: { color: '#ff6b57', width: 2 },
+      itemStyle: { color: '#ff6b57' },
+      areaStyle: { color: 'rgba(255,107,87,.11)' },
+      markPoint: {
+        symbol: 'roundRect',
+        symbolSize: [70, 46],
+        label: {
+          formatter: 'May 16, 2024\nAverage Score\n85.6%',
+          color: '#555',
+          fontSize: 11,
+          lineHeight: 16
+        },
+        data: [{
+          coord: ['May 16', 85.6],
+          itemStyle: { color: '#fff', borderColor: '#d9d9d9', borderWidth: 1 }
+        }]
+      }
+    }]
+  });
+
+  echarts.init(document.getElementById('pieChart')).setOption({
+    animation: false,
+    color: ['#ff6b57','#ff9b39','#88c67d','#41ad88'],
+    series: [{
+      type: 'pie',
+      radius: ['58%', '82%'],
+      center: ['50%', '50%'],
+      startAngle: 90,
+      avoidLabelOverlap: true,
+      label: { show: false },
+      labelLine: { show: false },
+      data: [15.6, 16.8, 50.2, 17.4]
+    }]
+  });
+
+  echarts.init(document.getElementById('radarChart')).setOption({
+    animation: false,
+    radar: {
+      center: ['50%', '52%'],
+      radius: 78,
+      splitNumber: 5,
+      axisName: { color: '#555', fontSize: 11 },
+      indicator: [
+        { name: 'Mathematics\n85%', max: 100 },
+        { name: 'Science\n82%', max: 100 },
+        { name: 'English\n78%', max: 100 },
+        { name: 'History\n72%', max: 100 },
+        { name: 'Computer\nScience\n88%', max: 100 }
+      ],
+      splitLine: { lineStyle: { color: '#d7dde3' } },
+      splitArea: { areaStyle: { color: ['#fff5f4','#fff8f7'] } },
+      axisLine: { lineStyle: { color: '#d7dde3' } }
+    },
+    series: [{
+      type: 'radar',
+      data: [{
+        value: [85, 82, 78, 72, 88],
+        areaStyle: { color: 'rgba(255,107,87,.14)' },
+        lineStyle: { color: '#ff6b57', width: 2 },
+        symbol: 'circle',
+        symbolSize: 4,
+        itemStyle: { color: '#ff6b57' }
+      }]
+    }]
+  });
+</script>
+</body>
+</html>

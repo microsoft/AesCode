@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>North Harbor Fitness Success Story</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #020817;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      width: 1024px;
+      height: 1536px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 24%, rgba(0, 120, 255, 0.16), transparent 24%),
+        radial-gradient(circle at 20% 68%, rgba(28, 105, 255, 0.14), transparent 23%),
+        linear-gradient(180deg, #020817 0%, #051024 48%, #020817 100%);
+      color: #ffffff;
+    }
+
+    .eyebrow {
+      position: absolute;
+      top: 48px;
+      left: 0;
+      width: 1024px;
+      text-align: center;
+      font-size: 22px;
+      letter-spacing: 8px;
+      color: #2295ff;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .headline {
+      position: absolute;
+      top: 100px;
+      left: 80px;
+      width: 864px;
+      text-align: center;
+      font-size: 56px;
+      line-height: 1.18;
+      font-weight: 800;
+      color: #f6f8fb;
+      letter-spacing: 0.4px;
+    }
+
+    .intro {
+      position: absolute;
+      top: 270px;
+      left: 132px;
+      width: 760px;
+      text-align: center;
+      font-size: 25px;
+      line-height: 1.42;
+      color: #d9e0ea;
+    }
+
+    .testimonial-card {
+      position: absolute;
+      left: 70px;
+      top: 390px;
+      width: 884px;
+      height: 366px;
+      border: 2px solid rgba(88, 146, 255, 0.65);
+      border-radius: 40px;
+      background:
+        radial-gradient(circle at 50% 12%, rgba(59, 127, 255, 0.22), transparent 15%),
+        linear-gradient(180deg, rgba(12, 33, 70, 0.96), rgba(8, 22, 48, 0.98));
+      box-shadow:
+        0 0 26px rgba(30, 111, 255, 0.35),
+        inset 0 0 24px rgba(65, 132, 255, 0.14);
+    }
+
+    .quote-mark {
+      position: absolute;
+      top: -48px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(61, 128, 255, 0.55);
+      background: rgba(13, 35, 75, 0.84);
+      box-shadow: 0 0 18px rgba(24, 119, 255, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #258cff;
+      font-size: 58px;
+      font-weight: 900;
+    }
+
+    .quote-text {
+      position: absolute;
+      top: 52px;
+      left: 78px;
+      width: 728px;
+      text-align: center;
+      font-size: 31px;
+      line-height: 1.38;
+      color: #f8fbff;
+      font-weight: 700;
+    }
+
+    .attribution {
+      position: absolute;
+      top: 220px;
+      left: 0;
+      width: 884px;
+      text-align: center;
+      color: #2491ff;
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .sub-attribution {
+      position: absolute;
+      top: 260px;
+      left: 0;
+      width: 884px;
+      text-align: center;
+      color: #d6dde7;
+      font-size: 22px;
+    }
+
+    .metrics-row {
+      position: absolute;
+      left: 70px;
+      top: 788px;
+      width: 884px;
+      height: 204px;
+      border: 2px solid rgba(91, 142, 255, 0.48);
+      border-radius: 28px;
+      background: rgba(9, 29, 60, 0.48);
+      display: flex;
+      align-items: center;
+      box-shadow: 0 0 15px rgba(29, 116, 255, 0.16);
+    }
+
+    .metric {
+      width: 294.66px;
+      height: 158px;
+      position: relative;
+      text-align: center;
+      padding-top: 13px;
+    }
+
+    .metric:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 3px;
+      height: 158px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, rgba(122, 173, 255, 0.9), rgba(55, 118, 255, 0.2), rgba(122, 173, 255, 0.85));
+      box-shadow: 0 0 10px rgba(89, 163, 255, 0.45);
+    }
+
+    .metric-number {
+      font-size: 62px;
+      line-height: 1;
+      color: #398fff;
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+
+    .metric-underline {
+      width: 86px;
+      height: 4px;
+      margin: 18px auto 18px;
+      border-radius: 6px;
+      background: #368cff;
+    }
+
+    .metric-label {
+      color: #d5dce6;
+      font-size: 22px;
+      line-height: 1.22;
+    }
+
+    .changed-title {
+      position: absolute;
+      top: 1020px;
+      left: 0;
+      width: 1024px;
+      text-align: center;
+      color: #f4f7fb;
+      font-size: 34px;
+      font-weight: 900;
+    }
+
+    .check-list {
+      position: absolute;
+      top: 1085px;
+      left: 112px;
+      width: 800px;
+    }
+
+    .check-item {
+      height: 61px;
+      border-top: 1px solid rgba(92, 150, 255, 0.18);
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      color: #d9e1ec;
+      font-size: 21px;
+    }
+
+    .check-item:first-child {
+      border-top: none;
+    }
+
+    .check-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #3195ff, #115bd8);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 26px;
+      flex: 0 0 auto;
+      box-shadow: 0 0 12px rgba(48, 140, 255, 0.38);
+    }
+
+    .outcome-panel {
+      position: absolute;
+      left: 70px;
+      top: 1262px;
+      width: 884px;
+      height: 275px;
+      border-radius: 30px;
+      border: 2px solid rgba(83, 140, 255, 0.65);
+      background:
+        linear-gradient(180deg, rgba(9, 42, 101, 0.92), rgba(8, 32, 78, 0.96)),
+        radial-gradient(circle at 50% 14%, rgba(50, 130, 255, 0.28), transparent 15%);
+      box-shadow: inset 0 0 24px rgba(90, 160, 255, 0.15);
+      text-align: center;
+      padding: 28px 40px 24px;
+    }
+
+    .outcome-label {
+      color: #2592ff;
+      font-size: 18px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .outcome-summary {
+      color: #d5dce8;
+      font-size: 23px;
+      line-height: 1.38;
+      margin-bottom: 24px;
+    }
+
+    .snapshot-button {
+      width: 690px;
+      height: 82px;
+      margin: 0 auto;
+      border-radius: 25px;
+      border: 1.5px solid rgba(157, 198, 255, 0.85);
+      background:
+        linear-gradient(180deg, rgba(18, 90, 213, 0.88), rgba(12, 57, 153, 0.88));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f7fbff;
+      font-size: 31px;
+      font-weight: 900;
+      box-shadow: 0 0 17px rgba(30, 117, 255, 0.3);
+    }
+
+    .snapshot-arrow {
+      margin-left: 20px;
+      font-size: 31px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="eyebrow">MEMBER SUCCESS STORY</div>
+
+    <div class="headline">
+      How North Harbor Fitness<br />
+      Raised Retention by 28%
+    </div>
+
+    <div class="intro">
+      A 90-day coaching and class redesign helped this Seattle<br />
+      gym improve consistency, attendance, and member referrals.
+    </div>
+
+    <section class="testimonial-card">
+      <div class="quote-mark">“</div>
+      <div class="quote-text">
+        “We stopped guessing and started tracking habits weekly. Members felt supported, coaches had a playbook, and cancellations dropped within the first month.”
+      </div>
+      <div class="attribution">Maya Chen, General Manager</div>
+      <div class="sub-attribution">North Harbor Fitness • Seattle, WA</div>
+    </section>
+
+    <section class="metrics-row">
+      <div class="metric">
+        <div class="metric-number">28%</div>
+        <div class="metric-underline"></div>
+        <div class="metric-label">Retention increase</div>
+      </div>
+      <div class="metric">
+        <div class="metric-number">17%</div>
+        <div class="metric-underline"></div>
+        <div class="metric-label">Average class<br />attendance growth</div>
+      </div>
+      <div class="metric">
+        <div class="metric-number">41</div>
+        <div class="metric-underline"></div>
+        <div class="metric-label">New referrals in Q2</div>
+      </div>
+    </section>
+
+    <div class="changed-title">What changed</div>
+
+    <section class="check-list">
+      <div class="check-item">
+        <span class="check-icon">✓</span>
+        <span>Introduced 15-minute onboarding goal sessions</span>
+      </div>
+      <div class="check-item">
+        <span class="check-icon">✓</span>
+        <span>Rebuilt the evening schedule around top-attended formats</span>
+      </div>
+      <div class="check-item">
+        <span class="check-icon">✓</span>
+        <span>Added weekly accountability messages for at-risk members</span>
+      </div>
+    </section>
+
+    <section class="outcome-panel">
+      <div class="outcome-label">90-DAY OUTCOME</div>
+      <div class="outcome-summary">
+        Stronger coaching systems created a more predictable<br />
+        member experience and measurable retention gains.
+      </div>
+      <div class="snapshot-button">
+        Case Study Snapshot <span class="snapshot-arrow">→</span>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

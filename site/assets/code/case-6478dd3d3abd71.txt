@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ServerWatch Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #dfe8ef;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: #1f2d3d;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 731px;
+      overflow: hidden;
+      background: #f6f9fb;
+    }
+
+    .sidebar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 165px;
+      height: 731px;
+      background: linear-gradient(180deg, #083c52 0%, #07394f 56%, #063448 100%);
+      color: #eef8ff;
+      border-right: 1px solid rgba(255,255,255,.18);
+    }
+
+    .logo {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: .1px;
+    }
+
+    .logo-mark {
+      width: 23px;
+      height: 18px;
+      border: 2px solid #fff;
+      border-radius: 10px 10px 8px 8px;
+      margin-right: 10px;
+      position: relative;
+    }
+    .logo-mark:after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 8px;
+      border: 2px solid #fff;
+      border-top-left-radius: 7px;
+      border-bottom-left-radius: 7px;
+      left: 8px;
+      top: -8px;
+    }
+
+    .nav {
+      padding-top: 3px;
+    }
+
+    .nav-item {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      padding-left: 15px;
+      padding-right: 11px;
+      font-size: 11px;
+      font-weight: 650;
+      gap: 10px;
+    }
+
+    .nav-item.active {
+      background: #1297aa;
+      color: white;
+      border-radius: 5px;
+      margin-left: 8px;
+      margin-right: 8px;
+    }
+
+    .nav-icon {
+      width: 13px;
+      text-align: center;
+      font-size: 12px;
+      opacity: .95;
+    }
+
+    .alerts-badge {
+      margin-left: auto;
+      background: #f04438;
+      color: white;
+      min-width: 18px;
+      height: 16px;
+      border-radius: 9px;
+      font-size: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .collapse {
+      position: absolute;
+      bottom: 58px;
+      left: 0;
+      width: 165px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-left: 15px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .copyright {
+      position: absolute;
+      bottom: 12px;
+      left: 16px;
+      font-size: 10px;
+      color: #bfeaff;
+      line-height: 1.7;
+    }
+
+    .main {
+      position: absolute;
+      left: 165px;
+      top: 0;
+      width: 1115px;
+      height: 731px;
+      background: #fbfcfd;
+    }
+
+    .topbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1115px;
+      height: 52px;
+      border-bottom: 1px solid #dfe6ec;
+      background: #fff;
+    }
+
+    .hamburger {
+      position: absolute;
+      left: 14px;
+      top: 15px;
+      color: #4a5560;
+      font-size: 20px;
+    }
+
+    .search {
+      position: absolute;
+      left: 63px;
+      top: 10px;
+      width: 352px;
+      height: 31px;
+      border: 1px solid #dbe3e8;
+      border-radius: 4px;
+      color: #8b97a3;
+      font-size: 11px;
+      padding-left: 13px;
+    }
+
+    .search:after {
+      content: "⌕";
+      position: absolute;
+      right: 10px;
+      color: #64727e;
+      font-size: 13px;
+    }
+
+    .notify {
+      position: absolute;
+      right: 102px;
+      top: 13px;
+      color: #2d3742;
+      font-size: 18px;
+    }
+    .notify .badge {
+      position: absolute;
+      right: -8px;
+      top: -10px;
+      background: #ef4438;
+      color: white;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      font-size: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .help {
+      position: absolute;
+      right: 72px;
+      top: 14px;
+      width: 21px;
+      height: 21px;
+      border: 1.6px solid #34495e;
+      color: #34495e;
+      border-radius: 50%;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .user {
+      position: absolute;
+      right: 14px;
+      top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+    }
+
+    .avatar {
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+      background: #087e9a;
+      color: white;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    .content {
+      position: absolute;
+      top: 52px;
+      left: 0;
+      width: 1115px;
+      height: 679px;
+    }
+
+    .page-title {
+      position: absolute;
+      left: 16px;
+      top: 2px;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .subtitle {
+      position: absolute;
+      left: 16px;
+      top: 27px;
+      color: #65717d;
+      font-size: 12px;
+    }
+
+    .toolbar-left {
+      position: absolute;
+      left: 626px;
+      top: 3px;
+      display: flex;
+      gap: 11px;
+    }
+
+    .select-small {
+      width: 145px;
+      height: 29px;
+      border: 1px solid #dbe4ea;
+      border-radius: 4px;
+      background: #fff;
+      color: #47535f;
+      font-size: 10px;
+      padding-left: 11px;
+    }
+
+    .filters {
+      position: absolute;
+      left: 626px;
+      top: 2px;
+      height: 29px;
+      width: 88px;
+      background: #0d8298;
+      color: #fff;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .metric-row {
+      position: absolute;
+      left: 16px;
+      top: 46px;
+      width: 1078px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 13px;
+    }
+
+    .metric-card {
+      height: 80px;
+      border: 1px solid #dbe4ea;
+      border-radius: 6px;
+      background: #fff;
+      padding: 10px 12px;
+      position: relative;
+      box-shadow: 0 2px 5px rgba(20,35,50,.04);
+    }
+
+    .metric-icon {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .metric-label {
+      font-size: 11px;
+      color: #3d4752;
+      margin-top: 2px;
+    }
+
+    .metric-value {
+      font-size: 17px;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+
+    .metric-delta {
+      margin-top: 4px;
+      font-size: 10px;
+    }
+
+    .green { color: #20a36f; }
+    .orange { color: #e49800; }
+    .red { color: #e04438; }
+    .grey { color: #5f6d78; }
+
+    .panel {
+      position: absolute;
+      border: 1px solid #dfe6eb;
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(20,35,50,.04);
+    }
+
+    .cpu-panel {
+      left: 16px;
+      top: 145px;
+      width: 528px;
+      height: 220px;
+    }
+
+    .status-panel {
+      left: 556px;
+      top: 145px;
+      width: 538px;
+      height: 220px;
+    }
+
+    .panel-title {
+      position: absolute;
+      left: 10px;
+      top: 8px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .panel-toolbar {
+      position: absolute;
+      right: 12px;
+      top: 8px;
+      width: 123px;
+      height: 23px;
+      border: 1px solid #dbe4ea;
+      border-radius: 4px;
+      color: #53606b;
+      font-size: 10px;
+      padding-left: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space4between;
+    }
+
+    .chart {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      bottom: 5px;
+      height: 175px;
+    }
+
+    .table-panel {
+      left: 16px;
+      top: 378px;
+      width: 1078px;
+      height: 290px;
+    }
+
+    .export-btn {
+      position: absolute;
+      right: 43px;
+      top: 7px;
+      height: 23px;
+      min-width: 61px;
+      border: 1px solid #dbe4ea;
+      border-radius: 4px;
+      color: #5a6570;
+      background: #fff;
+      font-size: 10px;
+    }
+
+    table {
+      position: absolute;
+      left: 0;
+      top: 30px;
+      width: 1058px;
+      border-collapse: collapse;
+      font-size: 10px;
+      table-layout: fixed;
+    }
+
+    thead th {
+      height: 25px;
+      background: #f5f7f9;
+      color: #434f5b;
+      font-weight: 800;
+      text-align: left;
+      border-bottom: 1px solid #dbe4ea;
+      padding: 0 8px;
+    }
+
+    tbody td {
+      height: 30px;
+      border-bottom: 1px solid #edf1f4;
+      padding: 0 8px;
+      color: #33414f;
+    }
+
+    tbody tr:nth-child(even) td {
+      background: #fbfdfe;
+    }
+
+    .server-name {
+      color: #2580bf;
+      font-weight: 700;
+    }
+
+    .status-chip {
+      display: inline-flex;
+      min-width: 53px;
+      height: 18px;
+      border-radius: 4px;
+      color: #208250;
+      background: #dff7ee;
+      font-size: 10px;
+      font-weight: 700;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .status-chip.warning {
+      color: #d38300;
+      background: #fff0d6;
+    }
+
+    .status-chip.critical {
+      color: #d64338;
+      background: #ffe2e1;
+    }
+
+    .barline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mini-bar {
+      width: 52px;
+      height: 5px;
+      background: #edf1f4;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    .mini-bar:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 5px;
+      border-radius: 5px;
+    }
+
+    .green-fill:before {
+      width: 35%;
+      background: #12a070;
+    }
+
+    .yellow-fill:before {
+      width: 65%;
+      background: #f4b11a;
+    }
+
+    .red-fill:before {
+      width: 82%;
+      background: #e04438;
+    }
+
+    .blue-fill:before {
+      width: 22%;
+      background: #228d9a;
+    }
+
+    .table-footer {
+      position: absolute;
+      left: 0;
+      bottom: 7px;
+      width: 100%;
+      height: 24px;
+      border-top: 1px solid #e1e7eb;
+    }
+
+    .showing {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 10px;
+      color: #606d78;
+    }
+
+    .pager {
+      position: absolute;
+      right: 0;
+      top: 0;
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .page-btn {
+      min-width: 23px;
+      height: 23px;
+      border: 1px solid #dbe4ea;
+      border-radius: 4px;
+      font-size: 10px;
+    }
+
+    .page-btn.active {
+      background: #0d8298;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <aside class="sidebar">
+      <div class="logo">
+        <span class="logo-mark"></span>
+        <span>ServerWatch</span>
+      </div>
+
+      <div class="nav">
+        <div class="nav-item active"><span class="nav-icon">▣</span><span>Overview</span></div>
+        <div class="nav-item"><span class="nav-icon">▤</span><span>Servers</span></div>
+        <div class="nav-item"><span class="nav-icon">▦</span><span>Groups</span></div>
+        <div class="nav-item"><span class="nav-icon">▥</span><span>Metrics</span></div>
+        <div class="nav-item"><span class="nav-icon">△</span><span>Alerts</span><span class="alerts-badge">7</span></div>
+        <div class="nav-item"><span class="nav-icon">▤</span><span>Logs</span></div>
+        <div class="nav-item"><span class="nav-icon">▧</span><span>Reports</span></div>
+        <div class="nav-item"><span class="nav-icon">✣</span><span>Integrations</span></div>
+        <div class="nav-item"><span class="nav-icon">⚙</span><span>Settings</span></div>
+      </div>
+
+      <div class="collapse">‹ <span>COLLAPSE</span></div>
+      <div class="copyright">© 2024 ServerWatch Inc.<br>All rights reserved.</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="hamburger">≡</div>
+        <div class="search">Search servers, groups, metrics...</div>
+        <div class="notify">♧ <span class="badge">2</span></div>
+        <div class="help">?</div>
+        <div class="user"><div class="avatar">AD</div><span>Admin User⌄</span></div>
+      </header>
+
+      <section class="content">
+        <div class="page-title">Overview</div>
+        <div class="subtitle">Real-time summary of your infrastructure</div>
+
+        <div class="toolbar-left">
+          <div class="select-small">▣ Last 24 hours⌄</div>
+          <div class="select-small">Group All Groups⌄</div>
+          <div class="filters">▽ Filters⌄</div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-card">
+            <div class="metric-icon" style="background:#169aa8;">▦</div>
+            <div class="metric-label">Total Servers</div>
+            <div class="metric-value">128</div>
+            <div class="metric-delta green">↑ 4 vs yesterday</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon" style="background:#27a86d;">✓</div>
+            <div class="metric-label">Online</div>
+            <div class="metric-value">115</div>
+            <div class="metric-delta green">89.8% of total</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon" style="background:#f4b31a;">△</div>
+            <div class="metric-label">Warnings</div>
+            <div class="metric-value">7</div>
+            <div class="metric-delta orange">5.5% of total</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon" style="background:#ef4438;">✕</div>
+            <div class="metric-label">Critical</div>
+            <div class="metric-value">6</div>
+            <div class="metric-delta red">4.7% of total</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon" style="background:#2485bd;">⚙</div>
+            <div class="metric-label">Avg. CPU Usage</div>
+            <div class="metric-value">42%</div>
+            <div class="metric-delta green">↓ 5% vs yesterday</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon" style="background:#5b5fd2;">▥</div>
+            <div class="metric-label">Avg. Memory Usage</div>
+            <div class="metric-value">65%</div>
+            <div class="metric-delta grey">↑ 3% vs yesterday</div>
+          </div>
+        </div>
+
+        <section class="panel cpu-panel">
+          <div class="panel-title">CPU Usage (%)</div>
+          <div class="panel-toolbar">View by: Average⌄</div>
+          <div id="cpuChart" class="chart"></div>
+        </section>
+
+        <section class="panel status-panel">
+          <div class="panel-title">Servers by Status</div>
+          <div class="panel-toolbar">View by: Status⌄</div>
+          <div id="statusChart" class="chart"></div>
+        </section>
+
+        <section class="panel table-panel">
+          <div class="panel-title">Top Servers</div>
+          <button class="export-btn">⇩ Export</button>
+
+          <table>
+            <thead>
+              <tr>
+                <th style="width:120px;">Server Name</th>
+                <th style="width:100px;">IP Address</th>
+                <th style="width:125px;">Group</th>
+                <th style="width:85px;">Status</th>
+                <th style="width:95px;">CPU Usage</th>
+                <th style="width:110px;">Memory Usage</th>
+                <th style="width:95px;">Disk Usage</th>
+                <th style="width:85px;">Uptime</th>
+                <th>Last Checked</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="server-name">web-01</span></td>
+                <td>10.1.1.10</td>
+                <td>Web Servers</td>
+                <td><span class="status-chip">Online</span></td>
+                <td><span class="barline">35% <span class="mini-bar green-fill"></span></span></td>
+                <td><span class="barline">62% <span class="mini-bar green-fill"></span></span></td>
+                <td><span class="barline">45% <span class="mini-bar green-fill"></span></span></td>
+                <td>15d 6h</td>
+                <td>1 min ago</td>
+              </tr>
+              <tr>
+                <td><span class="server-name">web-02</span></td>
+                <td>10.1.1.11</td>
+                <td>Web Servers</td>
+                <td><span class="status-chip">Online</span></td>
+                <td><span class="barline">28% <span class="mini-bar green-fill"></span></span></td>
+                <td><span class="barline">55% <span class="mini-bar green-fill"></span></span></td>
+                <td><span class="barline">41% <span class="mini-bar green-fill"></span></span></td>
+                <td>15d 6h</td>
+                <td>1 min ago</td>
+              </tr>
+              <tr>
+                <td><span class="server-name">app-01</span></td>
+                <td>10.1.2.20</td>
+                <td>Application Servers</td>
+                <td><span class="status-chip warning">Warning</span></td>
+                <td><span class="barline">76% <span class="mini-bar yellow-fill"></span></span></td>
+                <td><span class="barline">71% <span class="mini-bar yellow-fill"></span></span></td>
+                <td><span class="barline">68% <span class="mini-bar yellow-fill"></span></span></td>
+                <td>8d 12h</td>
+                <td>2 mins ago</td>
+              </tr>
+              <tr>
+                <td><span class="server-name">db-01</span></td>
+                <td>10.1.3.30</td>
+                <td>Database Servers</td>
+                <td><span class="status-chip critical">Critical</span></td>
+                <td><span class="barline">92% <span class="mini-bar red-fill"></span></span></td>
+                <td><span class="barline">85% <span class="mini-bar red-fill"></span></span></td>
+                <td><span class="barline">90% <span class="mini-bar red-fill"></span></span></td>
+                <td>3d 4h</td>
+                <td>1 min ago</td>
+              </tr>
+              <tr>
+                <td><span class="server-name">cache-01</span></td>
+                <td>10.1.4.40</td>
+                <td>Cache Servers</td>
+                <td><span class="status-chip">Online</span></td>
+                <td><span class="barline">22% <span class="mini-bar blue-fill"></span></span></td>
+                <td><span class="barline">48% <span class="mini-bar green-fill"></span></span></td>
+                <td><span class="barline">35% <span class="mini-bar green-fill"></span></span></td>
+                <td>22d 1h</td>
+                <td>1 min ago</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="table-footer">
+            <div class="showing">Showing 1 to 5 of 128 servers</div>
+            <div class="pager">
+              <button class="page-btn">‹</button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn">3</button>
+              <button class="page-btn">...</button>
+              <button class="page-btn">26</button>
+              <button class="page-btn">›</button>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    const cpuChart = echarts.init(document.getElementById('cpuChart'));
+    cpuChart.setOption({
+      animation: false,
+      grid: { left: 35, right: 12, top: 22, bottom: 42 },
+      tooltip: { trigger: 'axis' },
+      legend: {
+        bottom: 2,
+        left: 'center',
+        itemWidth: 16,
+        itemHeight: 4,
+        textStyle: { color: '#53606b', fontSize: 10 },
+        data: ['Average CPU Usage (%)']
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['12:00','12:45','13:30','14:30','15:15','16:00','16:45','17:30','18:30','19:30','20:15','21:00','22:00','22:45','23:30','00:15','01:00','01:45','02:30','03:15','04:00','04:45','05:30','06:15','07:00','07:45','08:30','09:15','10:00','10:45','11:30','12:15','13:00','13:45','14:30','15:15','16:00','16:45','17:30','18:15','19:00','19:45','20:30','21:15','22:00','22:45','23:30','00:15'],
+        axisLabel: {
+          color: '#53606b',
+          fontSize: 10,
+          interval: 5,
+          formatter: function(value) {
+            return value;
+          }
+        },
+        axisLine: { lineStyle: { color: '#d7e0e6' } },
+        splitLine: { lineStyle: { color: '#edf2f5' } }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 100,
+        interval: 25,
+        axisLabel: { color: '#53606b', fontSize: 10 },
+        splitLine: { lineStyle: { color: '#edf2f5' } }
+      },
+      series: [{
+        name: 'Average CPU Usage (%)',
+        type: 'line',
+        data: [44, 46, 43, 39, 44, 47, 55, 54, 58, 61, 46, 50, 44, 50, 47, 43, 46, 42, 48, 50, 47, 48, 56, 60, 52, 49, 51, 56, 52, 49, 53, 57, 49, 43, 41, 34, 33, 35, 36, 42, 45, 47, 43, 45, 39, 43],
+        symbolSize: 4,
+        lineStyle: { color: '#169aa8', width: 2 },
+        itemStyle: { color: '#169aa8' },
+        areaStyle: { opacity: 0 }
+      }]
+    });
+
+    const statusChart = echarts.init(document.getElementById('statusChart'));
+    statusChart.setOption({
+      animation: false,
+      grid: { left: 35, right: 10, top: 28, bottom: 34 },
+      tooltip: { trigger: 'axis' },
+      xAxis: {
+        type: 'category',
+        data: ['Online', 'Warning', 'Critical', 'Offline'],
+        axisLabel: { color: '#53606b', fontSize: 10 },
+        axisLine: { lineStyle: { color: '#d7e0e6' } }
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: { color: '#53606b', fontSize: 10 },
+        splitLine: { lineStyle: { color: '#edf2f5' } }
+      },
+      series: [{
+        name: 'Servers by Status',
+        type: 'bar',
+        barWidth: 42,
+        data: [115, 7, 6, 0],
+        itemStyle: {
+          color: function(params) {
+            return ['#26b572','#f3b21a','#e04438','#bdc5cc'][params.dataIndex];
+          }
+        },
+        label: {
+          show: true,
+          position: 'top',
+          color: '#53606b',
+          fontSize: 10,
+          formatter: '{c}'
+        }
+      }]
+    });
+  </script>
+</body>
+</html>

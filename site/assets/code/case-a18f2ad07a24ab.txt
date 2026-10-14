@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Campaign ROI Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #eef2f5;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    color: #1f2428;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 853px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 184px;
+    height: 853px;
+    background: #fbfbfc;
+    border-right: 1px solid #e7ebef;
+  }
+
+  .brand {
+    height: 62px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    gap: 10px;
+    font-weight: 750;
+    font-size: 16px;
+  }
+
+  .brand-icon {
+    width: 25px;
+    height: 25px;
+    background: #ff584d;
+    color: #fff;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .nav-list {
+    padding: 0 0 8px;
+  }
+
+  .nav-item {
+    height: 34px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 0 12px 0 14px;
+    font-size: 11px;
+    color: #30363b;
+  }
+
+  .nav-item.active {
+    background: #ff584d;
+    color: white;
+    border-radius: 8px 8px 0 0;
+    margin-top: 0;
+    font-weight: 650;
+  }
+
+  .nav-icon {
+    width: 13px;
+    text-align: center;
+    font-size: 12px;
+    color: #40474d;
+  }
+
+  .pro-card {
+    position: absolute;
+    left: 14px;
+    top: 482px;
+    width: 156px;
+    height: 216px;
+    border: 1px solid #f1d8d8;
+    background: #fff8f8;
+    border-radius: 8px;
+    text-align: center;
+    padding: 18px 8px 12px;
+  }
+
+  .pro-icon {
+    width: 62px;
+    height: 42px;
+    margin: 0 auto 8px;
+    border: 1px solid #ff7268;
+    border-radius: 6px;
+    color: #ff584d;
+  }
+
+  .pro-title {
+    color: #ff584d;
+    font-size: 12px;
+    font-weight: 750;
+    margin-bottom: 6px;
+  }
+
+  .pro-text {
+    font-size: 10.5px;
+    color: #555e66;
+    line-height: 1.55;
+    margin-bottom: 9px;
+  }
+
+  .crm-btn {
+    height: 30px;
+    width: 112px;
+    background: #ff584d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 10.5px;
+  }
+
+  .user-chip {
+    position: absolute;
+    left: 0;
+    bottom: 33px;
+    width: 184px;
+    height: 51px;
+    border-top: 1px solid #e8ebef;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    gap: 10px;
+  }
+
+  .user-avatar {
+    width: 24px;
+    height: 24px;
+    background: #ff584d;
+    color: white;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 10px;
+  }
+
+  .user-name {
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .user-role {
+    font-size: 9.5px;
+    color: #5d656d;
+  }
+
+  /* Main */
+  .main {
+    position: absolute;
+    left: 184px;
+    top: 0;
+    width: 1096px;
+    height: 853px;
+    background: #fff;
+  }
+
+  .header {
+    height: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 21px 17px 0 17px;
+  }
+
+  .title-block h1 {
+    margin: 0 0 6px;
+    font-size: 21px;
+    font-weight: 780;
+  }
+
+  .subtitle {
+    font-size: 12px;
+    color: #66707a;
+  }
+
+  .filters {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .filter {
+    height: 32px;
+    border: 1px solid #dce2e7;
+    background: #fbfcfd;
+    border-radius: 6px;
+    padding: 0 12px;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space8between;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 680;
+  }
+
+  .export {
+    height: 32px;
+    border: 1px solid #ff584d;
+    background: #fff;
+    color: #ff584d;
+    border-radius: 6px;
+    padding: 0 15px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  /* KPI Cards */
+  .kpi-row {
+    position: absolute;
+    top: 82px;
+    left: 17px;
+    width: 1062px;
+    height: 136px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .kpi-card {
+    border: 1px solid #e5e9ee;
+    border-radius: 7px;
+    background: #fff;
+    padding: 18px 15px 12px;
+    position: relative;
+  }
+
+  .kpi-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .kpi-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background: #ffecee;
+    color: #ff584d;
+    display: grid;
+    place-items: center;
+    font-size: 25px;
+  }
+
+  .kpi-label {
+    font-size: 12px;
+    color: #3c4349;
+    margin-bottom: 5px;
+  }
+
+  .kpi-value {
+    font-size: 26px;
+    font-weight: 800;
+  }
+
+  .kpi-sub {
+    margin-top: 17px;
+    display: flex;
+    justify-content: space8between;
+    align-items: center;
+    font-size: 10.8px;
+    color: #737d86;
+  }
+
+  .change-up {
+    color: #239f68;
+    font-weight: 750;
+  }
+
+  .change-down {
+    color: #ff584d;
+    font-weight: 750;
+  }
+
+  /* Analytics Panels */
+  .panel {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #e5e9ee;
+    border-radius: 7px;
+    overflow: hidden;
+  }
+
+  .roi-panel {
+    left: 17px;
+    top: 227px;
+    width: 400px;
+    height: 288px;
+  }
+
+  .scatter-panel {
+    left: 426px;
+    top: 227px;
+    width: 273px;
+    height: 288px;
+  }
+
+  .bar-panel {
+    left: 712px;
+    top: 227px;
+    width: 355px;
+    height: 288px;
+  }
+
+  .table-panel {
+    left: 17px;
+    top: 533px;
+    width: 548px;
+    height: 276px;
+  }
+
+  .recent-panel {
+    left: 578px;
+    top: 533px;
+    width: 510px;
+    height: 276px;
+  }
+
+  .panel-head {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 13px;
+    font-size: 12px;
+    font-weight: 750;
+    border-bottom: 1px solid #e8ebef;
+  }
+
+  .ellipsis {
+    margin-left: auto;
+    color: #7d868f;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+
+  .chart {
+    width: 100%;
+    height: 220px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10.5px;
+    color: #333a40;
+  }
+
+  th {
+    background: #fbfcfd;
+    color: #64707a;
+    font-size: 9.4px;
+    height: 27px;
+    border-bottom: 1px solid #edf0f3;
+  }
+
+  td {
+    height: 30px;
+    border-bottom: 1px solid #edf0f3;
+  }
+
+  .campaign-table td:first-child {
+    font-weight: 700;
+  }
+
+  .pager {
+    height: 28px;
+    padding: 0 14px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    font-size: 10px;
+    color: #6a727a;
+  }
+
+  .recent-table {
+    font-size: 10px;
+  }
+
+  .recent-table td:first-child {
+    font-size: 10.2px;
+  }
+
+  .status-active {
+    background: #dff5ef;
+    color: #16a27c;
+    border-radius: 4px;
+  }
+
+  .status-completed {
+    background: #edf0f2;
+    color: #5a646e;
+    border-radius: 4px;
+  }
+
+  .view-link {
+    position: absolute;
+    right: 16px;
+    bottom: 14px;
+    color: #ff584d;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .footer-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1280px;
+    height: 14px;
+    background: #ff584d;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">||</div>
+      <div>MarketFlow</div>
+    </div>
+
+    <nav class="nav-list">
+      <div class="nav-item active"><span class="nav-icon">⌂</span><span>Overview</span></div>
+      <div class="nav-item"><span class="nav-icon">♟</span><span>Campaigns</span></div>
+      <div class="nav-item"><span class="nav-icon">⌁</span><span>Performance</span></div>
+      <div class="nav-item"><span class="nav-icon">♧</span><span>Channels</span></div>
+      <div class="nav-item"><span class="nav-icon">♧</span><span>Audience</span></div>
+      <div class="nav-item"><span class="nav-icon">◎</span><span>Conversions</span></div>
+      <div class="nav-item"><span class="nav-icon">▧</span><span>Reports</span></div>
+      <div class="nav-item"><span class="nav-icon">♧</span><span>Alerts</span></div>
+      <div class="nav-item"><span class="nav-icon">⚙</span><span>Settings</span></div>
+    </nav>
+
+    <div class="pro-card">
+      <div class="pro-icon">↗</div>
+      <div class="pro-title">Pro Tip</div>
+      <div class="pro-text">Connect your CRM to unlock deeper attribution insights.</div>
+      <button class="crm-btn">Connect CRM</button>
+    </div>
+
+    <div class="user-chip">
+      <div class="user-avatar">AM</div>
+      <div>
+        <div class="user-name">Alex Morgan</div>
+        <div class="user-role">Marketing Manager</div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="header">
+      <div class="title-block">
+        <h1>Campaign ROI Dashboard</h1>
+        <div class="subtitle">Track the performance and return on investment for all marketing campaigns.</div>
+      </div>
+      <div class="filters">
+        <div class="filter">▣ <span>May 1 – May 31, 2024</span>⌄</div>
+        <div class="filter">▽ <span>All Channels</span>⌄</div>
+        <div class="export">⇧ Export</div>
+      </div>
+    </header>
+
+    <section class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-top">
+          <div class="kpi-icon">$</div>
+          <div>
+            <div class="kpi-label">Total Spend</div>
+            <div class="kpi-value">$245,780</div>
+          </div>
+        </div>
+        <div class="kpi-sub">
+          <span>vs Apr 1 – Apr 30, 2024</span>
+          <span class="change-down">↑ 12.4%</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-top">
+          <div class="kpi-icon">↗</div>
+          <div>
+            <div class="kpi-label">Total Revenue</div>
+            <div class="kpi-value">$840,560</div>
+          </div>
+        </div>
+        <div class="kpi-sub">
+          <span>vs Apr 1 – Apr 30, 2024</span>
+          <span class="change-up">↑ 18.7%</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-top">
+          <div class="kpi-icon">◎</div>
+          <div>
+            <div class="kpi-label">ROI</div>
+            <div class="kpi-value">3.42x</div>
+          </div>
+        </div>
+        <div class="kpi-sub">
+          <span>vs Apr 1 – Apr 30, 2024</span>
+          <span class="change-up">↑ 14.3%</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-top">
+          <div class="kpi-icon">♙</div>
+          <div>
+            <div class="kpi-label">Conversions</div>
+            <div class="kpi-value">8,752</div>
+          </div>
+        </div>
+        <div class="kpi-sub">
+          <span>vs Apr 1 – Apr 30, 2024</span>
+          <span class="change-up">↑ 9.8%</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel roi-panel">
+      <div class="panel-head">
+        <span>ROI Over Time ⓘ</span>
+        <span class="ellipsis">•••</span>
+      </div>
+      <div id="roiChart" class="chart"></div>
+    </section>
+
+    <section class="panel scatter-panel">
+      <div class="panel-head">
+        <span>Spend vs. ROI by Campaign ⓘ</span>
+        <span class="ellipsis">•••</span>
+      </div>
+      <div id="scatterChart" class="chart"></div>
+    </section>
+
+    <section class="panel bar-panel">
+      <div class="panel-head">
+        <span>Revenue by Channel ⓘ</span>
+        <span class="ellipsis">•••</span>
+      </div>
+      <div id="barChart" class="chart"></div>
+    </section>
+
+    <section class="panel table-panel">
+      <div class="panel-head">
+        <span>Top Campaigns ⓘ</span>
+        <span class="ellipsis">•••</span>
+      </div>
+      <table class="campaign-table">
+        <tr>
+          <th>Campaign</th>
+          <th>Channel</th>
+          <th>Spend (USD)</th>
+          <th>Revenue (USD)</th>
+          <th>ROI (x)</th>
+          <th>Conversions</th>
+        </tr>
+        <tr>
+          <td>Spring Sale</td>
+          <td>Paid Search</td>
+          <td>$42,500</td>
+          <td>$203,520</td>
+          <td>4.79x</td>
+          <td>2,310</td>
+        </tr>
+        <tr>
+          <td>Brand Awareness</td>
+          <td>Paid Social</td>
+          <td>$35,200</td>
+          <td>$128,640</td>
+          <td>3.65x</td>
+          <td>1,432</td>
+        </tr>
+        <tr>
+          <td>Lead Gen - May</td>
+          <td>Email</td>
+          <td>$18,750</td>
+          <td>$88,900</td>
+          <td>4.74x</td>
+          <td>1,125</td>
+        </tr>
+        <tr>
+          <td>Product Launch</td>
+          <td>Display</td>
+          <td>$27,300</td>
+          <td>$62,310</td>
+          <td>2.28x</td>
+          <td>843</td>
+        </tr>
+        <tr>
+          <td>Referral Program</td>
+          <td>Referral</td>
+          <td>$12,030</td>
+          <td>$39,180</td>
+          <td>3.12x</td>
+          <td>654</td>
+        </tr>
+      </table>
+      <div class="pager">1–5 of 12 &nbsp; <span>‹</span> &nbsp; <span>›</span></div>
+    </section>
+
+    <section class="panel recent-panel">
+      <div class="panel-head">
+        <span>Recent Campaigns ⓘ</span>
+        <span class="ellipsis">•••</span>
+      </div>
+      <table class="recent-table">
+        <tr>
+          <th>Campaign</th>
+          <th>Channel</th>
+          <th>Date Range</th>
+          <th>Spend</th>
+          <th>ROI</th>
+          <th>Status</th>
+        </tr>
+        <tr>
+          <td>Summer Collection Launch</td>
+          <td>Paid Social</td>
+          <td>Jun 1 – Jun 30, 2024</td>
+          <td>$8,450</td>
+          <td>--</td>
+          <td><span class="status-active">Active</span></td>
+        </tr>
+        <tr>
+          <td>Memorial Day Promo</td>
+          <td>Email</td>
+          <td>May 20 – May 27, 2024</td>
+          <td>$4,320</td>
+          <td>3.22x</td>
+          <td><span class="status-completed">Completed</span></td>
+        </tr>
+        <tr>
+          <td>Retargeting - May</td>
+          <td>Display</td>
+          <td>May 1 – May 31, 2024</td>
+          <td>$5,850</td>
+          <td>2.11x</td>
+          <td><span class="status-completed">Completed</span></td>
+        </tr>
+        <tr>
+          <td>Q2 Webinar Campaign</td>
+          <td>Paid Search</td>
+          <td>Apr 28 – May 15, 2024</td>
+          <td>$6,120</td>
+          <td>4.01x</td>
+          <td><span class="status-completed">Completed</span></td>
+        </tr>
+      </table>
+      <div class="view-link">View all campaigns →</div>
+    </section>
+  </main>
+
+  <div class="footer-bar"></div>
+</div>
+
+<script>
+  const roiChart = echarts.init(document.getElementById('roiChart'));
+  roiChart.setOption({
+    animation: false,
+    color: ['#ff584d', '#ff9f34', '#8b5cf6', '#2563eb', '#22c55e'],
+    grid: { left: 38, right: 12, top: 34, bottom: 35 },
+    legend: {
+      top: 0,
+      left: 14,
+      itemWidth: 10,
+      itemHeight: 6,
+      textStyle: { fontSize: 10, color: '#4b5560' },
+      data: ['Total ROI', 'Paid Search', 'Paid Social', 'Email', 'Display']
+    },
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      data: ['May 1','May 6','May 11','May 16','May 21','May 26','May 31'],
+      axisLabel: { fontSize: 9, color: '#55606a' },
+      axisLine: { lineStyle: { color: '#e5e9ee' } },
+      axisTick: { show: false }
+    },
+    yAxis: {
+      type: 'value',
+      name: 'ROI (x)',
+      nameTextStyle: { color: '#5b656f', fontSize: 9 },
+      min: 0,
+      max: 5,
+      interval: 1,
+      axisLabel: { formatter: '{value}x', fontSize: 9, color: '#55606a' },
+      splitLine: { lineStyle: { color: '#f0f2f5' } }
+    },
+    series: [
+      { name: 'Total ROI', type: 'line', smooth: true, symbolSize: 4, data: [2.1,2.5,2.8,3.0,3.3,3.7,4.0] },
+      { name: 'Paid Search', type: 'line', smooth: true, symbolSize: 4, data: [2.8,3.0,3.2,3.5,3.7,4.0,4.3] },
+      { name: 'Paid Social', type: 'line', smooth: true, symbolSize: 4, data: [2.0,2.2,2.4,2.6,2.9,3.1,3.3] },
+      { name: 'Email', type: 'line', smooth: true, symbolSize: 4, data: [1.8,2.0,2.1,2.3,2.5,2.7,2.9] },
+      { name: 'Display', type: 'line', smooth: true, symbolSize: 4, data: [1.5,1.6,1.7,1.9,2.0,2.1,2.3] }
+    ]
+  });
+
+  const scatterChart = echarts.init(document.getElementById('scatterChart'));
+  scatterChart.setOption({
+    animation: false,
+    color: ['#ff584d'],
+    grid: { left: 35, right: 14, top: 34, bottom: 33 },
+    xAxis: {
+      type: 'value',
+      name: 'Spend (USD)',
+      min: 0,
+      max: 60000,
+      interval: 10000,
+      nameTextStyle: { color: '#5b656f', fontSize: 9 },
+      axisLabel: { formatter: function(value) { return value === 0 ? '0' : (value / 1000) + 'K'; }, fontSize: 9, color: '#55606a' },
+      splitLine: { lineStyle: { color: '#f0f2f5' } }
+    },
+    yAxis: {
+      type: 'value',
+      name: 'ROI (x)',
+      min: 0,
+      max: 5,
+      interval: 1,
+      nameTextStyle: { color: '#5b656f', fontSize: 9 },
+      axisLabel: { formatter: '{value}x', fontSize: 9, color: '#55606a' },
+      splitLine: { lineStyle: { color: '#f0f2f5' } }
+    },
+    series: [
+      {
+        type: 'scatter',
+        data: [[10000, 2.1], [15000, 2.4], [20000, 2.6], [25000, 3.0], [30000, 3.2], [35000, 3.5], [40000, 3.7], [42500, 4.8], [45000, 4.0], [50000, 4.3]],
+        symbolSize: function(value, params) {
+          return params.dataIndex === 7 ? 12 : 7;
+        },
+        itemStyle: {
+          color: function(params) {
+            return params.dataIndex === 7 ? '#ff584d' : '#ff655e';
+          },
+          borderColor: '#fff',
+          borderWidth: 1
+        }
+      },
+      {
+        type: 'line',
+        data: [[8000, 1.3], [52000, 4.8]],
+        symbol: 'none',
+        lineStyle: { color: '#9ca3aa', width: 1, type: 'dashed' }
+      }
+    ],
+    graphic: [
+      {
+        type: 'text',
+        right: 15,
+        top: 21,
+        style: {
+          text: 'Spring Sale\nSpend: $42.5K\nROI: 4.8x',
+          fill: '#444b52',
+          fontSize: 9,
+          textAlign: 'center',
+          textVerticalAlign: 'middle'
+        }
+      }
+    ]
+  });
+
+  const barChart = echarts.init(document.getElementById('barChart'));
+  barChart.setOption({
+    animation: false,
+    color: ['#ff584d'],
+    grid: { left: 42, right: 10, top: 32, bottom: 35 },
+    xAxis: {
+      type: 'category',
+      data: ['Paid Search','Paid Social','Email','Display','Referral'],
+      axisLabel: { fontSize: 9, color: '#4f5962' },
+      axisLine: { lineStyle: { color: '#e5e9ee' } },
+      axisTick: { show: false }
+    },
+    yAxis: {
+      type: 'value',
+      name: 'Revenue (USD)',
+      max: 400000,
+      interval: 100000,
+      nameTextStyle: { color: '#5b656f', fontSize: 9 },
+      axisLabel: {
+        formatter: function(value) { return value === 0 ? '0' : (value / 1000) + 'K'; },
+        fontSize: 9,
+        color: '#55606a'
+      },
+      splitLine: { lineStyle: { color: '#f0f2f5' } }
+    },
+    series: [
+      {
+        type: 'bar',
+        data: [320450,214600,162300,89120,54090],
+        barWidth: 28,
+        label: {
+          show: true,
+          position: 'top',
+          fontSize: 9,
+          color: '#4b5560'
+        }
+      }
+    ]
+  });
+</script>
+</body>
+</html>

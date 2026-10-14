@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Enterprise-ready Tailored Services</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #050824;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      color: #ffffff;
+      background:
+        radial-gradient(circle at 74% 18%, rgba(142, 0, 255, 0.38) 0%, rgba(45, 0, 100, 0.17) 23%, rgba(5, 8, 36, 0) 43%),
+        radial-gradient(circle at 88% 82%, rgba(100, 0, 255, 0.26) 0%, rgba(20, 0, 70, 0.10) 28%, rgba(5, 8, 36, 0) 48%),
+        linear-gradient(105deg, #071034 0%, #080934 35%, #0d0542 62%, #100556 100%);
+    }
+
+    .breadcrumb {
+      position: absolute;
+      left: 36px;
+      top: 35px;
+      font-size: 16px;
+      letter-spacing: 0.3px;
+      color: #c6b7ff;
+      font-weight: 500;
+    }
+
+    .main-title {
+      position: absolute;
+      left: 39px;
+      top: 86px;
+      width: 500px;
+      margin: 0;
+      color: #ffffff;
+      font-size: 50px;
+      line-height: 1.23;
+      font-weight: 800;
+      letter-spacing: -1.4px;
+    }
+
+    .subtitle {
+      position: absolute;
+      left: 43px;
+      top: 237px;
+      width: 485px;
+      color: #f0f2ff;
+      font-size: 18px;
+      line-height: 1.45;
+      font-weight: 400;
+    }
+
+    .callout {
+      position: absolute;
+      left: 43px;
+      width: 465px;
+      height: 81px;
+      border: 1.5px solid rgba(170, 84, 255, 0.62);
+      border-radius: 10px;
+      background:
+        linear-gradient(90deg, rgba(27, 10, 88, 0.62) 0%, rgba(37, 10, 120, 0.43) 48%, rgba(11, 27, 84, 0.58) 100%);
+      box-shadow:
+        inset 0 0 18px rgba(180, 60, 255, 0.18),
+        0 0 18px rgba(160, 70, 255, 0.14);
+      display: flex;
+      align-items: center;
+      padding-left: 22px;
+      gap: 22px;
+    }
+
+    .callout.one {
+      top: 311px;
+    }
+
+    .callout.two {
+      top: 403px;
+    }
+
+    .callout.three {
+      top: 494px;
+    }
+
+    .check-icon {
+      width: 54px;
+      height: 54px;
+      border: 3px solid #b85cff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c784ff;
+      flex: 0 0 auto;
+      box-shadow: 0 0 14px rgba(183, 84, 255, 0.34);
+    }
+
+    .check-icon svg {
+      width: 31px;
+      height: 31px;
+      stroke: #c784ff;
+      stroke-width: 3.2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .callout-label {
+      font-size: 27px;
+      line-height: 1;
+      color: #ffffff;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+    }
+
+    .device {
+      position: absolute;
+      left: 523px;
+      top: 77px;
+      width: 748px;
+      height: 510px;
+      background: #eef3f8;
+      border: 4px solid rgba(255, 255, 255, 0.88);
+      border-radius: 18px 18px 12px 12px;
+      box-shadow:
+        0 14px 0 rgba(180, 180, 180, 0.42),
+        0 22px 36px rgba(0, 0, 0, 0.28);
+      overflow: hidden;
+    }
+
+    .device::after {
+      content: "";
+      position: absolute;
+      left: -65px;
+      bottom: -22px;
+      width: 880px;
+      height: 24px;
+      background:
+        linear-gradient(to bottom, rgba(170, 170, 170, 0.38), rgba(255, 255, 255, 0.72) 45%, rgba(120, 120, 120, 0.28));
+      border-radius: 0 0 24px 24px;
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.18);
+      opacity: 0.8;
+    }
+
+    .screen {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 740px;
+      height: 492px;
+      background: #08111d;
+      overflow: hidden;
+    }
+
+    .browser-chrome {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 740px;
+      height: 50px;
+      background: #0d1722;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      padding-left: 18px;
+      gap: 12px;
+    }
+
+    .traffic {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      flex: 0 0 auto;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .red {
+      background: #ff5345;
+    }
+
+    .yellow {
+      background: #ffc013;
+    }
+
+    .green {
+      background: #25cf56;
+    }
+
+    .chrome-icons {
+      color: #aeb5bd;
+      font-size: 18px;
+      letter-spacing: 4px;
+      margin-left: 8px;
+      width: 86px;
+    }
+
+    .url-bar {
+      position: absolute;
+      left: 225px;
+      top: 11px;
+      width: 380px;
+      height: 26px;
+      border-radius: 15px;
+      background: rgba(16, 21, 27, 0.85);
+      color: #f3f5f7;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      padding-left: 22px;
+      font-weight: 600;
+    }
+
+    .kebab {
+      position: absolute;
+      right: 18px;
+      top: 12px;
+      font-size: 18px;
+      color: #b4b9c0;
+      letter-spacing: 2px;
+    }
+
+    .catalog-title {
+      position: absolute;
+      left: 35px;
+      top: 64px;
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0;
+      letter-spacing: -0.3px;
+    }
+
+    .catalog-copy {
+      position: absolute;
+      left: 35px;
+      top: 110px;
+      width: 550px;
+      color: #e6eaf0;
+      font-size: 13px;
+      line-height: 1.55;
+      font-weight: 400;
+    }
+
+    .tiles {
+      position: absolute;
+      left: 35px;
+      top: 197px;
+      width: 620px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px 16px;
+    }
+
+    .tile {
+      min-height: 122px;
+      border: 1px solid rgba(160, 170, 180, 0.26);
+      border-radius: 5px;
+      background: rgba(10, 18, 28, 0.48);
+      padding: 11px 12px 10px;
+    }
+
+    .tile-title {
+      margin: 0 0 5px;
+      color: #f4f5f8;
+      font-size: 14px;
+      line-height: 1.15;
+      font-weight: 800;
+    }
+
+    .tile-desc {
+      margin: 0;
+      color: #cfd6df;
+      font-size: 12px;
+      line-height: 1.42;
+      font-weight: 400;
+    }
+
+    .footer-divider {
+      position: absolute;
+      left: 32px;
+      bottom: 60px;
+      width: 1216px;
+      height: 1px;
+      background: rgba(190, 195, 210, 0.26);
+    }
+
+    .footer-label {
+      position: absolute;
+      left: 0;
+      bottom: 15px;
+      width: 1280px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(200, 205, 220, 0.72);
+      letter-spacing: 8px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="breadcrumb">Appendix / Products &amp; Features</div>
+
+    <h1 class="main-title">
+      Enterprise-ready<br />
+      Tailored Services
+    </h1>
+
+    <div class="subtitle">
+      Help you adopt GitHub quickly and efficiently<br />
+      to transform your business
+    </div>
+
+    <div class="callout one">
+      <div class="check-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="8.2"></circle>
+          <path d="M8 13.2l3.4 3.4 6.2-6.8"></path>
+        </svg>
+      </div>
+      <div class="callout-label">Insights</div>
+    </div>
+
+    <div class="callout two">
+      <div class="check-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="8.2"></circle>
+          <path d="M8 13.2l3.4 3.4 6.2-6.8"></path>
+        </svg>
+      </div>
+      <div class="callout-label">Best practices</div>
+    </div>
+
+    <div class="callout three">
+      <div class="check-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="8.2"></circle>
+          <path d="M8 13.2l3.4 3.4 6.2-6.8"></path>
+        </svg>
+      </div>
+      <div class="callout-label">Knowledge</div>
+    </div>
+
+    <div class="device" aria-label="Browser window style placeholder showing a catalog of services">
+      <div class="screen">
+        <div class="browser-chrome">
+          <div class="traffic" aria-hidden="true">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <div class="chrome-icons" aria-hidden="true">← → ↻</div>
+          <div class="url-bar">https://github.com/services</div>
+          <div class="kebab" aria-hidden="true">⋮</div>
+        </div>
+
+        <h2 class="catalog-title">Our catalog of services</h2>
+
+        <div class="catalog-copy">
+          Explore a variety of GitHub trainings designed to help your team build skills,<br />
+          improve workflows, and deliver secure, scalable software.<br />
+          Choose the training that fits your goals.
+        </div>
+
+        <div class="tiles">
+          <div class="tile">
+            <h3 class="tile-title">GitHub Actions Training</h3>
+            <p class="tile-desc">Learn to automate workflows and streamline your CI/CD pipelines with GitHub Actions.</p>
+          </div>
+
+          <div class="tile">
+            <h3 class="tile-title">GitHub API Training</h3>
+            <p class="tile-desc">Master the GitHub REST and GraphQL APIs to integrate and build powerful tools.</p>
+          </div>
+
+          <div class="tile">
+            <h3 class="tile-title">Security Best Practices</h3>
+            <p class="tile-desc">Strengthen your code security with advanced scanning and secure development practices.</p>
+          </div>
+
+          <div class="tile">
+            <h3 class="tile-title">Administration Training</h3>
+            <p class="tile-desc">Manage users, teams, and policies effectively in your GitHub enterprise environment.</p>
+          </div>
+
+          <div class="tile">
+            <h3 class="tile-title">Advanced Git Training</h3>
+            <p class="tile-desc">Deepen your Git skills and learn advanced techniques for better collaboration.</p>
+          </div>
+
+          <div class="tile">
+            <h3 class="tile-title">Migration Services</h3>
+            <p class="tile-desc">Migrate to GitHub with confidence and minimal disruption to your team.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+    <div class="footer-label">GITHUB PLATFORM PITCH</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1280, initial-scale=1.0" />
+  <title>TrackPulse SaaS Hero</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #05060b;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: #f5f6fb;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 731px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 69% 38%, rgba(126, 75, 255, 0.32), rgba(126, 75, 255, 0.08) 20%, rgba(5, 6, 12, 0) 39%),
+        radial-gradient(circle at 18% 78%, rgba(91, 51, 205, 0.18), rgba(5, 6, 12, 0) 31%),
+        linear-gradient(180deg, #080911 0%, #07080e 46%, #080910 100%);
+    }
+
+    /* Browser Chrome */
+    .browser-chrome {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 64px;
+      background: #17181f;
+      border-bottom: 1px solid #2b2c34;
+    }
+
+    .tab {
+      position: absolute;
+      left: 12px;
+      top: 6px;
+      width: 223px;
+      height: 34px;
+      background: #202128;
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+      font-size: 11px;
+      color: #d8d8e1;
+    }
+
+    .tab .spark {
+      color: #8b5cf6;
+      margin-right: 7px;
+      font-size: 15px;
+    }
+
+    .tab-close {
+      position: absolute;
+      right: 8px;
+      top: 0;
+      color: #b9bac2;
+      font-size: 12px;
+    }
+
+    .plus {
+      position: absolute;
+      left: 245px;
+      top: 11px;
+      color: #d8d8e2;
+      font-size: 18px;
+    }
+
+    .window-controls {
+      position: absolute;
+      right: 11px;
+      top: 8px;
+      font-size: 14px;
+      letter-spacing: 8px;
+      color: #d5d5dd;
+    }
+
+    .address-row {
+      position: absolute;
+      left: 0;
+      top: 39px;
+      width: 1280px;
+      height: 25px;
+    }
+
+    .nav-arrow {
+      position: absolute;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      color: #d7d7df;
+      font-size: 19px;
+    }
+
+    .nav-arrow.left {
+      left: 7px;
+    }
+
+    .nav-arrow.right {
+      left: 41px;
+    }
+
+    .address-bar {
+      position: absolute;
+      left: 102px;
+      top: 0;
+      width: 1055px;
+      height: 22px;
+      background: #1f2027;
+      border-radius: 12px;
+      color: #bfc2ca;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      padding-left: 18px;
+      border: 1px solid #343540;
+    }
+
+    .incognito {
+      position: absolute;
+      right: 52px;
+      top: 2px;
+      font-size: 11px;
+      color: #d8d8e1;
+    }
+
+    /* Main Navigation */
+    .main-nav {
+      position: absolute;
+      top: 64px;
+      left: 0;
+      width: 1280px;
+      height: 58px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(7, 8, 14, 0.55);
+    }
+
+    .logo {
+      position: absolute;
+      left: 80px;
+      top: 17px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .logo-mark {
+      width: 23px;
+      height: 23px;
+      position: relative;
+      background: conic-gradient(from 210deg, transparent 0 20%, #8b5cf6 21% 42%, transparent 43% 65%, #8b5cf6 66% 87%, transparent 88% 100%);
+      border-radius: 50%;
+    }
+
+    .nav-links {
+      position: absolute;
+      left: 465px;
+      top: 18px;
+      display: flex;
+      gap: 34px;
+      font-size: 12px;
+      color: #d5d6df;
+    }
+
+    .nav-links span {
+      white-space: nowrap;
+    }
+
+    .nav-actions {
+      position: absolute;
+      right: 42px;
+      top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 12px;
+    }
+
+    .get-started-nav {
+      min-width: 91px;
+      height: 30px;
+      border-radius: 6px;
+      background: #7242e2;
+      color: white;
+      padding: 0 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    /* Hero */
+    .hero {
+      position: absolute;
+      top: 122px;
+      left: 205px;
+      width: 870px;
+      height: 270px;
+    }
+
+    .eyebrow {
+      color: #9a72e9;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      font-size: 10px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .headline {
+      margin: 0;
+      font-size: 40px;
+      line-height: 1.05;
+      letter-spacing: -1.2px;
+      font-weight: 800;
+      max-width: 520px;
+    }
+
+    .hero-copy {
+      width: 420px;
+      color: #aeb1ba;
+      font-size: 14px;
+      line-height: 1.65;
+      margin: 12px 0 18px;
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .primary-cta {
+      width: 150px;
+      height: 36px;
+      border: 0;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #8056ee, #6339e4);
+      color: white;
+      font-weight: 800;
+      font-size: 12px;
+    }
+
+    .secondary-cta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #cdd0db;
+      padding-left: 8px;
+    }
+
+    /* Phone Mockup */
+    .phone-wrap {
+      position: absolute;
+      top: 98px;
+      right: 104px;
+      width: 328px;
+      height: 335px;
+      border-radius: 42px;
+      border: 12px solid rgba(127, 76, 255, 0.28);
+      transform: rotate(13deg);
+      box-shadow:
+        0 0 54px rgba(119, 66, 255, 0.38),
+        0 0 104px rgba(119, 66, 255, 0.18);
+      background: rgba(15, 15, 22, 0.55);
+      overflow: hidden;
+      z-index: 3;
+    }
+
+    .phone-wrap::before {
+      content: "";
+      position: absolute;
+      left: -82px;
+      top: 122px;
+      width: 210px;
+      height: 210px;
+      background: radial-gradient(circle, rgba(120, 70, 255, 0.38), rgba(120, 70, 255, 0) 64%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .phone-screen {
+      position: absolute;
+      left: 18px;
+      top: 12px;
+      width: 255px;
+      height: 300px;
+      border-radius: 22px;
+      background: #11141b;
+      overflow: hidden;
+      box-shadow: inset 0 0 25px rgba(124, 71, 255, 0.24);
+    }
+
+    .notch {
+      position: absolute;
+      top: 12px;
+      left: 90px;
+      width: 72px;
+      height: 15px;
+      background: #05060a;
+      border-radius: 0 0 11px 11px;
+      z-index: 5;
+    }
+
+    .phone-title {
+      position: absolute;
+      top: 26px;
+      left: 13px;
+      z-index: 4;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .dashboard-card {
+      position: absolute;
+      top: 56px;
+      left: 10px;
+      width: 225px;
+      height: 102px;
+      border-radius: 12px;
+      background: #12151d;
+      z-index: 3;
+      padding: 12px 12px 8px;
+    }
+
+    .dashboard-label {
+      font-size: 8px;
+      font-weight: 800;
+      margin-bottom: 7px;
+    }
+
+    .score-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 4px solid #8255ef;
+      margin: 0 auto 6px;
+      background: rgba(255,255,255,0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .score-value {
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .trends-card {
+      position: absolute;
+      bottom: 20px;
+      left: 10px;
+      width: 225px;
+      height: 88px;
+      border-radius: 12px;
+      background: #12151d;
+      z-index: 3;
+      padding: 10px 12px;
+    }
+
+    .trends-title {
+      font-size: 8px;
+      font-weight: 800;
+    }
+
+    #dashboardChart {
+      position: absolute;
+      left: 8px;
+      bottom: 10px;
+      width: 196px;
+      height: 50px;
+    }
+
+    /* Feature Cards */
+    .feature-row {
+      position: absolute;
+      top: 428px;
+      left: 205px;
+      width: 872px;
+      height: 82px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .feature-card {
+      width: 284px;
+      height: 80px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.09);
+      display: flex;
+      align-items: center;
+      padding: 10px 12px;
+      color: #aeb1ba;
+      font-size: 10px;
+      line-height: 1.38;
+    }
+
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      margin-right: 11px;
+      background: rgba(112, 70, 226, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c6a7ff;
+      font-size: 18px;
+    }
+
+    .feature-text {
+      min-width: 0;
+    }
+
+    .feature-title {
+      margin-bottom: 5px;
+      color: #f2f3fb;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    /* Trusted */
+    .trusted-label {
+      position: absolute;
+      top: 522px;
+      left: 0;
+      width: 1280px;
+      text-align: center;
+      color: #a7a9b1;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 10px;
+    }
+
+    .trusted-row {
+      position: absolute;
+      top: 558px;
+      left: 220px;
+      width: 840px;
+      height: 26px;
+      display: flex;
+      justify-content: space2between;
+      align-items: center;
+      gap: 30px;
+      color: #9fa2ad;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .brand {
+      opacity: 0.9;
+      white-space: nowrap;
+    }
+
+    /* Newsletter */
+    .newsletter {
+      position: absolute;
+      left: 205px;
+      top: 614px;
+      width: 872px;
+      height: 85px;
+      border-radius: 6px;
+      background: rgba(67, 53, 112, 0.18);
+      border: 1px solid rgba(134, 88, 224, 0.18);
+      display: flex;
+      align-items: center;
+    }
+
+    .mail-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(112, 70, 226, 0.32);
+      margin: 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c6a7ff;
+      font-size: 21px;
+    }
+
+    .newsletter-copy {
+      width: 410px;
+    }
+
+    .newsletter-title {
+      margin: 0 0 4px;
+      font-size: 14px;
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .newsletter-text {
+      margin: 0;
+      color: #aeb1ba;
+      font-size: 10px;
+    }
+
+    .signup-form {
+      position: absolute;
+      right: 14px;
+      top: 11px;
+      height: 42px;
+      display: flex;
+    }
+
+    .email-input {
+      width: 290px;
+      height: 42px;
+      border-radius: 5px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(45, 44, 58, 0.72);
+      color: #c5c7d1;
+      padding-left: 14px;
+      display: flex;
+      align-items: center;
+      font-size: 11px;
+    }
+
+    .signup-button {
+      width: 93px;
+      height: 42px;
+      border: 0;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #8056ee, #643ae6);
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="browser-chrome">
+      <div class="tab">
+        <span class="spark">✦</span>
+        Track. Improve. Thrive.
+        <span class="tab-close">×</span>
+      </div>
+      <div class="plus">+</div>
+      <div class="window-controls">− □ ×</div>
+      <div class="address-row">
+        <div class="nav-arrow left">‹</div>
+        <div class="nav-arrow right">›</div>
+        <div class="address-bar">trackpulse.app</div>
+        <div class="incognito">✧ Incognito</div>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <div class="logo">
+        <div class="logo-mark"></div>
+        TrackPulse
+      </div>
+      <div class="nav-links">
+        <span>Features</span>
+        <span>How It Works</span>
+        <span>Pricing</span>
+        <span>Resources</span>
+      </div>
+      <div class="nav-actions">
+        <span>Log in</span>
+        <div class="get-started-nav">Get Started</div>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="eyebrow">YOUR HEALTH, IN FOCUS</div>
+      <h1 class="headline">Track. Improve. Thrive.</h1>
+      <p class="hero-copy">
+        All-in-one health tracking to help you understand your body, build better habits, and live your best life.
+      </p>
+      <div class="cta-row">
+        <button class="primary-cta">Get Started for Free</button>
+        <div class="secondary-cta">Learn More <span>›</span></div>
+      </div>
+    </section>
+
+    <section class="phone-wrap" aria-label="Mobile app dashboard mockup">
+      <div class="phone-screen">
+        <div class="notch"></div>
+        <div class="phone-title">Dashboard</div>
+
+        <div class="dashboard-card">
+          <div class="dashboard-label">Today's Overview</div>
+          <div class="score-circle">
+            <div class="score-value">87<br><span style="font-size:8px;">/100</span></div>
+          </div>
+        </div>
+
+        <div class="trends-card">
+          <div class="trends-title">Trends</div>
+          <div id="dashboardChart" aria-label="ECharts line chart placeholder with purple line"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-row">
+      <div class="feature-card">
+        <div class="feature-icon">▮▮▮</div>
+        <div class="feature-text">
+          <div class="feature-title">Track Everything</div>
+          Monitor sleep, activity, heart rate, nutrition, mood, and more — all in one place.
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✣</div>
+        <div class="feature-text">
+          <div class="feature-title">Smart Insights</div>
+          Get personalized insights and trends that help you make data-driven decisions.
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◎</div>
+        <div class="feature-text">
+          <div class="feature-title">Build Better Habits</div>
+          Set goals, build habits, and stay consistent with gentle reminders and progress tracking.
+        </div>
+      </div>
+    </section>
+
+    <div class="trusted-label">TRUSTED BY THOUSANDS</div>
+
+    <section class="trusted-row" aria-label="Partner brand names">
+      <div class="brand">fitbit</div>
+      <div class="brand">GARMIN</div>
+      <div class="brand">WITHINGS</div>
+      <div class="brand">STRAVA</div>
+      <div class="brand">Google Fit</div>
+      <div class="brand">WHOOP</div>
+    </section>
+
+    <section class="newsletter">
+      <div class="mail-icon">✉</div>
+      <div class="newsletter-copy">
+        <h2 class="newsletter-title">Stay in the loop</h2>
+        <p class="newsletter-text">Get the latest health tips, product updates, and exclusive content.</p>
+      </div>
+      <div class="signup-form">
+        <div class="email-input">Enter your email</div>
+        <div class="signup-button">Sign Up</div>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    const dashboardChart = echarts.init(document.getElementById('dashboardChart'));
+    dashboardChart.setOption({
+      animation: false,
+      grid: { left: 24, right: 10, top: 10, bottom: 16 },
+      xAxis: {
+        type: 'category',
+        data: ['M','T','W','T','F','S','S','M','T','W','T','F','S','S'],
+        boundaryGap: false,
+        axisLine: { lineStyle: { color: 'rgba(255,255,255,0.22)' } },
+        axisTick: { show: false },
+        axisLabel: { color: '#8f93a0', fontSize: 8, interval: 3 }
+      },
+      yAxis: {
+        type: 'value',
+        splitLine: { lineStyle: { color: 'rgba(255,255,255,0.10)' } },
+        axisLabel: { show: false }
+      },
+      series: [{
+        type: 'line',
+        data: [28, 52, 39, 46, 57, 66, 35, 37, 50, 72, 48, 43, 56, 64],
+        smooth: true,
+        symbol: 'none',
+        lineStyle: { color: '#8255ef', width: 2 },
+        areaStyle: {
+          color: new echarts.graphic.LinearGradient(0,0,0,1,[
+            { offset: 0, color: 'rgba(130,85,239,0.28)' },
+            { offset: 1, color: 'rgba(130,85,239,0.02)' }
+          ])
+        }
+      }]
+    });
+  </script>
+</body>
+</html>

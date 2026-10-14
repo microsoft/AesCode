@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>L&P Marketing Performance Review</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #dfe6eb;
+    font-family: "Arial", "Helvetica", sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 896px;
+    height: 1200px;
+    overflow: hidden;
+    background: #e8eef2;
+    color: #102b42;
+  }
+
+  /* Top brand band */
+  .top-band {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 896px;
+    height: 122px;
+    background: #e8eef2;
+  }
+
+  .brand-left {
+    position: absolute;
+    left: 56px;
+    top: 48px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .logo-mark {
+    position: relative;
+    width: 62px;
+    height: 58px;
+  }
+
+  .logo-mark .tri-a {
+    position: absolute;
+    left: 16px;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 17px solid transparent;
+    border-right: 17px solid transparent;
+    border-bottom: 36px solid #102b42;
+    transform: rotate(90deg);
+  }
+
+  .logo-mark .tri-b {
+    position: absolute;
+    left: 12px;
+    top: 24px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 28px solid #102b42;
+    transform: rotate(-25deg);
+  }
+
+  .logo-mark .tri-c {
+    position: absolute;
+    left: 22px;
+    top: 18px;
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-bottom: 26px solid #102b42;
+    transform: rotate(38deg);
+  }
+
+  .brand-name {
+    font-size: 29px;
+    font-weight: 800;
+    color: #102b42;
+    letter-spacing: -0.8px;
+  }
+
+  .url-text {
+    position: absolute;
+    right: 70px;
+    top: 58px;
+    font-size: 22px;
+    color: #102b42;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+  }
+
+  /* Hero section */
+  .hero {
+    position: absolute;
+    left: 0;
+    top: 122px;
+    width: 896px;
+    height: 212px;
+    background: #102d48;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-title {
+    color: #ffffff;
+    font-family: "Brush Script MT", "Segoe Script", "Comic Sans MS", cursive;
+    font-size: 52px;
+    font-style: italic;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin: 0 0 26px 0;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.25);
+    white-space: nowrap;
+  }
+
+  .report-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 170px;
+    height: 52px;
+    padding: 0 24px;
+    border-radius: 28px;
+    background: #ff3039;
+    color: #ffffff;
+    font-size: 27px;
+    font-weight: 800;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(255,48,57,0.22);
+  }
+
+  /* Info strip */
+  .info-strip {
+    position: absolute;
+    left: 0;
+    top: 334px;
+    width: 896px;
+    height: 111px;
+    background: #1f4567;
+  }
+
+  .info-field {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #ffffff;
+  }
+
+  .info-field.name {
+    left: 56px;
+    top: 30px;
+  }
+
+  .info-field.role {
+    right: 56px;
+    top: 30px;
+  }
+
+  .info-label {
+    font-size: 29px;
+    font-weight: 800;
+    color: #ffffff;
+  }
+
+  .info-value-pill {
+    min-height: 49px;
+    padding: 0 32px;
+    border-radius: 26px;
+    background: #ffffff;
+    color: #15314b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    font-weight: 400;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.16);
+  }
+
+  /* Cards */
+  .card {
+    position: absolute;
+    left: 56px;
+    width: 784px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 12px 22px rgba(0,0,0,0.18);
+  }
+
+  .card-one {
+    top: 530px;
+    height: 274px;
+  }
+
+  .card-two {
+    top: 862px;
+    height: 242px;
+  }
+
+  .circle-icon {
+    position: absolute;
+    left: 50px;
+    top: -70px;
+    width: 156px;
+    height: 156px;
+    border-radius: 50%;
+    background: #102d48;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .profile-icon {
+    width: 80px;
+    height: 86px;
+    position: relative;
+  }
+
+  .profile-icon .head {
+    position: absolute;
+    left: 25px;
+    top: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #ffffff;
+  }
+
+  .profile-icon .body {
+    position: absolute;
+    left: 12px;
+    top: 54px;
+    width: 88px;
+    height: 42px;
+    border-radius: 38px 38px 10px 10px;
+    background: #ffffff;
+  }
+
+  .bulb-icon {
+    width: 82px;
+    height: 88px;
+    position: relative;
+  }
+
+  .bulb-icon .bulb-body {
+    position: absolute;
+    left: 27px;
+    top: 24px;
+    width: 42px;
+    height: 52px;
+    border-radius: 50% 50% 42% 42%;
+    background: #ffffff;
+  }
+
+  .bulb-icon .neck {
+    position: absolute;
+    left: 37px;
+    top: 69px;
+    width: 18px;
+    height: 18px;
+    background: #ffffff;
+    border-radius: 50%;
+  }
+
+  .bulb-icon .base {
+    position: absolute;
+    left: 32px;
+    top: 84px;
+    width: 27px;
+    height: 10px;
+    background: #ffffff;
+    border-radius: 6px;
+  }
+
+  .bulb-icon .ray {
+    position: absolute;
+    background: #ffffff;
+    border-radius: 50%;
+    opacity: 1;
+  }
+
+  .bulb-icon .r1 {
+    left: 39px;
+    top: 4px;
+    width: 4px;
+    height: 14px;
+  }
+
+  .bulb-icon .r2 {
+    left: 12px;
+    top: 18px;
+    width: 10px;
+    height: 4px;
+    transform: rotate(45deg);
+  }
+
+  .bulb-icon .r3 {
+    left: 60px;
+    top: 18px;
+    width: 10px;
+    height: 4px;
+    transform: rotate(-45deg);
+  }
+
+  .bulb-icon .r4 {
+    left: 0;
+    top: 43px;
+    width: 12px;
+    height: 4px;
+  }
+
+  .bulb-icon .r5 {
+    left: 66px;
+    top: 43px;
+    width: 12px;
+    height: 4px;
+  }
+
+  .card-title {
+    position: absolute;
+    left: 30px;
+    top: 145px;
+    color: #102d48;
+    font-size: 28px;
+    font-weight: 800;
+    text-align: center;
+    z-index: 2;
+  }
+
+  .card-two .card-title {
+    top: 150px;
+    left: 21px;
+    width: 220px;
+    font-size: 28px;
+    line-height: 1.22;
+  }
+
+  .divider-line {
+    position: absolute;
+    left: 250px;
+    top: 34px;
+    height: 218px;
+    width: 2px;
+    background: #c9cfdd;
+    border-radius: 2px;
+  }
+
+  .card-content {
+    position: absolute;
+    left: 280px;
+    top: 32px;
+    width: 455px;
+    color: #102d48;
+  }
+
+  .card-content ul {
+    margin: 0;
+    padding-left: 21px;
+    font-size: 25px;
+    line-height: 1.45;
+  }
+
+  .card-content li {
+    margin-bottom: 5px;
+    padding-left: 6px;
+  }
+
+  .card-content li::marker {
+    color: #102d48;
+    font-size: 0.78em;
+  }
+
+  .card-two .card-content {
+    font-size: 25px;
+    top: 30px;
+    left: 280px;
+    width: 455px;
+  }
+
+  .card-two .card-content ul {
+    font-size: 25px;
+    line-height: 1.45;
+  }
+
+  .score-badge {
+    position: absolute;
+    right: 22px;
+    bottom: -32px;
+    min-width: 158px;
+    height: 64px;
+    border-radius: 34px;
+    background: #ff3039;
+    color: #ffffff;
+    font-size: 33px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 13px rgba(255,48,57,0.24);
+  }
+
+  .card-one .score-badge {
+    bottom: -32px;
+    height: 64px;
+    min-width: 158px;
+  }
+
+  .card-two .score-badge {
+    bottom: -32px;
+    height: 64px;
+    min-width: 158px;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="top-band">
+      <div class="brand-left">
+        <div class="logo-mark" aria-hidden="true">
+          <div class="tri-a"></div>
+          <div class="tri-b"></div>
+          <div class="tri-c"></div>
+        </div>
+        <div class="brand-name">L&amp;P Marketing</div>
+      </div>
+      <div class="url-text">www.lpmarketing.com</div>
+    </div>
+
+    <div class="hero">
+      <div class="hero-title">Performance Review</div>
+      <div class="report-pill">REPORT</div>
+    </div>
+
+    <div class="info-strip">
+      <div class="info-field name">
+        <div class="info-label">Name:</div>
+        <div class="info-value-pill">Rose Brian</div>
+      </div>
+      <div class="info-field role">
+        <div class="info-label">Role:</div>
+        <div class="info-value-pill">Graphic Designer</div>
+      </div>
+    </div>
+
+    <div class="card card-one">
+      <div class="circle-icon">
+        <div class="profile-icon" aria-hidden="true">
+          <div class="head"></div>
+          <div class="body"></div>
+        </div>
+      </div>
+      <div class="card-title">Overall<br>Performance<br>Score</div>
+      <div class="divider-line"></div>
+      <div class="card-content">
+        <ul>
+          <li>20 projects completed</li>
+          <li>95% client satisfaction rate</li>
+          <li>5 day average project completion time</li>
+          <li>10 hours spent on skill development</li>
+          <li>Received 3 peer accolades</li>
+        </ul>
+      </div>
+      <div class="score-badge">8.6/10</div>
+    </div>
+
+    <div class="card card-two">
+      <div class="circle-icon">
+        <div class="bulb-icon" aria-hidden="true">
+          <div class="ray r1"></div>
+          <div class="ray r2"></div>
+          <div class="ray r3"></div>
+          <div class="ray r4"></div>
+          <div class="ray r5"></div>
+          <div class="bulb-body"></div>
+          <div class="neck"></div>
+          <div class="base"></div>
+        </div>
+      </div>
+      <div class="card-title">Creativity and<br>Innovation</div>
+      <div class="divider-line"></div>
+      <div class="card-content">
+        <ul>
+          <li>Creative Thinking: <strong>9/10</strong></li>
+          <li>Innovative Design Solutions: <strong>8/10</strong></li>
+          <li>Conceptualization of Ideas: <strong>9/10</strong></li>
+        </ul>
+      </div>
+      <div class="score-badge">8.8/10</div>
+    </div>
+  </div>
+</body>
+</html>

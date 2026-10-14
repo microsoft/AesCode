@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Commercialization Challenges Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #123f53;
+      font-family: "Arial", "Helvetica", sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      color: #ffffff;
+      background:
+        radial-gradient(circle at 9% 8%, rgba(255,255,255,0.20) 0 12%, transparent 30%),
+        radial-gradient(circle at 76% 38%, rgba(255,255,255,0.12) 0 22%, transparent 42%),
+        linear-gradient(135deg, #32a7b0 0%, #48a9ba 34%, #4989bd 68%, #386fb0 100%);
+    }
+
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.14);
+      box-shadow: 0 0 0 18px rgba(255,255,255,0.04);
+      pointer-events: none;
+    }
+
+    .bg-circle.c1 {
+      width: 260px;
+      height: 260px;
+      left: -95px;
+      top: -100px;
+      border: 14px solid rgba(255,255,255,0.18);
+    }
+
+    .bg-circle.c2 {
+      width: 100px;
+      height: 100px;
+      left: 120px;
+      top: 20px;
+    }
+
+    .bg-circle.c3 {
+      width: 130px;
+      height: 130px;
+      right: 205px;
+      top: 220px;
+      background: rgba(255,255,255,0.10);
+    }
+
+    .bg-bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.16);
+    }
+
+    .bg-bubble.b1 {
+      width: 28px;
+      height: 28px;
+      left: 8px;
+      top: 168px;
+    }
+
+    .bg-bubble.b2 {
+      width: 22px;
+      height: 22px;
+      left: 322px;
+      top: 200px;
+    }
+
+    .title-bar {
+      position: absolute;
+      left: 0;
+      top: 58px;
+      width: 1318px;
+      height: 86px;
+      background: rgba(26, 91, 111, 0.44);
+      display: flex;
+      align-items: center;
+      padding-left: 86px;
+    }
+
+    .main-title {
+      margin: 0;
+      color: #ffffff;
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 3px rgba(0,0,0,0.24);
+      line-height: 1.1;
+    }
+
+    .secondary-heading {
+      position: absolute;
+      top: 176px;
+      left: 0;
+      width: 1376px;
+      text-align: center;
+      margin: 0;
+      color: #ffffff;
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 3px rgba(0,0,0,0.24);
+    }
+
+    .challenge-row {
+      position: absolute;
+      top: 272px;
+      left: 104px;
+      width: 1168px;
+      height: 420px;
+      display: flex;
+      justify-content: space2between;
+      align-items: flex-start;
+    }
+
+    .challenge-block {
+      position: relative;
+      width: 360px;
+      text-align: center;
+    }
+
+    .circle {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      margin: 0 auto 44px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      box-shadow: 0 14px 20px rgba(0,0,0,0.24);
+    }
+
+    .circle.blue {
+      background: #48bce5;
+    }
+
+    .circle.red {
+      background: #f55f57;
+    }
+
+    .circle-number {
+      font-size: 58px;
+      line-height: 1;
+      font-weight: 800;
+      text-shadow: 0 3px 3px rgba(0,0,0,0.28);
+      letter-spacing: 1px;
+    }
+
+    .subheading {
+      margin: 0 auto;
+      width: 315px;
+      color: #ffffff;
+      font-size: 27px;
+      line-height: 1.25;
+      font-weight: 800;
+      text-shadow: 0 2px 2px rgba(0,0,0,0.24);
+      text-align: center;
+    }
+
+    .description {
+      margin: 12px auto 0 auto;
+      width: 330px;
+      color: #ffffff;
+      font-size: 20px;
+      line-height: 1.25;
+      font-weight: 400;
+      text-align: center;
+      text-shadow: 0 1px 1px rgba(0,0,0,0.22);
+    }
+
+    .dna-left {
+      position: absolute;
+      left: 34px;
+      bottom: 28px;
+      width: 220px;
+      height: 250px;
+      border-left: 5px solid rgba(255,255,255,0.14);
+      border-radius: 50%;
+      transform: rotate(-55deg);
+      opacity: 0.52;
+    }
+
+    .dna-left:before,
+    .dna-left:after {
+      content: "";
+      position: absolute;
+      left: 12px;
+      height: 170px;
+      border-left: 3px solid rgba(255,255,255,0.16);
+      transform-origin: bottom;
+    }
+
+    .dna-left:before {
+      top: 40px;
+      transform: rotate(45deg);
+    }
+
+    .dna-left:after {
+      top: 82px;
+      transform: rotate(128deg);
+    }
+
+    .dna-top {
+      position: absolute;
+      right: 260px;
+      top: -48px;
+      width: 180px;
+      height: 230px;
+      border-right: 5px solid rgba(255,255,255,0.14);
+      border-radius: 50%;
+      opacity: 0.50;
+      transform: rotate(65deg);
+    }
+
+    .wave-right {
+      position: absolute;
+      right: -45px;
+      top: 150px;
+      width: 220px;
+      height: 330px;
+      border-radius: 50%;
+      border-left: 30px solid rgba(255,255,255,0.18);
+      opacity: 0.46;
+      transform: rotate(28deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="bg-circle c1"></div>
+    <div class="bg-circle c2"></div>
+    <div class="bg-circle c3"></div>
+    <div class="bg-bubble b1"></div>
+    <div class="bg-bubble b2"></div>
+
+    <div class="title-bar">
+      <h1 class="main-title">Commercialization Challenges</h1>
+    </div>
+
+    <h2 class="secondary-heading">Overcoming Challenges</h2>
+
+    <div class="challenge-row">
+      <section class="challenge-block">
+        <div class="circle blue">
+          <div class="circle-number">01</div>
+        </div>
+        <h3 class="subheading">Difficult to Assess<br>Technology Maturity</h3>
+        <p class="description">It's difficult to establish unified technical standards.</p>
+      </section>
+
+      <section class="challenge-block">
+        <div class="circle red">
+          <div class="circle-number">02</div>
+        </div>
+        <h3 class="subheading">Production Costs Are<br>Hard to Control</h3>
+        <p class="description">Due to the specialized nature of bioengineering, production costs are relatively high.</p>
+      </section>
+
+      <section class="challenge-block">
+        <div class="circle blue">
+          <div class="circle-number">03</div>
+        </div>
+        <h3 class="subheading">Low Market<br>Adoption</h3>
+        <p class="description">Bioengineering raises sensitive ethical and legal considerations.</p>
+      </section>
+    </div>
+
+    <div class="dna-left"></div>
+    <div class="dna-top"></div>
+    <div class="wave-right"></div>
+  </div>
+</body>
+</html>

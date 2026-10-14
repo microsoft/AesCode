@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blockchain Build Week - Day Schedule</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #050512;
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 47% 16%, rgba(255, 87, 212, 0.22), transparent 18%),
+      radial-gradient(circle at 83% 58%, rgba(255, 69, 208, 0.24), transparent 20%),
+      linear-gradient(180deg, #030414 0%, #060716 42%, #030513 100%);
+    color: #fff;
+  }
+
+  /* subtle background */
+  .artboard::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.28;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+    pointer-events: none;
+  }
+
+  .artboard::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 22%, rgba(255,92,220,0.28), transparent 13%),
+      radial-gradient(circle at 82% 72%, rgba(132,58,255,0.22), transparent 16%);
+    pointer-events: none;
+  }
+
+  /* decorative accents */
+  .dots {
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    background-image: radial-gradient(#9c64ff 2px, transparent 2.2px);
+    background-size: 12px 12px;
+    opacity: 0.55;
+  }
+
+  .dots.one {
+    top: 18px;
+    left: 20px;
+    width: 42px;
+    height: 42px;
+  }
+
+  .dots.two {
+    top: 320px;
+    right: 42px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .dots.three {
+    top: 780px;
+    right: 34px;
+    width: 54px;
+    height: 54px;
+  }
+
+  .dots.four {
+    top: 1230px;
+    right: 170px;
+    width: 58px;
+    height: 58px;
+    opacity: 0.45;
+  }
+
+  .hex {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    opacity: 0.35;
+    border: 2px solid rgba(174, 89, 255, 0.65);
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%);
+  }
+
+  .hex.h1 { top: 500px; right: 70px; }
+  .hex.h2 { top: 516px; right: 86px; }
+  .hex.h3 { top: 832px; right: 82px; }
+  .hex.h4 { top: 862px; right: 84px; }
+
+  .line-accent {
+    position: absolute;
+    width: 180px;
+    height: 130px;
+    border-top: 2px solid rgba(142, 80, 255, 0.38);
+    border-right: 2px solid rgba(142, 80, 255, 0.38);
+    transform: rotate(42deg);
+    opacity: 0.55;
+  }
+
+  .line-a { top: 20px; right: 12px; }
+  .line-b { top: 770px; right: -30px; }
+  .line-c { top: 1230px; right: 0; width: 220px; height: 160px; }
+
+  /* hero */
+  .hero {
+    position: absolute;
+    top: 60px;
+    left: 72px;
+    width: 880px;
+    height: 250px;
+  }
+
+  .label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 24px;
+    border: 2px solid #ff5aa6;
+    border-radius: 18px;
+    color: #ff52a2;
+    font-weight: 800;
+    font-size: 26px;
+    letter-spacing: 0.5px;
+    background: rgba(255, 82, 162, 0.06);
+  }
+
+  .title {
+    position: absolute;
+    top: 82px;
+    left: 0;
+    font-size: 78px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -2px;
+    text-shadow: 0 0 22px rgba(255,255,255,0.22);
+  }
+
+  .subtitle {
+    position: absolute;
+    top: 178px;
+    left: 0;
+    color: #c9b8ff;
+    font-size: 23px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+
+  .ticket {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    width: 270px;
+    height: 102px;
+    border: 2px solid #ff59b2;
+    border-radius: 12px;
+    background: rgba(255, 89, 178, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    color: white;
+    font-weight: 750;
+    font-size: 20px;
+  }
+
+  .ticket::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 48px;
+    width: 10px;
+    height: 18px;
+    border-top: 3px solid #ff59b2;
+    border-left: 3px solid #ff59b2;
+    transform: rotate(45deg);
+  }
+
+  .ticket::after {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 48px;
+    width: 10px;
+    height: 18px;
+    border-bottom: 3px solid #ff59b2;
+    border-left: 3px solid #ff59b2;
+    transform: rotate(45deg);
+  }
+
+  /* divider */
+  .main-divider {
+    position: absolute;
+    top: 300px;
+    left: 0;
+    width: 1024px;
+    height: 2px;
+    background: linear-gradient(90deg, #8c5cff, #ff59bd, #8b5bff);
+    box-shadow: 0 0 14px rgba(196, 92, 255, 0.65);
+  }
+
+  /* schedule */
+  .schedule {
+    position: absolute;
+    left: 0;
+    top: 312px;
+    width: 1024px;
+    height: 820px;
+  }
+
+  .band {
+    position: absolute;
+    left: 0;
+    width: 1024px;
+    height: 164px;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba(132, 88, 255, 0.22);
+    border-bottom: 1px solid rgba(132, 88, 255, 0.22);
+  }
+
+  .band.b1 { top: 0; background: #050713; }
+  .band.b2 { top: 164px; background: linear-gradient(90deg, #280679, #170345); }
+  .band.b3 { top: 328px; background: #050714; }
+  .band.b4 { top: 492px; background: linear-gradient(90deg, #280784 0%, #321370 54%, #961978 100%); }
+  .band.b5 { top: 656px; background: #050713; }
+
+  .time-cell {
+    position: absolute;
+    left: 48px;
+    width: 360px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    gap: 26px;
+  }
+
+  .icon-card {
+    width: 112px;
+    height: 112px;
+    border-radius: 12px;
+    border: 2px solid #9b62ff;
+    background: rgba(255,255,255,0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cf9aff;
+    font-size: 42px;
+    font-weight: 800;
+    box-shadow: 0 0 22px rgba(180, 92, 255, 0.25);
+  }
+
+  .time-text {
+    font-size: 34px;
+    font-weight: 850;
+    color: #fff;
+    letter-spacing: 0.3px;
+  }
+
+  .center-line {
+    position: absolute;
+    left: 410px;
+    top: -8px;
+    width: 2px;
+    height: 820px;
+    background: linear-gradient(#8254ff, #8254ff);
+    opacity: 0.58;
+  }
+
+  .center-line::before,
+  .center-line::after {
+    content: "";
+    position: absolute;
+    left: -5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #d48aff;
+    box-shadow: 0 0 12px #e59bff;
+  }
+
+  .center-line::before {
+    top: 78px;
+  }
+
+  .center-line::after {
+    top: 246px;
+  }
+
+  .details {
+    position: absolute;
+    left: 442px;
+    right: 52px;
+  }
+
+  .session-title {
+    color: #fff;
+    font-size: 30px;
+    line-height: 1.35;
+    font-weight: 850;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+
+  .detail-line {
+    color: #c6b8ff;
+    font-size: 20px;
+    line-height: 1.35;
+    font-weight: 700;
+  }
+
+  .band.b4 .details {
+    left: 442px;
+    top: 16px;
+  }
+
+  .tags {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .tag {
+    border: 1.5px solid #ff5bb2;
+    color: #fff;
+    border-radius: 18px;
+    padding: 8px 12px;
+    font-size: 18px;
+    font-weight: 750;
+    background: rgba(255, 91, 178, 0.08);
+  }
+
+  /* stats */
+  .stats-band {
+    position: absolute;
+    left: 50px;
+    top: 1160px;
+    width: 924px;
+    height: 182px;
+    display: flex;
+    gap: 18px;
+  }
+
+  .stat-card {
+    width: 453px;
+    height: 182px;
+    border-radius: 18px;
+    border: 2px solid #9a62ff;
+    background: rgba(130, 70, 255, 0.12);
+    display: flex;
+    align-items: center;
+    padding: 22px 24px 20px 28px;
+    gap: 22px;
+  }
+
+  .stat-card:nth-child(2) {
+    border-color: #ff54a4;
+    background: rgba(255, 84, 164, 0.12);
+  }
+
+  .stat-visual {
+    flex: 0 0 auto;
+    width: 112px;
+    height: 112px;
+    border: 2px solid #bd72ff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #df9cff;
+    font-size: 40px;
+    font-weight: 800;
+  }
+
+  .stat-label {
+    color: #c7a8ff;
+    font-size: 24px;
+    font-weight: 800;
+  }
+
+  .stat-number {
+    color: #fff;
+    font-size: 66px;
+    font-weight: 850;
+    margin-top: 12px;
+    letter-spacing: -1px;
+  }
+
+  /* footer */
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1024px;
+    height: 194px;
+    background: #030514;
+    border-top: 2px solid rgba(161, 82, 255, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+  }
+
+  .footer-text {
+    width: 600px;
+    text-align: center;
+    padding-left: 60px;
+  }
+
+  .register {
+    font-size: 32px;
+    color: #fff;
+    font-weight: 850;
+    margin-bottom: 12px;
+  }
+
+  .presented {
+    color: #c6b8ff;
+    font-size: 25px;
+    font-weight: 800;
+  }
+
+  .footer-mark {
+    position: absolute;
+    left: 92px;
+    top: 45px;
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    border: 2px solid #a26bff;
+  }
+
+  .qr-card {
+    position: absolute;
+    right: 95px;
+    top: 22px;
+    width: 138px;
+    height: 138px;
+    border: 2px solid #ff58a2;
+    border-radius: 12px;
+    background: #fff;
+    padding: 14px;
+    box-shadow: 0 0 20px rgba(255, 88, 162, 0.45);
+  }
+
+  .qr-content {
+    width: 108px;
+    height: 108px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 8px;
+    background: #fff;
+  }
+
+  .qr-content span {
+    background: #111;
+    border: 2px solid #fff;
+  }
+
+  .qr-content span:nth-child(1),
+  .qr-content span:nth-child(7),
+  .qr-content span:nth-child(13),
+  .qr-content span:nth-child(25),
+  .qr-content span:nth-child(31),
+  .qr-content span:nth-child(37),
+  .qr-content span:nth-child(43),
+  .qr-content span:nth-child(49) {
+    background: transparent;
+    border: 2px solid #111;
+  }
+
+  .small-plus {
+    position: absolute;
+    right: 34px;
+    top: 20px;
+    color: #ff58a8;
+    font-size: 30px;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="dots one"></div>
+    <div class="dots two"></div>
+    <div class="dots three"></div>
+    <div class="dots four"></div>
+    <div class="hex h1"></div>
+    <div class="hex h2"></div>
+    <div class="hex h3"></div>
+    <div class="hex h4"></div>
+    <div class="line-accent line-a"></div>
+    <div class="line-accent line-b"></div>
+    <div class="line-accent line-c"></div>
+
+    <div class="hero">
+      <div class="label">BLOCKCHAIN BUILD WEEK</div>
+      <div class="title">Day Schedule</div>
+      <div class="subtitle">Thursday, 17 October 2025 · Singapore Fintech Hub</div>
+      <div class="ticket">Hall C / Level 4</div>
+    </div>
+
+    <div class="main-divider"></div>
+
+    <div class="schedule">
+      <div class="band b1">
+        <div class="time-cell">
+          <div class="icon-card">♙</div>
+          <div class="time-text">08:30 - 09:15</div>
+        </div>
+        <div class="details">
+          <div class="session-title">Registration &amp; Wallet Setup</div>
+          <div class="detail-line">Check-in, badge pickup, and testnet wallet activation.</div>
+        </div>
+      </div>
+
+      <div class="band b2">
+        <div class="time-cell">
+          <div class="icon-card">♬</div>
+          <div class="time-text">09:30 - 10:20</div>
+        </div>
+        <div class="details">
+          <div class="session-title">Opening Keynote:<br>Trust Layers for Enterprise Chains</div>
+          <div class="detail-line">Speaker: Maya Chen, CTO of LedgerBridge</div>
+        </div>
+      </div>
+
+      <div class="band b3">
+        <div class="time-cell">
+          <div class="icon-card">〈/〉</div>
+          <div class="time-text">10:35 - 11:20</div>
+        </div>
+        <div class="details">
+          <div class="session-title">Workshop: Smart Contract<br>Security Clinic</div>
+          <div class="detail-line">Live Solidity debugging and audit patterns.</div>
+        </div>
+      </div>
+
+      <div class="band b4">
+        <div class="time-cell">
+          <div class="icon-card">👥</div>
+          <div class="time-text">11:35 - 12:15</div>
+        </div>
+        <div class="details">
+          <div class="session-title">Panel: Stablecoins, Compliance,<br>and Cross-Border Payments</div>
+          <div class="tags">
+            <div class="tag">KYC</div>
+            <div class="tag">Settlement Rails</div>
+            <div class="tag">Tokenized Cash</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="band b5">
+        <div class="time-cell">
+          <div class="icon-card">🍽</div>
+          <div class="time-text">12:30 - 13:00</div>
+        </div>
+        <div class="details">
+          <div class="session-title">Lunch Networking + Demo Pods</div>
+          <div class="detail-line">Demo pods feature custody APIs, zk proofs,<br>and on-chain analytics.</div>
+        </div>
+      </div>
+
+      <div class="center-line"></div>
+    </div>
+
+    <div class="stats-band">
+      <div class="stat-card">
+        <div class="stat-visual">👥</div>
+        <div>
+          <div class="stat-label">Attendees Expected</div>
+          <div class="stat-number">420</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-visual">〈/〉</div>
+        <div>
+          <div class="stat-label">Live Demo Stations</div>
+          <div class="stat-number">18</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-text">
+        <div class="register">Register: buildweek.io/singapore</div>
+        <div class="presented">Presented by Apex Ledger Forum</div>
+      </div>
+      <div class="footer-mark"></div>
+      <div class="qr-card">
+        <div class="qr-content">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="small-plus">+</div>
+    </div>
+  </div>
+</body>
+</html>

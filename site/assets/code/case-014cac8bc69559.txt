@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Make your data AI-ready with MCP server and tools</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #061225;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 94% 12%, rgba(0, 190, 255, 0.10), transparent 18%),
+      radial-gradient(circle at 4% 86%, rgba(0, 208, 255, 0.12), transparent 24%),
+      linear-gradient(180deg, #061225 0%, #07142a 55%, #08162d 100%);
+    color: #ffffff;
+  }
+
+  .artboard::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.22;
+    background-image:
+      radial-gradient(circle, rgba(0, 220, 255, 0.85) 1.3px, transparent 1.4px),
+      radial-gradient(circle, rgba(0, 120, 255, 0.35) 1px, transparent 1.2px);
+    background-size: 18px 18px, 30px 30px;
+    background-position: 270px 520px, 840px 600px;
+    pointer-events: none;
+  }
+
+  .artboard::after {
+    content: "";
+    position: absolute;
+    right: -90px;
+    top: -80px;
+    width: 360px;
+    height: 320px;
+    opacity: 0.18;
+    background:
+      linear-gradient(30deg, transparent 33%, rgba(0, 170, 255, 0.75) 34%, rgba(0, 170, 255, 0.75) 37%, transparent 38%),
+      linear-gradient(150deg, transparent 33%, rgba(0, 170, 255, 0.55) 34%, rgba(0, 170, 255, 0.55) 37%, transparent 38%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .title {
+    position: absolute;
+    top: 32px;
+    left: 120px;
+    width: 1040px;
+    margin: 0;
+    font-size: 38px;
+    line-height: 1.15;
+    font-weight: 750;
+    letter-spacing: -1.1px;
+    color: #f7fbff;
+    z-index: 2;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.18);
+  }
+
+  .feature-list {
+    position: absolute;
+    left: 46px;
+    top: 116px;
+    width: 340px;
+    height: 530px;
+    z-index: 3;
+  }
+
+  .feature-item {
+    position: absolute;
+    left: 0;
+    width: 330px;
+    height: 105px;
+  }
+
+  .feature-item.f1 { top: 0; }
+  .feature-item.f2 { top: 126px; }
+  .feature-item.f3 { top: 252px; }
+  .feature-item.f4 { top: 378px; }
+
+  .feature-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 80px;
+    height: 80px;
+    border: 2px solid #48dcff;
+    border-radius: 50%;
+    color: #48dcff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 700;
+    background: rgba(0, 170, 255, 0.08);
+  }
+
+  .feature-text {
+    position: absolute;
+    left: 100px;
+    top: 8px;
+    width: 230px;
+    color: #f4f8ff;
+    font-size: 18px;
+    line-height: 1.28;
+    font-weight: 500;
+  }
+
+  .feature-line {
+    position: absolute;
+    left: 100px;
+    top: 96px;
+    width: 230px;
+    height: 1px;
+    background: rgba(88, 220, 255, 0.52);
+  }
+
+  .feature-dot {
+    position: absolute;
+    left: 95px;
+    top: 92px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #49dfff;
+  }
+
+  .app-panel {
+    position: absolute;
+    left: 418px;
+    top: 103px;
+    width: 835px;
+    height: 554px;
+    background: #f2f4f7;
+    border: 1.5px solid rgba(210, 220, 230, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+    z-index: 4;
+  }
+
+  .window-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 835px;
+    height: 35px;
+    background: #eff1f4;
+    border-bottom: 1px solid #cfd6de;
+  }
+
+  .window-dots {
+    position: absolute;
+    left: 18px;
+    top: 10px;
+    display: flex;
+    gap: 7px;
+  }
+
+  .window-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: block;
+  }
+
+  .dot-red { background: #f05b5b; }
+  .dot-yellow { background: #f6c24a; }
+  .dot-green { background: #53bd63; }
+
+  .panel-titlebar {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    width: 835px;
+    height: 38px;
+    background: #f5f7fa;
+    border-bottom: 1px solid #d3d9de;
+  }
+
+  .app-logo {
+    position: absolute;
+    left: 16px;
+    top: 8px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #19a7bb;
+    border-radius: 6px;
+    color: #19a7bb;
+    font-size: 12px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 16px;
+  }
+
+  .panel-title {
+    position: absolute;
+    left: 42px;
+    top: 9px;
+    color: #1b2530;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .search {
+    position: absolute;
+    left: 184px;
+    top: 7px;
+    width: 360px;
+    height: 20px;
+    border: 1px solid #c9d1d8;
+    border-radius: 4px;
+    color: #8b98a6;
+    font-size: 9px;
+    padding-left: 8px;
+    background: #ffffff;
+  }
+
+  .ask-button {
+    position: absolute;
+    left: 550px;
+    top: 5px;
+    width: 34px;
+    height: 22px;
+    background: #0f7d8d;
+    color: white;
+    border-radius: 2px;
+    font-size: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .toolbar-icons {
+    position: absolute;
+    right: 15px;
+    top: 7px;
+    display: flex;
+    gap: 18px;
+    color: #4e6070;
+    font-size: 9px;
+  }
+
+  .app-screenshot {
+    position: absolute;
+    top: 38px;
+    left: 0;
+    width: 835px;
+    height: 516px;
+    background: #edf1f5;
+    border-left: 1px solid #cfd7df;
+    border-bottom: 1px solid #cfd7df;
+  }
+
+  .side-nav {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 130px;
+    height: 516px;
+    background: #172231;
+    border-right: 1px solid #586674;
+    color: #d4dde4;
+  }
+
+  .nav-section {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 130px;
+    height: 40px;
+    background: #223040;
+    border-bottom: 1px solid #4d5d6d;
+    color: #e4ebf2;
+    font-size: 9px;
+    padding-left: 22px;
+    padding-top: 10px;
+  }
+
+  .nav-item {
+    position: absolute;
+    left: 16px;
+    width: 98px;
+    height: 26px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 8px;
+    padding-top: 5px;
+  }
+
+  .nav-item.n1 { top: 46px; }
+  .nav-item.n2 { top: 74px; }
+  .nav-item.n3 { top: 102px; }
+  .nav-item.n4 { top: 130px; }
+  .nav-item.n5 { top: 158px; }
+  .nav-item.n6 { top: 186px; }
+  .nav-item.n7 { top: 214px; }
+  .nav-item.n8 { top: 242px; }
+
+  .nav-server {
+    position: absolute;
+    left: 18px;
+    bottom: 22px;
+    width: 102px;
+    height: 56px;
+    border: 1px solid #3b4c5e;
+    border-radius: 5px;
+    padding: 7px 5px;
+    color: #c9d3dc;
+    font-size: 7px;
+    line-height: 1.25;
+  }
+
+  .main-workspace {
+    position: absolute;
+    left: 130px;
+    top: 0;
+    width: 705px;
+    height: 516px;
+    background: #f0f3f7;
+    color: #24313e;
+  }
+
+  .mini-card {
+    position: absolute;
+    background: #ffffff;
+    border: 1px solid #dfe5ea;
+    border-radius: 3px;
+    box-shadow: 0 5px 12px rgba(35, 50, 65, 0.08);
+  }
+
+  .card-alerts {
+    left: 0;
+    top: 0;
+    width: 160px;
+    height: 82px;
+    padding: 10px 9px;
+  }
+
+  .card-high {
+    left: 170px;
+    top: 0;
+    width: 150px;
+    height: 82px;
+    padding: 10px 9px;
+  }
+
+  .card-incidents {
+    left: 330px;
+    top: 0;
+    width: 150px;
+    height: 82px;
+    padding: 10px 9px;
+  }
+
+  .card-assets {
+    left: 490px;
+    top: 0;
+    width: 155px;
+    height: 82px;
+    padding: 10px 8px;
+  }
+
+  .card-title-small {
+    font-size: 8px;
+    color: #3c4a58;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+
+  .card-number {
+    color: #1f2b36;
+    font-weight: 800;
+    font-size: 12px;
+  }
+
+  .card-change-high {
+    color: #e74c55;
+    font-size: 8px;
+    margin-top: 2px;
+  }
+
+  .card-change-good {
+    color: #28a75b;
+    font-size: 8px;
+    margin-top: 2px;
+  }
+
+  .sparkline {
+    position: absolute;
+    right: 8px;
+    bottom: 12px;
+    width: 78px;
+    height: 34px;
+  }
+
+  .top-alerts {
+    position: absolute;
+    left: 0;
+    top: 88px;
+    width: 326px;
+    height: 198px;
+    background: #ffffff;
+    border: 1px solid #dfe5ea;
+    padding: 8px 8px 8px 8px;
+  }
+
+  .section-title {
+    font-size: 9px;
+    font-weight: 800;
+    color: #283440;
+    margin-bottom: 5px;
+  }
+
+  table {
+    border-collapse: collapse;
+    font-size: 7.2px;
+    color: #45515d;
+  }
+
+  .top-alerts table td {
+    border-bottom: 1px solid #e1e7ec;
+    padding: 5px 2px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .top-alerts table th {
+    color: #687785;
+    font-size: 6.6px;
+    font-weight: 600;
+    padding: 3px 2px;
+    border-bottom: 1px solid #e1e7ec;
+    text-align: left;
+  }
+
+  .threat-landscape {
+    position: absolute;
+    left: 335px;
+    top: 88px;
+    width: 370px;
+    height: 198px;
+    background: #ffffff;
+    border: 1px solid #dfe5ea;
+    padding: 8px;
+  }
+
+  .map-box {
+    position: absolute;
+    left: 8px;
+    top: 20px;
+    width: 354px;
+    height: 150px;
+    background: #172739;
+    border-radius: 3px;
+  }
+
+  .recent-incidents {
+    position: absolute;
+    left: 0;
+    top: 298px;
+    width: 216px;
+    height: 182px;
+    background: #ffffff;
+    border: 1px solid #dfe5ea;
+    padding: 8px 8px 8px 8px;
+  }
+
+  .recent-incidents table td {
+    padding: 4px 2px;
+    font-size: 7px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .ai-assistant {
+    position: absolute;
+    left: 226px;
+    top: 298px;
+    width: 294px;
+    height: 182px;
+    background: #ffffff;
+    border: 1px solid #dfe5ea;
+    padding: 8px 8px 8px 8px;
+  }
+
+  .mcp-tools {
+    position: absolute;
+    left: 529px;
+    top: 298px;
+    width: 176px;
+    height: 182px;
+    background: #ffffff;
+    border: 1px solid #dfe5ea;
+    padding: 8px 8px 8px 8px;
+  }
+
+  .tiny-note {
+    position: absolute;
+    left: 10px;
+    top: 425px;
+    width: 270px;
+    height: 40px;
+    color: #6f7e8b;
+    font-size: 7px;
+    border-top: 1px solid rgba(130, 150, 170, 0.16);
+    border-bottom: 1px solid rgba(130, 150, 170, 0.15);
+    padding-top: 4px;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <h1 class="title">Make your data AI-ready with MCP server and tools</h1>
+
+    <div class="feature-list">
+      <div class="feature-item f1">
+        <div class="feature-icon">♢</div>
+        <div class="feature-text">Enable AI agents with standardized access to security data</div>
+        <div class="feature-line"></div><div class="feature-dot"></div>
+      </div>
+
+      <div class="feature-item f2">
+        <div class="feature-icon">◌</div>
+        <div class="feature-text">Leverage natural language for agentic automation</div>
+        <div class="feature-line"></div><div class="feature-dot"></div>
+      </div>
+
+      <div class="feature-item f3">
+        <div class="feature-icon">☁</div>
+        <div class="feature-text">Scale your infrastructure with out-of-the-box, hosted server</div>
+        <div class="feature-line"></div><div class="feature-dot"></div>
+      </div>
+
+      <div class="feature-item f4">
+        <div class="feature-icon">⚙</div>
+        <div class="feature-text">Integrate tools with Security Copilot, VSCode, ChatGPT and more</div>
+      </div>
+    </div>
+
+    <div class="app-panel">
+      <div class="window-bar">
+        <div class="window-dots">
+          <span class="dot-red"></span>
+          <span class="dot-yellow"></span>
+          <span class="dot-green"></span>
+        </div>
+      </div>
+
+      <div class="panel-titlebar">
+        <div class="app-logo">◎</div>
+        <div class="panel-title">Security Analysis</div>
+        <div class="search">Ask a question about your security data...</div>
+        <div class="ask-button">Ask</div>
+        <div class="toolbar-icons">
+          <span>◷ History</span>
+          <span>◫ Bookmarks</span>
+          <span>♙</span>
+          <span>⚙</span>
+        </div>
+      </div>
+
+      <div class="app-screenshot">
+        <div class="side-nav">
+          <div class="nav-section">⌂ Overview</div>
+          <div class="nav-item n1">△ Alerts</div>
+          <div class="nav-item n2">△ Incidents</div>
+          <div class="nav-item n3">◇ Threat Hunting</div>
+          <div class="nav-item n4">◉ Vulnerabilities</div>
+          <div class="nav-item n5">▣ Assets</div>
+          <div class="nav-item n6">♙ Identities</div>
+          <div class="nav-item n7">◈ Data Sources</div>
+          <div class="nav-item n8">⚙ Settings</div>
+          <div class="nav-server">• MCP Server<br>Connected<br>Version 1.2.0</div>
+        </div>
+
+        <div class="main-workspace">
+          <div class="mini-card card-alerts">
+            <div class="card-title-small">Alerts (24h)</div>
+            <div class="card-number">1,248</div>
+            <div class="card-change-high">↑ 18%</div>
+            <div class="sparkline" id="spark-alerts"></div>
+          </div>
+
+          <div class="mini-card card-high">
+            <div class="card-title-small">High Severity</div>
+            <div class="card-number">231</div>
+            <div class="card-change-high">↑ 12%</div>
+            <div class="sparkline" id="spark-high"></div>
+          </div>
+
+          <div class="mini-card card-incidents">
+            <div class="card-title-small">Incidents</div>
+            <div class="card-number">37</div>
+            <div class="card-change-good">↓ 5%</div>
+            <div class="sparkline" id="spark-incidents"></div>
+          </div>
+
+          <div class="mini-card card-assets">
+            <div class="card-title-small">Assets Monitored</div>
+            <div class="card-number">12,540</div>
+            <div class="card-change-good">↑ 7%</div>
+            <div class="sparkline" id="spark-assets"></div>
+          </div>
+
+          <div class="top-alerts">
+            <div class="section-title">Top Alerts</div>
+            <table>
+              <tr>
+                <th>Alert</th>
+                <th>Source</th>
+                <th>Severity</th>
+                <th>Time</th>
+              </tr>
+              <tr>
+                <td>Suspicious PowerShell Activity</td>
+                <td>Microsoft Defender</td>
+                <td>High</td>
+                <td>10:24 AM</td>
+              </tr>
+              <tr>
+                <td>Possible Credential Dumping</td>
+                <td>Sysmon</td>
+                <td>High</td>
+                <td>09:58 AM</td>
+              </tr>
+              <tr>
+                <td>Brute Force Login Attempt</td>
+                <td>Okta</td>
+                <td>Medium</td>
+                <td>09:41 AM</td>
+              </tr>
+              <tr>
+                <td>Unusual Data Exfiltration</td>
+                <td>Network</td>
+                <td>High</td>
+                <td>09:32 AM</td>
+              </tr>
+              <tr>
+                <td>Malware Detected</td>
+                <td>CrowdStrike</td>
+                <td>Medium</td>
+                <td>09:15 AM</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="threat-landscape">
+            <div class="section-title">Threat Landscape</div>
+            <div class="map-box"></div>
+          </div>
+
+          <div class="recent-incidents">
+            <div class="section-title">Recent Incidents</div>
+            <table>
+              <tr>
+                <th>Incident</th>
+                <th>ID</th>
+                <th>Severity</th>
+                <th>Age</th>
+              </tr>
+              <tr>
+                <td>Ransomware Activity Detected</td>
+                <td>INC-2034-057</td>
+                <td>High</td>
+                <td>1h ago</td>
+              </tr>
+              <tr>
+                <td>Unusual Privilege Escalation</td>
+                <td>INC-2034-056</td>
+                <td>Medium</td>
+                <td>3h ago</td>
+              </tr>
+              <tr>
+                <td>Suspicious Lateral Movement</td>
+                <td>INC-2034-055</td>
+                <td>Low</td>
+                <td>5h ago</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="ai-assistant">
+            <div class="section-title">AI Assistant</div>
+            <div style="font-size:7.4px;color:#475461;margin-top:6px;">
+              I analyzed your security data for the last 24 hours. Here are the key takeaways.
+            </div>
+            <div style="font-size:7px;color:#5f6f7d;margin-top:4px;">
+              <div>• 231 high severity alerts require attention.</div>
+              <div>• Ransomware activity detected on 3 endpoints.</div>
+              <div>• Unusual data exfiltration to unauthorized domain.</div>
+              <div>• 12 new vulnerabilities discovered in critical assets.</div>
+            </div>
+          </div>
+
+          <div class="mcp-tools">
+            <div class="section-title">MCP Tools</div>
+            <div style="font-size:7px;color:#455461;margin-top:4px;">
+              <div>△ Query Alerts</div>
+              <div>◉ Get Asset Details</div>
+              <div>♢ Investigate IOC</div>
+              <div>♙ Hunt Threats</div>
+              <div>▣ Vulnerability Lookup</div>
+            </div>
+          </div>
+
+          <div class="tiny-note">Use MCP server to connect, query, and automate security data across your enterprise.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    function sparkline(id, data, color) {
+      const chart = echarts.init(document.getElementById(id));
+      chart.setOption({
+        animation: false,
+        grid: { left: 0, right: 0, top: 4, bottom: 2 },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+          show: false
+        },
+        yAxis: { type: 'value', show: false },
+        series: [{
+          type: 'line',
+          data: data,
+          smooth: false,
+          symbol: 'none',
+          lineStyle: { width: 1.5, color: color },
+          areaStyle: { opacity: 0.04 }
+        }]
+      });
+    }
+
+    sparkline('spark-alerts', [42, 48, 46, 58, 52, 67, 55, 74, 60, 83, 70, 96], '#ee5360');
+    sparkline('spark-high', [18, 22, 19, 27, 34, 24, 29, 26, 32, 28, 38, 42], '#ef5763');
+    sparkline('spark-incidents', [9, 11, 10, 13, 18, 14, 16, 15, 20, 18, 22, 25], '#49b76f');
+    sparkline('spark-assets', [72, 76, 74, 80, 84, 79, 82, 77, 86, 83, 90, 94], '#3578e4');
+  </script>
+</body>
+</html>

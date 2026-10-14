@@ -18,3 +18,39 @@
 @media(max-width:560px){.training-figure{margin-top:24px}.training-plot>img{padding:9px}.training-sweep{inset:9px}.training-motion-toggle{font-size:8px;padding:4px 6px}.training-figure figcaption{font-size:9px;gap:7px 12px;padding:3px 12px 14px}.curve-line{width:17px}}
 .gallery-grid.gallery-grid-with-corner{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-count:auto;align-items:start}.gallery-preview-column{display:flex;flex-direction:column;gap:27px;min-width:0}.gallery-preview-column>.gallery-card{display:block;margin-bottom:0}@media(max-width:800px){.gallery-grid.gallery-grid-with-corner{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.gallery-preview-column{gap:19px}}
 @media(prefers-reduced-motion:reduce){.mini-bar,.reward-column,.diagram-flow{animation:none}.gallery-card,.gallery-image{transition:none}.training-sweep{animation:none;display:none}}
+
+.code-viewer{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:28px}
+.code-viewer[hidden]{display:none}
+.code-viewer-backdrop{position:absolute;inset:0;background:rgba(18,28,23,.62);backdrop-filter:blur(3px);animation:code-fade .18s ease}
+.code-viewer-panel{position:relative;display:flex;flex-direction:column;width:min(1180px,100%);height:min(760px,100%);background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 30px 70px rgba(18,28,23,.3);overflow:hidden;animation:code-rise .22s cubic-bezier(.2,.7,.3,1)}
+@keyframes code-fade{from{opacity:0}to{opacity:1}}
+@keyframes code-rise{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+.code-viewer-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:20px 22px 16px;border-bottom:1px solid var(--line)}
+.code-viewer-head .eyebrow{display:flex;align-items:center;gap:9px;font-size:9px;margin:0 0 9px}
+.code-viewer-head h2{font-size:21px;letter-spacing:-.03em;line-height:1.25;margin:0;max-width:62ch}
+.code-viewer-tools{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.code-copy{font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:9px 15px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink);cursor:pointer;transition:background .18s,border-color .18s,color .18s}
+.code-copy:hover{background:var(--mint);border-color:var(--green);color:var(--green)}
+.code-copy.is-done{background:var(--green);border-color:var(--green);color:#fff}
+.code-close{width:33px;height:33px;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--muted);font-size:19px;line-height:1;cursor:pointer;transition:background .18s,color .18s}
+.code-close:hover{background:var(--ink);color:var(--paper)}
+.code-viewer-body{display:grid;grid-template-columns:minmax(0,312px) minmax(0,1fr);gap:0;flex:1;min-height:0}
+.code-viewer-render{margin:0;padding:22px;border-right:1px solid var(--line);display:flex;align-items:flex-start;justify-content:center;overflow:auto;background:#eeefe6}
+.code-viewer-render img{max-width:100%;border:1px solid var(--line);border-radius:7px;background:#fff}
+.code-viewer-source{display:flex;flex-direction:column;min-width:0;min-height:0}
+.code-viewer-meta{display:flex;gap:16px;padding:11px 20px;border-bottom:1px solid var(--line);font:9px var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.code-block{flex:1;margin:0;overflow:auto;padding:18px 20px 26px;font:12px/1.65 var(--mono);white-space:pre;tab-size:2;background:var(--paper);color:#35433b}
+.code-block:focus-visible{outline:2px solid var(--green);outline-offset:-2px}
+.code-block .t{color:#2f634d}
+.code-block .n{color:#7a5ea8}
+.code-block .v{color:#bd6244}
+.code-block .c{color:#9aa69c;font-style:italic}
+.code-block .d{color:#9aa69c}
+@media(max-width:860px){
+  .code-viewer{padding:0}
+  .code-viewer-panel{height:100%;width:100%;border:0;border-radius:0}
+  .code-viewer-body{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}
+  .code-viewer-render{border-right:0;border-bottom:1px solid var(--line);max-height:30vh;padding:14px}
+  .code-viewer-head h2{font-size:17px}
+}
+@media(prefers-reduced-motion:reduce){.code-viewer-backdrop,.code-viewer-panel{animation:none}}

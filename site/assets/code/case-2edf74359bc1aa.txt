@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>垃圾分类投放指南</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9eeee;
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background: #fbfbfb;
+    color: #222;
+  }
+
+  .tag {
+    position: absolute;
+    left: 58px;
+    top: 52px;
+    width: 224px;
+    height: 66px;
+    border-radius: 18px;
+    background: #ff674c;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 29px;
+    font-weight: 800;
+    letter-spacing: 3px;
+  }
+
+  .main-title {
+    position: absolute;
+    left: 62px;
+    top: 145px;
+    width: 570px;
+    color: #ff5d47;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: 5px;
+    text-shadow: 0 4px 0 rgba(255,93,71,0.13);
+  }
+
+  .main-title .teal {
+    display: block;
+    color: #088a85;
+    margin-top: 16px;
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 70px;
+    top: 420px;
+    font-size: 24px;
+    font-weight: 800;
+    color: #0a8984;
+    letter-spacing: 1px;
+  }
+
+  .icon-grid {
+    position: absolute;
+    left: 618px;
+    top: 100px;
+    width: 360px;
+    height: 360px;
+    display: grid;
+    grid-template-columns: 174px 174px;
+    grid-template-rows: 145px 145px;
+    column-gap: 18px;
+    row-gap: 22px;
+  }
+
+  .type-card {
+    border-radius: 16px;
+    border: 2px solid rgba(0,0,0,0.16);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f7fbff;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.03);
+    text-align: center;
+  }
+
+  .type-card.recyclable {
+    border-color: #78b7ff;
+    background: #f0f8ff;
+  }
+
+  .type-card.kitchen {
+    border-color: #8ee3aa;
+    background: #f5fbf7;
+  }
+
+  .type-card.hazardous {
+    border-color: #ff7676;
+    background: #fff7f8;
+  }
+
+  .type-card.other {
+    border-color: #b7b7b7;
+    background: #fbfbfb;
+  }
+
+  .type-icon {
+    font-size: 62px;
+    line-height: 1;
+    margin-bottom: 10px;
+    color: #1674cc;
+  }
+
+  .type-card.kitchen .type-icon {
+    color: #0d9062;
+    font-size: 56px;
+  }
+
+  .type-card.hazardous .type-icon {
+    color: #ff4738;
+    font-size: 58px;
+  }
+
+  .type-card.other .type-icon {
+    color: #70777d;
+    font-size: 62px;
+  }
+
+  .type-name {
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .time-bar {
+    position: absolute;
+    left: 112px;
+    top: 482px;
+    width: 650px;
+    height: 82px;
+    border-radius: 12px;
+    border: 2px solid #c5c7c8;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+  }
+
+  .calendar-icon {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #189a95;
+    border-radius: 12px;
+    color: #189a95;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+
+  .time-text {
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #333;
+  }
+
+  .card-grid {
+    position: absolute;
+    left: 52px;
+    top: 592px;
+    width: 920px;
+    height: 520px;
+    display: grid;
+    grid-template-columns: 442px 442px;
+    grid-template-rows: 218px 218px;
+    column-gap: 18px;
+    row-gap: 17px;
+  }
+
+  .info-card {
+    position: relative;
+    border-radius: 17px;
+    background: white;
+    border: 1px solid #d7e2e2;
+    box-shadow: 0 7px 13px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+
+  .info-card::after {
+    content: "";
+    position: absolute;
+    right: -22px;
+    bottom: -22px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid rgba(37,192,183,0.06);
+    z-index: 0;
+  }
+
+  .card-head {
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: 4px;
+  }
+
+  .info-card.recyclable .card-head {
+    background: #1675cc;
+  }
+
+  .info-card.kitchen .card-head {
+    background: #35b060;
+  }
+
+  .info-card.hazardous .card-head {
+    background: #ff5b53;
+  }
+
+  .info-card.other .card-head {
+    background: #92979b;
+  }
+
+  .card-body {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    top: 72px;
+    bottom: 20px;
+    display: flex;
+    gap: 18px;
+    z-index: 1;
+  }
+
+  .card-icon {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 2px dashed rgba(180,180,180,0.23);
+    color: #1e74c8;
+    font-size: 58px;
+    flex: 0.88;
+  }
+
+  .info-card.kitchen .card-icon {
+    color: #1f915f;
+  }
+
+  .info-card.hazardous .card-icon {
+    color: #ff5245;
+  }
+
+  .info-card.other .card-icon {
+    color: #788085;
+  }
+
+  .card-text {
+    flex: 1.12;
+    padding-top: 2px;
+    color: #263034;
+    font-size: 17px;
+    line-height: 1.6;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  .card-text div::before {
+    content: "•";
+    color: #247bdc;
+    font-weight: 900;
+    display: inline-block;
+    width: 18px;
+  }
+
+  .投放时间模块 {
+    position: absolute;
+    left: 52px;
+    top: 1130px;
+    width: 920px;
+    height: 118px;
+    border: 3px dashed #25c7bd;
+    border-radius: 25px;
+    background: #ecfbfb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+  }
+
+  .clock-circle {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    border: 8px solid #23b9ae;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    font-weight: 900;
+    background: #50c9c7;
+  }
+
+  .time-title {
+    color: #149a95;
+    font-size: 27px;
+    font-weight: 900;
+    line-height: 1.25;
+  }
+
+  .time-content {
+    color: #20262a;
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 1.5;
+  }
+
+  .bottom-panel {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1024px;
+    height: 280px;
+    border-radius: 68px 68px 0 0;
+    background: linear-gradient(105deg, #ff684f 0%, #ff684f 49%, #12b9b2 74%, #12b9b2 100%);
+    box-shadow: 0 -10px 22px rgba(0,0,0,0.06);
+  }
+
+  .dot-matrix-left {
+    position: absolute;
+    left: 60px;
+    top: 42px;
+    width: 90px;
+    height: 78px;
+    background-image: radial-gradient(#ffdfdf 4px, transparent 5px);
+    background-size: 16px 16px;
+  }
+
+  .dot-matrix-right {
+    position: absolute;
+    right: 52px;
+    top: 42px;
+    width: 120px;
+    height: 70px;
+    background-image: radial-gradient(rgba(255,255,255,0.7) 4px, transparent 5px);
+    background-size: 16px 16px;
+  }
+
+  .panel-line-left,
+  .panel-line-right {
+    position: absolute;
+    top: 42px;
+    width: 170px;
+    height: 2px;
+    background: rgba(255,255,255,0.88);
+  }
+
+  .panel-line-left {
+    left: 278px;
+  }
+
+  .panel-line-right {
+    right: 270px;
+  }
+
+  .heart-home {
+    position: absolute;
+    top: 15px;
+    left: 474px;
+    color: white;
+    font-size: 38px;
+    font-weight: 900;
+  }
+
+  .department {
+    position: absolute;
+    top: 65px;
+    left: 0;
+    width: 1024px;
+    text-align: center;
+    color: white;
+    font-size: 31px;
+    font-weight: 900;
+    letter-spacing: 5px;
+  }
+
+  .contact-band {
+    position: absolute;
+    left: 46px;
+    top: 122px;
+    width: 932px;
+    height: 82px;
+    border: 2px solid rgba(255,255,255,0.85);
+    border-radius: 38px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space2around;
+    padding: 0 24px;
+    font-size: 18px;
+  }
+
+  .phone,
+  .mail {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: white;
+    color: #ff5a49;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-right: 12px;
+  }
+
+  .mail {
+    margin-left: 12px;
+    color: #ff5a49;
+  }
+
+  .address {
+    position: absolute;
+    left: 0;
+    bottom: 24px;
+    width: 1024px;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    letter-spacing: 2px;
+    font-weight: 800;
+  }
+
+  .decor-dot {
+    position: absolute;
+    border-radius: 50%;
+    background: #ff6b50;
+  }
+
+  .decor-dot.d1 {
+    width: 18px;
+    height: 18px;
+    left: 340px;
+    top: 52px;
+  }
+
+  .decor-dot.d2 {
+    width: 14px;
+    height: 14px;
+    right: 88px;
+    top: 52px;
+  }
+
+  .decor-dot.d3 {
+    width: 11px;
+    height: 11px;
+    right: 22px;
+    top: 442px;
+  }
+
+  .decor-dot.d4 {
+    width: 9px;
+    height: 9px;
+    right: 20px;
+    top: 1042px;
+  }
+
+  .top-dots {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    width: 128px;
+    height: 80px;
+    background-image: radial-gradient(rgba(48,181,174,0.45) 4px, transparent 5px);
+    background-size: 15px 15px;
+  }
+
+  .leaf-left {
+    position: absolute;
+    left: -38px;
+    top: 390px;
+    width: 120px;
+    height: 155px;
+    border-radius: 55% 0 0 52%;
+    background: #75c9b8;
+    opacity: .85;
+    transform: rotate(33deg);
+    z-index: 1;
+  }
+
+  .leaf-left::after {
+    content: "";
+    position: absolute;
+    left: 50px;
+    top: 36px;
+    width: 62px;
+    height: 88px;
+    border-radius: 60% 0 0 60%;
+    background: #ff7a59;
+    transform: rotate(-34deg);
+  }
+
+  .wave-top {
+    position: absolute;
+    left: 478px;
+    top: 66px;
+    color: #34c9c3;
+    font-size: 31px;
+  }
+
+  .wave-bottom {
+    position: absolute;
+    right: -16px;
+    top: 465px;
+    width: 210px;
+    height: 70px;
+    border-top: 3px solid #ff766d;
+    border-radius: 50%;
+    transform: rotate(-14deg);
+    opacity: .8;
+  }
+
+  .footer-leaf {
+    position: absolute;
+    right: 35px;
+    bottom: 92px;
+    width: 70px;
+    height: 85px;
+    background: #76c7b8;
+    border-radius: 60% 0 0 55%;
+    opacity: .8;
+  }
+
+  .small-icon {
+    font-size: 58px;
+    line-height: 1;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="top-dots"></div>
+  <div class="decor-dot d1"></div>
+  <div class="decor-dot d2"></div>
+  <div class="decor-dot d3"></div>
+  <div class="decor-dot d4"></div>
+  <div class="leaf-left"></div>
+  <div class="wave-top">≋</div>
+  <div class="wave-bottom"></div>
+
+  <div class="tag">社区通知</div>
+
+  <div class="main-title">
+    垃圾分类
+    <span class="teal">投放指南</span>
+  </div>
+
+  <div class="subtitle">请居民按时、分类、定点投放生活垃圾</div>
+
+  <div class="icon-grid" aria-label="垃圾分类图标区">
+    <div class="type-card recyclable">
+      <div class="type-icon">♻</div>
+      <div class="type-name">可回收物</div>
+    </div>
+    <div class="type-card kitchen">
+      <div class="type-icon">♧</div>
+      <div class="type-name">厨余垃圾</div>
+    </div>
+    <div class="type-card hazardous">
+      <div class="type-icon">✕</div>
+      <div class="type-name">有害垃圾</div>
+    </div>
+    <div class="type-card other">
+      <div class="type-icon">△</div>
+      <div class="type-name">其他垃圾</div>
+    </div>
+  </div>
+
+  <div class="time-bar">
+    <div class="calendar-icon">▣</div>
+    <div class="time-text">执行时间： 2025年6月1日起</div>
+  </div>
+
+  <div class="card-grid">
+    <div class="info-card recyclable">
+      <div class="card-head">可回收物</div>
+      <div class="card-body">
+        <div class="card-icon">▧</div>
+        <div class="card-text">
+          <div>包括纸张、塑料、</div>
+          <div>金属、玻璃等。</div>
+          <div>请保持清洁干燥，</div>
+          <div>压扁后投放。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card kitchen">
+      <div class="card-head">厨余垃圾</div>
+      <div class="card-body">
+        <div class="card-icon">♧</div>
+        <div class="card-text">
+          <div>包括剩饭剩菜、</div>
+          <div>果皮、茶渣等。</div>
+          <div>请沥干水分后</div>
+          <div>投放。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card hazardous">
+      <div class="card-head">有害垃圾</div>
+      <div class="card-body">
+        <div class="card-icon">⚡</div>
+        <div class="card-text">
+          <div>包括废电池、</div>
+          <div>过期药品、</div>
+          <div>油漆桶等。</div>
+          <div>请单独投放，</div>
+          <div>避免污染环境。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card other">
+      <div class="card-head">其他垃圾</div>
+      <div class="card-body">
+        <div class="card-icon">▤</div>
+        <div class="card-text">
+          <div>包括污染纸巾、</div>
+          <div>烟头、</div>
+          <div>陶瓷碎片等。</div>
+          <div>不可混入</div>
+          <div>可回收物。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="投放时间模块">
+    <div class="clock-circle">◷</div>
+    <div class="time-title">投放<br>时间</div>
+    <div class="time-content">
+      每日 07:00—09:00 / 19:00—21:00<br>
+      请勿将垃圾堆放在桶外。
+    </div>
+  </div>
+
+  <div class="bottom-panel">
+    <div class="dot-matrix-left"></div>
+    <div class="dot-matrix-right"></div>
+    <div class="panel-line-left"></div>
+    <div class="panel-line-right"></div>
+    <div class="heart-home">⌂</div>
+    <div class="department">南湖街道第三居民区环境办</div>
+
+    <div class="contact-band">
+      <div>
+        <div class="phone">☎</div>
+        咨询电话：021-5683-2147
+      </div>
+      <div style="margin:0 18px;color:white;border-left:2px solid rgba(255,255,255,.85);height:42px;"></div>
+      <div>
+        <div class="mail">✉</div>
+        监督邮箱：green@nanhu-community.cn
+      </div>
+    </div>
+
+    <div class="address">地址：浦东新区榆林路88号社区服务中心一层</div>
+  </div>
+
+  <div class="footer-leaf"></div>
+</div>
+</body>
+</html>

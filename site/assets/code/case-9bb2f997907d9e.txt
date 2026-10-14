@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Call Center Performance Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:#06111f;
+    font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;
+    color:#dce8fb;
+  }
+  .artboard{
+    position:absolute;
+    left:0;top:0;
+    width:1280px;
+    height:853px;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 80% 12%, rgba(52,122,255,.22), transparent 28%),
+      radial-gradient(circle at 14% 25%, rgba(44,211,216,.18), transparent 24%),
+      #081525;
+  }
+  .sidebar{
+    position:absolute;left:0;top:0;
+    width:118px;height:853px;
+    background:#071221;
+    border-right:1px solid #1c304c;
+    display:flex;flex-direction:column;
+  }
+  .logo{
+    height:58px;
+    display:flex;justify-content:center;align-items:center;
+    color:#7365ff;font-weight:800;font-size:16px;
+    border-bottom:1px solid #1c2d46;
+  }
+  .nav{padding:12px 0 0;display:flex;flex-direction:column;gap:5px}
+  .nav-item{
+    height:43px;display:flex;gap:9px;align-items:center;
+    padding:0 12px;color:#a8b5ca;font-size:11px;
+    border-radius:8px;
+  }
+  .nav-item.active{
+    color:#fff;background:#182467;
+    border-left:3px solid #6f5eff;
+    padding-left:9px;
+  }
+  .profile{
+    position:absolute;left:0;bottom:0;
+    height:70px;width:118px;
+    display:flex;align-items:center;
+    gap:8px;padding:0 10px;
+    border-top:1px solid #1f324d;
+  }
+  .main{
+    position:absolute;left:118px;top:14px;
+    width:1136px;height:825px;
+  }
+  .header{
+    height:64px;display:flex;align-items:flex-start;
+    justify-content:space-between;
+  }
+  .title h1{font-size:19px;margin:0 0 4px;color:#f3f8ff}
+  .title p{font-size:11px;margin:0;color:#8f9db2}
+  .filters{display:flex;gap:10px;align-items:center}
+  .pill{
+    min-width:108px;height:32px;border:1px solid #374d6f;
+    border-radius:7px;background:#101b2d;color:#b9c6dc;
+    font-size:11px;display:flex;justify-content:center;align-items:center;
+  }
+  .last{
+    position:absolute;right:0;top:44px;
+    color:#8f9bb0;font-size:10px;
+  }
+  .kpis{
+    height:126px;display:grid;grid-template-columns:repeat(4,1fr);
+    gap:12px;
+  }
+  .kpi{
+    background:#101f34;border:1px solid #203656;
+    border-radius:8px;position:relative;
+  }
+  .kpi-top{
+    height:28px;display:flex;align-items:center;
+    gap:10px;padding:0 12px;font-size:12px;color:#b9c6dc;
+  }
+  .kpi-label{font-weight:700;color:#dce8fb}
+  .kpi-value{
+    height:44px;display:flex;align-items:center;
+    font-size:31px;font-weight:800;color:#eef6ff;
+  }
+  .kpi-change{
+    font-size:10px;color:#81a673;font-weight:700;
+  }
+  .spark{
+    position:absolute;right:14px;bottom:12px;width:82px;height:30px;
+  }
+  .middle{
+    height:282px;display:grid;grid-template-columns:1fr .96fr .96fr;
+    gap:12px;
+  }
+  .card{
+    background:#101f34;border:1px solid #203656;
+    border-radius:8px;position:relative;
+  }
+  .card-title{
+    height:32px;padding:0 12px;display:flex;align-items:center;
+    font-size:13px;color:#e7efff;font-weight:800;
+  }
+  .heat{height:250px}
+  #heatChart{width:100%;height:180px}
+  .heat-legend{
+    position:absolute;left:0;right:0;bottom:8px;
+    height:12px;display:flex;align-items:center;justify-content:center;
+    gap:9px;color:#aeb9c9;font-size:10px;
+  }
+  .bar{height:250px}
+  #barChart{width:100%;height:205px}
+  .pie{height:250px}
+  #pieChart{width:180px;height:180px;position:absolute;left:12px;top:40px}
+  .pie-legend{
+    position:absolute;right:16px;top:62px;
+    width:86px;font-size:11px;color:#b8c6d9;
+  }
+  .pie-legend .time{font-size:16px;color:#e8f1ff}
+  .bottom{
+    height:288px;display:grid;grid-template-columns:1.04fr .96fr;
+    gap:12px;
+  }
+  .table-card{height:288px}
+  table{
+    width:100%;position:absolute;left:0;top:38px;
+    border-collapse:separate;border-spacing:0 1px;
+    font-size:11px;color:#b9c6dc;
+  }
+  th,td{
+    height:33px;padding:0 10px;border-bottom:1px solid #203656;
+    text-align:left;background:#101f34;
+  }
+  th{
+    color:#9fb0c6;font-weight:800;
+  }
+  .agent-cell{
+    display:flex;align-items:center;gap:8px;
+  }
+  .trend{
+    display:inline-block;width:42px;height:19px;
+  }
+  .view{
+    position:absolute;right:22px;bottom:12px;
+    color:#6f86ff;font-size:11px;text-decoration:underline;
+  }
+  .alerts-card{height:288px}
+  .alerts-list{
+    position:absolute;left:0;right:0;top:43px;
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .alert{
+    height:49px;border:1px solid #364b6b;background:#132137;
+    border-radius:6px;display:flex;align-items:center;
+    padding:6px 10px;gap:11px;
+  }
+  .icon{width:22px;height:22px;border-radius:50%;display:flex;justify-content:center;align-items:center;color:white;font-weight:800}
+  .alert strong{display:block;font-size:11px;font-weight:800}
+  .alert span{font-size:10px;color:#8d9db2;display:block}
+  .time-r{color:#8b5cff;font-size:10px;margin-left:auto}
+  .icon.red{background:#f04b53}
+  .icon.orange{background:#f28b32}
+  .icon.blue{background:#417cf2}
+  .icon.green{background:#37bd68}
+</style>
+</head>
+<body>
+<div class="artboard">
+  <aside class="sidebar">
+    <div class="logo">☎</div>
+    <div class="nav">
+      <div class="nav-item active">▦ Overview</div>
+      <div class="nav-item">⌕ Calls</div>
+      <div class="nav-item">♙ Agents</div>
+      <div class="nav-item">▥ Performance</div>
+      <div class="nav-item">✩ Quality</div>
+      <div class="nav-item">▤ Reports</div>
+      <div class="nav-item">♧ Alerts <span style="margin-left:auto;background:#745fff;border-radius:50%;padding:3px 7px;font-size:10px">3</span></div>
+      <div class="nav-item">⚙ Settings</div>
+    </div>
+    <div class="profile">
+      <img style="width:28px;height:28px;border-radius:50%;border:2px solid #745fff" src="https://placehold.co/40x40?text=EM" alt="EM">
+      <div>
+        <div style="color:#eef5ff;font-size:11px;font-weight:700">Emma Miller</div>
+        <div style="color:#8b9abd;font-size:9px;margin-top:2px">Admin</div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <section class="header">
+      <div class="title">
+        <h1>Call Center Performance</h1>
+        <p>Real-time overview of call center operations</p>
+      </div>
+      <div class="filters">
+        <div class="pill">▣ May 18 – May 24, 2025</div>
+        <div class="pill">▽ All Queues</div>
+        <div class="pill">♟ All Teams</div>
+        <div class="pill">⟳ Refresh</div>
+      </div>
+      <div class="last">Last updated: 2 min ago</div>
+    </section>
+
+    <section class="kpis">
+      <div class="kpi">
+        <div class="kpi-top"><span class="kpi-label">Total Calls</span></div>
+        <div class="kpi-value">18,547</div>
+        <div class="kpi-change">▲ 12.6% vs May 11 – May 17</div>
+        <div id="spark1" class="spark"></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><span class="kpi-label">Average Handle Time</span></div>
+        <div class="kpi-value">06:24</div>
+        <div class="kpi-change">▼ -5.3% vs May 11 – May 17</div>
+        <div id="spark2" class="spark"></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><span class="kpi-label">First Call Resolution</span></div>
+        <div class="kpi-value">83.7%</div>
+        <div class="kpi-change">▲ 6.8% vs May 11 – May 17</div>
+        <div id="spark3" class="spark"></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><span class="kpi-label">Customer Satisfaction</span></div>
+        <div class="kpi-value">4.6 / 5</div>
+        <div class="kpi-change">▲ 0.4 vs May 11 – May 17</div>
+        <div id="spark4" class="spark"></div>
+      </div>
+    </section>
+
+    <section class="middle">
+      <div class="card heat">
+        <div class="card-title">Call Volume Heatmap ⓘ</div>
+        <div id="heatChart"></div>
+        <div class="heat-legend"><span>Low</span><span style="width:130px;height:8px;background:linear-gradient(90deg,#17386f,#22a5b8,#f2c822,#ff4253,#2861c3);display:block"></span><span>High</span></div>
+      </div>
+      <div class="card bar">
+        <div class="card-title">Call Volume by Queue ⓘ</div>
+        <div id="barChart"></div>
+      </div>
+      <div class="card pie">
+        <div class="card-title">Average Handle Time by Queue ⓘ</div>
+        <div id="pieChart"></div>
+        <div class="pie-legend">
+          <div>Sales<br><span class="time">06:15</span></div>
+          <div>Support<br><span class="time">07:42</span></div>
+          <div>Billing<br><span class="time">05:18</span></div>
+          <div>Technical<br><span class="time">08:31</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bottom">
+      <div class="card table-card">
+        <div class="card-title">Top Agents by Performance ⓘ</div>
+        <table>
+          <tr><th>#</th><th>Agent</th><th>Total Calls</th><th>Avg. Handle Time</th><th>First Call Resolution</th><th>CSAT Score</th><th>Trend</th></tr>
+          <tr>
+            <td>1</td>
+            <td><div class="agent-cell"><img style="width:22px;height:22px;border-radius:50%" src="https://placehold.co/32x32?text=A" alt="A">Sophia Martinez</div></td>
+            <td>1,248</td><td>05:36</td><td>89.7%</td><td>4.8</td><td><div id="trend1" class="trend"></div></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><div class="agent-cell"><img style="width:22px;height:22px;border-radius:50%" src="https://placehold.co/32x32?text=A" alt="A">Liam Johnson</div></td>
+            <td>1,105</td><td>06:02</td><td>86.1%</td><td>4.7</td><td><div id="trend2" class="trend"></div></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><div class="agent-cell"><img style="width:22px;height:22px;border-radius:50%" src="https://placehold.co/32x32?text=A" alt="A">Ethan Davis</div></td>
+            <td>1,089</td><td>06:41</td><td>82.9%</td><td>4.6</td><td><div id="trend3" class="trend"></div></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><div class="agent-cell"><img style="width:22px;height:22px;border-radius:50%" src="https://placehold.co/32x32?text=A" alt="A">Olivia Wilson</div></td>
+            <td>1,023</td><td>06:28</td><td>84.3%</td><td>4.6</td><td><div id="trend4" class="trend"></div></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><div class="agent-cell"><img style="width:22px;height:22px;border-radius:50%" src="https://placehold.co/32x32?text=A" alt="A">Noah Brown</div></td>
+            <td>987</td><td>07:12</td><td>80.2%</td><td>4.4</td><td><div id="trend5" class="trend"></div></td>
+          </tr>
+        </table>
+        <div class="view">View all agents →</div>
+      </div>
+
+      <div class="card alerts-card">
+        <div class="card-title">Recent Alerts ⓘ</div>
+        <div class="alerts-list">
+          <div class="alert"><div class="icon red">!</div><div><strong>High call volume detected in Support queue</strong><span>Current wait time: 07:48</span></div><div class="time-r">2 min ago</div></div>
+          <div class="alert"><div class="icon orange">!</div><div><strong>Average handle time above threshold in Technical queue</strong><span>Current AHT: 08:31</span></div><div class="time-r">15 min ago</div></div>
+          <div class="alert"><div class="icon blue">ⓘ</div><div><strong>First call resolution dropped below 80% in Billing queue</strong><span>Current FCR: 78.6%</span></div><div class="time-r">32 min ago</div></div>
+          <div class="alert"><div class="icon green">✓</div><div><strong>System performance is normal</strong><span>All systems operational</span></div><div class="time-r">1 hr ago</div></div>
+        </div>
+        <div class="view">View all alerts →</div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  function spark(id,data,color){
+    echarts.init(document.getElementById(id)).setOption({
+      animation:false,
+      grid:{left:0,right:0,top:4,bottom:4},
+      xAxis:{type:'category',show:false,data:['1','2','3','4','5','6','7']},
+      yAxis:{type:'value',show:false},
+      series:[{
+        type:'line',
+        data:data,
+        smooth:true,
+        symbol:'circle',
+        symbolSize:5,
+        lineStyle:{width:2,color:color},
+        itemStyle:{color:color},
+        areaStyle:{opacity:.08,color:color}
+      }]
+    });
+  }
+  spark('spark1',[120, 132, 101, 134, 90, 230, 210],'#52a7ff');
+  spark('spark2',[84, 79, 76, 72, 70, 66, 64],'#9a52ff');
+  spark('spark3',[72, 74, 77, 75, 79, 82, 83.7],'#55d488');
+  spark('spark4',[4.2, 4.3, 4.2, 4.4, 4.1, 4.3, 4.6],'#ff9e32');
+
+  echarts.init(document.getElementById('heatChart')).setOption({
+    animation:false,
+    grid:{left:34,right:16,top:8,bottom:28},
+    tooltip:{show:false},
+    xAxis:{
+      type:'category',
+      data:['12 AM','4 AM','8 AM','12 PM','4 PM','8 PM','12 AM'],
+      boundaryGap:false,
+      axisLabel:{color:'#9faed4',fontSize:10},
+      splitLine:{show:false}
+    },
+    yAxis:{
+      type:'category',
+      data:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+      axisLabel:{color:'#9faed4',fontSize:10},
+      splitLine:{show:false}
+    },
+    visualMap:{
+      min:10,max:220,
+      calculable:false,
+      orient:'horizontal',
+      left:'center',
+      bottom:0,
+      text:['High','Low'],
+      textStyle:{color:'#9faed4'},
+      inRange:{color:['#17386f','#22a5b8','#f2c822','#ff4253','#2861c3']}
+    },
+    series:[{
+      type:'heatmap',
+      data:[[0, 0, 18], [1, 0, 20], [2, 0, 22], [3, 0, 25], [4, 0, 30], [5, 0, 40], [6, 0, 58], [7, 0, 75], [8, 0, 92], [9, 0, 110], [10, 0, 126], [11, 0, 140], [12, 0, 150], [13, 0, 158], [14, 0, 162], [15, 0, 155], [16, 0, 145], [17, 0, 128], [18, 0, 105], [19, 0, 78], [20, 0, 55], [21, 0, 38], [22, 0, 28], [23, 0, 22], [0, 1, 20], [1, 1, 22], [2, 1, 24], [3, 1, 28], [4, 1, 35], [5, 1, 48], [6, 1, 68], [7, 1, 88], [8, 1, 110], [9, 1, 132], [10, 1, 154], [11, 1, 172], [12, 1, 188], [13, 1, 202], [14, 1, 210], [15, 1, 205], [16, 1, 190], [17, 1, 170], [18, 1, 140], [19, 1, 105], [20, 1, 75], [21, 1, 52], [22, 1, 36], [23, 1, 26], [0, 2, 22], [1, 2, 23], [2, 2, 26], [3, 2, 30], [4, 2, 38], [5, 2, 52], [6, 2, 74], [7, 2, 98], [8, 2, 122], [9, 2, 146], [10, 2, 170], [11, 2, 190], [12, 2, 210], [13, 2, 226], [14, 2, 236], [15, 2, 230], [16, 2, 214], [17, 2, 190], [18, 2, 158], [19, 2, 118], [20, 2, 84], [21, 2, 58], [22, 2, 40], [23, 2, 28], [0, 3, 19], [1, 3, 21], [2, 3, 23], [3, 3, 27], [4, 3, 34], [5, 3, 47], [6, 3, 67], [7, 3, 90], [8, 3, 116], [9, 3, 140], [10, 3, 162], [11, 3, 182], [12, 3, 200], [13, 3, 214], [14, 3, 222], [15, 3, 216], [16, 3, 202], [17, 3, 178], [18, 3, 148], [19, 3, 110], [20, 3, 78], [21, 3, 54], [22, 3, 37], [23, 3, 26], [0, 4, 18], [1, 4, 20], [2, 4, 22], [3, 4, 25], [4, 4, 31], [5, 4, 43], [6, 4, 62], [7, 4, 82], [8, 4, 105], [9, 4, 126], [10, 4, 146], [11, 4, 164], [12, 4, 180], [13, 4, 192], [14, 4, 198], [15, 4, 190], [16, 4, 175], [17, 4, 154], [18, 4, 126], [19, 4, 94], [20, 4, 68], [21, 4, 46], [22, 4, 32], [23, 4, 24], [0, 5, 14], [1, 5, 15], [2, 5, 16], [3, 5, 18], [4, 5, 22], [5, 5, 30], [6, 5, 42], [7, 5, 58], [8, 5, 76], [9, 5, 92], [10, 5, 108], [11, 5, 120], [12, 5, 130], [13, 5, 136], [14, 5, 140], [15, 5, 132], [16, 5, 120], [17, 5, 105], [18, 5, 86], [19, 5, 65], [20, 5, 48], [21, 5, 34], [22, 5, 24], [23, 5, 18], [0, 6, 12], [1, 6, 13], [2, 6, 14], [3, 6, 16], [4, 6, 20], [5, 6, 26], [6, 6, 36], [7, 6, 48], [8, 6, 62], [9, 6, 76], [10, 6, 90], [11, 6, 102], [12, 6, 112], [13, 6, 118], [14, 6, 122], [15, 6, 116], [16, 6, 106], [17, 6, 92], [18, 6, 74], [19, 6, 55], [20, 6, 40], [21, 6, 28], [22, 6, 20], [23, 6, 15]],
+      label:{show:false},
+      emphasis:{itemStyle:{borderWidth:1}}
+    }]
+  });
+
+  echarts.init(document.getElementById('barChart')).setOption({
+    animation:false,
+    color:['#3186ff','#9a52ff','#ff5e66','#ff8a28'],
+    legend:{
+      top:0,left:0,
+      itemWidth:8,itemHeight:8,
+      textStyle:{fontSize:10,color:'#b8c6d9'},
+      data:['Sales','Support','Billing','Technical']
+    },
+    grid:{left:38,right:10,top:32,bottom:30},
+    xAxis:{
+      type:'category',
+      data:['May 18\nSun','May 19\nMon','May 20\nTue','May 21\nWed','May 22\nThu','May 23\nFri','May 24\nSat'],
+      axisLabel:{fontSize:10,color:'#9faed4'}
+    },
+    yAxis:{
+      type:'value',
+      max:5000,
+      axisLabel:{fontSize:10,color:'#9faed4'}
+    },
+    series:[
+      {name:'Sales',type:'bar',data:[721, 812, 896, 1012, 1093, 980, 721],barWidth:22},
+      {name:'Support',type:'bar',data:[892, 1001, 1074, 1168, 1227, 1131, 872],barWidth:22},
+      {name:'Billing',type:'bar',data:[491, 556, 572, 618, 662, 606, 490],barWidth:22},
+      {name:'Technical',type:'bar',data:[347, 443, 444, 416, 464, 465, 373],barWidth:22}
+    ]
+  });
+
+  echarts.init(document.getElementById('pieChart')).setOption({
+    animation:false,
+    color:['#3186ff','#9a52ff','#ff5e66','#ff8a28'],
+    series:[{
+      type:'pie',
+      radius:['32%','58%'],
+      center:['50%','50%'],
+      label:{show:false},
+      labelLine:{show:false},
+      data:[{name:'Sales',value:6.25},{name:'Support',value:7.7},{name:'Billing',value:5.3},{name:'Technical',value:8.52}]
+    }],
+    graphic:[
+      {type:'text',left:16,top:4,style:{text:'00:00',fill:'#9faed4',font:'10px Arial'}},
+      {type:'text',right:10,top:44,style:{text:'02:00',fill:'#9faed4',font:'10px Arial'}},
+      {type:'text',right:18,bottom:16,style:{text:'04:00',fill:'#9faed4',font:'10px Arial'}},
+      {type:'text',left:10,bottom:16,style:{text:'08:00',fill:'#9faed4',font:'10px Arial'}},
+      {type:'text',left:20,top:72,style:{text:'10:00',fill:'#9faed4',font:'10px Arial'}},
+      {type:'text',left:52,top:100,style:{text:'12:00',fill:'#9faed4',font:'10px Arial'}},
+      {type:'text',left:72,top:122,style:{text:'06:00',fill:'#9faed4',font:'10px Arial'}}
+    ]
+  });
+
+  function agentTrend(id,data,color){
+    echarts.init(document.getElementById(id)).setOption({
+      animation:false,
+      grid:{left:0,right:0,top:4,bottom:4},
+      xAxis:{type:'category',show:false,data:['1','2','3','4','5','6','7']},
+      yAxis:{type:'value',show:false},
+      series:[{
+        type:'line',
+        data:data,
+        smooth:true,
+        symbol:'circle',
+        symbolSize:4,
+        lineStyle:{width:2,color:color},
+        itemStyle:{color:color}
+      }]
+    });
+  }
+  agentTrend('trend1',[70, 78, 76, 85, 90, 88, 97],'#52a7ff');
+  agentTrend('trend2',[63, 68, 66, 75, 73, 80, 88],'#55d488');
+  agentTrend('trend3',[58, 62, 61, 67, 72, 71, 79],'#55d488');
+  agentTrend('trend4',[56, 60, 65, 63, 69, 72, 78],'#55d488');
+  agentTrend('trend5',[72, 64, 66, 60, 58, 50, 45],'#ff5e66');
+</script>
+</body>
+</html>

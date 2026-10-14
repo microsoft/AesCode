@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Defender for Cloud Dashboard Infographic</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #dfe5ec;
+      color: #1f2933;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background: #dce4ec;
+    }
+
+    .app-shell {
+      position: absolute;
+      left: 43px;
+      top: 41px;
+      width: 1290px;
+      height: 686px;
+      background: #f7f9fb;
+      border: 1px solid #cfd7df;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(22, 35, 50, 0.18);
+    }
+
+    .topbar {
+      position: absolute;
+      left: 14px;
+      top: 0;
+      width: 1262px;
+      height: 42px;
+      background: #fbfcfd;
+      border-bottom: 1px solid #d9e1e8;
+      display: flex;
+      align-items: center;
+    }
+
+    .brand {
+      font-weight: 600;
+      font-size: 12px;
+      color: #202a34;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-left: 0;
+    }
+
+    .brand-mark {
+      width: 15px;
+      height: 15px;
+      background: #1988d8;
+      clip-path: polygon(50% 0, 96% 27%, 82% 93%, 18% 93%, 4% 27%);
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .search {
+      position: absolute;
+      left: 492px;
+      top: 8px;
+      width: 342px;
+      height: 25px;
+      background: #fff;
+      border: 1px solid #d2dbe3;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      padding-left: 13px;
+      font-size: 11px;
+      color: #6a737d;
+    }
+
+    .top-icons {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: #303942;
+      font-size: 14px;
+    }
+
+    .user-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: #212831;
+      margin-left: 8px;
+    }
+
+    .sidebar {
+      position: absolute;
+      left: 0;
+      top: 42px;
+      width: 205px;
+      height: 644px;
+      background: #eef3f7;
+      border-right: 1px solid #dbe4ec;
+      padding-top: 13px;
+    }
+
+    .hamburger {
+      font-size: 17px;
+      color: #53606a;
+      margin-bottom: 20px;
+    }
+
+    .nav-group {
+      margin-bottom: 12px;
+    }
+
+    .nav-heading {
+      font-size: 11.5px;
+      font-weight: 700;
+      margin-bottom: 7px;
+      color: #1d2832;
+    }
+
+    .nav-item {
+      height: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #293440;
+      font-size: 11px;
+      border-radius: 3px;
+      padding-left: 13px;
+      position: relative;
+    }
+
+    .nav-item.active {
+      background: #dce6ef;
+      font-weight: 600;
+      padding-left: 8px;
+    }
+
+    .nav-item.active:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 3px;
+      height: 14px;
+      background: #1686d9;
+      border-radius: 2px;
+    }
+
+    .side-settings {
+      position: absolute;
+      bottom: 22px;
+      left: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      font-size: 11px;
+    }
+
+    .main-area {
+      position: absolute;
+      left: 205px;
+      top: 42px;
+      width: 852px;
+      height: 644px;
+      background: #fbfcfd;
+    }
+
+    .hero {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 420px;
+      height: 274px;
+      padding-left: 34px;
+      padding-top: 76px;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 31px;
+      letter-spacing: -0.5px;
+      color: #05090d;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #242f39;
+      line-height: 1.35;
+      width: 360px;
+    }
+
+    .platform-row {
+      margin-top: 19px;
+      display: flex;
+      gap: 27px;
+      align-items: center;
+    }
+
+    .platform {
+      text-align: center;
+      font-size: 10.5px;
+      color: #25303a;
+    }
+
+    .platform-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #e8f0f6;
+      margin: 0 auto 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #2278d0;
+      font-size: 12px;
+    }
+
+    .kpi-left {
+      position: absolute;
+      left: 436px;
+      top: 26px;
+      width: 190px;
+      height: 247px;
+      background: linear-gradient(135deg, #f3fbff, #fff4ee);
+      border: 1px solid #dbe5ee;
+      border-radius: 9px;
+      padding: 16px 15px;
+      text-align: center;
+    }
+
+    .kpi-right {
+      position: absolute;
+      left: 641px;
+      top: 26px;
+      width: 201px;
+      height: 247px;
+      background: linear-gradient(135deg, #ffe0ea, #fff7ef);
+      border: 1px solid #dbe5ee;
+      border-radius: 9px;
+      padding: 16px 14px;
+      text-align: center;
+    }
+
+    .kpi-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin: 0 0 8px;
+    }
+
+    .kpi-subtitle {
+      font-size: 11px;
+      margin-bottom: 1px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #b9f197;
+      color: #25682e;
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: 10px;
+    }
+
+    .chart-box {
+      width: 100%;
+      height: 123px;
+    }
+
+    .kpi-value {
+      font-size: 25px;
+      font-weight: 700;
+      color: #192027;
+      margin-top: 7px;
+    }
+
+    .kpi-change {
+      font-size: 11px;
+      color: #e0343b;
+    }
+
+    .kpi-change.good {
+      color: #1f9142;
+    }
+
+    .kpi-link {
+      display: block;
+      color: #0067b8;
+      font-weight: 600;
+      margin-top: 18px;
+      font-size: 12px;
+    }
+
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      font-size: 10px;
+      color: #333c44;
+      margin-top: 10px;
+    }
+
+    .top-actions {
+      position: absolute;
+      left: 28px;
+      top: 291px;
+      width: 824px;
+      height: 144px;
+      background: #fff;
+      border: 1px solid #dfe6ee;
+      border-radius: 6px;
+      z-index: 3;
+    }
+
+    .section-title {
+      position: absolute;
+      left: 13px;
+      top: 13px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .action-block {
+      position: absolute;
+      top: 33px;
+      width: 225px;
+      height: 88px;
+      border-left: 1px solid #d9e1e8;
+    }
+
+    .action-block.first {
+      left: 226px;
+    }
+
+    .action-block.second {
+      left: 451px;
+    }
+
+    .action-block.third {
+      left: 676px;
+      border-left: none;
+    }
+
+    .action-icon {
+      width: 22px;
+      height: 22px;
+      border: 1.6px solid #24303a;
+      border-radius: 50%;
+      margin-bottom: 5px;
+    }
+
+    .action-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #20262d;
+    }
+
+    .action-desc {
+      font-size: 10.5px;
+      color: #323c45;
+      line-height: 1.35;
+    }
+
+    .tour-dialog {
+      position: absolute;
+      left: -28px;
+      top: 324px;
+      width: 262px;
+      height: 155px;
+      background: #0d82d9;
+      color: #fff;
+      border-radius: 5px;
+      z-index: 10;
+      padding: 13px 12px;
+      box-shadow: 0 7px 14px rgba(0, 92, 160, 0.35);
+    }
+
+    .tour-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .tour-close {
+      position: absolute;
+      right: 8px;
+      top: 7px;
+      color: #dff2ff;
+    }
+
+    .tour-p {
+      font-size: 10.5px;
+      line-height: 1.35;
+      margin: 0 0 10px;
+    }
+
+    .tour-progress {
+      position: absolute;
+      left: 12px;
+      bottom: 13px;
+      font-size: 11px;
+    }
+
+    .tour-next {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      background: #f4fbff;
+      color: #0871ad;
+      border-radius: 4px;
+      padding: 5px 11px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .line-chart-card {
+      position: absolute;
+      left: 28px;
+      top: 461px;
+      width: 530px;
+      height: 179px;
+      background: #fff;
+      border: 1px solid #dbe4ee;
+      border-radius: 6px;
+      padding: 12px 12px 0;
+    }
+
+    .chart-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    #secureScoreTrend {
+      width: 506px;
+      height: 120px;
+    }
+
+    .rec-card {
+      position: absolute;
+      left: 576px;
+      top: 461px;
+      width: 276px;
+      height: 179px;
+      background: #fff;
+      border: 1px solid #dbe4ee;
+      border-radius: 6px;
+      padding: 13px 13px 10px;
+    }
+
+    .rec-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .bar-row {
+      display: flex;
+      justify-content: space0between;
+      align-items: center;
+      height: 28px;
+      font-size: 11px;
+    }
+
+    .bar-label {
+      width: 64px;
+    }
+
+    .bar-value {
+      width: 56px;
+      font-weight: 700;
+    }
+
+    .bar-track {
+      width: 108px;
+      height: 12px;
+      background: #f0f1f3;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: #ff8a19;
+      border-radius: 2px;
+    }
+
+    .bar-fill.blue {
+      background: #0d70bb;
+    }
+
+    .bar-fill.yellow {
+      background: #ffc928;
+    }
+
+    .right-column {
+      position: absolute;
+      right: 0;
+      top: 42px;
+      width: 233px;
+      height: 644px;
+      background: #f8fbfd;
+      border-left: 1px solid #dbe4ec;
+    }
+
+    .promo-card {
+      position: absolute;
+      left: 9px;
+      top: 16px;
+      width: 214px;
+      height: 201px;
+      background: #fff;
+      border: 1px solid #d9e2ea;
+      border-radius: 6px;
+      padding: 8px;
+    }
+
+    .promo-card img {
+      width: 200px;
+      height: 108px;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .promo-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-top: 9px;
+    }
+
+    .promo-body {
+      font-size: 10.5px;
+      line-height: 1.35;
+      color: #2e3740;
+    }
+
+    .promo-link {
+      display: block;
+      color: #0067b8;
+      font-size: 10.5px;
+      margin-top: 5px;
+    }
+
+    .start-card {
+      position: absolute;
+      left: 9px;
+      top: 238px;
+      width: 214px;
+      height: 162px;
+      background: #fff;
+      border: 1px solid #d9e2ea;
+      border-radius: 6px;
+      padding: 12px 10px;
+    }
+
+    .start-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .row-with-dot {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 13px;
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      background: #d4e0e8;
+      border-radius: 50%;
+    }
+
+    .row-title {
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .row-desc {
+      font-size: 9.8px;
+      color: #313b44;
+    }
+
+    .small-link {
+      color: #0067b8;
+      font-size: 9.5px;
+    }
+
+    .learn-card {
+      position: absolute;
+      left: 9px;
+      bottom: 15px;
+      width: 214px;
+      height: 205px;
+      background: #fff;
+      border: 1px solid #d9e2ea;
+      border-radius: 6px;
+      padding: 11px 10px;
+    }
+
+    .learn-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .glossary-subhead {
+      font-size: 11.5px;
+      margin-bottom: 4px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px 8px;
+      margin-bottom: 10px;
+    }
+
+    .pill {
+      background: #eef1f4;
+      border-radius: 10px;
+      padding: 3px 8px;
+      font-size: 9.5px;
+      color: #29323a;
+    }
+
+    .learn-paragraph {
+      font-size: 10px;
+      line-height: 1.35;
+      color: #29323a;
+    }
+
+    .relevant-link {
+      display: block;
+      color: #0067b8;
+      font-size: 10px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="app-shell">
+      <div class="topbar">
+        <div class="brand"><span class="brand-mark"></span>Microsoft Defender</div>
+        <div class="search">⌕&nbsp;&nbsp;Search resources, services, and docs</div>
+        <div class="top-icons">
+          <span>🔔</span>
+          <span>⚙</span>
+          <span>?</span>
+          <span class="user-name">Benito Hegedus</span>
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <div class="hamburger">≡</div>
+
+        <div class="nav-group">
+          <div class="nav-heading">Exposure management</div>
+          <div class="nav-item">✓ Secure score</div>
+          <div class="nav-item">▣ Regulatory compliance</div>
+          <div class="nav-item">▤ Inventory</div>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-heading">Investigation &amp; response</div>
+          <div class="nav-item">◷ Incidents</div>
+          <div class="nav-item">▧ Cloud logs</div>
+          <div class="nav-item">⌁ Threat analytics</div>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-heading">Cloud infrastructure</div>
+          <div class="nav-item active">⌂ Overview</div>
+          <div class="nav-item">⌁ Recommendations</div>
+          <div class="nav-item">♟ Alerts</div>
+          <div class="nav-item">⌁ Attack paths</div>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-heading">Threat intelligence</div>
+          <div class="nav-item">▤ Intel profiles</div>
+          <div class="nav-item">♛ Campaigns</div>
+        </div>
+
+        <div class="side-settings">
+          <div>⚙ Settings</div>
+          <div>⊙ Help</div>
+        </div>
+      </aside>
+
+      <main class="main-area">
+        <section class="hero">
+          <h1>Defender for Cloud</h1>
+          <div class="subtitle">Protects your cloud-native workloads from code to runtime.</div>
+
+          <div class="platform-row">
+            <div class="platform"><div class="platform-icon">A</div>Azure</div>
+            <div class="platform"><div class="platform-icon">AWS</div>AWS</div>
+            <div class="platform"><div class="platform-icon">G</div>GCP</div>
+            <div class="platform"><div class="platform-icon">D</div>Azure DevOps</div>
+            <div class="platform"><div class="platform-icon">G</div>GitLab</div>
+            <div class="platform"><div class="platform-icon">DH</div>DockerHub</div>
+            <div class="platform"><div class="platform-icon">J</div>JFrog</div>
+          </div>
+        </section>
+
+        <section class="kpi-left">
+          <div class="kpi-title">Security posture</div>
+          <div class="kpi-subtitle">Cloud secure score <span class="badge">Moderate</span></div>
+          <div id="securityPostureGauge" class="chart-box"></div>
+          <div class="kpi-value">49.2%</div>
+          <div class="kpi-change">▼ -39.8%</div>
+          <a class="kpi-link">View cloud initiative</a>
+        </section>
+
+        <section class="kpi-right">
+          <div class="kpi-title">Threat detection</div>
+          <div class="kpi-subtitle">Security alerts</div>
+          <div id="threatDetectionDonut" class="chart-box"></div>
+          <div class="kpi-value">280</div>
+          <div class="kpi-change good">▲ +16.7%</div>
+          <div class="legend">
+            <span>● High</span>
+            <span>○ Medium</span>
+            <span>○ 1 more</span>
+          </div>
+          <a class="kpi-link">View alerts</a>
+        </section>
+
+        <section class="top-actions">
+          <div class="section-title">Top actions</div>
+          <div class="action-block first">
+            <div class="action-icon"></div>
+            <div class="action-title">95 critical recommendations</div>
+            <div class="action-desc">Address vulnerabilities to improve your secure score.</div>
+          </div>
+          <div class="action-block second">
+            <div class="action-icon"></div>
+            <div class="action-title">79 high alerts</div>
+            <div class="action-desc">Investigate and respond to active threats in your environment.</div>
+          </div>
+          <div class="action-block third">
+            <div class="action-icon"></div>
+            <div class="action-title">118 critical attack paths</div>
+            <div class="action-desc">Remediate potential lateral movement risks.</div>
+          </div>
+        </section>
+
+        <section class="tour-dialog">
+          <div class="tour-title">Cloud Security Dashboard</div>
+          <div class="tour-close">× Close</div>
+          <p class="tour-p">Insights from your cloud and code environments are now available here.</p>
+          <p class="tour-p">You can now enjoy an enhanced experience with integrated security insights, unifying visibility and control across your entire digital estate.</p>
+          <div class="tour-progress">1 of 5</div>
+          <div class="tour-next">Next</div>
+        </section>
+
+        <section class="line-chart-card">
+          <div class="chart-title">Secure score trend</div>
+          <div id="secureScoreTrend"></div>
+        </section>
+
+        <section class="rec-card">
+          <div class="rec-title">Security recommendations</div>
+          <div class="bar-row">
+            <div class="bar-label">Critical</div>
+            <div class="bar-value">95</div>
+            <div class="bar-track"><div class="bar-fill blue" style="width:95px;"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">High</div>
+            <div class="bar-value">1921</div>
+            <div class="bar-track"><div class="bar-fill" style="width:192px;"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Medium</div>
+            <div class="bar-value">1723</div>
+            <div class="bar-track"><div class="bar-fill yellow" style="width:172px;"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Low</div>
+            <div class="bar-value">823</div>
+            <div class="bar-track"><div class="bar-fill blue" style="width:82px;"></div></div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="right-column">
+        <section class="promo-card">
+          <img src="https://placehold.co/260x120?text=Cloud+product+illustration" alt="Cloud product illustration placeholder">
+          <div class="promo-title">Introducing Defender for Cloud</div>
+          <div class="promo-body">A comprehensive security platform for all your cloud resources, providing unified posture management and threat protection.</div>
+          <a class="promo-link">Take the full tour</a>
+        </section>
+
+        <section class="start-card">
+          <div class="start-title">Start here</div>
+          <div class="row-with-dot">
+            <div class="dot"></div>
+            <div>
+              <div class="row-title">Monitor Your Cloud Secure Score</div>
+              <div class="row-desc">Track your progress and get actionable insights to improve your security posture.</div>
+              <span class="small-link">Show me where I can find this on this page</span>
+            </div>
+          </div>
+          <div class="row-with-dot">
+            <div class="dot"></div>
+            <div>
+              <div class="row-title">Explore Security Alert Trends</div>
+              <div class="row-desc">Identify and analyze patterns in security alerts to proactively mitigate risks.</div>
+              <span class="small-link">Show me where I can find this on this page</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="learn-card">
+          <div class="learn-title">Learn more</div>
+          <div class="glossary-subhead">Glossary</div>
+          <div class="pill-row">
+            <span class="pill">Risk-based recommendations</span>
+            <span class="pill">Attack path analysis</span>
+            <span class="pill">Cloud initiative</span>
+            <span class="pill">Investigation &amp; response</span>
+          </div>
+          <div class="learn-paragraph">
+            <strong>Risk-based recommendations</strong><br>
+            Prioritize security recommendations based on the potential risk to your environment, focusing on the most critical vulnerabilities.
+          </div>
+          <a class="relevant-link">Go to relevant page ↗</a>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const gaugeChart = echarts.init(document.getElementById('securityPostureGauge'));
+    gaugeChart.setOption({
+      animation: false,
+      series: [{
+        type: 'pie',
+        radius: ['72%', '82%'],
+        center: ['50%', '52%'],
+        startAngle: 185,
+        avoidLabelOverlap: true,
+        label: { show: false },
+        labelLine: { show: false },
+        data: [49.2],
+        itemStyle: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 1,
+            y2: 0,
+            colorStops: [
+              { offset: 0, color: '#ff8a19' },
+              { offset: 0.5, color: '#ff6341' },
+              { offset: 1, color: '#f04e24' }
+            ]
+          }
+        },
+        backgroundStyle: {
+          color: '#dce5ef'
+        }
+      }],
+      graphic: [
+        {
+          type: 'circle',
+          left: 'center',
+          top: 'center',
+          shape: { r: 38 },
+          style: { stroke: '#fff', lineWidth: 3 }
+        },
+        {
+          type: 'text',
+          left: 'center',
+          top: 'center',
+          style: { text: '49.2%', fill: '#1f2933', fontSize: 11, textAlign: 'center', textVerticalAlign: 'middle' }
+        }
+      ]
+    });
+
+    const donutChart = echarts.init(document.getElementById('threatDetectionDonut'));
+    donutChart.setOption({
+      animation: false,
+      series: [{
+        type: 'pie',
+        radius: ['58%', '72%'],
+        center: ['50%', '52%'],
+        label: { show: false },
+        labelLine: { show: false },
+        data: [180, 80, 20],
+        itemStyle: {
+          color: function(params) {
+            return ['#f21c1c', '#ff7919', '#f0c84c'][params.dataIndex];
+          }
+        }
+      }],
+      graphic: [
+        {
+          type: 'text',
+          left: 'center',
+          top: 'center',
+          style: { text: '280', fill: '#1f2933', fontSize: 22, textAlign: 'center', textVerticalAlign: 'middle' }
+        }
+      ]
+    });
+
+    const lineChart = echarts.init(document.getElementById('secureScoreTrend'));
+    lineChart.setOption({
+      animation: false,
+      grid: { left: 36, right: 12, top: 12, bottom: 24 },
+      xAxis: {
+        type: 'category',
+        data: ['Jan 18', 'Jan 19', 'Jan 20', 'Jan 21', 'Jan 21'],
+        axisLabel: { color: '#4b5560', fontSize: 10 },
+        axisLine: { lineStyle: { color: '#d7e0e8' } },
+        splitLine: { show: false }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 100,
+        interval: 20,
+        axisLabel: { color: '#4b5560', fontSize: 10 },
+        splitLine: { lineStyle: { color: '#dce4eb' } }
+      },
+      series: [{
+        type: 'line',
+        data: [60, 55, 52, 49, 51],
+        smooth: false,
+        symbol: 'circle',
+        symbolSize: 5,
+        lineStyle: { color: '#1686d9', width: 2 },
+        itemStyle: { color: '#1686d9' },
+        areaStyle: { color: 'rgba(22,134,217,0.12)' },
+        label: {
+          show: true,
+          position: 'top',
+          color: '#20282f',
+          fontSize: 10
+        }
+      }]
+    });
+  </script>
+</body>
+</html>

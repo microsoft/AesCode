@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Customer Journey Map</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #111;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .title {
+    position: absolute;
+    top: 58px;
+    left: 0;
+    width: 1376px;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+  }
+
+  .band {
+    position: absolute;
+    left: 56px;
+    top: 176px;
+    width: 1264px;
+    height: 454px;
+    background: #f1f4f6;
+    border-radius: 11px;
+  }
+
+  .side-label {
+    position: absolute;
+    left: 0;
+    width: 106px;
+    height: 216px;
+    background: #d5d8dc;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .side-label.digital {
+    top: 0;
+  }
+
+  .side-label.physical {
+    top: 240px;
+  }
+
+  .side-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+
+  .flow {
+    position: absolute;
+    left: 116px;
+    top: 184px;
+    width: 1128px;
+    height: 86px;
+    display: flex;
+    z-index: 5;
+  }
+
+  .seg {
+    position: relative;
+    height: 86px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: 800;
+    color: #fff;
+    clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 50%, calc(100% - 22px) 100%, 0 100%, 22px 50%);
+  }
+
+  .seg.awareness {
+    width: 256px;
+    background: #7fc241;
+    z-index: 6;
+  }
+
+  .seg.consideration {
+    width: 248px;
+    background: #6850a4;
+    z-index: 8;
+    margin-left: -15px;
+  }
+
+  .seg.purchase {
+    width: 260px;
+    background: #fb9218;
+    z-index: 7;
+    margin-left: -18px;
+  }
+
+  .seg.retention {
+    width: 248px;
+    background: #df3d58;
+    z-index: 9;
+    margin-left: -18px;
+  }
+
+  .seg.advocacy {
+    width: 234px;
+    background: #55b7b2;
+    z-index: 8;
+    margin-left: -18px;
+  }
+
+  .label {
+    position: absolute;
+    z-index: 4;
+    font-size: 16px;
+    line-height: 1.18;
+    text-align: center;
+  }
+
+  .tiny {
+    font-size: 14px;
+  }
+
+  /* Digital labels above */
+  .email-data {
+    left: 316px;
+    top: -20px;
+  }
+
+  .search-data {
+    left: 218px;
+    top: 66px;
+    width: 92px;
+  }
+
+  .paid-content {
+    left: 143px;
+    top: 133px;
+    width: 115px;
+  }
+
+  .landing-page {
+    left: 370px;
+    top: 128px;
+    width: 92px;
+  }
+
+  .social-media {
+    left: 492px;
+    top: 63px;
+    width: 86px;
+  }
+
+  .third-party {
+    left: 555px;
+    top: 133px;
+    width: 62px;
+  }
+
+  .website {
+    left: 625px;
+    top: 124px;
+    width: 84px;
+  }
+
+  .mobile-app {
+    left: 682px;
+    top: 71px;
+    width: 100px;
+  }
+
+  .web-service {
+    left: 742px;
+    top: -21px;
+  }
+
+  .community {
+    left: 926px;
+    top: 51px;
+    width: 102px;
+  }
+
+  .twitter-social {
+    left: 862px;
+    top: 142px;
+    width: 126px;
+  }
+
+  .offer-customers {
+    left: 1085px;
+    top: -26px;
+    width: 104px;
+  }
+
+  .email-label {
+    left: 1192px;
+    top: 43px;
+    width: 80px;
+  }
+
+  .loyalty-program {
+    left: 1062px;
+    top: 91px;
+    width: 108px;
+  }
+
+  .survey-label {
+    left: 1140px;
+    top: 133px;
+    width: 86px;
+  }
+
+  /* Physical labels below */
+  .pr-label {
+    left: 162px;
+    top: 298px;
+    width: 42px;
+  }
+
+  .radio-print {
+    left: 225px;
+    top: 362px;
+    width: 82px;
+  }
+
+  .word-mouth {
+    left: 260px;
+    top: 259px;
+    width: 88px;
+  }
+
+  .direct-email {
+    left: 450px;
+    top: 341px;
+    width: 80px;
+  }
+
+  .store-branch {
+    left: 610px;
+    top: 362px;
+    width: 76px;
+  }
+
+  .agent-broker {
+    left: 700px;
+    top: 362px;
+    width: 82px;
+  }
+
+  .cell-center {
+    left: 840px;
+    top: 344px;
+    width: 64px;
+  }
+
+  .chat-label {
+    left: 912px;
+    top: 362px;
+    width: 52px;
+  }
+
+  .mailing-label {
+    left: 1040px;
+    top: 290px;
+    width: 78px;
+  }
+
+  .offer-invoice {
+    left: 1088px;
+    top: 370px;
+    width: 82px;
+  }
+
+  /* Decorative dots */
+  .dot {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 3;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dot.green {
+    background: #7fc241;
+  }
+
+  .dot.green-outline {
+    background: #f5f8f7;
+    border: 3px solid #7fc241;
+  }
+
+  .dot.purple {
+    background: #6850a4;
+  }
+
+  .dot.purple-outline {
+    background: #f5f3fb;
+    border: 3px solid #6850a4;
+  }
+
+  .dot.orange {
+    background: #fb9218;
+  }
+
+  .dot.pink {
+    background: #df3d58;
+  }
+
+  .dot.pink-outline {
+    background: #f5eef2;
+    border: 3px solid #df3d58;
+  }
+
+  .dot.teal {
+    background: #55b7b2;
+  }
+
+  .dot.dark {
+    background: #4c5b65;
+  }
+
+  .d1 { left: 198px; top: 128px; width: 20px; height: 20px; }
+  .d2 { left: 390px; top: 8px; width: 20px; height: 20px; }
+  .d3 { left: 254px; top: 61px; width: 20px; height: 20px; }
+  .d4 { left: 307px; top: 293px; width: 20px; height: 20px; }
+  .d5 { left: 412px; top: 137px; width: 20px; height: 20px; }
+  .d6 { left: 530px; top: 130px; width: 20px; height: 20px; }
+  .d7 { left: 646px; top: 85px; width: 20px; height: 20px; }
+  .d8 { left: 660px; top: 125px; width: 20px; height: 20px; }
+  .d9 { left: 794px; top: 8px; width: 20px; height: 20px; }
+  .d10 { left: 942px; top: 74px; width: 20px; height: 20px; }
+  .d11 { left: 1003px; top: 139px; width: 20px; height: 20px; }
+  .d12 { left: 1108px; top: 26px; width: 20px; height: 20px; }
+  .d13 { left: 1165px; top: 63px; width: 20px; height: 20px; }
+  .d14 { left: 1230px; top: 148px; width: 20px; height: 20px; }
+
+  .d15 { left: 225px; top: 349px; width: 20px; height: 20px; }
+  .d16 { left: 288px; top: 373px; width: 20px; height: 20px; }
+  .d17 { left: 370px; top: 326px; width: 20px; height: 20px; }
+  .d18 { left: 486px; top: 337px; width: 20px; height: 20px; }
+  .d19 { left: 642px; top: 365px; width: 20px; height: 20px; }
+  .d20 { left: 738px; top: 364px; width: 20px; height: 20px; }
+  .d21 { left: 880px; top: 332px; width: 20px; height: 20px; }
+  .d22 { left: 945px; top: 339px; width: 20px; height: 20px; }
+  .d23 { left: 1050px; top: 303px; width: 20px; height: 20px; }
+  .d24 { left: 1142px; top: 372px; width: 20px; height: 20px; }
+
+  /* SVG paths */
+  .paths {
+    position: absolute;
+    left: 152px;
+    top: 10px;
+    width: 1096px;
+    height: 424px;
+    z-index: 1;
+  }
+
+  /* Legend */
+  .legend {
+    position: absolute;
+    left: 546px;
+    top: 663px;
+    width: 304px;
+    height: 52px;
+    background: #eef1f4;
+    border-radius: 6px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    font-size: 17px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    white-space: nowrap;
+  }
+
+  .legend-circle {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 3px solid #666;
+  }
+
+  .legend-circle.filled {
+    background: #4c5b65;
+  }
+
+  .legend-circle.hollow {
+    background: transparent;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="title">Customer Journey Map</div>
+
+  <div class="band">
+    <div class="side-label digital"><div class="side-text">Digital<br>Touchpoints</div></div>
+    <div class="side-label physical"><div class="side-text">Physical<br>Touchpoints</div></div>
+
+    <svg class="paths" viewBox="0 0 1096 424" preserveAspectRatio="none" aria-hidden="true">
+      <!-- Awareness digital -->
+      <path d="M108 282 C128 204, 205 135, 310 92 C370 66, 440 96, 492 160"
+            fill="none" stroke="#7fc241" stroke-width="3" stroke-dasharray="9 9" opacity="0.9"/>
+      <path d="M108 282 C128 338, 205 388, 310 385"
+            fill="none" stroke="#7fc241" stroke-width="3" stroke-dasharray="9 9" opacity="0.9"/>
+
+      <!-- Consideration digital -->
+      <path d="M382 266 C430 194, 510 150, 560 220"
+            fill="none" stroke="#6850a4" stroke-width="3" stroke-dasharray="7 7" opacity="0.9"/>
+      <path d="M560 220 C620 282, 666 275, 702 230"
+            fill="none" stroke="#fb9218" stroke-width="3" stroke-dasharray="7 7" opacity="0.9"/>
+
+      <!-- Purchase / Retention digital -->
+      <path d="M720 128 C820 72, 920 105, 1000 198"
+            fill="none" stroke="#df3d58" stroke-width="3" stroke-dasharray="7 7" opacity="0.9"/>
+      <path d="M1000 198 C1020 270, 1020 330, 960 360"
+            fill="none" stroke="#df3d58" stroke-width="3" stroke-dasharray="7 7" opacity="0.9"/>
+
+      <!-- Advocacy digital -->
+      <path d="M1015 88 C1100 30, 1164 60, 1185 128"
+            fill="none" stroke="#55b7b2" stroke-width="3" stroke-dasharray="8 8" opacity="0.9"/>
+      <path d="M1185 128 C1198 220, 1170 320, 1060 360"
+            fill="none" stroke="#55b7b2" stroke-width="3" stroke-dasharray="8 8" opacity="0.9"/>
+
+      <!-- Physical -->
+      <path d="M100 352 C140 300, 225 310, 312 370"
+            fill="none" stroke="#7fc241" stroke-width="3" stroke-dasharray="8 8" opacity="0.9"/>
+      <path d="M450 360 C500 260, 580 268, 600 360"
+            fill="none" stroke="#6850a4" stroke-width="3" stroke-dasharray="7 7" opacity="0.9"/>
+      <path d="M640 340 C700 220, 770 220, 820 340"
+            fill="none" stroke="#fb9218" stroke-width="3" stroke-dasharray="7 7" opacity="0.9"/>
+      <path d="M880 322 C930 230, 980 250, 1000 340"
+            fill="none" stroke="#df3d58" stroke-width="3" stroke-dasharray="7 7" opacity="0.9"/>
+      <path d="M1040 320 C1120 260, 1160 340, 1060 390"
+            fill="none" stroke="#55b7b2" stroke-width="3" stroke-dasharray="8 8" opacity="0.9"/>
+    </svg>
+
+    <div class="flow">
+      <div class="seg awareness">Awareness</div>
+      <div class="seg consideration">Consideration</div>
+      <div class="seg purchase">Purchase</div>
+      <div class="seg retention">Retention</div>
+      <div class="seg advocacy">Advocacy</div>
+    </div>
+
+    <div class="label email-data">Email Data</div>
+    <div class="label search-data">Search<br>Data</div>
+    <div class="label paid-content">Paid Content</div>
+    <div class="label landing-page">Landing<br>Page</div>
+    <div class="label social-media">Social<br>Media</div>
+    <div class="label third-party">3rd<br>Party</div>
+    <div class="label website">Website</div>
+    <div class="label mobile-app">Mobile App</div>
+    <div class="label web-service">Web Service</div>
+    <div class="label community">Community</div>
+    <div class="label twitter-social">Twitter/Social</div>
+    <div class="label offer-customers">Offer to<br>Customers</div>
+    <div class="label email-label">E mail</div>
+    <div class="label loyalty-program">Loyalty<br>Program</div>
+    <div class="label survey-label">Survey</div>
+
+    <div class="label pr-label">PR</div>
+    <div class="label radio-print">Radio<br>TV-Print</div>
+    <div class="label word-mouth">Word Of<br>Mouth</div>
+    <div class="label direct-email">Direct<br>E-Mail</div>
+    <div class="label store-branch">Store &amp;<br>Branch</div>
+    <div class="label agent-broker">Agent &amp;<br>Broker</div>
+    <div class="label cell-center">Cell<br>Center</div>
+    <div class="label chat-label">Chat</div>
+    <div class="label mailing-label">Mailing</div>
+    <div class="label offer-invoice">Offer in<br>Invoice</div>
+
+    <div class="dot green d1"></div>
+    <div class="dot green d2"></div>
+    <div class="dot green d3"></div>
+    <div class="dot green d4"></div>
+    <div class="dot purple d5"></div>
+    <div class="dot purple d6"></div>
+    <div class="dot orange d7"></div>
+    <div class="dot orange d8"></div>
+    <div class="dot orange d9"></div>
+    <div class="dot pink d10"></div>
+    <div class="dot pink d11"></div>
+    <div class="dot teal d12"></div>
+    <div class="dot teal d13"></div>
+    <div class="dot teal d14"></div>
+
+    <div class="dot green d15"></div>
+    <div class="dot green-outline d16"></div>
+    <div class="dot green d17"></div>
+    <div class="dot purple d18"></div>
+    <div class="dot orange d19"></div>
+    <div class="dot orange d20"></div>
+    <div class="dot pink d21"></div>
+    <div class="dot pink d22"></div>
+    <div class="dot teal d23"></div>
+    <div class="dot teal d24"></div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-circle filled"></span><span>Managed</span></div>
+    <div class="legend-item"><span class="legend-circle hollow"></span><span>Earned</span></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Select the Path That is Right for Your Workloads</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9eef3;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background: #ffffff;
+    color: #111111;
+  }
+
+  .title {
+    position: absolute;
+    top: 26px;
+    left: 0;
+    width: 1376px;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 800;
+    color: #1479bd;
+    letter-spacing: -0.6px;
+  }
+
+  .subtitle {
+    position: absolute;
+    top: 75px;
+    left: 0;
+    width: 1376px;
+    text-align: center;
+    font-size: 24px;
+    color: #555555;
+    font-weight: 400;
+  }
+
+  /* Left icons */
+  .onprem-icon {
+    position: absolute;
+    top: 116px;
+    left: 46px;
+    width: 70px;
+    height: 78px;
+    border-radius: 12px;
+    background: linear-gradient(#1185dc, #005fb8);
+    border: 2px solid #64a7cf;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.22);
+  }
+
+  .onprem-icon:before {
+    content: "";
+    position: absolute;
+    top: -16px;
+    left: 0;
+    width: 70px;
+    height: 28px;
+    border-radius: 50%;
+    background: #82ddfb;
+    border: 2px solid #64a7cf;
+  }
+
+  .vm-icon {
+    position: absolute;
+    top: 207px;
+    left: 36px;
+    width: 90px;
+    height: 70px;
+    background: #8fd0fb;
+    border: 3px solid #9a9a9a;
+    border-radius: 4px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.22);
+  }
+
+  .vm-icon:after {
+    content: "";
+    position: absolute;
+    left: 29px;
+    bottom: -24px;
+    width: 29px;
+    height: 20px;
+    background: #a9a9a9;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .left-caption-1 {
+    position: absolute;
+    top: 130px;
+    left: 135px;
+    width: 132px;
+    font-size: 19px;
+    line-height: 1.18;
+    font-weight: 700;
+    color: #111111;
+  }
+
+  .left-caption-2 {
+    position: absolute;
+    top: 215px;
+    left: 135px;
+    width: 150px;
+    font-size: 18px;
+    line-height: 1.15;
+    font-weight: 700;
+    color: #111111;
+  }
+
+  /* Highway band */
+  .highway {
+    position: absolute;
+    top: 123px;
+    left: 278px;
+    width: 1028px;
+    height: 55px;
+    background: linear-gradient(90deg, #0a5ba7 0%, #23a9e2 36%, #e24e96 65%, #713ba8 100%);
+  }
+
+  .highway-label {
+    position: absolute;
+    top: 0;
+    left: 352px;
+    height: 55px;
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+  }
+
+  .arrow-head {
+    position: absolute;
+    top: 0;
+    right: -53px;
+    width: 0;
+    height: 0;
+    border-top: 61px solid transparent;
+    border-bottom: 61px solid transparent;
+    border-left: 57px solid #713ba8;
+  }
+
+  /* Why sections */
+  .why-iaas-title {
+    position: absolute;
+    top: 204px;
+    left: 426px;
+    width: 230px;
+    text-align: center;
+    color: #0a5b91;
+    font-size: 24px;
+    font-weight: 800;
+  }
+
+  .why-paas-title {
+    position: absolute;
+    top: 204px;
+    left: 860px;
+    width: 230px;
+    text-align: center;
+    color: #0a5b91;
+    font-size: 24px;
+    font-weight: 800;
+  }
+
+  .iaas-column {
+    position: absolute;
+    top: 251px;
+    left: 290px;
+    width: 390px;
+    height: 260px;
+    text-align: center;
+  }
+
+  .paas-column {
+    position: absolute;
+    top: 251px;
+    left: 738px;
+    width: 354px;
+    height: 260px;
+    text-align: left;
+  }
+
+  .divider {
+    position: absolute;
+    top: 246px;
+    left: 712px;
+    width: 2px;
+    height: 208px;
+    background: #c9c9c9;
+  }
+
+  .benefit-block {
+    margin-bottom: 13px;
+  }
+
+  .benefit-heading {
+    display: block;
+    color: #0b5e98;
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 2px;
+  }
+
+  .benefit-copy {
+    display: block;
+    color: #171717;
+    font-size: 14.5px;
+    line-height: 1.18;
+    font-weight: 400;
+  }
+
+  /* Azure SQL PaaS and database icons */
+  .azure-label {
+    position: absolute;
+    top: 212px;
+    left: 1165px;
+    width: 190px;
+    text-align: center;
+    color: #0a5b91;
+    font-size: 22px;
+    font-weight: 800;
+  }
+
+  .db-row {
+    position: absolute;
+    top: 252px;
+    left: 1155px;
+    display: flex;
+    gap: 14px;
+  }
+
+  .db-icon {
+    position: relative;
+    width: 50px;
+    height: 62px;
+    border-radius: 50% / 12%;
+    background: #2099e3;
+    border: 2px solid #78c4f4;
+    color: #ffffff;
+    font-weight: 800;
+    text-align: center;
+    font-size: 16px;
+    line-height: 62px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.22);
+  }
+
+  .db-icon:before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 0;
+    width: 50px;
+    height: 22px;
+    border-radius: 50%;
+    background: #7fd6fb;
+    border: 2px solid #78c4f4;
+  }
+
+  .db-icon:nth-child(2) {
+    background: linear-gradient(135deg, #29c4e8, #c2489f);
+  }
+
+  .db-icon:nth-child(3) {
+    background: linear-gradient(135deg, #7c40b9, #8c30a8);
+  }
+
+  /* Case study panel */
+  .case-panel {
+    position: absolute;
+    left: 24px;
+    top: 526px;
+    width: 1328px;
+    height: 221px;
+    background: #f0f1f2;
+    border: 2px solid #bfc0c0;
+    border-radius: 19px;
+  }
+
+  .logo-box {
+    position: absolute;
+    left: 28px;
+    top: 42px;
+    width: 100px;
+    height: 86px;
+  }
+
+  .logo-box img {
+    width: 78px;
+    height: 78px;
+    border: 2px solid #91c986;
+    border-radius: 4px;
+  }
+
+  .customer-label {
+    position: absolute;
+    left: 82px;
+    top: 55px;
+    width: 80px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111111;
+    text-align: center;
+  }
+
+  .case-copy {
+    position: absolute;
+    left: 178px;
+    top: 39px;
+    width: 210px;
+    font-size: 16px;
+    line-height: 1.18;
+    color: #171717;
+  }
+
+  .phase-1 {
+    position: absolute;
+    left: 406px;
+    top: 14px;
+    width: 380px;
+  }
+
+  .phase-2 {
+    position: absolute;
+    left: 802px;
+    top: 14px;
+    width: 490px;
+  }
+
+  .phase-title {
+    font-size: 15.5px;
+    color: #000000;
+    font-weight: 800;
+    margin-bottom: 2px;
+  }
+
+  .phase-title ul,
+  .phase-title li {
+    margin: 0;
+    padding-left: 20px;
+    padding-right: 4px;
+  }
+
+  .phase-title li {
+    font-size: 13.8px;
+    line-height: 1.22;
+    color: #151515;
+    padding-top: 1px;
+  }
+
+  .testimonial {
+    position: absolute;
+    left: 204px;
+    bottom: 13px;
+    width: 900px;
+    text-align: center;
+  }
+
+  .testimonial-text {
+    color: #1d1d1d;
+    font-size: 14.5px;
+    font-style: italic;
+    line-height: 1.22;
+  }
+
+  .testimonial-name {
+    color: #1479bd;
+    font-size: 14px;
+    font-weight: 800;
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Select the Path That is Right for Your Workloads</div>
+    <div class="subtitle">Offramps to IaaS exist for key scenarios</div>
+
+    <div class="onprem-icon"></div>
+    <div class="vm-icon"></div>
+
+    <div class="left-caption-1">SQL Server<br>on-premises</div>
+    <div class="left-caption-2">SQL Server on<br>Azure Virtual<br>Machines</div>
+
+    <div class="highway">
+      <div class="highway-label">Highway to PaaS</div>
+      <div class="arrow-head"></div>
+    </div>
+
+    <div class="why-iaas-title">Why IaaS?</div>
+    <div class="why-paas-title">Why PaaS?</div>
+
+    <div class="iaas-column">
+      <div class="benefit-block">
+        <span class="benefit-heading">Legacy Workloads</span>
+        <span class="benefit-copy">Easy lift-and-shift migration to IaaS avoids the complexities of rearchitecting or refactoring applications.</span>
+      </div>
+      <div class="benefit-block">
+        <span class="benefit-heading">Time Constraints</span>
+        <span class="benefit-copy">Leverages existing on-premises skillsets and processes for a faster migration timeline.</span>
+      </div>
+      <div class="benefit-block">
+        <span class="benefit-heading">Reliance on Non-PaaS Offerings</span>
+        <span class="benefit-copy">IaaS allows for conformation to existing on-premises standards, third-party tools, and specific configurations.</span>
+      </div>
+      <div class="benefit-block">
+        <span class="benefit-heading">Business Critical Data</span>
+        <span class="benefit-copy">Provides OS-level control for precise manageability, performance tuning, and advanced security requirements.</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="paas-column">
+      <div class="benefit-block">
+        <span class="benefit-heading">No End of Support Hassles</span>
+        <span class="benefit-copy">Always stay up to date with the latest features and security patches without manual upgrades.</span>
+      </div>
+      <div class="benefit-block">
+        <span class="benefit-heading">Does More on Your Behalf</span>
+        <span class="benefit-copy">Automated tasks and AI-powered features streamline management, optimization, and security monitoring.</span>
+      </div>
+      <div class="benefit-block">
+        <span class="benefit-heading">Fully Managed SQL Server</span>
+        <span class="benefit-copy">Broad compatibility in a fully managed integrated service, removing infrastructure overhead.</span>
+      </div>
+      <div class="benefit-block">
+        <span class="benefit-heading">Built-in HA and Automatic</span>
+        <span class="benefit-copy">Includes automated backups, auto-failover, and a very high service level agreement (SLA) for maximum availability.</span>
+      </div>
+    </div>
+
+    <div class="azure-label">Azure SQL PaaS</div>
+    <div class="db-row">
+      <div class="db-icon">SQL</div>
+      <div class="db-icon">SQL</div>
+      <div class="db-icon">SQL</div>
+    </div>
+
+    <div class="case-panel">
+      <div class="logo-box">
+        <img src="https://placehold.co/160x160?text=Customer+Logo" alt="Customer Logo Placeholder">
+      </div>
+      <div class="customer-label">Customer<br>Logo</div>
+
+      <div class="case-copy">
+        A leading tax industry company unified disparate data sources to improve multichannel customer experiences.
+      </div>
+
+      <div class="phase-1">
+        <div class="phase-title">
+          Phase 1 – Lift and shift to Azure SQL IaaS
+          <ul>
+            <li>Expedited migration process with minimal application changes.</li>
+            <li>Maintained full OS-level control and existing operational procedures.</li>
+            <li>Lower perceived risk compared to direct PaaS migration for critical workloads.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase-2">
+        <div class="phase-title">
+          Phase 2 – Modernize on Azure SQL PaaS
+          <ul>
+            <li>Significant cost optimization through efficient resource utilization and reduced management.</li>
+            <li>Improved productivity with automated patching, backups, and performance tuning.</li>
+            <li>Faster time to market via integrated CI/CD pipelines and DevOps practices.</li>
+            <li>AI and machine learning capabilities supporting ongoing innovation and intelligent insights.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="testimonial-text">“SQL Managed Instance provided a smooth migration path that allowed us to focus on innovation rather than infrastructure maintenance.”</div>
+        <div class="testimonial-name">Sarah Jenkins, Director of IT Infrastructure</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

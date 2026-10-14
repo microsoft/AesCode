@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=853, initial-scale=1.0" />
+  <title>Fintech Case Study Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e9ebef;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #22262d;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 853px;
+      height: 1280px;
+      overflow: hidden;
+      background: #f7f8fa;
+    }
+
+    .header {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 853px;
+      height: 48px;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid #e2e5e9;
+      display: flex;
+      align-items: center;
+      padding: 0 58px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 2.5px;
+      color: #25282f;
+      min-width: 170px;
+    }
+
+    .brand-mark {
+      width: 17px;
+      height: 17px;
+      border: 3px solid #25282f;
+      border-radius: 4px;
+      transform: rotate(45deg);
+      position: relative;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      left: 11px;
+      top: -10px;
+      width: 5px;
+      height: 17px;
+      background: #25282f;
+    }
+
+    .nav {
+      position: absolute;
+      left: 382px;
+      top: 10px;
+      display: flex;
+      gap: 38px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #3d4148;
+    }
+
+    .talk-btn {
+      position: absolute;
+      right: 58px;
+      background: #1f2227;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 9px 15px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .hero {
+      position: absolute;
+      left: 0;
+      top: 48px;
+      width: 853px;
+      height: 324px;
+      background: #fbfbfc;
+      border-bottom: 1px solid #eceef2;
+    }
+
+    .hero-copy {
+      position: absolute;
+      left: 61px;
+      top: 58px;
+      width: 305px;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 1.7px;
+      font-weight: 800;
+      color: #4d5158;
+      margin-bottom: 11px;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: 38px;
+      line-height: 1.25;
+      letter-spacing: -1.4px;
+      color: #202328;
+    }
+
+    .hero p {
+      width: 290px;
+      font-size: 11.5px;
+      color: #535860;
+      margin: 0;
+    }
+
+    .client-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 20px;
+      font-size: 10px;
+      color: #656a72;
+    }
+
+    .client-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      color: #33373d;
+      letter-spacing: 2px;
+      font-size: 11px;
+    }
+
+    .client-name .mini-mark {
+      width: 16px;
+      height: 16px;
+      background: #377df5;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .hero-visual {
+      position: absolute;
+      right: 46px;
+      top: 48px;
+      width: 425px;
+      height: 245px;
+    }
+
+    .laptop {
+      position: absolute;
+      left: 38px;
+      top: 0;
+      width: 358px;
+      height: 224px;
+      border: 5px solid #202328;
+      border-radius: 9px;
+      background: white;
+      box-shadow: 0 14px 24px rgba(20, 24, 30, 0.14);
+    }
+
+    .laptop-base {
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 328px;
+      height: 9px;
+      border-radius: 50%;
+      background: #9d9fa2;
+    }
+
+    .mock-title {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      color: #346df1;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .analytics-card {
+      position: absolute;
+      left: 74px;
+      top: 32px;
+      width: 180px;
+    }
+
+    .analytics-card h4 {
+      margin: 0 0 5px;
+      font-size: 10px;
+    }
+
+    .kpi {
+      color: #1f242a;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .chart {
+      width: 136px;
+      height: 58px;
+    }
+
+    .phone {
+      position: absolute;
+      right: 0;
+      top: 80px;
+      width: 90px;
+      height: 168px;
+      border: 3px solid #25282d;
+      border-radius: 13px;
+      background: #f8f9fb;
+      z-index: 4;
+    }
+
+    .phone .phone-title {
+      position: absolute;
+      top: 8px;
+      left: 13px;
+      color: #2f66d5;
+      font-size: 7px;
+      font-weight: 800;
+    }
+
+    .phone .phone-kpi {
+      position: absolute;
+      top: 28px;
+      left: 8px;
+      width: 66px;
+      font-size: 8px;
+      font-weight: 800;
+    }
+
+    .phone .mini-chart {
+      position: absolute;
+      top: 60px;
+      left: 10px;
+      width: 68px;
+      height: 38px;
+    }
+
+    .info-band {
+      position: absolute;
+      left: 0;
+      top: 372px;
+      width: 853px;
+      height: 190px;
+      background: #fbfbfc;
+    }
+
+    .challenge {
+      position: absolute;
+      left: 61px;
+      top: 23px;
+      width: 220px;
+    }
+
+    .solution {
+      position: absolute;
+      left: 314px;
+      top: 23px;
+      width: 225px;
+    }
+
+    .band-title {
+      margin: 0 0 8px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #303338;
+      letter-spacing: 0.8px;
+    }
+
+    .band-text {
+      margin: 0 0 10px;
+      font-size: 10.5px;
+      color: #555a61;
+      line-height: 1.55;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 12px;
+      list-style: none;
+    }
+
+    li {
+      position: relative;
+      padding-left: 12px;
+      margin: 8px 0;
+      font-size: 10.5px;
+      color: #575c64;
+    }
+
+    li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #383d44;
+      font-weight: 800;
+    }
+
+    .workshop-img {
+      position: absolute;
+      right: 58px;
+      top: 12px;
+      width: 240px;
+      height: 172px;
+      border-radius: 4px;
+    }
+
+    .results {
+      position: absolute;
+      left: 0;
+      top: 562px;
+      width: 853px;
+      height: 165px;
+      background: #eef5fb;
+    }
+
+    .results-copy {
+      position: absolute;
+      left: 61px;
+      top: 36px;
+      width: 200px;
+    }
+
+    .results-copy p {
+      margin: 9px 0 12px;
+      color: #4e555d;
+      font-size: 10.5px;
+      line-height: 1.55;
+    }
+
+    .live-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 28px;
+      padding: 0 12px;
+      background: #293038;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .stat-card {
+      position: absolute;
+      top: 23px;
+      width: 106px;
+      height: 112px;
+      background: rgba(255,255,255,0.88);
+      border-radius: 5px;
+      text-align: left;
+      padding: 11px 12px;
+    }
+
+    .stat-card.card1 { left: 313px; }
+    .stat-card.card2 { left: 430px; }
+    .stat-card.card3 { left: 548px; }
+    .stat-card.card4 { left: 666px; }
+
+    .stat-icon {
+      font-size: 19px;
+      color: #3d70de;
+      height: 18px;
+      margin-bottom: 5px;
+    }
+
+    .metric {
+      font-size: 26px;
+      line-height: 1;
+      margin-bottom: 5px;
+      color: #22262d;
+    }
+
+    .stat-subtitle {
+      font-size: 10.5px;
+      color: #4f565d;
+      line-height: 1.35;
+    }
+
+    .testimonial {
+      position: absolute;
+      left: 0;
+      top: 727px;
+      width: 853px;
+      height: 163px;
+      background: #fbfbfc;
+    }
+
+    .quote-block {
+      position: absolute;
+      left: 61px;
+      top: 20px;
+      width: 330px;
+    }
+
+    .quote-mark {
+      font-size: 34px;
+      color: #9da1a6;
+      font-family: Georgia, serif;
+      line-height: 22px;
+      height: 26px;
+    }
+
+    .quote-block p {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: #40454c;
+      margin: 2px 0 12px;
+      font-style: italic;
+    }
+
+    .person {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 10.5px;
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+    }
+
+    .person strong {
+      display: block;
+      color: #2e3238;
+    }
+
+    .person span {
+      display: block;
+      color: #72777d;
+    }
+
+    .test-img {
+      position: absolute;
+      left: 445px;
+      top: 10px;
+      width: 358px;
+      height: 143px;
+      border-radius: 4px;
+    }
+
+    .related {
+      position: absolute;
+      left: 0;
+      top: 900px;
+      width: 853px;
+      height: 200px;
+      background: #fbfbfc;
+    }
+
+    .related-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 61px 11px;
+      height: 21px;
+      font-size: 11px;
+    }
+
+    .related-head strong {
+      letter-spacing: 0.9px;
+      font-size: 11px;
+    }
+
+    .related-head a {
+      color: #555a61;
+    }
+
+    .case-grid {
+      display: flex;
+      gap: 20px;
+      margin-left: 61px;
+    }
+
+    .case-card {
+      width: 233px;
+      height: 164px;
+      border: 1px solid #e1e4e8;
+      border-radius: 4px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .case-card img {
+      width: 233px;
+      height: 98px;
+      display: block;
+    }
+
+    .case-body {
+      padding: 7px 9px 0;
+    }
+
+    .cat {
+      font-size: 8.5px;
+      color: #70757c;
+      margin-bottom: 2px;
+    }
+
+    .case-title {
+      font-size: 10.5px;
+      line-height: 1.35;
+      color: #33373d;
+    }
+
+    .case-arrow {
+      float: right;
+      color: #484d54;
+    }
+
+    .footer {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 853px;
+      height: 117px;
+      background: #fbfbfc;
+      border-top: 1px solid #e1e4e8;
+    }
+
+    .footer-main {
+      display: flex;
+      padding: 12px 61px 0;
+      gap: 40px;
+    }
+
+    .footer-about {
+      width: 180px;
+    }
+
+    .footer-brand {
+      font-weight: 800;
+      letter-spacing: 2.4px;
+      font-size: 11px;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-about p {
+      margin: 0 0 6px;
+      color: #5f646b;
+      font-size: 8.5px;
+      line-height: 1.45;
+    }
+
+    .socials {
+      display: flex;
+      gap: 10px;
+      color: #4e5359;
+    }
+
+    .footer-lists {
+      width: 300px;
+      display: flex;
+      gap: 28px;
+    }
+
+    .foot-col h5 {
+      margin: 0 0 4px;
+      color: #41454b;
+      font-size: 8.6px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+    }
+
+    .foot-col a {
+      display: block;
+      color: #6d7278;
+      font-size: 8.6px;
+      margin-bottom: 3px;
+      text-decoration: none;
+    }
+
+    .contact-block {
+      width: 160px;
+    }
+
+    .contact-block p {
+      margin: 0 0 3px;
+      color: #656a71;
+      font-size: 8.6px;
+      line-height: 1.4;
+    }
+
+    .foot-talk {
+      background: #26292e;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      height: 19px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 11px;
+      font-size: 8.5px;
+      font-weight: 800;
+    }
+
+    .footer-line {
+      position: absolute;
+      left: 61px;
+      bottom: 7px;
+      font-size: 7.8px;
+      color: #777d84;
+    }
+
+    .footer-links {
+      position: absolute;
+      right: 82px;
+      bottom: 7px;
+      display: flex;
+      gap: 30px;
+      font-size: 7.8px;
+      color: #777d84;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <header class="header">
+      <div class="brand"><span class="brand-mark"></span><span>NORTHFIELD</span></div>
+      <nav class="nav"><a>Work</a><a>Services</a><a>About</a><a>Insights</a><a>Contact</a></nav>
+      <button class="talk-btn">Let’s Talk</button>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">CASE STUDY</div>
+        <h1>Elevating a digital experience for a leading fintech</h1>
+        <p>We partnered with a fintech client to redesign their platform experience—improving usability, increasing engagement, and driving measurable business results.</p>
+        <div class="client-row">
+          <div class="client-name"><span class="mini-mark"></span><span>FINOVA</span></div>
+          <div>finova.com</div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="laptop">
+          <div class="mock-title">FINOVA</div>
+          <div class="analytics-card">
+            <h4>Overview</h4>
+            <div class="kpi">$28,450.75</div>
+            <div id="heroChart" class="chart"></div>
+          </div>
+          <div class="laptop-base"></div>
+        </div>
+        <div class="phone">
+          <div class="phone-title">FINOVA</div>
+          <div class="phone-kpi">$28,450.75</div>
+          <div id="phoneChart" class="mini-chart"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-band">
+      <div class="challenge">
+        <h2 class="band-title">THE CHALLENGE</h2>
+        <p class="band-text">The client’s existing fintech platform was functional but outdated. Users found it difficult to navigate, key features were buried, and the mobile experience didn’t meet modern expectations.</p>
+        <ul>
+          <li>Low user engagement and high drop-off rates</li>
+          <li>Complex navigation and cluttered UI</li>
+          <li>Inconsistent experience across devices</li>
+          <li>Limited scalability for future features</li>
+        </ul>
+      </div>
+
+      <div class="solution">
+        <h2 class="band-title">OUR SOLUTION</h2>
+        <p class="band-text">We conducted in-depth user research, simplified the information architecture, and designed a clean, intuitive interface that works seamlessly across devices.</p>
+        <ul>
+          <li>User-centered redesign and journey mapping</li>
+          <li>Streamlined navigation and IA</li>
+          <li>Modern, scalable design system</li>
+          <li>Responsive design for web and mobile</li>
+        </ul>
+      </div>
+
+      <img class="workshop-img" src="https://placehold.co/360x260?text=Workshop+Photo" alt="Workshop Photo">
+    </section>
+
+    <section class="results">
+      <div class="results-copy">
+        <h2 class="band-title">THE RESULTS</h2>
+        <p>The new platform delivered a seamless experience that users love—and the numbers prove it.</p>
+        <div class="live-btn">View Live Site</div>
+      </div>
+
+      <div class="stat-card card1">
+        <div class="stat-icon">↗</div>
+        <div class="metric">45%</div>
+        <div class="stat-subtitle">Increase in user<br>engagement</div>
+      </div>
+
+      <div class="stat-card card2">
+        <div class="stat-icon">⟳</div>
+        <div class="metric">32%</div>
+        <div class="stat-subtitle">Reduction in task<br>completion time</div>
+      </div>
+
+      <div class="stat-card card3">
+        <div class="stat-icon">♙</div>
+        <div class="metric">28%</div>
+        <div class="stat-subtitle">Increase in account<br>activations</div>
+      </div>
+
+      <div class="stat-card card4">
+        <div class="stat-icon">☆</div>
+        <div class="metric">4.8/5</div>
+        <div class="stat-subtitle">Average user<br>satisfaction rating</div>
+      </div>
+    </section>
+
+    <section class="testimonial">
+      <div class="quote-block">
+        <div class="quote-mark">“</div>
+        <p>Northfield totally transformed our platform. The new design is intuitive, beautiful, and has made a real impact on our users and our business.</p>
+        <div class="person">
+          <img class="avatar" src="https://placehold.co/64x64?text=Avatar" alt="Avatar">
+          <div><strong>Jason Miller</strong><span>Head of Product, Finova</span></div>
+        </div>
+      </div>
+      <img class="test-img" src="https://placehold.co/420x260?text=Mobile+Analytics+Photo" alt="Mobile Analytics Photo">
+    </section>
+
+    <section class="related">
+      <div class="related-head">
+        <strong>RELATED CASE STUDIES</strong>
+        <a>View All Work →</a>
+      </div>
+
+      <div class="case-grid">
+        <div class="case-card">
+          <img src="https://placehold.co/260x160?text=Travel+Platform" alt="Travel Platform">
+          <div class="case-body">
+            <div class="cat">TRAVEL</div>
+            <div class="case-title">Redesigning the booking experience for a global travel brand</div>
+            <span class="case-arrow">→</span>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <img src="https://placehold.co/260x160?text=SaaS+Dashboard" alt="SaaS Dashboard">
+          <div class="case-body">
+            <div class="cat">SAAS</div>
+            <div class="case-title">Building a scalable dashboard for a SaaS platform</div>
+            <span class="case-arrow">→</span>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <img src="https://placehold.co/260x160?text=Mobile+Commerce" alt="Mobile Commerce">
+          <div class="case-body">
+            <div class="cat">E-COMMERCE</div>
+            <div class="case-title">Enhancing mobile shopping for a modern retail brand</div>
+            <span class="case-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-main">
+        <div class="footer-about">
+          <div class="footer-brand"><span style="width:14px;height:14px;border:2px solid #25282f;border-radius:3px;transform:rotate(45deg);display:inline-block;"></span><span>NORTHFIELD</span></div>
+          <p>We are a digital design and experience studio helping brands create meaningful products and lasting impact.</p>
+          <div class="socials">in X ◎</div>
+        </div>
+
+        <div class="footer-lists">
+          <div class="foot-col">
+            <h5>WORK</h5>
+            <a>All Projects</a>
+            <a>Case Studies</a>
+            <a>By Industry</a>
+          </div>
+          <div class="foot-col">
+            <h5>SERVICES</h5>
+            <a>Product Strategy</a>
+            <a>UI / UX Design</a>
+            <a>Design Systems</a>
+            <a>Prototyping</a>
+          </div>
+          <div class="foot-col">
+            <h5>COMPANY</h5>
+            <a>About Us</a>
+            <a>Our Process</a>
+            <a>Careers</a>
+            <a>Insights</a>
+          </div>
+        </div>
+
+        <div class="contact-block">
+          <p>hello@northfield.studio<br>+1 (312) 555-0199<br>123 W. Madison St.<br>Chicago, IL 60602</p>
+          <button class="foot-talk">Let’s Talk</button>
+        </div>
+      </div>
+
+      <div class="footer-line">© 2024 Northfield Studio. All rights reserved.</div>
+      <div class="footer-links"><span>Privacy Policy</span><span>Terms of Use</span></div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    const heroChart = echarts.init(document.getElementById('heroChart'));
+    heroChart.setOption({
+      animation: false,
+      grid: { left: 18, right: 8, top: 8, bottom: 14 },
+      xAxis: {
+        type: 'category',
+        data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        boundaryGap: false,
+        axisLabel: { color: '#9ca3aa', fontSize: 7 },
+        axisLine: { lineStyle: { color: '#dfe5eb' } }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 50,
+        splitLine: { lineStyle: { color: '#edf1f5' } },
+        axisLabel: { color: '#9ca3aa', fontSize: 7 }
+      },
+      series: [{
+        type: 'line',
+        data: [10, 18, 25, 22, 30, 35, 42],
+        symbolSize: 3,
+        lineStyle: { color: '#336df0', width: 2 },
+        itemStyle: { color: '#336df0' }
+      }]
+    });
+
+    const phoneChart = echarts.init(document.getElementById('phoneChart'));
+    phoneChart.setOption({
+      animation: false,
+      grid: { left: 5, right: 5, top: 5, bottom: 5 },
+      xAxis: {
+        type: 'category',
+        data: ['1','2','3','4','5','6','7'],
+        show: false
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 50,
+        show: false
+      },
+      series: [{
+        type: 'line',
+        data: [10, 18, 25, 22, 30, 35, 42],
+        symbol: 'none',
+        lineStyle: { color: '#4f86f4', width: 2 }
+      }]
+    });
+  </script>
+</body>
+</html>

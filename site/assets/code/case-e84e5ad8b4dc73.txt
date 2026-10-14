@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>销售业绩分析看板</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Microsoft YaHei", Arial, sans-serif;
+    background: #dfe9fb;
+    color: #1f335f;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 853px;
+    overflow: hidden;
+    background: #eef5ff;
+  }
+
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 104px;
+    height: 853px;
+    background: linear-gradient(180deg, #075fa9 0%, #083678 62%, #07559c 100%);
+    color: #fff;
+    box-shadow: 8px 0 16px rgba(26, 78, 132, 0.28);
+  }
+
+  .brand-icon {
+    position: absolute;
+    top: 24px;
+    left: 28px;
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    background: #3489fb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 800;
+    font-size: 22px;
+    box-shadow: 0 10px 20px rgba(52, 137, 251, 0.38);
+  }
+
+  .nav-item {
+    position: absolute;
+    left: 10px;
+    width: 84px;
+    height: 43px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #e8f2ff;
+    gap: 8px;
+  }
+
+  .nav-item.active {
+    background: #2587fb;
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(37, 135, 251, 0.35);
+    font-weight: 700;
+  }
+
+  .nav-item.i1 { top: 92px; }
+  .nav-item.i2 { top: 154px; }
+  .nav-item.i3 { top: 206px; }
+  .nav-item.i4 { top: 258px; }
+  .nav-item.i5 { top: 310px; }
+  .nav-item.i6 { top: 362px; }
+  .nav-item.i7 { top: 414px; }
+  .nav-item.i8 { top: 466px; }
+
+  .sidebar-footer {
+    position: absolute;
+    bottom: 34px;
+    left: 0;
+    width: 104px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.82);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .main {
+    position: absolute;
+    left: 104px;
+    top: 0;
+    width: 1176px;
+    height: 853px;
+    background: linear-gradient(180deg, #f6fbff 0%, #f1f7ff 100%);
+  }
+
+  .title-row {
+    position: absolute;
+    top: 17px;
+    left: 20px;
+    width: 1136px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 5;
+  }
+
+  .page-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #213b78;
+    letter-spacing: 1px;
+  }
+
+  .filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #667591;
+    font-size: 12px;
+    padding-right: 1px;
+  }
+
+  .date-filter,
+  .dd-filter {
+    height: 30px;
+    min-width: 132px;
+    border: 1px solid #cdd8ea;
+    background: #fff;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 3px 8px rgba(42, 83, 142, 0.08);
+  }
+
+  .dd-filter {
+    min-width: 108px;
+  }
+
+  .reset-btn {
+    min-width: 86px;
+    height: 30px;
+    border: 0;
+    background: #257df0;
+    color: #fff;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 13px;
+    box-shadow: 0 8px 16px rgba(37, 125, 240, 0.28);
+  }
+
+  .kpi-row {
+    position: absolute;
+    top: 63px;
+    left: 12px;
+    width: 1142px;
+    height: 122px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 13px;
+    z-index: 2;
+  }
+
+  .kpi-card {
+    position: relative;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid #aebcf0;
+    border-radius: 8px;
+    box-shadow: 0 10px 22px rgba(43, 84, 148, 0.10);
+    padding: 16px 14px;
+    overflow: hidden;
+  }
+
+  .kpi-icon {
+    position: absolute;
+    left: 16px;
+    top: 18px;
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    background: linear-gradient(145deg, #51a4fb, #2578ef);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    font-weight: 800;
+    color: white;
+  }
+
+  .kpi-label {
+    position: absolute;
+    top: 10px;
+    left: 84px;
+    font-size: 14px;
+    color: #465879;
+  }
+
+  .kpi-value {
+    position: absolute;
+    top: 34px;
+    left: 84px;
+    font-size: 23px;
+    font-weight: 800;
+    color: #21304f;
+  }
+
+  .kpi-change {
+    position: absolute;
+    top: 75px;
+    left: 84px;
+    font-size: 12px;
+    color: #4b6184;
+  }
+
+  .positive {
+    color: #16a05b;
+  }
+
+  .negative {
+    color: #e33447;
+  }
+
+  .spark {
+    position: absolute;
+    right: 12px;
+    bottom: 18px;
+    width: 88px;
+    height: 38px;
+  }
+
+  .panel {
+    position: absolute;
+    background: rgba(255,255,255,0.94);
+    border: 1px solid #b9c7e5;
+    border-radius: 7px;
+    box-shadow: 0 10px 22px rgba(43, 84, 148, 0.12);
+  }
+
+  .panel-top-left {
+    top: 196px;
+    left: 12px;
+    width: 352px;
+    height: 362px;
+  }
+
+  .panel-top-center {
+    top: 196px;
+    left: 378px;
+    width: 352px;
+    height: 362px;
+  }
+
+  .panel-top-right {
+    top: 196px;
+    left: 744px;
+    width: 420px;
+    height: 362px;
+  }
+
+  .panel-bottom-left {
+    top: 572px;
+    left: 12px;
+    width: 852px;
+    height: 258px;
+  }
+
+  .panel-bottom-right {
+    top: 572px;
+    left: 876px;
+    width: 288px;
+    height: 258px;
+  }
+
+  .panel-head {
+    height: 28px;
+    padding: 8px 12px 0 12px;
+    display: flex;
+    align-items: center;
+    color: #324a78;
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  .panel-head span {
+    font-weight: 400;
+    color: #647698;
+    margin-left: 4px;
+    font-size: 12px;
+  }
+
+  .chart {
+    width: 100%;
+    height: calc(100% - 28px);
+  }
+
+  .donut-chart {
+    height: calc(100% - 28px);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #4b5d7d;
+  }
+
+  th {
+    background: #edf3fb;
+    color: #516587;
+    font-weight: 700;
+    height: 28px;
+    border: 1px solid #d7e0ef;
+  }
+
+  td {
+    height: 29px;
+    border: 1px solid #e4ebf6;
+    text-align: center;
+  }
+
+  .more-link {
+    text-align: center;
+    color: #227df0;
+    font-weight: 700;
+    font-size: 13px;
+    padding-top: 4px;
+  }
+
+  .gauge-content {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .gauge-center {
+    text-align: center;
+    color: #445a82;
+    margin-top: 9px;
+  }
+
+  .gauge-center .percent {
+    font-size: 23px;
+    font-weight: 900;
+  }
+
+  .gauge-center .caption {
+    font-size: 12px;
+  }
+
+  .gauge-breakdown {
+    font-size: 12px;
+    color: #586a8d;
+    line-height: 2.4;
+  }
+
+  .muted {
+    color: #7283a5;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="sidebar">
+    <div class="brand-icon">📊</div>
+    <div class="nav-item active i1">▦ 总览</div>
+    <div class="nav-item i2">▥ 销售分析</div>
+    <div class="nav-item i3">⬡ 产品分析</div>
+    <div class="nav-item i4">◎ 区域分析</div>
+    <div class="nav-item i5">♟ 客户分析</div>
+    <div class="nav-item i6">◎ 进度目标</div>
+    <div class="nav-item i7">▤ 报表中心</div>
+    <div class="nav-item i8">▰ 数据管理</div>
+    <div class="sidebar-footer">⚙ 设置</div>
+  </div>
+
+  <div class="main">
+    <div class="title-row">
+      <div class="page-title">销售业绩分析看板</div>
+      <div class="filters">
+        <div class="date-filter">2024-05-01　~　2024-05-31</div>
+        <div class="dd-filter">区域　全部</div>
+        <div class="dd-filter">产品类别　全部</div>
+        <button class="reset-btn">↻ 重置</button>
+      </div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-icon">￥</div>
+        <div class="kpi-label">销售额（元）</div>
+        <div class="kpi-value">18,760,389</div>
+        <div class="kpi-change">较上月 ↑ <span class="positive">12.6%</span></div>
+        <div id="spark1" class="spark"></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">🛍</div>
+        <div class="kpi-label">订单数（单）</div>
+        <div class="kpi-value">8,645</div>
+        <div class="kpi-change">较上月 ↑ <span class="positive">8.3%</span></div>
+        <div id="spark2" class="spark"></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">👤</div>
+        <div class="kpi-label">新客户数（个）</div>
+        <div class="kpi-value">1,253</div>
+        <div class="kpi-change">较上月 ↑ <span class="positive">15.7%</span></div>
+        <div id="spark3" class="spark"></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">▰</div>
+        <div class="kpi-label">客单价（元）</div>
+        <div class="kpi-value">2,169</div>
+        <div class="kpi-change">较上月 ↓ <span class="negative">3.2%</span></div>
+        <div id="spark4" class="spark"></div>
+      </div>
+    </div>
+
+    <div class="panel panel-top-left">
+      <div class="panel-head">销售额占比 <span>(按区域 &gt; 客户)</span></div>
+      <div id="donutChart" class="chart donut-chart"></div>
+    </div>
+
+    <div class="panel panel-top-center">
+      <div class="panel-head">客单价分布 <span>(按产品类别)</span></div>
+      <div id="boxChart" class="chart"></div>
+    </div>
+
+    <div class="panel panel-top-right">
+      <div class="panel-head">销售额与利润关系 <span>(按订单)</span></div>
+      <div id="scatterChart" class="chart"></div>
+    </div>
+
+    <div class="panel panel-bottom-left">
+      <div class="panel-head">销售业绩明细 <span>(Top 5)</span></div>
+      <table>
+        <thead>
+          <tr>
+            <th>排名</th>
+            <th>客户名称</th>
+            <th>区域</th>
+            <th>销售额（元）</th>
+            <th>订单数（单）</th>
+            <th>利润（元）</th>
+            <th>利润率</th>
+            <th>较上月销售额变化</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>上海智创科技有限公司</td>
+            <td>华东-上海</td>
+            <td>1,215,830</td>
+            <td>567</td>
+            <td>215,680</td>
+            <td>17.73%</td>
+            <td class="positive">↑ 18.6%</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>深圳未来电子有限公司</td>
+            <td>华南-广东</td>
+            <td>1,084,520</td>
+            <td>489</td>
+            <td>198,320</td>
+            <td>18.30%</td>
+            <td class="positive">↑ 15.2%</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>北京汇通贸易有限公司</td>
+            <td>华北-北京</td>
+            <td>980,750</td>
+            <td>411</td>
+            <td>172,540</td>
+            <td>17.59%</td>
+            <td class="positive">↑ 9.8%</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>杭州云联网络有限公司</td>
+            <td>华东-浙江</td>
+            <td>873,420</td>
+            <td>378</td>
+            <td>142,660</td>
+            <td>16.33%</td>
+            <td class="negative">↓ -2.4%</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>成都智数商贸有限公司</td>
+            <td>西南-四川</td>
+            <td>769,300</td>
+            <td>345</td>
+            <td>128,940</td>
+            <td>16.76%</td>
+            <td class="positive">↑ 6.1%</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="more-link">查看更多 ↓</div>
+    </div>
+
+    <div class="panel panel-bottom-right">
+      <div class="panel-head">销售额目标达成情况</div>
+      <div class="gauge-content">
+        <div id="gaugeChart" style="width: 210px; height: 112px;"></div>
+        <div class="gauge-center">
+          <div class="percent">78.4%</div>
+          <div class="caption">达成率</div>
+        </div>
+      </div>
+      <div class="gauge-breakdown">
+        <div>目标销售额　24,000,000 元</div>
+        <div>已完成销售额　18,760,389 元</div>
+        <div>目标差距　5,239,611 元</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const blueGradient = new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+    { offset: 0, color: '#4f9df8' },
+    { offset: 0.48, color: '#7fb5ff' },
+    { offset: 1, color: '#c9e2ff' }
+  ]);
+
+  function spark(id, values) {
+    echarts.init(document.getElementById(id)).setOption({
+      animation: false,
+      grid: { left: 0, right: 0, top: 4, bottom: 4 },
+      xAxis: { type: 'category', show: false, data: ['1','2','3','4','5','6','7','8'] },
+      yAxis: { type: 'value', show: false },
+      series: [{
+        type: 'line',
+        data: values,
+        symbol: 'none',
+        smooth: true,
+        lineStyle: { color: '#267df2', width: 2 },
+        areaStyle: { color: 'rgba(38,125,242,0.10)' }
+      }]
+    });
+  }
+
+  spark('spark1', [8, 10, 9, 13, 11, 14, 18, 17]);
+  spark('spark2', [5, 5, 7, 6, 10, 11, 16, 13]);
+  spark('spark3', [10, 7, 9, 14, 13, 19, 21, 17]);
+  spark('spark4', [12, 11, 13, 12, 16, 8, 18, 20]);
+
+  echarts.init(document.getElementById('donutChart')).setOption({
+    animation: false,
+    color: ['#8fd0fb', '#71aef0', '#5d92ec', '#477be5', '#78b9fb', '#d2dcff'],
+    tooltip: { trigger: 'item' },
+    graphic: [
+      {
+        type: 'text',
+        left: 'center',
+        top: '43%',
+        style: {
+          text: '18,760,389',
+          fill: '#2a4a77',
+          fontSize: 14,
+          fontWeight: 700,
+          textAlign: 'center'
+        }
+      },
+      {
+        type: 'text',
+        left: 'center',
+        top: '54%',
+        style: {
+          text: '销售额（元）',
+          fill: '#5e769a',
+          fontSize: 12,
+          textAlign: 'center'
+        }
+      }
+    ],
+    series: [
+      {
+        type: 'pie',
+        radius: ['38%', '58%'],
+        center: ['50%', '51%'],
+        avoidLabelOverlap: true,
+        label: { color: '#ffffff', fontSize: 11, fontWeight: 700 },
+        labelLine: { show: false },
+        data: [
+          {name: '上海', value: 1125623},
+          {name: '浙江', value: 1350748},
+          {name: '江苏', value: 1482471},
+          {name: '山东', value: 1632754},
+          {name: '安徽', value: 1087102},
+          {name: '广东', value: 1782237},
+          {name: '福建', value: 1050582},
+          {name: '广西', value: 600333},
+          {name: '海南', value: 825456},
+          {name: '四川', value: 1050582},
+          {name: '重庆', value: 637853},
+          {name: '云南', value: 544051},
+          {name: '贵州', value: 187604},
+          {name: '北京', value: 1519591},
+          {name: '天津', value: 787936},
+          {name: '河北', value: 1125624},
+          {name: '湖北', value: 544051},
+          {name: '湖南', value: 544051},
+          {name: '河南', value: 881740}
+        ]
+      },
+      {
+        type: 'pie',
+        radius: ['62%', '76%'],
+        center: ['50%', '51%'],
+        label: { color: '#244b78', fontSize: 12 },
+        data: [
+          {name: '华东', value: 6678698},
+          {name: '华南', value: 4258608},
+          {name: '西南', value: 2420090},
+          {name: '华北', value: 3433151},
+          {name: '华中', value: 1969842}
+        ]
+      }
+    ]
+  });
+
+  echarts.init(document.getElementById('boxChart')).setOption({
+    animation: false,
+    color: ['#5d92ec'],
+    grid: { left: 42, right: 18, top: 32, bottom: 45 },
+    legend: {
+      bottom: 2,
+      left: 'center',
+      itemWidth: 18,
+      itemHeight: 6,
+      textStyle: { color: '#5c6f90', fontSize: 11 },
+      data: ['中位数', '25%~75%', '最小~最大', '异常值']
+    },
+    xAxis: {
+      type: 'category',
+      data: ['办公设备', '电脑及配件', '通讯产品', '家用电器', '家用用品'],
+      axisLabel: { color: '#516688', fontSize: 11 }
+    },
+    yAxis: {
+      type: 'value',
+      name: '客单价（元）',
+      nameTextStyle: { color: '#516688', fontSize: 11 },
+      axisLabel: { color: '#516688' }
+    },
+    series: [
+      {
+        type: 'boxplot',
+        data: [[1850, 2000, 2450, 3000, 3500],[1620, 1900, 2250, 2800, 3200],[1980, 2200, 2980, 3600, 4200],[1280, 1500, 1800, 2300, 2600],[1500, 1700, 2100, 2600, 3000]],
+        itemStyle: { color: '#7fb5ff', borderColor: '#2d7df0' }
+      }
+    ]
+  });
+
+  echarts.init(document.getElementById('scatterChart')).setOption({
+    animation: false,
+    grid: { left: 42, right: 18, top: 34, bottom: 38 },
+    xAxis: {
+      type: 'value',
+      name: '销售额（元）',
+      nameTextStyle: { color: '#516688', fontSize: 11 },
+      splitLine: { lineStyle: { color: '#e4ebf6' } }
+    },
+    yAxis: {
+      type: 'value',
+      name: '利润（元）',
+      nameTextStyle: { color: '#516688', fontSize: 11 },
+      splitLine: { lineStyle: { color: '#e4ebf6' } }
+    },
+    series: [
+      {
+        type: 'scatter',
+        data: [[3000, -300], [5000, 800], [6500, 1200], [7800, 300], [8600, 1500], [9200, 900], [9800, 1800], [10500, 1200], [11200, 2400], [11800, 2100], [12400, 1700], [13000, 2700], [13600, 3100], [14200, 2300], [14800, 3500], [15400, 2800], [16000, 3900], [16600, 3300], [17200, 4700], [17800, 4200], [18400, 5200], [19000, 3600], [19800, 6100], [20500, 4400], [21200, 7000], [22000, 5300], [23000, 7800], [24000, 6200], [25200, 8300], [26600, 7600], [28000, 9100], [29500, 9800]],
+        symbolSize: 6,
+        itemStyle: { color: '#247df0' }
+      },
+      {
+        type: 'line',
+        data: [[1000,200],[5000,800],[10000,1500],[15000,2600],[20000,3500],[25000,4300]],
+        symbol: 'none',
+        lineStyle: { color: '#3384f5', type: 'dotted', width: 2 }
+      }
+    ],
+    graphic: [
+      {
+        type: 'text',
+        left: 35,
+        top: 35,
+        style: {
+          text: '相关系数: 0.68',
+          fill: '#227df0',
+          fontSize: 12,
+          fontWeight: 700
+        }
+      }
+    ]
+  });
+
+  echarts.init(document.getElementById('gaugeChart')).setOption({
+    animation: false,
+    color: ['#3485f6'],
+    series: [{
+      type: 'pie',
+      radius: ['72%', '88%'],
+      center: ['50%', '50%'],
+      startAngle: 185,
+      label: {
+        formatter: '{b}%',
+        color: '#516688',
+        fontSize: 11
+      },
+      labelLine: { show: false },
+      data: [78.4,21.6]
+    }]
+  });
+</script>
+</body>
+</html>

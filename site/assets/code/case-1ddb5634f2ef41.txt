@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>工厂产线智慧管理系统</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #02080d;
+    font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+    color: #e8f4fb;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1088px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 25% 18%, rgba(29, 111, 255, 0.13), transparent 22%),
+      radial-gradient(circle at 72% 15%, rgba(31, 190, 112, 0.08), transparent 24%),
+      linear-gradient(180deg, #031119 0%, #04141b 42%, #051219 100%);
+  }
+
+  .nav {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    width: 1880px;
+    height: 82px;
+    border: 1px solid rgba(76, 148, 204, 0.28);
+    border-radius: 14px;
+    background: rgba(6, 24, 38, 0.48);
+    box-shadow: inset 0 0 18px rgba(31, 120, 255, 0.13), 0 0 18px rgba(0, 140, 255, 0.12);
+  }
+
+  .logo {
+    position: absolute;
+    left: 18px;
+    top: 9px;
+    width: 58px;
+    height: 58px;
+    border: 3px solid #2e9df6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: #53b8ff;
+    background: rgba(46, 157, 246, 0.12);
+  }
+
+  .main-title {
+    position: absolute;
+    left: 108px;
+    top: 12px;
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #f2f7fb;
+    text-shadow: 0 0 10px rgba(83, 184, 255, 0.28);
+  }
+
+  .nav-menu {
+    position: absolute;
+    left: 535px;
+    top: 8px;
+    width: 530px;
+    display: flex;
+    gap: 82px;
+    align-items: center;
+  }
+
+  .menu-item {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    color: #dbe8ef;
+    font-size: 22px;
+    border-radius: 8px;
+    padding: 0 14px;
+    border: 1px solid rgba(111, 160, 195, 0.10);
+  }
+
+  .menu-item.active {
+    background: linear-gradient(90deg, rgba(31, 118, 255, 0.20), rgba(31, 118, 255, 0.05));
+    color: #4dbaff;
+    border-color: rgba(77, 186, 255, 0.58);
+    box-shadow: 0 0 15px rgba(31, 118, 255, 0.24);
+  }
+
+  .status-pill {
+    position: absolute;
+    right: 18px;
+    top: 9px;
+    width: 330px;
+    height: 56px;
+    border-radius: 30px;
+    border: 1px solid rgba(81, 151, 204, 0.30);
+    background: rgba(26, 62, 91, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    color: #eef6fb;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+  }
+
+  .card {
+    position: absolute;
+    border: 1px solid rgba(82, 150, 190, 0.30);
+    border-radius: 13px;
+    background: rgba(6, 26, 40, 0.82);
+    box-shadow:
+      inset 0 0 20px rgba(48, 124, 255, 0.08),
+      0 0 16px rgba(0, 120, 255, 0.08);
+  }
+
+  .card-title {
+    position: absolute;
+    left: 30px;
+    top: 12px;
+    font-size: 24px;
+    font-weight: 800;
+    color: #65bdff;
+    letter-spacing: 1px;
+  }
+
+  .card-title::before {
+    content: attr(data-icon);
+    margin-right: 10px;
+    color: #55b8ff;
+    font-size: 22px;
+  }
+
+  /* Top row */
+  .equip-stat {
+    left: 12px;
+    top: 106px;
+    width: 432px;
+    height: 292px;
+  }
+
+  .device-grid {
+    position: absolute;
+    left: 20px;
+    top: 60px;
+    width: 390px;
+    height: 210px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .stat-row {
+    height: 69px;
+    border: 1px solid rgba(88, 156, 200, 0.22);
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    background: rgba(9, 31, 49, 0.55);
+  }
+
+  .stat-ico {
+    width: 92px;
+    height: 64px;
+    border-right: 1px dashed rgba(120, 170, 200, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+  }
+
+  .stat-text {
+    flex: 1;
+    display: flex;
+    justify-content: space4-between;
+    align-items: center;
+    padding: 0 15px;
+    gap: 18px;
+  }
+
+  .stat-label {
+    font-size: 21px;
+  }
+
+  .stat-num {
+    color: #64c0ff;
+    font-size: 31px;
+    font-weight: 800;
+  }
+
+  .stat-unit {
+    font-size: 18px;
+    color: #d7e4ec;
+  }
+
+  .device-status {
+    left: 455px;
+    top: 106px;
+    width: 492px;
+    height: 292px;
+  }
+
+  #donutChart {
+    position: absolute;
+    left: 140px;
+    top: 42px;
+    width: 240px;
+    height: 215px;
+  }
+
+  .status-label {
+    position: absolute;
+    width: 130px;
+    color: #dce7ef;
+    font-size: 18px;
+  }
+
+  .status-label b {
+    display: block;
+    font-size: 24px;
+  }
+
+  .env-info {
+    left: 965px;
+    top: 106px;
+    width: 348px;
+    height: 292px;
+  }
+
+  .env-list {
+    position: absolute;
+    left: 22px;
+    top: 58px;
+    width: 304px;
+  }
+
+  .env-block {
+    height: 58px;
+    border: 1px solid rgba(101, 173, 255, 0.20);
+    border-radius: 7px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 16px;
+    background: rgba(10, 34, 52, 0.70);
+    color: #e2ebf2;
+  }
+
+  .env-value {
+    color: #48c6ff;
+    font-size: 24px;
+    margin-left: auto;
+    margin-right: 8px;
+  }
+
+  .kpi-area {
+    left: 1330px;
+    top: 106px;
+    width: 578px;
+    height: 292px;
+  }
+
+  .tiles {
+    position: absolute;
+    left: 22px;
+    top: 72px;
+    width: 530px;
+    height: 190px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 13px;
+  }
+
+  .kpi-tile {
+    border-radius: 11px;
+    border: 1px solid rgba(92, 161, 255, 0.28);
+    background: linear-gradient(135deg, rgba(22, 101, 255, 0.25), rgba(8, 40, 75, 0.82));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #eaf5fb;
+    text-align: center;
+  }
+
+  .kpi-ico {
+    font-size: 42px;
+    margin-bottom: 10px;
+  }
+
+  .kpi-name {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .kpi-main {
+    font-size: 32px;
+    font-weight: 800;
+  }
+
+  /* Middle left */
+  .alert-panel {
+    left: 12px;
+    top: 410px;
+    width: 928px;
+    height: 328px;
+  }
+
+  #radarChart {
+    position: absolute;
+    left: 22px;
+    top: 48px;
+    width: 250px;
+    height: 225px;
+  }
+
+  .alert-kpis {
+    position: absolute;
+    left: 284px;
+    top: 38px;
+    width: 290px;
+    height: 105px;
+    border: 1px solid rgba(255, 75, 60, 0.50);
+    border-radius: 8px;
+    background: rgba(101, 20, 18, 0.20);
+  }
+
+  .alert-kpis .num {
+    color: #ff6b55;
+    font-size: 29px;
+    font-weight: 800;
+  }
+
+  .alert-table {
+    position: absolute;
+    left: 282px;
+    top: 160px;
+    width: 620px;
+    border-collapse: collapse;
+    font-size: 16px;
+    color: #d8e6ef;
+  }
+
+  .alert-table th {
+    background: rgba(45, 82, 112, 0.35);
+    color: #e8f3f8;
+    font-weight: 700;
+  }
+
+  .alert-table td {
+    height: 38px;
+    border: 1px solid rgba(105, 160, 195, 0.18);
+    background: rgba(9, 31, 49, 0.52);
+  }
+
+  .alert-table tr:nth-child(even) td {
+    background: rgba(19, 61, 87, 0.28);
+  }
+
+  /* Middle right */
+  .energy-panel {
+    left: 952px;
+    top: 410px;
+    width: 956px;
+    height: 328px;
+  }
+
+  #energyChart {
+    position: absolute;
+    left: 20px;
+    top: 52px;
+    width: 915px;
+    height: 255px;
+  }
+
+  /* Bottom */
+  .year-panel {
+    left: 12px;
+    top: 750px;
+    width: 1896px;
+    height: 318px;
+  }
+
+  #yearChart {
+    position: absolute;
+    left: 22px;
+    top: 45px;
+    width: 1850px;
+    height: 245px;
+  }
+
+  .section-label {
+    position: absolute;
+    top: 10px;
+    left: 30px;
+    font-size: 19px;
+    color: #8bd3ff;
+  }
+
+  .neon {
+    color: #55bdff;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="nav">
+    <div class="logo">▣</div>
+    <div class="main-title">工厂产线智慧管理系统</div>
+    <div class="nav-menu">
+      <div class="menu-item active">产线概况</div>
+      <div class="menu-item">订单信息</div>
+      <div class="menu-item">设备信息</div>
+    </div>
+    <div class="status-pill">◷ 2025-05-23 14:35:42　用户1</div>
+  </div>
+
+  <div class="card equip-stat" data-icon="⚙">
+    <div class="card-title">设备统计</div>
+    <div class="device-grid">
+      <div class="stat-row">
+        <div class="stat-ico">▣</div>
+        <div class="stat-text">
+          <div class="stat-label">出料机</div>
+          <div><span class="stat-num">68</span><span class="stat-unit">台</span></div>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-ico">⚙</div>
+        <div class="stat-text">
+          <div class="stat-label">切割机</div>
+          <div><span class="stat-num" style="color:#55dd70;">52</span><span class="stat-unit">台</span></div>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-ico">🤖</div>
+        <div class="stat-text">
+          <div class="stat-label">搬运机器人</div>
+          <div><span class="stat-num" style="color:#ff9a17;">101</span><span class="stat-unit">台</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card device-status" data-icon="🛡">
+    <div class="card-title">设备运行状态</div>
+    <div id="donutChart"></div>
+    <div class="status-label" style="left:42px; top:96px;">加工中<b>120 台</b></div>
+    <div class="status-label" style="right:28px; top:54px;">待机<b>71 台</b></div>
+    <div class="status-label" style="right:28px; top:185px;">停机<b>30 台</b></div>
+  </div>
+
+  <div class="card env-info" data-icon="♧">
+    <div class="card-title">环境信息</div>
+    <div class="env-list">
+      <div class="env-block"><span>温度</span><span class="env-value">26.4</span><span>℃</span></div>
+      <div class="env-block"><span>湿度</span><span class="env-value" style="color:#54dd75;">58.2</span><span>%</span></div>
+      <div class="env-block"><span>二氧化碳</span><span class="env-value" style="color:#bd70ff;">736</span><span>PPM</span></div>
+      <div class="env-block"><span>PM2.5</span><span class="env-value" style="color:#ffb21d;">18</span><span>μg/m³</span></div>
+    </div>
+  </div>
+
+  <div class="card kpi-area" data-icon="▥">
+    <div class="card-title">生产指标分析</div>
+    <div class="tiles">
+      <div class="kpi-tile">
+        <div class="kpi-ico">▣</div>
+        <div class="kpi-name">计划产量</div>
+        <div class="kpi-main">92</div>
+        <div>件</div>
+      </div>
+      <div class="kpi-tile" style="background:linear-gradient(135deg, rgba(48, 181, 118, 0.25), rgba(10, 44, 38, 0.82)); border-color:#48d386;">
+        <div class="kpi-ico" style="color:#65e28b;">♣</div>
+        <div class="kpi-name">实际产量</div>
+        <div class="kpi-main">92</div>
+        <div>件</div>
+      </div>
+      <div class="kpi-tile" style="background:linear-gradient(135deg, rgba(255, 154, 23, 0.22), rgba(44, 26, 20, 0.82)); border-color:#ff9a17;">
+        <div class="kpi-ico" style="color:#ffb21d;">◔</div>
+        <div class="kpi-name">总体稼动率</div>
+        <div class="kpi-main" style="color:#ff9a17;">92%</div>
+      </div>
+      <div class="kpi-tile" style="background:linear-gradient(135deg, rgba(203, 101, 255, 0.25), rgba(40, 22, 50, 0.82)); border-color:#b870ff;">
+        <div class="kpi-ico" style="color:#c984ff;">♡</div>
+        <div class="kpi-name">质量合格率</div>
+        <div class="kpi-main" style="color:#bb76ff;">94%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card alert-panel" data-icon="▲">
+    <div class="card-title">设备告警分析</div>
+    <div id="radarChart"></div>
+    <div class="alert-kpis">
+      <div style="font-size:18px;color:#eaf5fb;">故障数量</div>
+      <div class="num">13 台</div>
+    </div>
+    <table class="alert-table">
+      <tr><th>序号</th><th>设备名称</th><th>告警级别</th><th>告警时间</th><th>告警内容</th></tr>
+      <tr><td>1</td><td>出料机</td><td>紧急</td><td>2025-05-23 14:15:32</td><td>电机过载，电流超过阈值</td></tr>
+      <tr><td>2</td><td>切割机</td><td>严重</td><td>2025-05-23 13:48:21</td><td>切割刀具磨损严重</td></tr>
+      <tr><td>3</td><td>搬运机器人</td><td>一般</td><td>2025-05-23 12:36:10</td><td>电池电量低于20%</td></tr>
+      <tr><td>4</td><td>出料机</td><td>一般</td><td>2025-05-23 11:22:05</td><td>物料堵塞，出料异常</td></tr>
+    </table>
+  </div>
+
+  <div class="card energy-panel" data-icon="♢">
+    <div class="card-title">车间月度能耗</div>
+    <div id="energyChart"></div>
+  </div>
+
+  <div class="card year-panel" data-icon="▥">
+    <div class="section-label">近一年生产量情况</div>
+    <div id="yearChart"></div>
+  </div>
+</div>
+
+<script>
+  var donutChart = echarts.init(document.getElementById('donutChart'));
+  donutChart.setOption({
+    animation: false,
+    color: ['#34b6ff', '#56dd74', '#ff9427'],
+    title: {
+      text: '设备总数\n221',
+      left: 'center',
+      top: '42%',
+      textStyle: {
+        color: '#f3fbff',
+        fontSize: 22,
+        fontWeight: 700,
+        lineHeight: 28
+      }
+    },
+    series: [{
+      type: 'pie',
+      radius: ['42%', '68%'],
+      center: ['50%', '50%'],
+      avoidLabelOverlap: false,
+      label: {
+        show: false
+      },
+      labelLine: {
+        show: false
+      },
+      data: [{name: '加工中', value: 120}, {name: '待机', value: 71}, {name: '停机', value: 30}]
+    }],
+    graphic: [
+      {type: 'circle', left: 'center', top: 'center', shape: {r: 92}, style: {fill: '#061622', stroke: '#39b9ff', lineWidth: 2}},
+      {type: 'circle', left: 'center', top: 'center', shape: {r: 70}, style: {fill: '#081b29'}}
+    ]
+  });
+
+  var radarChart = echarts.init(document.getElementById('radarChart'));
+  radarChart.setOption({
+    animation: false,
+    radar: {
+      center: ['50%', '48%'],
+      radius: 85,
+      splitNumber: 3,
+      indicator: [
+        {name: '紧急', max: 100},
+        {name: '严重', max: 100},
+        {name: '一般', max: 100}
+      ],
+      axisName: {
+        color: '#d7e6ef',
+        fontSize: 15
+      },
+      splitLine: {lineStyle: {color: 'rgba(110,180,255,0.24)'}},
+      splitArea: {areaStyle: {color: ['rgba(255,90,55,0.12)', 'rgba(80,180,255,0.08)']}},
+      axisLine: {lineStyle: {color: 'rgba(120,190,255,0.30)'}}
+    },
+    series: [{
+      type: 'radar',
+      data: [{value: [90, 45, 80], name: '紧急'}],
+      symbolSize: 5,
+      lineStyle: {width: 3, color: '#ff8a24'},
+      itemStyle: {color: '#ff8a24'},
+      areaStyle: {color: 'rgba(255,138,36,0.26)'}
+    }]
+  });
+
+  var energyChart = echarts.init(document.getElementById('energyChart'));
+  energyChart.setOption({
+    animation: false,
+    color: ['#35aaff', '#8b5cff'],
+    grid: {left: 60, right: 50, top: 36, bottom: 42},
+    legend: {
+      top: 0,
+      left: 250,
+      textStyle: {color: '#dce7ef', fontSize: 16},
+      data: ['耗水量 (m³)', '耗电量 (kWh)']
+    },
+    tooltip: {trigger: 'axis'},
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      data: ["07-01","07-07","07-13","07-19","07-25","07-31"],
+      axisLine: {lineStyle: {color: 'rgba(180,210,240,0.45)'}},
+      axisTick: {show: false},
+      axisLabel: {color: '#e2edf5', fontSize: 15}
+    },
+    yAxis: [
+      {
+        type: 'value',
+        name: '耗水量 (m³)',
+        min: 0,
+        max: 5000,
+        interval: 1000,
+        nameTextStyle: {color: '#9ed7ff', fontSize: 16, left: 0, top: -10},
+        axisLine: {show: false},
+        axisTick: {show: false},
+        splitLine: {lineStyle: {color: 'rgba(120,180,220,0.25)'}},
+        axisLabel: {color: '#d5e4eb'}
+      },
+      {
+        type: 'value',
+        name: '耗电量 (kWh)',
+        min: 0,
+        max: 3000,
+        interval: 500,
+        nameTextStyle: {color: '#9b77ff', fontSize: 16, right: 0, top: -10},
+        axisLine: {show: false},
+        axisTick: {show: false},
+        splitLine: {show: false},
+        axisLabel: {color: '#c8a7ff'}
+      }
+    ],
+    series: [
+      {
+        name: '耗水量',
+        type: 'line',
+        yAxisIndex: 0,
+        smooth: true,
+        symbol: 'circle',
+        symbolSize: 8,
+        lineStyle: {width: 3, color: '#35aaff'},
+        itemStyle: {color: '#68c5ff'},
+        areaStyle: {color: 'rgba(53,170,255,0.22)'},
+        label: {
+          show: true,
+          position: 'top',
+          color: '#43c4ff',
+          fontSize: 14
+        },
+        data: [3200, 2800, 3600, 3400, 3000, 3300]
+      },
+      {
+        name: '耗电量',
+        type: 'line',
+        yAxisIndex: 1,
+        smooth: true,
+        symbol: 'circle',
+        symbolSize: 8,
+        lineStyle: {width: 3, color: '#8b5cff'},
+        itemStyle: {color: '#bd84ff'},
+        areaStyle: {color: 'rgba(139,92,255,0.18)'},
+        label: {
+          show: true,
+          position: 'bottom',
+          color: '#9672ff',
+          fontSize: 14
+        },
+        data: [1600, 1800, 1500, 1900, 1700, 1600]
+      }
+    ]
+  });
+
+  var yearChart = echarts.init(document.getElementById('yearChart'));
+  yearChart.setOption({
+    animation: false,
+    color: ['#2da7ff', '#ff8a19'],
+    grid: {left: 82, right: 48, top: 20, bottom: 32},
+    legend: {
+      top: 0,
+      left: 300,
+      textStyle: {color: '#dbe8ef', fontSize: 16},
+      data: ['计划产量（件）', '实际产量（件）']
+    },
+    tooltip: {trigger: 'axis', axisPointer: {type: 'shadow'}},
+    xAxis: {
+      type: 'value',
+      min: 0,
+      max: 5000,
+      interval: 500,
+      axisLine: {lineStyle: {color: 'rgba(150,200,240,0.45)'}},
+      axisTick: {show: false},
+      splitLine: {lineStyle: {color: 'rgba(110,170,210,0.22)'}},
+      axisLabel: {color: '#dce7ef', fontSize: 15}
+    },
+    yAxis: {
+      type: 'category',
+      data: ["12月","11月","10月","9月","8月","7月","6月","5月","4月","3月","2月","1月"],
+      axisLine: {lineStyle: {color: 'rgba(150,200,240,0.35)'}},
+      axisTick: {show: false},
+      axisLabel: {color: '#e6f1f7', fontSize: 16}
+    },
+    series: [
+      {
+        name: '计划产量',
+        type: 'bar',
+        barWidth: 12,
+        data: [3000,3200,3100,3300,3400,3500,3600,3700,3800,3900,4000,4100],
+        itemStyle: {color: '#2da7ff', borderRadius: [0, 6, 6, 0]}
+      },
+      {
+        name: '实际产量',
+        type: 'bar',
+        barWidth: 12,
+        data: [2800,3000,2900,3100,3200,3300,3400,3450,3550,3650,3800,3950],
+        itemStyle: {color: '#ff8a19', borderRadius: [0, 6, 6, 0]}
+      }
+    ]
+  });
+</script>
+</body>
+</html>

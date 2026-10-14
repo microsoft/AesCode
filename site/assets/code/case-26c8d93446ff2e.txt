@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stantec Azure Case Study Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e9eef3;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #101820;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .brand {
+      position: absolute;
+      top: 74px;
+      left: 68px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-mark {
+      width: 60px;
+      height: 60px;
+      border: 5px solid #2d2d2d;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: #2d2d2d;
+    }
+
+    .brand-mark::before {
+      width: 24px;
+      height: 24px;
+      left: 13px;
+      top: 13px;
+      border-radius: 50%;
+      background: #ffffff;
+    }
+
+    .brand-mark::after {
+      width: 31px;
+      height: 31px;
+      right: 9px;
+      top: 10px;
+      border-radius: 48% 52% 55% 45%;
+      border: 4px solid #2d2d2d;
+      background: transparent;
+      transform: rotate(35deg);
+    }
+
+    .brand-name {
+      font-size: 37px;
+      font-weight: 800;
+      color: #262626;
+      letter-spacing: -1px;
+    }
+
+    .headline {
+      position: absolute;
+      top: 48px;
+      left: 388px;
+      width: 500px;
+      font-size: 31px;
+      line-height: 1.32;
+      color: #0872bd;
+      font-weight: 700;
+      letter-spacing: 0.1px;
+    }
+
+    .quote-box {
+      position: absolute;
+      top: 40px;
+      right: 54px;
+      width: 370px;
+      height: 128px;
+      background: #ffffff;
+      border-radius: 17px;
+      box-shadow: 0 8px 17px rgba(0, 0, 0, 0.22);
+      display: flex;
+      align-items: center;
+      padding: 14px 20px 14px 82px;
+    }
+
+    .quote-icon {
+      position: absolute;
+      left: -45px;
+      top: 28px;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: #80d7d8;
+      color: #46a9b0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 46px;
+      font-family: Georgia, serif;
+      font-weight: 700;
+    }
+
+    .quote-text {
+      font-size: 14px;
+      line-height: 1.28;
+      color: #111111;
+      margin-bottom: 8px;
+    }
+
+    .quote-attr {
+      font-size: 11px;
+      color: #555d66;
+    }
+
+    .photo-banner {
+      position: absolute;
+      top: 206px;
+      left: 0;
+      width: 1376px;
+      height: 358px;
+      background: linear-gradient(rgba(40, 135, 184, 0.14), rgba(40, 135, 184, 0.10)), url("https://placehold.co/1376x358/eff5f8/4f7481?text=Modern+office+interior+with+collaborative+teams+by+glass+windows");
+      background-size: cover;
+      background-position: center;
+      border-top: 11px solid #2b90cf;
+      border-bottom: 1px solid rgba(100, 116, 125, 0.12);
+    }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.85), rgba(255,255,255,0.04), rgba(255,255,255,0.24)),
+        linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.02));
+      pointer-events: none;
+    }
+
+    .info-panel {
+      position: absolute;
+      left: 34px;
+      top: 522px;
+      width: 1308px;
+      height: 170px;
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      overflow: hidden;
+    }
+
+    .info-col {
+      position: relative;
+      padding: 25px 22px 20px 22px;
+    }
+
+    .info-col:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 14px;
+      width: 2px;
+      height: 124px;
+      background: #7db7c4;
+    }
+
+    .info-col h2 {
+      margin: 0 0 8px 0;
+      color: #07457b;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .info-col p {
+      margin: 0;
+      font-size: 12.5px;
+      line-height: 1.18;
+      color: #111111;
+    }
+
+    .footer-tags {
+      position: absolute;
+      left: 411px;
+      bottom: 17px;
+      width: 562px;
+      height: 22px;
+      border-radius: 13px;
+      background: #f1f1f1;
+      color: #25282b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      gap: 9px;
+    }
+
+    .footer-tags .bullet {
+      color: #5a5f66;
+    }
+
+    .cta {
+      position: absolute;
+      right: 44px;
+      bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #0872bd;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .cta-icon {
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid #0872bd;
+      border-radius: 3px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      color: #0872bd;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div class="brand-name">Stantec</div>
+    </div>
+
+    <div class="headline">
+      Stantec uses Azure to build a<br>
+      digital innovation platform with real-world impact
+    </div>
+
+    <div class="quote-box">
+      <div class="quote-icon">“</div>
+      <div>
+        <div class="quote-text">
+          With the incredible horsepower available in Azure, we can run physics-based models many times faster to help agencies understand where their risks are coming from.
+        </div>
+        <div class="quote-attr">
+          John Doe, Principal, Digital Solutions, Stantec
+        </div>
+      </div>
+    </div>
+
+    <div class="photo-banner">
+      <div class="photo-overlay"></div>
+    </div>
+
+    <div class="info-panel">
+      <div class="info-col">
+        <h2>Challenge</h2>
+        <p>
+          Stantec faced a critical need to expand its suite of customer solutions, enhance computational capabilities for complex models, and rapidly adapt to the accelerating pace of technological change to remain competitive in the global infrastructure and environmental markets.
+        </p>
+      </div>
+
+      <div class="info-col">
+        <h2>Solution</h2>
+        <p>
+          By partnering with Microsoft and leveraging the powerful capabilities of Azure, Stantec successfully developed and deployed a scalable, modular digital innovation platform. This platform integrates various Azure services to streamline data processing, model simulation, and application development.
+        </p>
+      </div>
+
+      <div class="info-col">
+        <h2>Impact</h2>
+        <p>
+          The digital platform has led to significant improvements in performance metrics and operational efficiency. Notably, Stantec’s Flood Manager solution is now 26 times faster on Azure AI infrastructure, enabling more rapid risk assessments for clients and communities.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-tags">
+      <span>Azure AI infrastructure</span>
+      <span class="bullet">•</span>
+      <span>Azure Machine Learning</span>
+      <span class="bullet">•</span>
+      <span>Azure Databricks</span>
+      <span class="bullet">•</span>
+      <span>Windows Server</span>
+    </div>
+
+    <div class="cta">
+      <span class="cta-icon">↗</span>
+      <span>Read the full story</span>
+    </div>
+  </div>
+</body>
+</html>

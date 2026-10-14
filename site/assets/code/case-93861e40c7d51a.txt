@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StockFlow Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e9edf3;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: #263242;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1024px;
+      height: 1024px;
+      overflow: hidden;
+      background: #f5f7fb;
+    }
+
+    .topbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1024px;
+      height: 56px;
+      background: #ffffff;
+      border-bottom: 1px solid #dfe4ec;
+      display: flex;
+      align-items: center;
+      z-index: 5;
+    }
+
+    .brand {
+      width: 184px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding-left: 18px;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 15px;
+      color: #1d3f72;
+    }
+
+    .brand-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      background: #3170ff;
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .top-icons {
+      position: absolute;
+      left: 198px;
+      top: 10px;
+      width: 30px;
+      height: 36px;
+      color: #738092;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .search {
+      position: absolute;
+      left: 240px;
+      top: 8px;
+      width: 330px;
+      height: 40px;
+      border: 1px solid #dde3ec;
+      border-radius: 4px;
+      color: #8a94a4;
+      display: flex;
+      align-items: center;
+      padding-left: 12px;
+      font-size: 12px;
+    }
+
+    .search:before {
+      content: "⌕";
+      font-size: 15px;
+      margin-right: 8px;
+      color: #7b8798;
+    }
+
+    .top-spacer {
+      position: absolute;
+      left: 584px;
+      top: 8px;
+      width: 310px;
+      height: 40px;
+      border-left: 1px solid #edf0f5;
+    }
+
+    .bell {
+      position: absolute;
+      left: 790px;
+      top: 12px;
+      color: #4d5d72;
+      font-size: 18px;
+    }
+
+    .help {
+      position: absolute;
+      left: 826px;
+      top: 15px;
+      color: #516073;
+      font-size: 18px;
+    }
+
+    .avatar {
+      position: absolute;
+      left: 865px;
+      top: 10px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #8fb1f2;
+      color: #334a75;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .user {
+      position: absolute;
+      left: 910px;
+      top: 10px;
+      font-size: 12px;
+      color: #34435a;
+      line-height: 1.2;
+    }
+
+    .user strong {
+      display: block;
+      font-size: 12px;
+    }
+
+    .user span {
+      color: #7a8798;
+      font-size: 10.5px;
+    }
+
+    .sidebar {
+      position: absolute;
+      left: 0;
+      top: 56px;
+      width: 184px;
+      height: 968px;
+      background: #fbfcfe;
+      border-right: 1px solid #dde4ee;
+    }
+
+    .nav-section {
+      padding: 13px 0 0 0;
+    }
+
+    .nav-title {
+      color: #657386;
+      font-size: 11px;
+      margin: 0 13px 7px 13px;
+    }
+
+    .nav-link {
+      height: 33px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-left: 14px;
+      padding-right: 10px;
+      color: #536174;
+      font-size: 12px;
+      border-radius: 3px;
+      margin: 1px 0;
+    }
+
+    .nav-link.active {
+      background: #dbe7fb;
+      color: #1f5fc8;
+      font-weight: 700;
+      border-left: 3px solid #3170ff;
+      padding-left: 11px;
+    }
+
+    .nav-link:before {
+      content: "▦";
+      font-size: 12px;
+      color: #758398;
+    }
+
+    .collapse {
+      position: absolute;
+      bottom: 21px;
+      left: 12px;
+      color: #4b5c73;
+      font-size: 11px;
+    }
+
+    .main {
+      position: absolute;
+      left: 184px;
+      top: 56px;
+      width: 840px;
+      height: 968px;
+      background: #fbfcfe;
+      overflow: hidden;
+    }
+
+    .header {
+      height: 83px;
+      position: relative;
+      border-bottom: 1px solid #e7ebf2;
+    }
+
+    .title {
+      margin-left: 14px;
+      margin-top: 6px;
+    }
+
+    .title h1 {
+      margin: 0;
+      font-size: 21px;
+      letter-spacing: -0.4px;
+    }
+
+    .subtitle {
+      margin: 3px 0 0 0;
+      color: #718095;
+      font-size: 12px;
+    }
+
+    .timestamp {
+      position: absolute;
+      right: 20px;
+      top: 52px;
+      color: #788497;
+      font-size: 11px;
+    }
+
+    .buttons {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      display: flex;
+      gap: 9px;
+    }
+
+    .btn {
+      height: 32px;
+      min-width: 82px;
+      border: 1px solid #cfd7e4;
+      background: #ffffff;
+      color: #35465d;
+      border-radius: 4px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
+    }
+
+    .btn.primary {
+      background: #3170ff;
+      border-color: #3170ff;
+      color: white;
+      min-width: 88px;
+      font-weight: 700;
+    }
+
+    .kpis {
+      position: absolute;
+      top: 83px;
+      left: 14px;
+      width: 812px;
+      height: 205px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 13px;
+    }
+
+    .kpi-card {
+      background: white;
+      border: 1px solid #dfe5ef;
+      border-radius: 6px;
+      text-align: center;
+      padding-top: 13px;
+      height: 205px;
+    }
+
+    .kpi-title {
+      color: #475469;
+      font-size: 11.5px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .kpi-value {
+      color: #2d70e8;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .gauge {
+      width: 106px;
+      height: 76px;
+      margin: 8px auto 15px auto;
+      position: relative;
+    }
+
+    .kpi-percent {
+      color: #283648;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .kpi-caption {
+      color: #738195;
+      font-size: 11.5px;
+      margin-top: 1px;
+    }
+
+    .kpi-target {
+      position: absolute;
+      bottom: 12px;
+      color: #67758a;
+      font-size: 11.5px;
+    }
+
+    .mini-grid {
+      position: absolute;
+      top: 294px;
+      left: 14px;
+      width: 812px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+
+    .mini-card {
+      height: 105px;
+      background: white;
+      border: 1px solid #dfe5ef;
+      border-radius: 4px;
+      padding: 9px 11px 5px;
+    }
+
+    .mini-label {
+      font-size: 11px;
+      color: #4e5c70;
+    }
+
+    .mini-value {
+      margin-top: 3px;
+      color: #253142;
+      font-weight: 800;
+      font-size: 16px;
+    }
+
+    .trend {
+      font-size: 11px;
+      margin-top: -2px;
+      color: #27c577;
+    }
+
+    .trend.red {
+      color: #ff5858;
+    }
+
+    .spark {
+      height: 30px;
+      margin-top: 7px;
+      position: relative;
+    }
+
+    .spark svg {
+      width: 100%;
+      height: 30px;
+    }
+
+    .controls {
+      position: absolute;
+      top: 561px;
+      left: 14px;
+      width: 812px;
+      height: 46px;
+      display: grid;
+      grid-template-columns: 202px 132px 132px 132px 132px 138px;
+      gap: 10px;
+      border-bottom: 1px solid #e4e9f2;
+    }
+
+    .select-box {
+      height: 32px;
+      background: #ffffff;
+      border: 1px solid #dfe4ee;
+      border-radius: 4px;
+      color: #59687d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11.5px;
+      position: relative;
+    }
+
+    .select-box:after {
+      content: "⌄";
+      position: absolute;
+      right: 11px;
+      top: 0;
+      color: #68768b;
+    }
+
+    .table-panel {
+      position: absolute;
+      left: 14px;
+      top: 620px;
+      width: 812px;
+      height: 300px;
+      background: white;
+      border: 1px solid #dfe4ed;
+      border-radius: 4px;
+    }
+
+    .table-header {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #edf0f5;
+      padding-left: 14px;
+      font-size: 12.5px;
+    }
+
+    .table-title {
+      font-weight: 800;
+      margin-right: 12px;
+    }
+
+    .badge {
+      background: #ffe0e0;
+      color: #ff453a;
+      border-radius: 12px;
+      padding: 2px 7px;
+      font-size: 10px;
+      margin-right: auto;
+    }
+
+    .view-all {
+      color: #266fe0;
+      margin-left: 240px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.2px;
+    }
+
+    th {
+      height: 31px;
+      background: #fbfcfe;
+      border-bottom: 1px solid #e4e9f1;
+      color: #465468;
+      text-align: left;
+    }
+
+    td {
+      height: 35px;
+      border-bottom: 1px solid #edf0f5;
+      color: #536276;
+      vertical-align: middle;
+    }
+
+    .status-pill {
+      background: #fff0e4;
+      color: #ff6a26;
+      border-radius: 4px;
+      padding: 3px 5px;
+    }
+
+    .pagination {
+      height: 30px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 7px;
+      padding: 0 12px 6px 0;
+      font-size: 11px;
+    }
+
+    .page-num {
+      width: 21px;
+      height: 20px;
+      border: 1px solid #cfd7e3;
+      background: #fff;
+      color: #536276;
+      border-radius: 4px;
+      display: grid;
+      place-items: center;
+    }
+
+    .page-num.active {
+      background: #3170ff;
+      border-color: #3170ff;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-icon">◇</div>
+        <div>StockFlow</div>
+      </div>
+      <div class="top-icons">≡</div>
+      <div class="search">Search products, SKUs, categories...</div>
+      <div class="top-spacer"></div>
+      <div class="bell">♧</div>
+      <div class="help">?</div>
+      <div class="avatar">A</div>
+      <div class="user"><strong>Admin User</strong><span>Administrator</span></div>
+    </div>
+
+    <aside class="sidebar">
+      <div class="nav-section">
+        <div class="nav-title">Overview</div>
+        <div class="nav-link active">Dashboard</div>
+        <div class="nav-link">Analytics</div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-title">Inventory</div>
+        <div class="nav-link">Products</div>
+        <div class="nav-link">Stock Levels</div>
+        <div class="nav-link">Warehouses</div>
+        <div class="nav-link">Transfers</div>
+        <div class="nav-link">Adjustments</div>
+        <div class="nav-link">Categories</div>
+        <div class="nav-link">Suppliers</div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-title">Orders</div>
+        <div class="nav-link">Purchase Orders</div>
+        <div class="nav-link">Sales Orders</div>
+        <div class="nav-link">Returns</div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-title">Reports</div>
+        <div class="nav-link">Inventory Report</div>
+        <div class="nav-link">Stock Movement</div>
+        <div class="nav-link">Low Stock Report</div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-title">Settings</div>
+        <div class="nav-link">Users</div>
+        <div class="nav-link">Roles</div>
+        <div class="nav-link">Integrations</div>
+        <div class="nav-link">System Settings</div>
+      </div>
+
+      <div class="collapse">‹ Collapse</div>
+    </aside>
+
+    <main class="main">
+      <div class="header">
+        <div class="title">
+          <h1>Dashboard</h1>
+          <div class="subtitle">Real-time overview of your inventory</div>
+        </div>
+        <div class="buttons">
+          <div class="btn">Export</div>
+          <div class="btn primary">Refresh</div>
+        </div>
+        <div class="timestamp">Last updated: 10:24:30 AM</div>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi-card">
+          <div class="kpi-title">Total Inventory Value</div>
+          <div class="kpi-value">$2,458,850</div>
+          <div id="gauge1" class="gauge"></div>
+          <div class="kpi-percent">82%</div>
+          <div class="kpi-caption">of target</div>
+          <div class="kpi-target">Target: $3,000,000</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-title">Inventory Turnover</div>
+          <div class="kpi-value">5.6x</div>
+          <div id="gauge2" class="gauge"></div>
+          <div class="kpi-percent">70%</div>
+          <div class="kpi-caption">of target</div>
+          <div class="kpi-target">Target: 8.0x</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-title">Stock Availability</div>
+          <div class="kpi-value">93.2%</div>
+          <div id="gauge3" class="gauge"></div>
+          <div class="kpi-percent">93%</div>
+          <div class="kpi-caption">of target</div>
+          <div class="kpi-target">Target: 95%</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-title">Low Stock Items</div>
+          <div class="kpi-value">28</div>
+          <div id="gauge4" class="gauge"></div>
+          <div class="kpi-percent">70%</div>
+          <div class="kpi-caption">of threshold</div>
+          <div class="kpi-target">Threshold: 40 items</div>
+        </div>
+      </div>
+
+      <div class="mini-grid">
+        <div class="mini-card">
+          <div class="mini-label">Total SKUs</div>
+          <div class="mini-value">1,246 <span class="trend">↑ 12</span></div>
+          <div class="spark"><svg viewBox="0 0 110 30"><polyline points="0,18 10,22 20,18 30,15 40,23 50,20 60,24 70,16 80,18 90,22 100,15 110,17" fill="none" stroke="#3170ff" stroke-width="1.8"/></svg></div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-label">In Stock</div>
+          <div class="mini-value">1,028 <span class="trend">↑ 8</span></div>
+          <div class="spark"><svg viewBox="0 0 110 30"><polyline points="0,18 10,22 20,17 30,21 40,15 50,23 60,18 70,22 80,15 90,20 100,17 110,16" fill="none" stroke="#3170ff" stroke-width="1.8"/></svg></div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-label">Out of Stock</div>
+          <div class="mini-value">45 <span class="trend red">↑ 5</span></div>
+          <div class="spark"><svg viewBox="0 0 110 30"><polyline points="0,15 10,21 20,18 30,23 40,17 50,22 60,16 70,24 80,18 90,23 100,18 110,20" fill="none" stroke="#ff5858" stroke-width="1.8"/></svg></div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-label">Low Stock</div>
+          <div class="mini-value">28 <span class="trend">↓ 3</span></div>
+          <div class="spark"><svg viewBox="0 0 110 30"><polyline points="0,20 10,22 20,23 30,18 40,17 50,17 60,10 70,19 80,22 90,20 100,18 110,18" fill="none" stroke="#ff8a22" stroke-width="1.8"/></svg></div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-label">Overstock</div>
+          <div class="mini-value">96 <span class="trend">↓ 7</span></div>
+          <div class="spark"><svg viewBox="0 0 110 30"><polyline points="0,17 10,18 20,20 30,17 40,21 50,17 60,23 70,20 80,22 90,17 100,19 110,16" fill="none" stroke="#3170ff" stroke-width="1.8"/></svg></div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-label">Incoming (Today)</div>
+          <div class="mini-value">15 <span class="trend">↑ 4</span></div>
+          <div class="spark"><svg viewBox="0 0 110 30"><polyline points="0,22 10,20 20,18 30,23 40,20 50,16 60,20 70,18 80,15 90,20 100,18 110,16" fill="none" stroke="#3170ff" stroke-width="1.8"/></svg></div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-label">Outgoing (Today)</div>
+          <div class="mini-value">23 <span class="trend">↑ 6</span></div>
+          <div class="spark"><svg viewBox="0 0 110 30"><polyline points="0,22 10,20 20,21 30,18 40,23 50,20 60,24 70,18 80,17 90,20 100,18 110,16" fill="none" stroke="#3170ff" stroke-width="1.8"/></svg></div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-label">Stock Adjustments</div>
+          <div class="mini-value">7 <span class="trend red">↑ 2</span></div>
+          <div class="spark"><svg viewBox="0 0 110 30"><polyline points="0,17 10,20 20,22 30,18 40,23 50,18 60,22 70,16 80,21 90,19 100,16 110,19" fill="none" stroke="#3170ff" stroke-width="1.8"/></svg></div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-label">Returns (Today)</div>
+          <div class="mini-value">3 <span class="trend">↓ 1</span></div>
+          <div class="spark"><svg viewBox="0 0 110 30"><polyline points="0,20 10,22 20,20 30,23 40,18 50,22 60,19 70,16 80,20 90,17 100,19 110,14" fill="none" stroke="#3170ff" stroke-width="1.8"/></svg></div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-label">Damaged Items</div>
+          <div class="mini-value">2 0</div>
+          <div class="spark"><svg viewBox="0 0 110 30"><polyline points="0,22 10,22 20,20 30,21 40,20 50,19 60,20 70,19 80,20 90,18 100,20 110,17" fill="none" stroke="#3170ff" stroke-width="1.8"/></svg></div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="select-box">▣ May 12, 2025 – May 18, 2025</div>
+        <div class="select-box">All Warehouses</div>
+        <div class="select-box">All Categories</div>
+        <div class="select-box">All Suppliers</div>
+        <div class="select-box">All Suppliers</div>
+        <div class="select-box">▽ Filters</div>
+      </div>
+
+      <div class="table-panel">
+        <div class="table-header">
+          <span class="table-title">Top Low Stock Items</span>
+          <span class="badge">28</span>
+          <span class="view-all">View All</span>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>SKU</th>
+              <th>Product Name</th>
+              <th>Category</th>
+              <th>Warehouse</th>
+              <th>On Hand</th>
+              <th>Reorder Level</th>
+              <th>Available</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SKU-1001</td>
+              <td>Wireless Headphones</td>
+              <td>Electronics</td>
+              <td>Main Warehouse</td>
+              <td>5</td>
+              <td>20</td>
+              <td>5</td>
+              <td><span class="status-pill">Low Stock</span></td>
+              <td>•••</td>
+            </tr>
+            <tr>
+              <td>SKU-1002</td>
+              <td>Bluetooth Speaker</td>
+              <td>Electronics</td>
+              <td>Main Warehouse</td>
+              <td>8</td>
+              <td>25</td>
+              <td>8</td>
+              <td><span class="status-pill">Low Stock</span></td>
+              <td>•••</td>
+            </tr>
+            <tr>
+              <td>SKU-1003</td>
+              <td>Smart Watch</td>
+              <td>Wearables</td>
+              <td>West Warehouse</td>
+              <td>3</td>
+              <td>15</td>
+              <td>3</td>
+              <td><span class="status-pill">Low Stock</span></td>
+              <td>•••</td>
+            </tr>
+            <tr>
+              <td>SKU-1004</td>
+              <td>USB-C Cable</td>
+              <td>Accessories</td>
+              <td>Main Warehouse</td>
+              <td>10</td>
+              <td>30</td>
+              <td>10</td>
+              <td><span class="status-pill">Low Stock</span></td>
+              <td>•••</td>
+            </tr>
+            <tr>
+              <td>SKU-1005</td>
+              <td>Laptop Stand</td>
+              <td>Accessories</td>
+              <td>East Warehouse</td>
+              <td>4</td>
+              <td>20</td>
+              <td>4</td>
+              <td><span class="status-pill">Low Stock</span></td>
+              <td>•••</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="pagination">
+          <span>Showing 1 to 5 of 28 items</span>
+          <span>‹</span>
+          <span class="page-num active">1</span>
+          <span class="page-num">2</span>
+          <span class="page-num">3</span>
+          <span>...</span>
+          <span class="page-num">6</span>
+          <span>›</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function gauge(id, value, color) {
+      var chart = echarts.init(document.getElementById(id), null, { renderer: 'canvas' });
+      chart.setOption({
+        animation: false,
+        series: [{
+          type: 'pie',
+          radius: ['52%', '74%'],
+          center: ['50%', '82%'],
+          startAngle: 180,
+          clockwise: true,
+          avoidLabelOverlap: false,
+          label: { show: false },
+          labelLine: { show: false },
+          data: [value, 100 - value],
+          itemStyle: {
+            color: function(params) {
+              return params.dataIndex === 0 ? color : '#edf0f5';
+            },
+            borderWidth: 2,
+            borderColor: '#ffffff'
+          }
+        }]
+      });
+    }
+
+    gauge('gauge1', 82, '#3170ff');
+    gauge('gauge2', 70, '#3170ff');
+    gauge('gauge3', 93.2, '#39c766');
+    gauge('gauge4', 70, '#ff8a22');
+  </script>
+</body>
+</html>

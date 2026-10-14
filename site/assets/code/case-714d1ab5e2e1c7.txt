@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1280, initial-scale=1.0" />
+  <title>Surface Laptop for Business Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #dfe5e8;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      color: #111820;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 62% 42%, rgba(0, 0, 0, 0.08) 0, rgba(0, 0, 0, 0.035) 160px, transparent 310px),
+        linear-gradient(180deg, #eef4f5 0%, #f8fbfb 54%, #f3f7f8 100%);
+    }
+
+    .wordmark {
+      position: absolute;
+      top: 29px;
+      left: 22px;
+      font-size: 15.5px;
+      font-weight: 400;
+      color: #4f5d66;
+      letter-spacing: -0.2px;
+    }
+
+    .main-title {
+      position: absolute;
+      top: 80px;
+      left: 28px;
+      width: 380px;
+      font-size: 42px;
+      line-height: 1.21;
+      font-weight: 760;
+      letter-spacing: -1.7px;
+      color: #05080a;
+    }
+
+    .subtitle {
+      position: absolute;
+      top: 192px;
+      left: 28px;
+      font-size: 15.5px;
+      font-weight: 400;
+      color: #53616a;
+    }
+
+    .left-callout-row {
+      position: absolute;
+      top: 246px;
+      left: 40px;
+      width: 300px;
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+    }
+
+    .feature-block {
+      width: 132px;
+      position: relative;
+    }
+
+    .intel-badge {
+      width: 82px;
+      height: 80px;
+      background: #071f55;
+      border: 1px solid #34588f;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      padding-top: 4px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .intel-text {
+      font-size: 18px;
+      font-weight: 720;
+      line-height: 1.05;
+      letter-spacing: -0.4px;
+    }
+
+    .intel-small {
+      margin-top: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+    }
+
+    .feature-heading {
+      margin-top: 9px;
+      font-size: 14.8px;
+      font-weight: 650;
+      line-height: 1.15;
+      color: #171b21;
+    }
+
+    .feature-copy {
+      margin-top: 7px;
+      font-size: 10.4px;
+      line-height: 1.55;
+      color: #506069;
+    }
+
+    .copilot-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      margin: 0 auto 8px;
+      border: 2px solid #76c7ff;
+      background:
+        radial-gradient(circle at 30% 30%, #35c8ff 0 22%, transparent 23%),
+        radial-gradient(circle at 70% 35%, #8f5cff 0 23%, transparent 24%),
+        radial-gradient(circle at 45% 70%, #ff7848 0 24%, transparent 25%),
+        linear-gradient(135deg, rgba(34, 197, 238, .9), rgba(143, 74, 255, .82) 50%, rgba(255, 120, 72, .85));
+      box-shadow: 0 5px 12px rgba(55, 123, 210, 0.22);
+    }
+
+    .divider {
+      position: absolute;
+      top: 278px;
+      left: 178px;
+      width: 1px;
+      height: 118px;
+      background: #bcc8ce;
+    }
+
+    .hero-monitor {
+      position: absolute;
+      top: 25px;
+      left: 430px;
+      width: 630px;
+      height: 234px;
+      border-radius: 9px;
+      overflow: hidden;
+      border: 8px solid #1b1b1b;
+      background: #141a21;
+      box-shadow: 0 16px 28px rgba(0, 0, 0, 0.23);
+      z-index: 4;
+    }
+
+    .hero-monitor img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .monitor-stand-left {
+      position: absolute;
+      top: 252px;
+      left: 505px;
+      width: 98px;
+      height: 64px;
+      background: linear-gradient(180deg, #9fa3a5, #707478);
+      border-radius: 0 0 16px 16px;
+      z-index: 2;
+      box-shadow: 0 10px 14px rgba(0, 0, 0, 0.20);
+    }
+
+    .monitor-stand-left:before {
+      content: "";
+      position: absolute;
+      top: -23px;
+      left: 38px;
+      width: 22px;
+      height: 42px;
+      background: #686d70;
+      border-radius: 3px;
+    }
+
+    .monitor-stand-right {
+      position: absolute;
+      top: 252px;
+      left: 826px;
+      width: 98px;
+      height: 64px;
+      background: linear-gradient(180deg, #9fa3a5, #707478);
+      border-radius: 0 0 16px 16px;
+      z-index: 2;
+      box-shadow: 0 10px 14px rgba(0, 0, 0, 0.20);
+    }
+
+    .monitor-stand-right:before {
+      content: "";
+      position: absolute;
+      top: -23px;
+      left: 38px;
+      width: 22px;
+      height: 42px;
+      background: #686d70;
+      border-radius: 3px;
+    }
+
+    .laptop {
+      position: absolute;
+      top: 268px;
+      left: 580px;
+      width: 320px;
+      height: 218px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 5px solid #1d1d1f;
+      background: #202428;
+      z-index: 8;
+      box-shadow: 0 15px 24px rgba(0, 0, 0, 0.28);
+    }
+
+    .laptop img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .keyboard-deck {
+      position: absolute;
+      top: 484px;
+      left: 560px;
+      width: 360px;
+      height: 51px;
+      background: linear-gradient(180deg, #788188, #5c666d);
+      border-radius: 0 0 11px 11px;
+      z-index: 7;
+      border: 2px solid #505a60;
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.24);
+    }
+
+    .dock {
+      position: absolute;
+      top: 570px;
+      left: 442px;
+      width: 120px;
+      height: 52px;
+      border-radius: 8px;
+      z-index: 7;
+      overflow: hidden;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.22);
+    }
+
+    .dock img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .dock-caption {
+      position: absolute;
+      top: 622px;
+      left: 460px;
+      width: 82px;
+      text-align: center;
+      font-size: 9.5px;
+      color: #20282d;
+      z-index: 7;
+    }
+
+    .mouse {
+      position: absolute;
+      top: 495px;
+      left: 960px;
+      width: 88px;
+      height: 88px;
+      border-radius: 42px;
+      overflow: hidden;
+      z-index: 7;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.22);
+    }
+
+    .mouse img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .blurbs {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+    }
+
+    .blurb {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .blurb.display {
+      top: 108px;
+      left: 1058px;
+      width: 180px;
+      flex-direction: row;
+    }
+
+    .blurb.audio {
+      top: 338px;
+      left: 358px;
+      width: 250px;
+      flex-direction: row-reverse;
+    }
+
+    .blurb.connectivity {
+      top: 488px;
+      left: 195px;
+      width: 205px;
+      flex-direction: row;
+    }
+
+    .blurb.power {
+      top: 338px;
+      left: 976px;
+      width: 185px;
+      flex-direction: row;
+    }
+
+    .blurb.security {
+      top: 480px;
+      left: 1070px;
+      width: 165px;
+      flex-direction: row;
+    }
+
+    .blurb.typing {
+      top: 558px;
+      left: 612px;
+      width: 280px;
+      flex-direction: row;
+    }
+
+    .circle-icon {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 750;
+      color: white;
+    }
+
+    .icon-blue {
+      background: #8ec5f7;
+    }
+
+    .icon-purple {
+      background: #8c78d4;
+    }
+
+    .icon-slate {
+      background: #7fa0cc;
+    }
+
+    .icon-teal {
+      background: #49b8bd;
+    }
+
+    .icon-green {
+      width: 42px;
+      height: 42px;
+      border: 3px solid #78c491;
+      background: rgba(120, 196, 145, 0.18);
+      color: #78c491;
+    }
+
+    .blurb h3 {
+      margin: 0 0 3px;
+      font-size: 12.8px;
+      line-height: 1.2;
+      color: #171b22;
+    }
+
+    .blurb p {
+      margin: 0;
+      font-size: 9.7px;
+      line-height: 1.45;
+      color: #505e66;
+    }
+
+    .connector-dash {
+      position: absolute;
+      height: 0;
+      border-top: 2px dotted #7b868c;
+      z-index: 6;
+      opacity: 0.8;
+    }
+
+    .dash-audio-left {
+      top: 362px;
+      left: 524px;
+      width: 52px;
+    }
+
+    .dash-connect {
+      top: 512px;
+      left: 405px;
+      width: 140px;
+    }
+
+    .dash-connect-vertical {
+      top: 512px;
+      left: 495px;
+      width: 1px;
+      height: 38px;
+      border-top: none;
+      border-left: 2px dotted #7b868c;
+    }
+
+    .dash-power-left {
+      top: 362px;
+      left: 896px;
+      width: 80px;
+    }
+
+    .chart-panel-left,
+    .chart-panel-right {
+      position: absolute;
+      z-index: 11;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid #d6dde1;
+      border-radius: 5px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.10);
+      color: #20282f;
+    }
+
+    .chart-panel-left {
+      top: 62px;
+      left: 458px;
+      width: 238px;
+      height: 150px;
+      padding: 10px;
+    }
+
+    .chart-panel-right {
+      top: 62px;
+      left: 720px;
+      width: 290px;
+      height: 150px;
+      padding: 8px;
+    }
+
+    .panel-title {
+      font-size: 10.5px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    #annualBar {
+      width: 214px;
+      height: 102px;
+    }
+
+    #revenuePie {
+      width: 100px;
+      height: 100px;
+    }
+
+    #revenueTrend {
+      width: 130px;
+      height: 102px;
+    }
+
+    .region-table {
+      margin-top: 5px;
+      width: 234px;
+      border-collapse: collapse;
+      font-size: 7.8px;
+      background: white;
+    }
+
+    .region-table td {
+      border: 1px solid #d8dee2;
+      padding: 2px 4px;
+      height: 16px;
+    }
+
+    .fine-print {
+      position: absolute;
+      left: 20px;
+      bottom: 18px;
+      width: 1120px;
+      font-size: 8.5px;
+      line-height: 1.45;
+      color: #607078;
+      border-top: 1px solid #b8c0c5;
+      padding-top: 8px;
+      z-index: 20;
+    }
+
+    .soft-oval {
+      position: absolute;
+      left: 410px;
+      top: 555px;
+      width: 142px;
+      height: 52px;
+      border: 1px solid rgba(128, 145, 153, 0.22);
+      border-radius: 50%;
+      background: rgba(128, 145, 153, 0.035);
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="wordmark">Microsoft Surface</div>
+
+    <div class="main-title">Surface Laptop<br>for Business</div>
+    <div class="subtitle">Premium experiences drive AI advantage</div>
+
+    <div class="left-callout-row">
+      <div class="feature-block">
+        <div class="intel-badge">
+          <div class="intel-text">intel<br>core</div>
+          <div class="intel-small">ULTRA</div>
+        </div>
+        <div class="feature-heading">intel core ultra</div>
+        <div class="feature-copy">
+          Power AI experiences and multitasking with industry-leading performance and energy efficiency.
+        </div>
+      </div>
+
+      <div class="feature-block">
+        <div class="copilot-icon"></div>
+        <div class="feature-heading">Copilot+ PC</div>
+        <div class="feature-copy">
+          Built for AI-powered collaboration and creativity so you can do more, faster, on your terms.
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="hero-monitor">
+      <img src="https://placehold.co/900x260?text=Dual+Monitors+with+Business+Apps" alt="Dual monitors with business apps placeholder">
+    </div>
+
+    <div class="monitor-stand-left"></div>
+    <div class="monitor-stand-right"></div>
+
+    <div class="laptop">
+      <img src="https://placehold.co/420x230?text=Surface+Laptop+Dashboard" alt="Surface Laptop Dashboard placeholder">
+    </div>
+
+    <div class="keyboard-deck"></div>
+
+    <div class="dock">
+      <img src="https://placehold.co/120x120?text=Dock" alt="Dock placeholder">
+    </div>
+    <div class="dock-caption">Surface Dock 2</div>
+
+    <div class="mouse">
+      <img src="https://placehold.co/160x160?text=Mouse" alt="Mouse placeholder">
+    </div>
+
+    <div class="soft-oval"></div>
+
+    <div class="chart-panel-left">
+      <div class="panel-title">Annual Business Review</div>
+      <div id="annualBar"></div>
+    </div>
+
+    <div class="chart-panel-right">
+      <div style="display: flex; gap:8px;">
+        <div style="width:108px;">
+          <div class="panel-title" style="font-size:8.5px;">Quarterly Performance</div>
+          <div id="revenuePie"></div>
+        </div>
+        <div style="width:118px;">
+          <div class="panel-title" style="font-size:8.5px;">Revenue Trend</div>
+          <div id="revenueTrend"></div>
+        </div>
+      </div>
+      <table class="region-table">
+        <tr><th>Region</th><th>Q1 FY24</th><th>Q2 FY24</th><th>Q3 FY24</th><th>Q4 FY24</th><th>Total</th></tr>
+        <tr><td>North America</td><td>$2.7M</td><td>$3.0M</td><td>$3.2M</td><td>$3.3M</td><td>$12.2M</td></tr>
+        <tr><td>Europe</td><td>$1.6M</td><td>$1.7M</td><td>$1.8M</td><td>$1.9M</td><td>$7.0M</td></tr>
+        <tr><td>Asia Pacific</td><td>$1.1M</td><td>$1.2M</td><td>$1.3M</td><td>$1.5M</td><td>$5.1M</td></tr>
+        <tr><td>Latin America</td><td>$0.2M</td><td>$0.3M</td><td>$0.3M</td><td>$0.3M</td><td>$1.1M</td></tr>
+        <tr><td>Total</td><td>$5.6M</td><td>$6.2M</td><td>$6.6M</td><td>$7.0M</td><td>$25.4M</td></tr>
+      </table>
+    </div>
+
+    <div class="connector-dash dash-audio-left"></div>
+    <div class="connector-dash dash-connect"></div>
+    <div class="connector-dash dash-connect-vertical"></div>
+    <div class="connector-dash dash-power-left"></div>
+
+    <div class="blurbs">
+      <div class="blurb display">
+        <div class="circle-icon icon-green">▯</div>
+        <div>
+          <h3>Brilliant, anti-reflective displays</h3>
+          <p>Anti-reflective display technology reduces reflections up to 50% for improved visuals in varied lighting.</p>
+        </div>
+      </div>
+
+      <div class="blurb audio">
+        <div>
+          <h3>AI-enhanced voice clarity</h3>
+          <p>Studio Mics and Omnisonic speakers with Dolby Atmos deliver immersive audio and crystal-clear calls with AI noise reduction.</p>
+        </div>
+        <div class="circle-icon icon-blue">⌕</div>
+      </div>
+
+      <div class="blurb connectivity">
+        <div class="circle-icon icon-slate">▰</div>
+        <div>
+          <h3>Seamless connectivity and docking</h3>
+          <p>Connect to what matters with high-speed charging, data transfer, and dual 4K monitor support through Surface Dock.</p>
+        </div>
+      </div>
+
+      <div class="blurb power">
+        <div class="circle-icon icon-purple">↻</div>
+        <div>
+          <h3>Power through your day</h3>
+          <p>Up to 22 hours of battery life and fast charging keep you productive anywhere.</p>
+        </div>
+      </div>
+
+      <div class="blurb security">
+        <div>
+          <h3>Enterprise-grade security</h3>
+          <p>Secured-core PC with BitLocker drive encryption and TPM 2.0 helps protect your data and identity.</p>
+        </div>
+        <div class="circle-icon icon-teal">♙</div>
+      </div>
+
+      <div class="blurb typing">
+        <div class="circle-icon icon-blue">▦</div>
+        <div>
+          <h3>Signature Surface typing experience</h3>
+          <p>With Copilot key for one-touch access to Copilot.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="fine-print">
+      *Battery life varies significantly based on usage, network and feature configuration, signal strength, settings and other factors. See aka.ms/SurfaceBatteryPerformance for details.<br>
+      Some Copilot+ PC experiences require free updates available starting later this year and continuing into 2025. Timing varies by device and region. See aka.ms/CopilotPlusPC.<br>
+      Accessories and software sold separately. App availability and experiences may vary by region and device. Screens simulated. © 2024 Microsoft. All rights reserved.
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    const annualBar = echarts.init(document.getElementById('annualBar'));
+    annualBar.setOption({
+      animation: false,
+      grid: { left: 42, right: 8, top: 18, bottom: 22 },
+      xAxis: {
+        type: 'category',
+        data: ['2021', '2022', '2023', '2024'],
+        axisLabel: { fontSize: 8 }
+      },
+      yAxis: {
+        type: 'value',
+        splitLine: { lineStyle: { color: '#dfe6eb' } },
+        axisLabel: { fontSize: 8 }
+      },
+      series: [{
+        type: 'bar',
+        data: [52, 75, 82, 94],
+        barWidth: 14,
+        itemStyle: { color: '#8bc2ff' },
+        label: { show: true, position: 'top', fontSize: 8 }
+      }]
+    });
+
+    const revenuePie = echarts.init(document.getElementById('revenuePie'));
+    revenuePie.setOption({
+      animation: false,
+      color: ['#4d8be5', '#7aa6d5', '#8fb7e4', '#d9e5f3'],
+      series: [{
+        type: 'pie',
+        radius: ['48%', '70%'],
+        center: ['50%', '50%'],
+        data: [{name: 'North America', value: 12.2}, {name: 'Europe', value: 7}, {name: 'Asia Pacific', value: 5.1}, {name: 'Latin America', value: 1.1}],
+        label: { fontSize: 8, color: '#20282f' },
+        labelLine: { length: 8, length2: 6 },
+        title: { show: true, text: '$25.4M', subtext: 'Total Revenue', position: 'center', textStyle: { fontSize: 9, fontWeight: 700 } }
+      }]
+    });
+
+    const revenueTrend = echarts.init(document.getElementById('revenueTrend'));
+    revenueTrend.setOption({
+      animation: false,
+      grid: { left: 22, right: 6, top: 14, bottom: 18 },
+      xAxis: {
+        type: 'category',
+        data: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9', 'Q10', 'Q11', 'Q12'],
+        axisLabel: { fontSize: 7 }
+      },
+      yAxis: {
+        type: 'value',
+        splitLine: { lineStyle: { color: '#dfe6eb' } },
+        axisLabel: { fontSize: 7 }
+      },
+      series: [{
+        type: 'line',
+        data: [4, 7, 6, 10, 8, 12, 10, 13, 12, 15, 17, 20],
+        symbolSize: 4,
+        lineStyle: { color: '#368bd6', width: 2 },
+        itemStyle: { color: '#368bd6' }
+      }]
+    });
+  </script>
+</body>
+</html>

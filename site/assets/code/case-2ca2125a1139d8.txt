@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1024, initial-scale=1.0" />
+  <title>电商新品发布服务流程</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #dfe4ea;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB",
+        "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+      color: #263044;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1024px;
+      height: 1536px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #fbfcff 0%, #f4f7fd 48%, #f3f6fc 100%);
+      border: 1px solid #cfd5dd;
+    }
+
+    /* 右上角占位图标 */
+    .corner-icon {
+      position: absolute;
+      top: 18px;
+      right: 30px;
+      width: 88px;
+      height: 48px;
+      border: 1px dashed #aeb8c5;
+      border-radius: 4px;
+      color: #8d96a3;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8f9fb;
+    }
+
+    /* 顶部横幅 */
+    .header {
+      position: absolute;
+      top: 62px;
+      left: 58px;
+      width: 908px;
+      height: 150px;
+    }
+
+    .tag {
+      color: #0b5ee8;
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: 1px;
+      margin-bottom: 13px;
+    }
+
+    .main-title {
+      font-size: 42px;
+      line-height: 1.25;
+      font-weight: 800;
+      color: #222a3d;
+      letter-spacing: 1px;
+    }
+
+    .scenario-box {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 304px;
+      height: 100px;
+      border: 1.5px solid #1262e8;
+      border-radius: 9px;
+      background: #fff;
+      padding: 15px 14px 12px 18px;
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .scenario-box .line {
+      color: #0b5ee8;
+      font-weight: 700;
+    }
+
+    .top-divider {
+      position: absolute;
+      top: 176px;
+      left: 29px;
+      width: 966px;
+      height: 2px;
+      background: #1267f1;
+      border-radius: 2px;
+    }
+
+    /* 中部 */
+    .section-title {
+      position: absolute;
+      top: 248px;
+      left: 0;
+      width: 1024px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 800;
+      color: #0b5ee8;
+    }
+
+    .section-title::before,
+    .section-title::after {
+      content: "···";
+      color: #6793f0;
+      margin: 0 12px;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    .cards-grid {
+      position: absolute;
+      top: 290px;
+      left: 58px;
+      width: 908px;
+      height: 564px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(3, 180px);
+      gap: 15px 14px;
+    }
+
+    .card {
+      position: relative;
+      background: #fbfbfe;
+      border: 1.5px solid #c9d1df;
+      border-radius: 10px;
+      padding: 23px 20px 18px 20px;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      height: 52px;
+      gap: 14px;
+    }
+
+    .num-dot {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #1267f1;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .card-title {
+      font-size: 25px;
+      font-weight: 800;
+      color: #242b3d;
+      white-space: nowrap;
+    }
+
+    .day {
+      margin-left: auto;
+      color: #0b5ee8;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .underline {
+      width: 40px;
+      height: 3px;
+      background: #1267f1;
+      border-radius: 3px;
+      margin-top: -8px;
+      margin-left: 0;
+    }
+
+    .card-body {
+      margin-top: 15px;
+      font-size: 17px;
+      color: #414b5f;
+      line-height: 1.55;
+      letter-spacing: 0.6px;
+    }
+
+    .summary-table-wrap {
+      position: absolute;
+      top: 888px;
+      left: 58px;
+      width: 908px;
+      height: 160px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      color: #253044;
+      font-size: 17px;
+    }
+
+    th {
+      background: #eaf0fb;
+      color: #0b5ee8;
+      font-weight: 800;
+      height: 39px;
+      border: 1px solid #cbd5e2;
+    }
+
+    td {
+      height: 38px;
+      border: 1px solid #d3dbe7;
+      text-align: center;
+    }
+
+    .metric-card {
+      position: absolute;
+      top: 1078px;
+      left: 58px;
+      width: 908px;
+      height: 240px;
+      background: #fbfbfe;
+      border: 1.5px solid #c9d1df;
+      border-radius: 9px;
+      padding: 0 18px 14px 18px;
+    }
+
+    .metric-title {
+      color: #0b5ee8;
+      font-weight: 800;
+      font-size: 20px;
+      margin: 13px 0 10px 0;
+    }
+
+    #chart {
+      width: 870px;
+      height: 170px;
+    }
+
+    /* 底部 */
+    .cta-area {
+      position: absolute;
+      top: 1320px;
+      left: 0;
+      width: 1024px;
+      height: 195px;
+      text-align: center;
+    }
+
+    .cta-title {
+      font-size: 38px;
+      font-weight: 900;
+      color: #252a3a;
+      letter-spacing: 5px;
+      margin-bottom: 12px;
+    }
+
+    .cta-info {
+      color: #4b5568;
+      font-size: 17px;
+      margin-bottom: 14px;
+    }
+
+    .cta-button {
+      width: 696px;
+      height: 66px;
+      background: #1267f1;
+      color: #fff;
+      border: 0;
+      border-radius: 8px;
+      font-size: 23px;
+      font-weight: 800;
+      margin: 0 auto;
+      letter-spacing: 1px;
+    }
+
+    .brand {
+      margin-top: 14px;
+      color: #4b5568;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="corner-icon">120×60</div>
+
+    <section class="header">
+      <div class="tag">电商新品发布服务流程</div>
+      <div class="main-title">从预热到复盘，7天上线闭环</div>
+      <div class="scenario-box">
+        <div>适用场景：<span class="line">天猫/京东/抖音商城</span></div>
+        <div>标准交付周期：<span class="line">T-7 至 T+3</span></div>
+      </div>
+    </section>
+
+    <div class="top-divider"></div>
+
+    <div class="section-title">新品上市标准SOP</div>
+
+    <section class="cards-grid">
+      <article class="card">
+        <div class="card-head">
+          <div class="num-dot">01</div>
+          <div class="card-title">01 需求对齐</div>
+          <div class="day">Day 1</div>
+        </div>
+        <div class="underline"></div>
+        <div class="card-body">确认SKU、目标人群、价格带、核心卖点。</div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <div class="num-dot">02</div>
+          <div class="card-title">02 预热物料</div>
+          <div class="day">Day 2</div>
+        </div>
+        <div class="underline"></div>
+        <div class="card-body">主视觉、详情页首屏、短视频脚本、直播预告。</div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <div class="num-dot">03</div>
+          <div class="card-title">03 渠道配置</div>
+          <div class="day">Day 3</div>
+        </div>
+        <div class="underline"></div>
+        <div class="card-body">店铺首页、搜索投放、达人分发、会员短信。</div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <div class="num-dot">04</div>
+          <div class="card-title">04 上线执行</div>
+          <div class="day">Day 4</div>
+        </div>
+        <div class="underline"></div>
+        <div class="card-body">页面发布、库存校验、优惠生效、客服话术同步。</div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <div class="num-dot">05</div>
+          <div class="card-title">05 数据盯盘</div>
+          <div class="day">Day 5-7</div>
+        </div>
+        <div class="underline"></div>
+        <div class="card-body">监控访客、加购率、转化率、退款预警。</div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <div class="num-dot">06</div>
+          <div class="card-title">06 复盘交付</div>
+          <div class="day">T+3</div>
+        </div>
+        <div class="underline"></div>
+        <div class="card-body">输出日报、ROI分析、问题清单、二轮优化建议。</div>
+      </article>
+    </section>
+
+    <section class="summary-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>模块</th>
+            <th>负责人</th>
+            <th>交付件</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>策划</td>
+            <td>林未</td>
+            <td>上市节奏表</td>
+          </tr>
+          <tr>
+            <td>设计</td>
+            <td>周澈</td>
+            <td>主视觉与详情页</td>
+          </tr>
+          <tr>
+            <td>投放</td>
+            <td>许棠</td>
+            <td>渠道预算与日报</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="metric-card">
+      <div class="metric-title">关键指标目标值</div>
+      <div id="chart"></div>
+    </section>
+
+    <section class="cta-area">
+      <div class="cta-title">预约新品发布排期</div>
+      <div class="cta-info">顾问热线 400-816-2039 ｜ 工作日 09:30-18:30</div>
+      <button class="cta-button">立即提交产品资料</button>
+      <div class="brand">星川电商增长中心</div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    const chart = echarts.init(document.getElementById('chart'));
+    chart.setOption({
+      animation: false,
+      grid: {
+        left: 86,
+        right: 42,
+        top: 14,
+        bottom: 38
+      },
+      xAxis: {
+        type: 'value',
+        max: 140000,
+        interval: 20000,
+        axisLine: { lineStyle: { color: '#d3dbe7' } },
+        axisLabel: {
+          color: '#596476',
+          fontSize: 12
+        },
+        splitLine: {
+          lineStyle: {
+            color: '#dde4ec',
+            type: 'dashed'
+          }
+        }
+      },
+      yAxis: {
+        type: 'category',
+        inverse: true,
+        data: ['曝光量', '点击率', '支付转化率'],
+        axisTick: { show: false },
+        axisLine: { lineStyle: { color: '#d3dbe7' } },
+        axisLabel: {
+          color: '#414b5f',
+          fontSize: 14
+        }
+      },
+      legend: {
+        bottom: 0,
+        left: 'center',
+        itemWidth: 12,
+        itemHeight: 12,
+        textStyle: {
+          color: '#3f4a5d',
+          fontSize: 14
+        },
+        data: ['目标值']
+      },
+      series: [
+        {
+          name: '目标值',
+          type: 'bar',
+          data: [120000, 3.8, 6.2],
+          barWidth: 19,
+          itemStyle: {
+            color: '#1267f1'
+          },
+          label: {
+            show: true,
+            position: 'right',
+            color: '#0b5ee8',
+            fontWeight: 800,
+            fontSize: 16
+          }
+        }
+      ],
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      }
+    });
+  </script>
+</body>
+</html>

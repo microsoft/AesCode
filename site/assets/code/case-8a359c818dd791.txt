@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Warehouse Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #eef2f5;
+      color: #111827;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1200px;
+      height: 896px;
+      overflow: hidden;
+      background: #f4f6f8;
+    }
+
+    .title {
+      position: absolute;
+      left: 42px;
+      top: 34px;
+      font-size: 31px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: -1.1px;
+      color: #111111;
+    }
+
+    .filter-bar {
+      position: absolute;
+      left: 42px;
+      top: 88px;
+      width: 1128px;
+      height: 70px;
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 7px 18px rgba(18, 31, 46, 0.10);
+      border: 1px solid #e5e8ed;
+      display: flex;
+      align-items: center;
+      padding-left: 28px;
+      gap: 22px;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      height: 42px;
+    }
+
+    .filter-label {
+      font-size: 16px;
+      color: #1f2933;
+      white-space: nowrap;
+    }
+
+    .dropdown-pill {
+      height: 42px;
+      min-width: 120px;
+      padding: 0 18px;
+      border: 1px solid #cfd6de;
+      border-radius: 22px;
+      background: #fbfdff;
+      color: #586570;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space2between;
+      gap: 10px;
+      font-size: 15px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 5px 12px rgba(30, 41, 59, 0.05);
+    }
+
+    .dropdown-pill.active {
+      color: #3b82f6;
+      border-color: #93c5fd;
+      background: #eff6ff;
+      box-shadow: 0 6px 14px rgba(59, 130, 246, 0.25);
+    }
+
+    .chevron {
+      font-size: 11px;
+      color: #7b8791;
+    }
+
+    .main-card {
+      position: absolute;
+      left: 42px;
+      top: 176px;
+      width: 1128px;
+      height: 360px;
+      border-radius: 10px;
+      background: #ffffff;
+      border: 1px solid #dbe1e6;
+      box-shadow: 0 7px 18px rgba(18, 31, 46, 0.09);
+      padding: 14px 20px 12px;
+    }
+
+    .card-heading {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-heading .icon {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #52606d;
+      border-radius: 4px;
+      display: inline-grid;
+      place-items: center;
+      font-size: 12px;
+      color: #4b5563;
+    }
+
+    #mainChart {
+      width: 1088px;
+      height: 305px;
+      margin-top: 8px;
+    }
+
+    .bottom-left-card {
+      position: absolute;
+      left: 42px;
+      top: 548px;
+      width: 372px;
+      height: 308px;
+      border-radius: 10px;
+      background: #ffffff;
+      border: 1px solid #dbe1e6;
+      box-shadow: 0 7px 16px rgba(18, 31, 46, 0.09);
+      padding: 15px 20px;
+    }
+
+    .bottom-middle-card {
+      position: absolute;
+      left: 430px;
+      top: 548px;
+      width: 360px;
+      height: 308px;
+      border-radius: 10px;
+      background: #ffffff;
+      border: 1px solid #dbe1e6;
+      box-shadow: 0 7px 16px rgba(18, 31, 46, 0.09);
+      padding: 15px 20px;
+    }
+
+    .small-heading {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    #incidentsChart {
+      width: 330px;
+      height: 250px;
+      margin-top: 12px;
+    }
+
+    #resolutionChart {
+      width: 320px;
+      height: 250px;
+      margin-top: 12px;
+    }
+
+    .kpi-card-top-left {
+      position: absolute;
+      left: 814px;
+      top: 548px;
+      width: 180px;
+      height: 144px;
+      border-radius: 9px;
+      background: #f0f5fb;
+      border: 1px solid #dce4eb;
+      box-shadow: 0 7px 16px rgba(18, 31, 46, 0.10);
+      padding: 16px 14px;
+      text-align: center;
+    }
+
+    .kpi-card-top-right {
+      position: absolute;
+      left: 1002px;
+      top: 548px;
+      width: 172px;
+      height: 144px;
+      border-radius: 9px;
+      background: #f7f8fa;
+      border: 1px solid #dce4eb;
+      box-shadow: 0 7px 16px rgba(18, 31, 46, 0.10);
+      padding: 16px 12px;
+      text-align: center;
+    }
+
+    .kpi-small-heading {
+      font-size: 12px;
+      color: #667085;
+      margin-bottom: 8px;
+    }
+
+    .kpi-metric {
+      font-size: 30px;
+      color: #102a63;
+      letter-spacing: -0.8px;
+      font-weight: 800;
+    }
+
+    .kpi-change {
+      margin-top: 10px;
+      display: inline-flex;
+      min-width: 72px;
+      height: 26px;
+      border-radius: 14px;
+      background: #ddf7ef;
+      color: #109c72;
+      font-size: 13px;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .kpi-footer {
+      margin-top: 8px;
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    .kpi-mini-left {
+      position: absolute;
+      left: 814px;
+      top: 708px;
+      width: 180px;
+      height: 144px;
+      border-radius: 9px;
+      background: #f8f9fb;
+      border: 1px solid #dce4eb;
+      box-shadow: 0 7px 16px rgba(18, 31, 46, 0.10);
+      padding: 15px 12px;
+      text-align: center;
+    }
+
+    .kpi-mini-right {
+      position: absolute;
+      left: 1002px;
+      top: 708px;
+      width: 172px;
+      height: 144px;
+      border-radius: 9px;
+      background: #f8f9fb;
+      border: 1px solid #dce4eb;
+      box-shadow: 0 7px 16px rgba(18, 31, 46, 0.10);
+      padding: 15px 12px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Data Warehouse Dashboard</div>
+
+    <div class="filter-bar">
+      <div class="filter-group">
+        <div class="filter-label">Auto date range</div>
+        <div class="dropdown-pill active">
+          <span>▣</span>
+          <span>This Week</span>
+          <span class="chevron">⌄</span>
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-label">Services</div>
+        <div class="dropdown-pill">
+          <span>All</span>
+          <span class="chevron">⌄</span>
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-label">Posts</div>
+        <div class="dropdown-pill">
+          <span>All</span>
+          <span class="chevron">⌄</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-card">
+      <div class="card-heading">
+        <span class="icon">▤</span>
+        <span>Active Incidents by Day</span>
+      </div>
+      <div id="mainChart"></div>
+    </div>
+
+    <div class="bottom-left-card">
+      <div class="small-heading">Incidents</div>
+      <div id="incidentsChart"></div>
+    </div>
+
+    <div class="bottom-middle-card">
+      <div class="small-heading">Incident Resolution Rate</div>
+      <div id="resolutionChart"></div>
+    </div>
+
+    <div class="kpi-card-top-left">
+      <div class="kpi-small-heading">Incidents</div>
+      <div class="kpi-metric">24.5k</div>
+      <div class="kpi-change">↑ +13%</div>
+      <div class="kpi-footer">vs previous 7 days</div>
+    </div>
+
+    <div class="kpi-card-top-right">
+      <div class="kpi-small-heading">Resolution Rate</div>
+      <div class="kpi-metric">79.5%</div>
+      <div class="kpi-change">↑ 1</div>
+      <div class="kpi-footer">vs previous 7 days</div>
+    </div>
+
+    <div class="kpi-mini-left">
+      <div class="kpi-small-heading">Storage Utilization Rate</div>
+      <div class="kpi-metric">19.1%</div>
+      <div class="kpi-change">↑ 8%</div>
+      <div class="kpi-footer">vs previous 7 days</div>
+    </div>
+
+    <div class="kpi-mini-right">
+      <div class="kpi-small-heading">CPU Utilization</div>
+      <div class="kpi-metric">3.5%</div>
+      <div class="kpi-change">↑ 2.3%</div>
+      <div class="kpi-footer">vs previous 7 days</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    const mainChart = echarts.init(document.getElementById('mainChart'));
+    mainChart.setOption({
+      animation: false,
+      grid: {
+        left: 42,
+        right: 20,
+        top: 18,
+        bottom: 34
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30'],
+        axisLine: { lineStyle: { color: '#b9c0c8' } },
+        axisTick: { show: false },
+        axisLabel: {
+          color: '#1f2933',
+          fontSize: 13,
+          margin: 10
+        }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 4000,
+        interval: 1000,
+        axisLine: { show: false },
+        axisTick: { show: false },
+        splitLine: {
+          lineStyle: { color: '#d9dee4' }
+        },
+        axisLabel: {
+          color: '#1f2933',
+          fontSize: 13,
+          formatter: function(value) {
+            return value.toLocaleString();
+          }
+        }
+      },
+      series: [
+        {
+          type: 'line',
+          smooth: true,
+          symbol: 'circle',
+          symbolSize: 6,
+          showSymbol: true,
+          data: [1200, 1500, 1800, 2000, 2300, 2500, 2600, 2700, 2900, 3100, 3200, 3000, 2800, 2700, 2600, 2500, 2400, 2300, 2200, 2100, 2200, 2300, 2400, 2600, 2700, 2800, 2600, 2400, 2300, 2200],
+          lineStyle: {
+            color: '#1b84d8',
+            width: 2
+          },
+          itemStyle: {
+            color: '#ffffff',
+            borderColor: '#1b84d8',
+            borderWidth: 2
+          },
+          label: {
+            show: true,
+            position: 'top',
+            color: '#111827',
+            fontSize: 12,
+            formatter: function(params) {
+              return String(params.value);
+            }
+          },
+          areaStyle: {
+            color: 'rgba(43, 120, 213, 0.35)'
+          }
+        },
+        {
+          type: 'line',
+          smooth: true,
+          symbol: 'circle',
+          symbolSize: 6,
+          showSymbol: true,
+          data: [900, 950, 1000, 1100, 1150, 1200, 1300, 1350, 1400, 1500, 1550, 1500, 1450, 1400, 1350, 1300, 1250, 1200, 1150, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1650, 1600, 1550, 1500],
+          lineStyle: {
+            color: '#d84d56',
+            width: 2
+          },
+          itemStyle: {
+            color: '#ffffff',
+            borderColor: '#d84d56',
+            borderWidth: 2
+          },
+          label: {
+            show: true,
+            position: 'top',
+            color: '#4b151d',
+            fontSize: 12,
+            formatter: function(params) {
+              return String(params.value);
+            }
+          },
+          areaStyle: {
+            color: 'rgba(216, 77, 86, 0.28)'
+          }
+        }
+      ]
+    });
+
+    const incidentsChart = echarts.init(document.getElementById('incidentsChart'));
+    incidentsChart.setOption({
+      animation: false,
+      grid: {
+        left: 42,
+        right: 12,
+        top: 8,
+        bottom: 24
+      },
+      xAxis: {
+        type: 'category',
+        data: ['1','2','3','4','5','6','7','8'],
+        axisLine: { lineStyle: { color: '#b9c0c8' } },
+        axisTick: { show: false },
+        axisLabel: { show: false }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 12,
+        interval: 2,
+        axisLine: { show: false },
+        axisTick: { show: false },
+        splitLine: {
+          lineStyle: { color: '#d9dee4' }
+        },
+        axisLabel: {
+          color: '#1f2933',
+          fontSize: 13
+        }
+      },
+      series: [
+        {
+          type: 'bar',
+          data: [6, 9, 10, 12, 9, 6, 4, 6],
+          barWidth: 24,
+          itemStyle: {
+            color: '#3482e3',
+            borderRadius: [3, 3, 0, 0]
+          },
+          label: {
+            show: true,
+            position: 'top',
+            color: '#1f2933',
+            fontSize: 12
+          }
+        }
+      ]
+    });
+
+    const resolutionChart = echarts.init(document.getElementById('resolutionChart'));
+    resolutionChart.setOption({
+      animation: false,
+      grid: {
+        left: 40,
+        right: 14,
+        top: 8,
+        bottom: 24
+      },
+      xAxis: {
+        type: 'category',
+        data: ['1','2','3','4','5','6'],
+        axisLine: { lineStyle: { color: '#b9c0c8' } },
+        axisTick: { show: false },
+        axisLabel: { show: false }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 12,
+        interval: 2,
+        axisLine: { show: false },
+        axisTick: { show: false },
+        splitLine: {
+          lineStyle: { color: '#d9dee4' }
+        },
+        axisLabel: {
+          color: '#1f2933',
+          fontSize: 13
+        }
+      },
+      series: [
+        {
+          name: 'Resolved',
+          type: 'bar',
+          stack: 'total',
+          data: [4, 5, 3, 2, 3, 4],
+          barWidth: 30,
+          itemStyle: {
+            color: '#48b275'
+          },
+          label: {
+            show: true,
+            position: 'inside',
+            color: '#ffffff',
+            fontSize: 12
+          }
+        },
+        {
+          name: 'Unresolved',
+          type: 'bar',
+          stack: 'total',
+          data: [2, 4, 3, 2, 2, 3],
+          barWidth: 30,
+          itemStyle: {
+            color: '#df4a54'
+          },
+          label: {
+            show: true,
+            position: 'inside',
+            color: '#ffffff',
+            fontSize: 12
+          }
+        }
+      ]
+    });
+  </script>
+</body>
+</html>

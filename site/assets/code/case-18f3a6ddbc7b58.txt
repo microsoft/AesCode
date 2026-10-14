@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Manufacturing KPI Dashboard Template</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #ddd;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #0c2a45;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1760px;
+      height: 1136px;
+      overflow: hidden;
+      background: #fbf3ee;
+      border: 1px solid #d7c9bb;
+    }
+
+    .page-title {
+      position: absolute;
+      top: 10px;
+      left: 0;
+      width: 1760px;
+      text-align: center;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 66px;
+      line-height: 1;
+      letter-spacing: 5px;
+      color: #0b3367;
+      font-weight: 800;
+    }
+
+    .subtitle {
+      position: absolute;
+      top: 86px;
+      left: 0;
+      width: 1760px;
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 25px;
+      letter-spacing: 10px;
+      color: #103a5d;
+      font-weight: 800;
+    }
+
+    .description {
+      position: absolute;
+      top: 118px;
+      left: 0;
+      width: 1760px;
+      text-align: center;
+      color: #1f1f1f;
+      font-size: 18px;
+    }
+
+    .dashboard {
+      position: absolute;
+      left: 22px;
+      top: 145px;
+      width: 1716px;
+      height: 975px;
+      background: #fff4ee;
+      border: 1.5px solid #d27b68;
+      border-radius: 10px;
+    }
+
+    .date-selector {
+      position: absolute;
+      left: 24px;
+      top: 13px;
+      width: 435px;
+      height: 76px;
+      border: 1px solid #bfc3c5;
+    }
+
+    .date-selector table {
+      width: 100%;
+      height: 100%;
+      border-collapse: collapse;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .date-selector td:first-child {
+      background: #e9e9e9;
+      text-align: center;
+      border-right: 2px solid #c6c7c8;
+    }
+
+    .date-selector td:last-child {
+      background: #0d3e75;
+      color: white;
+    }
+
+    .main-banner {
+      position: absolute;
+      left: 480px;
+      top: 13px;
+      width: 1206px;
+      height: 76px;
+      background: #082a54;
+      border-radius: 8px;
+      color: white;
+      text-align: center;
+      font-size: 28px;
+      line-height: 76px;
+      font-weight: 800;
+      letter-spacing: 4px;
+    }
+
+    .tile {
+      position: absolute;
+      background: #fff7f1;
+      border: 1.5px solid #f0d5c8;
+      border-radius: 9px;
+      overflow: hidden;
+    }
+
+    .tile h3 {
+      margin: 0;
+      text-align: center;
+      color: #083d59;
+      font-size: 18px;
+      line-height: 24px;
+      font-weight: 800;
+    }
+
+    .oee-tile {
+      left: 0;
+      top: 94px;
+      width: 836px;
+      height: 224px;
+    }
+
+    .production-tile {
+      left: 850px;
+      top: 94px;
+      width: 846px;
+      height: 224px;
+    }
+
+    .chart {
+      width: 100%;
+      height: calc(100% - 27px);
+    }
+
+    .line-small-1 {
+      left: 0;
+      top: 327px;
+      width: 650px;
+      height: 83px;
+    }
+
+    .line-small-2 {
+      left: 0;
+      top: 419px;
+      width: 650px;
+      height: 83px;
+    }
+
+    .line-small-3 {
+      left: 0;
+      top: 510px;
+      width: 650px;
+      height: 83px;
+    }
+
+    .inventory-tile {
+      left: 0;
+      top: 593px;
+      width: 650px;
+      height: 140px;
+    }
+
+    .complaint-box {
+      position: absolute;
+      left: 675px;
+      top: 327px;
+      width: 270px;
+      height: 418px;
+      background: #084155;
+      border-radius: 10px;
+      color: white;
+      overflow: hidden;
+    }
+
+    .complaint-box h3 {
+      height: 37px;
+      line-height: 37px;
+      text-align: center;
+      font-size: 17px;
+    }
+
+    .complaint-table {
+      margin: 8px 11px 0 11px;
+      width: 248px;
+      border-collapse: collapse;
+      font-size: 13px;
+      color: #fff;
+    }
+
+    .complaint-table th,
+    .complaint-table td {
+      border-bottom: 1px solid rgba(255,255,255,.42);
+      height: 25px;
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .complaint-table th {
+      height: 29px;
+      text-transform: uppercase;
+    }
+
+    .cycle-tile {
+      left: 945px;
+      top: 327px;
+      width: 348px;
+      height: 257px;
+    }
+
+    .fp-tile {
+      left: 1306px;
+      top: 327px;
+      width: 384px;
+      height: 257px;
+    }
+
+    .ltir-tile {
+      position: absolute;
+      left: 945px;
+      top: 592px;
+      width: 745px;
+      height: 157px;
+      background: #082b58;
+      border-radius: 9px;
+      overflow: hidden;
+    }
+
+    .ltir-tile h3 {
+      height: 29px;
+      line-height: 29px;
+      font-size: 17px;
+      color: #fff;
+    }
+
+    .ltir-tile .chart {
+      height: 118px;
+    }
+
+    .summary-table {
+      position: absolute;
+      left: 0;
+      bottom: 8px;
+      width: 1688px;
+      height: 180px;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 14px;
+    }
+
+    .summary-table th,
+    .summary-table td {
+      border: 1px solid #bfc3c5;
+      text-align: center;
+      vertical-align: middle;
+      height: 30px;
+    }
+
+    .summary-table th {
+      background: #08315d;
+      color: white;
+      height: 27px;
+      font-weight: 800;
+    }
+
+    .summary-table th:first-child {
+      width: 280px;
+    }
+
+    .summary-table td:first-child {
+      background: #ffe1d3;
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="page-title">MANUFACTURING KPI</div>
+    <div class="subtitle">DASHBOARD TEMPLATE</div>
+    <div class="description">Designed to provide a comprehensive view of key performance indicators (KPIs) across your production processes.</div>
+
+    <div class="dashboard">
+      <div class="date-selector">
+        <table>
+          <tr>
+            <td>YEAR</td>
+            <td>2023</td>
+          </tr>
+          <tr>
+            <td>MONTH</td>
+            <td>ANNUAL</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="main-banner">MANUFACTURING KPI DASHBOARD</div>
+
+      <div class="tile oee-tile">
+        <h3>Overall Equipment Efficiency (OEE)</h3>
+        <div id="oeeChart" class="chart"></div>
+      </div>
+
+      <div class="tile production-tile">
+        <h3>Production Output (Units)</h3>
+        <div id="productionChart" class="chart"></div>
+      </div>
+
+      <div class="tile line-small-1">
+        <h3>Scrap or Reject Rate</h3>
+        <div id="scrapChart" class="chart"></div>
+      </div>
+
+      <div class="tile line-small-2">
+        <h3>Downtime Percentage</h3>
+        <div id="downtimeChart" class="chart"></div>
+      </div>
+
+      <div class="tile line-small-3">
+        <h3>On-time Delivery Rate</h3>
+        <div id="ontimeChart" class="chart"></div>
+      </div>
+
+      <div class="tile inventory-tile">
+        <h3>Inventory Turnover Rate</h3>
+        <div id="inventoryChart" class="chart"></div>
+      </div>
+
+      <div class="complaint-box">
+        <h3>CUSTOMER COMPLAINT</h3>
+        <table class="complaint-table">
+          <tr>
+            <th>MONTH</th>
+            <th>COMPLAINTS</th>
+          </tr>
+          <tr><td>JANUARY</td><td>04</td></tr>
+          <tr><td>FEBRUARY</td><td>03</td></tr>
+          <tr><td>MARCH</td><td>02</td></tr>
+          <tr><td>APRIL</td><td>05</td></tr>
+          <tr><td>MAY</td><td>03</td></tr>
+          <tr><td>JUNE</td><td>02</td></tr>
+          <tr><td>JULY</td><td>04</td></tr>
+          <tr><td>AUGUST</td><td>03</td></tr>
+          <tr><td>SEPTEMBER</td><td>02</td></tr>
+          <tr><td>OCTOBER</td><td>03</td></tr>
+          <tr><td>NOVEMBER</td><td>02</td></tr>
+          <tr><td>DECEMBER</td><td>02</td></tr>
+        </table>
+      </div>
+
+      <div class="tile cycle-tile">
+        <h3>Production Cycle Time<br>(Hours)</h3>
+        <div id="cycleChart" class="chart"></div>
+      </div>
+
+      <div class="tile fp-tile">
+        <h3>First Pass Yield (FPY)<br>(%)</h3>
+        <div id="fpChart" class="chart"></div>
+      </div>
+
+      <div class="ltir-tile">
+        <h3>Lost Time Incident Rate (LTIR)</h3>
+        <div id="ltirChart" class="chart"></div>
+      </div>
+
+      <table class="summary-table">
+        <tr>
+          <th>METRICS</th>
+          <th>JAN</th>
+          <th>FEB</th>
+          <th>MAR</th>
+          <th>APR</th>
+          <th>MAY</th>
+          <th>JUN</th>
+          <th>JUL</th>
+          <th>AUG</th>
+          <th>SEP</th>
+          <th>OCT</th>
+          <th>NOV</th>
+          <th>DEC</th>
+        </tr>
+        <tr>
+          <td>Overall Equipment Efficiency (OEE)</td>
+          <td>88%</td>
+          <td>89%</td>
+          <td>89%</td>
+          <td>90%</td>
+          <td>91%</td>
+          <td>91%</td>
+          <td>92%</td>
+          <td>93%</td>
+          <td>93%</td>
+          <td>93%</td>
+          <td>93%</td>
+          <td>93%</td>
+        </tr>
+        <tr>
+          <td>Production Output (Units)</td>
+          <td>1,000</td>
+          <td>1,100</td>
+          <td>1,150</td>
+          <td>1,190</td>
+          <td>1,225</td>
+          <td>1,237</td>
+          <td>1,250</td>
+          <td>1,277</td>
+          <td>1,285</td>
+          <td>1,325</td>
+          <td>1,337</td>
+          <td>1,375</td>
+        </tr>
+        <tr>
+          <td>Scrap or Reject Rate</td>
+          <td>2.5%</td>
+          <td>2.2%</td>
+          <td>2.1%</td>
+          <td>2.0%</td>
+          <td>1.9%</td>
+          <td>1.8%</td>
+          <td>1.6%</td>
+          <td>1.5%</td>
+          <td>1.4%</td>
+          <td>1.3%</td>
+          <td>1.2%</td>
+          <td>1.1%</td>
+        </tr>
+        <tr>
+          <td>Downtime Percentage</td>
+          <td>4.0%</td>
+          <td>3.6%</td>
+          <td>3.2%</td>
+          <td>2.8%</td>
+          <td>2.6%</td>
+          <td>2.3%</td>
+          <td>2.1%</td>
+          <td>1.9%</td>
+          <td>1.7%</td>
+          <td>1.5%</td>
+          <td>1.3%</td>
+          <td>1.2%</td>
+        </tr>
+        <tr>
+          <td>On-time Delivery Rate</td>
+          <td>94%</td>
+          <td>94%</td>
+          <td>93%</td>
+          <td>94%</td>
+          <td>95%</td>
+          <td>95%</td>
+          <td>96%</td>
+          <td>96%</td>
+          <td>96%</td>
+          <td>97%</td>
+          <td>97%</td>
+          <td>98%</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+
+    echarts.init(document.getElementById('oeeChart')).setOption({
+      animation: false,
+      grid: { left: 48, right: 25, top: 23, bottom: 35 },
+      xAxis: {
+        type: 'category',
+        data: months,
+        axisTick: { show: false },
+        axisLine: { lineStyle: { color: '#9fa3a6' } },
+        axisLabel: { color: '#1f1f1f', fontWeight: 700, fontSize: 13 }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 100,
+        interval: 20,
+        axisLabel: { formatter: '{value}%', color: '#1f1f1f', fontWeight: 700, fontSize: 13 },
+        splitLine: { lineStyle: { color: '#eeeeee' } }
+      },
+      series: [{
+        type: 'bar',
+        data: [88,89,89,90,91,91,92,92,93,93,93,93],
+        barWidth: 29,
+        itemStyle: { color: '#084a62' },
+        label: {
+          show: true,
+          position: 'top',
+          formatter: '{c}%',
+          color: '#111',
+          fontWeight: 800,
+          fontSize: 12
+        }
+      }]
+    });
+
+    echarts.init(document.getElementById('productionChart')).setOption({
+      animation: false,
+      grid: { left: 60, right: 18, top: 22, bottom: 38 },
+      xAxis: {
+        type: 'category',
+        data: months,
+        axisTick: { show: false },
+        axisLine: { lineStyle: { color: '#9fa3a6' } },
+        axisLabel: { color: '#1f1f1f', fontWeight: 700, fontSize: 13 }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 1600,
+        interval: 400,
+        axisLabel: { color: '#1f1f1f', fontWeight: 700, fontSize: 13 },
+        splitLine: { lineStyle: { color: '#eeeeee' } }
+      },
+      series: [{
+        type: 'line',
+        smooth: true,
+        data: [1000,1100,1150,1190,1225,1237,1250,1277,1285,1325,1337,1375],
+        symbol: 'circle',
+        symbolSize: 9,
+        lineStyle: { width: 3, color: '#4a90d5' },
+        itemStyle: { color: '#4f9ee6' },
+        label: {
+          show: true,
+          position: 'top',
+          formatter: '{c}',
+          color: '#111',
+          fontWeight: 800,
+          fontSize: 12
+        }
+      }]
+    });
+
+    echarts.init(document.getElementById('scrapChart')).setOption({
+      animation: false,
+      grid: { left: 48, right: 18, top: 20, bottom: 24 },
+      xAxis: {
+        type: 'category',
+        data: months,
+        axisTick: { show: false },
+        axisLine: { lineStyle: { color: '#9fa3a6' } },
+        axisLabel: { color: '#1f1f1f', fontWeight: 700, fontSize: 12 }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 4,
+        interval: 1,
+        axisLabel: { formatter: '{value}%', color: '#1f1f1f', fontWeight: 700, fontSize: 12 },
+        splitLine: { lineStyle: { color: '#eeeeee' } }
+      },
+      series: [{
+        type: 'line',
+        smooth: true,
+        data: [2.5, 2.2, 2.1, 2.0, 1.9, 1.8, 1.6, 1.5, 1.4, 1.3, 1.2, 1.1],
+        symbol: 'circle',
+        symbolSize: 7,
+        lineStyle: { width: 3, color: '#2e939f' },
+        itemStyle: { color: '#55b5bf' }
+      }]
+    });
+
+    echarts.init(document.getElementById('downtimeChart')).setOption({
+      animation: false,
+      grid: { left: 48, right: 18, top: 20, bottom: 24 },
+      xAxis: {
+        type: 'category',
+        data: months,
+        axisTick: { show: false },
+        axisLine: { lineStyle: { color: '#9fa3a6' } },
+        axisLabel: { color: '#1f1f1f', fontWeight: 700, fontSize: 12 }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 6,
+        interval: 2,
+        axisLabel: { formatter: '{value}%', color: '#1f1f1f', fontWeight: 700, fontSize: 12 },
+        splitLine: { lineStyle: { color: '#eeeeee' } }
+      },
+      series: [{
+        type: 'line',
+        smooth: true,
+        data: [4, 3.6, 3.2, 2.8, 2.6, 2.3, 2.1, 1.9, 1.7, 1.5, 1.3, 1.2],
+        symbol: 'circle',
+        symbolSize: 7,
+        lineStyle: { width: 3, color: '#ff6a32' },
+        itemStyle: { color: '#ff7d48' }
+      }]
+    });
+
+    echarts.init(document.getElementById('ontimeChart')).setOption({
+      animation: false,
+      grid: { left: 48, right: 18, top: 20, bottom: 24 },
+      xAxis: {
+        type: 'category',
+        data: months,
+        axisTick: { show: false },
+        axisLine: { lineStyle: { color: '#9fa3a6' } },
+        axisLabel: { color: '#1f1f1f', fontWeight: 700, fontSize: 12 }
+      },
+      yAxis: {
+        type: 'value',
+        min: 80,
+        max: 100,
+        interval: 10,
+        axisLabel: { formatter: '{value}%', color: '#1f1f1f', fontWeight: 700, fontSize: 12 },
+        splitLine: { lineStyle: { color: '#eeeeee' } }
+      },
+      series: [{
+        type: 'line',
+        smooth: true,
+        data: [94, 94, 93, 94, 95, 95, 96, 96, 96, 97, 97, 98],
+        symbol: 'circle',
+        symbolSize: 7,
+        lineStyle: { width: 3, color: '#4a90d5' },
+        itemStyle: { color: '#5c9ee5' }
+      }]
+    });
+
+    echarts.init(document.getElementById('inventoryChart')).setOption({
+      animation: false,
+      grid: { left: 48, right: 20, top: 20, bottom: 29 },
+      xAxis: {
+        type: 'category',
+        data: months,
+        axisTick: { show: false },
+        axisLine: { lineStyle: { color: '#9fa3a6' } },
+        axisLabel: { color: '#1f1f1f', fontWeight: 700, fontSize: 12 }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 6,
+        interval: 2,
+        axisLabel: { color: '#1f1f1f', fontWeight: 700, fontSize: 12 },
+        splitLine: { lineStyle: { color: '#eeeeee' } }
+      },
+      series: [{
+        type: 'bar',
+        data: [4, 4.3, 4.6, 4.8, 5.1, 5, 5.4, 5.6, 5.2, 5.3, 5.5, 5.7],
+        barWidth: 27,
+        itemStyle: { color: '#084a62' },
+        label: {
+          show: true,
+          position: 'top',
+          formatter: '{c}',
+          color: '#111',
+          fontWeight: 800,
+          fontSize: 12
+        }
+      }]
+    });
+
+    echarts.init(document.getElementById('cycleChart')).setOption({
+      animation: false,
+      grid: { left: 52, right: 22, top: 22, bottom: 27 },
+      xAxis: {
+        type: 'value',
+        min: 0,
+        max: 12,
+        interval: 2,
+        axisLabel: { formatter: '{value} Hours', color: '#1f1f1f', fontWeight: 700, fontSize: 12 },
+        splitLine: { lineStyle: { color: '#eeeeee' } }
+      },
+      yAxis: {
+        type: 'category',
+        data: ['JAN','MAR','MAY','JUL','SEP','NOV'],
+        axisTick: { show: false },
+        axisLine: { lineStyle: { color: '#9fa3a6' } },
+        axisLabel: { color: '#1f1f1f', fontWeight: 700, fontSize: 12 }
+      },
+      series: [{
+        type: 'bar',
+        data: [10,9,8,7,6,5],
+        barWidth: 13,
+        itemStyle: { color: '#3f7fc7' },
+        label: {
+          show: true,
+          position: 'right',
+          formatter: '{c}',
+          color: '#111',
+          fontWeight: 800,
+          fontSize: 12
+        }
+      }]
+    });
+
+    echarts.init(document.getElementById('fpChart')).setOption({
+      animation: false,
+      grid: { left: 54, right: 22, top: 22, bottom: 27 },
+      xAxis: {
+        type: 'value',
+        min: 0,
+        max: 100,
+        interval: 20,
+        axisLabel: { formatter: '{value}%', color: '#1f1f1f', fontWeight: 700, fontSize: 12 },
+        splitLine: { lineStyle: { color: '#eeeeee' } }
+      },
+      yAxis: {
+        type: 'category',
+        data: ['JAN','MAR','MAY','JUL','SEP','NOV'],
+        axisTick: { show: false },
+        axisLine: { lineStyle: { color: '#9fa3a6' } },
+        axisLabel: { color: '#1f1f1f', fontWeight: 700, fontSize: 12 }
+      },
+      series: [{
+        type: 'bar',
+        data: [93,94,95,96,96,97],
+        barWidth: 12,
+        itemStyle: { color: '#ff7538' },
+        label: {
+          show: true,
+          position: 'right',
+          formatter: '{c}%',
+          color: '#111',
+          fontWeight: 800,
+          fontSize: 12
+        }
+      }]
+    });
+
+    echarts.init(document.getElementById('ltirChart')).setOption({
+      animation: false,
+      grid: { left: 52, right: 18, top: 19, bottom: 22 },
+      xAxis: {
+        type: 'category',
+        data: months,
+        axisTick: { show: false },
+        axisLine: { lineStyle: { color: '#a9b0b5' } },
+        axisLabel: { color: '#fff', fontWeight: 800, fontSize: 13 }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: .6,
+        interval: .2,
+        axisLabel: { color: '#fff', fontWeight: 800, fontSize: 13 },
+        splitLine: { lineStyle: { color: '#e4ebf0' } }
+      },
+      series: [{
+        type: 'line',
+        smooth: true,
+        data: [0.3,0.28,0.25,0.2,0.18,0.17,0.16,0.15,0.14,0.13,0.12,0.1],
+        symbol: 'circle',
+        symbolSize: 10,
+        lineStyle: { width: 3, color: '#c5d0d7' },
+        itemStyle: { color: '#d8e0e3' },
+        label: {
+          show: true,
+          position: 'top',
+          formatter: '{c}',
+          color: '#fff',
+          fontWeight: 800,
+          fontSize: 12
+        }
+      }]
+    });
+  </script>
+</body>
+</html>

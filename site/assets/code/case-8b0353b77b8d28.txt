@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NexaMind Systems Hiring Poster</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #020817;
+    font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 78% 12%, rgba(18, 134, 255, 0.20), transparent 20%),
+      linear-gradient(135deg, #051022 0%, #06182f 48%, #051228 100%);
+    color: #ffffff;
+  }
+
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 120px;
+    height: 1536px;
+    background: linear-gradient(180deg, #094ce9 0%, #08b9e9 56%, #22d4e4 100%);
+    overflow: hidden;
+  }
+
+  .dot-grid {
+    position: absolute;
+    left: 28px;
+    top: 55px;
+    width: 70px;
+    height: 200px;
+    display: grid;
+    grid-template-columns: repeat(7, 6px);
+    gap: 14px;
+  }
+
+  .dot-grid span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(0, 206, 255, 0.48);
+  }
+
+  .side-line {
+    position: absolute;
+    left: 26px;
+    top: 270px;
+    width: 70px;
+    height: 760px;
+    border-left: 2px solid rgba(180, 255, 255, 0.32);
+    border-top: 2px solid rgba(180, 255, 255, 0.32);
+    transform: skewX(-32deg);
+  }
+
+  .node {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 2px solid #8df9ff;
+    border-radius: 50%;
+  }
+
+  .node.n1 { left: 78px; top: 270px; width: 7px; height: 7px; }
+  .node.n2 { left: 66px; top: 360px; width: 8px; height: 8px; }
+  .node.n3 { left: 60px; top: 535px; width: 10px; height: 10px; }
+  .node.n4 { left: 58px; top: 618px; width: 8px; height: 8px; }
+  .node.n5 { left: 38px; top: 855px; width: 10px; height: 10px; }
+  .node.n6 { left: 62px; top: 995px; width: 8px; height: 8px; }
+
+  .hex {
+    position: absolute;
+    left: 44px;
+    top: 430px;
+    width: 48px;
+    height: 42px;
+    border: 2px solid rgba(182, 255, 255, 0.72);
+    clip-path: polygon(25% 6%, 75% 6%, 100% 50%, 75% 94%, 25% 94%, 0% 50%);
+  }
+
+  .brand {
+    position: absolute;
+    left: 20px;
+    bottom: 38px;
+    width: 82px;
+    text-align: center;
+    color: #f3fbff;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 2px;
+  }
+
+  .brand-mark {
+    margin: 0 auto 8px;
+    width: 50px;
+    height: 50px;
+    border: 8px solid #ffffff;
+    clip-path: polygon(50% 0%, 100% 24%, 100% 76%, 50% 100%, 0% 76%, 0% 24%);
+  }
+
+  .main {
+    position: absolute;
+    left: 160px;
+    top: 58px;
+    width: 840px;
+    height: 1420px;
+  }
+
+  .eyebrow {
+    color: #38c7ff;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: 8px;
+    margin-bottom: 16px;
+  }
+
+  .headline {
+    margin: 0;
+    font-size: 56px;
+    line-height: 1.26;
+    letter-spacing: -2px;
+    font-weight: 900;
+    color: #ffffff;
+  }
+
+  .subhead {
+    margin-top: 12px;
+    width: 500px;
+    color: #a7b1c2;
+    font-size: 25px;
+    line-height: 1.35;
+    font-weight: 500;
+  }
+
+  .illustration-wrap {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 340px;
+    height: 275px;
+    border: 2px solid #22bfff;
+    border-radius: 14px;
+    background:
+      radial-gradient(circle at 86% 32%, rgba(0, 220, 255, 0.34), transparent 32px),
+      linear-gradient(135deg, rgba(12, 80, 150, 0.28), rgba(4, 43, 88, 0.42));
+    box-shadow: 0 0 16px rgba(0, 202, 255, 0.45);
+  }
+
+  .illustration-wrap img {
+    position: absolute;
+    left: 20px;
+    top: 18px;
+    width: 300px;
+    height: 220px;
+    object-fit: cover;
+    opacity: 0.78;
+  }
+
+  .illustration-text {
+    position: absolute;
+    left: 0;
+    top: 78px;
+    width: 100%;
+    text-align: center;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(14, 128, 255, 0.45);
+  }
+
+  .role-card {
+    position: absolute;
+    left: 0;
+    top: 305px;
+    width: 840px;
+    height: 200px;
+    border: 2px solid rgba(43, 151, 255, 0.65);
+    border-radius: 13px;
+    background: rgba(5, 20, 45, 0.88);
+    overflow: hidden;
+    box-shadow: inset 0 0 22px rgba(22, 142, 255, 0.15);
+  }
+
+  .role-header {
+    height: 88px;
+    background: linear-gradient(100deg, #0b36c2 0%, #098ef0 50%, #0ba4f5 100%);
+    border-bottom: 1px solid rgba(153, 215, 255, 0.55);
+    display: flex;
+    align-items: center;
+    padding-left: 86px;
+    color: #ffffff;
+  }
+
+  .role-title {
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin-left: 10px;
+    white-space: nowrap;
+  }
+
+  .role-meta {
+    padding: 13px 32px 0 86px;
+    color: #aeb8ca;
+    font-size: 22px;
+    line-height: 1.45;
+  }
+
+  .meta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+
+  .meta-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #12cfff, #1866ff);
+    color: #fff;
+    text-align: center;
+    font-weight: 800;
+    font-size: 13px;
+    padding-top: 8px;
+  }
+
+  .section-card {
+    position: absolute;
+    left: 0;
+    width: 840px;
+    border: 2px solid rgba(55, 149, 255, 0.48);
+    border-radius: 12px;
+    background: rgba(6, 22, 48, 0.82);
+  }
+
+  .section-do {
+    top: 520px;
+    height: 220px;
+  }
+
+  .section-look {
+    top: 760px;
+    height: 210px;
+  }
+
+  .section-head {
+    position: absolute;
+    left: 128px;
+    top: 14px;
+    color: #22bfff;
+    font-size: 31px;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .section-head::after {
+    content: "";
+    position: absolute;
+    right: -120px;
+    top: 6px;
+    width: 410px;
+    height: 1px;
+    background: rgba(133, 189, 255, 0.42);
+  }
+
+  .bullet-list {
+    position: absolute;
+    left: 128px;
+    top: 58px;
+    margin: 0;
+    padding-left: 26px;
+    color: #f0f2f8;
+    font-size: 18px;
+    line-height: 1.48;
+    font-weight: 600;
+  }
+
+  .bullet-list li {
+    margin-bottom: 9px;
+    padding-left: 2px;
+  }
+
+  .circle-icon {
+    position: absolute;
+    left: 20px;
+    top: 11px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 1.5px solid #58bfff;
+    color: #c7f8ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    background: rgba(20, 72, 130, 0.12);
+  }
+
+  .salary-card {
+    position: absolute;
+    left: 0;
+    top: 990px;
+    width: 840px;
+    height: 180px;
+    border: 2px solid rgba(41, 142, 255, 0.47);
+    border-radius: 12px;
+    background: rgba(5, 20, 46, 0.82);
+    display: flex;
+  }
+
+  .salary-left {
+    width: 400px;
+    padding-left: 20px;
+    padding-top: 12px;
+    position: relative;
+  }
+
+  .salary-label {
+    font-size: 17px;
+    color: #aeb8ca;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .salary-number {
+    font-size: 34px;
+    color: #10ebf1;
+    font-weight: 900;
+    letter-spacing: -1px;
+  }
+
+  .salary-visual {
+    position: absolute;
+    bottom: 17px;
+    left: 80px;
+    width: 230px;
+    height: 48px;
+    border-bottom: 1px dashed rgba(102, 178, 255, 0.38);
+    display: flex;
+    align-items: center;
+    gap: 11px;
+  }
+
+  .coin {
+    width: 78px;
+    height: 55px;
+    border-radius: 50%;
+    border: 2px solid rgba(119, 230, 255, 0.65);
+    background: radial-gradient(circle, rgba(20, 170, 255, 0.33), rgba(4, 25, 52, 0.85));
+    text-align: center;
+    font-size: 30px;
+    font-weight: 900;
+  }
+
+  .barrows {
+    margin-left: auto;
+    width: 130px;
+    height: 50px;
+    border-top: 2px dashed rgba(62, 180, 255, 0.42);
+    border-right: 3px solid #18efff;
+    transform: skewY(-32deg);
+  }
+
+  .benefits {
+    width: 440px;
+    border-left: 2px solid rgba(83, 171, 255, 0.52);
+    padding-left: 26px;
+    padding-top: 12px;
+  }
+
+  .benefit-line {
+    height: 48px;
+    border: 1.5px solid rgba(38, 138, 255, 0.46);
+    border-radius: 9px;
+    margin-bottom: 12px;
+    color: #f2f4fb;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .metrics-card {
+    position: absolute;
+    left: 0;
+    top: 1190px;
+    width: 840px;
+    height: 125px;
+    border: 2px solid rgba(52, 146, 255, 0.52);
+    border-radius: 12px;
+    background: rgba(5, 21, 48, 0.88);
+    display: flex;
+    align-items: center;
+  }
+
+  .metric-box {
+    width: 280px;
+    height: 82px;
+    border-right: 1px solid rgba(82, 164, 255, 0.52);
+    display: flex;
+    align-items: center;
+    padding-left: 22px;
+    gap: 18px;
+  }
+
+  .metric-box:last-child {
+    border-right: none;
+  }
+
+  .metric-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1.4px solid #59bfff;
+    background: rgba(24, 83, 150, 0.14);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c7f7ff;
+    font-size: 21px;
+  }
+
+  .metric-label {
+    color: #d7deea;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  .metric-value {
+    color: #09e7f5;
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: -1px;
+  }
+
+  .apply-card {
+    position: absolute;
+    left: 0;
+    top: 1300px;
+    width: 840px;
+    height: 110px;
+    border: 2px solid rgba(52, 146, 255, 0.52);
+    border-radius: 12px;
+    background: rgba(5, 21, 48, 0.88);
+    display: flex;
+    align-items: center;
+  }
+
+  .apply-circle {
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    border: 1.6px solid #45afff;
+    margin-left: 20px;
+    background: rgba(20, 135, 220, 0.13);
+  }
+
+  .apply-text {
+    margin-left: 32px;
+    color: #ffffff;
+    font-size: 29px;
+    line-height: 1.15;
+    font-weight: 900;
+  }
+
+  .apply-url {
+    color: #16e7ff;
+    margin-top: 4px;
+    font-size: 23px;
+  }
+
+  .apply-arrow {
+    margin-left: auto;
+    margin-right: 25px;
+    width: 88px;
+    height: 68px;
+    border: 1.5px solid rgba(84, 170, 255, 0.72);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #27e8ff;
+    font-size: 42px;
+    font-weight: 900;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 840px;
+    text-align: center;
+    color: #8b96a6;
+    font-size: 18px;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="sidebar">
+      <div class="dot-grid" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="side-line" aria-hidden="true"></div>
+      <div class="hex" aria-hidden="true"></div>
+      <div class="node n1" aria-hidden="true"></div>
+      <div class="node n2" aria-hidden="true"></div>
+      <div class="node n3" aria-hidden="true"></div>
+      <div class="node n4" aria-hidden="true"></div>
+      <div class="node n5" aria-hidden="true"></div>
+      <div class="node n6" aria-hidden="true"></div>
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        NEXAMIND<br>SYSTEMS
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="eyebrow">WE'RE HIRING</div>
+      <h1 class="headline">Build the Future<br>of Applied AI</h1>
+      <div class="subhead">Join NexaMind Systems to design trustworthy AI tools for real-world teams.</div>
+
+      <div class="illustration-wrap" aria-label="AI Team Illustration placeholder">
+        <img src="https://placehold.co/320x220?text=AI+Team+Illustration" alt="AI Team Illustration placeholder" />
+        <div class="illustration-text">AI Team Illustration</div>
+      </div>
+
+      <section class="role-card">
+        <div class="role-header">
+          <div class="circle-icon" aria-hidden="true">⚙</div>
+          <div class="role-title">Senior Machine Learning Engineer</div>
+        </div>
+        <div class="role-meta">
+          <div class="meta-row"><div class="meta-icon">●</div><span>San Francisco, CA · Hybrid</span></div>
+          <div class="meta-row"><div class="meta-icon">▣</div><span>Full-time · AI Platform Group</span></div>
+        </div>
+      </section>
+
+      <section class="section-card section-do">
+        <div class="circle-icon" aria-hidden="true">⌁</div>
+        <div class="section-head">What you’ll do</div>
+        <ul class="bullet-list">
+          <li>Build scalable, reliable inference services for production AI workloads.</li>
+          <li>Design and implement robust evaluation pipelines and metrics.</li>
+          <li>Monitor model performance and improve quality in production.</li>
+          <li>Partner with product and design to ship impactful AI features.</li>
+        </ul>
+      </section>
+
+      <section class="section-card section-look">
+        <div class="circle-icon" aria-hidden="true">⌕</div>
+        <div class="section-head">What we’re looking for</div>
+        <ul class="bullet-list">
+          <li>5+ years of experience in machine learning or applied AI.</li>
+          <li>Python, PyTorch, and distributed training.</li>
+          <li>Experience shipping ML systems to production at scale.</li>
+          <li>Strong fundamentals in ML, data structures, and system design.</li>
+        </ul>
+      </section>
+
+      <section class="salary-card">
+        <div class="salary-left">
+          <div class="salary-label">Base salary range</div>
+          <div class="salary-number">$185,000 - $230,000</div>
+          <div class="salary-visual" aria-hidden="true">
+            <div class="coin">$</div>
+            <div class="barrows"></div>
+          </div>
+        </div>
+        <div class="benefits">
+          <div class="benefit-line">🎁 Annual bonus + equity</div>
+          <div class="benefit-line">🛡 Comprehensive health coverage</div>
+          <div class="benefit-line">🎓 Learning stipend $2,000</div>
+        </div>
+      </section>
+
+      <section class="metrics-card">
+        <div class="metric-box">
+          <div class="metric-icon" aria-hidden="true">♟</div>
+          <div>
+            <div class="metric-label">Open roles</div>
+            <div class="metric-value">12</div>
+          </div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-icon" aria-hidden="true">💬</div>
+          <div>
+            <div class="metric-label">Avg. response</div>
+            <div class="metric-value">7 days</div>
+          </div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-icon" aria-hidden="true">📅</div>
+          <div>
+            <div class="metric-label">Applications close</div>
+            <div class="metric-value">May 31, 2026</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="apply-card">
+        <div class="apply-circle" aria-hidden="true">➤</div>
+        <div class="apply-text">
+          <div>Apply now</div>
+          <div class="apply-url">careers.nexamind.ai/apply</div>
+        </div>
+        <div class="apply-arrow" aria-hidden="true">→</div>
+      </section>
+
+      <div class="footer">NexaMind Systems is an equal opportunity employer.</div>
+    </div>
+  </div>
+</body>
+</html>

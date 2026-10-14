@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Harborlight Reading Circle Pricing Poster</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9edf2;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background: #f4f6f8;
+    color: #082653;
+  }
+
+  .header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 226px;
+    background: #072551;
+    color: white;
+  }
+
+  .title {
+    position: absolute;
+    left: 240px;
+    top: 48px;
+    font-size: 60px;
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -2px;
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 262px;
+    top: 146px;
+    font-size: 34px;
+    color: #f12538;
+    font-weight: 700;
+  }
+
+  .intro {
+    position: absolute;
+    top: 245px;
+    width: 1024px;
+    text-align: center;
+    font-size: 27px;
+    font-weight: 750;
+    color: #072551;
+  }
+
+  .connector {
+    position: absolute;
+    left: 202px;
+    top: 537px;
+    width: 4px;
+    height: 504px;
+    background: #dc2438;
+    border-radius: 4px;
+    z-index: 1;
+  }
+
+  .card {
+    position: absolute;
+    left: 130px;
+    width: 785px;
+    height: 248px;
+    background: white;
+    border: 2.5px solid #082855;
+    border-radius: 14px;
+    box-shadow: 0 12px 18px rgba(7, 37, 82, 0.22);
+    z-index: 4;
+  }
+
+  .card1 { top: 290px; }
+  .card2 { top: 558px; }
+  .card3 { top: 826px; }
+  .card4 { top: 1094px; height: 215px; }
+
+  .card-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 160px;
+    height: 248px;
+    background: #072551;
+    border: 2.5px solid #082855;
+    border-right: none;
+    border-radius: 14px 0 0 14px;
+  }
+
+  .icon-line {
+    position: absolute;
+    left: 64px;
+    top: 69px;
+    width: 64px;
+    height: 64px;
+    border: 2.5px solid #ffffff;
+    border-radius: 50%;
+  }
+
+  .badge {
+    position: absolute;
+    left: -38px;
+    top: 20px;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: #dc2438;
+    border: 4px solid #ffffff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    font-weight: 800;
+    z-index: 8;
+    letter-spacing: 1px;
+  }
+
+  .price {
+    color: #e02538;
+    font-size: 31px;
+    font-weight: 800;
+    margin-top: 10px;
+  }
+
+  .desc {
+    font-size: 21px;
+    color: #10284c;
+    margin-top: 8px;
+    width: 520px;
+  }
+
+  .divider {
+    position: absolute;
+    left: 182px;
+    top: 159px;
+    width: 570px;
+    height: 1.5px;
+    background: #aeb5c0;
+  }
+
+  .bullets {
+    position: absolute;
+    left: 182px;
+    bottom: 17px;
+    width: 560px;
+    display: flex;
+    justify-content: space0between;
+  }
+
+  .bullet {
+    width: 165px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 18px;
+    color: #10284c;
+    line-height: 1.22;
+  }
+
+  .check {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #082855;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    flex: 0 0 auto;
+    font-size: 22px;
+  }
+
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1024px;
+    height: 246px;
+    background: #072551;
+    color: white;
+  }
+
+  .how-title {
+    position: absolute;
+    left: 188px;
+    top: 21px;
+    font-size: 26px;
+    font-weight: 800;
+    color: white;
+  }
+
+  .how-list {
+    position: absolute;
+    left: 188px;
+    top: 72px;
+    width: 240px;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  .how-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .tiny-icon {
+    width: 21px;
+    height: 21px;
+    border: 1.8px solid white;
+    border-radius: 50%;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  .info-box {
+    position: absolute;
+    left: 458px;
+    top: 28px;
+    width: 483px;
+    height: 118px;
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 22px 20px 16px 64px;
+    color: white;
+  }
+
+  .info-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 24px;
+  }
+
+  .info-line {
+    font-size: 17px;
+    padding-top: 10px;
+    border-top: 2px solid rgba(255,255,255,0.55);
+  }
+
+  .cta {
+    position: absolute;
+    left: 293px;
+    bottom: 22px;
+    width: 440px;
+    height: 57px;
+    background: #dc2438;
+    border-radius: 30px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="header">
+    <div class="title">Harborlight Reading Circle</div>
+    <div class="subtitle">Membership Plans &amp; Monthly Journey</div>
+  </div>
+
+  <div class="intro">Choose the format that fits your reading rhythm.</div>
+
+  <div class="connector"></div>
+
+  <!-- Card 1 -->
+  <div class="card card1">
+    <div class="card-left">
+      <div class="icon-line"></div>
+      <div class="badge">01</div>
+    </div>
+    <div class="badge">01</div>
+    <div class="heading" style="position:absolute;left:182px;top:12px;font-size:38px;font-weight:800;color:#072551;">Drop-In Pass</div>
+    <div class="price" style="position:absolute;left:182px;top:67px;">USD 18 / session</div>
+    <div class="desc" style="position:absolute;left:182px;top:105px;width:530px;">One hosted discussion night with tea service and reading notes.</div>
+    <div class="divider"></div>
+    <div class="bullets">
+      <div class="bullet"><div class="check">✓</div>Single event access</div>
+      <div class="bullet"><div class="check">✓</div>Guest seating included</div>
+      <div class="bullet"><div class="check">✓</div>Valid for any Tuesday meetup</div>
+    </div>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="card card2">
+    <div class="card-left">
+      <div class="icon-line"></div>
+      <div class="badge">02</div>
+    </div>
+    <div class="heading" style="position:absolute;left:182px;top:12px;font-size:38px;font-weight:800;color:#072551;">Monthly Member</div>
+    <div class="price" style="position:absolute;left:182px;top:67px;">USD 42 / month</div>
+    <div class="desc" style="position:absolute;left:182px;top:105px;width:530px;">Best for regulars who join weekly conversations and curated picks.</div>
+    <div class="divider"></div>
+    <div class="bullets">
+      <div class="bullet"><div class="check">✓</div>4 club nights per month</div>
+      <div class="bullet"><div class="check">✓</div>Priority seat reservation</div>
+      <div class="bullet"><div class="check">✓</div>Digital discussion guide</div>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="card card3">
+    <div class="card-left">
+      <div class="icon-line"></div>
+      <div class="badge">03</div>
+    </div>
+    <div class="heading" style="position:absolute;left:182px;top:12px;font-size:38px;font-weight:800;color:#072551;">Salon Plus</div>
+    <div class="price" style="position:absolute;left:182px;top:67px;">USD 79 / month</div>
+    <div class="desc" style="position:absolute;left:182px;top:105px;width:540px;">Extended benefits for readers who want workshops, archives, and host access.</div>
+    <div class="divider"></div>
+    <div class="bullets">
+      <div class="bullet"><div class="check">✓</div>Everything in Monthly Member</div>
+      <div class="bullet"><div class="check">✓</div>1 craft workshop credit</div>
+      <div class="bullet"><div class="check">✓</div>Archive of 24 past reading guides</div>
+    </div>
+  </div>
+
+  <!-- Card 4 -->
+  <div class="card card4">
+    <div class="card-left">
+      <div class="icon-line"></div>
+      <div class="badge">04</div>
+    </div>
+    <div class="heading" style="position:absolute;left:182px;top:12px;font-size:38px;font-weight:800;color:#072551;">Private Table Plan</div>
+    <div class="price" style="position:absolute;left:182px;top:58px;">USD 210 / group</div>
+    <div class="desc" style="position:absolute;left:182px;top:96px;width:530px;">Ideal for teams, book launches, and hosted literary socials.</div>
+    <div class="divider" style="top:128px;width:570px;"></div>
+    <div class="bullets">
+      <div class="bullet"><div class="check">✓</div>Up to 8 attendees</div>
+      <div class="bullet"><div class="check">✓</div>Custom theme discussion</div>
+      <div class="bullet"><div class="check">✓</div>Available Fri–Sun by booking</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="how-title">How it works</div>
+    <div class="how-list">
+      <div class="how-line"><span class="tiny-icon">•</span>Reserve online</div>
+      <div class="how-line"><span class="tiny-icon">✉</span>Receive your reading packet</div>
+      <div class="how-line"><span class="tiny-icon">7</span>Join the session at 7:00 PM</div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-title">Next featured title: <em>The Glass Harbor</em></div>
+      <div class="info-line">April 2026 schedule released on March 24</div>
+    </div>
+
+    <div class="cta">Book at harborlightcircle.com</div>
+  </div>
+</div>
+</body>
+</html>

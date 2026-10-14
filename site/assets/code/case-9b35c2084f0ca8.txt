@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>2024 Annual E-commerce Leaderboard</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #020917;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 18% 8%, rgba(0, 154, 255, 0.16), transparent 26%),
+      radial-gradient(circle at 88% 18%, rgba(70, 124, 255, 0.13), transparent 28%),
+      linear-gradient(180deg, #05122d 0%, #061634 54%, #041028 100%);
+    color: #fff;
+    border: 1px solid #1558b7;
+  }
+
+  .artboard::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, transparent 0%, rgba(0, 140, 255, 0.08) 47%, transparent 100%),
+      linear-gradient(0deg, transparent 0%, rgba(14, 92, 190, 0.07) 100%);
+    pointer-events: none;
+  }
+
+  .header {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    width: 992px;
+    height: 230px;
+    border: 1px solid #1866c8;
+    border-radius: 12px;
+    background: linear-gradient(100deg, rgba(12, 52, 130, 0.68) 0%, rgba(5, 22, 64, 0.88) 58%, rgba(4, 18, 58, 0.82) 100%);
+    box-shadow: 0 0 22px rgba(0, 132, 255, 0.32), inset 0 1px 0 rgba(255,255,255,0.08);
+    overflow: hidden;
+  }
+
+  .header::after {
+    content: "";
+    position: absolute;
+    right: 12px;
+    top: 0;
+    width: 310px;
+    height: 180px;
+    background:
+      linear-gradient(130deg, transparent 0%, transparent 42%, rgba(0, 136, 255, 0.22) 43%, transparent 49%),
+      radial-gradient(circle at 72% 35%, rgba(0, 180, 255, 0.28), transparent 52%);
+    border-right: 1px solid rgba(68, 138, 255, 0.25);
+    border-bottom: 1px solid rgba(68, 138, 255, 0.25);
+    opacity: 0.72;
+  }
+
+  .kicker {
+    position: absolute;
+    left: 38px;
+    top: 28px;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 5px;
+    color: #71c4ff;
+    text-transform: uppercase;
+  }
+
+  .main-title {
+    position: absolute;
+    left: 38px;
+    top: 70px;
+    margin: 0;
+    font-size: 58px;
+    line-height: 1.05;
+    font-weight: 900;
+    letter-spacing: -1.7px;
+    color: #ffffff;
+    text-shadow: 0 0 14px rgba(0, 120, 255, 0.28);
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 38px;
+    top: 150px;
+    width: 620px;
+    color: #e7efff;
+    font-size: 22px;
+    line-height: 1.35;
+  }
+
+  .verified-pill {
+    position: absolute;
+    right: 27px;
+    top: 148px;
+    height: 54px;
+    min-width: 260px;
+    border: 1px solid #2978d8;
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    background: rgba(9, 71, 151, 0.55);
+    box-shadow: 0 0 12px rgba(0, 126, 255, 0.35);
+  }
+
+  .verified-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #126df0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(116, 188, 255, 0.75);
+    color: #e5f5ff;
+    font-size: 20px;
+  }
+
+  .rank-card {
+    position: absolute;
+    left: 16px;
+    top: 260px;
+    width: 992px;
+    height: 465px;
+    border: 1px solid #1567c8;
+    border-radius: 11px;
+    background: rgba(5, 20, 62, 0.65);
+    box-shadow: inset 0 1px 0 rgba(82, 156, 255, 0.16);
+  }
+
+  .rank-title-row {
+    height: 62px;
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+    gap: 12px;
+  }
+
+  .section-icon, .mini-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #105ed5;
+    border: 1px solid #48b2ff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+  }
+
+  .rank-number-pill {
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    background: #156cf1;
+    color: #fff;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .section-title {
+    font-size: 23px;
+    font-weight: 800;
+    color: #f0f6ff;
+  }
+
+  table.rank-table {
+    width: 960px;
+    margin: 0 14px 14px 14px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 18px;
+  }
+
+  .rank-table td {
+    border-bottom: 1px solid rgba(108, 157, 228, 0.26);
+    padding: 8px 12px;
+    color: #fff;
+  }
+
+  .rank-table tr.top3 td {
+    background: linear-gradient(90deg, rgba(38, 123, 255, 0.84), rgba(7, 43, 113, 0.88));
+    color: #fff;
+  }
+
+  .rank-table .rank-col {
+    width: 62px;
+    text-align: center;
+  }
+
+  .rank-table .seller-col {
+    width: 630px;
+    font-weight: 700;
+  }
+
+  .rank-table .value-col {
+    width: 148px;
+    text-align: right;
+    font-weight: 900;
+    color: #f4f8ff;
+  }
+
+  .rank-table .compact-row td {
+    border-bottom: none;
+  }
+
+  .rank-table .compact-row .rank-col {
+    background: rgba(0, 115, 255, 0.22);
+  }
+
+  .metrics-strip {
+    position: absolute;
+    left: 16px;
+    top: 745px;
+    width: 992px;
+    height: 118px;
+    border: 1px solid #1768c8;
+    border-radius: 10px;
+    background: rgba(4, 18, 58, 0.62);
+  }
+
+  .metric-box {
+    position: absolute;
+    top: 13px;
+    width: 310px;
+    height: 90px;
+    border: 1px solid #2684e8;
+    border-radius: 8px;
+    background: rgba(8, 62, 142, 0.62);
+  }
+
+  .metric-box.m1 { left: 18px; }
+  .metric-box.m2 { left: 354px; }
+  .metric-box.m3 { left: 688px; }
+
+  .metric-label {
+    text-align: center;
+    font-size: 16px;
+    color: #dce9ff;
+  }
+
+  .metric-value {
+    text-align: center;
+    font-size: 43px;
+    font-weight: 900;
+    color: #8fd6ff;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px rgba(66, 154, 255, 0.35);
+  }
+
+  .chart-card {
+    position: absolute;
+    top: 888px;
+    height: 317px;
+    border: 1px solid #1768c8;
+    border-radius: 10px;
+    background: rgba(5, 22, 64, 0.64);
+    box-shadow: inset 0 1px 0 rgba(94, 170, 255, 0.18);
+  }
+
+  .regional-card {
+    left: 16px;
+    width: 470px;
+  }
+
+  .trend-card {
+    left: 502px;
+    width: 510px;
+  }
+
+  .chart-title-row {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 14px;
+    font-size: 22px;
+    color: #fff;
+  }
+
+  .chart-title-row .num-pill {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: #126cf0;
+    color: white;
+    font-weight: 900;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .chart-title-row .mini-icon {
+    font-size: 18px;
+  }
+
+  #regionalPie {
+    position: absolute;
+    left: 20px;
+    top: 58px;
+    width: 260px;
+    height: 230px;
+  }
+
+  .legend {
+    position: absolute;
+    left: 300px;
+    top: 88px;
+    width: 130px;
+    font-size: 15.5px;
+  }
+
+  .legend-row {
+    margin-bottom: 17px;
+  }
+
+  .legend-left {
+    display: flex;
+    gap: 9px;
+    align-items: center;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .legend-name {
+    display: block;
+    color: #f2f7ff;
+  }
+
+  .legend-value {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 900;
+  }
+
+  #trendLine {
+    position: absolute;
+    left: 16px;
+    top: 54px;
+    width: 470px;
+    height: 240px;
+  }
+
+  .fast-card {
+    position: absolute;
+    left: 16px;
+    top: 1236px;
+    width: 992px;
+    height: 228px;
+    border: 1px solid #1768c8;
+    border-radius: 10px;
+    background: rgba(5, 22, 64, 0.65);
+  }
+
+  .fast-title-row {
+    position: absolute;
+    left: 16px;
+    top: 10px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .fast-title-row .mini-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    font-size: 18px;
+  }
+
+  .fast-title-row .num-pill {
+    width: 29px;
+    height: 29px;
+    border-radius: 7px;
+  }
+
+  .fast-title-row .title-text {
+    font-size: 23px;
+    font-weight: 800;
+  }
+
+  .fact {
+    position: absolute;
+    top: 58px;
+    width: 225px;
+    height: 138px;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+  }
+
+  .fact.f1 { left: 28px; }
+  .fact.f2 { left: 272px; }
+  .fact.f3 { left: 518px; }
+  .fact.f4 { left: 764px; }
+
+  .fact-icon {
+    font-size: 52px;
+    color: #5dbfff;
+    margin-bottom: 11px;
+  }
+
+  .fast-divider {
+    position: absolute;
+    top: 48px;
+    width: 1px;
+    height: 138px;
+    background: rgba(76, 154, 255, 0.34);
+  }
+
+  .divider1 { left: 252px; }
+  .divider2 { left: 498px; }
+  .divider3 { left: 745px; }
+
+  .footer-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1024px;
+    height: 82px;
+    border-top: 1px solid #1067c8;
+    background:
+      linear-gradient(90deg, transparent 0%, rgba(0, 160, 255, 0.22) 48%, transparent 100%),
+      #061535;
+    color: #fff;
+    text-align: center;
+    font-size: 19px;
+    padding-top: 20px;
+    opacity: 0.96;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <section class="header">
+    <div class="kicker">2024 ANNUAL E-COMMERCE LEADERBOARD</div>
+    <h1 class="main-title">Top 10 Marketplace Sellers</h1>
+    <div class="subtitle">Gross merchandise value, fulfilled orders, and customer satisfaction snapshot</div>
+    <div class="verified-pill">
+      <div class="verified-icon">♢</div>
+      <div>FY2024 Verified Data</div>
+    </div>
+  </section>
+
+  <section class="rank-card">
+    <div class="rank-title-row">
+      <div class="section-icon">🛒</div>
+      <div class="rank-number-pill">1</div>
+      <div class="section-title">Top 10 by GMV (USD Millions)</div>
+    </div>
+
+    <table class="rank-table">
+      <tr class="top3">
+        <td class="rank-col">1</td>
+        <td class="seller-col">NorthPeak Retail</td>
+        <td class="value-col">428.6</td>
+      </tr>
+      <tr class="top3">
+        <td class="rank-col">2</td>
+        <td class="seller-col">Harbor &amp; Pine</td>
+        <td class="value-col">401.2</td>
+      </tr>
+      <tr class="top3">
+        <td class="rank-col">3</td>
+        <td class="seller-col">LumaCart</td>
+        <td class="value-col">389.4</td>
+      </tr>
+      <tr class="compact-row">
+        <td class="rank-col">4</td>
+        <td class="seller-col">Oakwell Home</td>
+        <td class="value-col">362.8</td>
+      </tr>
+      <tr class="compact-row">
+        <td class="rank-col">5</td>
+        <td class="seller-col">VividLane</td>
+        <td class="value-col">341.9</td>
+      </tr>
+      <tr class="compact-row">
+        <td class="rank-col">6</td>
+        <td class="seller-col">MetroNest</td>
+        <td class="value-col">329.7</td>
+      </tr>
+      <tr class="compact-row">
+        <td class="rank-col">7</td>
+        <td class="seller-col">Everdawn Beauty</td>
+        <td class="value-col">301.5</td>
+      </tr>
+      <tr class="compact-row">
+        <td class="rank-col">8</td>
+        <td class="seller-col">TrailForge</td>
+        <td class="value-col">288.3</td>
+      </tr>
+      <tr class="compact-row">
+        <td class="rank-col">9</td>
+        <td class="seller-col">Cinder &amp; Co.</td>
+        <td class="value-col">274.1</td>
+      </tr>
+      <tr class="compact-row">
+        <td class="rank-col">10</td>
+        <td class="seller-col">BlueBasket</td>
+        <td class="value-col">259.8</td>
+      </tr>
+    </table>
+  </section>
+
+  <section class="metrics-strip">
+    <div class="metric-box m1">
+      <div class="metric-label">Orders Shipped</div>
+      <div class="metric-value">18.4M</div>
+    </div>
+    <div class="metric-box m2">
+      <div class="metric-label">Average Order Value</div>
+      <div class="metric-value">$46.20</div>
+    </div>
+    <div class="metric-box m3">
+      <div class="metric-label">Repeat Purchase Rate</div>
+      <div class="metric-value">38.7%</div>
+    </div>
+  </section>
+
+  <section class="chart-card regional-card">
+    <div class="chart-title-row">
+      <div class="mini-icon">◎</div>
+      <div class="num-pill">3</div>
+      <div>Regional Revenue Share</div>
+    </div>
+    <div id="regionalPie"></div>
+    <div class="legend">
+      <div class="legend-row">
+        <div class="legend-left"><span class="dot" style="background:#146ff2;"></span><span class="legend-name">North America</span></div>
+        <div class="legend-value">38%</div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-left"><span class="dot" style="background:#19a8cb;"></span><span class="legend-name">Europe</span></div>
+        <div class="legend-value">24%</div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-left"><span class="dot" style="background:#6950dd;"></span><span class="legend-name">Asia-Pacific</span></div>
+        <div class="legend-value">28%</div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-left"><span class="dot" style="background:#f5bd2c;"></span><span class="legend-name">Latin America</span></div>
+        <div class="legend-value">10%</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chart-card trend-card">
+    <div class="chart-title-row">
+      <div class="mini-icon">↗</div>
+      <div class="num-pill">4</div>
+      <div>Quarterly GMV Trend</div>
+    </div>
+    <div id="trendLine"></div>
+  </section>
+
+  <section class="fast-card">
+    <div class="fast-title-row">
+      <div class="mini-icon">✪</div>
+      <div class="num-pill">5</div>
+      <div class="title-text">Fast Facts</div>
+    </div>
+
+    <div class="fact f1">
+      <div class="fact-icon">✪</div>
+      NorthPeak Retail kept the #1 spot for 9 straight months.
+    </div>
+    <div class="fact f2">
+      <div class="fact-icon">⌂</div>
+      Beauty and home categories produced the highest repeat rate.
+    </div>
+    <div class="fact f3">
+      <div class="fact-icon">◷</div>
+      Average delivery time improved from 2.9 to 2.4 days.
+    </div>
+    <div class="fact f4">
+      <div class="fact-icon">▭</div>
+      Mobile checkout accounted for 71% of completed orders.
+    </div>
+
+    <div class="fast-divider divider1"></div>
+    <div class="fast-divider divider2"></div>
+    <div class="fast-divider divider3"></div>
+  </section>
+
+  <footer class="footer-bar">
+    Compiled by Meridian Commerce Analytics • January 2025
+  </footer>
+</div>
+
+<script>
+  const regionalPie = echarts.init(document.getElementById('regionalPie'));
+  regionalPie.setOption({
+    animation: false,
+    color: ['#146ff2', '#19a8cb', '#6950dd', '#f5bd2c'],
+    tooltip: { show: false },
+    series: [{
+      type: 'pie',
+      radius: ['40%', '72%'],
+      center: ['50%', '50%'],
+      label: {
+        show: true,
+        position: 'inside',
+        color: '#fff',
+        fontWeight: 800,
+        fontSize: 20
+      },
+      labelLine: { show: false },
+      data: [
+        {name: 'North America', value: 38},
+        {name: 'Europe', value: 24},
+        {name: 'Asia-Pacific', value: 28},
+        {name: 'Latin America', value: 10}
+      ],
+      emphasis: { disabled: true }
+    }],
+    graphic: [{
+      type: 'text',
+      left: 'center',
+      top: '42%',
+      style: {
+        text: 'Total\n100%',
+        fill: '#fff',
+        fontSize: 22,
+        fontWeight: 900,
+        textAlign: 'center'
+      }
+    }]
+  });
+
+  const trendLine = echarts.init(document.getElementById('trendLine'));
+  trendLine.setOption({
+    animation: false,
+    grid: { left: 50, right: 20, top: 34, bottom: 36 },
+    tooltip: { show: false },
+    xAxis: {
+      type: 'category',
+      data: ['Q1', 'Q2', 'Q3', 'Q4'],
+      boundaryGap: false,
+      axisLine: { lineStyle: { color: 'rgba(190,225,255,0.72)' } },
+      axisTick: { show: false },
+      axisLabel: { color: '#cfe5ff', fontSize: 14 }
+    },
+    yAxis: {
+      type: 'value',
+      min: 750,
+      max: 1050,
+      splitNumber: 5,
+      axisLabel: { color: '#bfe0ff', fontSize: 13 },
+      splitLine: {
+        lineStyle: {
+          color: 'rgba(110,170,255,0.28)',
+          type: 'dashed'
+        }
+      }
+    },
+    series: [{
+      type: 'line',
+      smooth: true,
+      symbol: 'circle',
+      symbolSize: 10,
+      data: [812, 864, 931, 978],
+      lineStyle: {
+        color: '#228dff',
+        width: 3
+      },
+      itemStyle: {
+        color: '#176ff1',
+        borderColor: '#a9e5ff',
+        borderWidth: 2
+      },
+      label: {
+        show: true,
+        position: 'top',
+        color: '#29aaff',
+        fontSize: 14,
+        fontWeight: 800
+      }
+    }]
+  });
+</script>
+</body>
+</html>

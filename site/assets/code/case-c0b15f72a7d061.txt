@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Student Performance & At-Risk Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9edf7;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    color: #222;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1056px;
+    overflow: hidden;
+    background: #fbfcff;
+  }
+
+  .topbar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 86px;
+    background: linear-gradient(90deg, #422081 0%, #51279a 50%, #361d78 100%);
+    color: #fff;
+  }
+
+  .brand-block {
+    position: absolute;
+    left: 22px;
+    top: 10px;
+    width: 260px;
+    height: 66px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+  }
+
+  .geo-logo {
+    position: relative;
+    width: 82px;
+    height: 62px;
+  }
+
+  .geo-logo .tri1,
+  .geo-logo .tri2,
+  .geo-logo .tri3,
+  .geo-logo .tri4,
+  .geo-logo .tri5,
+  .geo-logo .tri6 {
+    position: absolute;
+    border-style: solid;
+  }
+
+  .geo-logo .tri1 {
+    left: 20px;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-width: 31px 18px 31px 0;
+    border-color: transparent #ff8a00 transparent transparent;
+    transform: rotate(178deg);
+  }
+
+  .geo-logo .tri2 {
+    left: 12px;
+    top: 19px;
+    width: 43px;
+    height: 43px;
+    border-width: 0 0 43px 43px;
+    border-color: transparent transparent #ff6b7f transparent;
+  }
+
+  .geo-logo .tri3 {
+    left: 46px;
+    top: 22px;
+    width: 34px;
+    height: 34px;
+    border-width: 0 0 34px 34px;
+    border-color: transparent transparent #e8efff transparent;
+  }
+
+  .geo-logo .tri4 {
+    left: 13px;
+    top: 32px;
+    width: 48px;
+    height: 30px;
+    border-width: 0 0 30px 48px;
+    border-color: transparent transparent #7f68f2 transparent;
+  }
+
+  .geo-logo .tri5 {
+    left: 48px;
+    top: 32px;
+    width: 38px;
+    height: 34px;
+    border-width: 0 0 34px 38px;
+    border-color: transparent transparent #8fd4ff transparent;
+  }
+
+  .brand-text {
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .dashboard-title {
+    position: absolute;
+    top: 18px;
+    left: 440px;
+    font-size: 34px;
+    font-weight: 850;
+    letter-spacing: 0.1px;
+  }
+
+  .filter-pill {
+    position: absolute;
+    top: 14px;
+    height: 55px;
+    border: 1.3px solid rgba(255,255,255,0.85);
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .filter-pill.grade {
+    left: 1130px;
+    width: 365px;
+  }
+
+  .filter-pill.class {
+    left: 1510px;
+    width: 265px;
+  }
+
+  .filter-label {
+    font-weight: 800;
+    font-size: 14px;
+  }
+
+  .tag {
+    min-width: 38px;
+    height: 28px;
+    padding: 0 10px;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+  }
+
+  .overview-title {
+    position: absolute;
+    left: 27px;
+    top: 98px;
+    color: #48229c;
+    font-weight: 800;
+    font-size: 22px;
+  }
+
+  .summary-card {
+    position: absolute;
+    top: 134px;
+    height: 105px;
+    border-radius: 14px;
+    border: 1px solid #cfcff0;
+    background: #fbfbff;
+    display: flex;
+    align-items: center;
+    justify-content: space2around;
+    box-shadow: 0 2px 5px rgba(45, 40, 80, 0.07);
+  }
+
+  .summary-card.one {
+    left: 22px;
+    width: 430px;
+    background: #f1ebff;
+  }
+
+  .summary-card.two {
+    left: 470px;
+    width: 448px;
+    background: #f0fbf4;
+  }
+
+  .summary-card.three {
+    left: 932px;
+    width: 382px;
+    background: #f0f6ff;
+  }
+
+  .summary-card.four {
+    left: 1330px;
+    width: 480px;
+    background: #fff9ee;
+  }
+
+  .summary-title {
+    color: #4f319d;
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .summary-value {
+    font-size: 40px;
+    font-weight: 850;
+  }
+
+  .summary-icon {
+    margin-left: auto;
+    margin-right: 26px;
+    width: 46px;
+    height: 46px;
+  }
+
+  .people-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .people-icon .head {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #8e62d6;
+  }
+
+  .people-icon .body {
+    width: 32px;
+    height: 16px;
+    border-radius: 14px 14px 8px 8px;
+    background: #8e62d6;
+  }
+
+  .icon-check {
+    border: 3px solid #41b872;
+    border-radius: 8px;
+  }
+
+  .icon-check:after {
+    content: "✓";
+    position: absolute;
+    font-weight: 900;
+  }
+
+  .icon-target {
+    border: 3px solid #4786ff;
+    border-radius: 50%;
+    box-shadow: 13px 13px 0 -7px #4786ff;
+  }
+
+  .icon-target:after {
+    content: "↗";
+    position: absolute;
+  }
+
+  .icon-clipboard {
+    border: 3px solid #ff7a00;
+    border-radius: 3px;
+  }
+
+  .icon-clipboard:before {
+    content: "";
+    position: absolute;
+    top: -9px;
+    left: 14px;
+    width: 15px;
+    height: 10px;
+    border: 3px solid #ff7a00;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .icon-clipboard:after {
+    content: "✓";
+    position: absolute;
+    font-size: 24px;
+  }
+
+  .panel {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #d3d7e5;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgba(40, 40, 80, 0.07);
+  }
+
+  .perf-panel {
+    left: 22px;
+    top: 252px;
+    width: 430px;
+    height: 384px;
+  }
+
+  .line-panel {
+    left: 470px;
+    top: 252px;
+    width: 520px;
+    height: 384px;
+  }
+
+  .atrisk-panel {
+    left: 980px;
+    top: 252px;
+    width: 870px;
+    height: 384px;
+  }
+
+  .panel-title {
+    text-align: center;
+    color: #4e29ad;
+    font-size: 17px;
+    font-weight: 800;
+    margin-top: 12px;
+  }
+
+  .student-count-row {
+    text-align: center;
+    margin-top: 45px;
+    font-size: 18px;
+    color: #333;
+  }
+
+  .student-count-row b {
+    color: #4a239d;
+    font-size: 23px;
+  }
+
+  .segmented-bar {
+    width: 380px;
+    height: 28px;
+    margin: 22px auto 0;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #e94f57;
+    display: flex;
+  }
+
+  .seg1 { width: 120px; background: #33c46b; }
+  .seg2 { width: 82px; background: #6b83e1; }
+  .seg3 { width: 82px; background: #ffb400; }
+  .seg4 { width: 116px; background: #f0555d; }
+
+  .legend {
+    margin-top: 16px;
+    padding-left: 44px;
+    width: 340px;
+    font-size: 17px;
+  }
+
+  .legend-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  .dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .chart-area {
+    position: absolute;
+    left: 32px;
+    top: 44px;
+    width: 455px;
+    height: 290px;
+  }
+
+  .gauge-wrap {
+    position: absolute;
+    left: 40px;
+    top: 44px;
+    width: 240px;
+    height: 200px;
+  }
+
+  #gaugeChart {
+    width: 220px;
+    height: 120px;
+  }
+
+  .gauge-value {
+    text-align: center;
+    color: #ef3f54;
+    font-size: 38px;
+    font-weight: 900;
+  }
+
+  .gauge-caption {
+    text-align: center;
+    color: #555;
+    font-size: 16px;
+  }
+
+  .at-risk-pill {
+    width: 190px;
+    height: 56px;
+    margin: 0 auto;
+    border-radius: 30px;
+    background: #ffe1ec;
+    color: #ef3f54;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+  }
+
+  .at-risk-pill .count {
+    font-size: 23px;
+  }
+
+  .at-risk-pill .label {
+    font-size: 16px;
+  }
+
+  .rank-table-title {
+    position: absolute;
+    right: 22px;
+    top: 12px;
+    text-align: center;
+    color: #4b26a0;
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  .rank-table-box {
+    position: absolute;
+    right: 10px;
+    top: 33px;
+    width: 370px;
+    height: 188px;
+    border: 1px solid #c8cde2;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .rank-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 13px;
+  }
+
+  .rank-table td {
+    border-bottom: 1px solid #d9dde8;
+    padding: 3px 8px;
+  }
+
+  .rank-table td:first-child {
+    color: #5430ad;
+    font-weight: 700;
+    width: 36px;
+  }
+
+  .subject-chart-box {
+    position: absolute;
+    left: 2px;
+    bottom: 10px;
+    width: 390px;
+    height: 154px;
+    border: 1px solid #d2d6e2;
+    border-radius: 10px;
+    background: #fff;
+  }
+
+  .reason-chart-box {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 390px;
+    height: 154px;
+    border: 1px solid #d2d6e2;
+    border-radius: 10px;
+    background: #fff;
+  }
+
+  .small-chart-title {
+    text-align: center;
+    color: #4e29ad;
+    font-size: 14px;
+    font-weight: 800;
+    margin-top: 6px;
+  }
+
+  .small-chart {
+    width: 100%;
+    height: 108px;
+  }
+
+  .table-card {
+    position: absolute;
+    left: 22px;
+    top: 660px;
+    width: 1876px;
+    height: 347px;
+    background: #fff;
+    border: 1px solid #d6dbe5;
+    border-radius: 17px;
+    box-shadow: 0 2px 6px rgba(40, 40, 80, 0.07);
+  }
+
+  .table-card-title {
+    position: absolute;
+    top: 13px;
+    left: 745px;
+    color: #48229d;
+    font-size: 18px;
+    font-weight: 850;
+    text-align: center;
+  }
+
+  .table-filters {
+    position: absolute;
+    top: 18px;
+    left: 32px;
+    width: 710px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: #48229d;
+    font-weight: 800;
+  }
+
+  .table-filters .mini-filter {
+    border: 1px solid #9f88ef;
+    border-radius: 8px;
+    padding: 4px 12px;
+    background: #fff;
+  }
+
+  .rule-note {
+    position: absolute;
+    top: 20px;
+    right: 29px;
+    width: 600px;
+    color: #ff1836;
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: 800;
+  }
+
+  .main-table-wrap {
+    position: absolute;
+    left: 18px;
+    top: 60px;
+    width: 1840px;
+    height: 260px;
+    border: 1px solid #d7dbe5;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .main-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 13.5px;
+    table-layout: fixed;
+  }
+
+  .main-table th {
+    background: #5b35aa;
+    color: #fff;
+    border: 1px solid #b9a8f2;
+    font-weight: 800;
+    text-align: center;
+    height: 34px;
+  }
+
+  .main-table td {
+    border: 1px solid #d9dde6;
+    padding: 6px 7px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .main-table td.bold-name {
+    text-align: left;
+    font-weight: 800;
+  }
+
+  .main-table th:nth-child(1) { width: 105px; }
+  .main-table th:nth-child(2) { width: 160px; }
+  .main-table th:nth-child(3) { width: 112px; }
+  .main-table th:nth-child(4) { width: 72px; }
+  .main-table th:nth-child(5) { width: 120px; }
+  .main-table th:nth-child(6) { width: 130px; }
+  .main-table th:nth-child(7) { width: 145px; }
+  .main-table th:nth-child(8) { width: 82px; }
+  .main-table th:nth-child(9) { width: 92px; }
+  .main-table th:nth-child(10) { width: 105px; }
+  .main-table th:nth-child(11) { width: 145px; }
+  .main-table th:nth-child(12) { width: 82px; }
+  .main-table th:nth-child(13) { width: 125px; }
+  .main-table th:nth-child(14) { width: 110px; }
+  .main-table th:nth-child(15) { width: 120px; }
+  .main-table th:nth-child(16) { width: 125px; }
+  .main-table th:nth-child(17) { width: 100px; }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="topbar">
+    <div class="brand-block">
+      <div class="geo-logo">
+        <div class="tri1"></div>
+        <div class="tri2"></div>
+        <div class="tri3"></div>
+        <div class="tri4"></div>
+        <div class="tri5"></div>
+        <div class="tri6"></div>
+      </div>
+      <div class="brand-text">OTHER LEVELS<br>HIGH SCHOOL</div>
+    </div>
+
+    <div class="dashboard-title">Student Performance &amp; At-Risk Dashboard</div>
+
+    <div class="filter-pill grade">
+      <div class="filter-label">Grade Level</div>
+      <div class="tag">G6</div>
+      <div class="tag">G7</div>
+      <div class="tag">G8</div>
+      <div class="tag">G9</div>
+      <div class="tag">G10</div>
+    </div>
+
+    <div class="filter-pill class">
+      <div class="filter-label">Class</div>
+      <div class="tag">A</div>
+      <div class="tag">B</div>
+      <div class="tag">C</div>
+      <div class="tag">D</div>
+    </div>
+  </div>
+
+  <div class="overview-title">Overview</div>
+
+  <div class="summary-card one">
+    <div>
+      <div class="summary-title">Total Students</div>
+      <div class="summary-value">17</div>
+    </div>
+    <div class="summary-icon people-icon">
+      <div class="head"></div>
+      <div class="body"></div>
+    </div>
+  </div>
+
+  <div class="summary-card two">
+    <div>
+      <div class="summary-title" style="color:#0f753e;">Avg Attendance</div>
+      <div class="summary-value" style="color:#0f753e;">82%</div>
+    </div>
+    <div class="summary-icon icon-check" style="border-color:#43bf79;"></div>
+  </div>
+
+  <div class="summary-card three">
+    <div>
+      <div class="summary-title" style="color:#1871d8;">Avg Score</div>
+      <div class="summary-value" style="color:#1871d8;">67%</div>
+    </div>
+    <div class="summary-icon icon-target"></div>
+  </div>
+
+  <div class="summary-card four">
+    <div>
+      <div class="summary-title" style="color:#ff6f00;">Avg Homework Completion</div>
+      <div class="summary-value" style="color:#ff6f00;">67%</div>
+    </div>
+    <div class="summary-icon icon-clipboard"></div>
+  </div>
+
+  <div class="panel perf-panel">
+    <div class="panel-title">Students by Performance Level</div>
+    <div class="student-count-row">Student Count&nbsp;&nbsp;<b>17</b></div>
+    <div class="segmented-bar">
+      <div class="seg1"></div>
+      <div class="seg2"></div>
+      <div class="seg3"></div>
+      <div class="seg4"></div>
+    </div>
+    <div class="legend">
+      <div class="legend-row"><span class="dot" style="background:#33c46b;"></span><span>Excellent</span><span style="margin-left:22px;">4</span></div>
+      <div class="legend-row"><span class="dot" style="background:#5b82e4;"></span><span>Good</span><span style="margin-left:32px;">3</span></div>
+      <div class="legend-row"><span class="dot" style="background:#ffb400;"></span><span>Pass</span><span style="margin-left:33px;">4</span></div>
+      <div class="legend-row"><span class="dot" style="background:#f0555d;"></span><span>Fail</span><span style="margin-left:36px;">6</span></div>
+    </div>
+  </div>
+
+  <div class="panel line-panel">
+    <div class="panel-title">Average Score Over Time</div>
+    <div id="lineChart" class="chart-area"></div>
+  </div>
+
+  <div class="panel atrisk-panel">
+    <div class="panel-title" style="position:absolute;left:0;top:12px;width:870px;">At-Risk Rate</div>
+    <div class="gauge-wrap">
+      <div id="gaugeChart"></div>
+      <div class="gauge-value">76%</div>
+      <div class="gauge-caption">of Selected Group</div>
+      <div class="at-risk-pill">
+        <div class="count">13</div>
+        <div class="label">At-Risk Students</div>
+      </div>
+    </div>
+
+    <div class="rank-table-title">Top 10 At-Risk Students (Sorted by Score)</div>
+    <div class="rank-table-box">
+      <table class="rank-table">
+        <tr><td>1</td><td>Grace Brown</td><td>76</td></tr>
+        <tr><td>2</td><td>Daniel Smith</td><td>69</td></tr>
+        <tr><td>3</td><td>Ethan Johnson</td><td>64</td></tr>
+        <tr><td>4</td><td>Mia Davis</td><td>58</td></tr>
+        <tr><td>5</td><td>Liam Wilson</td><td>53</td></tr>
+        <tr><td>6</td><td>Sophia Martinez</td><td>48</td></tr>
+        <tr><td>7</td><td>Noah Taylor</td><td>45</td></tr>
+        <tr><td>8</td><td>Ava Thomas</td><td>41</td></tr>
+        <tr><td>9</td><td>James Anderson</td><td>39</td></tr>
+        <tr><td>10</td><td>Charlotte Lee</td><td>36</td></tr>
+      </table>
+    </div>
+
+    <div class="subject-chart-box">
+      <div class="small-chart-title">At-Risk by Subject</div>
+      <div id="subjectChart" class="small-chart"></div>
+    </div>
+
+    <div class="reason-chart-box">
+      <div class="small-chart-title">At-Risk by Reason</div>
+      <div id="reasonChart" class="small-chart"></div>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-card-title">Student Performance Details</div>
+    <div class="table-filters">
+      <span>Grade Level</span>
+      <span class="mini-filter">G6</span>
+      <span class="mini-filter">G7</span>
+      <span class="mini-filter">G8</span>
+      <span class="mini-filter">G9</span>
+      <span class="mini-filter">G10</span>
+      <span>Class</span>
+      <span class="mini-filter">A</span>
+      <span class="mini-filter">B</span>
+      <span class="mini-filter">C</span>
+      <span class="mini-filter">D</span>
+    </div>
+
+    <div class="rule-note">
+      A student is flagged as At Risk if their score is below 60 percent, attendance is below 80 percent, or homework completion is below 70 percent.
+    </div>
+
+    <div class="main-table-wrap">
+      <table class="main-table">
+        <tr>
+          <th>Student ID</th>
+          <th>Student Name</th>
+          <th>Grade Level</th>
+          <th>Class</th>
+          <th>Subject</th>
+          <th>Assessment Type</th>
+          <th>Assessment Date</th>
+          <th>Score</th>
+          <th>Max Score</th>
+          <th>Attendance %</th>
+          <th>Homework Completion %</th>
+          <th>Score %</th>
+          <th>Performance Level</th>
+          <th>Low Score Flag</th>
+          <th>Low Attendance Flag</th>
+          <th>Low Homework Flag</th>
+          <th>At Risk Flag</th>
+        </tr>
+        <tr>
+          <td>S1001</td>
+          <td class="bold-name">Grace Brown</td>
+          <td>G8</td>
+          <td>A</td>
+          <td>Math</td>
+          <td>Quiz</td>
+          <td>2024-05-15</td>
+          <td>76</td>
+          <td>100</td>
+          <td>85%</td>
+          <td>72%</td>
+          <td>76%</td>
+          <td>Good</td>
+          <td>No</td>
+          <td>No</td>
+          <td>No</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>S1002</td>
+          <td class="bold-name">Daniel Smith</td>
+          <td>G8</td>
+          <td>A</td>
+          <td>English</td>
+          <td>Test</td>
+          <td>2024-05-15</td>
+          <td>69</td>
+          <td>100</td>
+          <td>78%</td>
+          <td>68%</td>
+          <td>69%</td>
+          <td>Pass</td>
+          <td>No</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>S1003</td>
+          <td class="bold-name">Ethan Johnson</td>
+          <td>G8</td>
+          <td>B</td>
+          <td>Science</td>
+          <td>Quiz</td>
+          <td>2024-05-15</td>
+          <td>64</td>
+          <td>100</td>
+          <td>83%</td>
+          <td>75%</td>
+          <td>64%</td>
+          <td>Pass</td>
+          <td>No</td>
+          <td>No</td>
+          <td>No</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>S1004</td>
+          <td class="bold-name">Mia Davis</td>
+          <td>G7</td>
+          <td>B</td>
+          <td>Math</td>
+          <td>Test</td>
+          <td>2024-05-15</td>
+          <td>58</td>
+          <td>100</td>
+          <td>79%</td>
+          <td>65%</td>
+          <td>58%</td>
+          <td>Fail</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>S1005</td>
+          <td class="bold-name">Liam Wilson</td>
+          <td>G8</td>
+          <td>C</td>
+          <td>Social Studies</td>
+          <td>Quiz</td>
+          <td>2024-05-15</td>
+          <td>53</td>
+          <td>100</td>
+          <td>75%</td>
+          <td>60%</td>
+          <td>53%</td>
+          <td>Fail</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>S1006</td>
+          <td class="bold-name">Sophia Martinez</td>
+          <td>G9</td>
+          <td>A</td>
+          <td>ICT</td>
+          <td>Project</td>
+          <td>2024-05-15</td>
+          <td>48</td>
+          <td>100</td>
+          <td>70%</td>
+          <td>55%</td>
+          <td>48%</td>
+          <td>Fail</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>S1007</td>
+          <td class="bold-name">Noah Taylor</td>
+          <td>G7</td>
+          <td>C</td>
+          <td>English</td>
+          <td>Test</td>
+          <td>2024-05-15</td>
+          <td>45</td>
+          <td>100</td>
+          <td>68%</td>
+          <td>62%</td>
+          <td>45%</td>
+          <td>Fail</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>S1008</td>
+          <td class="bold-name">Ava Thomas</td>
+          <td>G6</td>
+          <td>B</td>
+          <td>Science</td>
+          <td>Quiz</td>
+          <td>2024-05-15</td>
+          <td>41</td>
+          <td>100</td>
+          <td>72%</td>
+          <td>58%</td>
+          <td>41%</td>
+          <td>Fail</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>S1009</td>
+          <td class="bold-name">James Anderson</td>
+          <td>G9</td>
+          <td>D</td>
+          <td>Math</td>
+          <td>Test</td>
+          <td>2024-05-15</td>
+          <td>39</td>
+          <td>100</td>
+          <td>77%</td>
+          <td>64%</td>
+          <td>39%</td>
+          <td>Fail</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>S1010</td>
+          <td class="bold-name">Charlotte Lee</td>
+          <td>G6</td>
+          <td>D</td>
+          <td>English</td>
+          <td>Quiz</td>
+          <td>2024-05-15</td>
+          <td>36</td>
+          <td>100</td>
+          <td>65%</td>
+          <td>50%</td>
+          <td>36%</td>
+          <td>Fail</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  const lineChart = echarts.init(document.getElementById('lineChart'));
+  lineChart.setOption({
+    animation: false,
+    grid: { left: 48, right: 20, top: 22, bottom: 42 },
+    xAxis: {
+      type: 'category',
+      data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+      axisTick: { show: false },
+      axisLine: { lineStyle: { color: '#aeb5c1' } },
+      axisLabel: { color: '#333', fontSize: 16 }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: 100,
+      interval: 20,
+      axisLabel: { color: '#333', fontSize: 16 },
+      splitLine: { lineStyle: { type: 'dashed', color: '#d7dce5' } }
+    },
+    series: [{
+      type: 'line',
+      data: [70,68,72,65,85,78],
+      smooth: true,
+      symbol: 'circle',
+      symbolSize: 12,
+      lineStyle: { color: '#4186f2', width: 3 },
+      itemStyle: { color: '#4186f2' }
+    }]
+  });
+
+  const gaugeChart = echarts.init(document.getElementById('gaugeChart'));
+  gaugeChart.setOption({
+    animation: false,
+    series: [{
+      type: 'pie',
+      radius: ['72%', '84%'],
+      center: ['50%', '120%'],
+      startAngle: 180,
+      clockwise: true,
+      label: { show: false },
+      labelLine: { show: false },
+      data: [
+        { value: 76, itemStyle: { color: '#ef3f54' } },
+        { value: 24, itemStyle: { color: '#e7e8ef' } }
+      ]
+    }]
+  });
+
+  const subjectChart = echarts.init(document.getElementById('subjectChart'));
+  subjectChart.setOption({
+    animation: false,
+    grid: { left: 92, right: 25, top: 15, bottom: 28 },
+    xAxis: {
+      type: 'value',
+      max: 7,
+      splitLine: { show: false },
+      axisLabel: { color: '#444' },
+      axisLine: { show: false },
+      axisTick: { show: false }
+    },
+    yAxis: {
+      type: 'category',
+      inverse: true,
+      data: ['Social Studies', 'Math', 'ICT', 'English'],
+      axisLine: { show: false },
+      axisTick: { show: false },
+      axisLabel: { color: '#333', fontSize: 13 }
+    },
+    series: [{
+      type: 'bar',
+      data: [6,5,4,3],
+      barWidth: 16,
+      itemStyle: { color: '#355bd7' },
+      label: { show: true, position: 'right', color: '#222' }
+    }]
+  });
+
+  const reasonChart = echarts.init(document.getElementById('reasonChart'));
+  reasonChart.setOption({
+    animation: false,
+    grid: { left: 40, right: 20, top: 20, bottom: 36 },
+    xAxis: {
+      type: 'category',
+      data: ['Low Score', 'Low Attendance', 'Low Homework'],
+      axisLabel: { color: '#333', fontSize: 13 },
+      axisLine: { show: false },
+      axisTick: { show: false }
+    },
+    yAxis: {
+      type: 'value',
+      max: 12,
+      splitLine: { lineStyle: { type: 'dashed', color: '#d7dce5' } },
+      axisLabel: { color: '#444' },
+      axisLine: { show: false },
+      axisTick: { show: false }
+    },
+    series: [{
+      type: 'bar',
+      data: [10,4,8],
+      barWidth: 48,
+      itemStyle: { color: '#6e41b6' },
+      label: { show: true, position: 'top', color: '#222' }
+    }]
+  });
+</script>
+</body>
+</html>

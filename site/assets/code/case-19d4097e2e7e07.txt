@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Assessment Centre Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #eaf5fb;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #111b4b;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #fbfaf5;
+  }
+
+  .title {
+    position: absolute;
+    top: 21px;
+    left: 148px;
+    right: 80px;
+    text-align: left;
+    font-size: 31px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+    color: #101b4f;
+    line-height: 1.12;
+  }
+
+  .subtitle {
+    position: absolute;
+    top: 72px;
+    left: 190px;
+    right: 80px;
+    font-size: 16px;
+    color: #686868;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  /* Decorative classroom elements */
+  .cap-stack {
+    position: absolute;
+    top: 18px;
+    left: 17px;
+    width: 100px;
+    height: 76px;
+  }
+
+  .pencil-bucket {
+    position: absolute;
+    top: 19px;
+    right: 20px;
+    width: 64px;
+    height: 84px;
+  }
+
+  .spark {
+    position: absolute;
+    color: #ff9e80;
+    font-size: 16px;
+  }
+
+  .spark.s1 { top: 74px; left: 11px; }
+  .spark.s2 { top: 20px; left: 116px; color: #ff9f80; }
+  .spark.s3 { top: 72px; left: 132px; color: #7bd3a0; font-size: 11px; }
+  .spark.s4 { top: 88px; right: 56px; color: #ff9f80; }
+  .spark.s5 { top: 20px; right: 6px; color: #4fb5ff; }
+
+  /* Main cards */
+  .assess-card {
+    position: absolute;
+    left: 22px;
+    top: 118px;
+    width: 557px;
+    height: 365px;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid #c9c9c9;
+    border-radius: 14px;
+    box-shadow: 0 6px 14px rgba(80, 80, 80, 0.12);
+  }
+
+  .card-pill-left {
+    position: absolute;
+    top: -20px;
+    left: 147px;
+    min-width: 242px;
+    height: 36px;
+    padding: 0 25px;
+    border-radius: 20px;
+    background: #8065ca;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 36px;
+  }
+
+  .assessment-row {
+    position: absolute;
+    left: 24px;
+    width: 507px;
+    height: 73px;
+    border: 1px solid #d1c5e3;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    padding-left: 23px;
+    box-shadow: 0 2px 5px rgba(70,70,70,0.06);
+  }
+
+  .row1 { top: 42px; background: #f4efff; }
+  .row2 { top: 120px; background: #e9f7ef; }
+  .row3 { top: 198px; background: #fff4e7; }
+  .row4 { top: 276px; background: #edf5ff; }
+
+  .icon-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    margin-right: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 700;
+    flex: 0 0 auto;
+  }
+
+  .purple { background: #7c62c6; }
+  .green { background: #58b56f; }
+  .orange { background: #ff9023; color: #fff3df; }
+  .blue { background: #419fe5; }
+
+  .row-content {
+    flex: 1;
+    display: flex;
+    justify-content: space2between;
+    align-items: center;
+  }
+
+  .row-text {
+    width: 207px;
+  }
+
+  .assessment-name {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #141b4f;
+    margin-bottom: 4px;
+  }
+
+  .subject {
+    font-size: 14px;
+    color: #4a4a4a;
+  }
+
+  .calendar-block {
+    border-left: 1px solid #d6cde1;
+    margin-left: 10px;
+    padding-left: 15px;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .calendar-icon {
+    font-size: 20px;
+    color: #6f60bd;
+    min-width: 18px;
+  }
+
+  .date-text {
+    font-size: 12.8px;
+    color: #333;
+  }
+
+  /* Performance card */
+  .performance-card {
+    position: absolute;
+    top: 118px;
+    left: 592px;
+    width: 667px;
+    height: 365px;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid #c9c9c9;
+    border-radius: 14px;
+    box-shadow: 0 6px 14px rgba(80,80,80,0.12);
+  }
+
+  .card-pill-right {
+    position: absolute;
+    top: -20px;
+    right: 11px;
+    width: 211px;
+    height: 36px;
+    border-radius: 20px;
+    background: #4c9fe4;
+    color: white;
+    text-align: center;
+    line-height: 36px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .donut-chart {
+    position: absolute;
+    left: 35px;
+    top: 35px;
+    width: 360px;
+    height: 300px;
+  }
+
+  .metric-boxes {
+    position: absolute;
+    top: 73px;
+    right: 28px;
+    width: 250px;
+    height: 228px;
+  }
+
+  .metric-box {
+    height: 68px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    border: 1px solid #d6dbe7;
+    color: #111b4b;
+  }
+
+  .metric-box.high {
+    background: #edf5ff;
+    border-color: #cddbf0;
+  }
+
+  .metric-box.my {
+    background: #e8f7ee;
+    border-color: #cfe3d8;
+  }
+
+  .metric-box.avg {
+    background: #fff3e6;
+    border-color: #f1d7bd;
+  }
+
+  .metric-label {
+    display: inline-block;
+    width: 108px;
+    font-size: 14px;
+    font-weight: 700;
+    padding-left: 11px;
+  }
+
+  .metric-value {
+    display: inline-block;
+    font-size: 27px;
+    font-weight: 800;
+  }
+
+  .blue-value { color: #2570d8; }
+  .green-value { color: #25874f; }
+  .orange-value { color: #ff5c00; }
+
+  /* Bottom stats row */
+  .stats-strip {
+    position: absolute;
+    left: 22px;
+    top: 497px;
+    width: 1236px;
+    height: 178px;
+    background: rgba(255,255,255,0.96);
+    border: 1px solid #cbd2d9;
+    border-radius: 13px;
+    box-shadow: 0 5px 13px rgba(60,70,80,0.09);
+  }
+
+  .stat-block {
+    position: absolute;
+    top: 20px;
+    width: 238px;
+    height: 140px;
+    text-align: center;
+  }
+
+  .stat-left { left: 118px; }
+  .stat-center { left: 495px; }
+  .stat-right { left: 872px; }
+
+  .outer-circle {
+    position: absolute;
+    left: 39px;
+    top: 0;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 1.6px solid currentColor;
+  }
+
+  .stat-left .outer-circle { color: #9b84d4; }
+  .stat-center .outer-circle { color: #73b79b; }
+  .stat-right .outer-circle { color: #ff8a24; }
+
+  .icon-top {
+    position: absolute;
+    top: -34px;
+    left: 88px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--icon-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 26px;
+    font-weight: 800;
+  }
+
+  .num-band {
+    position: absolute;
+    top: 58px;
+    left: 0;
+    width: 238px;
+    height: 52px;
+    border-radius: 8px;
+    background: var(--band-bg);
+    color: var(--num-color);
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 52px;
+  }
+
+  .stat-label {
+    position: absolute;
+    top: 110px;
+    left: 0;
+    width: 238px;
+    font-size: 16px;
+    font-weight: 800;
+    color: #101b4f;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="cap-stack">
+    <svg width="100" height="76" viewBox="0 0 100 76" style="display:block;">
+      <polygon points="18,8 72,8 91,26 37,26" fill="#7790db"/>
+      <polygon points="19,20 67,20 80,32 36,32" fill="#8fb0e8"/>
+      <polygon points="40,10 80,10 98,26 53,26" fill="#6d82d3"/>
+      <rect x="26" y="44" width="58" height="22" fill="#ff8c80"/>
+      <rect x="26" y="58" width="66" height="15" fill="#a7dccd"/>
+      <rect x="26" y="69" width="70" height="12" fill="#c5efc9"/>
+      <circle cx="42" cy="31" r="10" fill="#ffd37a"/>
+      <circle cx="80" cy="18" r="5" fill="#ffbd82"/>
+      <line x1="29" y1="12" x2="69" y2="18" stroke="#70c2e8" stroke-width="2"/>
+      <circle cx="28" cy="13" r="2.5" fill="#4f7fe9"/>
+      <circle cx="69" cy="18" r="3" fill="#4f7fe9"/>
+    </svg>
+  </div>
+
+  <div class="pencil-bucket">
+    <svg width="64" height="84" viewBox="0 0 64 84" style="display:block;">
+      <circle cx="32" cy="64" r="19" fill="#7fb0e8"/>
+      <rect x="12" y="42" width="40" height="26" rx="4" fill="#6ea8e2"/>
+      <rect x="27" y="8" width="10" height="34" fill="#f5c542"/>
+      <rect x="14" y="20" width="10" height="25" fill="#ff7f5c"/>
+      <rect x="46" y="18" width="10" height="28" fill="#ff9d32"/>
+      <circle cx="28" cy="18" r="5" fill="#68c7d6"/>
+      <circle cx="51" cy="20" r="3" fill="#59b4ff"/>
+      <line x1="28" y1="14" x2="28" y2="5" stroke="#ffbd4a" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <div class="spark s1">✦</div>
+  <div class="spark s2">✦</div>
+  <div class="spark s3">●</div>
+  <div class="spark s4">✦</div>
+  <div class="spark s5">✦</div>
+
+  <div class="title">Assessment centre dashboard for student performance monitoring</div>
+  <div class="subtitle">This dashboard provides a real-time overview of assessments and key performance metrics to track student progress effectively.</div>
+
+  <div class="assess-card">
+    <div class="card-pill-left">All Assessments</div>
+
+    <div class="assessment-row row1">
+      <div class="icon-circle purple">▥</div>
+      <div class="row-content">
+        <div class="row-text">
+          <div class="assessment-name">Euclid’s Division Lemma</div>
+          <div class="subject">Maths</div>
+        </div>
+        <div class="calendar-block">
+          <div class="calendar-icon">▣</div>
+          <div class="date-text">Jan 3- Jan 5</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="assessment-row row2">
+      <div class="icon-circle green">▥</div>
+      <div class="row-content">
+        <div class="row-text">
+          <div class="assessment-name">US Sector Economy</div>
+          <div class="subject">Economics</div>
+        </div>
+        <div class="calendar-block">
+          <div class="calendar-icon">▣</div>
+          <div class="date-text">Jan 10- Jan 15</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="assessment-row row3">
+      <div class="icon-circle orange">▥</div>
+      <div class="row-content">
+        <div class="row-text">
+          <div class="assessment-name">Mrs. Packletide’s Tiger</div>
+          <div class="subject">English</div>
+        </div>
+        <div class="calendar-block">
+          <div class="calendar-icon">▣</div>
+          <div class="date-text">Jan 16- Jan 17</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="assessment-row row4">
+      <div class="icon-circle blue">▥</div>
+      <div class="row-content">
+        <div class="row-text">
+          <div class="assessment-name">Human Eye and The Colourful World</div>
+          <div class="subject">Physics</div>
+        </div>
+        <div class="calendar-block">
+          <div class="calendar-icon">▣</div>
+          <div class="date-text">Jan 24- Jan 26</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="performance-card">
+    <div class="card-pill-right">Overall Performance</div>
+
+    <div id="donutChart" class="donut-chart"></div>
+
+    <div class="metric-boxes">
+      <div class="metric-box high">
+        <span class="metric-label">Class Highest</span>
+        <span class="metric-value blue-value">94.2%</span>
+      </div>
+      <div class="metric-box my">
+        <span class="metric-label">My Score</span>
+        <span class="metric-value green-value">84.6%</span>
+      </div>
+      <div class="metric-box avg">
+        <span class="metric-label">Class Average</span>
+        <span class="metric-value orange-value">84.6%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat-block stat-left" style="--icon-bg:#8065ca; --band-bg:#d8c8ff; --num-color:#5e44b4;">
+      <div class="outer-circle"></div>
+      <div class="icon-top">▤</div>
+      <div class="num-band">120</div>
+      <div class="stat-label">Total Assessment</div>
+    </div>
+
+    <div class="stat-block stat-center" style="--icon-bg:#58b56f; --band-bg:#d8f0df; --num-color:#147d46;">
+      <div class="outer-circle"></div>
+      <div class="icon-top">✓</div>
+      <div class="num-band">122</div>
+      <div class="stat-label">Completed</div>
+    </div>
+
+    <div class="stat-block stat-right" style="--icon-bg:#ff7f18; --band-bg:#ffdfc7; --num-color:#f05a00;">
+      <div class="outer-circle"></div>
+      <div class="icon-top">⚖</div>
+      <div class="num-band">30</div>
+      <div class="stat-label">Pending</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const donutChart = echarts.init(document.getElementById('donutChart'));
+
+  const option = {
+    animation: false,
+    backgroundColor: 'transparent',
+    tooltip: { show: false },
+    legend: {
+      show: true,
+      itemWidth: 8,
+      itemHeight: 8,
+      left: 128,
+      top: 132,
+      icon: 'circle',
+      textStyle: {
+        color: '#333',
+        fontSize: 12
+      },
+      data: ['Class Highest', 'My Score', 'Class Average']
+    },
+    series: [
+      {
+        type: 'pie',
+        radius: ['39%', '50%'],
+        center: ['43%', '43%'],
+        startAngle: 90,
+        clockwise: true,
+        avoidLabelOverlap: true,
+        label: {
+          show: true,
+          position: 'outside',
+          formatter: '94.2%',
+          color: '#222',
+          fontWeight: 800,
+          fontSize: 16
+        },
+        labelLine: {
+          show: true,
+          length: 12,
+          length2: 12,
+          lineStyle: { color: '#aeb8c2' }
+        },
+        color: ['#5f95e5'],
+        data: [94.2]
+      },
+      {
+        type: 'pie',
+        radius: ['54%', '65%'],
+        center: ['43%', '43%'],
+        startAngle: 90,
+        clockwise: true,
+        label: {
+          show: true,
+          position: 'outside',
+          formatter: '84.6%',
+          color: '#222',
+          fontWeight: 800,
+          fontSize: 16
+        },
+        labelLine: {
+          show: true,
+          length: 12,
+          length2: 12,
+          lineStyle: { color: '#aeb8c2' }
+        },
+        color: ['#72b887'],
+        data: [84.6]
+      },
+      {
+        type: 'pie',
+        radius: ['69%', '80%'],
+        center: ['43%', '43%'],
+        startAngle: 90,
+        clockwise: true,
+        label: {
+          show: true,
+          position: 'outside',
+          formatter: '84.6%',
+          color: '#222',
+          fontWeight: 800,
+          fontSize: 16
+        },
+        labelLine: {
+          show: true,
+          length: 12,
+          length2: 12,
+          lineStyle: { color: '#aeb8c2' }
+        },
+        color: ['#ff9a28'],
+        data: [84.6]
+      }
+    ]
+  };
+
+  donutChart.setOption(option);
+</script>
+</body>
+</html>

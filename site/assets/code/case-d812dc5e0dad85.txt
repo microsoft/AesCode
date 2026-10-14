@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trial or consulting services</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e9defc;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      color: #102033;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1536px;
+      height: 1024px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 90% -5%, rgba(255,255,255,0.85) 0 165px, transparent 166px),
+        radial-gradient(circle at 18% 103%, rgba(238,198,238,0.55) 0 180px, transparent 181px),
+        linear-gradient(105deg, #f5e8fb 0%, #f7edf8 40%, #e8e3fb 68%, #dbe2fb 100%);
+    }
+
+    .artboard::before {
+      content: "";
+      position: absolute;
+      right: -78px;
+      top: -72px;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.32);
+    }
+
+    .dot-grid {
+      position: absolute;
+      right: 32px;
+      top: 44px;
+      width: 150px;
+      height: 66px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px 16px;
+      opacity: 0.45;
+    }
+
+    .dot-grid span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #9f70e6;
+    }
+
+    .title {
+      position: absolute;
+      left: 70px;
+      top: 38px;
+      margin: 0;
+      font-size: 58px;
+      line-height: 1.08;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      color: #081d3a;
+    }
+
+    .hero-bar {
+      position: absolute;
+      left: 42px;
+      top: 130px;
+      width: 1452px;
+      height: 248px;
+      border-radius: 16px;
+      background: linear-gradient(105deg, #ec4692 0%, #bd35bd 39%, #7148df 100%);
+      padding: 34px 42px 28px 34px;
+      box-shadow: 0 12px 24px rgba(109, 75, 208, 0.16);
+    }
+
+    .hero-bar p {
+      margin: 0;
+      font-size: 26px;
+      line-height: 1.42;
+      font-weight: 400;
+      color: #ffffff;
+      text-align: left;
+    }
+
+    .hero-bar .links {
+      display: inline;
+      color: #55dcff;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .hero-bar .bold-benefit {
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .benefits-card {
+      position: absolute;
+      left: 140px;
+      top: 405px;
+      width: 1256px;
+      height: 254px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.94);
+      box-shadow: 0 14px 28px rgba(35, 35, 45, 0.16);
+      padding: 22px 48px 26px 48px;
+    }
+
+    .benefits-intro {
+      margin: 0 0 22px 0;
+      text-align: center;
+      font-size: 32px;
+      line-height: 1.18;
+      color: #081d3a;
+      font-weight: 800;
+    }
+
+    .benefit-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .benefit-list li {
+      position: relative;
+      padding-left: 36px;
+      margin-bottom: 19px;
+      font-size: 21px;
+      line-height: 1.4;
+      color: #2b3038;
+    }
+
+    .benefit-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #9b61ef;
+      box-shadow: 0 0 0 4px rgba(155,97,239,0.12);
+    }
+
+    .benefit-label {
+      font-weight: 800;
+      color: #8d61e2;
+    }
+
+    .benefit-label.press {
+      color: #ee3b84;
+    }
+
+    .testimonial-left {
+      position: absolute;
+      left: 54px;
+      top: 676px;
+      width: 740px;
+      height: 300px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 13px 25px rgba(40, 40, 50, 0.15);
+      padding: 20px 32px 24px 80px;
+    }
+
+    .testimonial-right {
+      position: absolute;
+      left: 814px;
+      top: 676px;
+      width: 668px;
+      height: 300px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 13px 25px rgba(40, 40, 50, 0.15);
+      padding: 20px 32px 24px 80px;
+    }
+
+    .quote-icon {
+      position: absolute;
+      left: -38px;
+      top: -20px;
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 62px;
+      font-weight: 800;
+      color: #ffffff;
+      z-index: 3;
+      box-shadow: 0 9px 15px rgba(120,80,210,0.22);
+    }
+
+    .quote-icon.pink {
+      background: #ef408f;
+    }
+
+    .quote-icon.purple {
+      background: #8f61e8;
+    }
+
+    .quote-text {
+      margin: 0;
+      color: #26303a;
+      font-size: 26px;
+      line-height: 1.34;
+      font-style: italic;
+      letter-spacing: -0.2px;
+    }
+
+    .attribution {
+      margin: 22px 0 0 0;
+      color: #ff421d;
+      font-size: 21px;
+      line-height: 1.25;
+      font-weight: 700;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="dot-grid" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <h1 class="title">Trial or consulting services</h1>
+
+    <section class="hero-bar" aria-label="Trial or consulting services explanation">
+      <p>
+        Once a partner has created a trial offer or consulting offer that includes a proof of concept or implementation,
+        they’ll begin to receive go-to-market benefits and increased visibility. Offers are made available across
+        <span class="links">Microsoft AppSource</span> and <span class="links">Azure Marketplace</span>, including a dedicated offers landing page and category pages.
+        As part of this offer type, partners also receive <span class="bold-benefit">Commercial marketplace listing optimization and press release support</span>
+        to amplify their impact and reach.
+      </p>
+    </section>
+
+    <section class="benefits-card" aria-label="Additional benefits">
+      <h2 class="benefits-intro">In addition to all benefits from “All Listings,” you’ll receive:</h2>
+      <ul class="benefit-list">
+        <li>
+          <span class="benefit-label">Commercial marketplace listing optimization:</span>
+          Receive personalized guidance from professional marketers to optimize your offer listings and better engage prospects.
+        </li>
+        <li>
+          <span class="benefit-label press">Press release support:</span>
+          Get approval of a partner-drafted press release and a Microsoft representative quote to help amplify your announcement.
+        </li>
+      </ul>
+    </section>
+
+    <section class="testimonial-left" aria-label="BeyondCore testimonial">
+      <div class="quote-icon pink">“</div>
+      <p class="quote-text">
+        “Implementing the solutions offered by Microsoft and the go-to-market services team led to a 174 percent rise in visitors to our website and more than four times our typical number of new leads.”
+      </p>
+      <p class="attribution">– Arijit Sengupta, Founder and CEO, BeyondCore</p>
+    </section>
+
+    <section class="testimonial-right" aria-label="TwoConnect testimonial">
+      <div class="quote-icon purple">“</div>
+      <p class="quote-text">
+        “We have been a Microsoft gold partner since 1995, and this is definitely one of the best partner benefit programs we’ve been involved in.”
+      </p>
+      <p class="attribution">– Carmen Mariscal, TwoConnect Marketing Director</p>
+    </section>
+  </div>
+</body>
+</html>

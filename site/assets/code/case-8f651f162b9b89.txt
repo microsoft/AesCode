@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NEXUS API Documentation</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #050812;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #f0f3fb;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 853px;
+    height: 1280px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 52% 16%, rgba(111, 60, 255, 0.16), transparent 31%),
+      radial-gradient(circle at 13% 58%, rgba(80, 45, 255, 0.13), transparent 28%),
+      linear-gradient(180deg, #070b16 0%, #08101d 54%, #0a1220 100%);
+  }
+
+  .topbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 853px;
+    height: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(6, 10, 20, 0.82);
+    display: flex;
+    align-items: center;
+    z-index: 5;
+  }
+
+  .brand-top {
+    width: 155px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 16px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    font-size: 14px;
+  }
+
+  .mini-logo {
+    width: 17px;
+    height: 17px;
+    border-radius: 5px;
+    border: 2px solid #9b62ff;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(126,93,255,0.15));
+    position: relative;
+  }
+
+  .mini-logo:before,
+  .mini-logo:after {
+    content: "";
+    position: absolute;
+    background: rgba(155,98,255,0.75);
+  }
+
+  .mini-logo:before {
+    width: 8px;
+    height: 17px;
+    left: 4px;
+    top: 0;
+    transform: rotate(35deg);
+  }
+
+  .mini-logo:after {
+    width: 11px;
+    height: 11px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 50%;
+    border: 1px solid #e7b8ff;
+  }
+
+  .top-menu {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-left: 0;
+    font-size: 11px;
+    color: #b9bfce;
+  }
+
+  .top-menu span:first-child {
+    color: #e8c7ff;
+    border-bottom: 2px solid #8e54ff;
+    padding-bottom: 5px;
+  }
+
+  .top-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding-right: 16px;
+  }
+
+  .search {
+    width: 144px;
+    height: 23px;
+    border-radius: 5px;
+    background: #141824;
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #8f97ad;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 10px;
+  }
+
+  .theme {
+    width: 22px;
+    height: 22px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 5px;
+    color: #dce2f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  .dashboard {
+    border: 0;
+    background: linear-gradient(135deg, #9e62ff, #6653ee);
+    color: #fff;
+    height: 22px;
+    padding: 0 12px;
+    border-radius: 5px;
+    font-size: 11px;
+  }
+
+  .breadcrumb {
+    position: absolute;
+    top: 40px;
+    left: 182px;
+    width: 670px;
+    height: 36px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    align-items: center;
+    padding-left: 14px;
+    color: #a5adbf;
+    font-size: 11px;
+  }
+
+  .sidebar {
+    position: absolute;
+    top: 76px;
+    left: 0;
+    width: 178px;
+    height: 1035px;
+    background: rgba(11, 15, 28, 0.86);
+    border-right: 1px solid rgba(255,255,255,0.09);
+    padding: 0 12px;
+  }
+
+  .version {
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 5px;
+    height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: space3;
+    padding: 0 7px;
+    color: #d6dde9;
+    margin-bottom: 15px;
+    font-size: 11px;
+  }
+
+  .nav-section {
+    margin-bottom: 14px;
+  }
+
+  .nav-label {
+    color: #a9b0c1;
+    font-size: 10px;
+    font-weight: 800;
+    margin: 2px 0 6px 1px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+
+  .nav-item {
+    height: 29px;
+    border-radius: 5px;
+    padding: 0 7px;
+    display: flex;
+    align-items: center;
+    color: #b5bccb;
+    font-size: 11px;
+    border: 1px solid transparent;
+  }
+
+  .nav-item.active {
+    border-color: #9e62ff;
+    background: rgba(158,98,255,0.13);
+    color: #e9c6ff;
+    font-weight: 700;
+  }
+
+  .help-card {
+    position: absolute;
+    left: 12px;
+    bottom: 34px;
+    width: 153px;
+    height: 195px;
+    border: 1px solid rgba(158,98,255,0.28);
+    border-radius: 8px;
+    background: rgba(32, 20, 71, 0.33);
+    padding: 12px;
+  }
+
+  .cube {
+    width: 78px;
+    height: 78px;
+    margin: 0 auto 12px;
+    border: 1px solid rgba(171,107,255,0.55);
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(130,75,255,0.08));
+    clip-path: polygon(50% 0%, 92% 26%, 74% 76%, 24% 76%, 6% 26%);
+    box-shadow: 0 0 12px rgba(120,70,255,0.8), inset 0 0 10px rgba(120,70,255,0.25);
+    position: relative;
+  }
+
+  .cube:after {
+    content: "N";
+    position: absolute;
+    inset: 17px;
+    color: #c88cff;
+    font-size: 36px;
+    font-weight: 900;
+    background: rgba(160,90,255,0.16);
+    border: 1px solid rgba(170,100,255,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .help-title {
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .help-desc {
+    color: #aeb6c9;
+    font-size: 10px;
+    margin-top: 5px;
+  }
+
+  .join-btn {
+    margin-top: 10px;
+    width: 100%;
+    height: 27px;
+    border: 0;
+    border-radius: 5px;
+    background: #5d47f0;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  .content {
+    position: absolute;
+    top: 76px;
+    left: 181px;
+    width: 672px;
+    height: 1035px;
+  }
+
+  .page-head {
+    height: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    color: #9fa8ba;
+  }
+
+  .page-head h1 {
+    margin: 0 0 10px 0;
+    font-size: 36px;
+    letter-spacing: -1.3px;
+  }
+
+  .intro-text {
+    color: #b8bfcc;
+    font-size: 12px;
+    line-height: 1.55;
+    width: 455px;
+  }
+
+  .hero {
+    width: 550px;
+    height: 160px;
+    margin: 15px auto 16px;
+    border: 1px solid rgba(158,98,255,0.25);
+    border-radius: 7px;
+    background:
+      radial-gradient(circle at 17% 42%, rgba(158,98,255,0.22), transparent 30%),
+      linear-gradient(135deg, rgba(20,11,52,0.92), rgba(36,24,76,0.75));
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero h2 {
+    position: absolute;
+    left: 22px;
+    top: 29px;
+    margin: 0;
+    width: 210px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: #f3f5ff;
+  }
+
+  .hero .big-cube {
+    position: absolute;
+    width: 102px;
+    height: 102px;
+    left: 222px;
+    top: 32px;
+    border: 1px solid rgba(180,120,255,0.65);
+    clip-path: polygon(50% 0%, 90% 25%, 76% 75%, 24% 75%, 10% 25%);
+    background: rgba(120,80,255,0.25);
+  }
+
+  .hero .pill {
+    position: absolute;
+    border: 1px solid rgba(158,98,255,0.45);
+    color: #e7c8ff;
+    border-radius: 6px;
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  .pill.rest { left: 102px; top: 92px; }
+  .pill.json { right: 31px; top: 16px; }
+  .pill.https { right: 31px; bottom: 23px; }
+
+  .section-title {
+    margin: 0 0 8px;
+    font-size: 18px;
+  }
+
+  .features {
+    width: 550px;
+    height: 102px;
+    margin: 15px auto 17px;
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 7px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: rgba(16, 22, 36, 0.65);
+  }
+
+  .callout {
+    display: flex;
+    align-items: flex-start;
+    padding: 14px 12px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .callout:last-child {
+    border-right: 0;
+  }
+
+  .ico {
+    width: 19px;
+    height: 19px;
+    margin-right: 8px;
+    color: #9f62ff;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .callout strong {
+    display: block;
+    font-size: 12px;
+  }
+
+  .callout span {
+    color: #a7afbf;
+    font-size: 10.5px;
+    margin-top: 4px;
+  }
+
+  .request h2,
+  .response h2 {
+    margin: 0 0 6px;
+  }
+
+  .tabs {
+    margin: 0 0 8px;
+    display: flex;
+    gap: 20px;
+    font-size: 11px;
+    color: #b7bee1;
+  }
+
+  .tab-active {
+    color: #e7c8ff;
+    border-bottom: 2px solid #8e54ff;
+    padding-bottom: 5px;
+    font-weight: 800;
+  }
+
+  .codebox {
+    width: 550px;
+    height: 63px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 5px;
+    background: rgba(255,255,255,0.035);
+    position: relative;
+  }
+
+  .copy {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: #9fa7b8;
+    font-size: 12px;
+  }
+
+  .code-lines {
+    margin-left: 26px;
+    color: #c3cad7;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 10.5px;
+    line-height: 1.45;
+  }
+
+  .green {
+    color: #68f5c9;
+  }
+
+  .yellow {
+    color: #e5f068;
+  }
+
+  .note {
+    width: 550px;
+    margin: 9px auto 14px;
+    height: 35px;
+    border: 1px solid #246fc9;
+    color: #9fd6ff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding-left: 14px;
+    font-size: 10.5px;
+  }
+
+  .jsonbox {
+    width: 550px;
+    height: 210px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 5px;
+    background: rgba(255,255,255,0.035);
+  }
+
+  .jsonbox .code-lines {
+    font-size: 9.6px;
+    line-height: 1.36;
+  }
+
+  .success {
+    width: 550px;
+    height: 48px;
+    border: 1px solid #29a575;
+    border-radius: 5px;
+    background: linear-gradient(90deg, rgba(36,125,82,0.17), rgba(22,80,67,0.18));
+    color: #d7f6e7;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    font-size: 10.5px;
+  }
+
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 853px;
+    height: 169px;
+    background: rgba(8, 12, 23, 0.98);
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 170px 145px 130px 145px 155px;
+    gap: 14px;
+    padding: 17px 26px 0;
+  }
+
+  .foot-brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  .foot-note {
+    color: #a7afbf;
+    font-size: 10px;
+    margin-bottom: 12px;
+  }
+
+  .socials {
+    display: flex;
+    gap: 10px;
+    color: #bac1d0;
+  }
+
+  .foot-col h4 {
+    margin: 0 0 10px;
+    color: #b9c1cf;
+    font-size: 10px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+
+  .foot-col a,
+  .foot-col p {
+    display: block;
+    margin: 0 0 7px;
+    color: #b2bad0;
+    font-size: 10.5px;
+    text-decoration: none;
+  }
+
+  .copyright {
+    position: absolute;
+    left: 35px;
+    bottom: 8px;
+    color: #8f98a9;
+    font-size: 10px;
+  }
+
+  .made {
+    position: absolute;
+    right: 37px;
+    bottom: 8px;
+    color: #8f98a9;
+    font-size: 10px;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <header class="topbar">
+      <div class="brand-top">
+        <div class="mini-logo"></div>
+        <div>NEXUS API</div>
+      </div>
+      <nav class="top-menu" aria-label="Top navigation">
+        <span>Docs</span>
+        <span>Guides</span>
+        <span>SDKs</span>
+        <span>Changelog</span>
+        <span>Status</span>
+      </nav>
+      <div class="top-actions">
+        <div class="search">Search docs...</div>
+        <div class="theme">◐</div>
+        <button class="dashboard">Dashboard</button>
+      </div>
+    </header>
+
+    <div class="breadcrumb">Docs &gt; Getting Started &gt; Introduction</div>
+
+    <aside class="sidebar">
+      <div class="version">v2.3.0</div>
+
+      <div class="nav-section">
+        <div class="nav-label">GETTING STARTED</div>
+        <div class="nav-item active">Introduction</div>
+        <div class="nav-item">Quickstart</div>
+        <div class="nav-item">Authentication</div>
+        <div class="nav-item">Your First Request</div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-label">API REFERENCE</div>
+        <div class="nav-item">Overview</div>
+        <div class="nav-item">Authentication</div>
+        <div class="nav-item">Users</div>
+        <div class="nav-item">Projects</div>
+        <div class="nav-item">Messages</div>
+        <div class="nav-item">Webhooks</div>
+        <div class="nav-item">Errors</div>
+        <div class="nav-item">Rate Limits</div>
+        <div class="nav-item">Pagination</div>
+        <div class="nav-item">Filtering &amp; Sorting</div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-label">GUIDES</div>
+        <div class="nav-item">Integrations</div>
+        <div class="nav-item">Best Practices</div>
+        <div class="nav-item">Security</div>
+        <div class="nav-item">Migration Guide</div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-label">SDK REFERENCE</div>
+        <div class="nav-item">JavaScript</div>
+        <div class="nav-item">Python</div>
+        <div class="nav-item">Ruby</div>
+        <div class="nav-item">PHP</div>
+        <div class="nav-item">Go</div>
+      </div>
+
+      <div class="help-card">
+        <div class="cube"></div>
+        <div class="help-title">Need help?</div>
+        <div class="help-desc">Join our community on Discord or contact our support team.</div>
+        <button class="join-btn">Join Discord</button>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="page-head">
+        <h1>Introduction</h1>
+        <div class="intro-text">Welcome to the Nexus API! Build powerful integrations and automate your workflow with our secure and scalable API.</div>
+      </section>
+
+      <section class="hero">
+        <h2>Powerful APIs.<br>Seamless Integrations.<br>Infinite Possibilities.</h2>
+        <div class="big-cube"></div>
+        <div class="pill rest">REST</div>
+        <div class="pill json">JSON</div>
+        <div class="pill https">HTTPS</div>
+      </section>
+
+      <section>
+        <h2 class="section-title">What is the Nexus API?</h2>
+        <p>The Nexus API provides programmatic access to all core features of the Nexus platform. It is RESTful, JSON-based, and designed with developers in mind.</p>
+        <div class="features">
+          <div class="callout">
+            <div class="ico">ϟ</div>
+            <div><strong>Fast &amp; Reliable</strong><span>Built for performance and 99.9% uptime.</span></div>
+          </div>
+          <div class="callout">
+            <div class="ico">▣</div>
+            <div><strong>Secure by Default</strong><span>OAuth 2.0 authentication and encrypted requests.</span></div>
+          </div>
+          <div class="callout">
+            <div class="ico">〈〉</div>
+            <div><strong>Developer Friendly</strong><span>Comprehensive docs, SDKs, and examples.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="request">
+        <h2>Make Your First Request</h2>
+        <p>Let's get you started with a simple API request.</p>
+        <div class="tabs"><span class="tab-active">cURL</span><span>JavaScript</span><span>Python</span><span>Go</span><span>Ruby</span></div>
+        <div class="codebox">
+          <div class="copy">□</div>
+          <pre class="code-lines"><span class="green">1</span> curl -X <span class="yellow">GET</span> <span class="yellow">"https://api.nexus.dev/v2/users"</span> <span class="green">\</span>
+<span class="green">2</span>     -H <span class="yellow">"Authorization: Bearer YOUR_API_KEY"</span> <span class="green">\</span>
+<span class="green">3</span>     -H <span class="yellow">"Accept: application/json"</span></pre>
+        </div>
+        <div class="note">Replace <strong>YOUR_API_KEY</strong> with your actual API key. You can find your API key in your dashboard.</div>
+      </section>
+
+      <section class="response">
+        <h2>Response Example</h2>
+        <p>Here's an example of a successful response.</p>
+        <div class="jsonbox">
+          <div class="copy">□</div>
+          <pre class="code-lines"><span class="green">1</span> {
+<span class="green">2</span>   <span class="yellow">"data"</span>: {
+<span class="green">3</span>     <span class="yellow">"id"</span>: <span class="green">"usr_123456"</span>,
+<span class="green">4</span>     <span class="yellow">"name"</span>: <span class="green">"Jane Doe"</span>,
+<span class="green">5</span>     <span class="yellow">"email"</span>: <span class="green">"jane.doe@example.com"</span>,
+<span class="green">6</span>     <span class="yellow">"created_at"</span>: <span class="green">"2024-05-20T12:34:56Z"</span>
+<span class="green">7</span>   },
+<span class="green">8</span>   <span class="yellow">"meta"</span>: {
+<span class="green">9</span>     <span class="yellow">"pagination"</span>: {
+<span class="green">10</span>       <span class="yellow">"page"</span>: <span class="green">1</span>,
+<span class="green">11</span>       <span class="yellow">"per_page"</span>: <span class="green">10</span>,
+<span class="green">12</span>       <span class="yellow">"total"</span>: <span class="green">120</span>
+<span class="green">13</span>     }
+<span class="green">14</span>   }
+<span class="green">15</span> }</pre>
+        </div>
+        <div class="success">✅ Great! You've just made your first API request. Check out the <strong>Quickstart guide</strong> to explore more.</div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <div class="foot-brand">
+            <div class="mini-logo"></div>
+            <div>NEXUS API</div>
+          </div>
+          <div class="foot-note">Powerful APIs for modern developers. Build, integrate, and scale with ease.</div>
+          <div class="socials">● ● ● ●</div>
+        </div>
+        <div class="foot-col">
+          <h4>DOCUMENTATION</h4>
+          <a>Getting Started</a>
+          <a>API Reference</a>
+          <a>Guides</a>
+          <a>SDKs</a>
+          <a>Changelog</a>
+        </div>
+        <div class="foot-col">
+          <h4>RESOURCES</h4>
+          <a>Blog</a>
+          <a>Help Center</a>
+          <a>Community</a>
+          <a>Status</a>
+          <a>Trust Center</a>
+        </div>
+        <div class="foot-col">
+          <h4>COMPANY</h4>
+          <a>About Us</a>
+          <a>Careers</a>
+          <a>Contact</a>
+          <a>Privacy Policy</a>
+          <a>Terms of Service</a>
+        </div>
+        <div class="foot-col">
+          <h4>SUPPORT</h4>
+          <p>support@nexus.dev</p>
+          <p>Live Chat</p>
+          <p>Mon - Fri, 9AM - 6PM UTC</p>
+        </div>
+      </div>
+      <div class="copyright">© 2024 Nexus API. All rights reserved.</div>
+      <div class="made">Made with ♥ by Nexus Team</div>
+    </footer>
+  </div>
+</body>
+</html>

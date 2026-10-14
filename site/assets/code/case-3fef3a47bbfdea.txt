@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Work Summary Infographic</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9e0d8;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background: #fbf5f0;
+    color: #151212;
+  }
+
+  /* Background shapes */
+  .bg-blob-top-right {
+    position: absolute;
+    right: -90px;
+    top: -78px;
+    width: 400px;
+    height: 255px;
+    background: rgba(255, 180, 110, 0.16);
+    border-radius: 0 0 220px 0;
+    transform: rotate(23deg);
+  }
+
+  .bg-blob-top-right-white {
+    position: absolute;
+    right: 70px;
+    top: 100px;
+    width: 210px;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.48);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 180, 110, 0.18);
+    transform: rotate(25deg);
+  }
+
+  .bg-blob-bottom-left-cream {
+    position: absolute;
+    left: -70px;
+    bottom: -35px;
+    width: 310px;
+    height: 180px;
+    background: rgba(255, 180, 110, 0.14);
+    border-radius: 0 0 0 180px;
+  }
+
+  .bg-blob-bottom-left-white {
+    position: absolute;
+    left: -60px;
+    bottom: 28px;
+    width: 218px;
+    height: 146px;
+    background: rgba(255, 255, 255, 0.52);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 180, 110, 0.16);
+  }
+
+  /* Top pill */
+  .top-pill-outline {
+    position: absolute;
+    top: 47px;
+    left: 0;
+    width: 128px;
+    height: 62px;
+    border: 2px solid #ef9a57;
+    border-radius: 34px;
+    background: transparent;
+  }
+
+  .top-pill-dot {
+    position: absolute;
+    top: 55px;
+    left: 74px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 180, 110, 0.22);
+  }
+
+  /* Title */
+  .title {
+    position: absolute;
+    top: 51px;
+    left: 155px;
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -1.2px;
+    color: #161313;
+  }
+
+  /* Summary circle */
+  .summary-circle {
+    position: absolute;
+    left: 122px;
+    top: 261px;
+    width: 296px;
+    height: 296px;
+    border-radius: 50%;
+    background: #f58638;
+    box-shadow: 0 18px 34px rgba(245, 134, 56, 0.22);
+    z-index: 4;
+  }
+
+  .paper-plane {
+    position: absolute;
+    left: 101px;
+    top: 72px;
+    width: 92px;
+    height: 86px;
+    z-index: 5;
+  }
+
+  .paper-plane svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .summary-text {
+    position: absolute;
+    left: 0;
+    bottom: 67px;
+    width: 296px;
+    text-align: center;
+    color: #fff;
+    font-size: 33px;
+    font-weight: 800;
+    z-index: 6;
+    letter-spacing: -0.4px;
+  }
+
+  /* Arc motion */
+  .arc {
+    position: absolute;
+    left: 270px;
+    top: 212px;
+    width: 200px;
+    height: 200px;
+    border: 2px solid rgba(255, 180, 110, 0.46);
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    transform: rotate(105deg);
+    z-index: 2;
+  }
+
+  .arc-small {
+    position: absolute;
+    left: 286px;
+    top: 228px;
+    width: 167px;
+    height: 167px;
+    border: 1.5px solid rgba(255, 180, 110, 0.32);
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    transform: rotate(105deg);
+    z-index: 2;
+  }
+
+  .arc-line-back {
+    position: absolute;
+    left: 264px;
+    top: 234px;
+    width: 202px;
+    height: 320px;
+    border-left: 1.8px solid rgba(255, 180, 110, 0.32);
+    border-radius: 0 100px 100px 0;
+    z-index: 1;
+  }
+
+  /* Connectors */
+  .connector-top {
+    position: absolute;
+    left: 440px;
+    top: 210px;
+    width: 132px;
+    height: 2px;
+    background: #ef9a57;
+    z-index: 3;
+  }
+
+  .connector-top:before {
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: -18px;
+    width: 22px;
+    height: 22px;
+    border-left: 2px solid #ef9a57;
+    border-bottom: 2px solid #ef9a57;
+    transform: rotate(45deg);
+  }
+
+  .connector-mid {
+    position: absolute;
+    left: 440px;
+    top: 405px;
+    width: 130px;
+    height: 2px;
+    background: #ef9a57;
+    z-index: 3;
+  }
+
+  .connector-bottom {
+    position: absolute;
+    left: 440px;
+    top: 600px;
+    width: 128px;
+    height: 2px;
+    background: #ef9a57;
+    z-index: 3;
+  }
+
+  /* Hex icons */
+  .hex-icon {
+    position: absolute;
+    width: 66px;
+    height: 66px;
+    background: #f58638;
+    border-radius: 15px;
+    z-index: 7;
+  }
+
+  .hex-icon:before,
+  .hex-icon:after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 15px;
+    width: 26px;
+    height: 36px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    transform: rotate(60deg);
+    opacity: 0.9;
+  }
+
+  .hex-icon:after {
+    transform: rotate(-60deg);
+  }
+
+  .hex-top {
+    left: 558px;
+    top: 183px;
+  }
+
+  .hex-mid {
+    left: 558px;
+    top: 378px;
+  }
+
+  .hex-bottom {
+    left: 558px;
+    top: 573px;
+  }
+
+  /* Content cards */
+  .card {
+    position: absolute;
+    left: 589px;
+    width: 726px;
+    height: 173px;
+    background: #ffe0bf;
+    border-radius: 14px;
+    color: #111;
+    z-index: 3;
+  }
+
+  .card-top {
+    top: 128px;
+    height: 172px;
+    padding-left: 62px;
+    padding-top: 20px;
+  }
+
+  .card-mid {
+    top: 328px;
+    height: 164px;
+    padding-left: 62px;
+    padding-top: 17px;
+  }
+
+  .card-bottom {
+    top: 521px;
+    height: 164px;
+    padding-left: 62px;
+    padding-top: 17px;
+  }
+
+  .card h2 {
+    font-size: 20px;
+    margin: 0 0 10px 0;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #121212;
+  }
+
+  .card p {
+    margin: 0;
+    font-size: 15.8px;
+    line-height: 1.22;
+    color: #141414;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="bg-blob-top-right"></div>
+  <div class="bg-blob-top-right-white"></div>
+  <div class="bg-blob-bottom-left-cream"></div>
+  <div class="bg-blob-bottom-left-white"></div>
+
+  <div class="top-pill-outline"></div>
+  <div class="top-pill-dot"></div>
+
+  <div class="title">Work Summary</div>
+
+  <div class="arc-line-back"></div>
+  <div class="arc"></div>
+  <div class="arc-small"></div>
+
+  <div class="summary-circle">
+    <div class="paper-plane" aria-hidden="true">
+      <svg viewBox="0 0 110 104">
+        <polygon points="10,38 83,18 66,66 30,51" fill="none" stroke="#fff" stroke-width="7" stroke-linejoin="round" />
+        <polygon points="30,51 66,66 48,86" fill="none" stroke="#fff" stroke-width="7" stroke-linejoin="round" />
+        <polygon points="83,18 71,26 62,64" fill="none" stroke="#fff" stroke-width="7" stroke-linejoin="round" />
+      </svg>
+    </div>
+    <div class="summary-text">Summary</div>
+  </div>
+
+  <div class="connector-top"></div>
+  <div class="connector-mid"></div>
+  <div class="connector-bottom"></div>
+
+  <div class="hex-icon hex-top"></div>
+  <div class="hex-icon hex-mid"></div>
+  <div class="hex-icon hex-bottom"></div>
+
+  <div class="card card-top">
+    <h2>Turn verbal alignment into a repeatable SOP</h2>
+    <p>
+      Transformed unstructured team discussions and ad hoc verbal agreements into a documented, standardized operating procedure.
+      This initiative established clear guidelines, defined roles and responsibilities, and created a central knowledge repository,
+      improving workflow consistency and reducing errors across projects. The repeatable process ensures smoother handovers and
+      stronger alignment in future collaborations.
+    </p>
+  </div>
+
+  <div class="card card-mid">
+    <h2>Cleaned 8 years of legacy inventory in 3 weeks, freeing 230GB</h2>
+    <p>
+      Executed a focused data-cleanup initiative targeting years of accumulated legacy files and redundant assets.
+      Using practical sorting and deduplication tools, the team reviewed, archived, and removed obsolete material within a condensed timeline.
+      This effort freed up 230GB of storage space and streamlined access to essential digital assets for improved performance.
+    </p>
+  </div>
+
+  <div class="card card-bottom">
+    <h2>Turn repetitive onboarding Q&amp;A into scalable self-service</h2>
+    <p>
+      Converted frequently asked questions and repetitive onboarding inquiries into a comprehensive suite of self-service resources.
+      The team developed a searchable knowledge base, interactive tutorials, and a series of instructional video modules, giving new hires
+      instant access to essential information. This scalable solution reduced dependency on support staff and enabled a faster,
+      more autonomous onboarding experience.
+    </p>
+  </div>
+</div>
+</body>
+</html>

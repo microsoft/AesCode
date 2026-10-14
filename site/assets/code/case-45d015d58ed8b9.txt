@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Marketing KPI Dashboard with Lead to Conversion</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #f4f4f4;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #111;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .title {
+    position: absolute;
+    top: 12px;
+    left: 120px;
+    width: 1136px;
+    text-align: center;
+    font-size: 40px;
+    line-height: 44px;
+    font-weight: 800;
+    letter-spacing: -1.2px;
+  }
+
+  .subtitle {
+    position: absolute;
+    top: 66px;
+    left: 182px;
+    width: 1012px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .kpi-row {
+    position: absolute;
+    left: 34px;
+    top: 102px;
+    width: 1308px;
+    height: 104px;
+    display: flex;
+    gap: 20px;
+  }
+
+  .metric-card {
+    position: relative;
+    width: 202px;
+    height: 98px;
+    border: 1.5px solid #1f6fae;
+    border-top: 5px solid #d9dde2;
+    background: #fff;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.25);
+    text-align: center;
+    padding-top: 18px;
+  }
+
+  .metric-label {
+    position: absolute;
+    top: -28px;
+    left: 16px;
+    width: 170px;
+    height: 26px;
+    background: #dddddd;
+    color: #111;
+    font-size: 13px;
+    line-height: 26px;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .metric-value {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #1679b8;
+    line-height: 33px;
+  }
+
+  .metric-caption {
+    margin-top: 2px;
+    font-size: 13px;
+    color: #111;
+    font-weight: 400;
+  }
+
+  .caption-positive {
+    color: #16a051;
+    font-weight: 700;
+  }
+
+  .caption-negative {
+    color: #d13a34;
+    font-weight: 700;
+  }
+
+  .section-heading {
+    position: absolute;
+    background: #efefef;
+    height: 28px;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 28px;
+    padding-left: 8px;
+  }
+
+  .heading-top-left {
+    left: 26px;
+    top: 228px;
+    width: 662px;
+  }
+
+  .heading-top-right {
+    left: 702px;
+    top: 228px;
+    width: 648px;
+  }
+
+  #campaignChart {
+    position: absolute;
+    left: 26px;
+    top: 266px;
+    width: 662px;
+    height: 220px;
+  }
+
+  #trendChart {
+    position: absolute;
+    left: 702px;
+    top: 266px;
+    width: 648px;
+    height: 220px;
+  }
+
+  .funnel-heading {
+    position: absolute;
+    left: 26px;
+    top: 510px;
+    width: 662px;
+    height: 28px;
+    background: #dfdfdf;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 28px;
+    padding-left: 8px;
+  }
+
+  .funnel-box {
+    position: absolute;
+    left: 26px;
+    top: 542px;
+    width: 662px;
+    height: 164px;
+    background: #dededc;
+    border: 1px solid #d2d2d2;
+  }
+
+  .funnel-row {
+    position: absolute;
+    left: 22px;
+    width: 610px;
+    height: 28px;
+    font-size: 16px;
+  }
+
+  .funnel-row.r1 { top: 8px; }
+  .funnel-row.r2 { top: 36px; }
+  .funnel-row.r3 { top: 64px; }
+  .funnel-row.r4 { top: 92px; }
+  .funnel-row.r5 { top: 120px; }
+
+  .funnel-label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 150px;
+    text-align: right;
+    padding-right: 10px;
+  }
+
+  .funnel-bar {
+    position: absolute;
+    left: 150px;
+    top: 3px;
+    height: 20px;
+  }
+
+  .funnel-value {
+    position: absolute;
+    left: 420px;
+    top: 0;
+    font-weight: 800;
+    font-size: 16px;
+  }
+
+  .scatter-heading {
+    position: absolute;
+    left: 702px;
+    top: 510px;
+    width: 648px;
+    height: 28px;
+    background: #dfdfdf;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 28px;
+    padding-left: 8px;
+  }
+
+  .legend-note {
+    position: absolute;
+    right: 12px;
+    top: 0;
+    font-size: 12px;
+    color: #111;
+  }
+
+  #scatterChart {
+    position: absolute;
+    left: 702px;
+    top: 542px;
+    width: 648px;
+    height: 164px;
+  }
+
+  .footer-divider {
+    position: absolute;
+    left: 300px;
+    top: 728px;
+    width: 776px;
+    height: 1px;
+    background: #cfcfcf;
+  }
+
+  .source-line {
+    position: absolute;
+    left: 610px;
+    top: 728px;
+    width: 160px;
+    text-align: center;
+    font-size: 12px;
+  }
+
+  .auto-note {
+    position: absolute;
+    left: 386px;
+    top: 748px;
+    width: 604px;
+    text-align: center;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="title">Marketing KPI Dashboard with Lead to Conversion</div>
+  <div class="subtitle">This slide showcases a KPI dashboard used to monitor the performance of a marketing campaign.</div>
+
+  <div class="kpi-row">
+    <div class="metric-card">
+      <div class="metric-label">Avg Daily Impressions</div>
+      <div class="metric-value">1.30M</div>
+      <div class="metric-caption">Growth <span class="caption-positive">131.4%</span></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Click-Through Rate</div>
+      <div class="metric-value">0.37%</div>
+      <div class="metric-caption">Growth <span class="caption-positive">0.2%</span></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Cost Per Click</div>
+      <div class="metric-value">$1.79</div>
+      <div class="metric-caption">Prev Month $3.51</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">GA Conversion Rate</div>
+      <div class="metric-value">1.79%</div>
+      <div class="metric-caption">Growth <span class="caption-negative">-63.3%</span></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Leads to Opps Conversion</div>
+      <div class="metric-value">2.15%</div>
+      <div class="metric-caption">Growth <span class="caption-negative">-8.5%</span></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Cost Per Conversion</div>
+      <div class="metric-value">$99.65</div>
+      <div class="metric-caption">Growth <span class="caption-positive">$71.79</span></div>
+    </div>
+  </div>
+
+  <div class="section-heading heading-top-left">Top Campaigns</div>
+  <div id="campaignChart"></div>
+
+  <div class="section-heading heading-top-right">Leads Converted vs. Cost Trend</div>
+  <div id="trendChart"></div>
+
+  <div class="funnel-heading">Funnel Performance</div>
+  <div class="funnel-box">
+    <div class="funnel-row r1">
+      <div class="funnel-label">Impressions</div>
+      <div class="funnel-bar" style="width:403px; background:#1fa5e9;"></div>
+      <div class="funnel-value">90.30k</div>
+    </div>
+    <div class="funnel-row r2">
+      <div class="funnel-label">Clicks</div>
+      <div class="funnel-bar" style="width:315px; background:#1ed377;"></div>
+      <div class="funnel-value">70.50k</div>
+    </div>
+    <div class="funnel-row r3">
+      <div class="funnel-label">Leads Created</div>
+      <div class="funnel-bar" style="width:228px; background:#ffc425;"></div>
+      <div class="funnel-value">50.60k</div>
+    </div>
+    <div class="funnel-row r4">
+      <div class="funnel-label">Leads Converted</div>
+      <div class="funnel-bar" style="width:92px; background:#ff8a22;"></div>
+      <div class="funnel-value">20.60k</div>
+    </div>
+    <div class="funnel-row r5">
+      <div class="funnel-label">Opportunity</div>
+      <div class="funnel-bar" style="width:56px; background:#ff4f4f;"></div>
+      <div class="funnel-value">12.89k</div>
+    </div>
+  </div>
+
+  <div class="scatter-heading">
+    Cost to Interaction Optimization
+    <span class="legend-note"> ( Highest: A | Lowest: D)</span>
+  </div>
+  <div id="scatterChart"></div>
+
+  <div class="footer-divider"></div>
+  <div class="source-line">GA – Google Analytics</div>
+  <div class="auto-note">This graph/chart is linked to a spreadsheet and updates automatically when the data changes.</div>
+</div>
+
+<script>
+  const campaignChart = echarts.init(document.getElementById('campaignChart'));
+  campaignChart.setOption({
+    animation: false,
+    grid: { left: 42, right: 20, top: 22, bottom: 38 },
+    xAxis: {
+      type: 'category',
+      data: ['Campaign A', 'Campaign B', 'Campaign C', 'Campaign D', 'Campaign E'],
+      axisTick: { show: false },
+      axisLine: { lineStyle: { color: '#777' } },
+      axisLabel: { color: '#111', fontSize: 12 }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: 300,
+      interval: 50,
+      axisLabel: { color: '#111' },
+      splitLine: { show: false }
+    },
+    series: [{
+      type: 'bar',
+      data: [260, 255, 160, 155, 115],
+      barWidth: 70,
+      itemStyle: { color: '#2989bd' },
+      label: {
+        show: true,
+        position: 'top',
+        color: '#111',
+        fontSize: 14
+      }
+    }]
+  });
+
+  const trendChart = echarts.init(document.getElementById('trendChart'));
+  trendChart.setOption({
+    animation: false,
+    color: ['#4fb888', '#f08a24'],
+    legend: {
+      top: 0,
+      right: 62,
+      itemWidth: 24,
+      itemHeight: 8,
+      textStyle: { fontSize: 12 },
+      data: ['Lead Converted', 'Total Cost']
+    },
+    grid: { left: 52, right: 44, top: 34, bottom: 34 },
+    xAxis: {
+      type: 'category',
+      data: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+      axisLabel: { color: '#111' },
+      axisLine: { lineStyle: { color: '#777' } }
+    },
+    yAxis: [
+      {
+        type: 'value',
+        name: '# Lead Converted',
+        min: 0,
+        max: 350,
+        interval: 50,
+        nameLocation: 'middle',
+        nameGap: 34,
+        axisLabel: { color: '#111' }
+      },
+      {
+        type: 'value',
+        name: 'Total Cost',
+        min: 0,
+        max: 300,
+        interval: 50,
+        nameLocation: 'middle',
+        nameGap: 30,
+        axisLabel: { color: '#111' }
+      }
+    ],
+    series: [
+      {
+        name: 'Lead Converted',
+        type: 'bar',
+        data: [100, 120, 140, 160, 180, 200, 220, 260, 300, 280, 240, 220],
+        barWidth: 22,
+        itemStyle: { color: '#4fb888' },
+        label: {
+          show: true,
+          position: 'top',
+          fontSize: 12
+        }
+      },
+      {
+        name: 'Total Cost',
+        type: 'line',
+        yAxisIndex: 1,
+        data: [80, 90, 110, 130, 150, 180, 210, 230, 250, 240, 220, 200],
+        symbolSize: 8,
+        lineStyle: { color: '#f08a24', width: 2 },
+        itemStyle: { color: '#f08a24' },
+        label: {
+          show: true,
+          position: 'top',
+          fontSize: 12
+        }
+      }
+    ]
+  });
+
+  const scatterChart = echarts.init(document.getElementById('scatterChart'));
+  scatterChart.setOption({
+    animation: false,
+    legend: {
+      top: 0,
+      left: 170,
+      itemWidth: 12,
+      itemHeight: 12,
+      textStyle: { fontSize: 13 },
+      data: ['A', 'B', 'C', 'D']
+    },
+    grid: { left: 52, right: 10, top: 28, bottom: 28 },
+    xAxis: {
+      type: 'value',
+      min: 0,
+      max: 40000,
+      interval: 10000,
+      axisLabel: {
+        formatter: function(value) {
+          return value === 0 ? '0K' : (value / 1000) + 'K';
+        }
+      }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: 40000,
+      interval: 10000,
+      axisLabel: {
+        formatter: function(value) {
+          return value === 0 ? '0K' : (value / 1000) + 'K';
+        }
+      }
+    },
+    series: [
+      {
+        name: 'A',
+        type: 'scatter',
+        data: [[33000, 22000, 22], [33000, 29000, 34], [36000, 36000, 46]],
+        symbolSize: function(data) { return data[2]; },
+        itemStyle: { color: '#2d7fa5' },
+        label: {
+          show: true,
+          position: 'inside',
+          color: '#fff',
+          fontSize: 13
+        }
+      },
+      {
+        name: 'B',
+        type: 'scatter',
+        data: [[22000, 28000, 32], [25000, 22000, 38]],
+        symbolSize: function(data) { return data[2]; },
+        itemStyle: { color: '#62bde4' },
+        label: {
+          show: true,
+          position: 'inside',
+          color: '#000',
+          fontSize: 13
+        }
+      },
+      {
+        name: 'C',
+        type: 'scatter',
+        data: [[12000, 14000, 20], [14000, 12000, 24], [16000, 17000, 32]],
+        symbolSize: function(data) { return data[2]; },
+        itemStyle: { color: '#55c7c5' },
+        label: {
+          show: true,
+          position: 'inside',
+          color: '#000',
+          fontSize: 13
+        }
+      },
+      {
+        name: 'D',
+        type: 'scatter',
+        data: [[2000, 3000, 12], [3000, 4000, 14], [4200, 6000, 18], [6000, 7000, 22]],
+        symbolSize: function(data) { return data[2]; },
+        itemStyle: { color: '#8bd8aa' },
+        label: {
+          show: true,
+          position: 'inside',
+          color: '#000',
+          fontSize: 13
+        }
+      }
+    ]
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>垃圾分类指导客户评价</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #050b0e;
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+  }
+
+  .poster {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 80% 8%, rgba(146, 255, 45, 0.18), transparent 210px),
+      radial-gradient(circle at 20% 42%, rgba(46, 255, 58, 0.08), transparent 250px),
+      linear-gradient(180deg, #071015 0%, #10181d 43%, #072019 51%, #121b20 62%, #082118 76%, #111b20 100%);
+    color: #f0f4f2;
+  }
+
+  .top {
+    position: absolute;
+    left: 42px;
+    top: 38px;
+    width: 940px;
+    height: 240px;
+    border-bottom: 1px solid rgba(210, 225, 220, 0.22);
+  }
+
+  .tag {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 38px;
+    min-width: 210px;
+    border: 2px solid #82ff2b;
+    border-radius: 22px;
+    color: #82ff2b;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-align: center;
+    line-height: 34px;
+    background: rgba(25, 60, 40, 0.25);
+  }
+
+  .main-title {
+    position: absolute;
+    left: 0;
+    top: 52px;
+    margin: 0;
+    font-size: 62px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #f3f7f2;
+    white-space: nowrap;
+    text-shadow: 0 0 12px rgba(130, 255, 43, 0.22);
+  }
+
+  .main-title .accent {
+    color: #85ff2e;
+    text-shadow: 0 0 16px rgba(133, 255, 46, 0.45);
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 0;
+    top: 156px;
+    font-size: 22px;
+    color: #aeb9b7;
+    font-weight: 500;
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+
+  .tiny-line {
+    position: absolute;
+    left: 0;
+    bottom: 32px;
+    width: 62px;
+    height: 4px;
+    background: #94ff32;
+    border-radius: 4px;
+  }
+
+  .ring-wrap {
+    position: absolute;
+    right: 38px;
+    top: 8px;
+    width: 210px;
+    height: 210px;
+  }
+
+  .ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 28px solid rgba(130, 255, 43, 0.95);
+    border-right-color: rgba(122, 210, 80, 0.82);
+    border-bottom-color: rgba(122, 210, 80, 0.88);
+    box-shadow: inset 0 0 22px rgba(130, 255, 43, 0.25), 0 0 24px rgba(130, 255, 43, 0.28);
+  }
+
+  .ring::before {
+    content: "";
+    position: absolute;
+    inset: 36px;
+    border-radius: 50%;
+    background: #081013;
+    border: 1px solid rgba(130, 255, 43, 0.28);
+  }
+
+  .leaf-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9cff30;
+    font-size: 70px;
+    font-weight: 200;
+  }
+
+  .dots {
+    position: absolute;
+    right: 0;
+    top: -28px;
+    width: 250px;
+    height: 200px;
+    background-image: radial-gradient(#75ff2b 2px, transparent 2.5px);
+    background-size: 14px 14px;
+    opacity: 0.8;
+  }
+
+  .stats {
+    position: absolute;
+    left: 0;
+    top: 288px;
+    width: 1024px;
+    height: 200px;
+    background: rgba(31, 44, 46, 0.78);
+    border-top: 1px solid rgba(220, 230, 225, 0.22);
+    border-bottom: 1px solid rgba(220, 230, 225, 0.22);
+  }
+
+  .stat-card {
+    position: absolute;
+    top: 26px;
+    width: 302px;
+    height: 150px;
+    border: 1px solid rgba(215, 228, 225, 0.32);
+    border-radius: 16px;
+    background: rgba(16, 24, 28, 0.68);
+    text-align: center;
+    padding-top: 12px;
+  }
+
+  .stat-card.card1 { left: 32px; }
+  .stat-card.card2 { left: 366px; }
+  .stat-card.card3 { left: 688px; }
+
+  .stat-label {
+    font-size: 17px;
+    color: #cfd9d4;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .stat-icon {
+    position: absolute;
+    left: 22px;
+    top: 12px;
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    border: 1px solid rgba(130, 255, 43, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9cff30;
+    font-size: 34px;
+  }
+
+  .stat-number {
+    margin-top: 10px;
+    font-size: 58px;
+    color: #94ff32;
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+
+  .stat-note {
+    margin-top: 8px;
+    font-size: 15px;
+    color: #aeb9b6;
+  }
+
+  .case-one {
+    position: absolute;
+    left: 0;
+    top: 488px;
+    width: 1024px;
+    height: 235px;
+    background: rgba(12, 45, 28, 0.9);
+  }
+
+  .case-box {
+    position: absolute;
+    left: 38px;
+    top: 16px;
+    width: 436px;
+    height: 204px;
+    border: 2px solid #89ff2d;
+    border-radius: 12px;
+    background: rgba(8, 20, 16, 0.56);
+    padding: 20px 18px;
+  }
+
+  .case-title {
+    font-size: 25px;
+    font-weight: 900;
+    color: #f2f8f2;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .case-location {
+    text-align: center;
+    color: #cfd9d2;
+    font-size: 16px;
+    border-bottom: 1px dashed rgba(205, 225, 210, 0.45);
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+  }
+
+  .case-content {
+    color: #e8efee;
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  .quote-right {
+    position: absolute;
+    left: 520px;
+    top: 16px;
+    width: 465px;
+    height: 190px;
+    color: #f1f6f1;
+    font-size: 22px;
+    line-height: 1.65;
+  }
+
+  .quote-mark-top {
+    font-size: 62px;
+    color: #94ff32;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .quote-text {
+    font-size: 22px;
+    line-height: 1.55;
+    text-align: left;
+    color: #f2f7f2;
+    font-weight: 700;
+  }
+
+  .signature {
+    margin-top: 12px;
+    text-align: left;
+    font-size: 16px;
+    color: #e3ebec;
+  }
+
+  .chart-band {
+    position: absolute;
+    left: 0;
+    top: 745px;
+    width: 1024px;
+    height: 230px;
+    background: rgba(13, 28, 31, 0.84);
+    border-top: 1px solid rgba(220, 230, 225, 0.22);
+    border-bottom: 1px solid rgba(220, 230, 225, 0.22);
+  }
+
+  .chart-title {
+    position: absolute;
+    left: 26px;
+    top: 18px;
+    font-size: 22px;
+    font-weight: 900;
+    color: #f2f7f2;
+  }
+
+  .chart-small-title {
+    position: absolute;
+    left: 382px;
+    top: 22px;
+    color: #cfe5cd;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  #projectEffect {
+    position: absolute;
+    left: 120px;
+    top: 46px;
+    width: 430px;
+    height: 160px;
+  }
+
+  .summary {
+    position: absolute;
+    right: 42px;
+    top: 18px;
+    width: 320px;
+    height: 180px;
+    border-left: 1px dashed rgba(130, 255, 43, 0.65);
+    padding-left: 18px;
+    color: #e5efec;
+    font-size: 17px;
+    line-height: 1.7;
+    text-align: left;
+  }
+
+  .summary-icon {
+    color: #9cff30;
+    font-size: 42px;
+    margin-bottom: 10px;
+  }
+
+  .summary strong {
+    color: #8cff30;
+  }
+
+  .case-two {
+    position: absolute;
+    left: 0;
+    top: 988px;
+    width: 1024px;
+    height: 205px;
+    background: rgba(7, 31, 20, 0.92);
+  }
+
+  .quote-left {
+    position: absolute;
+    left: 48px;
+    top: 18px;
+    width: 430px;
+    height: 168px;
+  }
+
+  .quote-mark-left {
+    color: #94ff32;
+    font-size: 62px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .quote-text-left {
+    color: #f2f7f2;
+    font-size: 22px;
+    line-height: 1.55;
+    font-weight: 800;
+    text-align: center;
+  }
+
+  .signature-left {
+    text-align: center;
+    color: #d6e0df;
+    font-size: 16px;
+  }
+
+  .case-box-two {
+    position: absolute;
+    left: 552px;
+    top: 12px;
+    width: 440px;
+    height: 174px;
+    border: 2px solid #89ff2d;
+    border-radius: 10px;
+    background: rgba(9, 24, 18, 0.62);
+    padding: 12px 14px;
+  }
+
+  .case-box-two .case-title,
+  .case-box-three .case-title {
+    text-align: center;
+  }
+
+  .flow {
+    position: absolute;
+    left: 0;
+    top: 1202px;
+    width: 1024px;
+    height: 158px;
+    background: rgba(16, 29, 32, 0.86);
+    border-top: 1px solid rgba(220, 230, 225, 0.22);
+  }
+
+  .flow-title {
+    position: absolute;
+    left: 26px;
+    top: 14px;
+    font-size: 22px;
+    color: #f2f7f2;
+    font-weight: 900;
+  }
+
+  .flow-line {
+    position: absolute;
+    left: 96px;
+    top: 48px;
+    width: 720px;
+    height: 1px;
+    background: #8cff30;
+    border-radius: 1px;
+  }
+
+  .flow-node {
+    position: absolute;
+    top: 22px;
+    width: 148px;
+    height: 100px;
+    text-align: center;
+    color: #e7efec;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .node1 { left: 26px; }
+  .node2 { left: 220px; }
+  .node3 { left: 415px; }
+  .node4 { left: 610px; }
+
+  .node-circle {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 10px;
+    border: 2px solid #9cff30;
+    border-radius: 50%;
+    color: #f1f7f1;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 32px;
+  }
+
+  .node-title {
+    font-size: 16px;
+    color: #8cff30;
+    font-weight: 900;
+    margin-bottom: 5px;
+  }
+
+  .bottom {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1024px;
+    height: 190px;
+    background: rgba(8, 18, 19, 0.88);
+  }
+
+  .case-box-three {
+    position: absolute;
+    left: 20px;
+    top: 18px;
+    width: 630px;
+    height: 162px;
+    border: 2px solid #8cff30;
+    border-radius: 10px;
+    background: rgba(8, 20, 18, 0.62);
+    padding: 12px 14px;
+  }
+
+  .case-box-three .case-location {
+    padding-bottom: 10px;
+    border-bottom: 1px dashed rgba(205, 225, 210, 0.45);
+  }
+
+  .case-box-three .case-content {
+    line-height: 1.65;
+  }
+
+  .eval-bottom {
+    position: absolute;
+    left: 386px;
+    top: 20px;
+    width: 240px;
+    height: 140px;
+    border-left: 1px solid rgba(205, 225, 210, 0.38);
+    color: #eef5f1;
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  .eval-bottom .mark {
+    color: #94ff32;
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .contact-card {
+    position: absolute;
+    right: 26px;
+    top: 16px;
+    width: 335px;
+    height: 168px;
+    border: 1px solid rgba(205, 225, 210, 0.35);
+    border-radius: 12px;
+    background: rgba(20, 28, 31, 0.72);
+    padding: 16px 14px;
+  }
+
+  .contact-title {
+    font-size: 18px;
+    color: #8cff30;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .contact-row {
+    color: #dfefec;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .contact-row b {
+    color: #f1f7f1;
+  }
+</style>
+</head>
+<body>
+  <div class="poster">
+    <section class="top">
+      <div class="tag">环保案例精选</div>
+      <h1 class="main-title">垃圾分类指导<span class="accent">客户评价</span></h1>
+      <div class="subtitle">社区、园区与商场的真实反馈与成效</div>
+      <div class="tiny-line"></div>
+
+      <div class="ring-wrap" aria-label="环保装饰圆环">
+        <div class="dots"></div>
+        <div class="ring"></div>
+        <div class="leaf-icon">♧</div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat-card card1">
+        <div class="stat-icon">▤</div>
+        <div class="stat-label">服务项目</div>
+        <div class="stat-number">36<span style="font-size:28px;">个</span></div>
+        <div class="stat-note">近12个月项目统计</div>
+      </div>
+
+      <div class="stat-card card2">
+        <div class="stat-icon">☻</div>
+        <div class="stat-label">平均满意度</div>
+        <div class="stat-number">96.8<span style="font-size:24px;">%</span></div>
+        <div class="stat-note">近12个月项目统计</div>
+      </div>
+
+      <div class="stat-card card3">
+        <div class="stat-icon">▥</div>
+        <div class="stat-label">分类准确率提升</div>
+        <div class="stat-number">31<span style="font-size:24px;">%</span></div>
+        <div class="stat-note">近12个月项目统计</div>
+      </div>
+    </section>
+
+    <section class="case-one">
+      <div class="case-box">
+        <div class="case-title">案例一｜绿景花园社区</div>
+        <div class="case-location">上海市浦东新区｜2024年3月启动</div>
+        <div class="case-content">
+          服务内容为居民投放点动线优化、<br>
+          桶边督导培训、宣传栏更新。
+        </div>
+      </div>
+
+      <div class="quote-right">
+        <div class="quote-mark-top">“</div>
+        <div class="quote-text">“投放点更清楚了，晚高峰误投明显减少，居民也更愿意配合。”</div>
+        <div class="signature">—— 物业经理 周敏</div>
+      </div>
+    </section>
+
+    <section class="chart-band">
+      <div class="chart-title">项目成效对比</div>
+      <div class="chart-small-title">▣ 月度分类质量得分（分）</div>
+      <div id="projectEffect"></div>
+
+      <div class="summary">
+        <div class="summary-icon">◎</div>
+        督导、标识和培训三位一体联动，<br>
+        显著提升分类准确率与居民/员工<br>
+        参与度，<strong>月度分类质量稳定提升</strong>，<br>
+        成效可持续复制。
+      </div>
+    </section>
+
+    <section class="case-two">
+      <div class="quote-left">
+        <div class="quote-mark-left">“</div>
+        <div class="quote-text-left">“员工培训后，干湿分类错误率下降得非常快，保洁压力也小了。”</div>
+        <div class="signature-left">—— 行政主管 马会</div>
+      </div>
+
+      <div class="case-box-two">
+        <div class="case-title">案例二｜远航科创园</div>
+        <div class="case-location">苏州市工业园区｜2024年6月复盘</div>
+        <div class="case-content">
+          服务内容为企业食堂、办公楼层与<br>
+          公共区域的分类改造。
+        </div>
+      </div>
+    </section>
+
+    <section class="flow">
+      <div class="flow-title">标准服务流程</div>
+      <div class="flow-line"></div>
+
+      <div class="flow-node node1">
+        <div class="node-circle">1</div>
+        <div class="node-title">现场诊断</div>
+        调研现状，分析痛点<br>与改进空间
+      </div>
+
+      <div class="flow-node node2">
+        <div class="node-circle">2</div>
+        <div class="node-title">方案设计</div>
+        定制分类方案，优化<br>动线与标识设置
+      </div>
+
+      <div class="flow-node node3">
+        <div class="node-circle">3</div>
+        <div class="node-title">驻点培训</div>
+        桶边督导＋员工/居民培训<br>提升参与与准确投放
+      </div>
+
+      <div class="flow-node node4">
+        <div class="node-circle">4</div>
+        <div class="node-title">月度复盘</div>
+        数据复盘，持续优化<br>巩固提升成效
+      </div>
+    </section>
+
+    <section class="bottom">
+      <div class="case-box-three">
+        <div class="case-title">案例三｜海棠里购物中心</div>
+        <div class="case-location">杭州市拱墅区｜2025年1月验收</div>
+        <div class="case-content">
+          服务内容为餐饮楼层分类桶重设、商户培训、<br>
+          巡检台账建立。
+        </div>
+      </div>
+
+      <div class="eval-bottom">
+        <div class="mark">“</div>
+        “商户知道该怎么分，顾客看得懂标识，整体环境比以前整洁很多。”<br>
+        —— 营运负责人 林骁
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-title">可复制的垃圾分类<br>提升方案</div>
+        <div class="contact-row">☏ 咨询热线：<b>400-815-2069</b></div>
+        <div class="contact-row">🌐 官网：<b>www.greensort-cn.com</b></div>
+      </div>
+    </section>
+  </div>
+
+<script>
+  var chart = echarts.init(document.getElementById('projectEffect'));
+  chart.setOption({
+    backgroundColor: 'transparent',
+    animation: false,
+    grid: {
+      left: 86,
+      right: 24,
+      top: 22,
+      bottom: 30
+    },
+    xAxis: {
+      type: 'value',
+      min: 0,
+      max: 100,
+      interval: 20,
+      axisLine: { lineStyle: { color: 'rgba(220,225,220,0.65)' } },
+      axisTick: { lineStyle: { color: 'rgba(220,225,220,0.65)' } },
+      splitLine: { lineStyle: { color: 'rgba(220,225,220,0.20)', type: 'dashed' } },
+      axisLabel: { color: '#aeb9b7', fontSize: 12 }
+    },
+    yAxis: {
+      type: 'category',
+      inverse: true,
+      data: ['绿景花园社区', '远航科创园', '海棠里购物中心'],
+      axisLine: { show: false },
+      axisTick: { show: false },
+      axisLabel: { color: '#cfd8d4', fontSize: 13 }
+    },
+    series: [{
+      name: '得分',
+      type: 'bar',
+      barWidth: 22,
+      data: [62, 74, 68],
+      itemStyle: {
+        color: '#85ff30',
+        borderRadius: [0, 0, 0, 0]
+      },
+      label: {
+        show: true,
+        position: 'right',
+        color: '#95ff31',
+        fontSize: 15,
+        fontWeight: 'bold'
+      }
+    }]
+  });
+</script>
+</body>
+</html>

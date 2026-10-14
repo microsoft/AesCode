@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=853, initial-scale=1.0" />
+  <title>Aurora Documentation Landing</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #111827;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #111827;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 853px;
+      height: 1280px;
+      overflow: hidden;
+      background: #f8fafc;
+    }
+
+    /* Top Navigation */
+    .topbar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 853px;
+      height: 54px;
+      background: #020617;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      z-index: 5;
+    }
+
+    .brand {
+      width: 205px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-left: 32px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .mark {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #7447ff, #49e1ff);
+      position: relative;
+    }
+
+    .mark:after {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 3px;
+      width: 10px;
+      height: 17px;
+      border-radius: 8px 8px 12px 12px;
+      background: rgba(255,255,255,0.65);
+      transform: rotate(28deg);
+    }
+
+    .nav-links {
+      position: absolute;
+      left: 240px;
+      top: 0;
+      width: 350px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      font-size: 10px;
+      color: #cfd5df;
+    }
+
+    .nav-links span:first-child {
+      color: #fff;
+    }
+
+    .top-icons {
+      position: absolute;
+      right: 63px;
+      top: 0;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: #fff;
+    }
+
+    .cta {
+      border: 0;
+      background: linear-gradient(90deg, #2b7cff, #e850c8);
+      color: #fff;
+      height: 29px;
+      min-width: 92px;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: absolute;
+      left: 0;
+      top: 54px;
+      width: 205px;
+      height: 1039px;
+      background: #fbfcff;
+      border-right: 1px solid #e6e9f0;
+      padding: 14px 14px 18px;
+      z-index: 2;
+    }
+
+    .version {
+      height: 29px;
+      border: 1px solid #d9dee9;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space1between;
+      gap: 8px;
+      font-size: 10px;
+      color: #4e596d;
+      padding: 0 9px;
+    }
+
+    .search {
+      height: 29px;
+      border: 1px solid #dfe4ee;
+      border-radius: 5px;
+      margin-top: 9px;
+      display: flex;
+      align-items: center;
+      padding: 0 9px;
+      color: #9aa5b4;
+      font-size: 10px;
+    }
+
+    .side-section {
+      margin-top: 15px;
+      font-size: 10px;
+      font-weight: 800;
+      color: #6e55e8;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .side-link {
+      height: 28px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding-left: 10px;
+      color: #526074;
+      font-size: 10.5px;
+    }
+
+    .side-link.active {
+      background: #eee6ff;
+      color: #32217c;
+      border-radius: 5px;
+      margin-top: 2px;
+      font-weight: 700;
+    }
+
+    .promo {
+      position: absolute;
+      bottom: 33px;
+      left: 31px;
+      width: 142px;
+      height: 108px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #101240, #6620e9);
+      color: #fff;
+      padding: 12px;
+      border: 1px solid #7a45ff;
+    }
+
+    .promo b {
+      display: block;
+      font-size: 12px;
+    }
+
+    /* Main Content */
+    .content {
+      position: absolute;
+      top: 54px;
+      left: 205px;
+      width: 540px;
+      height: 1039px;
+      padding: 25px 21px 0 23px;
+      background: #fbfcff;
+    }
+
+    .breadcrumb {
+      font-size: 10px;
+      color: #687283;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: 24px;
+      line-height: 1.15;
+      margin: 0 0 10px;
+    }
+
+    .intro-text {
+      width: 420px;
+      color: #5c6676;
+      font-size: 11.5px;
+      line-height: 1.45;
+      margin: 0 0 18px;
+    }
+
+    .hero-wrap {
+      position: relative;
+      width: 439px;
+      height: 166px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 18px;
+      background: linear-gradient(110deg, #3669ff 0%, #8d50ff 55%, #f042c8 100%);
+    }
+
+    .hero-card {
+      position: absolute;
+      left: 32px;
+      top: 18px;
+      width: 375px;
+      height: 130px;
+      background: #f4f5f8;
+      border-radius: 4px;
+      z-index: 2;
+      box-shadow: 0 10px 26px rgba(18,24,45,0.12);
+      padding: 14px 16px;
+    }
+
+    .hero-code {
+      position: absolute;
+      left: 22px;
+      top: 17px;
+      width: 185px;
+      height: 105px;
+      background: #071024;
+      color: #c8d7ff;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 9px;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+      margin-bottom: 18px;
+    }
+
+    .benefit h3 {
+      font-size: 11.5px;
+      margin: 0 0 3px;
+    }
+
+    .benefit p {
+      margin: 0;
+      color: #606b78;
+      font-size: 9.7px;
+      line-height: 1.35;
+    }
+
+    /* Code Blocks */
+    .section-title {
+      font-size: 17px;
+      margin: 0 0 7px;
+    }
+
+    .small-copy {
+      font-size: 10px;
+      color: #6f7784;
+    }
+
+    .terminal {
+      width: 438px;
+      height: 98px;
+      border-radius: 5px;
+      background: #091629;
+      border: 1px solid #263c60;
+      margin-top: 7px;
+      padding: 12px 12px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 10px;
+      color: #c7d5f3;
+      position: relative;
+    }
+
+    .traffic {
+      position: absolute;
+      left: 10px;
+      top: 7px;
+      display: flex;
+      gap: 5px;
+    }
+
+    .traffic i {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .green {
+      background: #4ecb6a;
+    }
+
+    .yellow {
+      background: #ffb020;
+    }
+
+    .red {
+      background: #ff5f56;
+    }
+
+    .status {
+      width: 438px;
+      height: 26px;
+      margin-top: 8px;
+      background: #e8f8f5;
+      border: 1px solid #8bd8c9;
+      border-radius: 4px;
+      color: #298f76;
+      font-size: 10px;
+    }
+
+    .code-editor {
+      width: 438px;
+      height: 154px;
+      background: #091629;
+      border: 1px solid #293e61;
+      border-radius: 5px;
+      padding: 13px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 9.6px;
+      color: #b9c6df;
+      position: relative;
+    }
+
+    .tsx {
+      position: absolute;
+      right: 12px;
+      top: 2px;
+      color: #a9b3c1;
+      font-size: 9px;
+    }
+
+    .tip {
+      width: 438px;
+      height: 31px;
+      background: #eaf4ff;
+      border: 1px solid #b7d3ff;
+      margin-top: 6px;
+      border-radius: 4px;
+      color: #4573a6;
+      font-size: 9.2px;
+    }
+
+    .what-next-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+      width: 438px;
+    }
+
+    .mini-card h4 {
+      font-size: 10.2px;
+      margin: 0 0 3px;
+    }
+
+    /* Right Sidebar */
+    .rightbar {
+      position: absolute;
+      left: 748px;
+      top: 54px;
+      width: 105px;
+      height: 841px;
+      background: #fbfcff;
+      padding: 27px 0 0;
+      z-index: 2;
+    }
+
+    .toc-title {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #566173;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .toc-link {
+      font-size: 9.5px;
+      color: #515d6e;
+      margin-bottom: 8px;
+    }
+
+    .toc-link.active {
+      color: #5b47e5;
+    }
+
+    .feedback {
+      position: absolute;
+      left: 16px;
+      bottom: 10px;
+      width: 72px;
+      color: #737c89;
+      font-size: 8.8px;
+    }
+
+    /* Footer */
+    .footer {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 853px;
+      height: 187px;
+      background: linear-gradient(120deg, #070b48 0%, #3012a5 47%, #b22bd0 100%);
+      color: #fff;
+      z-index: 3;
+    }
+
+    .footer-brand {
+      position: absolute;
+      left: 58px;
+      top: 26px;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .footer-tag {
+      position: absolute;
+      left: 58px;
+      top: 58px;
+      font-size: 10px;
+      width: 160px;
+    }
+
+    .footer-col {
+      position: absolute;
+      top: 27px;
+      width: 92px;
+      color: #d7def5;
+      font-size: 9.2px;
+      line-height: 1.55;
+    }
+
+    .product {
+      left: 255px;
+    }
+
+    .resources {
+      left: 405px;
+    }
+
+    .support {
+      left: 555px;
+    }
+
+    .company {
+      left: 700px;
+    }
+
+    .socials {
+      position: absolute;
+      left: 58px;
+      top: 103px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .socials span {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #36415f;
+      display: inline-block;
+    }
+
+    .copyright {
+      position: absolute;
+      left: 58px;
+      bottom: 15px;
+      font-size: 9px;
+    }
+
+    .made {
+      position: absolute;
+      right: 62px;
+      bottom: 16px;
+      font-size: 9px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <header class="topbar">
+      <div class="brand"><span class="mark"></span>Aurora</div>
+      <nav class="nav-links">
+        <span>Docs</span>
+        <span>API Reference</span>
+        <span>Guides</span>
+        <span>Changelog</span>
+        <span>Blog</span>
+      </nav>
+      <div class="top-icons">
+        <span>◐</span>
+        <span>◉</span>
+        <button class="cta">Get Started</button>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <div class="version">v2.4.0</div>
+      <div class="search">Search docs...</div>
+
+      <div class="side-section">Getting Started</div>
+      <div class="side-link active">▣ Introduction</div>
+      <div class="side-link">↕ Installation</div>
+      <div class="side-link">✦ Quickstart</div>
+
+      <div class="side-section">Core Concepts</div>
+      <div class="side-link">◧ Overview</div>
+      <div class="side-link">◈ Components</div>
+      <div class="side-link">◇ Props</div>
+      <div class="side-link">▱ State</div>
+
+      <div class="side-section">Guides</div>
+      <div class="side-link">⌂ Routing</div>
+      <div class="side-link">♙ Data Fetching</div>
+
+      <div class="side-section">Advanced</div>
+      <div class="side-link">♢ Security</div>
+      <div class="side-link">⌁ CLI</div>
+      <div class="side-link">♧ Theming</div>
+
+      <div class="promo">
+        <b>Aurora Pro</b>
+        Unlock advanced features and enterprise tools.
+        <div style="margin-top:8px;border:1px solid #ff8fc8;border-radius:4px;color:#fff;text-align:center;font-weight:700;">Upgrade Now</div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <div class="breadcrumb">Docs &nbsp;&gt;&nbsp; Getting Started &nbsp;&gt;&nbsp; Introduction</div>
+
+      <h1>Introduction</h1>
+      <p class="intro-text">
+        Aurora is a modern, fast, and scalable frontend framework for building beautiful web applications.
+        It empowers developers to ship features faster with a delightful development experience.
+      </p>
+
+      <div class="hero-wrap">
+        <div class="hero-code">
+          import { Button } from 'aurora'<br>
+          return (<br>
+            &nbsp;&nbsp;&lt;Card&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;Button&gt;Hello, Aurora&lt;/Button&gt;<br>
+            &nbsp;&nbsp;&lt;/Card&gt;
+          </div>
+        <div class="hero-card">
+          Welcome back, Alex! 🎉
+          <div style="display:flex;gap:12px;margin-top:16px;">
+            <div style="width:58px;background:#fff;font-weight:800;">12,456</div>
+            <div style="width:70px;background:#fff;font-weight:800;">$24,780</div>
+            <div style="width:48px;background:#fff;font-weight:800;">1,250</div>
+          </div>
+          <div id="heroChart" style="height:46px;width:100%;margin-top:12px;"></div>
+        </div>
+      </div>
+
+      <div class="benefits">
+        <div class="benefit">
+          <div style="width:45px;height:45px;border-radius:50%;background:#eee6ff;color:#5330df;text-align:center;font-weight:800;">⚡</div>
+          <h3>Blazing Fast</h3>
+          <p>Build for speed with optimized rendering and tiny bundles.</p>
+        </div>
+        <div class="benefit">
+          <div style="width:45px;height:45px;border-radius:50%;background:#e6f2ff;color:#2678e8;text-align:center;font-weight:800;">⬡</div>
+          <h3>Component Based</h3>
+          <p>Reusable components to build consistent and scalable UIs.</p>
+        </div>
+        <div class="benefit">
+          <div style="width:45px;height:45px;border-radius:50%;background:#ffe9f3;color:#df3773;text-align:center;font-weight:800;">♢</div>
+          <h3>Beautiful by Default</h3>
+          <p>Elegant design system with a focus on developer experience.</p>
+        </div>
+        <div class="benefit">
+          <div style="width:45px;height:45px;border-radius:50%;background:#e6ffe0;color:#21b071;text-align:center;font-weight:800;">♢</div>
+          <h3>Secure &amp; Reliable</h3>
+          <p>Built-in best practices help you build secure applications.</p>
+        </div>
+      </div>
+
+      <h2 class="section-title">Hello Aurora</h2>
+      <div class="small-copy">Create your first Aurora application in seconds.</div>
+
+      <pre class="terminal">
+        <span class="traffic"><i class="red"></i><i class="yellow"></i><i class="green"></i></span>
+        # Create a new Aurora project<br>
+        npm create-aurora@latest my-app<br>
+        cd my-app<br>
+        npm run dev
+      </pre>
+      <div class="status">✓ Success! Your Aurora application is now running.</div>
+
+      <h2 class="section-title">Your First Component</h2>
+      <div class="small-copy">Create a new component in your project.</div>
+
+      <pre class="code-editor">
+        import { h } from 'aurora'
+        <span class="tsx">tsx</span>
+        export default function Welcome() {
+          return (
+            &lt;div class="card with-gradient"&gt;
+              &lt;h1&gt;Hello, Aurora &nbsp;✨&lt;/h1&gt;
+              &lt;p&gt;Your new app is running successfully.&lt;/p&gt;
+            &lt;/div&gt;
+          )
+        }
+      </pre>
+
+      <div class="tip">Tip: Components are the building blocks of your UI. Reuse and compose them to build amazing interfaces.</div>
+
+      <h2 class="section-title">What's Next?</h2>
+      <div class="small-copy">Now that you've taken your first steps, explore the core concepts and build something amazing.</div>
+
+      <div class="what-next-cards">
+        <div class="mini-card">
+          <h4>Core Concepts</h4>
+          <p>Learn the fundamental building blocks of Aurora.</p>
+          <span>Explore →</span>
+        </div>
+        <div class="mini-card">
+          <h4>Guides</h4>
+          <p>Step-by-step guides to build real-world apps.</p>
+          <span>Browse →</span>
+        </div>
+        <div class="mini-card">
+          <h4>API Reference</h4>
+          <p>Explore the full API and advanced configuration.</p>
+          <span>View API →</span>
+        </div>
+      </div>
+    </main>
+
+    <aside class="rightbar">
+      <div class="toc-title">On This Page</div>
+      <div class="toc-link active">Introduction</div>
+      <div class="toc-link">Hello Aurora</div>
+      <div class="toc-link">Your First Component</div>
+      <div class="toc-link">What's Next?</div>
+
+      <div class="feedback">Was this helpful?</div>
+    </aside>
+
+    <footer class="footer">
+      <div class="footer-brand">Aurora</div>
+      <div class="footer-tag">The modern frontend framework for building fast, scalable, and beautiful web experiences.</div>
+
+      <div class="footer-col product">Product<br>Features<br>Pricing<br>Enterprise<br>Changelog</div>
+      <div class="footer-col resources">Resources<br>Docs<br>Guides<br>API Reference<br>Blog</div>
+      <div class="footer-col support">Support<br>Help Center<br>Discussions<br>Report an Issue<br>Status</div>
+      <div class="footer-col company">Company<br>About<br>Careers<br>Privacy Policy<br>Terms of Service</div>
+
+      <div class="socials"><span></span><span></span><span></span><span></span></div>
+      <div class="copyright">© 2024 Aurora Framework. All rights reserved.</div>
+      <div class="made">Made with ♥ by the Aurora Team</div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    const chart = echarts.init(document.getElementById('heroChart'));
+    chart.setOption({
+      animation: false,
+      grid: { left: 10, right: 10, top: 5, bottom: 8 },
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+        show: false
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 14,
+        show: false
+      },
+      series: [
+        {
+          type: 'line',
+          smooth: true,
+          symbol: 'none',
+          data: [5, 9, 7, 12, 10],
+          lineStyle: {
+            width: 2,
+            color: '#5c43f2'
+          },
+          areaStyle: {
+            color: 'rgba(92,67,242,0.08)'
+          }
+        }
+      ]
+    });
+  </script>
+</body>
+</html>

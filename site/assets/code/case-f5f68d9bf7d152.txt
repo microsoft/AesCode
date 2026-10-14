@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sales Performance Analytics Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #dfe6eb;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #1f2a35;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 853px;
+    overflow: hidden;
+    background: #f4f7f9;
+  }
+
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 172px;
+    height: 853px;
+    background: #f7f9fb;
+    border-right: 1px solid #d8dee5;
+    z-index: 3;
+  }
+
+  .logo {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 750;
+    font-size: 18px;
+    color: #20303a;
+  }
+
+  .logo-icon {
+    width: 24px;
+    height: 24px;
+    position: relative;
+  }
+
+  .logo-icon span {
+    position: absolute;
+    bottom: 2px;
+    width: 5px;
+    background: #21a764;
+    border-radius: 2px 2px 0 0;
+  }
+
+  .logo-icon span:nth-child(1) {
+    left: 3px;
+    height: 8px;
+  }
+
+  .logo-icon span:nth-child(2) {
+    left: 11px;
+    height: 13px;
+  }
+
+  .logo-icon span:nth-child(3) {
+    left: 19px;
+    height: 18px;
+  }
+
+  .nav {
+    padding: 12px 10px;
+  }
+
+  .nav-btn {
+    height: 38px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 12px;
+    color: #66737d;
+    font-size: 12px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+  }
+
+  .nav-btn.active {
+    background: #21a764;
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(33,167,100,0.18);
+  }
+
+  .nav-icon {
+    font-size: 14px;
+    width: 14px;
+    text-align: center;
+  }
+
+  .user-panel {
+    position: absolute;
+    left: 12px;
+    bottom: 22px;
+    width: 148px;
+    height: 50px;
+    border: 1px solid #d3dae2;
+    border-radius: 8px;
+    padding: 5px 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+  }
+
+  .user-panel img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+
+  .user-label {
+    font-size: 11px;
+    line-height: 1.15;
+    color: #30404a;
+  }
+
+  .main {
+    position: absolute;
+    left: 172px;
+    top: 0;
+    width: 1108px;
+    height: 853px;
+  }
+
+  .header {
+    height: 92px;
+    padding: 26px 26px 0 23px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .title-block h1 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 720;
+    color: #1f2a35;
+  }
+
+  .title-block p {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: #6c7882;
+  }
+
+  .filters {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .pill {
+    min-width: 120px;
+    height: 34px;
+    border: 1px solid #d4dae3;
+    border-radius: 7px;
+    background: #fff;
+    color: #374752;
+    font-size: 10px;
+    padding: 6px 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(24,42,50,0.03);
+  }
+
+  .pill.small {
+    min-width: 80px;
+  }
+
+  .btn-green {
+    height: 32px;
+    min-width: 82px;
+    border: 0;
+    border-radius: 7px;
+    background: #21a764;
+    color: #fff;
+    font-size: 11px;
+    padding: 0 12px;
+  }
+
+  .btn-export {
+    height: 32px;
+    min-width: 68px;
+    border: 0;
+    border-radius: 7px;
+    background: #fff;
+    color: #4b5d66;
+    font-size: 11px;
+  }
+
+  .row1 {
+    position: absolute;
+    left: 23px;
+    top: 108px;
+    width: 1062px;
+    display: flex;
+    gap: 12px;
+  }
+
+  .metric-card {
+    height: 112px;
+    background: #fff;
+    border: 1px solid #d8dee6;
+    border-radius: 8px;
+    box-shadow: 0 6px 14px rgba(20,40,50,0.04);
+    padding: 14px 13px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .metric-icon {
+    width: 62px;
+    height: 62px;
+    border-radius: 13px;
+    background: #e5f7f0;
+    color: #20a864;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    margin-right: 13px;
+  }
+
+  .metric-content {
+    width: 165px;
+  }
+
+  .metric-title {
+    font-size: 12px;
+    color: #27343d;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  .metric-value {
+    font-size: 28px;
+    font-weight: 780;
+    color: #202a33;
+    letter-spacing: -0.5px;
+    margin-bottom: 7px;
+  }
+
+  .metric-label {
+    font-size: 10px;
+    color: #5d7079;
+  }
+
+  .metric-label strong {
+    color: #22a963;
+    font-weight: 760;
+  }
+
+  .spark {
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+    width: 115px;
+    height: 62px;
+  }
+
+  .row2 {
+    position: absolute;
+    left: 23px;
+    top: 233px;
+    width: 1062px;
+    display: flex;
+    gap: 12px;
+  }
+
+  .card-wide {
+    height: 252px;
+    background: #fff;
+    border: 1px solid #d8dee6;
+    border-radius: 8px;
+    box-shadow: 0 6px 14px rgba(20,40,50,0.04);
+    padding: 14px 14px 10px;
+    position: relative;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 740;
+    color: #24313a;
+    margin-bottom: 6px;
+  }
+
+  .gauge-card {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  #gaugeChart {
+    width: 250px;
+    height: 175px;
+    margin: 0 auto;
+  }
+
+  .donut-card {
+    display: flex;
+    gap: 13px;
+    padding: 0 12px 10px;
+  }
+
+  #donutChart {
+    width: 145px;
+    height: 150px;
+    flex: 0 0 auto;
+  }
+
+  .legend-list {
+    flex: 1;
+    padding-top: 12px;
+    font-size: 10.5px;
+    color: #607079;
+  }
+
+  .legend-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 11px;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .trend-card {
+    padding: 0 12px 10px;
+  }
+
+  #trendChart {
+    width: 398px;
+    height: 205px;
+    margin-top: 2px;
+  }
+
+  .row3 {
+    position: absolute;
+    left: 23px;
+    top: 500px;
+    width: 1062px;
+    display: flex;
+    gap: 12px;
+  }
+
+  .price-card {
+    width: 332px;
+  }
+
+  #priceChart {
+    width: 305px;
+    height: 205px;
+    margin: 10px auto 0;
+  }
+
+  .heat-card {
+    width: 332px;
+  }
+
+  #heatChart {
+    width: 268px;
+    height: 172px;
+    margin: 32px auto 0;
+  }
+
+  .legend-strip {
+    width: 278px;
+    height: 18px;
+    margin: 10px auto 0;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #e4f1ef 0%, #d6efdf 38%, #32bd6f 100%);
+    position: relative;
+    color: #5b6972;
+    font-size: 10px;
+  }
+
+  .legend-strip:before {
+    content: "$10K";
+    left: 0;
+    top: -12px;
+    position: absolute;
+  }
+
+  .legend-strip:after {
+    content: "$70K+";
+    right: 0;
+    top: -12px;
+    position: absolute;
+  }
+
+  .table-card {
+    width: 366px;
+    padding: 0 13px 10px;
+  }
+
+  .table-card table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10.7px;
+    color: #41525a;
+    margin-top: 24px;
+  }
+
+  .table-card th {
+    background: #f4f7f9;
+    color: #52616a;
+    text-align: left;
+    height: 23px;
+    font-weight: 700;
+    border-bottom: 1px solid #dde6eb;
+    padding: 0 7px;
+  }
+
+  .table-card td {
+    height: 34px;
+    border-bottom: 1px solid #e4ebef;
+    padding: 0 7px;
+  }
+
+  .target {
+    color: #26aa68;
+    font-weight: 720;
+  }
+
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 36px;
+    width: 1108px;
+    text-align: center;
+    color: #687780;
+    font-size: 10.5px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-icon" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+      <div>SalesPulse</div>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-btn active"><span class="nav-icon">▦</span><span>Overview</span></div>
+      <div class="nav-btn"><span class="nav-icon">⌁</span><span>Sales Trend</span></div>
+      <div class="nav-btn"><span class="nav-icon">⬡</span><span>Products</span></div>
+      <div class="nav-btn"><span class="nav-icon">♧</span><span>Customers</span></div>
+      <div class="nav-btn"><span class="nav-icon">♙</span><span>Sales Reps</span></div>
+      <div class="nav-btn"><span class="nav-icon">◈</span><span>Forecasting</span></div>
+      <div class="nav-btn"><span class="nav-icon">▤</span><span>Reports</span></div>
+      <div class="nav-btn"><span class="nav-icon">♧</span><span>Alerts</span></div>
+      <div class="nav-btn"><span class="nav-icon">⚙</span><span>Settings</span></div>
+    </nav>
+
+    <div class="user-panel">
+      <img src="https://placehold.co/80x80?text=Avatar" alt="John Doe avatar" />
+      <div class="user-label">
+        <strong>John Doe</strong><br />
+        Sales Manager
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <section class="header">
+      <div class="title-block">
+        <h1>Sales Performance Analytics</h1>
+        <p>Track key sales metrics and performance insights</p>
+      </div>
+
+      <div class="filters">
+        <div class="pill">▣ May 1 – May 31, 2024</div>
+        <div class="pill">Region</div>
+        <div class="pill">Product</div>
+        <div class="pill small">Sales Rep</div>
+        <button class="btn-green">Apply Filters</button>
+        <button class="btn-export">Export</button>
+      </div>
+    </section>
+
+    <section class="row1">
+      <div class="metric-card">
+        <div class="metric-icon">$</div>
+        <div class="metric-content">
+          <div class="metric-title">Total Revenue</div>
+          <div class="metric-value">$2.48M</div>
+          <div class="metric-label"><strong>▲ 12.6%</strong> vs Apr 1 – Apr 30, 2024</div>
+        </div>
+        <div id="sparkRevenue" class="spark"></div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">🛒</div>
+        <div class="metric-content">
+          <div class="metric-title">Total Orders</div>
+          <div class="metric-value">1,369</div>
+          <div class="metric-label"><strong>▲ 8.7%</strong> vs Apr 1 – Apr 30, 2024</div>
+        </div>
+        <div id="sparkOrders" class="spark"></div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">≋</div>
+        <div class="metric-content">
+          <div class="metric-title">Avg. Order Value</div>
+          <div class="metric-value">$1,812</div>
+          <div class="metric-label"><strong>▲ 3.4%</strong> vs Apr 1 – Apr 30, 2024</div>
+        </div>
+        <div id="sparkAov" class="spark"></div>
+      </div>
+    </section>
+
+    <section class="row2">
+      <div class="card-wide gauge-card">
+        <div class="card-title">Sales Achievement</div>
+        <div id="gaugeChart"></div>
+      </div>
+
+      <div class="card-wide donut-card">
+        <div>
+          <div class="card-title">Revenue by Product Category</div>
+          <div id="donutChart"></div>
+        </div>
+        <div class="legend-list">
+          <div class="legend-row"><span class="dot" style="background:#35bf69;"></span>Electronics</div>
+          <div class="legend-row"><span class="dot" style="background:#845bd0;"></span>Apparel</div>
+          <div class="legend-row"><span class="dot" style="background:#4d9ce0;"></span>Home & Kitchen</div>
+          <div class="legend-row"><span class="dot" style="background:#f6c146;"></span>Beauty & Health</div>
+          <div class="legend-row"><span class="dot" style="background:#54c7bb;"></span>Sports & Outdoors</div>
+        </div>
+      </div>
+
+      <div class="card-wide trend-card">
+        <div class="card-title">Revenue Trend (Daily)</div>
+        <div id="trendChart"></div>
+      </div>
+    </section>
+
+    <section class="row3">
+      <div class="card-wide price-card">
+        <div class="card-title">Sales Price (Candlestick)</div>
+        <div id="priceChart"></div>
+      </div>
+
+      <div class="card-wide heat-card">
+        <div class="card-title">Sales Heatmap (Revenue)</div>
+        <div id="heatChart"></div>
+        <div class="legend-strip"></div>
+      </div>
+
+      <div class="card-wide table-card">
+        <div class="card-title">Top Sales Reps</div>
+        <table>
+          <tr>
+            <th>Rank</th>
+            <th>Sales Rep</th>
+            <th>Revenue</th>
+            <th>Orders</th>
+            <th>Revenue vs Target</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td><img src="https://placehold.co/40x40?text=Rep" alt="Sarah Johnson" /> Sarah Johnson</td>
+            <td>$326,760</td>
+            <td>185</td>
+            <td class="target">+ 128%</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><img src="https://placehold.co/40x40?text=Rep" alt="Michael Lee" /> Michael Lee</td>
+            <td>$287,540</td>
+            <td>162</td>
+            <td class="target">+ 115%</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><img src="https://placehold.co/40x40?text=Rep" alt="David Martinez" /> David Martinez</td>
+            <td>$248,890</td>
+            <td>142</td>
+            <td class="target">+ 103%</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><img src="https://placehold.co/40x40?text=Rep" alt="Emily Davis" /> Emily Davis</td>
+            <td>$196,430</td>
+            <td>118</td>
+            <td class="target">+ 97%</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><img src="https://placehold.co/40x40?text=Rep" alt="James Wilson" /> James Wilson</td>
+            <td>$175,820</td>
+            <td>98</td>
+            <td class="target">+ 88%</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <div class="footer">All values are in USD. Data is refreshed as of May 31, 2024 11:00 PM.</div>
+  </main>
+</div>
+
+<script>
+  function sparkline(id, data, color) {
+    var chart = echarts.init(document.getElementById(id));
+    chart.setOption({
+      animation: false,
+      grid: { left: 0, right: 0, top: 10, bottom: 8 },
+      xAxis: { type: 'category', show: false, boundaryGap: false, data: ['1','2','3','4','5','6'] },
+      yAxis: { type: 'value', show: false },
+      series: [{
+        type: 'line',
+        data: data,
+        smooth: true,
+        symbol: 'none',
+        lineStyle: { width: 2, color: color },
+        areaStyle: { opacity: 0.12, color: color }
+      }]
+    });
+  }
+
+  sparkline('sparkRevenue', [1.8, 2, 2.1, 2.2, 2.3, 2.48], '#33b96c');
+  sparkline('sparkOrders', [1000, 1100, 1150, 1200, 1300, 1369], '#7c62d7');
+  sparkline('sparkAov', [1700, 1750, 1780, 1800, 1810, 1812], '#36b970');
+
+  var gauge = echarts.init(document.getElementById('gaugeChart'));
+  gauge.setOption({
+    animation: false,
+    series: [{
+      type: 'pie',
+      radius: ['65%', '82%'],
+      center: ['50%', '52%'],
+      startAngle: 180,
+      avoidLabelOverlap: false,
+      label: { show: true, formatter: '{d}%', position: 'outside' },
+      labelLine: { show: true },
+      data: [
+        { value: 82, name: 'Achieved', itemStyle: { color: '#43bd68' } },
+        { value: 18, name: 'Remaining', itemStyle: { color: '#e4eaef' } }
+      ]
+    }],
+    graphic: [
+      {
+        type: 'text',
+        left: 'center',
+        top: 82,
+        style: {
+          text: '82%',
+          fill: '#24a963',
+          fontSize: 31,
+          fontWeight: 780,
+          textAlign: 'center'
+        }
+      },
+      {
+        type: 'text',
+        left: 'center',
+        top: 132,
+        style: {
+          text: '$2.48M / $3.00M\nMonthly Target',
+          fill: '#30404a',
+          fontSize: 12,
+          textAlign: 'center',
+          lineHeight: 17
+        }
+      }
+    ]
+  });
+
+  var donut = echarts.init(document.getElementById('donutChart'));
+  donut.setOption({
+    animation: false,
+    color: ['#36bc6a', '#7b5fd4', '#4f9ee3', '#f7c44a', '#53c6bb'],
+    series: [{
+      type: 'pie',
+      radius: ['42%', '70%'],
+      center: ['50%', '50%'],
+      label: { formatter: '{d}%', color: '#fff', fontSize: 11 },
+      labelLine: { show: false },
+      data: [0.87, 0.62, 0.50, 0.30, 0.19]
+    }],
+    graphic: [
+      {
+        type: 'text',
+        left: 'center',
+        top: 60,
+        style: {
+          text: '$2.48M\nTotal',
+          fill: '#34404a',
+          fontSize: 11,
+          textAlign: 'center',
+          lineHeight: 15
+        }
+      }
+    ]
+  });
+
+  var trend = echarts.init(document.getElementById('trendChart'));
+  trend.setOption({
+    animation: false,
+    color: ['#24b568', '#8062e2'],
+    legend: {
+      top: 0,
+      left: 0,
+      itemWidth: 10,
+      itemHeight: 6,
+      textStyle: { fontSize: 10, color: '#56646c' },
+      data: ['May 1 – May 31, 2024', 'Apr 1 – Apr 30, 2024']
+    },
+    grid: { left: 38, right: 10, top: 34, bottom: 30 },
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      data: ['May 1', 'May 7', 'May 12', 'May 18', 'May 23', 'May 28', 'May 31'],
+      axisTick: { show: false },
+      axisLabel: { fontSize: 10, color: '#607079' }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: 125,
+      interval: 25,
+      axisLabel: { formatter: '${v}K', fontSize: 10, color: '#607079' }
+    },
+    series: [
+      { name: 'May 1 – May 31, 2024', type: 'line', smooth: true, symbolSize: 5, data: [50,65,70,80,90,100,95] },
+      { name: 'Apr 1 – Apr 30, 2024', type: 'line', smooth: true, symbolSize: 5, data: [40,55,60,70,75,80,78] }
+    ]
+  });
+
+  var price = echarts.init(document.getElementById('priceChart'));
+  price.setOption({
+    animation: false,
+    legend: {
+      top: 0,
+      left: 0,
+      itemWidth: 8,
+      itemHeight: 8,
+      textStyle: { fontSize: 10, color: '#5b6a72' }
+    },
+    grid: { left: 38, right: 12, top: 28, bottom: 26 },
+    xAxis: {
+      type: 'category',
+      data: ['May 1', 'May 7', 'May 11', 'May 16', 'May 21', 'May 26', 'May 31'],
+      axisLabel: { fontSize: 10, color: '#607079' }
+    },
+    yAxis: {
+      type: 'value',
+      min: 1.2,
+      max: 2.2,
+      interval: 0.2,
+      axisLabel: { formatter: '${v}K', fontSize: 10, color: '#607079' }
+    },
+    series: [{
+      type: 'bar',
+      barWidth: 10,
+      data: [1.4, 1.6, 1.5, 1.7, 1.8, 1.9, 2]
+    }]
+  });
+
+  var heat = echarts.init(document.getElementById('heatChart'));
+  heat.setOption({
+    animation: false,
+    grid: { left: 38, right: 10, top: 12, bottom: 24 },
+    xAxis: {
+      type: 'category',
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      axisLabel: { fontSize: 9, color: '#576670' }
+    },
+    yAxis: {
+      type: 'category',
+      data: ['North', 'South', 'East', 'West', 'Central'],
+      axisLabel: { fontSize: 10, color: '#576670' }
+    },
+    visualMap: {
+      min: 18,
+      max: 67,
+      show: false,
+      inRange: { color: ['#e8f7ef', '#9bd8c3', '#36bd6c'] }
+    },
+    series: [{
+      type: 'heatmap',
+      data: [[0,0,48],[1,0,50],[2,0,55],[3,0,60],[4,0,67],[5,0,30],[6,0,22],[0,1,41],[1,1,43],[2,1,45],[3,1,50],[4,1,52],[5,1,28],[6,1,20]]
+    }]
+  });
+</script>
+</body>
+</html>

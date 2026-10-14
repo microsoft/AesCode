@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sprinklr Competitive Update</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #061b45;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 28% 82%, rgba(10, 102, 255, 0.26) 0, rgba(10, 102, 255, 0.06) 24%, rgba(10, 102, 255, 0) 42%),
+        linear-gradient(180deg, #081f4c 0%, #061a45 62%, #04183f 100%);
+      color: #ffffff;
+    }
+
+    .artboard::before {
+      content: "";
+      position: absolute;
+      left: 220px;
+      bottom: 58px;
+      width: 290px;
+      height: 210px;
+      background:
+        radial-gradient(circle, rgba(0, 140, 255, 0.75) 2px, transparent 2.6px) 0 0 / 14px 14px;
+      opacity: 0.45;
+      transform: rotate(-28deg);
+      border-radius: 50%;
+    }
+
+    .artboard::after {
+      content: "";
+      position: absolute;
+      left: -100px;
+      bottom: 32px;
+      width: 620px;
+      height: 190px;
+      background:
+        repeating-linear-gradient(
+          28deg,
+          rgba(0, 153, 255, 0.65) 0px,
+          rgba(0, 153, 255, 0.65) 1px,
+          transparent 3px,
+          transparent 10px
+        );
+      transform: skewX(-14deg);
+      opacity: 0.26;
+      filter: blur(0.3px);
+    }
+
+    .logo-lockup {
+      position: absolute;
+      top: 27px;
+      left: 31px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 2;
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -0.2px;
+    }
+
+    .ms-squares {
+      display: grid;
+      grid-template-columns: 17px 17px;
+      grid-template-rows: 17px 17px;
+      gap: 2px;
+      width: 34px;
+      height: 34px;
+    }
+
+    .sq-red { background: #f25022; }
+    .sq-green { background: #7fba00; }
+    .sq-blue { background: #00a4ef; }
+    .sq-yellow { background: #ffb900; }
+
+    .left-panel {
+      position: absolute;
+      top: 150px;
+      left: 38px;
+      width: 370px;
+      z-index: 2;
+    }
+
+    .headline {
+      margin: 0;
+      color: #ffffff;
+      font-size: 62px;
+      line-height: 1.18;
+      font-weight: 800;
+      letter-spacing: -1.7px;
+    }
+
+    .date-line {
+      margin-top: 17px;
+      font-size: 21px;
+      font-weight: 650;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .console-window {
+      position: absolute;
+      left: 435px;
+      top: 29px;
+      width: 823px;
+      height: 591px;
+      background: #f6f8fb;
+      border-radius: 15px;
+      border: 1px solid rgba(190, 203, 219, 0.85);
+      box-shadow: 0 14px 26px rgba(0, 0, 0, 0.42), 0 0 0 5px rgba(255, 255, 255, 0.08);
+      z-index: 3;
+    }
+
+    .console-header {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 823px;
+      height: 47px;
+      background: #eef2f6;
+      border-bottom: 1px solid #d7dde5;
+      display: flex;
+      align-items: center;
+    }
+
+    .hamburger {
+      position: absolute;
+      left: 22px;
+      font-size: 22px;
+      color: #1f2937;
+    }
+
+    .tab-title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 47px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #172033;
+      border-bottom: 2px solid #2f73e8;
+      padding-top: 1px;
+    }
+
+    .header-icons {
+      position: absolute;
+      right: 20px;
+      display: flex;
+      gap: 18px;
+      color: #222f40;
+      font-size: 17px;
+      align-items: center;
+    }
+
+    .app-body {
+      position: absolute;
+      left: 0;
+      top: 47px;
+      width: 823px;
+      height: 544px;
+      display: grid;
+      grid-template-columns: 196px 346px 281px;
+      gap: 7px;
+    }
+
+    .conversation-sidebar {
+      background: #ffffff;
+      border: 1px solid #e0e5eb;
+      border-radius: 9px;
+      height: 526px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sidebar-tools {
+      height: 47px;
+      border-bottom: 1px solid #e4e8ee;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-left: 8px;
+      font-size: 12px;
+      color: #384558;
+    }
+
+    .sidebar-filter {
+      height: 42px;
+      border-bottom: 1px solid #e7eaef;
+      display: flex;
+      align-items: center;
+      padding-left: 8px;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 650;
+    }
+
+    .sidebar-list {
+      padding: 8px 7px 18px;
+    }
+
+    .contact-row {
+      height: 67px;
+      border-bottom: 1px solid #edf0f4;
+      display: flex;
+      gap: 9px;
+      align-items: center;
+      color: #303846;
+    }
+
+    .contact-avatar {
+      width: 33px;
+      height: 33px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      background: #d9e7fb;
+      flex: 0 0 auto;
+      object-fit: cover;
+    }
+
+    .contact-name {
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .contact-msg {
+      font-size: 10px;
+      color: #566170;
+      width: 124px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .view-all {
+      position: absolute;
+      bottom: 11px;
+      left: 8px;
+      right: 8px;
+      font-size: 11px;
+      color: #2270d4;
+      display: flex;
+      justify-content: space8between;
+      align-items: center;
+    }
+
+    .central-panel {
+      background: #fbfcfe;
+      border: 1px solid #e1e6ed;
+      border-radius: 9px;
+      height: 526px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .case-header {
+      height: 55px;
+      border-bottom: 1px solid #e6ebf0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-left: 8px;
+      font-size: 11.5px;
+    }
+
+    .case-label {
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .timer {
+      background: #f5f7fa;
+      border: 1px solid #dfe5ec;
+      border-radius: 12px;
+      padding: 3px 9px;
+      font-weight: 700;
+    }
+
+    .pill {
+      background: #ffffff;
+      border: 1px solid #d9dee6;
+      border-radius: 14px;
+      padding: 3px 10px;
+      font-size: 10.5px;
+      font-weight: 650;
+    }
+
+    .chat-area {
+      position: absolute;
+      top: 55px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fbfcfe;
+    }
+
+    .message-row {
+      position: absolute;
+      width: 212px;
+      display: flex;
+      gap: 7px;
+    }
+
+    .message-row.customer {
+      left: 7px;
+      align-items: flex-start;
+    }
+
+    .message-row.agent {
+      right: 7px;
+      align-items: flex-start;
+    }
+
+    .msg-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ffffff;
+    }
+
+    .msg-text {
+      font-size: 10.6px;
+      line-height: 1.28;
+      color: #2e3542;
+    }
+
+    .bubble-customer {
+      background: #f2f5f8;
+      border: 1px solid #e4e9ef;
+      border-radius: 8px;
+      padding: 7px 8px;
+      box-shadow: 0 2px 5px rgba(20, 35, 55, 0.05);
+    }
+
+    .bubble-agent {
+      background: #1f72ef;
+      color: #ffffff;
+      border-radius: 7px;
+      padding: 7px 8px;
+      width: 205px;
+    }
+
+    .msg-meta {
+      font-size: 9.2px;
+      color: #647080;
+      margin-top: -4px;
+    }
+
+    .input-bar {
+      position: absolute;
+      left: 4px;
+      right: 4px;
+      bottom: 9px;
+      height: 41px;
+      border: 1px solid #dce2e8;
+      border-radius: 7px;
+      background: #ffffff;
+      color: #737e8d;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      padding-left: 8px;
+      padding-right: 14px;
+    }
+
+    .right-pane {
+      background: #ffffff;
+      border: 1px solid #e1e6ed;
+      border-radius: 9px;
+      height: 526px;
+      overflow: hidden;
+    }
+
+    .customer-top {
+      height: 67px;
+      border-bottom: 1px solid #e7ebef;
+      display: flex;
+      gap: 10px;
+      padding: 12px 10px;
+      align-items: center;
+    }
+
+    .customer-avatar {
+      width: 47px;
+      height: 47px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .customer-name {
+      font-size: 12.6px;
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+
+    .customer-bio {
+      font-size: 10.4px;
+      color: #566170;
+    }
+
+    .info-card {
+      margin: 8px 8px 5px;
+      border: 1px solid #e2e7ee;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 8px;
+      font-size: 10.4px;
+      color: #313b49;
+    }
+
+    .card-title {
+      font-size: 11.2px;
+      font-weight: 750;
+      margin-bottom: 4px;
+    }
+
+    .search-box {
+      height: 22px;
+      border: 1px solid #dfe5ec;
+      border-radius: 5px;
+      background: #fafbfc;
+      display: flex;
+      align-items: center;
+      padding: 0 7px;
+      color: #6f7886;
+    }
+
+    .case-row {
+      background: #f7f9fb;
+      border-radius: 6px;
+      padding: 6px;
+      border-top: 1px solid #edf1f5;
+      display: flex;
+      justify-content: space8between;
+      align-items: center;
+    }
+
+    .resolved {
+      background: #dff8ef;
+      color: #17884f;
+      border-radius: 8px;
+      padding: 2px 7px;
+      font-size: 9.5px;
+      font-weight: 700;
+    }
+
+    .details-table {
+      margin-top: 2px;
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 9.8px;
+    }
+
+    .details-table td {
+      padding: 2px 0;
+      border-bottom: 1px solid #edf1f5;
+    }
+
+    .details-table td:first-child {
+      color: #525c69;
+      font-weight: 650;
+      width: 85px;
+    }
+
+    .details-table td:last-child {
+      color: #323b48;
+    }
+
+    .survey-card {
+      margin: 5px 8px 0;
+      border: 1px solid #e2e7ee;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 7px;
+      font-size: 10px;
+      color: #313b49;
+    }
+
+    .survey-question {
+      font-size: 10.5px;
+      font-weight: 650;
+      margin-bottom: 3px;
+    }
+
+    .scale {
+      display: flex;
+      gap: 5px;
+      margin-top: 4px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .scale-dot {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 1px solid #d5dbe2;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8.5px;
+      background: #fff;
+    }
+
+    .scale-dot.active {
+      background: #1f72ef;
+      border-color: #1f72ef;
+      color: white;
+      font-weight: 700;
+    }
+
+    .footer {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 1280px;
+      height: 61px;
+      background: #076ce5;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15.8px;
+      font-weight: 500;
+      color: #ffffff;
+      letter-spacing: 0.1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="logo-lockup">
+      <div class="ms-squares" aria-hidden="true">
+        <div class="sq-red"></div>
+        <div class="sq-green"></div>
+        <div class="sq-blue"></div>
+        <div class="sq-yellow"></div>
+      </div>
+      <div>Microsoft Dynamics 365</div>
+    </div>
+
+    <div class="left-panel">
+      <h1 class="headline">Sprinklr<br>Competitive<br>Update</h1>
+      <div class="date-line">March 2024</div>
+    </div>
+
+    <div class="console-window">
+      <div class="console-header">
+        <div class="hamburger">☰</div>
+        <div class="tab-title">Care Console</div>
+        <div class="header-icons">
+          <span>⌕</span>
+          <span>♧</span>
+          <span>▱</span>
+          <span>◉</span>
+        </div>
+      </div>
+
+      <div class="app-body">
+        <section class="conversation-sidebar">
+          <div class="sidebar-tools">
+            <span>All</span><span>▱</span><span>✉</span><span>↗</span><span>✦</span><span>◎</span><span>◔</span>
+          </div>
+          <div class="sidebar-filter">
+            Newest ▾
+          </div>
+          <div class="sidebar-list">
+            <div class="contact-row">
+              <img class="contact-avatar" src="https://placehold.co/80x80?text=A" alt="Alex avatar placeholder">
+              <div>
+                <div class="contact-name">Alex Williams</div>
+                <div class="contact-msg">I need to exchange my shoes...</div>
+              </div>
+            </div>
+            <div class="contact-row">
+              <img class="contact-avatar" src="https://placehold.co/80x80?text=M" alt="Maya avatar placeholder">
+              <div>
+                <div class="contact-name">Maya Patel</div>
+                <div class="contact-msg">Where is my order?</div>
+              </div>
+            </div>
+            <div class="contact-row">
+              <img class="contact-avatar" src="https://placehold.co/80x80?text=J" alt="Jordan avatar placeholder">
+              <div>
+                <div class="contact-name">Jordan Lee</div>
+                <div class="contact-msg">Thanks for the help!</div>
+              </div>
+            </div>
+            <div class="contact-row">
+              <img class="contact-avatar" src="https://placehold.co/80x80?text=T" alt="Taylor avatar placeholder">
+              <div>
+                <div class="contact-name">Taylor Johnson</div>
+                <div class="contact-msg">Do you have these in size 9?</div>
+              </div>
+            </div>
+            <div class="contact-row">
+              <img class="contact-avatar" src="https://placehold.co/80x80?text=B" alt="Chris avatar placeholder">
+              <div>
+                <div class="contact-name">Chris Brown</div>
+                <div class="contact-msg">Payment failed. Need help.</div>
+              </div>
+            </div>
+          </div>
+          <div class="view-all">View all conversations ›</div>
+        </section>
+
+        <section class="central-panel">
+          <div class="case-header">
+            <span class="case-label">Case #23141</span>
+            <span class="timer">00:05:32</span>
+            <span class="pill">Hold</span>
+            <span class="pill">Omni-Channel Interaction</span>
+          </div>
+
+          <div class="chat-area">
+            <div class="message-row customer" style="top:40px;">
+              <img class="msg-avatar" src="https://placehold.co/80x80?text=A" alt="Alex avatar">
+              <div>
+                <div class="msg-text"><b>Alex Williams</b><br>I ordered a pair of sneakers in size 9, but they feel tight. Do you have size 10 in stock?</div>
+                <div class="msg-meta">10:23 AM</div>
+              </div>
+            </div>
+
+            <div class="message-row agent" style="top:112px;">
+              <div>
+                <div class="bubble-agent">Hello Alex! Yes, we do have size 10 in stock. I can help you exchange them right away.</div>
+                <div class="msg-meta">Agent &nbsp;· 10:24 AM</div>
+              </div>
+            </div>
+
+            <div class="message-row customer" style="top:214px;">
+              <img class="msg-avatar" src="https://placehold.co/80x80?text=A" alt="Alex avatar">
+              <div>
+                <div class="bubble-customer">Great! What’s the process for returning the current pair?</div>
+                <div class="msg-meta">10:25 AM</div>
+              </div>
+            </div>
+
+            <div class="message-row agent" style="top:286px;">
+              <div>
+                <div class="bubble-agent">You can print the prepaid return label from your order page. Once we receive the shoes, we’ll ship the size 10 pair within 24 hours.</div>
+                <div class="msg-meta">Agent &nbsp;· 10:26 AM</div>
+              </div>
+            </div>
+
+            <div class="message-row customer" style="top:388px;">
+              <img class="msg-avatar" src="https://placehold.co/80x80?text=A" alt="Alex avatar">
+              <div>
+                <div class="bubble-customer">Perfect, thank you so much!</div>
+                <div class="msg-meta">10:27 AM</div>
+              </div>
+            </div>
+
+            <div class="input-bar">Type your message...</div>
+          </div>
+        </section>
+
+        <aside class="right-pane">
+          <div class="customer-top">
+            <img class="customer-avatar" src="https://placehold.co/80x80?text=Alex+Williams" alt="Alex Williams avatar placeholder">
+            <div>
+              <div class="customer-name">Alex Williams</div>
+              <div class="customer-bio">Loyal customer since 2022.</div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="card-title">Smart Responses</div>
+            <div style="border:1px solid #edf1f5;border-radius:6px;padding:5px;margin-bottom:5px;font-size:9.6px;">
+              <b>Exchange Policy – Shoes</b><br>
+              Provides steps to exchange footwear orders.<br>
+              Created Feb 12, 2024
+            </div>
+            <div style="font-size:9.6px;">
+              <b>Size Guide – Sneakers</b><br>
+              Helps customers choose the right size.<br>
+              Created Jan 25, 2024
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="card-title">Smart Assist</div>
+            <div class="search-box">Search customer issues ⚙</div>
+            <div class="case-row">
+              <span><b>Case #18973</b><br>Wrong size received</span>
+              <span class="resolved">Resolved<br>Feb 20, 2024</span>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="card-title">Customer Details</div>
+            <table class="details-table">
+              <tr><td>City</td><td>Seattle, WA</td></tr>
+              <tr><td>Last Purchase</td><td>Mar 10, 2024</td></tr>
+              <tr><td>Email</td><td>alex.williams@gmail.com</td></tr>
+              <tr><td>Phone</td><td>(206) 555-0148</td></tr>
+            </table>
+          </div>
+
+          <div class="survey-card">
+            <div class="survey-question">How likely are you to recommend us?</div>
+            <div>1 (Not likely) – 10 (Extremely likely)</div>
+            <div class="scale">
+              <span class="scale-dot">1</span><span class="scale-dot">2</span><span class="scale-dot">3</span><span class="scale-dot">4</span><span class="scale-dot">5</span><span class="scale-dot">6</span><span class="scale-dot">7</span><span class="scale-dot">8</span><span class="scale-dot active">9</span><span class="scale-dot">10</span>
+            </div>
+            <div style="text-align:center;font-size:9.5px;">Average Score: 9.1/10</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <div class="footer">Microsoft Confidential – Internal Only – Do Not Share with Partners or Customers</div>
+  </div>
+</body>
+</html>

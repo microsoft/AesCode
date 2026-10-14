@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAIGE AI Use Case Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #dfe1e6;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background: #e5e6e9;
+    }
+
+    .left-panel {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 350px;
+      height: 720px;
+      background: #e7e8eb;
+    }
+
+    .wordmark {
+      position: absolute;
+      left: 42px;
+      top: 63px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 47px;
+      line-height: 1;
+      letter-spacing: 9px;
+      color: #07111f;
+      font-weight: 300;
+    }
+
+    .wordmark .p-accent {
+      color: #4d63e9;
+      font-weight: 300;
+    }
+
+    .left-heading {
+      position: absolute;
+      left: 42px;
+      top: 154px;
+      color: #07111f;
+      font-size: 45px;
+      line-height: 1.08;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+    }
+
+    .left-copy {
+      position: absolute;
+      left: 42px;
+      top: 230px;
+      width: 292px;
+      color: #111827;
+      font-size: 19px;
+      line-height: 1.48;
+      font-weight: 400;
+    }
+
+    .cta-button {
+      position: absolute;
+      left: 32px;
+      top: 484px;
+      width: 250px;
+      height: 52px;
+      border-radius: 28px;
+      background: linear-gradient(100deg, #0d63c9 0%, #8742df 100%);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      box-shadow: 0 8px 16px rgba(52, 76, 170, 0.22);
+    }
+
+    .source-line {
+      position: absolute;
+      left: 34px;
+      bottom: 29px;
+      color: #1f2937;
+      font-size: 11px;
+      line-height: 1.2;
+    }
+
+    .source-line .linkish {
+      color: #116ad8;
+      text-decoration: underline;
+    }
+
+    .main-card {
+      position: absolute;
+      left: 386px;
+      top: 18px;
+      width: 880px;
+      height: 660px;
+      background: #ffffff;
+      border-radius: 27px;
+      box-shadow: 0 14px 28px rgba(21, 29, 42, 0.22);
+      border: 1px solid rgba(146, 152, 163, 0.18);
+    }
+
+    .photo-wrap {
+      position: absolute;
+      left: 38px;
+      top: 18px;
+      width: 806px;
+      height: 273px;
+      border-radius: 11px;
+      overflow: hidden;
+      background: #d8dde5;
+    }
+
+    .photo-wrap img {
+      display: block;
+      width: 806px;
+      height: 273px;
+      object-fit: cover;
+    }
+
+    .quote-block {
+      position: absolute;
+      left: 45px;
+      top: 302px;
+      width: 790px;
+      text-align: center;
+    }
+
+    .quote-text {
+      margin: 0 auto;
+      color: #1c2333;
+      font-size: 17px;
+      line-height: 1.36;
+      font-style: italic;
+      max-width: 780px;
+    }
+
+    .attribution {
+      margin-top: 3px;
+      text-align: right;
+      color: #162139;
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .attribution .name {
+      color: #095fc9;
+      font-weight: 800;
+      font-size: 16px;
+      margin-bottom: 1px;
+    }
+
+    .outcomes-bar {
+      position: absolute;
+      left: 19px;
+      top: 402px;
+      width: 838px;
+      height: 35px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #0863c9 0%, #8646d6 100%);
+      color: #ffffff;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .columns {
+      position: absolute;
+      left: 19px;
+      top: 452px;
+      width: 838px;
+      height: 192px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-top: 0;
+    }
+
+    .outcome-col {
+      position: relative;
+      text-align: center;
+      padding: 0 16px;
+      min-width: 0;
+    }
+
+    .outcome-col:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 1px;
+      height: 187px;
+      background: #d3d4db;
+    }
+
+    .icon {
+      height: 52px;
+      margin: 0 auto 2px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #3963dc;
+    }
+
+    .target-icon {
+      width: 58px;
+      height: 52px;
+      position: relative;
+    }
+
+    .target-icon::before {
+      content: "";
+      position: absolute;
+      left: 19px;
+      top: 6px;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #3963dc;
+      border-radius: 50%;
+    }
+
+    .target-icon::after {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 16px;
+      width: 46px;
+      height: 24px;
+      border: 3px solid #3963dc;
+      border-top: 0;
+      border-radius: 0 0 24px 24px;
+    }
+
+    .target-icon .ring-a,
+    .target-icon .ring-b {
+      position: absolute;
+      border: 3px solid #3963dc;
+      border-radius: 50%;
+    }
+
+    .target-icon .ring-a {
+      width: 34px;
+      height: 34px;
+      left: 12px;
+      top: 8px;
+      border-left: 0;
+    }
+
+    .target-icon .ring-b {
+      width: 46px;
+      height: 46px;
+      left: 5px;
+      top: 4px;
+    }
+
+    .target-icon .arrow {
+      position: absolute;
+      right: -12px;
+      top: -12px;
+      width: 28px;
+      height: 28px;
+      border-left: 3px solid #3963dc;
+      border-bottom: 3px solid #3963dc;
+      transform: rotate(-35deg);
+    }
+
+    .magnify-icon {
+      width: 56px;
+      height: 52px;
+      border: 3px solid #7162df;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .magnify-icon::after {
+      content: "";
+      position: absolute;
+      right: -19px;
+      bottom: -18px;
+      width: 28px;
+      height: 8px;
+      background: #7162df;
+      transform: rotate(45deg);
+      border-radius: 3px;
+    }
+
+    .dot-grid {
+      position: absolute;
+      left: 12px;
+      top: 11px;
+      width: 25px;
+      height: 25px;
+      display: grid;
+      grid-template-columns: repeat(3, 6px);
+      grid-template-rows: repeat(3, 6px);
+      gap: 3px;
+    }
+
+    .dot-grid span {
+      background: #7162df;
+      border-radius: 50%;
+    }
+
+    .rocket-icon {
+      width: 62px;
+      height: 52px;
+      position: relative;
+    }
+
+    .rocket-icon::before {
+      content: "";
+      position: absolute;
+      left: 23px;
+      top: 2px;
+      width: 30px;
+      height: 43px;
+      border: 3px solid #7162df;
+      border-left-width: 4px;
+      border-bottom-width: 4px;
+      border-radius: 50% 50% 45% 45%;
+      transform: rotate(47deg);
+      background: transparent;
+    }
+
+    .rocket-icon::after {
+      content: "";
+      position: absolute;
+      left: 13px;
+      top: 18px;
+      width: 14px;
+      height: 14px;
+      border: 3px solid #7162df;
+      border-radius: 50%;
+      background: white;
+    }
+
+    .rocket-icon .flame-a,
+    .rocket-icon .flame-b,
+    .rocket-icon .flame-c {
+      position: absolute;
+      bottom: 4px;
+      width: 17px;
+      height: 28px;
+      border-left: 3px solid #7162df;
+      border-bottom: 3px solid #7162df;
+      transform: rotate(120deg);
+      opacity: .9;
+    }
+
+    .rocket-icon .flame-a { left: 5px; }
+    .rocket-icon .flame-b { left: 22px; height: 22px; transform: rotate(235deg); }
+    .rocket-icon .flame-c { left: 37px; height: 25px; transform: rotate(305deg); }
+
+    .outcome-title {
+      color: #2562d7;
+      font-size: 16px;
+      line-height: 1.1;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .outcome-text {
+      color: #171717;
+      font-size: 12.6px;
+      line-height: 1.28;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <aside class="left-panel">
+      <div class="wordmark">
+        <span class="p-accent">P</span>
+        <span>A I G E</span>
+      </div>
+
+      <div class="left-heading">AI Use Case</div>
+
+      <div class="left-copy">
+        Paige leverages optimized data and advanced AI to augment research and accelerate drug discovery, ultimately improving outcomes for cancer patients.
+      </div>
+
+      <div class="cta-button">Read full story here</div>
+
+      <div class="source-line">
+        Source: <span class="linkish">Microsoft Customer Story: Paige, 2024</span>
+      </div>
+    </aside>
+
+    <main class="main-card">
+      <div class="photo-wrap">
+        <img src="https://placehold.co/650x260?text=Pathology+AI+Lab+Photo" alt="Pathology AI Lab Photo" />
+      </div>
+
+      <section class="quote-block">
+        <p class="quote-text">
+          “That's why we come to work every day. We come to modernize healthcare through technology and are confident that we can make the lives of cancer patients better.”
+        </p>
+        <div class="attribution">
+          <div class="name">Mark Fleishman</div>
+          <div>Vice President of Infrastructure and Operations, Paige.AI, Inc.</div>
+        </div>
+      </section>
+
+      <section class="outcomes-bar">Business Outcomes</section>
+
+      <section class="columns">
+        <article class="outcome-col">
+          <div class="icon" aria-hidden="true">
+            <div class="target-icon">
+              <div class="ring-b"></div>
+              <div class="ring-a"></div>
+              <div class="arrow"></div>
+            </div>
+          </div>
+          <div class="outcome-title">Enhanced accuracy:</div>
+          <p class="outcome-text">
+            AI integration in diagnostic tools, such as pathology detection, improves accuracy and reduces variability—delivering faster and more reliable results for clinicians.
+          </p>
+        </article>
+
+        <article class="outcome-col">
+          <div class="icon" aria-hidden="true">
+            <div class="magnify-icon">
+              <div class="dot-grid">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+          <div class="outcome-title" style="color:#7457d2;">Cancer Detection:</div>
+          <p class="outcome-text">
+            Development of a large-scale AI model for comprehensive cancer detection across diverse tissue types, designed to capture subtle and complex biological patterns.
+          </p>
+        </article>
+
+        <article class="outcome-col">
+          <div class="icon" aria-hidden="true">
+            <div class="rocket-icon">
+              <div class="flame-a"></div>
+              <div class="flame-b"></div>
+              <div class="flame-c"></div>
+            </div>
+          </div>
+          <div class="outcome-title" style="color:#7457d2;">Accelerated innovation:</div>
+          <p class="outcome-text">
+            AI-powered biomarker analysis and insights speed up drug discovery pipelines and enable the advancement of personalized medicine.
+          </p>
+        </article>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

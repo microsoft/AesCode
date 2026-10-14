@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1376, initial-scale=1.0" />
+  <title>AI-powered operations infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f5f5f5;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f7f8fb 0%, #eeeeef 38%, #f2edea 72%, #f6ebe1 100%);
+    }
+
+    .slide-card {
+      position: absolute;
+      left: 39px;
+      top: 38px;
+      width: 1310px;
+      height: 683px;
+      border-radius: 22px;
+      overflow: hidden;
+      background: linear-gradient(100deg, rgba(244, 245, 248, 0.82) 0%, rgba(248, 246, 247, 0.88) 42%, rgba(247, 239, 229, 0.86) 100%);
+      box-shadow: 0 12px 28px rgba(42, 42, 42, 0.08);
+    }
+
+    .left-panel {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 342px;
+      height: 683px;
+      background: linear-gradient(180deg, #0879bd 0%, #33458f 48%, #743085 100%);
+      border-radius: 22px 0 0 22px;
+      padding: 126px 34px 40px 34px;
+      color: #ffffff;
+    }
+
+    .left-heading {
+      margin: 0;
+      font-size: 39px;
+      line-height: 1.22;
+      letter-spacing: -0.7px;
+      font-weight: 700;
+      max-width: 268px;
+    }
+
+    .left-copy {
+      margin: 32px 0 0 0;
+      width: 265px;
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 400;
+      letter-spacing: -0.25px;
+    }
+
+    .right-area {
+      position: absolute;
+      left: 342px;
+      top: 0;
+      width: 968px;
+      height: 683px;
+      padding-top: 128px;
+    }
+
+    .main-title {
+      margin: 0;
+      text-align: center;
+      font-size: 48px;
+      line-height: 1.1;
+      font-weight: 700;
+      color: #3f3f42;
+      letter-spacing: -1.3px;
+    }
+
+    .subtitle {
+      margin: 16px 0 0 0;
+      text-align: center;
+      font-size: 25px;
+      line-height: 1.25;
+      color: #111111;
+      font-weight: 400;
+      letter-spacing: -0.25px;
+    }
+
+    .cards-row {
+      position: absolute;
+      top: 292px;
+      left: 46px;
+      width: 880px;
+      height: 266px;
+      display: flex;
+      gap: 20px;
+      justify-content: space1between;
+      align-items: stretch;
+    }
+
+    .card {
+      width: 206px;
+      height: 266px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 14px;
+      box-shadow: 0 12px 20px rgba(42, 42, 42, 0.22);
+      padding: 34px 13px 18px 13px;
+      color: #111111;
+    }
+
+    .card-heading {
+      margin: 0 0 11px 0;
+      min-height: 84px;
+      font-size: 24px;
+      line-height: 1.25;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      color: #236fa8;
+    }
+
+    .card-heading .purple {
+      color: #594596;
+      font-weight: 700;
+    }
+
+    .card-body {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.22;
+      text-align: center;
+      color: #1f1f1f;
+      letter-spacing: -0.1px;
+    }
+
+    .card:nth-child(4) .card-body {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="slide-card">
+      <section class="left-panel">
+        <h1 class="left-heading">Reshape<br>government<br>processes</h1>
+        <p class="left-copy">
+          By enabling AI-powered remote hearings, courts improve accessibility and efficiency, transforming public access to justice
+        </p>
+      </section>
+
+      <main class="right-area">
+        <h2 class="main-title">AI-powered operations</h2>
+        <p class="subtitle">Enhance situational awareness and response precision with Copilot</p>
+
+        <section class="cards-row" aria-label="AI-powered operations benefits">
+          <div class="card">
+            <h3 class="card-heading">Broaden the<br>scope of<br>investigations</h3>
+            <p class="card-body">and break language<br>barriers with<br>translation and<br>analysis</p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-heading">Enhance<br>response<br>operations</h3>
+            <p class="card-body">by integrating<br>real-time data<br>with physical<br>environments</p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-heading">Optimize<br>resource<br>allocation</h3>
+            <p class="card-body">to enable faster,<br>more efficient<br>incident response</p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-heading">Resolve<br><span class="purple">cases</span> faster</h3>
+            <p class="card-body">with AI-driven<br>scheduling,<br>transcription, and<br>participant<br>coordination</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Streamlined RAG data pipeline</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #0b1424;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 88% 18%, rgba(38, 164, 160, 0.20), transparent 26%),
+      radial-gradient(circle at 16% 36%, rgba(53, 115, 255, 0.18), transparent 30%),
+      linear-gradient(114deg, #101b35 0%, #212c46 48%, #173338 100%);
+    color: #f6fbff;
+    border: 4px solid rgba(111, 201, 230, 0.82);
+    border-radius: 20px;
+    box-shadow:
+      0 0 24px rgba(81, 143, 255, 0.45),
+      0 0 30px rgba(116, 230, 201, 0.22),
+      inset 0 0 25px rgba(176, 132, 255, 0.14);
+  }
+
+  .artboard::before {
+    content: "";
+    position: absolute;
+    inset: 17px;
+    border: 2px solid rgba(188, 130, 255, 0.32);
+    border-radius: 15px;
+    box-shadow:
+      inset 0 0 18px rgba(35, 128, 255, 0.20),
+      0 0 14px rgba(160, 240, 210, 0.14);
+    pointer-events: none;
+  }
+
+  .title {
+    position: absolute;
+    top: 62px;
+    left: 0;
+    width: 1376px;
+    text-align: center;
+    font-size: 50px;
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    color: #ffffff;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+    z-index: 2;
+  }
+
+  .subtitle {
+    position: absolute;
+    top: 133px;
+    left: 0;
+    width: 1376px;
+    text-align: center;
+    font-size: 26px;
+    line-height: 1.15;
+    font-weight: 650;
+    color: #91f2d6;
+    text-shadow: 0 0 12px rgba(128, 243, 213, 0.20);
+    z-index: 2;
+  }
+
+  .pipeline {
+    position: absolute;
+    left: 58px;
+    top: 204px;
+    width: 1260px;
+    height: 495px;
+    z-index: 3;
+  }
+
+  .panel {
+    position: absolute;
+    top: 0;
+    width: 195px;
+    height: 495px;
+    border: 3px solid rgba(178, 216, 205, 0.72);
+    border-radius: 18px;
+    background:
+      linear-gradient(145deg, rgba(72, 96, 132, 0.52), rgba(46, 62, 82, 0.86) 56%, rgba(41, 80, 88, 0.62));
+    box-shadow:
+      inset 0 0 20px rgba(120, 220, 205, 0.13),
+      inset 0 0 16px rgba(151, 106, 255, 0.11),
+      0 0 18px rgba(103, 220, 205, 0.09);
+    padding: 32px 16px 14px 16px;
+  }
+
+  .panel-1 { left: 0; }
+  .panel-2 { left: 215px; }
+  .panel-3 { left: 430px; }
+  .panel-4 { left: 645px; }
+  .panel-5 { left: 860px; }
+  .panel-6 { left: 1075px; }
+
+  .icon-circle {
+    width: 112px;
+    height: 112px;
+    margin: 0 auto 24px auto;
+    border: 4px solid rgba(160, 238, 212, 0.80);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 38% 33%, rgba(128, 244, 221, 0.18), transparent 39%),
+      linear-gradient(140deg, rgba(80, 220, 200, 0.12), rgba(131, 100, 255, 0.14));
+    box-shadow:
+      0 0 18px rgba(112, 230, 210, 0.25),
+      inset 0 0 17px rgba(142, 112, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .panel-heading {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0 0 12px 0;
+    color: #f7fbff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.20);
+  }
+
+  .panel ul {
+    margin: 0;
+    padding-left: 17px;
+    font-size: 16px;
+    line-height: 1.28;
+    color: #f3f7fb;
+  }
+
+  .panel li {
+    margin-bottom: 9px;
+    padding-left: 2px;
+  }
+
+  /* CSS-only icon glyphs */
+  .ingest-icon {
+    position: relative;
+    width: 62px;
+    height: 62px;
+  }
+  .ingest-icon::before {
+    content: "";
+    position: absolute;
+    left: 16px;
+    top: 24px;
+    width: 32px;
+    height: 20px;
+    background: linear-gradient(135deg, #8bf3e6, #9b84f8);
+    border-radius: 16px;
+    box-shadow:
+      -15px 6px 0 -6px #73e5df,
+      14px -15px 0 -8px #a6c8ff;
+  }
+  .ingest-icon::after {
+    content: "";
+    position: absolute;
+    left: 28px;
+    top: 30px;
+    width: 5px;
+    height: 25px;
+    background: #93d9ff;
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.12);
+  }
+
+  .extract-icon {
+    position: relative;
+    width: 58px;
+    height: 70px;
+    border: 4px solid #91efd3;
+    border-radius: 4px;
+  }
+  .extract-icon::before {
+    content: "";
+    position: absolute;
+    right: -15px;
+    top: 15px;
+    width: 27px;
+    height: 27px;
+    border: 4px solid #b292ff;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.10);
+  }
+  .extract-icon::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    bottom: 12px;
+    width: 27px;
+    height: 4px;
+    background: #f1fbff;
+    box-shadow: 0 -15px 0 rgba(255,255,255,0.60);
+  }
+
+  .chunk-icon {
+    position: relative;
+    width: 70px;
+    height: 60px;
+  }
+  .chunk-icon span {
+    position: absolute;
+    width: 30px;
+    height: 12px;
+    background: linear-gradient(90deg, #8ef3d0, #b992ff);
+    border-radius: 2px;
+    border: 2px solid rgba(255,255,255,0.30);
+  }
+  .chunk-icon span:nth-child(1) { left: 15px; top: 7px; }
+  .chunk-icon span:nth-child(2) { left: 15px; top: 24px; }
+  .chunk-icon span:nth-child(3) { left: 15px; top: 40px; }
+  .chunk-icon span:nth-child(4) {
+    position: absolute;
+    right: 1px;
+    top: 12px;
+    width: 12px;
+    height: 18px;
+    border: 2px solid #d5f6ff;
+    border-left: 0;
+    border-radius: 0 5px 5px 0;
+  }
+
+  .embed-icon {
+    position: relative;
+    width: 64px;
+    height: 64px;
+  }
+  .embed-icon::before {
+    content: "";
+    position: absolute;
+    left: 13px;
+    top: 10px;
+    width: 28px;
+    height: 38px;
+    border: 4px solid #8ef2df;
+    border-radius: 18px 10px 12px 12px;
+    transform: rotate(220deg);
+    background: rgba(145, 231, 220, 0.12);
+  }
+  .embed-icon::after {
+    content: "";
+    position: absolute;
+    right: 12px;
+    top: 11px;
+    width: 18px;
+    height: 18px;
+    background: #c3eaff;
+    border-radius: 50%;
+    box-shadow: 0 17px 0 -5px #b583ff;
+  }
+
+  .index-icon {
+    position: relative;
+    width: 60px;
+    height: 58px;
+  }
+  .index-icon span {
+    position: absolute;
+    width: 40px;
+    height: 14px;
+    border: 3px solid #94efd6;
+    background: rgba(138, 236, 214, 0.11);
+    border-radius: 3px;
+  }
+  .index-icon span:nth-child(1) { left: 10px; top: 6px; }
+  .index-icon span:nth-child(2) { left: 10px; top: 22px; }
+  .index-icon span:nth-child(3) { left: 10px; top: 38px; }
+
+  .query-icon {
+    position: relative;
+    width: 62px;
+    height: 62px;
+  }
+  .query-icon::before {
+    content: "?";
+    position: absolute;
+    left: 14px;
+    top: 4px;
+    width: 30px;
+    height: 30px;
+    color: #aaf5ef;
+    font-size: 34px;
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(170, 245, 239, 0.25);
+  }
+  .query-icon::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 8px;
+    width: 18px;
+    height: 18px;
+    background: #95d4ff;
+    border-radius: 50%;
+    box-shadow: -14px 10px 0 -5px #a68cff;
+  }
+
+  .arrow {
+    position: absolute;
+    top: 227px;
+    width: 39px;
+    height: 39px;
+    border-radius: 50%;
+    background: rgba(45, 71, 90, 0.72);
+    border: 2px solid rgba(120, 230, 210, 0.55);
+    box-shadow: 0 0 12px rgba(126, 220, 205, 0.40);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .arrow::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    border-top: 5px solid #79f0ef;
+    border-right: 5px solid #79f0ef;
+    transform: rotate(45deg);
+    border-radius: 2px;
+  }
+
+  .arrow-1 { left: 200px; }
+  .arrow-2 { left: 415px; }
+  .arrow-3 { left: 630px; }
+  .arrow-4 { left: 845px; }
+  .arrow-5 { left: 1060px; }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Streamlined RAG data pipeline</div>
+    <div class="subtitle">Integrated vectorization and Azure AI Search</div>
+
+    <div class="pipeline">
+      <section class="panel panel-1">
+        <div class="icon-circle"><div class="ingest-icon"></div></div>
+        <div class="panel-heading">Ingest</div>
+        <ul>
+          <li>Cloud storage, databases, data lakes</li>
+          <li>Change tracking &amp; event-driven feeds</li>
+          <li>API connectors for real-time streams</li>
+          <li>Bulk data upload &amp; continuous synchronization</li>
+        </ul>
+      </section>
+
+      <section class="panel panel-2">
+        <div class="icon-circle"><div class="extract-icon"></div></div>
+        <div class="panel-heading">Extract</div>
+        <ul>
+          <li>Extract text from PDFs, Office docs, and images</li>
+          <li>Process structured formats like CSVs and JSON</li>
+          <li>Handle layouts, tables, and forms</li>
+          <li>Generate clean, structured output data</li>
+        </ul>
+      </section>
+
+      <section class="panel panel-3">
+        <div class="icon-circle"><div class="chunk-icon"><span></span><span></span><span></span><span></span></div></div>
+        <div class="panel-heading">Chunk</div>
+        <ul>
+          <li>Split text into fixed-size passages &amp; overlaps</li>
+          <li>Propagate document metadata &amp; context</li>
+          <li>Ensure semantic integrity during segmentation</li>
+          <li>Optimize passage length for retrieval</li>
+        </ul>
+      </section>
+
+      <section class="panel panel-4">
+        <div class="icon-circle"><div class="embed-icon"></div></div>
+        <div class="panel-heading">Embed</div>
+        <ul>
+          <li>Convert images and text into dense vectors</li>
+          <li>Utilize state-of-the-art AI embedding models</li>
+          <li>Generate high-dimensional numerical representations</li>
+          <li>Preserve semantic meaning and relationships</li>
+        </ul>
+      </section>
+
+      <section class="panel panel-5">
+        <div class="icon-circle"><div class="index-icon"><span></span><span></span><span></span></div></div>
+        <div class="panel-heading">Index</div>
+        <ul>
+          <li>Maintain efficient document &amp; chunk indexes</li>
+          <li>Integrate both for comprehensive search</li>
+          <li>Update and optimize index for speed</li>
+          <li>Enable scalable and fast retrieval of vectors</li>
+        </ul>
+      </section>
+
+      <section class="panel panel-6">
+        <div class="icon-circle"><div class="query-icon"></div></div>
+        <div class="panel-heading">Query</div>
+        <ul>
+          <li>Perform advanced retrieval with boosting</li>
+          <li>Apply weighting and relevance thresholding</li>
+          <li>Combine semantic and keyword search capabilities</li>
+          <li>Retrieve contextually relevant information</li>
+        </ul>
+      </section>
+
+      <div class="arrow arrow-1"></div>
+      <div class="arrow arrow-2"></div>
+      <div class="arrow arrow-3"></div>
+      <div class="arrow arrow-4"></div>
+      <div class="arrow arrow-5"></div>
+    </div>
+  </div>
+</body>
+</html>

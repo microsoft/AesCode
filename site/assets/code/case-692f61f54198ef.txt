@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>企业威胁情报数据报告</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #dfe5ef;
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1024px;
+    height: 1536px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 12%, rgba(255,255,255,0.98) 0, rgba(255,255,255,0.92) 28%, rgba(239,244,250,0.84) 52%, rgba(228,235,245,0.88) 100%),
+      linear-gradient(140deg, #f8fbff 0%, #ffffff 43%, #eef3f9 100%);
+    color: #202733;
+  }
+
+  .artboard::before {
+    content: "";
+    position: absolute;
+    left: -120px;
+    top: -100px;
+    width: 1220px;
+    height: 380px;
+    background: linear-gradient(125deg, rgba(0,90,255,0.12), rgba(120,160,210,0.10), rgba(255,255,255,0));
+    transform: skewY(-22deg);
+    opacity: 0.7;
+  }
+
+  .artboard::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 380px;
+    height: 230px;
+    background: radial-gradient(circle, rgba(255,255,255,0.90) 0%, rgba(210,224,240,0.48) 60%, rgba(255,255,255,0) 78%);
+    pointer-events: none;
+  }
+
+  .brand-row {
+    position: absolute;
+    top: 24px;
+    left: 28px;
+    right: 28px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 2;
+  }
+
+  .brand-left {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    font-weight: 800;
+    font-size: 22px;
+    color: #0757d8;
+    letter-spacing: 1px;
+  }
+
+  .brand-icon {
+    width: 54px;
+    height: 54px;
+    background: #0b5be4;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 6px 14px rgba(0,80,210,0.25);
+  }
+
+  .brand-icon::before {
+    content: "";
+    position: absolute;
+    left: 16px;
+    top: 10px;
+    width: 22px;
+    height: 28px;
+    border: 3px solid #fff;
+    border-top-width: 5px;
+    border-radius: 12px 12px 16px 16px;
+    clip-path: polygon(50% 0, 100% 18%, 86% 78%, 50% 100%, 14% 78%, 0 18%);
+  }
+
+  .year-tag {
+    border: 1.5px solid #075ee8;
+    color: #075ee8;
+    border-radius: 5px;
+    padding: 9px 16px;
+    font-size: 18px;
+    font-weight: 700;
+    min-width: 200px;
+    text-align: center;
+    background: rgba(255,255,255,0.72);
+  }
+
+  .title {
+    position: absolute;
+    top: 105px;
+    left: 90px;
+    right: 90px;
+    text-align: center;
+    font-size: 54px;
+    line-height: 1.15;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #20252d;
+    z-index: 2;
+    text-shadow: 0 2px 0 rgba(255,255,255,0.85);
+  }
+
+  .subtitle {
+    position: absolute;
+    top: 195px;
+    left: 0;
+    width: 1024px;
+    text-align: center;
+    font-size: 21px;
+    color: #596270;
+    font-weight: 600;
+    z-index: 2;
+  }
+
+  .divider {
+    position: absolute;
+    top: 262px;
+    left: 114px;
+    width: 810px;
+    height: 3px;
+    background: #075ee8;
+    border-radius: 3px;
+    z-index: 2;
+  }
+
+  .stats-row {
+    position: absolute;
+    top: 295px;
+    left: 50px;
+    width: 924px;
+    height: 132px;
+    display: flex;
+    gap: 24px;
+    z-index: 2;
+  }
+
+  .stat-card {
+    flex: 1;
+    border: 1.2px solid #b9c0ca;
+    border-radius: 11px;
+    background: rgba(255,255,255,0.70);
+    text-align: center;
+    padding-top: 14px;
+    height: 132px;
+    box-shadow: 0 4px 11px rgba(0,0,0,0.05);
+  }
+
+  .stat-label {
+    font-size: 18px;
+    color: #303844;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .stat-number {
+    font-size: 47px;
+    color: #075ee8;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+
+  .chart-panel {
+    position: absolute;
+    top: 442px;
+    left: 50px;
+    width: 924px;
+    height: 354px;
+    border: 1px solid #d5d9df;
+    border-radius: 11px;
+    background: rgba(255,255,255,0.93);
+    box-shadow: 0 8px 19px rgba(0,0,0,0.08);
+    z-index: 2;
+  }
+
+  .chart-title {
+    position: absolute;
+    top: 14px;
+    left: 25px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #242a33;
+  }
+
+  .chart-legend {
+    position: absolute;
+    top: 20px;
+    right: 160px;
+    font-size: 14px;
+    color: #555f6d;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .chart-dot {
+    width: 13px;
+    height: 10px;
+    border: 1.5px solid #075ee8;
+    border-radius: 5px;
+    display: inline-block;
+    position: relative;
+  }
+
+  #quarterlyChart {
+    position: absolute;
+    left: 27px;
+    top: 50px;
+    width: 870px;
+    height: 280px;
+  }
+
+  .section-heading {
+    position: absolute;
+    top: 822px;
+    left: 54px;
+    display: flex;
+    align-items: center;
+    font-size: 26px;
+    font-weight: 900;
+    color: #202733;
+    z-index: 2;
+  }
+
+  .section-heading::before {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 30px;
+    margin-right: 12px;
+    background: #075ee8;
+    border-radius: 2px;
+  }
+
+  .feature-grid {
+    position: absolute;
+    top: 872px;
+    left: 52px;
+    width: 920px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 18px;
+    z-index: 2;
+  }
+
+  .feature-card {
+    height: 138px;
+    border: 1.2px solid #c5ccd4;
+    border-radius: 9px;
+    background: rgba(255,255,255,0.88);
+    display: flex;
+    align-items: center;
+    padding: 14px 15px;
+    gap: 17px;
+  }
+
+  .feature-icon {
+    width: 72px;
+    height: 72px;
+    flex: 0 0 auto;
+    color: #0961e5;
+    border: 1.5px solid #0961e5;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    background: #fbfdff;
+  }
+
+  .feature-text h3 {
+    margin: 0 0 7px;
+    color: #202733;
+    font-size: 19px;
+    line-height: 1.25;
+    font-weight: 850;
+  }
+
+  .feature-text p {
+    margin: 0;
+    color: #4a5562;
+    font-size: 14.5px;
+    line-height: 1.7;
+    font-weight: 500;
+  }
+
+  .insight-strip {
+    position: absolute;
+    top: 1172px;
+    left: 52px;
+    width: 920px;
+    height: 69px;
+    border: 1px solid #d5d9df;
+    border-radius: 8px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space1around;
+    z-index: 2;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  }
+
+  .insight-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    color: #27313d;
+    font-size: 17px;
+    font-weight: 700;
+    min-width: 290px;
+  }
+
+  .insight-item .num {
+    color: #075ee8;
+    font-size: 21px;
+    font-weight: 900;
+  }
+
+  .insight-rule {
+    width: 1px;
+    height: 27px;
+    background: #c2c7cf;
+  }
+
+  .footer {
+    position: absolute;
+    left: 41px;
+    bottom: 0;
+    width: 942px;
+    height: 272px;
+    background: #1f2735;
+    border-radius: 16px 16px 0 0;
+    color: #fff;
+    z-index: 2;
+    box-shadow: 0 -5px 13px rgba(0,0,0,0.18);
+  }
+
+  .footer-brand {
+    position: absolute;
+    left: 67px;
+    top: 23px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #f1f5ff;
+    font-size: 22px;
+    font-weight: 850;
+  }
+
+  .footer-shield {
+    width: 40px;
+    height: 42px;
+    border: 3px solid #2971ff;
+    border-radius: 18px 18px 20px 20px;
+    clip-path: polygon(50% 0, 100% 22%, 82% 72%, 50% 100%, 18% 72%, 0 22%);
+    background: transparent;
+  }
+
+  .footer-heading {
+    position: absolute;
+    left: 67px;
+    top: 70px;
+    color: #fff;
+    font-size: 22px;
+    line-height: 1.2;
+    font-weight: 850;
+    border-bottom: 2px solid #1782ff;
+    padding-bottom: 5px;
+  }
+
+  .footer-lines {
+    position: absolute;
+    left: 67px;
+    top: 118px;
+    color: #f0f5ff;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .footer-lines div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .footer-lines .mini {
+    width: 18px;
+    color: #fff;
+    font-weight: 800;
+  }
+
+  .qr-box {
+    position: absolute;
+    right: 60px;
+    top: 30px;
+    width: 162px;
+    height: 162px;
+    border: 2px solid #d9d9d9;
+    background: #f3f6fb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  }
+
+  .qr-box img {
+    width: 140px;
+    height: 140px;
+    display: block;
+  }
+
+  .qr-caption {
+    position: absolute;
+    right: 60px;
+    bottom: 29px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="brand-row">
+      <div class="brand-left">
+        <div class="brand-icon"></div>
+        <div>零界安全实验室</div>
+      </div>
+      <div class="year-tag">2025 网络安全态势</div>
+    </div>
+
+    <div class="title">企业威胁情报数据报告</div>
+    <div class="subtitle">覆盖 3,200 家企业终端 / 采样周期 2024.01—2024.12</div>
+    <div class="divider"></div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">全年拦截高危攻击</div>
+        <div class="stat-number">18,742 <span style="color:#4d5968;font-size:19px;font-weight:600;">次</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">平均修复时长</div>
+        <div class="stat-number">6.8 <span style="color:#4d5968;font-size:19px;font-weight:600;">小时</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">勒索软件检出率</div>
+        <div class="stat-number">2.4<span style="color:#4d5968;font-size:18px;font-weight:600;">%</span></div>
+      </div>
+    </div>
+
+    <div class="chart-panel">
+      <div class="chart-title">季度攻击趋势</div>
+      <div class="chart-legend"><span class="chart-dot"></span><span>攻击次数（次）</span></div>
+      <div id="quarterlyChart"></div>
+    </div>
+
+    <div class="section-heading">关键发现</div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">✉</div>
+        <div class="feature-text">
+          <h3>钓鱼邮件仍是首要入口</h3>
+          <p>钓鱼邮件点击率 7.6%，是年度最大威胁入口，仿冒品牌与内部通知为主。</p>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">▣</div>
+        <div class="feature-text">
+          <h3>漏洞利用集中在边界设备</h3>
+          <p>VPN 与防火墙相关 CVE 漏洞占比达 33%，成为攻击者突破内网的主要路径。</p>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">◔</div>
+        <div class="feature-text">
+          <h3>夜间异常登录占比上升</h3>
+          <p>22:00–04:00 异常登录占比 27%，较 2023 年提升 6.3 个百分点。</p>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚙</div>
+        <div class="feature-text">
+          <h3>高危告警处置效率提升</h3>
+          <p>通过 SOAR 自动化与流程优化，平均处置时长同比缩短 31%。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-strip">
+      <div class="insight-item">• <span>邮件威胁占比 <span class="num">41%</span></span></div>
+      <div class="insight-rule"></div>
+      <div class="insight-item">• <span>边界设备漏洞占比 <span class="num">33%</span></span></div>
+      <div class="insight-rule"></div>
+      <div class="insight-item">• <span>夜间异常登录 <span class="num">27%</span></span></div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-brand">
+        <div class="footer-shield"></div>
+        <div>零界安全实验室</div>
+      </div>
+
+      <div class="footer-heading">获取完整报告与行业基线对比</div>
+
+      <div class="footer-lines">
+        <div><span class="mini">●</span><span>顾问：林序南</span></div>
+        <div><span class="mini">☎</span><span>400-816-2709</span></div>
+        <div><span class="mini">✉</span><span>threatlab@lingsec.cn</span></div>
+        <div><span class="mini">◎</span><span>www.lingsec.cn/report</span></div>
+      </div>
+
+      <div class="qr-box">
+        <img src="https://placehold.co/160x160" alt="扫码下载 PDF" />
+      </div>
+      <div class="qr-caption">扫码下载 PDF</div>
+    </div>
+  </div>
+
+<script>
+  const chart = echarts.init(document.getElementById('quarterlyChart'));
+  chart.setOption({
+    animation: false,
+    grid: {
+      left: 45,
+      right: 20,
+      top: 25,
+      bottom: 35
+    },
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      data: ['Q1', 'Q2', 'Q3', 'Q4'],
+      axisLine: {
+        lineStyle: {
+          color: '#aeb6bf'
+        }
+      },
+      axisTick: {
+        show: false
+      },
+      axisLabel: {
+        color: '#555f6d',
+        fontSize: 14
+      }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: 7500,
+      interval: 1500,
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: '#aeb6bf'
+        }
+      },
+      axisTick: {
+        show: false
+      },
+      splitLine: {
+        lineStyle: {
+          color: '#d8dce2',
+          type: 'dashed'
+        }
+      },
+      axisLabel: {
+        color: '#555f6d',
+        fontSize: 14
+      }
+    },
+    series: [
+      {
+        name: '攻击次数（次）',
+        type: 'line',
+        data: [3120, 4680, 5210, 5732],
+        symbol: 'circle',
+        symbolSize: 9,
+        showSymbol: true,
+        lineStyle: {
+          color: '#075ee8',
+          width: 3
+        },
+        itemStyle: {
+          color: '#ffffff',
+          borderColor: '#075ee8',
+          borderWidth: 2
+        },
+        label: {
+          show: true,
+          color: '#075ee8',
+          fontSize: 15,
+          fontWeight: 700,
+          position: 'top',
+          formatter: '{c}'
+        },
+        areaStyle: {
+          color: 'rgba(7,94,232,0.15)'
+        }
+      }
+    ],
+    tooltip: {
+      trigger: 'axis'
+    }
+  });
+</script>
+</body>
+</html>

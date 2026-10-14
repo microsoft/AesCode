@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Personal Finance Budget Planner Infographic</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #061128;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1200px;
+    height: 896px;
+    overflow: hidden;
+    color: #ffffff;
+    background:
+      radial-gradient(circle at 30% 90%, rgba(164, 61, 180, 0.56) 0%, rgba(55, 38, 108, 0.28) 26%, rgba(11, 28, 56, 0) 50%),
+      linear-gradient(180deg, #10264a 0%, #16254b 42%, #122444 68%, #101f3f 100%);
+  }
+
+  /* Top stars */
+  .stars {
+    position: absolute;
+    top: 24px;
+    left: 0;
+    width: 1200px;
+    text-align: center;
+    letter-spacing: 8px;
+    font-size: 26px;
+    color: #ffd43d;
+    font-weight: 700;
+  }
+
+  /* Header text */
+  .header {
+    position: absolute;
+    top: 64px;
+    left: 284px;
+    width: 632px;
+    text-align: center;
+  }
+
+  .header .smart {
+    position: relative;
+    display: inline-block;
+    padding: 0 18px;
+    font-size: 29px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: #a8c7d5;
+  }
+
+  .header .smart::before,
+  .header .smart::after {
+    content: "";
+    position: absolute;
+    top: 12px;
+    width: 122px;
+    height: 1px;
+    background: rgba(168, 199, 213, 0.45);
+  }
+
+  .header .smart::before {
+    left: -70px;
+  }
+
+  .header .smart::after {
+    right: -70px;
+  }
+
+  .title-top {
+    font-size: 46px;
+    font-weight: 300;
+    letter-spacing: 5px;
+    line-height: 1.05;
+    margin-top: 10px;
+    color: #ffffff;
+  }
+
+  .title-bottom {
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 1.05;
+    margin-top: 5px;
+    color: #ffffff;
+  }
+
+  .subtitle {
+    margin-top: 8px;
+    width: 570px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: #ffffff;
+    opacity: 0.98;
+  }
+
+  /* Logo */
+  .logo {
+    position: absolute;
+    top: 27px;
+    left: 48px;
+    width: 56px;
+    text-align: center;
+  }
+
+  .logo-icon {
+    width: 48px;
+    height: 62px;
+    margin: 0 auto 7px auto;
+    background: linear-gradient(145deg, #23c882, #168f72);
+    border-radius: 7px;
+    position: relative;
+    box-shadow: 0 6px 14px rgba(21, 125, 91, 0.35);
+  }
+
+  .logo-icon::after {
+    content: "";
+    position: absolute;
+    top: -13px;
+    right: 0;
+    width: 21px;
+    height: 18px;
+    background: #33d88c;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 48% 52%, 0 100%);
+    border-radius: 0 0 5px 0;
+  }
+
+  .sheet-mark {
+    position: absolute;
+    top: 18px;
+    left: 13px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    background: rgba(255,255,255,0.12);
+  }
+
+  .sheet-mark::before,
+  .sheet-mark::after {
+    content: "";
+    position: absolute;
+    background: rgba(255,255,255,0.55);
+    border-radius: 1px;
+  }
+
+  .sheet-mark::before {
+    left: 5px;
+    top: 4px;
+    width: 12px;
+    height: 1px;
+    box-shadow: 0 5px 0 rgba(255,255,255,0.55), 0 10px 0 rgba(255,255,255,0.55);
+  }
+
+  .sheet-mark::after {
+    top: 5px;
+    left: 4px;
+    width: 1px;
+    height: 13px;
+    box-shadow: 5px 0 0 rgba(255,255,255,0.55), 10px 0 0 rgba(255,255,255,0.55);
+  }
+
+  .logo-text {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  /* Right callout */
+  .right-callout {
+    position: absolute;
+    top: 61px;
+    right: 42px;
+    width: 170px;
+    text-align: right;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.15;
+    color: #ffffff;
+  }
+
+  /* Monitor */
+  .monitor {
+    position: absolute;
+    left: 236px;
+    top: 270px;
+    width: 736px;
+    height: 518px;
+    background: #111820;
+    border: 5px solid #202731;
+    border-radius: 18px 18px 12px 12px;
+    box-shadow:
+      0 18px 34px rgba(0, 0, 0, 0.55),
+      inset 0 0 18px rgba(22, 132, 183, 0.15);
+    z-index: 4;
+  }
+
+  .screen {
+    position: absolute;
+    left: 26px;
+    top: 22px;
+    width: 684px;
+    height: 450px;
+    background:
+      radial-gradient(circle at 50% 18%, rgba(42, 186, 191, 0.26), rgba(28, 58, 88, 0.08) 32%, rgba(13, 29, 52, 0) 58%),
+      linear-gradient(180deg, rgba(23, 44, 68, 0.96), rgba(17, 33, 57, 0.96));
+    border: 1px solid rgba(122, 176, 207, 0.35);
+    overflow: hidden;
+  }
+
+  .screen::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(111, 170, 206, 0.26);
+    pointer-events: none;
+  }
+
+  .summary-row {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 684px;
+    height: 58px;
+    display: grid;
+    grid-template-columns: 160px 160px 160px 160px;
+    column-gap: 14px;
+  }
+
+  .metric {
+    position: relative;
+    margin-top: 0;
+    background: rgba(38, 74, 114, 0.58);
+    border: 1px solid rgba(120, 191, 202, 0.55);
+    border-radius: 8px;
+    padding-top: 6px;
+    text-align: center;
+  }
+
+  .metric .label {
+    font-size: 11px;
+    color: #dbe9f0;
+    font-weight: 700;
+  }
+
+  .metric .value {
+    margin-top: 5px;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .metric.income .value {
+    color: #80ff86;
+  }
+
+  .metric.expenses .value {
+    color: #ff7270;
+  }
+
+  .metric.pl .value {
+    color: #52adff;
+  }
+
+  .metric.balance .value {
+    color: #78d4ff;
+  }
+
+  .panel {
+    position: absolute;
+    border: 1px solid rgba(120, 181, 214, 0.55);
+    background: rgba(22, 42, 68, 0.65);
+    border-radius: 6px;
+  }
+
+  .panel-left {
+    left: 22px;
+    top: 66px;
+    width: 326px;
+    height: 220px;
+  }
+
+  .panel-right {
+    left: 362px;
+    top: 66px;
+    width: 326px;
+    height: 220px;
+  }
+
+  .panel-bottom {
+    left: 36px;
+    top: 302px;
+    width: 612px;
+    height: 138px;
+  }
+
+  .panel-title {
+    position: absolute;
+    top: 7px;
+    width: 100%;
+    text-align: center;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 14px;
+  }
+
+  .chart-box {
+    position: absolute;
+    left: 20px;
+    top: 48px;
+    width: 286px;
+    height: 150px;
+  }
+
+  .chart-box-bottom {
+    position: absolute;
+    left: 210px;
+    top: 26px;
+    width: 192px;
+    height: 90px;
+  }
+
+  /* Decorative network lines behind charts */
+  .network {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.48;
+  }
+
+  .network .line {
+    position: absolute;
+    height: 1px;
+    background: rgba(70, 173, 222, 0.55);
+    box-shadow: 0 0 7px rgba(72, 196, 247, 0.35);
+  }
+
+  .line.l1 {
+    width: 104px;
+    left: 0;
+    top: 22px;
+    transform: rotate(58deg);
+  }
+
+  .line.l2 {
+    width: 86px;
+    right: 0;
+    top: 62px;
+    transform: rotate(137deg);
+  }
+
+  .line.l3 {
+    width: 120px;
+    left: 250px;
+    bottom: 16px;
+    transform: rotate(35deg);
+  }
+
+  .dot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #53d1f2;
+    box-shadow: 0 0 10px #5bd8f0;
+  }
+
+  .dot.d1 { left: 8px; top: 32px; }
+  .dot.d2 { left: 590px; top: 32px; }
+  .dot.d3 { left: 512px; top: 275px; }
+  .dot.d4 { left: 48px; top: 186px; }
+  .dot.d5 { left: 596px; top: 382px; }
+
+  /* Circles */
+  .circle {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.25;
+    box-shadow:
+      inset 0 0 22px rgba(255,255,255,0.22),
+      0 8px 20px rgba(0,0,0,0.35);
+  }
+
+  .circle-left-1 {
+    left: 48px;
+    top: 270px;
+    width: 164px;
+    height: 164px;
+    background: #35c4bf;
+    border: 2px solid rgba(139, 232, 236, 0.45);
+  }
+
+  .circle-left-2 {
+    left: 48px;
+    top: 447px;
+    width: 164px;
+    height: 164px;
+    background: #4991cf;
+    border: 2px solid rgba(148, 219, 244, 0.38);
+  }
+
+  .circle-left-3 {
+    left: 48px;
+    top: 624px;
+    width: 164px;
+    height: 164px;
+    background: #213b5b;
+    border: 2px solid rgba(122, 189, 229, 0.55);
+  }
+
+  .circle-right-1 {
+    right: 48px;
+    top: 270px;
+    width: 164px;
+    height: 164px;
+    background: #35c4bf;
+    border: 2px solid rgba(139, 232, 236, 0.45);
+  }
+
+  .circle-right-2 {
+    right: 48px;
+    top: 447px;
+    width: 164px;
+    height: 164px;
+    background: #4991cf;
+    border: 2px solid rgba(148, 219, 244, 0.38);
+  }
+
+  .circle-right-3 {
+    right: 48px;
+    top: 624px;
+    width: 164px;
+    height: 164px;
+    background: #213b5b;
+    border: 2px solid rgba(122, 189, 229, 0.55);
+  }
+
+  .stand-neck {
+    position: absolute;
+    left: 480px;
+    top: 788px;
+    width: 88px;
+    height: 48px;
+    background: linear-gradient(180deg, #525960, #8f969d 60%, #43484d);
+    clip-path: polygon(28% 0, 72% 0, 100% 100%, 0 100%);
+    z-index: 2;
+    opacity: 0.95;
+  }
+
+  .stand-base {
+    position: absolute;
+    left: 412px;
+    top: 822px;
+    width: 380px;
+    height: 28px;
+    background: linear-gradient(180deg, #73787d, #383d42);
+    border-radius: 50%;
+    z-index: 2;
+    opacity: 0.95;
+  }
+
+  .credit {
+    position: absolute;
+    right: 28px;
+    bottom: 28px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.88);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .credit-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(190, 211, 223, 0.45);
+    background: rgba(203, 222, 234, 0.25);
+    box-shadow: 0 0 10px rgba(188, 215, 232, 0.28);
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="stars">★★★★★</div>
+
+  <div class="logo" aria-label="Google Sheets placeholder logo">
+    <div class="logo-icon">
+      <div class="sheet-mark"></div>
+    </div>
+    <div class="logo-text">GOOGLE<br>SHEETS</div>
+  </div>
+
+  <div class="right-callout">MANAGE YOUR<br>MONEY THE<br>RIGHT WAY!</div>
+
+  <header class="header">
+    <div class="smart">SMART</div>
+    <div class="title-top">PERSONAL FINANCE</div>
+    <div class="title-bottom">BUDGET PLANNER</div>
+    <div class="subtitle">MANAGE MONEY WITH POWERFUL TOOLS — BUILT TO TRACK,<br>BUDGET, SAVE, AND GROW.</div>
+  </header>
+
+  <section class="circle circle-left-1">MONTHLY<br>BUDGET</section>
+  <section class="circle circle-left-2">INCOME<br>TRACKER</section>
+  <section class="circle circle-left-3">SPENDING<br>OVERVIEW</section>
+
+  <section class="circle circle-right-1">DEBT<br>PAYOFF</section>
+  <section class="circle circle-right-2">SAVING<br>TOOLS</section>
+  <section class="circle circle-right-3">FINANCIAL<br>DASHBOARD</section>
+
+  <main class="monitor" aria-label="Dashboard monitor mockup">
+    <div class="screen">
+      <div class="network">
+        <div class="line l1"></div>
+        <div class="line l2"></div>
+        <div class="line l3"></div>
+        <div class="dot d1"></div>
+        <div class="dot d2"></div>
+        <div class="dot d3"></div>
+        <div class="dot d4"></div>
+        <div class="dot d5"></div>
+      </div>
+
+      <div class="summary-row">
+        <div class="metric income">
+          <div class="label">INCOME</div>
+          <div class="value">$8,500.00</div>
+        </div>
+        <div class="metric expenses">
+          <div class="label">TOTAL EXPENSES</div>
+          <div class="value">$6,250.45</div>
+        </div>
+        <div class="metric pl">
+          <div class="label">P/L</div>
+          <div class="value">$2,249.55</div>
+        </div>
+        <div class="metric balance">
+          <div class="label">BUDGET BALANCE</div>
+          <div class="value">$4,000.00</div>
+        </div>
+      </div>
+
+      <div class="panel panel-left">
+        <div class="panel-title">Your Spending</div>
+        <div id="spendingChart" class="chart-box"></div>
+      </div>
+
+      <div class="panel panel-right">
+        <div class="panel-title">Your Budgets</div>
+        <div id="budgetsChart" class="chart-box"></div>
+      </div>
+
+      <div class="panel panel-bottom">
+        <div class="panel-title" style="top: 5px;">Spending Habits</div>
+        <div id="habitsChart" class="chart-box-bottom"></div>
+      </div>
+    </div>
+  </main>
+
+  <div class="stand-neck"></div>
+  <div class="stand-base"></div>
+
+  <div class="credit">
+    <div class="credit-icon"></div>
+    <div>IDEALLYSHEETS</div>
+  </div>
+</div>
+
+<script>
+  const spendingChart = echarts.init(document.getElementById('spendingChart'));
+  spendingChart.setOption({
+    animation: false,
+    color: ['#43a9ff', '#56c3b4', '#ff9542', '#ff7d57', '#9f60ff', '#72c6d2', '#85ff89'],
+    tooltip: { trigger: 'item' },
+    series: [{
+      type: 'pie',
+      radius: ['40%', '66%'],
+      center: ['50%', '50%'],
+      avoidLabelOverlap: true,
+      label: {
+        color: '#e8f2f7',
+        fontSize: 10,
+        formatter: '{b}: {c}'
+      },
+      labelLine: {
+        length: 10,
+        length2: 10,
+        lineStyle: { color: '#a9d8e5' }
+      },
+      itemStyle: {
+        borderColor: 'rgba(23,42,68,0.5)',
+        borderWidth: 1
+      },
+      data: [
+        {name: 'Grocery', value: 850},
+        {name: 'Pets', value: 300},
+        {name: 'Shopping', value: 1200},
+        {name: 'Household', value: 750},
+        {name: 'Entertainment', value: 500},
+        {name: 'Sinking', value: 150},
+        {name: 'Monthly', value: 2560}
+      ]
+    }]
+  });
+
+  const budgetsChart = echarts.init(document.getElementById('budgetsChart'));
+  budgetsChart.setOption({
+    animation: false,
+    color: ['#498fff', '#52ccb5', '#ff9d42', '#ff7c56', '#a75cff', '#71c5d3', '#8aff82'],
+    tooltip: { trigger: 'item' },
+    series: [{
+      type: 'pie',
+      radius: ['40%', '66%'],
+      center: ['50%', '50%'],
+      avoidLabelOverlap: true,
+      label: {
+        color: '#e8f2f7',
+        fontSize: 10,
+        formatter: '{b}: {c}'
+      },
+      labelLine: {
+        length: 10,
+        length2: 10,
+        lineStyle: { color: '#a9d8e5' }
+      },
+      itemStyle: {
+        borderColor: 'rgba(23,42,68,0.5)',
+        borderWidth: 1
+      },
+      data: [
+        {name: 'Grocery', value: 900},
+        {name: 'Pets', value: 350},
+        {name: 'Shopping', value: 1000},
+        {name: 'Household', value: 800},
+        {name: 'Entertainment', value: 450},
+        {name: 'Sinking', value: 200},
+        {name: 'Monthly', value: 2400}
+      ]
+    }]
+  });
+
+  const habitsChart = echarts.init(document.getElementById('habitsChart'));
+  habitsChart.setOption({
+    animation: false,
+    color: ['#70e080', '#ff9e47', '#ff7755'],
+    tooltip: { trigger: 'item' },
+    series: [{
+      type: 'pie',
+      radius: ['42%', '68%'],
+      center: ['50%', '50%'],
+      avoidLabelOverlap: true,
+      label: {
+        color: '#e8f2f7',
+        fontSize: 10,
+        formatter: '{b}: {c}'
+      },
+      labelLine: {
+        length: 10,
+        length2: 10,
+        lineStyle: { color: '#a9d8e5' }
+      },
+      data: [
+        {name: '1 - Essential', value: 3200},
+        {name: '2 - Neutral', value: 1500},
+        {name: '3 - Not Needed', value: 750}
+      ]
+    }]
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Cybersecurity Threat Monitoring</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #020814;
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    color: #dce8f6;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 853px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 22% 20%, rgba(20, 180, 210, 0.10), transparent 28%),
+      radial-gradient(circle at 80% 24%, rgba(230, 120, 30, 0.08), transparent 28%),
+      linear-gradient(180deg, #061120 0%, #04101e 50%, #030b18 100%);
+  }
+
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 110px;
+    height: 853px;
+    background: #030c1a;
+    border-right: 1px solid rgba(70, 140, 190, 0.22);
+    color: #a8bbca;
+  }
+
+  .brand-badge {
+    position: absolute;
+    top: 20px;
+    left: 28px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .nav-item {
+    position: absolute;
+    left: 0;
+    width: 106px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 10px;
+    font-size: 11px;
+    color: #b8c5d2;
+  }
+
+  .nav-item.active {
+    left: 0;
+    top: 84px;
+    width: 106px;
+    height: 38px;
+    background: rgba(20, 180, 210, 0.12);
+    color: #7fe7f3;
+    border-left: 2px solid #20bff0;
+    padding-left: 8px;
+  }
+
+  .nav-item.n1 { top: 138px; }
+  .nav-item.n2 { top: 188px; }
+  .nav-item.n3 { top: 238px; }
+  .nav-item.n4 { top: 288px; }
+  .nav-item.n5 { top: 338px; }
+  .nav-item.n6 { top: 388px; }
+  .nav-item.n7 { top: 438px; }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid currentColor;
+    border-radius: 4px;
+    opacity: 0.9;
+  }
+
+  .profile {
+    position: absolute;
+    left: 0;
+    bottom: 34px;
+    width: 110px;
+    text-align: center;
+    border-top: 1px solid rgba(120, 170, 200, 0.12);
+    padding-top: 16px;
+  }
+
+  .profile img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(80, 190, 220, 0.25);
+    object-fit: cover;
+  }
+
+  .profile-label {
+    font-size: 11px;
+    color: #c5d0dc;
+    margin-top: 5px;
+  }
+
+  .main {
+    position: absolute;
+    left: 110px;
+    top: 0;
+    width: 1170px;
+    height: 853px;
+  }
+
+  .header {
+    position: absolute;
+    left: 20px;
+    top: 16px;
+    width: 1130px;
+    height: 60px;
+  }
+
+  .title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #f1f6fb;
+    letter-spacing: -0.2px;
+  }
+
+  .subtitle {
+    margin-top: 5px;
+    color: #8fa3b7;
+    font-size: 13px;
+  }
+
+  .pill {
+    position: absolute;
+    right: 110px;
+    top: 0;
+    width: 206px;
+    height: 38px;
+    border: 1px solid rgba(90, 150, 190, 0.38);
+    background: rgba(8, 24, 45, 0.95);
+    border-radius: 6px;
+    color: #c7d4df;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 12px;
+    font-size: 12px;
+  }
+
+  .pill.p1 { right: 234px; }
+  .pill.p2 { right: 380px; }
+
+  .refresh {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 110px;
+    height: 38px;
+    border: 1px solid rgba(20, 180, 210, 0.72);
+    color: #4de2f6;
+    background: rgba(10, 30, 55, 0.85);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  .kpi-left {
+    position: absolute;
+    left: 20px;
+    top: 78px;
+    width: 560px;
+    height: 128px;
+    border: 1px solid rgba(50, 160, 190, 0.42);
+    border-left: 3px solid #20c7e4;
+    background: rgba(7, 22, 42, 0.95);
+    border-radius: 6px;
+  }
+
+  .kpi-right {
+    position: absolute;
+    left: 594px;
+    top: 78px;
+    width: 560px;
+    height: 128px;
+    border: 1px solid rgba(160, 80, 20, 0.40);
+    border-left: 3px solid #ff9522;
+    background: rgba(7, 20, 38, 0.96);
+    border-radius: 6px;
+  }
+
+  .kpi-title {
+    font-size: 13px;
+    color: #dce7ef;
+    font-weight: 700;
+    margin-top: 12px;
+  }
+
+  .kpi-value {
+    margin-top: 8px;
+    font-size: 40px;
+    font-weight: 850;
+    letter-spacing: 1px;
+    color: #f4f8fb;
+  }
+
+  .kpi-compare {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #95a6b6;
+  }
+
+  .change-up {
+    color: #44dd80;
+    font-weight: 750;
+  }
+
+  .change-down {
+    color: #ff5a60;
+    font-weight: 750;
+  }
+
+  .mini-line {
+    position: absolute;
+    right: 26px;
+    bottom: 18px;
+    width: 210px;
+    height: 62px;
+  }
+
+  .gauge-card {
+    position: absolute;
+    left: 20px;
+    top: 220px;
+    width: 310px;
+    height: 268px;
+    border: 1px solid rgba(60, 140, 180, 0.38);
+    background: rgba(7, 24, 45, 0.95);
+    border-radius: 6px;
+  }
+
+  .card-title {
+    position: absolute;
+    left: 14px;
+    top: 10px;
+    font-size: 13px;
+    font-weight: 760;
+    color: #e3edf7;
+  }
+
+  #gaugeChart {
+    position: absolute;
+    top: 36px;
+    left: 22px;
+    width: 266px;
+    height: 150px;
+  }
+
+  .gauge-number {
+    position: absolute;
+    left: 118px;
+    top: 182px;
+    font-size: 28px;
+    color: #ff8822;
+    text-shadow: 0 0 12px rgba(255, 130, 30, 0.25);
+  }
+
+  .gauge-status {
+    position: absolute;
+    left: 122px;
+    top: 214px;
+    color: #ff8c28;
+    font-size: 12px;
+  }
+
+  .donut-card {
+    position: absolute;
+    left: 350px;
+    top: 220px;
+    width: 340px;
+    height: 268px;
+    border: 1px solid rgba(70, 140, 190, 0.36);
+    background: rgba(7, 24, 45, 0.95);
+    border-radius: 6px;
+  }
+
+  #donutChart {
+    position: absolute;
+    top: 34px;
+    left: 40px;
+    width: 260px;
+    height: 200px;
+  }
+
+  .treemap-card {
+    position: absolute;
+    left: 708px;
+    top: 220px;
+    width: 446px;
+    height: 268px;
+    border: 1px solid rgba(60, 140, 180, 0.38);
+    background: rgba(7, 24, 45, 0.95);
+    border-radius: 6px;
+  }
+
+  #barChart {
+    position: absolute;
+    top: 40px;
+    left: 12px;
+    width: 420px;
+    height: 190px;
+  }
+
+  .wide-scatter {
+    position: absolute;
+    left: 20px;
+    top: 505px;
+    width: 496px;
+    height: 312px;
+    border: 1px solid rgba(60, 140, 180, 0.35);
+    background: rgba(7, 24, 45, 0.95);
+    border-radius: 6px;
+  }
+
+  #scatterChart {
+    position: absolute;
+    left: 22px;
+    top: 52px;
+    width: 452px;
+    height: 240px;
+  }
+
+  .table-panel {
+    position: absolute;
+    left: 532px;
+    top: 505px;
+    width: 618px;
+    height: 312px;
+    border: 1px solid rgba(60, 140, 180, 0.35);
+    background: rgba(7, 24, 45, 0.95);
+    border-radius: 6px;
+  }
+
+  table {
+    position: absolute;
+    left: 12px;
+    top: 48px;
+    width: 594px;
+    border-collapse: collapse;
+    font-size: 11px;
+    color: #d2dfec;
+  }
+
+  th {
+    background: #11253c;
+    color: #b8c7d7;
+    height: 28px;
+    border: 1px solid rgba(80, 150, 190, 0.17);
+    text-align: left;
+    padding: 0 8px;
+  }
+
+  td {
+    height: 38px;
+    border: 1px solid rgba(80, 150, 190, 0.13);
+    padding: 0 8px;
+    background: rgba(10, 30, 55, 0.38);
+  }
+
+  .status-pill {
+    display: inline-block;
+    padding: 4px 6px;
+    border-radius: 5px;
+    min-width: 72px;
+    color: #62e7f2;
+    border: 1px solid rgba(30, 180, 200, 0.42);
+    background: rgba(20, 180, 210, 0.08);
+  }
+
+  .view-link {
+    position: absolute;
+    right: 62px;
+    bottom: 18px;
+    color: #28dfe7;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <aside class="sidebar">
+    <div class="brand-badge" aria-hidden="true">
+      <svg viewBox="0 0 64 64" style="color:#49dff0;">
+        <path d="M32 6 L53 16 V28 C53 42 42 54 32 60 C22 54 11 42 11 28 V16 Z"></path>
+        <circle cx="32" cy="28" r="12"></circle>
+        <path d="M24 36 V42 H32 V34 H28 L24 31 Z"></path>
+      </svg>
+    </div>
+
+    <div class="nav-item active"><span class="icon"></span><span>Overview</span></div>
+    <div class="nav-item n1"><span class="icon"></span><span>Threats</span></div>
+    <div class="nav-item n2"><span class="icon"></span><span>Incidents</span></div>
+    <div class="nav-item n3"><span class="icon"></span><span>Assets</span></div>
+    <div class="nav-item n4"><span class="icon"></span><span>Vulnerabilities</span></div>
+    <div class="nav-item n5"><span class="icon"></span><span>Intelligence</span></div>
+    <div class="nav-item n6"><span class="icon"></span><span>Reports</span></div>
+    <div class="nav-item n7"><span class="icon"></span><span>Settings</span></div>
+
+    <div class="profile">
+      <img src="https://placehold.co/80x80?text=User" alt="User avatar">
+      <div class="profile-label">Security Ops</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="header">
+      <div class="title">Cybersecurity Threat Monitoring</div>
+      <div class="subtitle">Real-time overview of security threats and incidents</div>
+      <div class="pill p1">▣ May 12 – May 18, 2024</div>
+      <div class="pill p2">◉ All Environments</div>
+      <div class="refresh">↻ Refresh</div>
+    </header>
+
+    <section class="kpi-left">
+      <div class="kpi-title">Total Threats Detected ⓘ</div>
+      <div class="kpi-value">12,842</div>
+      <div class="kpi-compare">vs May 5 – May 11, 2024 <span class="change-down">↑ 18.7%</span></div>
+      <div id="totalThreatsLine" class="mini-line"></div>
+    </section>
+
+    <section class="kpi-right">
+      <div class="kpi-title">Critical Incidents ⓘ</div>
+      <div class="kpi-value">236</div>
+      <div class="kpi-compare">vs May 5 – May 11, 2024 <span class="change-up">↓ 11.3%</span></div>
+      <div id="criticalLine" class="mini-line"></div>
+    </section>
+
+    <section class="gauge-card">
+      <div class="card-title">Threat Level (Current) ⓘ</div>
+      <div id="gaugeChart"></div>
+      <div class="gauge-number">72</div>
+      <div class="gauge-status">High</div>
+    </section>
+
+    <section class="donut-card">
+      <div class="card-title">Threats by Category ⓘ</div>
+      <div id="donutChart"></div>
+    </section>
+
+    <section class="treemap-card">
+      <div class="card-title">Threats by Source IP (Top 10) ⓘ</div>
+      <div id="barChart"></div>
+    </section>
+
+    <section class="wide-scatter">
+      <div class="card-title">Threats Over Time by Severity ⓘ</div>
+      <div id="scatterChart"></div>
+    </section>
+
+    <section class="table-panel">
+      <div class="card-title">Recent Critical Threats ⓘ</div>
+      <table>
+        <tr>
+          <th>Time</th>
+          <th>Threat Name</th>
+          <th>Severity</th>
+          <th>Source IP</th>
+          <th>Target</th>
+          <th>Status</th>
+        </tr>
+        <tr>
+          <td>May 18, 2024 10:24:31</td>
+          <td>Cobalt Strike Beacon</td>
+          <td>Critical</td>
+          <td>185.220.101.45</td>
+          <td>Web Server 12</td>
+          <td><span class="status-pill">Blocked</span></td>
+        </tr>
+        <tr>
+          <td>May 18, 2024 09:58:12</td>
+          <td>Ransomware Attempt</td>
+          <td>Critical</td>
+          <td>203.0.113.77</td>
+          <td>File Server 03</td>
+          <td><span class="status-pill">Contained</span></td>
+        </tr>
+        <tr>
+          <td>May 18, 2024 09:31:45</td>
+          <td>SQL Injection</td>
+          <td>Critical</td>
+          <td>45.142.12.33</td>
+          <td>DB Server 01</td>
+          <td><span class="status-pill">Investigating</span></td>
+        </tr>
+        <tr>
+          <td>May 18, 2024 09:12:07</td>
+          <td>Priv. Escalation Attempt</td>
+          <td>Critical</td>
+          <td>8.8.8.8</td>
+          <td>Domain Controller</td>
+          <td><span class="status-pill">Blocked</span></td>
+        </tr>
+        <tr>
+          <td>May 18, 2024 08:45:19</td>
+          <td>Brute Force – SSH</td>
+          <td>Critical</td>
+          <td>198.51.100.23</td>
+          <td>App Server 05</td>
+          <td><span class="status-pill">Blocked</span></td>
+        </tr>
+      </table>
+      <div class="view-link">View all threats ›</div>
+    </section>
+  </main>
+</div>
+
+<script>
+  const axisColor = 'rgba(180,210,230,0.42)';
+  const gridLine = 'rgba(120,170,200,0.18)';
+
+  echarts.init(document.getElementById('totalThreatsLine')).setOption({
+    animation: false,
+    grid: { left: 0, right: 0, top: 8, bottom: 4 },
+    xAxis: { type: 'category', show: false, boundaryGap: false, data: ['', '', '', '', '', '', ''] },
+    yAxis: { type: 'value', show: false },
+    series: [{
+      type: 'line',
+      data: [900, 1100, 1050, 1300, 1400, 2100, 1992],
+      smooth: false,
+      symbol: 'none',
+      lineStyle: { width: 2, color: '#2fe0e8' },
+      areaStyle: { color: 'rgba(47,224,232,0.18)' }
+    }]
+  });
+
+  echarts.init(document.getElementById('criticalLine')).setOption({
+    animation: false,
+    grid: { left: 0, right: 0, top: 8, bottom: 4 },
+    xAxis: { type: 'category', show: false, boundaryGap: false, data: ['', '', '', '', '', '', ''] },
+    yAxis: { type: 'value', show: false },
+    series: [{
+      type: 'line',
+      data: [20, 28, 35, 31, 40, 45, 37],
+      smooth: false,
+      symbol: 'none',
+      lineStyle: { width: 2, color: '#ff8c22' },
+      areaStyle: { color: 'rgba(255,140,34,0.16)' }
+    }]
+  });
+
+  echarts.init(document.getElementById('gaugeChart')).setOption({
+    animation: false,
+    series: [{
+      type: 'gauge',
+      startAngle: 180,
+      endAngle: 0,
+      min: 0,
+      max: 100,
+      radius: '92%',
+      center: ['50%', '68%'],
+      axisLine: {
+        lineStyle: {
+          width: 14,
+          color: [
+            [0.67, '#25d8c5'],
+            [0.78, '#ffd45b'],
+            [0.88, '#ff8638'],
+            [1, '#e33846']
+          ]
+        }
+      },
+      pointer: {
+        icon: 'path://M2.9,125.4 L105.6,30.0 L118.4,38.6 L39.2,123.4 Z',
+        length: '62%',
+        width: 8,
+        itemStyle: { color: '#f4f8fb' }
+      },
+      splitLine: { distance: -28, length: 16, lineStyle: { color: '#8ea6b9' } },
+      axisLabel: { color: '#b9c8d7', fontSize: 11 },
+      detail: { show: false },
+      title: { show: false },
+      data: [{ value: 72, name: 'Threat Level' }]
+    }]
+  });
+
+  echarts.init(document.getElementById('donutChart')).setOption({
+    animation: false,
+    color: ['#28c1b8', '#f49221', '#e87828', '#5c8fde', '#8d69c7', '#98a9bd'],
+    series: [{
+      type: 'pie',
+      radius: ['34%', '62%'],
+      center: ['50%', '52%'],
+      avoidLabelOverlap: true,
+      label: {
+        color: '#dce7ef',
+        fontSize: 11,
+        formatter: '{b}\n{c}%'
+      },
+      labelLine: { length: 10, length2: 8 },
+      data: [
+        { name: 'Malware', value: 28.4 },
+        { name: 'Phishing', value: 21.7 },
+        { name: 'Exploits', value: 15.3 },
+        { name: 'DDoS', value: 13.8 },
+        { name: 'Credential Stuffing', value: 11.2 },
+        { name: 'Other', value: 9.6 }
+      ]
+    }]
+  });
+
+  echarts.init(document.getElementById('barChart')).setOption({
+    animation: false,
+    grid: { left: 28, right: 10, top: 20, bottom: 38 },
+    legend: {
+      bottom: 0,
+      left: 0,
+      itemWidth: 12,
+      itemHeight: 12,
+      textStyle: { color: '#b7c6d6', fontSize: 11 },
+      data: ['> 2K', '1K – 2K', '500 – 1K', '< 500']
+    },
+    xAxis: { type: 'value', show: false, max: 2500 },
+    yAxis: {
+      type: 'category',
+      inverse: true,
+      data: [
+        '185.220.101.45\n2,348',
+        '203.0.113.77\n1,652',
+        '45.142.12.33\n1,256',
+        '103.21.244.0\n1,201',
+        '198.51.100.23\n987',
+        '51.99.17.12\n623',
+        '22.227.38.65\n512',
+        '91.189.91.23\n421',
+        '172.16.254.1\n354',
+        '198.43.201.11\n321'
+      ],
+      axisLabel: { color: '#e8f3fb', fontSize: 11 }
+    },
+    series: [
+      {
+        type: 'bar',
+        data: [2348, 1652, 1256, 1201, 987, 623, 512, 421, 354, 321],
+        barWidth: 42,
+        itemStyle: {
+          color: function(params) {
+            const colors = ['#20b7b2', '#0d6f91', '#40a7d3', '#e36918', '#6675b0', '#4f55b8', '#5e55b0', '#b43778', '#9e4286', '#765296'];
+            return colors[params.dataIndex];
+          }
+        }
+      }
+    ]
+  });
+
+  echarts.init(document.getElementById('scatterChart')).setOption({
+    animation: false,
+    color: ['#ef4444', '#ff8a22', '#ffd85a', '#38c9c2'],
+    legend: {
+      top: 0,
+      left: 22,
+      itemWidth: 8,
+      itemHeight: 8,
+      textStyle: { color: '#b7c6d6', fontSize: 11 },
+      data: ['Critical', 'High', 'Medium', 'Low']
+    },
+    grid: { left: 46, right: 14, top: 38, bottom: 38 },
+    xAxis: {
+      type: 'category',
+      data: ['May 12', 'May 13', 'May 14', 'May 15'],
+      axisLabel: { color: '#b9c8d7', fontSize: 11 },
+      axisLine: { lineStyle: { color: axisColor } },
+      splitLine: { lineStyle: { color: gridLine } }
+    },
+    yAxis: {
+      type: 'log',
+      min: 1,
+      max: 1000,
+      name: 'Threat Count',
+      nameLocation: 'middle',
+      nameGap: 32,
+      nameTextStyle: { color: '#c5d1de', fontSize: 12 },
+      axisLabel: { color: '#b9c8d7', fontSize: 11 },
+      axisLine: { lineStyle: { color: axisColor } },
+      splitLine: { lineStyle: { color: gridLine } }
+    },
+    series: [
+      { name: 'Critical', type: 'scatter', data: [120, 150, 130, 160], symbolSize: 8 },
+      { name: 'High', type: 'scatter', data: [220, 240, 230, 250], symbolSize: 8 },
+      { name: 'Medium', type: 'scatter', data: [300, 320, 310, 330], symbolSize: 8 },
+      { name: 'Low', type: 'scatter', data: [400, 410, 405, 420], symbolSize: 8 }
+    ]
+  });
+</script>
+</body>
+</html>

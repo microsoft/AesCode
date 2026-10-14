@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consolidating Vendors and Tools Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #ece8e2;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background: #f4f1ec;
+      color: #231d3f;
+    }
+
+    /* Decorative abstract bands in bottom-right */
+    .decor-band {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+      border-radius: 70% 15% 45% 55%;
+      transform: rotate(-15deg);
+      opacity: 0.86;
+    }
+
+    .band-orange {
+      width: 480px;
+      height: 340px;
+      right: -105px;
+      bottom: -90px;
+      background: linear-gradient(135deg, rgba(255, 165, 89, 0.88), rgba(255, 120, 105, 0.68));
+      border-radius: 60% 35% 45% 55%;
+    }
+
+    .band-pink {
+      width: 520px;
+      height: 310px;
+      right: -70px;
+      bottom: 62px;
+      background: linear-gradient(135deg, rgba(250, 151, 145, 0.54), rgba(178, 98, 201, 0.68));
+      transform: rotate(-18deg);
+    }
+
+    .band-purple-1 {
+      width: 420px;
+      height: 250px;
+      right: -55px;
+      bottom: 115px;
+      background: linear-gradient(135deg, rgba(159, 88, 211, 0.62), rgba(129, 98, 207, 0.68));
+      transform: rotate(-24deg);
+    }
+
+    .band-purple-2 {
+      width: 370px;
+      height: 200px;
+      right: -25px;
+      bottom: 152px;
+      background: linear-gradient(135deg, rgba(113, 89, 199, 0.52), rgba(166, 122, 224, 0.68));
+      transform: rotate(-30deg);
+    }
+
+    .band-lavender {
+      position: absolute;
+      right: -40px;
+      bottom: 48px;
+      width: 390px;
+      height: 130px;
+      background: rgba(170, 142, 220, 0.46);
+      border-radius: 50%;
+      transform: rotate(-19deg);
+      opacity: 0.65;
+    }
+
+    .card {
+      position: absolute;
+      z-index: 3;
+      left: 68px;
+      top: 99px;
+      width: 1224px;
+      height: 560px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 22px rgba(45, 40, 75, 0.12);
+      background: #ffffff;
+    }
+
+    .left-panel {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 629px;
+      height: 560px;
+      background: #d8d2ef;
+      display: flex;
+      align-items: center;
+      padding-left: 68px;
+      padding-right: 55px;
+    }
+
+    .headline {
+      margin: 0;
+      color: #271f48;
+      font-size: 58px;
+      line-height: 1.25;
+      font-weight: 800;
+      letter-spacing: -1.8px;
+    }
+
+    .right-panel {
+      position: absolute;
+      left: 629px;
+      top: 0;
+      width: 595px;
+      height: 560px;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 46px 60px 42px 52px;
+    }
+
+    .stat-row {
+      position: relative;
+      height: 126px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(87, 82, 100, 0.13);
+    }
+
+    .stat-row:last-child {
+      border-bottom: none;
+    }
+
+    .stat-number {
+      width: 150px;
+      flex: 0 0 150px;
+      font-size: 60px;
+      line-height: 1;
+      font-weight: 500;
+      color: #875ac6;
+      text-align: left;
+      letter-spacing: -2px;
+    }
+
+    .stat-text {
+      width: 380px;
+      flex: 1;
+      color: #242236;
+      font-size: 18px;
+      line-height: 1.24;
+      font-weight: 400;
+      letter-spacing: -0.2px;
+    }
+
+    .footer {
+      position: absolute;
+      z-index: 4;
+      left: 72px;
+      bottom: 44px;
+      width: 930px;
+      color: #2b2b38;
+      font-size: 14px;
+      line-height: 1.2;
+      font-weight: 400;
+    }
+
+    .footer .linklike {
+      color: #305d77;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="decor-band band-orange"></div>
+    <div class="decor-band band-pink"></div>
+    <div class="decor-band band-purple-1"></div>
+    <div class="decor-band band-purple-2"></div>
+    <div class="band-lavender"></div>
+
+    <main class="card" aria-label="Infographic about consolidating IT vendors and tools">
+      <section class="left-panel">
+        <h1 class="headline">Consolidating<br>vendors and<br>tools IT manages,<br>reduces costs<br>and risks</h1>
+      </section>
+
+      <section class="right-panel">
+        <div class="stat-row">
+          <div class="stat-number">12</div>
+          <div class="stat-text">Organizations are juggling 12 different data security solutions, which creates complexity and vulnerability.</div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-number">21%</div>
+          <div class="stat-text">21% of decision makers cite lack of consolidated and comprehensive visibility caused by disparate tools as their biggest challenge and risk.</div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-number">2x</div>
+          <div class="stat-text">Organizations with 16 or more point solutions experience around 2.8 times as many data security incidents as those with fewer tools.</div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-number">60%</div>
+          <div class="stat-text">There is a 60% decrease of per user licensing spend by consolidating solution sets under Microsoft 365 E3 and eliminating redundant licenses.</div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      Source: <span class="linklike">Microsoft multicloud risk report</span> and a <span class="linklike">Forrester Consulting Total Economic Impact study</span>.
+    </footer>
+  </div>
+</body>
+</html>

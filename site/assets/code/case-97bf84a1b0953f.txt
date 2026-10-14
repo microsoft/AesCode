@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PayFlow SaaS Marketing Homepage Mockup</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e9eef7;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: #172848;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 731px;
+      overflow: hidden;
+      background: #f7f9fd;
+    }
+
+    /* Browser chrome */
+    .browser-chrome {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 32px;
+      background: #fbfbfb;
+      border-bottom: 1px solid #dfe5ee;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 12px;
+      color: #8b94a3;
+      font-size: 11px;
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      width: 78px;
+      flex: 0 0 auto;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot.red { background: #ff5f57; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #28c840; }
+
+    .browser-icons-left {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      color: #a0a7af;
+      font-size: 13px;
+    }
+
+    .url-field {
+      position: absolute;
+      left: 360px;
+      top: 6px;
+      width: 548px;
+      height: 19px;
+      border-radius: 6px;
+      background: #ffffff;
+      border: 1px solid #dfe4ed;
+      display: flex;
+      align-items: center;
+      padding-left: 30px;
+      font-size: 10px;
+      color: #6b7280;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+    }
+
+    .browser-icons-right {
+      margin-left: auto;
+      display: flex;
+      gap: 22px;
+      color: #969fac;
+      font-size: 13px;
+      align-items: center;
+    }
+
+    /* Navigation header */
+    .nav-header {
+      position: absolute;
+      left: 0;
+      top: 32px;
+      width: 1280px;
+      height: 43px;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      padding: 0 162px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-weight: 800;
+      color: #172848;
+      font-size: 14px;
+      margin-right: 58px;
+    }
+
+    .brand-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #1f65ff;
+      position: relative;
+      box-shadow: 0 0 10px rgba(31, 101, 255, .45);
+    }
+
+    .brand-icon:after {
+      content: "▶";
+      position: absolute;
+      right: -5px;
+      bottom: 0;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 2px;
+      transform: rotate(45deg);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      color: #263b5d;
+      font-size: 10px;
+      font-weight: 650;
+    }
+
+    .nav-links span {
+      white-space: nowrap;
+    }
+
+    .nav-actions {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 10px;
+      font-weight: 650;
+      color: #172848;
+    }
+
+    .signup-btn {
+      background: #1f65ff;
+      color: #fff;
+      border-radius: 6px;
+      padding: 7px 13px;
+      font-weight: 750;
+    }
+
+    /* Hero */
+    .hero {
+      position: absolute;
+      left: 0;
+      top: 75px;
+      width: 1280px;
+      height: 277px;
+      background: linear-gradient(112deg, #dcefff 0%, #eff8ff 48%, #78aaff 100%);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      padding: 31px 162px 30px 162px;
+      gap: 82px;
+    }
+
+    .hero-left {
+      width: 418px;
+      z-index: 2;
+    }
+
+    .pill-label {
+      display: inline-block;
+      background: rgba(31, 101, 255, .11);
+      border: 1px solid rgba(31, 101, 255, .20);
+      color: #2f65ff;
+      border-radius: 13px;
+      padding: 7px 10px;
+      font-size: 10px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      color: #13284f;
+      font-size: 33px;
+      line-height: 1.08;
+      letter-spacing: -1.3px;
+      max-width: 420px;
+    }
+
+    .hero h1 .blue {
+      color: #2466ff;
+    }
+
+    .hero p {
+      margin: 9px 0 15px;
+      color: #5a6880;
+      font-size: 12px;
+      line-height: 1.5;
+      max-width: 385px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .primary-cta,
+    .secondary-cta {
+      height: 28px;
+      border-radius: 6px;
+      padding: 0 16px;
+      font-size: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .primary-cta {
+      background: #1f65ff;
+      color: #fff;
+      border: 1px solid #1f65ff;
+    }
+
+    .secondary-cta {
+      background: #fff;
+      color: #4a5565;
+      border: 1px solid #dce4ef;
+    }
+
+    .benefits {
+      display: flex;
+      gap: 22px;
+      color: #657186;
+      font-size: 9.5px;
+    }
+
+    .dashboard-shell {
+      position: absolute;
+      top: 16px;
+      left: 600px;
+      width: 520px;
+      height: 244px;
+      background: #fff;
+      border-radius: 9px;
+      box-shadow: 0 14px 28px rgba(31, 101, 255, .15);
+      display: flex;
+      padding: 11px 12px 10px 12px;
+    }
+
+    .dash-sidebar {
+      width: 83px;
+      height: 211px;
+      border-right: 1px solid #edf1f6;
+      padding: 0 9px 8px;
+    }
+
+    .dash-brand {
+      font-size: 10px;
+      font-weight: 800;
+      margin-bottom: 11px;
+    }
+
+    .dash-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #657186;
+      font-size: 8.5px;
+      height: 18px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+
+    .dash-main {
+      width: 425px;
+      height: 211px;
+      padding: 10px 10px 0;
+    }
+
+    .dash-topbar {
+      height: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #717c8d;
+      font-size: 8.5px;
+      margin-bottom: 8px;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 9px;
+    }
+
+    .stat-card {
+      width: 128px;
+      height: 59px;
+      border: 1px solid #e0e7f0;
+      border-radius: 6px;
+      padding: 8px;
+      background: #fbfdff;
+    }
+
+    .stat-title {
+      font-size: 8.5px;
+      color: #637084;
+    }
+
+    .stat-value {
+      margin-top: 4px;
+      color: #172848;
+      font-weight: 800;
+    }
+
+    .sparkline {
+      height: 18px;
+      margin-top: 3px;
+    }
+
+    .dash-lower {
+      display: flex;
+      gap: 11px;
+      height: 118px;
+    }
+
+    .chart-panel,
+    .transactions-panel {
+      border: 1px solid #e0e7f0;
+      border-radius: 6px;
+      background: #fff;
+      height: 118px;
+    }
+
+    .chart-panel {
+      width: 182px;
+    }
+
+    .transactions-panel {
+      width: 218px;
+    }
+
+    .panel-title {
+      font-size: 9px;
+      color: #27344a;
+      font-weight: 800;
+      padding: 8px 8px 0;
+    }
+
+    #volumeChart {
+      height: 80px;
+      margin: 4px 8px 0;
+    }
+
+    .transactions-table {
+      width: 202px;
+      margin: 4px auto 0;
+      border-collapse: collapse;
+      font-size: 8px;
+      color: #566276;
+      line-height: 1.2;
+    }
+
+    .transactions-table th {
+      background: #f0f5ff;
+      color: #243146;
+    }
+
+    .transactions-table td {
+      border-bottom: 1px solid #edf1f6;
+      padding: 4px 0;
+    }
+
+    /* Feature strip */
+    .features {
+      position: absolute;
+      left: 0;
+      top: 352px;
+      width: 1280px;
+      height: 59px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      padding: 0 160px;
+      gap: 22px;
+    }
+
+    .feature-card {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      width: 174px;
+    }
+
+    .feature-icon {
+      width: 27px;
+      height: 27px;
+      border-radius: 7px;
+      background: #e7efff;
+      color: #2564ff;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+
+    .feature-card h3 {
+      margin: 0 0 3px;
+      font-size: 10px;
+      color: #243146;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: #727d90;
+      font-size: 8.5px;
+      line-height: 1.25;
+    }
+
+    /* Testimonials and pricing */
+    .lower-band {
+      position: absolute;
+      left: 0;
+      top: 411px;
+      width: 1280px;
+      height: 183px;
+      background: #fbfcff;
+    }
+
+    .testimonials {
+      position: absolute;
+      left: 47px;
+      top: 0;
+      width: 630px;
+      height: 155px;
+      border-left: 1px solid #e1e7f0;
+    }
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: #23314a;
+      margin-bottom: 14px;
+    }
+
+    .testimonial-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .testimonial-card {
+      width: 188px;
+      height: 98px;
+      border: 1px solid #e0e7ef;
+      border-radius: 6px;
+      padding: 9px;
+      background: #fff;
+    }
+
+    .quote {
+      font-size: 8.5px;
+      color: #59667b;
+      margin-bottom: 7px;
+    }
+
+    .person {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .person img {
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+    }
+
+    .person strong {
+      display: block;
+      color: #26344a;
+      font-size: 9px;
+    }
+
+    .person span {
+      display: block;
+      color: #7b8698;
+      font-size: 8px;
+    }
+
+    .pricing {
+      position: absolute;
+      right: 47px;
+      top: 0;
+      width: 528px;
+      height: 155px;
+    }
+
+    .pricing-toggle {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      font-size: 8.5px;
+      color: #6f7b8f;
+      margin-bottom: 4px;
+    }
+
+    .pricing-toggle .selected {
+      color: #2466ff;
+      border-bottom: 1px solid #2466ff;
+      padding-bottom: 3px;
+    }
+
+    .pricing h2 {
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 850;
+      color: #182847;
+    }
+
+    .pricing-cards {
+      display: flex;
+      gap: 11px;
+    }
+
+    .price-card {
+      width: 163px;
+      height: 108px;
+      border: 1px solid #dfe6ef;
+      border-radius: 6px;
+      background: #fff;
+      padding: 9px 8px 8px;
+      position: relative;
+    }
+
+    .price-card.popular {
+      border: 1.5px solid #276cff;
+      box-shadow: 0 7px 15px rgba(39, 108, 255, .15);
+    }
+
+    .popular-label {
+      position: absolute;
+      top: -8px;
+      left: 60px;
+      background: #276cff;
+      color: #fff;
+      border-radius: 8px;
+      padding: 2px 7px;
+      font-size: 7px;
+      font-weight: 800;
+    }
+
+    .plan-name {
+      text-align: center;
+      font-size: 9px;
+      color: #59667b;
+      font-weight: 800;
+    }
+
+    .price {
+      text-align: center;
+      color: #172848;
+      font-size: 14px;
+      margin: 2px 0 3px;
+    }
+
+    .price-sub {
+      text-align: center;
+      color: #788398;
+      font-size: 8px;
+    }
+
+    .price-btn {
+      width: 100%;
+      height: 18px;
+      border-radius: 4px;
+      border: 1px solid #cfe0ff;
+      background: #fff;
+      margin: 6px 0 5px;
+      font-size: 8px;
+      color: #276cff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 750;
+    }
+
+    /* Footer */
+    .footer {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 1280px;
+      height: 118px;
+      background: #0d43c1;
+      color: #cfe0ff;
+    }
+
+    .footer-content {
+      position: absolute;
+      left: 155px;
+      top: 10px;
+      width: 980px;
+      height: 88px;
+      display: flex;
+    }
+
+    .footer-about {
+      width: 140px;
+    }
+
+    .footer-about h3,
+    .footer-links h3 {
+      font-size: 10px;
+      color: #fff;
+      margin: 0 0 7px;
+    }
+
+    .footer-about p {
+      margin: 0 0 11px;
+      color: #d5e5ff;
+      font-size: 8.5px;
+      line-height: 1.35;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 11px;
+    }
+
+    .footer-socials span {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: #2f74ff;
+      color: #fff;
+      text-align: center;
+      font-size: 8px;
+      line-height: 17px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 52px;
+      flex: 1;
+    }
+
+    .footer-links div {
+      min-width: 88px;
+    }
+
+    .footer-links a {
+      display: block;
+      color: #d5e5ff;
+      text-decoration: none;
+      font-size: 8.5px;
+      margin-bottom: 5px;
+    }
+
+    .newsletter {
+      width: 240px;
+    }
+
+    .newsletter h3 {
+      margin-bottom: 7px;
+    }
+
+    .newsletter p {
+      color: #d5e5ff;
+      margin-bottom: 9px;
+    }
+
+    .subscribe-row {
+      display: flex;
+      height: 21px;
+      background: #fff;
+      border-radius: 3px;
+      color: #70809a;
+    }
+
+    .subscribe-row input {
+      border: 0;
+      width: 166px;
+      outline: none;
+      padding-left: 8px;
+      font-size: 8.5px;
+    }
+
+    .subscribe-row button {
+      width: 74px;
+      border: 0;
+      background: #276cff;
+      color: #fff;
+      font-size: 8px;
+      font-weight: 800;
+    }
+
+    .footer-bottom {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 1280px;
+      height: 20px;
+      border-top: 1px solid rgba(255,255,255,.18);
+      color: #b8c9ef;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 22px;
+      font-size: 7.5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="browser-chrome">
+      <div class="window-dots">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+      <div class="browser-icons-left">◀ <span style="font-size:11px;">⌁</span> <span style="font-size:13px;">⌄</span></div>
+      <div class="url-field">payflow.io</div>
+      <div class="browser-icons-right">↗ ▱ + ▱</div>
+    </div>
+
+    <header class="nav-header">
+      <div class="brand"><span class="brand-icon"></span>PayFlow</div>
+      <nav class="nav-links">
+        <span>Products⌄</span>
+        <span>Solutions⌄</span>
+        <span>Developers⌄</span>
+        <span>Pricing</span>
+        <span>Resources⌄</span>
+      </nav>
+      <div class="nav-actions">
+        <span>Log in</span>
+        <span class="signup-btn">Sign up</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-left">
+          <div class="pill-label">Modern payments for the digital world</div>
+          <h1>Payments infrastructure<br>built for <span class="blue">growth</span></h1>
+          <p>PayFlow is the all-in-one payments platform for businesses of all sizes. Accept payments, move money globally, and scale with confidence.</p>
+          <div class="cta-row">
+            <div class="primary-cta">Get started for free →</div>
+            <div class="secondary-cta">Talk to sales</div>
+          </div>
+          <div class="benefits">
+            <span>✓ No setup fees</span>
+            <span>✓ Global coverage</span>
+            <span>✓ Enterprise security</span>
+          </div>
+        </div>
+
+        <div class="dashboard-shell">
+          <div class="dash-sidebar">
+            <div class="dash-brand">PayFlow</div>
+            <div class="dash-nav-item">◎ Overview</div>
+            <div class="dash-nav-item">◷ Analytics</div>
+            <div class="dash-nav-item">◱ Payouts</div>
+            <div class="dash-nav-item">◈ Customers</div>
+            <div class="dash-nav-item">◉ Reports</div>
+          </div>
+
+          <div class="dash-main">
+            <div class="dash-topbar">
+              <span>PayFlow Dashboard</span>
+              <span>Search…</span>
+            </div>
+
+            <div class="stats-row">
+              <div class="stat-card">
+                <div class="stat-title">Total volume</div>
+                <div class="stat-value">$128,645.34</div>
+                <div id="totalSpark" class="sparkline"></div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-title">Successful payments</div>
+                <div class="stat-value">3,520</div>
+                <div id="successSpark" class="sparkline"></div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-title">New customers</div>
+                <div class="stat-value">$42,430.75</div>
+                <div id="customerSpark" class="sparkline"></div>
+              </div>
+            </div>
+
+            <div class="dash-lower">
+              <div class="chart-panel">
+                <div class="panel-title">Volume over time</div>
+                <div id="volumeChart"></div>
+              </div>
+
+              <div class="transactions-panel">
+                <div class="panel-title">Recent transactions</div>
+                <table class="transactions-table">
+                  <tr><th>Company</th><th>Date</th><th>Status</th><th>Amount</th></tr>
+                  <tr><td>Acme Corp</td><td>Apr 24, 4:24 PM</td><td>Successful</td><td>+$250.00</td></tr>
+                  <tr><td>Globex Ltd</td><td>Apr 24, 1:15 PM</td><td>Successful</td><td>+$800.00</td></tr>
+                  <tr><td>Initech</td><td>Apr 24, 10:55 AM</td><td>Refunded</td><td>Refunded</td></tr>
+                  <tr><td>Umbrella Inc</td><td>Apr 24, 9:42 AM</td><td>Successful</td><td>Successful</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="features">
+        <div class="feature-card">
+          <div class="feature-icon">▣</div>
+          <div><h3>Accept payments</h3><p>Accept cards, wallets, and bank payments worldwide.</p></div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">◉</div>
+          <div><h3>Global payouts</h3><p>Send money globally with low fees.</p></div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">♢</div>
+          <div><h3>Fraud protection</h3><p>AI-powered protection to keep your business safe.</p></div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">〈</div>
+          <div><h3>Developer first</h3><p>Powerful APIs and tools to build fast.</p></div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">▥</div>
+          <div><h3>Real-time insights</h3><p>Track performance and reconcile activity.</p></div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">▦</div>
+          <div><h3>Enterprise grade</h3><p>Built for reliability and security at scale.</p></div>
+        </div>
+      </section>
+
+      <section class="lower-band">
+        <div class="testimonials">
+          <div class="section-title">Loved by businesses worldwide</div>
+          <div class="testimonial-row">
+            <div class="testimonial-card">
+              <div class="quote">“PayFlow helped us increase approvals and reduce failed transactions.”</div>
+              <div class="person"><img src="https://placehold.co/80x80?text=Photo" alt="Customer photo"><div><strong>Michael Chen</strong><span>CTO, Travelvia</span></div></div>
+            </div>
+            <div class="testimonial-card">
+              <div class="quote">“The API is easy to integrate and extremely reliable.”</div>
+              <div class="person"><img src="https://placehold.co/80x80?text=Photo" alt="Customer photo"><div><strong>Sophia Martin</strong><span>Head of Growth, Shopify</span></div></div>
+            </div>
+            <div class="testimonial-card">
+              <div class="quote">“Global payouts with transparent fees and fast settlements.”</div>
+              <div class="person"><img src="https://placehold.co/80x80?text=Photo" alt="Customer photo"><div><strong>David Okafor</strong><span>Finance Director, Paybox</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pricing">
+          <div class="pricing-toggle"><span>Monthly</span><span class="selected">Yearly</span></div>
+          <h2>Simple, transparent pricing</h2>
+          <div class="pricing-cards">
+            <div class="price-card">
+              <div class="plan-name">Starter<br>For new businesses</div>
+              <div class="price">0$</div>
+              <div class="price-sub">2.9% + $0.30 per transaction</div>
+              <div class="price-btn">Get started</div>
+            </div>
+            <div class="price-card popular">
+              <div class="popular-label">Most popular</div>
+              <div class="plan-name">Growth<br>For growing businesses</div>
+              <div class="price">49$</div>
+              <div class="price-sub">2.5% + $0.25 per transaction</div>
+              <div class="price-btn" style="background:#2466ff;color:#fff;box-shadow:0 4px 9px rgba(0,0,0,.16);">Get started</div>
+            </div>
+            <div class="price-card">
+              <div class="plan-name">Enterprise<br>For high-volume teams</div>
+              <div class="price">Custom</div>
+              <div class="price-sub">Tailored pricing</div>
+              <div class="price-btn">Contact sales</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-about">
+          <h3>▣ PayFlow</h3>
+          <p>Payments infrastructure for the modern world.</p>
+          <div class="footer-socials"><span>t</span><span>in</span><span>◎</span><span>□</span></div>
+        </div>
+
+        <div class="footer-links">
+          <div>
+            <h3>Products</h3>
+            <a>Payments</a>
+            <a>Payouts</a>
+            <a>Fraud Protection</a>
+            <a>Billing</a>
+          </div>
+          <div>
+            <h3>Solutions</h3>
+            <a>E-commerce</a>
+            <a>Marketplaces</a>
+            <a>SaaS</a>
+            <a>Platforms</a>
+          </div>
+          <div>
+            <h3>Developers</h3>
+            <a>API Docs</a>
+            <a>SDKs</a>
+            <a>Webhooks</a>
+            <a>Status</a>
+          </div>
+          <div>
+            <h3>Company</h3>
+            <a>About us</a>
+            <a>Careers</a>
+            <a>Blog</a>
+            <a>Contact</a>
+          </div>
+        </div>
+
+        <div class="newsletter">
+          <h3>Subscribe to our newsletter</h3>
+          <p>Get updates on new products and features.</p>
+          <div class="subscribe-row">
+            <input type="text" placeholder="Enter your email" />
+            <button>Subscribe →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2024 PayFlow, Inc. All rights reserved.</span>
+        <span>Privacy Policy</span>
+        <span>Terms of Service</span>
+        <span>Security</span>
+        <span>English⌄</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function sparkline(id, data) {
+      echarts.init(document.getElementById(id)).setOption({
+        animation: false,
+        grid: { left: 0, right: 0, top: 3, bottom: 3 },
+        xAxis: { type: 'category', show: false, data: ['1','2','3','4','5','6','7','8'] },
+        yAxis: { type: 'value', show: false },
+        series: [{
+          type: 'line',
+          data: data,
+          smooth: true,
+          symbol: 'none',
+          lineStyle: { color: '#2f72ff', width: 1.6 },
+          areaStyle: { opacity: 0 }
+        }]
+      });
+    }
+
+    sparkline('totalSpark', [38, 52, 47, 68, 60, 74, 69, 82]);
+    sparkline('successSpark', [26, 39, 33, 55, 48, 62, 57, 70]);
+    sparkline('customerSpark', [14, 22, 20, 30, 28, 38, 35, 44]);
+
+    echarts.init(document.getElementById('volumeChart')).setOption({
+      animation: false,
+      grid: { left: 26, right: 8, top: 10, bottom: 20 },
+      xAxis: {
+        type: 'category',
+        data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        axisLabel: { color: '#7d8797', fontSize: 8 },
+        axisLine: { lineStyle: { color: '#d8e1ef' } }
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: { color: '#7d8797', fontSize: 8 },
+        splitLine: { lineStyle: { color: '#edf1f6' } }
+      },
+      series: [{
+        type: 'line',
+        data: [12000, 18000, 16000, 22000, 26000, 24000],
+        smooth: true,
+        symbol: 'none',
+        lineStyle: { color: '#2f72ff', width: 1.7 },
+        areaStyle: { color: 'rgba(47,114,255,0.08)' }
+      }]
+    });
+  </script>
+</body>
+</html>

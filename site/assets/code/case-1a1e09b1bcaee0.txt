@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Engajamento nas Redes Sociais</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e9edf3;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: #142033;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 853px;
+      overflow: hidden;
+      background: #f6f8fb;
+    }
+
+    .sidebar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 72px;
+      height: 853px;
+      background: #f1f4f8;
+      border-right: 1px solid #dfe5ee;
+    }
+
+    .brand {
+      height: 48px;
+      background: #1f63d6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .brand-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: #dce8ff;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+    }
+
+    .nav-button {
+      position: absolute;
+      left: 0;
+      top: 65px;
+      width: 72px;
+      height: 58px;
+      background: #2177ef;
+      border-radius: 0 8px 8px 0;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .nav-button .mini-icon {
+      font-size: 18px;
+    }
+
+    .nav-button span {
+      font-size: 9px;
+      line-height: 1.1;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .side-links {
+      position: absolute;
+      left: 0;
+      top: 140px;
+      width: 72px;
+    }
+
+    .side-links div {
+      height: 56px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 9px;
+      color: #667085;
+    }
+
+    .main {
+      position: absolute;
+      left: 88px;
+      top: 14px;
+      width: 1180px;
+      height: 825px;
+    }
+
+    .header {
+      height: 45px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      margin: 0 0 4px 0;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: #7b8492;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .date-pill,
+    .filter-btn,
+    .export-btn {
+      height: 32px;
+      border: 1px solid #d8dee8;
+      background: #fff;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 12px;
+      color: #334155;
+      padding: 0 10px;
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      height: 122px;
+      margin-top: 2px;
+    }
+
+    .kpi-card {
+      position: relative;
+      background: #fff;
+      border: 1px solid #dfe5ee;
+      border-radius: 8px;
+      box-shadow: 0 1px 2px rgba(18, 38, 80, 0.03);
+      padding: 16px 14px 11px 18px;
+    }
+
+    .kpi-icon {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #e6efff;
+      display: grid;
+      place-items: center;
+      color: #1f63d6;
+      font-size: 19px;
+    }
+
+    .kpi-label {
+      font-size: 11px;
+      color: #475467;
+      margin-left: 52px;
+      margin-bottom: 4px;
+    }
+
+    .kpi-value {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.7px;
+      margin-left: 46px;
+      line-height: 1;
+    }
+
+    .kpi-note {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 11px;
+      color: #667085;
+    }
+
+    .green-change {
+      color: #21a75b;
+      font-weight: 800;
+    }
+
+    .sparkline {
+      position: absolute;
+      right: 10px;
+      bottom: 12px;
+      width: 90px;
+      height: 42px;
+    }
+
+    .top-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      height: 324px;
+      margin-top: 10px;
+    }
+
+    .card {
+      position: relative;
+      background: #fff;
+      border: 1px solid #dfe5ee;
+      border-radius: 8px;
+      box-shadow: 0 1px 2px rgba(18, 38, 80, 0.03);
+      overflow: hidden;
+    }
+
+    .card-title {
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: space3;
+      padding: 0 10px 0 13px;
+      font-size: 14px;
+      font-weight: 800;
+      color: #172033;
+    }
+
+    .small-dropdown {
+      position: absolute;
+      right: 10px;
+      top: 8px;
+      height: 26px;
+      min-width: 70px;
+      border: 1px solid #d8dee8;
+      border-radius: 5px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      color: #475467;
+    }
+
+    .chart {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      top: 39px;
+    }
+
+    .bottom-panels {
+      display: grid;
+      grid-template-columns: 745px 415px;
+      gap: 10px;
+      height: 284px;
+      margin-top: 10px;
+    }
+
+    .table-card {
+      padding: 0 10px 11px 10px;
+    }
+
+    .table-title {
+      height: 33px;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 800;
+      color: #172033;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      color: #374151;
+    }
+
+    thead tr {
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+      height: 25px;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #eef2f6;
+      height: 36px;
+    }
+
+    th {
+      text-align: left;
+      color: #4b5563;
+      font-weight: 700;
+      padding: 0 4px;
+    }
+
+    td {
+      padding: 0 4px;
+    }
+
+    .posts-link {
+      text-align: right;
+      color: #2563eb;
+      font-size: 11px;
+      font-weight: 700;
+      padding-top: 4px;
+    }
+
+    .insights-card {
+      padding: 0 10px 12px 10px;
+    }
+
+    .insight-list {
+      margin-top: 18px;
+    }
+
+    .insight-item {
+      height: 52px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      border-radius: 10px;
+      background: #f2f6fd;
+      border: 1px solid #e0e8f2;
+    }
+
+    .bolt {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #e1efff;
+      color: #2169d1;
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .insight-text {
+      font-size: 11.5px;
+      color: #374151;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-icon">▥</span>Redes</div>
+
+      <div class="nav-button">
+        <div class="mini-icon">▥</div>
+        <span>Visão Geral</span>
+      </div>
+
+      <div class="side-links">
+        <div><span>▣</span><br><span style="font-size:9px;">Conteúdo</span></div>
+        <div><span>⌘</span><br><span style="font-size:9px;">Plataformas</span></div>
+        <div><span>♙</span><br><span style="font-size:9px;">Audiência</span></div>
+        <div><span>▤</span><br><span style="font-size:9px;">Relatórios</span></div>
+        <div><span>♟</span><br><span style="font-size:9px;">Alertas</span></div>
+        <div><span>⚙</span><br><span style="font-size:9px;">Configurações</span></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="header">
+        <div>
+          <h1 class="title">Engajamento nas Redes Sociais</h1>
+          <div class="subtitle">Visão geral do desempenho e interações</div>
+        </div>
+        <div class="header-actions">
+          <div class="date-pill">▣ 01/05/2024 - 31/05/2024</div>
+          <div class="filter-btn">▽ Filtros</div>
+          <div class="export-btn">⇩ Exportar</div>
+        </div>
+      </section>
+
+      <section class="kpis">
+        <div class="kpi-card">
+          <div class="kpi-icon">•••</div>
+          <div class="kpi-label">Engajamento Total</div>
+          <div class="kpi-value">128.7K</div>
+          <div class="kpi-note"><span class="green-change">↑ 18,6%</span><span>vs. 01/04 - 30/04</span></div>
+          <div id="spark1" class="sparkline"></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon">◉</div>
+          <div class="kpi-label">Impressões</div>
+          <div class="kpi-value">2.45M</div>
+          <div class="kpi-note"><span class="green-change">↑ 22,4%</span><span>vs. 01/04 - 30/04</span></div>
+          <div id="spark2" class="sparkline"></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon">↶</div>
+          <div class="kpi-label">Cliques no Link</div>
+          <div class="kpi-value">34.2K</div>
+          <div class="kpi-note"><span class="green-change">↑ 15,3%</span><span>vs. 01/04 - 30/04</span></div>
+          <div id="spark3" class="sparkline"></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon">%</div>
+          <div class="kpi-label">Taxa de Engajamento</div>
+          <div class="kpi-value">5,24%</div>
+          <div class="kpi-note"><span class="green-change">↑ 8,1%</span><span>vs. 01/04 - 30/04</span></div>
+          <div id="spark4" class="sparkline"></div>
+        </div>
+      </section>
+
+      <section class="top-panels">
+        <div class="card">
+          <div class="card-title">Engajamento ao longo do tempo</div>
+          <div class="small-dropdown">Diário</div>
+          <div id="lineChart" class="chart"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Engajamento por tipo de conteúdo</div>
+          <div id="donutChart" class="chart"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Engajamento por plataforma</div>
+          <div id="scatterChart" class="chart"></div>
+        </div>
+      </section>
+
+      <section class="bottom-panels">
+        <div class="card table-card">
+          <div class="table-title">Top 5 posts por engajamento</div>
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Post</th>
+                <th>Plataforma</th>
+                <th>Tipo</th>
+                <th>Data</th>
+                <th>Impressões</th>
+                <th>Engajamentos</th>
+                <th>Taxa de Engajamento</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Lançamento da nova coleção! ✨</td>
+                <td>Instagram</td>
+                <td>Imagem</td>
+                <td>05/05/2024</td>
+                <td>153.2K</td>
+                <td>12.6K</td>
+                <td>8.24%</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Bastidores do ensaio fotográfico</td>
+                <td>TikTok</td>
+                <td>Vídeo</td>
+                <td>12/05/2024</td>
+                <td>98.7K</td>
+                <td>9.8K</td>
+                <td>9.93%</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Dicas para um dia mais produtivo</td>
+                <td>Facebook</td>
+                <td>Link</td>
+                <td>18/05/2024</td>
+                <td>120.4K</td>
+                <td>7.2K</td>
+                <td>5.98%</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Reels: transformação completa</td>
+                <td>Instagram</td>
+                <td>Reels</td>
+                <td>22/05/2024</td>
+                <td>101.3K</td>
+                <td>6.9K</td>
+                <td>6.81%</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Ao vivo: perguntas e respostas</td>
+                <td>YouTube</td>
+                <td>Ao vivo</td>
+                <td>28/05/2024</td>
+                <td>89.6K</td>
+                <td>5.4K</td>
+                <td>6.03%</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="posts-link">Ver todos os posts ›</div>
+        </div>
+
+        <div class="card insights-card">
+          <div class="table-title">Insights rápidos</div>
+          <div class="insight-list">
+            <div class="insight-item"><span class="bolt">ϟ</span><span class="insight-text">O engajamento total aumentou 18,6% em comparação com o período anterior.</span></div>
+            <div class="insight-item"><span class="bolt">ϟ</span><span class="insight-text">Stories geraram 28,7% do engajamento total, com destaque para imagens.</span></div>
+            <div class="insight-item"><span class="bolt">ϟ</span><span class="insight-text">Instagram foi a plataforma com maior volume de engajamentos (61.3K).</span></div>
+            <div class="insight-item"><span class="bolt">ϟ</span><span class="insight-text">Posts em vídeo (Reels e Vídeos) apresentaram as maiores taxas de engajamento.</span></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    function sparkline(id, data) {
+      echarts.init(document.getElementById(id)).setOption({
+        animation: false,
+        grid: { left: 0, right: 0, top: 5, bottom: 3 },
+        xAxis: { type: 'category', show: false, data: ['1','2','3','4','5','6','7','8'] },
+        yAxis: { type: 'value', show: false },
+        series: [{
+          type: 'line',
+          data: data,
+          smooth: true,
+          symbol: 'none',
+          lineStyle: { color: '#2563eb', width: 2 },
+          areaStyle: { color: 'rgba(37,99,235,0.10)' }
+        }]
+      });
+    }
+
+    sparkline('spark1', [30, 44, 50, 62, 56, 53, 71, 84]);
+    sparkline('spark2', [38, 43, 44, 55, 59, 51, 66, 73]);
+    sparkline('spark3', [28, 33, 36, 51, 53, 45, 60, 63]);
+    sparkline('spark4', [34, 51, 56, 53, 62, 58, 49, 51]);
+
+    echarts.init(document.getElementById('lineChart')).setOption({
+      animation: false,
+      color: ['#2563eb', '#a9bce8'],
+      grid: { left: 34, right: 10, top: 24, bottom: 30 },
+      legend: {
+        top: 0,
+        left: 0,
+        itemWidth: 8,
+        itemHeight: 8,
+        textStyle: { fontSize: 10, color: '#64748b' },
+        data: ['Engajamento', 'Engajamento (anterior)']
+      },
+      xAxis: {
+        type: 'category',
+        data: ['01/05', '06/05', '11/05', '16/05', '21/05', '26/05', '31/05'],
+        axisTick: { show: false },
+        axisLine: { lineStyle: { color: '#d8e2ef' } },
+        axisLabel: { fontSize: 10, color: '#64748b' }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 10000,
+        interval: 2000,
+        axisLabel: {
+          fontSize: 10,
+          color: '#64748b',
+          formatter: function(v){ return v === 10000 ? '10K' : v/1000 + 'K'; }
+        },
+        splitLine: { lineStyle: { color: '#edf1f6' } }
+      },
+      series: [
+        {
+          name: 'Engajamento',
+          type: 'line',
+          data: [2000, 4500, 6000, 5200, 7000, 4800, 8200],
+          smooth: true,
+          symbol: 'none',
+          lineStyle: { width: 2, color: '#2563eb' },
+          areaStyle: { color: 'rgba(37,99,235,0.25)' }
+        },
+        {
+          name: 'Engajamento (anterior)',
+          type: 'line',
+          data: [1500, 4000, 5500, 5000, 6500, 4600, 7800],
+          smooth: true,
+          symbol: 'none',
+          lineStyle: { width: 1.5, color: '#a9bce8', type: 'dotted' },
+          areaStyle: { color: 'rgba(169,188,232,0.16)' }
+        }
+      ]
+    });
+
+    echarts.init(document.getElementById('donutChart')).setOption({
+      animation: false,
+      color: ['#3b82f6', '#60a5fa', '#93c5fd', '#86efac', '#6ee7b7', '#c084fc', '#8b5cf6', '#7c3aed', '#fb923c', '#f59e0b'],
+      tooltip: { show: false },
+      legend: { show: false },
+      series: [
+        {
+          type: 'pie',
+          radius: ['44%', '62%'],
+          center: ['50%', '49%'],
+          avoidLabelOverlap: true,
+          itemStyle: { borderColor: '#fff', borderWidth: 2 },
+          label: {
+            color: '#fff',
+            fontSize: 9,
+            formatter: function(p){ return p.name + '\n' + p.value.toFixed(2).replace('.', ',') + '%'; }
+          },
+          labelLine: { show: false },
+          data: [
+            { name: 'Imagem', value: 22.1 },
+            { name: 'Carrossel', value: 12.8 },
+            { name: 'Texto', value: 7.6 },
+            { name: 'Imagem', value: 17.3 },
+            { name: 'Stories', value: 28.7 },
+            { name: 'Áudio', value: 6.4 },
+            { name: 'Reels', value: 20.1 },
+            { name: 'Vods', value: 13.7 },
+            { name: 'Longa', value: 5.1 },
+            { name: 'Ao vivo', value: 3.6 }
+          ]
+        },
+        {
+          type: 'pie',
+          radius: ['24%', '37%'],
+          center: ['50%', '50%'],
+          label: {
+            color: '#374151',
+            fontSize: 10,
+            formatter: function(p){ return p.name + '\n' + p.value.toFixed(2).replace('.', ',') + '%'; }
+          },
+          labelLine: { length: 10, length2: 8 },
+          data: [
+            { name: 'Feed', value: 42.5 },
+            { name: 'Stories', value: 28.7 },
+            { name: 'Reels', value: 20.1 },
+            { name: 'Vídeos', value: 8.7 }
+          ]
+        }
+      ],
+      graphic: [
+        {
+          type: 'text',
+          left: 'center',
+          top: '42%',
+          style: {
+            text: '128.7K',
+            fill: '#172033',
+            fontSize: 12,
+            fontWeight: 800,
+            textAlign: 'center'
+          }
+        },
+        {
+          type: 'text',
+          left: 'center',
+          top: '52%',
+          style: {
+            text: 'Total',
+            fill: '#64748b',
+            fontSize: 9,
+            textAlign: 'center'
+          }
+        }
+      ]
+    });
+
+    echarts.init(document.getElementById('scatterChart')).setOption({
+      animation: false,
+      grid: { left: 42, right: 10, top: 22, bottom: 42 },
+      xAxis: {
+        type: 'value',
+        name: 'Engajamento Total',
+        nameLocation: 'middle',
+        nameGap: 24,
+        min: 0,
+        max: 80000,
+        splitLine: { lineStyle: { color: '#edf1f6' } },
+        axisLabel: { color: '#64748b', fontSize: 10 }
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Taxa de Engajamento (%)',
+        nameLocation: 'middle',
+        nameGap: 32,
+        min: 0,
+        max: 10,
+        splitLine: { lineStyle: { color: '#edf1f6' } },
+        axisLabel: { color: '#64748b', fontSize: 10 }
+      },
+      series: [{
+        type: 'scatter',
+        data: [[23000,7.8],[61000,6.15],[28700,4.21],[15600,3.12],[8900,2.45]],
+        symbolSize: 26,
+        itemStyle: {
+          color: function(params){
+            var colors = ['#60a5fa','#f59e0b','#cbd5e1','#ef4444','#111827'];
+            return colors[params.dataIndex];
+          },
+          borderColor: '#fff',
+          borderWidth: 1.5
+        },
+        label: {
+          show: true,
+          position: 'right',
+          color: '#374151',
+          fontSize: 10,
+          formatter: function(p){
+            var names = ['TikTok','Instagram','Facebook','YouTube','X (Twitter)'];
+            return names[p.dataIndex] + '\n' + p.value[1].toFixed(2).replace('.', ',') + '%\n' + p.value[0] + 'K';
+          }
+        }
+      }]
+    });
+  </script>
+</body>
+</html>

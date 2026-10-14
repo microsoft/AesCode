@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>Web Analytics Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif;
+      background: #e9edf2;
+      color: #222;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1536px;
+      height: 1024px;
+      overflow: hidden;
+      background: #f3f6f8;
+      border: 1px solid #d9dee4;
+    }
+
+    .sidebar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 190px;
+      height: 1024px;
+      background: #ffffff;
+      border-right: 1px solid #d8dee5;
+    }
+
+    .logo {
+      position: absolute;
+      top: 28px;
+      left: 72px;
+      width: 54px;
+      height: 54px;
+      border-radius: 8px;
+      background: #10a6a3;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 25px;
+    }
+
+    .nav {
+      position: absolute;
+      top: 108px;
+      left: 0;
+      width: 190px;
+      height: 820px;
+    }
+
+    .nav-item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 190px;
+      height: 62px;
+      display: flex;
+      align-items: center;
+      padding-left: 22px;
+      font-size: 17px;
+      color: #303840;
+      border-left: 3px solid transparent;
+    }
+
+    .nav-item.active {
+      background: #10a7a4;
+      color: #fff;
+      border-left-color: #10a7a4;
+      font-weight: 700;
+    }
+
+    .nav-icon {
+      width: 28px;
+      height: 28px;
+      margin-right: 22px;
+      color: #34404a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 21px;
+    }
+
+    .nav-item.active .nav-icon {
+      color: #ffffff;
+    }
+
+    .nav-item:nth-child(1) { top: 0; }
+    .nav-item:nth-child(2) { top: 62px; }
+    .nav-item:nth-child(3) { top: 124px; }
+    .nav-item:nth-child(4) { top: 186px; }
+    .nav-item:nth-child(5) { top: 248px; }
+    .nav-item:nth-child(6) { top: 310px; }
+    .nav-item:nth-child(7) { top: 372px; }
+    .nav-item:nth-child(8) { top: 434px; }
+
+    .topbar {
+      position: absolute;
+      top: 0;
+      left: 214px;
+      width: 1322px;
+      height: 72px;
+      background: #f7f9fa;
+    }
+
+    .topbar .notice-icon {
+      position: absolute;
+      right: 94px;
+      top: 22px;
+      color: #6b737c;
+      font-size: 26px;
+    }
+
+    .topbar .notice-icon.mail {
+      right: 58px;
+    }
+
+    .badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 20px;
+      height: 20px;
+      background: #f24138;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 800;
+      text-align: center;
+      line-height: 20px;
+    }
+
+    .avatar {
+      position: absolute;
+      right: 35px;
+      top: 12px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #ddd;
+      border: 3px solid #e5ebef;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .user-name {
+      position: absolute;
+      right: 8px;
+      top: 31px;
+      font-size: 16px;
+      color: #26313b;
+    }
+
+    .stat-row {
+      position: absolute;
+      left: 214px;
+      top: 82px;
+      width: 1322px;
+      height: 228px;
+      display: flex;
+      gap: 14px;
+    }
+
+    .stat-card {
+      position: relative;
+      width: 322px;
+      height: 228px;
+      background: #fff;
+      border: 1px solid #dce3e8;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(36, 52, 68, 0.06);
+    }
+
+    .stat-title {
+      position: absolute;
+      top: 18px;
+      left: 24px;
+      font-size: 17px;
+      color: #2b333b;
+      font-weight: 600;
+    }
+
+    .stat-number {
+      position: absolute;
+      top: 48px;
+      left: 24px;
+      font-size: 34px;
+      color: #202831;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .spark {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      top: 104px;
+      height: 92px;
+    }
+
+    .trend-card {
+      position: absolute;
+      left: 214px;
+      top: 322px;
+      width: 926px;
+      height: 352px;
+      background: #fff;
+      border: 1px solid #dce3e8;
+      border-radius: 8px;
+    }
+
+    .card-title {
+      position: absolute;
+      top: 14px;
+      left: 24px;
+      font-size: 19px;
+      color: #222;
+      font-weight: 700;
+    }
+
+    .unit {
+      position: absolute;
+      top: 58px;
+      left: 24px;
+      color: #66717c;
+      font-size: 14px;
+    }
+
+    #monthlyChart {
+      position: absolute;
+      left: 16px;
+      top: 72px;
+      width: 894px;
+      height: 266px;
+    }
+
+    .tooltip-card {
+      position: absolute;
+      left: 500px;
+      top: 204px;
+      width: 178px;
+      height: 104px;
+      background: #fff;
+      border: 1px solid #d9e0e6;
+      border-radius: 8px;
+      padding: 12px 12px 8px;
+      color: #333;
+      font-size: 13px;
+      box-shadow: 0 6px 16px rgba(32, 60, 80, 0.08);
+    }
+
+    .tooltip-row {
+      display: flex;
+      justify-content: space8between;
+      margin-bottom: 7px;
+    }
+
+    .tooltip-row:last-child {
+      color: #11a8a6;
+    }
+
+    .order-card {
+      position: absolute;
+      left: 1140px;
+      top: 322px;
+      width: 386px;
+      height: 352px;
+      background: #fff;
+      border: 1px solid #dce3e8;
+      border-radius: 8px;
+    }
+
+    .order-card .card-title {
+      left: 22px;
+    }
+
+    #orderRing {
+      position: absolute;
+      top: 66px;
+      left: 72px;
+      width: 245px;
+      height: 205px;
+    }
+
+    .order-center {
+      position: absolute;
+      top: 126px;
+      left: 0;
+      width: 386px;
+      text-align: center;
+      color: #15a7a5;
+      font-size: 38px;
+      font-weight: 800;
+    }
+
+    .order-center span {
+      display: block;
+      font-size: 15px;
+      color: #4d5964;
+      font-weight: 400;
+    }
+
+    .summary-row {
+      position: absolute;
+      top: 266px;
+      width: 188px;
+      text-align: center;
+      font-size: 14px;
+      color: #55606b;
+    }
+
+    .summary-left {
+      left: 20px;
+    }
+
+    .summary-right {
+      right: 20px;
+    }
+
+    .summary-num {
+      display: block;
+      margin-top: 4px;
+      color: #222;
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    .summary-change-red {
+      display: block;
+      margin-top: 4px;
+      color: #f04438;
+      font-size: 14px;
+    }
+
+    .quick-card {
+      position: absolute;
+      left: 214px;
+      top: 702px;
+      width: 380px;
+      height: 298px;
+      background: #fff;
+      border: 1px solid #dce3e8;
+      border-radius: 8px;
+    }
+
+    .shortcut-grid {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      top: 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px 10px;
+    }
+
+    .shortcut {
+      height: 92px;
+      border: 1px solid #d7e0e7;
+      border-radius: 6px;
+      background: #fbfcfd;
+      text-align: center;
+      padding-top: 10px;
+      font-size: 14px;
+      color: #303842;
+    }
+
+    .shortcut .big-icon {
+      color: #11a8a6;
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+
+    .table-card {
+      position: absolute;
+      left: 605px;
+      top: 702px;
+      width: 490px;
+      height: 298px;
+      background: #fff;
+      border: 1px solid #dce3e8;
+      border-radius: 8px;
+    }
+
+    .ranking-table {
+      position: absolute;
+      left: 18px;
+      top: 44px;
+      width: 452px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .ranking-table th {
+      height: 34px;
+      background: #e9eef2;
+      border: 1px solid #d7dde4;
+      color: #303840;
+      text-align: center;
+    }
+
+    .ranking-table td {
+      height: 34px;
+      border: 1px solid #dce3e8;
+      text-align: center;
+      color: #27313a;
+      background: #fff;
+    }
+
+    .ranking-table .up {
+      color: #ff3b30;
+      font-weight: 700;
+    }
+
+    .ranking-table .down {
+      color: #13a7a4;
+      font-weight: 700;
+    }
+
+    .todo-card {
+      position: absolute;
+      left: 1100px;
+      top: 702px;
+      width: 430px;
+      height: 298px;
+      background: #fff;
+      border: 1px solid #dce3e8;
+      border-radius: 8px;
+    }
+
+    .todo-link {
+      position: absolute;
+      right: 18px;
+      top: 16px;
+      font-size: 13px;
+      color: #8a94a0;
+    }
+
+    .todo-list {
+      position: absolute;
+      left: 20px;
+      top: 48px;
+      right: 20px;
+      gap: 14px;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #34404a;
+      font-size: 15px;
+      padding: 0 0 7px;
+      border-bottom: 1px solid #edf1f4;
+    }
+
+    .todo-item:last-child {
+      border-bottom: none;
+    }
+
+    .todo-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #13a7a5;
+      display: inline-block;
+    }
+
+    .todo-date {
+      color: #6f7a85;
+    }
+
+    .footer-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 1536px;
+      height: 1px;
+      background: #d9e0e7;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <aside class="sidebar">
+      <div class="logo">📊</div>
+      <nav class="nav">
+        <div class="nav-item active"><span class="nav-icon">◷</span>情況概況</div>
+        <div class="nav-item"><span class="nav-icon">♙</span>用戶管理</div>
+        <div class="nav-item"><span class="nav-icon">▣</span>內容管理</div>
+        <div class="nav-item"><span class="nav-icon">▤</span>訂單管理</div>
+        <div class="nav-item"><span class="nav-icon">⬡</span>商品管理</div>
+        <div class="nav-item"><span class="nav-icon">⌁</span>資料分析</div>
+        <div class="nav-item"><span class="nav-icon">⚑</span>營銷推廣</div>
+        <div class="nav-item"><span class="nav-icon">⚙</span>系統設置</div>
+      </nav>
+    </aside>
+
+    <header class="topbar">
+      <div class="notice-icon">🔔<span class="badge">3</span></div>
+      <div class="notice-icon mail">✉<span class="badge">8</span></div>
+      <div class="avatar"><img src="https://placehold.co/40x40?text=User" alt="User avatar"></div>
+      <div class="user-name">User</div>
+    </header>
+
+    <section class="stat-row">
+      <div class="stat-card">
+        <div class="stat-title">今日用戶日活量</div>
+        <div class="stat-number">45,692</div>
+        <div id="sparkDaily" class="spark"></div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-title">今日新增用戶數</div>
+        <div class="stat-number">2,356</div>
+        <div id="sparkUsers" class="spark"></div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-title">今日新增會員數</div>
+        <div class="stat-number">1,028</div>
+        <div id="sparkMembers" class="spark"></div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-title">總用戶數</div>
+        <div class="stat-number">328,743</div>
+        <div style="position:absolute;left:20px;right:20px;top:112px;height:18px;background:#edf2f5;border-radius:12px;">
+          <div style="height:18px;width:65.7%;background:#10a7a4;border-radius:12px;"></div>
+        </div>
+        <div style="position:absolute;left:20px;top:146px;color:#4f5963;font-size:15px;">65.7%</div>
+        <div style="position:absolute;left:20px;bottom:22px;color:#4f5963;font-size:14px;">本年度目標：500,000</div>
+      </div>
+    </section>
+
+    <section class="trend-card">
+      <div class="card-title">本月日活量趨勢圖</div>
+      <div class="unit">單位：萬人</div>
+      <div id="monthlyChart"></div>
+      <div class="tooltip-card">
+        <div class="tooltip-row">9.10</div>
+        <div class="tooltip-row">目標日活　5.5 萬</div>
+        <div class="tooltip-row">實際日活　5.3 萬</div>
+        <div class="tooltip-row">達成率　96.4%</div>
+      </div>
+    </section>
+
+    <section class="order-card">
+      <div class="card-title">商城訂單量</div>
+      <div id="orderRing"></div>
+      <div class="order-center">62<span>%</span>訂單完成比</div>
+      <div class="summary-row summary-left">
+        已完成訂單量
+        <span class="summary-num">12,480</span>
+        <span class="summary-change-red">↑ 18.6%</span>
+      </div>
+      <div class="summary-row summary-right">
+        目標訂單量
+        <span class="summary-num">20,000</span>
+      </div>
+    </section>
+
+    <section class="quick-card">
+      <div class="card-title">快捷入口</div>
+      <div class="shortcut-grid">
+        <div class="shortcut"><div class="big-icon">📣</div>廣告管理</div>
+        <div class="shortcut"><div class="big-icon">▣</div>商品管理</div>
+        <div class="shortcut"><div class="big-icon">▤</div>訂單管理</div>
+        <div class="shortcut"><div class="big-icon">♙</div>用戶管理</div>
+        <div class="shortcut"><div class="big-icon">▥</div>數據分析</div>
+        <div class="shortcut"><div class="big-icon">⚙</div>系統設置</div>
+      </div>
+    </section>
+
+    <section class="table-card">
+      <div class="card-title">熱門搜索排行</div>
+      <table class="ranking-table">
+        <thead>
+          <tr>
+            <th>排名</th>
+            <th>關鍵詞</th>
+            <th>用戶數</th>
+            <th>周漲幅</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>關注</td>
+            <td>4865</td>
+            <td class="up">↑ 120%</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>護具</td>
+            <td>4023</td>
+            <td class="up">↑ 105%</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>操作手冊</td>
+            <td>3520</td>
+            <td class="up">↑ 102%</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>耳機</td>
+            <td>3022</td>
+            <td class="down">↓ -10%</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>寶馬</td>
+            <td>2424</td>
+            <td class="down">↓ -4%</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>金融</td>
+            <td>2305</td>
+            <td class="down">↓ -16%</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="todo-card">
+      <div class="card-title">待辦事項</div>
+      <div class="todo-link">查看更多</div>
+      <div class="todo-list">
+        <div class="todo-item"><div class="todo-left"><span class="dot"></span>審核用戶反饋的商品問題</div><div class="todo-date">09-06</div></div>
+        <div class="todo-item"><div class="todo-left"><span class="dot"></span>更新首頁輪播圖素材</div><div class="todo-date">09-06</div></div>
+        <div class="todo-item"><div class="todo-left"><span class="dot"></span>跟進廣告投放數據報告</div><div class="todo-date">09-06</div></div>
+        <div class="todo-item"><div class="todo-left"><span class="dot"></span>處理待發貨訂單</div><div class="todo-date">09-06</div></div>
+        <div class="todo-item"><div class="todo-left"><span class="dot"></span>與供應商確認新品上架時間</div><div class="todo-date">09-06</div></div>
+        <div class="todo-item"><div class="todo-left"><span class="dot"></span>優化搜索結果相關性</div><div class="todo-date">09-06</div></div>
+      </div>
+    </section>
+
+    <div class="footer-line"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    const teal = '#10a7a4';
+    const tealLight = '#7bd7d5';
+    const gridLine = '#e3e9ee';
+
+    echarts.init(document.getElementById('sparkDaily')).setOption({
+      animation: false,
+      grid: { left: 24, right: 10, top: 12, bottom: 18 },
+      xAxis: { type: 'category', show: false, data: ['0','2','4','6','8','10','12','14','16','18','20','22','24','26','28','30','32','34'] },
+      yAxis: { type: 'value', show: false },
+      series: [{
+        type: 'line',
+        data: [8, 12, 20, 27, 25, 35, 43, 50, 31, 25, 27, 36, 29, 33, 46, 42, 49, 58],
+        smooth: true,
+        symbol: 'circle',
+        symbolSize: 4,
+        lineStyle: { color: teal, width: 2 },
+        itemStyle: { color: '#fff', borderColor: teal, borderWidth: 1.5 },
+        areaStyle: { color: 'rgba(16,167,164,0.09)' }
+      }]
+    });
+
+    echarts.init(document.getElementById('sparkUsers')).setOption({
+      animation: false,
+      grid: { left: 24, right: 10, top: 12, bottom: 18 },
+      xAxis: { type: 'category', show: false, data: ['0','2','4','6','8','10','12','14','16','18','20','22','24','26','28','30','32'] },
+      yAxis: { type: 'value', show: false },
+      series: [{
+        type: 'line',
+        data: [0.5, 0.7, 1, 1.2, 1.5, 1.7, 2, 1.6, 1.1, 1, 1.2, 1.4, 1.3, 1.9, 1.7, 2, 2.3],
+        smooth: true,
+        symbol: 'circle',
+        symbolSize: 4,
+        lineStyle: { color: teal, width: 2 },
+        itemStyle: { color: '#fff', borderColor: teal, borderWidth: 1.5 },
+        areaStyle: { color: 'rgba(16,167,164,0.09)' }
+      }]
+    });
+
+    echarts.init(document.getElementById('sparkMembers')).setOption({
+      animation: false,
+      grid: { left: 24, right: 10, top: 12, bottom: 18 },
+      xAxis: { type: 'category', show: false, data: ['0','2','4','6','8','10','12','14','16','18','20','22','24','26','28','30','32','34'] },
+      yAxis: { type: 'value', show: false },
+      series: [{
+        type: 'line',
+        data: [0.25, 0.4, 0.7, 0.55, 0.85, 1, 1.15, 0.8, 0.55, 0.65, 0.9, 0.75, 0.55, 0.75, 0.9, 0.85, 1.05, 1.2],
+        smooth: true,
+        symbol: 'circle',
+        symbolSize: 4,
+        lineStyle: { color: teal, width: 2 },
+        itemStyle: { color: '#fff', borderColor: teal, borderWidth: 1.5 },
+        areaStyle: { color: 'rgba(16,167,164,0.09)' }
+      }]
+    });
+
+    echarts.init(document.getElementById('monthlyChart')).setOption({
+      animation: false,
+      color: [teal, tealLight],
+      grid: { left: 42, right: 16, top: 42, bottom: 34 },
+      legend: {
+        top: 0,
+        right: 18,
+        itemWidth: 24,
+        itemHeight: 8,
+        textStyle: { color: '#55606b', fontSize: 14 },
+        data: ['目標日活', '實際日活']
+      },
+      tooltip: { trigger: 'axis' },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['9.2','9.3','9.4','9.5','9.6','9.7','9.8','9.9','9.10','9.11','9.12','9.13','9.14','9.15','9.16','9.17'],
+        axisLine: { lineStyle: { color: '#cfd7de' } },
+        axisTick: { show: false },
+        axisLabel: { color: '#55606b', fontSize: 13 }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 10,
+        interval: 2,
+        axisLine: { show: false },
+        axisTick: { show: false },
+        splitLine: { lineStyle: { color: gridLine, type: 'dashed' } },
+        axisLabel: { color: '#55606b', fontSize: 13 }
+      },
+      series: [
+        {
+          name: '目標日活',
+          type: 'line',
+          smooth: true,
+          symbol: 'circle',
+          symbolSize: 7,
+          data: [3,4.5,4,5.2,6.8,5.9,4.7,4.2,5.5,6.1,6.4,7.2,7.0,7.5,8.0,8.4],
+          lineStyle: { color: teal, width: 2.5 },
+          itemStyle: { color: '#fff', borderColor: teal, borderWidth: 1.6 },
+          areaStyle: { color: 'rgba(16,167,164,0.07)' }
+        },
+        {
+          name: '實際日活',
+          type: 'line',
+          smooth: true,
+          symbol: 'circle',
+          symbolSize: 7,
+          data: [2.5,3.2,3.8,4.4,5.1,5.6,5.2,4.9,5.3,5.8,6.0,6.6,6.9,7.1,7.8,8.1],
+          lineStyle: { color: tealLight, width: 2.5 },
+          itemStyle: { color: '#fff', borderColor: tealLight, borderWidth: 1.6 },
+          areaStyle: { color: 'rgba(124,215,213,0.08)' }
+        }
+      ]
+    });
+
+    echarts.init(document.getElementById('orderRing')).setOption({
+      animation: false,
+      series: [{
+        type: 'pie',
+        radius: ['66%', '82%'],
+        center: ['50%', '50%'],
+        avoidLabelOverlap: false,
+        label: { show: false },
+        labelLine: { show: false },
+        data: [62, 38],
+        itemStyle: {
+          color: function(params) {
+            return params.dataIndex === 0 ? teal : '#e9edf1';
+          }
+        }
+      }]
+    });
+  </script>
+</body>
+</html>

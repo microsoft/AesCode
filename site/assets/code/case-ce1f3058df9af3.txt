@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>New Hire Training & Development Infographic</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #d9e7f7;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1536px;
+    height: 1024px;
+    overflow: hidden;
+    background: #f7f9fb;
+    color: #263243;
+  }
+
+  /* Background frames */
+  .bg-left-blue {
+    position: absolute;
+    left: -230px;
+    top: -220px;
+    width: 520px;
+    height: 520px;
+    background: #1263d0;
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  .bg-left-deep {
+    position: absolute;
+    left: -260px;
+    top: -250px;
+    width: 420px;
+    height: 420px;
+    background: #0a4fb1;
+    border-radius: 50%;
+    z-index: 2;
+  }
+
+  .bg-left-yellow {
+    position: absolute;
+    left: -120px;
+    top: 0;
+    width: 580px;
+    height: 440px;
+    border-top: 10px solid #ffc42a;
+    border-radius: 50%;
+    z-index: 3;
+  }
+
+  .bg-top-right-blue {
+    position: absolute;
+    right: -180px;
+    top: -150px;
+    width: 480px;
+    height: 480px;
+    border: 4px solid #297be1;
+    border-radius: 50%;
+    z-index: 2;
+  }
+
+  .bg-top-right-dots {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 210px;
+    height: 210px;
+    background-image: radial-gradient(#a7c7ed 2px, transparent 2.2px);
+    background-size: 18px 18px;
+    opacity: .65;
+    z-index: 2;
+  }
+
+  .bg-bottom-right-blue {
+    position: absolute;
+    right: -110px;
+    bottom: -190px;
+    width: 520px;
+    height: 520px;
+    background: #1263d0;
+    border-radius: 50%;
+    z-index: 4;
+  }
+
+  .bg-bottom-right-deep {
+    position: absolute;
+    right: -160px;
+    bottom: -260px;
+    width: 420px;
+    height: 420px;
+    background: #0a4fb1;
+    border-radius: 50%;
+    z-index: 5;
+  }
+
+  .bg-bottom-right-yellow {
+    position: absolute;
+    right: -50px;
+    bottom: 0;
+    width: 430px;
+    height: 320px;
+    border-right: 12px solid #ffc42a;
+    border-bottom: 12px solid #ffc42a;
+    border-radius: 50%;
+    z-index: 6;
+  }
+
+  .bg-bottom-left-dots {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 170px;
+    height: 170px;
+    background-image: radial-gradient(#9ec0e8 2px, transparent 2.2px);
+    background-size: 16px 16px;
+    opacity: .7;
+    z-index: 3;
+  }
+
+  .diamonds {
+    position: absolute;
+    top: 54px;
+    left: 0;
+    width: 1536px;
+    height: 38px;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .diamonds span {
+    width: 27px;
+    height: 27px;
+    background: #f5bd22;
+    transform: rotate(45deg);
+    display: block;
+  }
+
+  .title {
+    position: absolute;
+    top: 112px;
+    left: 0;
+    width: 1536px;
+    text-align: center;
+    font-size: 47px;
+    line-height: 1.1;
+    font-weight: 750;
+    color: #303946;
+    letter-spacing: -1.2px;
+    z-index: 12;
+  }
+
+  /* Metric area */
+  .metric-left-circle {
+    position: absolute;
+    left: 118px;
+    top: 185px;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    border: 1.4px solid #2b74ea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 12;
+  }
+
+  .metric-left-circle::before {
+    content: "";
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    border: 1.4px solid #2b74ea;
+  }
+
+  .metric-left-circle .inner {
+    position: relative;
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    background: #1767d8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+  }
+
+  .doc-icon {
+    position: relative;
+    width: 82px;
+    height: 98px;
+    background: #f5f8fc;
+    border-radius: 6px;
+    box-shadow: 0 0 0 2px rgba(255,255,255,.7);
+  }
+
+  .doc-icon::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 28px;
+    height: 28px;
+    background: #f5f8fc;
+    border-left: 2px solid #2f75e3;
+    border-bottom: 2px solid #2f75e3;
+    transform: skew(0deg);
+    clip-path: polygon(0 0, 100% 100%, 0 100%);
+  }
+
+  .doc-line {
+    position: absolute;
+    left: 22px;
+    height: 5px;
+    background: #2a78e4;
+    border-radius: 4px;
+  }
+
+  .doc-line.l1 { top: 26px; width: 36px; }
+  .doc-line.l2 { top: 42px; width: 45px; }
+  .doc-line.l3 { top: 58px; width: 40px; }
+
+  .bookmark {
+    position: absolute;
+    left: 44px;
+    bottom: 8px;
+    width: 26px;
+    height: 40px;
+    background: #226dd8;
+    clip-path: polygon(0 0, 100% 0, 100% 72%, 50% 100%, 0 72%);
+  }
+
+  .high-reach-pill {
+    position: absolute;
+    left: 142px;
+    top: 438px;
+    width: 210px;
+    height: 45px;
+    background: #1269d8;
+    border-radius: 19px;
+    color: white;
+    font-size: 22px;
+    text-align: center;
+    line-height: 45px;
+    font-weight: 700;
+    z-index: 12;
+  }
+
+  .metric-left-number {
+    position: absolute;
+    left: 400px;
+    top: 236px;
+    font-size: 92px;
+    color: #1269d8;
+    font-weight: 760;
+    letter-spacing: -4px;
+    z-index: 12;
+  }
+
+  .metric-left-rule {
+    position: absolute;
+    left: 400px;
+    top: 372px;
+    width: 300px;
+    height: 2px;
+    background: #1767d8;
+    z-index: 12;
+  }
+
+  .metric-left-subtitle {
+    position: absolute;
+    left: 400px;
+    top: 398px;
+    width: 350px;
+    color: #293242;
+    font-size: 26px;
+    font-weight: 700;
+    z-index: 12;
+  }
+
+  .divider {
+    position: absolute;
+    left: 776px;
+    top: 213px;
+    width: 2px;
+    height: 238px;
+    background: #cfd6df;
+    z-index: 11;
+  }
+
+  .metric-right-number {
+    position: absolute;
+    left: 838px;
+    top: 236px;
+    font-size: 92px;
+    color: #1269d8;
+    font-weight: 760;
+    letter-spacing: -4px;
+    z-index: 12;
+  }
+
+  .metric-right-min {
+    position: absolute;
+    left: 1082px;
+    top: 284px;
+    color: #1269d8;
+    font-size: 43px;
+    font-weight: 500;
+    z-index: 12;
+  }
+
+  .metric-right-rule {
+    position: absolute;
+    left: 842px;
+    top: 372px;
+    width: 300px;
+    height: 2px;
+    background: #1767d8;
+    z-index: 12;
+  }
+
+  .metric-right-subtitle {
+    position: absolute;
+    left: 842px;
+    top: 398px;
+    width: 360px;
+    color: #293242;
+    font-size: 26px;
+    font-weight: 700;
+    z-index: 12;
+  }
+
+  .metric-right-circle {
+    position: absolute;
+    left: 1180px;
+    top: 185px;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    border: 1.4px solid #2b74ea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 12;
+  }
+
+  .metric-right-circle::before {
+    content: "";
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    border: 1.4px solid #2b74ea;
+  }
+
+  .metric-right-circle .inner {
+    position: relative;
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    background: #1767d8;
+    z-index: 2;
+  }
+
+  .grid-icon {
+    position: absolute;
+    left: 45px;
+    top: 47px;
+    width: 100px;
+    height: 92px;
+    display: grid;
+    grid-template-columns: repeat(3, 26px);
+    grid-template-rows: repeat(3, 26px);
+    gap: 10px;
+  }
+
+  .grid-icon span {
+    display: block;
+    background: #f5f8fc;
+    border-radius: 4px;
+  }
+
+  .high-engagement-pill {
+    position: absolute;
+    left: 1180px;
+    top: 438px;
+    width: 214px;
+    height: 45px;
+    background: #1269d8;
+    border-radius: 19px;
+    color: white;
+    text-align: center;
+    line-height: 45px;
+    font-size: 22px;
+    font-weight: 700;
+    z-index: 12;
+  }
+
+  /* Cards row */
+  .cards-row {
+    position: absolute;
+    left: 54px;
+    top: 514px;
+    width: 1428px;
+    height: 363px;
+    z-index: 15;
+  }
+
+  .card {
+    position: absolute;
+    top: 0;
+    width: 357px;
+    height: 363px;
+    border-radius: 14px;
+    background: #fbfcfd;
+    box-shadow: 0 9px 18px rgba(33, 69, 106, .13);
+    overflow: hidden;
+  }
+
+  .card.one {
+    left: 0;
+    border: 2px solid #ff5b2e;
+  }
+
+  .card.two {
+    left: 380px;
+    border: 2px solid #2a77e5;
+  }
+
+  .card.three {
+    left: 760px;
+    border: 2px solid #f2b82e;
+  }
+
+  .card.four {
+    left: 1140px;
+    border: 2px solid #2a77e5;
+  }
+
+  .card-title {
+    position: absolute;
+    left: 24px;
+    top: 42px;
+    font-size: 24px;
+    line-height: 1.28;
+    font-weight: 760;
+  }
+
+  .one .card-title {
+    color: #ff4f24;
+    width: 210px;
+  }
+
+  .two .card-title {
+    color: #1269d8;
+    width: 230px;
+  }
+
+  .three .card-title {
+    color: #f0ad24;
+    width: 200px;
+  }
+
+  .four .card-title {
+    color: #1269d8;
+    width: 240px;
+  }
+
+  .card-rule {
+    position: absolute;
+    left: 24px;
+    top: 124px;
+    width: 105px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  .card-text {
+    position: absolute;
+    left: 24px;
+    top: 147px;
+    width: 290px;
+    font-size: 22px;
+    line-height: 1.28;
+    color: #101827;
+    font-weight: 400;
+  }
+
+  /* Card icons */
+  .card-icon {
+    position: absolute;
+    right: 24px;
+    top: 28px;
+    width: 70px;
+    height: 70px;
+  }
+
+  .speech-bubble {
+    border-radius: 50%;
+    background: #ff6b29;
+  }
+
+  .speech-bubble::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    bottom: -18px;
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 18px solid #ff6b29;
+  }
+
+  .speech-bubble .dot {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: white;
+  }
+
+  .dot.d1 { left: 16px; top: 28px; }
+  .dot.d2 { left: 31px; top: 28px; }
+  .dot.d3 { left: 46px; top: 28px; }
+
+  .calendar-icon {
+    width: 62px;
+    height: 70px;
+    background: #2a77e5;
+    border-radius: 6px;
+    border: 3px solid #2a77e5;
+  }
+
+  .calendar-icon::before {
+    content: "";
+    position: absolute;
+    left: 11px;
+    top: -15px;
+    width: 40px;
+    height: 17px;
+    background: #2a77e5;
+    border-radius: 4px;
+    border: 3px solid #2a77e5;
+  }
+
+  .calendar-icon .sq {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 3px;
+  }
+
+  .calendar-icon.s1 { left: 8px; top: 22px; }
+  .calendar-icon.s2 { left: 26px; top: 22px; }
+  .calendar-icon.s3 { left: 44px; top: 22px; }
+  .calendar-icon.s4 { left: 8px; top: 41px; }
+  .calendar-icon.s5 { left: 26px; top: 41px; }
+  .calendar-icon.s6 { left: 44px; top: 41px; }
+
+  .bulb-icon {
+    width: 58px;
+    height: 62px;
+  }
+
+  .bulb-icon::before {
+    content: "";
+    position: absolute;
+    left: 14px;
+    top: 16px;
+    width: 38px;
+    height: 38px;
+    background: #f2b82e;
+    border-radius: 50% 50% 45% 45%;
+  }
+
+  .bulb-icon::after {
+    content: "";
+    position: absolute;
+    left: 24px;
+    top: 51px;
+    width: 16px;
+    height: 12px;
+    background: #f2b82e;
+    border-radius: 0 0 9px 9px;
+  }
+
+  .ray {
+    position: absolute;
+    background: #f2b82e;
+    border-radius: 4px;
+  }
+
+  .r1 { width: 5px; height: 22px; left: 27px; top: -12px; }
+  .r2 { width: 14px; height: 4px; left: 0; top: 26px; }
+  .r3 { width: 13px; height: 4px; left: 43px; top: 26px; }
+
+  .target-icon {
+    width: 70px;
+    height: 70px;
+    border: 6px solid #1269d8;
+    border-radius: 50%;
+    background: transparent;
+  }
+
+  .target-icon::before {
+    content: "";
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    width: 35px;
+    height: 35px;
+    border: 6px solid #1269d8;
+    border-radius: 50%;
+    background: transparent;
+  }
+
+  .target-icon::after {
+    content: "";
+    position: absolute;
+    left: 28px;
+    top: 28px;
+    width: 12px;
+    height: 12px;
+    background: #1269d8;
+    border-radius: 50%;
+  }
+
+  .arrow-head {
+    position: absolute;
+    right: -19px;
+    top: -12px;
+    width: 0;
+    height: 0;
+    border-left: 26px solid #1269d8;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    transform: rotate(-45deg);
+    z-index: 5;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="bg-left-blue"></div>
+    <div class="bg-left-deep"></div>
+    <div class="bg-left-yellow"></div>
+    <div class="bg-top-right-blue"></div>
+    <div class="bg-top-right-dots"></div>
+    <div class="bg-bottom-left-dots"></div>
+    <div class="bg-bottom-right-blue"></div>
+    <div class="bg-bottom-right-deep"></div>
+    <div class="bg-bottom-right-yellow"></div>
+
+    <div class="diamonds">
+      <span></span><span></span><span></span>
+    </div>
+
+    <div class="title">New Hire Training &amp; Development</div>
+
+    <div class="metric-left-circle">
+      <div class="inner">
+        <div class="doc-icon">
+          <div class="doc-line l1"></div>
+          <div class="doc-line l2"></div>
+          <div class="doc-line l3"></div>
+          <div class="bookmark"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="high-reach-pill">High Reach</div>
+
+    <div class="metric-left-number">30M</div>
+    <div class="metric-left-rule"></div>
+    <div class="metric-left-subtitle">Core Communication Skills</div>
+
+    <div class="divider"></div>
+
+    <div class="metric-right-number">200</div>
+    <div class="metric-right-min">min</div>
+    <div class="metric-right-rule"></div>
+    <div class="metric-right-subtitle">Basic Organizational Skills</div>
+
+    <div class="metric-right-circle">
+      <div class="inner">
+        <div class="grid-icon">
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="high-engagement-pill">High Engagement</div>
+
+    <div class="cards-row">
+      <div class="card one">
+        <div class="card-icon speech-bubble">
+          <div class="dot d1"></div>
+          <div class="dot d2"></div>
+          <div class="dot d3"></div>
+        </div>
+        <div class="card-title">Core<br>Communication Skills</div>
+        <div class="card-rule"></div>
+        <div class="card-text">Clearly articulates ideas and communicates accurately with teachers and students to prevent misunderstandings.</div>
+      </div>
+
+      <div class="card two">
+        <div class="card-icon calendar-icon">
+          <div class="sq s1"></div>
+          <div class="sq s2"></div>
+          <div class="sq s3"></div>
+          <div class="sq s4"></div>
+          <div class="sq s5"></div>
+          <div class="sq s6"></div>
+        </div>
+        <div class="card-title">Basic<br>Organizational Skills</div>
+        <div class="card-rule"></div>
+        <div class="card-text">Supports early-stage event prep (e.g., venue setup, participant notifications) and demonstrates basic coordination and scheduling awareness.</div>
+      </div>
+
+      <div class="card three">
+        <div class="card-icon bulb-icon">
+          <div class="ray r1"></div>
+          <div class="ray r2"></div>
+          <div class="ray r3"></div>
+        </div>
+        <div class="card-title">Fast Learning<br>Agility</div>
+        <div class="card-rule"></div>
+        <div class="card-text">Quickly develops new skills required for the role and, with guidance, rapidly learns workflows to meet job requirements.</div>
+      </div>
+
+      <div class="card four">
+        <div class="card-icon target-icon">
+          <div class="arrow-head"></div>
+        </div>
+        <div class="card-title">Fundamental<br>Execution Skills</div>
+        <div class="card-rule"></div>
+        <div class="card-text">Executes tasks in an organized way, delivers on time, and ensures workstreams are completed as planned.</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

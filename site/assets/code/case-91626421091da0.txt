@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shoply SaaS Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #dfeaf8;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: #0f2653;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1024px;
+      height: 1024px;
+      overflow: hidden;
+      background: #f7fbff;
+    }
+
+    .navbar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1024px;
+      height: 46px;
+      background: #ffffff;
+      border-bottom: 1px solid #e6efff;
+      display: flex;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .brand {
+      position: absolute;
+      left: 92px;
+      top: 11px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: #123f8f;
+    }
+
+    .brand-icon {
+      width: 17px;
+      height: 17px;
+      border: 2px solid #1767d7;
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .brand-icon:after {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: -6px;
+      width: 4px;
+      height: 6px;
+      border: 2px solid #1767d7;
+      border-bottom: none;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .nav-menu {
+      position: absolute;
+      left: 290px;
+      top: 15px;
+      display: flex;
+      gap: 26px;
+      font-size: 10px;
+      color: #24426f;
+      font-weight: 650;
+    }
+
+    .nav-right {
+      position: absolute;
+      right: 62px;
+      top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .trial-pill {
+      border: 1px solid #1767d7;
+      background: #1767d7;
+      color: white !important;
+      padding: 8px 15px;
+      border-radius: 4px;
+    }
+
+    .hero {
+      position: absolute;
+      left: 0;
+      top: 46px;
+      width: 1024px;
+      height: 292px;
+      background: #fbfdff;
+      border-bottom: 1px solid #e7efff;
+    }
+
+    .hero-left {
+      position: absolute;
+      left: 92px;
+      top: 32px;
+      width: 370px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #316bd7;
+      background: #edf4ff;
+      border-radius: 3px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 750;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 30px;
+      line-height: 1.25;
+      letter-spacing: -0.6px;
+      color: #0d285a;
+    }
+
+    .hero h1 .blue {
+      color: #1567e7;
+    }
+
+    .hero-p {
+      margin: 18px 0 18px;
+      width: 330px;
+      color: #526b95;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      height: 33px;
+      min-width: 112px;
+      border-radius: 3px;
+      border: 1px solid #9bc5fb;
+      background: white;
+      color: #254d88;
+      font-size: 11px;
+      font-weight: 750;
+      padding: 0 14px;
+    }
+
+    .btn.primary {
+      min-width: 118px;
+      background: #1567e7;
+      color: #ffffff;
+      border-color: #1567e7;
+    }
+
+    .benefits {
+      color: #59749e;
+      font-size: 10px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .hero-visual {
+      position: absolute;
+      left: 500px;
+      top: 22px;
+      width: 420px;
+      height: 220px;
+    }
+
+    .dashboard {
+      position: absolute;
+      left: 32px;
+      top: 0;
+      width: 360px;
+      height: 220px;
+      background: white;
+      border: 1px solid #dbe8fb;
+      border-radius: 10px;
+      box-shadow: 0 12px 26px rgba(30, 80, 140, 0.14);
+      overflow: hidden;
+    }
+
+    .dash-top {
+      height: 32px;
+      background: #f4f8ff;
+      border-bottom: 1px solid #e4edfb;
+      padding: 8px 13px;
+      font-size: 10px;
+      display: flex;
+      justify-content: space2between;
+      align-items: center;
+      color: #234d8d;
+      font-weight: 800;
+    }
+
+    .dash-nav {
+      position: absolute;
+      left: 10px;
+      top: 36px;
+      width: 82px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 8px;
+      color: #5674a2;
+    }
+
+    .nav-line {
+      height: 17px;
+      border-left: 3px solid #dbe8fb;
+      padding-left: 6px;
+      background: #edf4ff;
+    }
+
+    .stats {
+      position: absolute;
+      top: 50px;
+      right: 28px;
+      width: 180px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .mini-stat {
+      border: 1px solid #edf3fb;
+      border-radius: 3px;
+      min-height: 40px;
+      padding: 6px;
+      font-size: 9px;
+    }
+
+    .spark {
+      height: 20px;
+      border-top: 2px solid #9bc6ff;
+      border-radius: 50%;
+    }
+
+    table.top-products {
+      position: absolute;
+      left: 80px;
+      top: 126px;
+      border-collapse: collapse;
+      font-size: 8px;
+      color: #284c7d;
+    }
+
+    table.top-products td {
+      border: 1px solid #cfe0ff;
+      padding: 4px 5px;
+    }
+
+    .phone {
+      position: absolute;
+      left: 270px;
+      top: 42px;
+      width: 116px;
+      height: 154px;
+      background: #ffffff;
+      border: 1px solid #b9d1ff;
+      border-radius: 11px;
+      box-shadow: 0 10px 22px rgba(30, 80, 140, 0.16);
+      padding: 11px;
+    }
+
+    .phone img {
+      width: 84px;
+      height: 84px;
+      display: block;
+      object-fit: cover;
+      border: 1px solid #d7e6fb;
+    }
+
+    .product-name {
+      margin-top: 6px;
+      font-size: 10px;
+      color: #1f4c8e;
+      font-weight: 800;
+    }
+
+    .product-price {
+      font-size: 9px;
+      color: #566f9d;
+    }
+
+    .add-to-cart {
+      margin-top: 8px;
+      background: #0b1c38;
+      color: white;
+      border: none;
+      font-size: 9px;
+      height: 22px;
+      border-radius: 3px;
+    }
+
+    .section-title {
+      position: absolute;
+      left: 0;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 800;
+      color: #133568;
+    }
+
+    .features-title {
+      top: 339px;
+      width: 1024px;
+    }
+
+    .features {
+      position: absolute;
+      top: 368px;
+      left: 80px;
+      width: 864px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 22px;
+    }
+
+    .feature {
+      text-align: left;
+    }
+
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 9px;
+      background: #e8f2ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1767d7;
+      font-size: 20px;
+      margin-bottom: 9px;
+    }
+
+    .feature h3 {
+      font-size: 10.5px;
+      margin: 0 0 7px;
+    }
+
+    .feature p {
+      font-size: 9.5px;
+      color: #597093;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .testimonials-band {
+      position: absolute;
+      left: 0;
+      top: 498px;
+      width: 1024px;
+      height: 165px;
+      background: #edf5ff;
+    }
+
+    .testimonials-title {
+      top: 14px;
+      width: 1024px;
+    }
+
+    .testimonial-row {
+      position: absolute;
+      top: 47px;
+      left: 102px;
+      width: 820px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .testimonial-card {
+      background: white;
+      border: 1px solid #dbeaff;
+      border-radius: 5px;
+      padding: 11px 12px;
+      min-height: 102px;
+    }
+
+    .quote {
+      color: #1f66d8;
+      font-size: 24px;
+      display: inline-block;
+      margin-right: 6px;
+      vertical-align: top;
+    }
+
+    .testimonial-card p {
+      margin: 0 0 13px;
+      font-size: 10.5px;
+      color: #334c74;
+    }
+
+    .person {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 9.5px;
+    }
+
+    .person img {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+    }
+
+    .pricing-section {
+      position: absolute;
+      left: 0;
+      top: 663px;
+      width: 1024px;
+      height: 210px;
+      background: #f8fbff;
+    }
+
+    .pricing-title {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1024px;
+      text-align: center;
+    }
+
+    .toggle {
+      position: absolute;
+      left: 410px;
+      top: 24px;
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      color: #4c6b98;
+      font-size: 9.5px;
+      font-weight: 700;
+    }
+
+    .toggle-dot {
+      width: 11px;
+      height: 11px;
+      border: 1px solid #9bc7ff;
+      border-radius: 50%;
+    }
+
+    .toggle-dot.active {
+      background: #1767d7;
+      border-color: #1767d7;
+    }
+
+    .pricing-row {
+      position: absolute;
+      top: 56px;
+      left: 82px;
+      width: 860px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 13px;
+    }
+
+    .price-card {
+      background: white;
+      border: 1px solid #cfe2ff;
+      border-radius: 4px;
+      min-height: 120px;
+      padding: 11px 12px;
+      font-size: 9.5px;
+    }
+
+    .price-card h3 {
+      margin: 0 0 5px;
+      font-size: 10px;
+    }
+
+    .price {
+      color: #102a5c;
+      font-weight: 850;
+      font-size: 18px;
+    }
+
+    .price /deep/ span {
+      font-size: 9px;
+      color: #557098;
+    }
+
+    .price-card button {
+      width: 100%;
+      height: 18px;
+      border: 1px solid #79a8fa;
+      background: #f7fbff;
+      border-radius: 3px;
+      margin: 8px 0 8px;
+      color: #2067d8;
+    }
+
+    .price-card ul {
+      padding: 0;
+      margin: 0;
+      color: #4d688f;
+      font-size: 8.8px;
+    }
+
+    .footer {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 1024px;
+      height: 125px;
+      background: #0e6fe3;
+      color: #ffffff;
+    }
+
+    .footer-left {
+      position: absolute;
+      left: 88px;
+      top: 16px;
+      width: 170px;
+      font-size: 9.5px;
+      line-height: 1.45;
+    }
+
+    .footer-left h3 {
+      margin: 0 0 7px;
+      font-size: 14px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .socials span {
+      width: 18px;
+      height: 18px;
+      border: 1px solid #d7ecff;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 9px;
+    }
+
+    .footer-col {
+      position: absolute;
+      top: 15px;
+      width: 82px;
+      font-size: 8.8px;
+      color: #cde4ff;
+    }
+
+    .footer-col.product {
+      left: 280px;
+    }
+
+    .footer-col.resources {
+      left: 400px;
+    }
+
+    .footer-col.company {
+      left: 520px;
+    }
+
+    .footer-col.legal {
+      left: 640px;
+    }
+
+    .newsletter {
+      position: absolute;
+      left: 760px;
+      top: 15px;
+      width: 170px;
+      font-size: 8.8px;
+      line-height: 1.45;
+    }
+
+    .newsletter h3 {
+      margin: 0 0 6px;
+    }
+
+    .newsletter input,
+    .newsletter button {
+      width: 150px;
+      height: 20px;
+      border: 1px solid #b9dcff;
+      border-radius: 3px;
+      font-size: 8.5px;
+      padding-left: 8px;
+    }
+
+    .copyright {
+      position: absolute;
+      bottom: 6px;
+      left: 0;
+      width: 1024px;
+      text-align: center;
+      color: #b9dcff;
+      font-size: 8.8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <nav class="navbar">
+      <div class="brand">
+        <span class="brand-icon"></span>
+        <span>Shoply</span>
+      </div>
+      <div class="nav-menu">
+        <span>Features</span>
+        <span>Pricing</span>
+        <span>Themes</span>
+        <span>Resources</span>
+        <span>Enterprise</span>
+      </div>
+      <div class="nav-right">
+        <span>Log in</span>
+        <span class="trial-pill">Start free trial</span>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-left">
+        <div class="eyebrow">Built for modern brands</div>
+        <h1>The e-commerce platform <span class="blue">that grows with you</span></h1>
+        <p class="hero-p">Launch your store in minutes, customize without code, and scale to millions of customers with ease.</p>
+        <div class="hero-actions">
+          <div class="btn primary">Start free trial</div>
+          <div class="btn">View demo store</div>
+        </div>
+        <div class="benefits">
+          <span>14-day free trial</span>
+          <span>No credit card required</span>
+          <span>Cancel anytime</span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="dashboard">
+          <div class="dash-top">Shoply</div>
+          <div class="dash-nav">
+            <div class="nav-line">Home</div>
+            <div>Orders</div>
+            <div>Products</div>
+          </div>
+          <div class="stats">
+            <div class="mini-stat">
+              <div>Sales</div>
+              <div class="spark"></div>
+            </div>
+            <div class="mini-stat">
+              <div>Orders</div>
+              <div class="spark"></div>
+            </div>
+            <div class="mini-stat">
+              <div>Visitors</div>
+              <div class="spark"></div>
+            </div>
+          </div>
+          <table class="top-products">
+            <tr>
+              <th>Top products</th>
+              <th>Sales</th>
+              <th>Units</th>
+            </tr>
+            <tr>
+              <td>Classic Hoodie</td>
+              <td>$6,200</td>
+              <td>156</td>
+            </tr>
+            <tr>
+              <td>Minimal T-Shirt</td>
+              <td>$3,400</td>
+              <td>89</td>
+            </tr>
+            <tr>
+              <td>Cap</td>
+              <td>$1,200</td>
+              <td>42</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="phone">
+          <img src="https://placehold.co/260x320?text=Product+Photo" alt="Product Photo" />
+          <div class="product-name">Cap</div>
+          <div class="product-price">$36.00</div>
+          <button class="add-to-cart">Add to cart</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-title features-title">Everything you need to build, run, and grow</div>
+
+    <section class="features">
+      <div class="feature">
+        <div class="feature-icon">▣</div>
+        <h3>Quick store setup</h3>
+        <p>Launch your store in minutes with our guided setup.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">◉</div>
+        <h3>Beautiful themes</h3>
+        <p>Choose from stunning, mobile-optimized themes.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">✣</div>
+        <h3>Powerful features</h3>
+        <p>Everything you need built in. No apps overload.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">▥</div>
+        <h3>Advanced analytics</h3>
+        <p>Get actionable insights for your business.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">◎</div>
+        <h3>Global ready</h3>
+        <p>Sell anywhere with multi-currency and language support.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">♙</div>
+        <h3>Secure & reliable</h3>
+        <p>Enterprise-grade security and 99.99% uptime.</p>
+      </div>
+    </section>
+
+    <section class="testimonials-band">
+      <div class="section-title testimonials-title">Trusted by thousands of entrepreneurs</div>
+      <div class="testimonial-row">
+        <div class="testimonial-card">
+          <span class="quote">“</span>
+          <p>Shoply helped us launch our store in a weekend. It’s fast, easy, and incredibly powerful.</p>
+          <div class="person">
+            <img src="https://placehold.co/80x80?text=Photo" alt="Photo" />
+            <div><strong>Sofia Martinez</strong><br />Founder, Hype Street</div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <span class="quote">“</span>
+          <p>The best e-commerce platform we’ve used. The customization and support are top-notch.</p>
+          <div class="person">
+            <img src="https://placehold.co/80x80?text=Photo" alt="Photo" />
+            <div><strong>James Carter</strong><br />CEO, Carter Supply Co.</div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <span class="quote">“</span>
+          <p>We scaled from 0 to 7 figures in a year with Shoply. Highly recommend it to any growing brand.</p>
+          <div class="person">
+            <img src="https://placehold.co/80x80?text=Photo" alt="Photo" />
+            <div><strong>Priya Shah</strong><br />Founder, trail & Co.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing-section">
+      <div class="section-title pricing-title">Simple, transparent pricing</div>
+      <div class="toggle">
+        <span class="toggle-dot active"></span>
+        <span>Monthly</span>
+        <span>Yearly (Save 20%)</span>
+      </div>
+
+      <div class="pricing-row">
+        <div class="price-card">
+          <h3>Starter</h3>
+          <div class="price">$29<span>/month</span></div>
+          <button>Start free trial</button>
+          <ul>
+            <li>Up to 1,000 orders/month</li>
+            <li>2 staff accounts</li>
+            <li>All core features</li>
+          </ul>
+        </div>
+        <div class="price-card">
+          <h3>Growth</h3>
+          <div class="price">$79<span>/month</span></div>
+          <button>Start free trial</button>
+          <ul>
+            <li>Up to 10,000 orders/month</li>
+            <li>5 staff accounts</li>
+            <li>Advanced analytics</li>
+          </ul>
+        </div>
+        <div class="price-card">
+          <h3>Scale</h3>
+          <div class="price">$199<span>/month</span></div>
+          <button>Start free trial</button>
+          <ul>
+            <li>Up to 50,000 orders/month</li>
+            <li>15 staff accounts</li>
+            <li>Priority support</li>
+          </ul>
+        </div>
+        <div class="price-card">
+          <h3>Enterprise</h3>
+          <div class="price">Custom</div>
+          <button>Contact sales</button>
+          <ul>
+            <li>Unlimited orders</li>
+            <li>Custom staff accounts</li>
+            <li>Dedicated support</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-left">
+        <h3>Shoply</h3>
+        <div>The e-commerce platform that helps you build, grow, and scale your business.</div>
+        <div class="socials"><span>f</span><span>x</span><span>◎</span><span>in</span><span>▶</span></div>
+      </div>
+
+      <div class="footer-col product">
+        <strong>Product</strong><br />
+        Features<br />
+        Themes<br />
+        Pricing<br />
+        Apps
+      </div>
+
+      <div class="footer-col resources">
+        <strong>Resources</strong><br />
+        Blog<br />
+        Docs<br />
+        Guides<br />
+        Help Center
+      </div>
+
+      <div class="footer-col company">
+        <strong>Company</strong><br />
+        About us<br />
+        Careers<br />
+        Partners<br />
+        Press
+      </div>
+
+      <div class="footer-col legal">
+        <strong>Legal</strong><br />
+        Terms of Service<br />
+        Privacy Policy<br />
+        Refund Policy<br />
+        Security
+      </div>
+
+      <div class="newsletter">
+        <h3>Stay in the loop</h3>
+        <div>Get the latest product updates, tips, and resources.</div>
+        <input type="text" value="" placeholder="Enter your email" />
+        <button>Sign up</button>
+      </div>
+
+      <div class="copyright">© 2024 Shoply. All rights reserved.</div>
+    </footer>
+  </div>
+</body>
+</html>

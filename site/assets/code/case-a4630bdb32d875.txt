@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Retail Organization Structure</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9eeee;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background: #ffffff;
+    color: #111111;
+  }
+
+  .title {
+    position: absolute;
+    left: 40px;
+    top: 28px;
+    font-size: 30px;
+    line-height: 1;
+    font-weight: 700;
+    color: #63b184;
+    letter-spacing: 0.2px;
+  }
+
+  .ceo-card {
+    position: absolute;
+    left: 578px;
+    top: 28px;
+    width: 240px;
+    height: 108px;
+    background: #050505;
+    border-radius: 17px;
+    color: #ffffff;
+    box-shadow: 0 6px 0 rgba(64, 181, 136, 0.55);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 6px;
+  }
+
+  .ceo-label {
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .ceo-sub {
+    font-size: 14px;
+    line-height: 1.18;
+    text-align: center;
+    font-weight: 400;
+  }
+
+  .connector-h {
+    position: absolute;
+    left: 160px;
+    top: 153px;
+    width: 1048px;
+    height: 1px;
+    background: #bdbdbd;
+  }
+
+  .connector-v {
+    position: absolute;
+    top: 136px;
+    width: 1px;
+    height: 22px;
+    background: #bdbdbd;
+  }
+
+  .v1 { left: 160px; }
+  .v2 { left: 370px; }
+  .v3 { left: 580px; }
+  .v4 { left: 788px; }
+  .v5 { left: 1000px; }
+  .v6 { left: 1210px; }
+
+  .c-suite-card {
+    position: absolute;
+    top: 172px;
+    width: 192px;
+    height: 122px;
+    border-radius: 13px;
+    border: 1.5px solid #60bd86;
+    text-align: center;
+    padding: 13px 9px 8px;
+    box-shadow: inset 0 0 18px rgba(104, 181, 154, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .c1 { left: 65px; background: #b7ddf3; }
+  .c2 { left: 275px; background: #ffd8bc; }
+  .c3 { left: 485px; background: #d8c7ee; }
+  .c4 { left: 695px; background: #ffc6c6; }
+  .c5 { left: 905px; background: #fff0bd; }
+  .c6 { left: 1115px; background: #bff0e7; }
+
+  .c-title {
+    font-size: 18px;
+    line-height: 1.16;
+    font-weight: 800;
+  }
+
+  .c-sub {
+    margin-top: 9px;
+    font-size: 14.5px;
+    line-height: 1.18;
+    color: #111111;
+  }
+
+  .band {
+    position: absolute;
+    left: 38px;
+    width: 1255px;
+    height: 86px;
+    background: #eeeeee;
+    border-radius: 17px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .band.senior {
+    top: 306px;
+  }
+
+  .band.titles {
+    top: 404px;
+  }
+
+  .band.roles {
+    top: 522px;
+    height: 120px;
+  }
+
+  .band.kpis {
+    top: 661px;
+    height: 72px;
+  }
+
+  .band-col {
+    text-align: center;
+    padding: 8px 9px 6px;
+    border-right: 2px solid #d3d3d3;
+    font-size: 12.2px;
+    line-height: 1.18;
+    vertical-align: middle;
+  }
+
+  .band-col:last-child {
+    border-right: 0;
+  }
+
+  .band.senior .band-col {
+    padding-top: 8px;
+    font-size: 13.2px;
+    font-weight: 700;
+  }
+
+  .band.titles .band-col {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .band.roles .band-col {
+    padding-top: 7px;
+    font-size: 11.4px;
+    line-height: 1.14;
+  }
+
+  .band.kpis .band-col {
+    padding-top: 6px;
+    font-size: 11.4px;
+    line-height: 1.12;
+  }
+
+  .blue-text {
+    color: #2474dc;
+  }
+
+  .right-label {
+    position: absolute;
+    right: 18px;
+    width: 40px;
+    height: 86px;
+    border-radius: 15px 0 0 15px;
+    background: #62b884;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  .label-decision {
+    top: 306px;
+    height: 86px;
+  }
+
+  .label-titles {
+    top: 404px;
+    height: 86px;
+  }
+
+  .label-resp {
+    top: 522px;
+    height: 120px;
+  }
+
+  .label-kpis {
+    top: 661px;
+    height: 72px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="title">Retail Organization Structure</div>
+
+  <div class="ceo-card">
+    <div class="ceo-label">CEO</div>
+    <div class="ceo-sub">strategic direction<br>shareholder return</div>
+  </div>
+
+  <div class="connector-h"></div>
+  <div class="connector-v v1"></div>
+  <div class="connector-v v2"></div>
+  <div class="connector-v v3"></div>
+  <div class="connector-v v4"></div>
+  <div class="connector-v v5"></div>
+  <div class="connector-v v6"></div>
+
+  <div class="c-suite-card c1">
+    <div class="c-title">Chief Merchandising<br>Officer</div>
+    <div class="c-sub">assortment<br>approves markdowns</div>
+  </div>
+
+  <div class="c-suite-card c2">
+    <div class="c-title">Chief Financial<br>Officer</div>
+    <div class="c-sub">sets budget<br>reports results</div>
+  </div>
+
+  <div class="c-suite-card c3">
+    <div class="c-title">Chief Stores<br>Officer</div>
+    <div class="c-sub">store operations<br>store talent</div>
+  </div>
+
+  <div class="c-suite-card c4">
+    <div class="c-title">Chief Marketing<br>Officer</div>
+    <div class="c-sub">omnichannel brand<br>strategy</div>
+  </div>
+
+  <div class="c-suite-card c5">
+    <div class="c-title">Chief Operating<br>Officer</div>
+    <div class="c-sub">operational efficiency</div>
+  </div>
+
+  <div class="c-suite-card c6">
+    <div class="c-title">Chief Information<br>Officer</div>
+    <div class="c-sub">information security<br>tech product suite</div>
+  </div>
+
+  <div class="band senior">
+    <div class="band-col">Sr. VP Merchandising<br>VP Product Development<br>Global Sourcing Lead</div>
+    <div class="band-col">VP Corporate Finance<br>VP Accounting &amp; Tax<br>Head of Investor Relations</div>
+    <div class="band-col">Regional VPs Operations<br>Director of Store Experience<br>Head of Loss Prevention</div>
+    <div class="band-col">VP Brand Marketing<br>VP Digital Marketing<br>Creative Director</div>
+    <div class="band-col">VP Supply Chain<br>VP Logistics<br>Head of Facilities</div>
+    <div class="band-col">VP Tech Strategy<br>VP Cybersecurity<br>Head of Enterprise Systems</div>
+  </div>
+
+  <div class="band titles">
+    <div class="band-col">General Managers<br>Divisional Merchandise Managers<br>Buyers<br>Planners<br>Pricing Analysts</div>
+    <div class="band-col">Financial Analysts<br>Controllers<br>Tax Specialists<br>Treasury Managers<br>Internal Audit</div>
+    <div class="band-col">District Managers<br>Store Managers<br>Store Leadership Teams<br>Visual Merchandisers<br>Customer Service Leads</div>
+    <div class="band-col">Brand Managers<br>Digital Specialists<br>Content Strategists<br>Creative Team<br>Media Buyers<br>PR/Campaigns</div>
+    <div class="band-col">Logistics Managers<br>Inventory Control<br>Warehouse Operations<br>Vendor Relations<br>Safety Managers</div>
+    <div class="band-col">Tech Leads<br>Product Managers<br>Software Engineers<br>Data Scientists<br>Network Security Analysts<br>IT Support</div>
+  </div>
+
+  <div class="band roles">
+    <div class="band-col">Develop range, negotiate costs,<br>monitor trends, manage inventory<br>flow, execute promotions.<br><span class="blue-text">KPIs:</span> Sales Growth, Gross Margin<br>Dollars, Sell-Through Rate,<br>Inventory Turnover</div>
+    <div class="band-col">Budget adherence, financial<br>reporting, regulatory compliance,<br>cash flow management, risk<br>assessment.<br><span class="blue-text">KPIs:</span> EBITDA, Cash Flow, Return on<br>Equity, Operating Margin</div>
+    <div class="band-col">Execute store strategy, drive sales,<br>manage staff, ensure compliance,<br>deliver customer experience.<br><span class="blue-text">KPIs:</span> Same-Store Sales, Store<br>Profitability, Customer Satisfaction<br>Score, Employee Retention</div>
+    <div class="band-col">Develop campaigns, manage<br>advertising, oversee digital presence,<br>build brand equity, measure ROI.<br><span class="blue-text">KPIs:</span> Brand Awareness, Marketing<br>ROI, Conversion Rate, Customer<br>Acquisition Cost, Social<br>Engagement</div>
+    <div class="band-col">Optimize supply chain, manage<br>distribution, ensure product<br>availability, improve efficiency,<br>cost reduction.<br><span class="blue-text">KPIs:</span> On-Time Delivery, Fulfillment<br>Rate, Transportation Costs, Order<br>Cycle Time, Cost per Unit</div>
+    <div class="band-col">Maintain IT infrastructure, ensure<br>data security, develop tech solutions,<br>support business functions,<br>innovation.<br><span class="blue-text">KPIs:</span> System Uptime, Security<br>Incidents, Help Desk Response<br>Time, Platform Stability, User<br>Adoption</div>
+  </div>
+
+  <div class="band kpis">
+    <div class="band-col">Markdown Rate, Average Unit<br>Retail, Vendor Scorecard, New<br>Product Success Rate</div>
+    <div class="band-col">Debt-to-Equity Ratio, Working<br>Capital, Tax Efficiency, Forecast<br>Accuracy</div>
+    <div class="band-col">Shrink Rate, Sales per Square Foot,<br>Transaction Value, Staff<br>Productivity, Compliance Score</div>
+    <div class="band-col">Website Traffic, Email Open Rate,<br>Ad Impressions, Brand Sentiment,<br>Customer Lifetime Value</div>
+    <div class="band-col">Inventory Accuracy, Warehouse<br>Utilization, Shipping Costs, Return<br>Rate, Safety Incidents</div>
+    <div class="band-col">Mean Time to Recover, Bug<br>Fix Rate, Data Quality Index, IT<br>Spend vs. Budget, Innovation<br>Pipeline, User Satisfaction</div>
+  </div>
+
+  <div class="right-label label-decision">DECISION MAKING</div>
+  <div class="right-label label-titles">TITLES</div>
+  <div class="right-label label-resp">RESPONSIBILITIES</div>
+  <div class="right-label label-kpis">KPIs</div>
+</div>
+</body>
+</html>

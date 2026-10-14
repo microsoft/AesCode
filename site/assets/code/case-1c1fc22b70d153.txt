@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexora CRM SaaS Landing Page</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #111;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: #f4f4f4;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 731px;
+      overflow: hidden;
+      background: #050607;
+    }
+
+    /* Browser chrome */
+    .browser-chrome {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1280px;
+      height: 68px;
+      background: #222324;
+      border-bottom: 1px solid #303234;
+    }
+
+    .browser-top-row {
+      height: 34px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 12px;
+      color: #b8b8b8;
+      font-size: 11px;
+    }
+
+    .traffic-lights {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .red { background: #ff5f57; }
+    .yellow { background: #ffbd2e; }
+    .green-dot { background: #28c840; }
+
+    .tab {
+      height: 26px;
+      min-width: 210px;
+      background: #303234;
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      color: #d9d9d9;
+      font-size: 11px;
+    }
+
+    .tab-mark {
+      color: #a8ff00;
+      font-weight: 900;
+      font-size: 16px;
+    }
+
+    .address-row {
+      height: 34px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 12px;
+      background: #27292a;
+    }
+
+    .browser-arrow {
+      color: #c8c8c8;
+      font-size: 18px;
+    }
+
+    .address-bar {
+      height: 24px;
+      width: 1012px;
+      border-radius: 14px;
+      background: #343739;
+      display: flex;
+      align-items: center;
+      color: #c9c9c9;
+      padding: 0 14px;
+      font-size: 12px;
+    }
+
+    .browser-controls {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: #b9b9b9;
+      font-size: 14px;
+    }
+
+    /* Main header */
+    .site-header {
+      position: absolute;
+      top: 68px;
+      left: 0;
+      width: 1280px;
+      height: 62px;
+      border-bottom: 1px solid #282a2b;
+      background: #050607;
+      display: flex;
+      align-items: center;
+      padding: 0 53px;
+      z-index: 5;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 285px;
+    }
+
+    .brand-mark {
+      width: 26px;
+      height: 21px;
+      border-radius: 6px;
+      background: #adff00;
+      position: relative;
+      display: inline-block;
+      box-shadow: 0 0 12px rgba(173, 255, 0, 0.45);
+    }
+
+    .brand-mark:after {
+      content: "";
+      position: absolute;
+      left: 12px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-top: 4px solid #07090a;
+      border-right: 4px solid #07090a;
+      transform: rotate(45deg);
+    }
+
+    .brand-text {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-crm {
+      font-size: 10px;
+      color: #adff00;
+      margin-left: 4px;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex: 1;
+      color: #d7d7d7;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: #e7e7e7;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .start-small {
+      background: #adff00;
+      color: #080909;
+      border: 1px solid #adff00;
+      border-radius: 6px;
+      padding: 10px 13px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    /* Hero */
+    .hero {
+      position: absolute;
+      top: 130px;
+      left: 0;
+      width: 1280px;
+      height: 370px;
+      display: flex;
+      border-bottom: 1px solid #222526;
+      z-index: 1;
+    }
+
+    .hero-copy {
+      width: 590px;
+      padding: 38px 0 0 52px;
+    }
+
+    .headline {
+      margin: 0;
+      font-size: 41px;
+      line-height: 1.12;
+      letter-spacing: -1.4px;
+      font-weight: 850;
+    }
+
+    .headline .lime {
+      display: block;
+      color: #adff00;
+    }
+
+    .description {
+      margin: 16px 0 28px;
+      color: #a9adb0;
+      font-size: 16px;
+      line-height: 1.55;
+      width: 515px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .btn-solid {
+      background: #adff00;
+      color: #080909;
+      border: 1px solid #adff00;
+      border-radius: 5px;
+      height: 43px;
+      min-width: 173px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: underline;
+    }
+
+    .btn-outline {
+      border: 1px solid #adff00;
+      color: #adff00;
+      border-radius: 5px;
+      height: 43px;
+      min-width: 159px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      background: #070909;
+    }
+
+    .benefits {
+      margin-top: 20px;
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      color: #aaaeb2;
+      font-size: 12.5px;
+    }
+
+    .benefit {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .check {
+      width: 15px;
+      height: 15px;
+      border: 1px solid #adff00;
+      border-radius: 50%;
+      color: #adff00;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 900;
+    }
+
+    .dashboard-wrap {
+      position: absolute;
+      top: 14px;
+      right: 58px;
+      width: 616px;
+      height: 328px;
+      background: #111314;
+      border: 1px solid #adff00;
+      border-radius: 15px;
+      box-shadow:
+        0 0 24px rgba(173, 255, 0, 0.45),
+        inset 0 0 18px rgba(173, 255, 0, 0.12);
+      overflow: hidden;
+    }
+
+    .dashboard-topbar {
+      height: 34px;
+      border-bottom: 1px solid #2b2d2e;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      color: #d8d8d8;
+    }
+
+    .mini-brand {
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .user-avatar {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 9px;
+      color: #b9b9b9;
+    }
+
+    .avatar-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #313638;
+      border: 1px solid #9ea2a5;
+    }
+
+    .dashboard-body {
+      display: flex;
+      height: 294px;
+    }
+
+    .side-menu {
+      width: 86px;
+      border-right: 1px solid #2b2d2e;
+      padding-top: 9px;
+      color: #bfbfbf;
+      font-size: 9px;
+      flex-shrink: 0;
+    }
+
+    .menu-item {
+      height: 23px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding-left: 7px;
+    }
+
+    .menu-item.active {
+      background: #171a1b;
+      border-left: 2px solid #adff00;
+      color: #d8ff30;
+    }
+
+    .main-panel {
+      flex: 1;
+      padding: 10px 11px 9px;
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      height: 76px;
+    }
+
+    .kpi {
+      background: #17191a;
+      border: 1px solid #2b2f31;
+      border-radius: 7px;
+      padding: 9px 8px;
+      color: #d8d8d8;
+    }
+
+    .kpi-value {
+      font-size: 15px;
+      font-weight: 800;
+      margin: 4px 0;
+    }
+
+    .kpi-change {
+      color: #7dffa3;
+      font-size: 8.5px;
+    }
+
+    .charts-row {
+      display: flex;
+      gap: 8px;
+      height: 118px;
+      margin-top: 7px;
+    }
+
+    .chart-card {
+      background: #17191a;
+      border: 1px solid #2b2f31;
+      border-radius: 7px;
+      padding: 8px 8px 4px;
+      position: relative;
+    }
+
+    .line-card {
+      width: 245px;
+    }
+
+    .pie-card {
+      width: 195px;
+    }
+
+    .chart-title {
+      color: #cfcfcf;
+      font-size: 9px;
+      margin-bottom: 0;
+    }
+
+    #revenueChart {
+      width: 227px;
+      height: 82px;
+    }
+
+    #dealsChart {
+      width: 177px;
+      height: 82px;
+    }
+
+    .lower-panels {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      height: 80px;
+    }
+
+    .panel {
+      background: #17191a;
+      border: 1px solid #2b2f31;
+      border-radius: 7px;
+      padding: 8px 8px 4px;
+      color: #bdbdbd;
+      font-size: 8.8px;
+    }
+
+    .panel-title {
+      font-size: 9px;
+      color: #e4e4e4;
+      margin-bottom: 4px;
+    }
+
+    table {
+      border-collapse: collapse;
+      font-size: 8.3px;
+      width: 100%;
+    }
+
+    .recent-table td,
+    .upcoming-table td {
+      border-bottom: 1px solid #2b2f31;
+      padding: 3px 0;
+    }
+
+    .upcoming-table td:first-child {
+      width: 70%;
+    }
+
+    /* Trust strip */
+    .trust-strip {
+      position: absolute;
+      top: 500px;
+      left: 0;
+      width: 1280px;
+      height: 95px;
+      background: #101112;
+      border-top: 1px solid #242728;
+      border-bottom: 1px solid #242728;
+      text-align: center;
+      padding-top: 10px;
+    }
+
+    .trust-heading {
+      color: #797d80;
+      font-size: 11px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .logos-row {
+      display: flex;
+      justify-content: space6around;
+      gap: 65px;
+      color: #e8e8e8;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .logo-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 100px;
+      justify-content: center;
+    }
+
+    /* CTA band */
+    .cta-band {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 1280px;
+      height: 166px;
+      background: #18191a;
+      display: flex;
+      align-items: center;
+      padding: 0 192px 0 191px;
+    }
+
+    .cta-left {
+      width: 430px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .envelope-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      background: #252829;
+      border: 1px solid #adff00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #adff00;
+      font-size: 31px;
+    }
+
+    .cta-text h2 {
+      margin: 0;
+      color: #f2f2f2;
+      font-size: 20px;
+      line-height: 1.25;
+      max-width: 320px;
+    }
+
+    .cta-sub {
+      margin-top: 8px;
+      color: #a9a9a9;
+      font-size: 12px;
+    }
+
+    .cta-form {
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      color: #bdbdbd;
+    }
+
+    .email-row {
+      width: 400px;
+      height: 41px;
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    .email-input {
+      width: 291px;
+      border: 1px solid #777a7d;
+      border-right: none;
+      border-radius: 5px 0 0 5px;
+      display: flex;
+      align-items: center;
+      padding-left: 15px;
+      font-size: 12px;
+      background: #1c1e20;
+    }
+
+    .subscribe-btn {
+      width: 109px;
+      border: 1px solid #adff00;
+      background: #adff00;
+      color: #090a0a;
+      border-radius: 0 5px 5px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .privacy {
+      font-size: 10.5px;
+      color: #9c9f9f;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="browser-chrome">
+      <div class="browser-top-row">
+        <div class="traffic-lights">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green-dot"></span>
+        </div>
+        <div class="tab">
+          <span class="tab-mark">N</span>
+          <span>Nexora CRM – Smart Relation</span>
+        </div>
+      </div>
+      <div class="address-row">
+        <span class="browser-arrow">‹</span>
+        <span class="browser-arrow">›</span>
+        <div class="address-bar">nexora.com</div>
+        <div class="browser-controls">
+          <span>⚙</span>
+          <span>Inognito</span>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <div>
+          <span class="brand-text">NEXORA</span>
+          <span class="brand-crm">CRM</span>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <span>Product⌄</span>
+        <span>Features</span>
+        <span>Pricing</span>
+        <span>Resources⌄</span>
+        <span>Company⌄</span>
+      </nav>
+      <div class="header-actions">
+        <span>Login</span>
+        <span class="start-small">Start Free Trial →</span>
+      </div>
+    </header>
+
+    <main class="hero">
+      <section class="hero-copy">
+        <h1 class="headline">
+          Stronger relationships.
+          <span class="lime">Smarter growth.</span>
+        </h1>
+        <p class="description">
+          Nexora CRM helps you build lasting customer relationships, streamline sales, and grow your business faster.
+        </p>
+        <div class="hero-buttons">
+          <div class="btn-solid">Start Free Trial →</div>
+          <div class="btn-outline">Book a Demo</div>
+        </div>
+        <div class="benefits">
+          <div class="benefit"><span class="check">✓</span><span>No credit card required</span></div>
+          <div class="benefit"><span class="check">✓</span><span>14-day free trial</span></div>
+          <div class="benefit"><span class="check">✓</span><span>Cancel anytime</span></div>
+        </div>
+      </section>
+
+      <section class="dashboard-wrap">
+        <div class="dashboard-topbar">
+          <span class="mini-brand">NEXORA</span>
+          <div class="user-avatar">
+            <span class="avatar-dot"></span>
+            <span style="font-size:8px;">James Carter<br>CRM Manager</span>
+          </div>
+        </div>
+
+        <div class="dashboard-body">
+          <div class="side-menu">
+            <div class="menu-item active">⌂ Dashboard</div>
+            <div class="menu-item">◎ Contacts</div>
+            <div class="menu-item">□ Deals</div>
+            <div class="menu-item">✎ Tasks</div>
+            <div class="menu-item">✦ Automation</div>
+            <div class="menu-item">▤ Reports</div>
+            <div class="menu-item">⚙ Settings</div>
+          </div>
+
+          <div class="main-panel">
+            <div class="kpis">
+              <div class="kpi">
+                <div>Total Revenue</div>
+                <div class="kpi-value">$124,560</div>
+                <div class="kpi-change">↑ 18.5%</div>
+              </div>
+              <div class="kpi">
+                <div>Deals Won</div>
+                <div class="kpi-value">238</div>
+                <div class="kpi-change">↑ 22.1%</div>
+              </div>
+              <div class="kpi">
+                <div>New Contacts</div>
+                <div class="kpi-value">1,243</div>
+                <div class="kpi-change">↑ 15.3%</div>
+              </div>
+              <div class="kpi">
+                <div>Conversion Rate</div>
+                <div class="kpi-value">28.6%</div>
+                <div class="kpi-change">↑ 9.4%</div>
+              </div>
+            </div>
+
+            <div class="charts-row">
+              <div class="chart-card line-card">
+                <div class="chart-title">Revenue Overview</div>
+                <div id="revenueChart"></div>
+              </div>
+              <div class="chart-card pie-card">
+                <div class="chart-title">Deals by Stage</div>
+                <div id="dealsChart"></div>
+              </div>
+            </div>
+
+            <div class="lower-panels">
+              <div class="panel">
+                <div class="panel-title">Recent Deals</div>
+                <table class="recent-table">
+                  <tr>
+                    <td>Deal Name</td>
+                    <td>Contact</td>
+                    <td>Value</td>
+                    <td>Stage</td>
+                  </tr>
+                  <tr>
+                    <td>Acme Corporation</td>
+                    <td>acme@corp.com</td>
+                    <td>$24,000</td>
+                    <td>Proposal</td>
+                  </tr>
+                </table>
+              </div>
+              <div class="panel">
+                <div class="panel-title">Upcoming Tasks</div>
+                <table class="upcoming-table">
+                  <tr>
+                    <td>Task</td>
+                    <td>Due</td>
+                  </tr>
+                  <tr>
+                    <td>Follow up with Acme</td>
+                    <td>May 31, 10:00 AM</td>
+                  </tr>
+                  <tr>
+                    <td>Demo with Globex</td>
+                    <td>May 31, 2:00 PM</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section class="trust-strip">
+      <div class="trust-heading">TRUSTED BY GROWING BUSINESSES WORLDWIDE</div>
+      <div class="logos-row">
+        <div class="logo-item">Techflow</div>
+        <div class="logo-item">Acme</div>
+        <div class="logo-item">GLOBEX</div>
+        <div class="logo-item">PULSE</div>
+        <div class="logo-item">Everest</div>
+        <div class="logo-item">summit</div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="cta-left">
+        <div class="envelope-icon">✉</div>
+        <div class="cta-text">
+          <h2>Stay ahead. Get CRM insights that drive results.</h2>
+          <div class="cta-sub">Join 10,000+ business leaders to get our latest tips and updates.</div>
+        </div>
+      </div>
+
+      <div class="cta-form">
+        <div class="email-row">
+          <div class="email-input">Enter your email</div>
+          <div class="subscribe-btn">Subscribe</div>
+        </div>
+        <div class="privacy">We respect your privacy. Unsubscribe anytime.</div>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    const revenueChart = echarts.init(document.getElementById('revenueChart'));
+    revenueChart.setOption({
+      animation: false,
+      grid: { left: 32, right: 12, top: 10, bottom: 20 },
+      xAxis: {
+        type: 'category',
+        data: ['May 1', 'May 8', 'May 15', 'May 22', 'May 31'],
+        axisLine: { lineStyle: { color: '#45494b' } },
+        axisTick: { show: false },
+        axisLabel: { color: '#a8adb0', fontSize: 8 }
+      },
+      yAxis: {
+        type: 'value',
+        min: 0,
+        max: 340,
+        splitNumber: 3,
+        axisLabel: { color: '#a8adb0', fontSize: 8 },
+        splitLine: { lineStyle: { color: '#2c3032' } }
+      },
+      series: [{
+        type: 'line',
+        data: [120, 180, 260, 220, 300],
+        smooth: true,
+        symbol: 'none',
+        lineStyle: { color: '#adff00', width: 2 },
+        areaStyle: { color: 'rgba(173,255,0,0.10)' }
+      }]
+    });
+
+    const dealsChart = echarts.init(document.getElementById('dealsChart'));
+    dealsChart.setOption({
+      animation: false,
+      color: ['#7dff58', '#4bb7ff', '#5c45ff', '#ff5aa5', '#ffbd2e'],
+      title: {
+        text: '238',
+        left: 'center',
+        top: '42%',
+        textStyle: { color: '#f2f2f2', fontSize: 12, fontWeight: 800 }
+      },
+      legend: {
+        orient: 'vertical',
+        right: 4,
+        top: 22,
+        itemWidth: 8,
+        itemHeight: 8,
+        textStyle: { color: '#aaaeb2', fontSize: 8 }
+      },
+      series: [{
+        type: 'pie',
+        radius: ['43%', '65%'],
+        center: ['45%', '52%'],
+        avoidLabelOverlap: false,
+        label: { show: false },
+        labelLine: { show: false },
+        data: [
+          {name: 'New', value: 40},
+          {name: 'Qualified', value: 25},
+          {name: 'Proposal', value: 15},
+          {name: 'Won', value: 10},
+          {name: 'Negotiation', value: 10}
+        ]
+      }]
+    });
+  </script>
+</body>
+</html>

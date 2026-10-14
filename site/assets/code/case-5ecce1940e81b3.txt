@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Components of A Market Analysis</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9e9e9;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1264px;
+    height: 848px;
+    overflow: hidden;
+    background: #e7e7e7;
+  }
+
+  .card {
+    position: absolute;
+    left: 52px;
+    top: 91px;
+    width: 1160px;
+    height: 645px;
+    background: #ffffff;
+    border: 1px solid #d8d8d8;
+    box-shadow: 0 16px 28px rgba(0,0,0,0.08);
+  }
+
+  .main-title {
+    position: absolute;
+    left: 52px;
+    top: 29px;
+    width: 800px;
+    font-size: 40px;
+    line-height: 1.1;
+    font-weight: 700;
+    color: #050505;
+    letter-spacing: 0.2px;
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 52px;
+    top: 83px;
+    width: 520px;
+    font-size: 16px;
+    color: #3f3f3f;
+    font-weight: 400;
+  }
+
+  .list-box {
+    position: absolute;
+    left: 49px;
+    width: 451px;
+    height: 82px;
+    border-radius: 42px;
+    color: #ffffff;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding-left: 35px;
+    box-shadow: 0 9px 14px rgba(0,0,0,0.12);
+  }
+
+  .box-1 {
+    top: 139px;
+    background: #3b66d8;
+  }
+
+  .box-2 {
+    top: 231px;
+    background: #18afe2;
+  }
+
+  .box-3 {
+    top: 322px;
+    background: #e6a900;
+  }
+
+  .box-4 {
+    top: 414px;
+    background: #f37b24;
+  }
+
+  .box-5 {
+    top: 506px;
+    background: #e90074;
+  }
+
+  .connector-dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    z-index: 3;
+  }
+
+  .dot-1 {
+    left: 508px;
+    top: 174px;
+    background: #3763d6;
+  }
+
+  .dot-2 {
+    left: 508px;
+    top: 266px;
+    background: #18afe2;
+  }
+
+  .dot-3 {
+    left: 508px;
+    top: 450px;
+    background: #e6a900;
+  }
+
+  .dot-4 {
+    left: 508px;
+    top: 542px;
+    background: #f37b24;
+  }
+
+  .dot-5 {
+    left: 508px;
+    top: 567px;
+    background: #e90074;
+  }
+
+  .circle-icon {
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: 0 12px 22px rgba(0,0,0,0.12);
+  }
+
+  .circle-1 {
+    left: 678px;
+    top: 128px;
+    width: 156px;
+    height: 156px;
+    background: linear-gradient(135deg, #4c72e3, #2f64cf);
+  }
+
+  .circle-2 {
+    left: 678px;
+    top: 211px;
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, #28c4ee, #179bd1);
+  }
+
+  .circle-3 {
+    left: 808px;
+    top: 213px;
+    width: 154px;
+    height: 154px;
+    background: linear-gradient(135deg, #f7c432, #ee9e00);
+  }
+
+  .circle-4 {
+    left: 683px;
+    top: 372px;
+    width: 148px;
+    height: 148px;
+    background: linear-gradient(135deg, #f77d18, #ef6f00);
+  }
+
+  .circle-5 {
+    left: 800px;
+    top: 408px;
+    width: 156px;
+    height: 156px;
+    background: linear-gradient(135deg, #ec1078, #c9136f);
+  }
+
+  .analysis-circle {
+    position: absolute;
+    left: 799px;
+    top: 308px;
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 4px solid #e7e7e7;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .analysis-label {
+    position: absolute;
+    left: 939px;
+    top: 326px;
+    width: 191px;
+    height: 78px;
+    border: 2px solid #d3d3d3;
+    border-radius: 42px;
+    background: #ffffff;
+    color: #151515;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 5;
+  }
+
+  .icon-svg {
+    width: 72px;
+    height: 72px;
+  }
+
+  .analysis-icon {
+    width: 72px;
+    height: 72px;
+  }
+
+  .flow-svg {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .flow-1 {
+    left: 518px;
+    top: 182px;
+    width: 148px;
+    height: 120px;
+  }
+
+  .flow-2 {
+    left: 518px;
+    top: 274px;
+    width: 148px;
+    height: 82px;
+  }
+
+  .flow-3 {
+    left: 518px;
+    top: 382px;
+    width: 150px;
+    height: 30px;
+  }
+
+  .flow-4 {
+    left: 518px;
+    top: 458px;
+    width: 138px;
+    height: 82px;
+  }
+
+  .flow-5 {
+    left: 518px;
+    top: 520px;
+    width: 138px;
+    height: 92px;
+  }
+
+  .cluster-flow-1 {
+    left: 787px;
+    top: 341px;
+    width: 160px;
+    height: 105px;
+  }
+
+  .cluster-flow-2 {
+    left: 802px;
+    top: 391px;
+    width: 156px;
+    height: 85px;
+  }
+
+  .cluster-flow-3 {
+    left: 783px;
+    top: 458px;
+    width: 150px;
+    height: 72px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="card">
+    <div class="main-title">Components of A Market Analysis</div>
+    <div class="subtitle">Enter your sub headline here</div>
+
+    <div class="list-box box-1">Target Segment Description</div>
+    <div class="list-box box-2">Target Segment’s needs (Why do<br>customers need the product/service?)</div>
+    <div class="list-box box-3">Distribution Channels (Where do customer<br>need the product/ service?)</div>
+    <div class="list-box box-4">Buying habits (What factors influence the<br>target market to buy?)</div>
+    <div class="list-box box-5">Communication channels (How will you<br>communicate with the customers?)</div>
+
+    <div class="connector-dot dot-1"></div>
+    <div class="connector-dot dot-2"></div>
+    <div class="connector-dot dot-3"></div>
+    <div class="connector-dot dot-4"></div>
+    <div class="connector-dot dot-5"></div>
+
+    <svg class="flow-svg flow-1" viewBox="0 0 148 120" aria-hidden="true">
+      <defs>
+        <marker id="arrowHeadBlue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#3763d6"></path>
+        </marker>
+      </defs>
+      <path d="M8 20 C30 15, 45 50, 80 75 S140 80, 140 98" fill="none" stroke="#3763d6" stroke-width="2.5" marker-end="url(#arrowHeadBlue)"></path>
+    </svg>
+
+    <svg class="flow-svg flow-2" viewBox="0 0 148 82" aria-hidden="true">
+      <defs>
+        <marker id="arrowHeadCyan" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#18afe2"></path>
+        </marker>
+      </defs>
+      <path d="M7 22 C35 20, 55 38, 76 60 S135 55, 135 68" fill="none" stroke="#18afe2" stroke-width="2.5" marker-end="url(#arrowHeadCyan)"></path>
+    </svg>
+
+    <svg class="flow-svg flow-3" viewBox="0 0 150 30" aria-hidden="true">
+      <defs>
+        <marker id="arrowHeadGold" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#e6a900"></path>
+        </marker>
+      </defs>
+      <path d="M7 15 H143" fill="none" stroke="#e6a900" stroke-width="2.5" marker-end="url(#arrowHeadGold)"></path>
+    </svg>
+
+    <svg class="flow-svg flow-4" viewBox="0 0 138 82" aria-hidden="true">
+      <defs>
+        <marker id="arrowHeadOrange" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#f37b24"></path>
+        </marker>
+      </defs>
+      <path d="M10 56 C40 43, 65 25, 90 20 S125 43, 128 42" fill="none" stroke="#f37b24" stroke-width="2.5" marker-end="url(#arrowHeadOrange)"></path>
+    </svg>
+
+    <svg class="flow-svg flow-5" viewBox="0 0 138 92" aria-hidden="true">
+      <defs>
+        <marker id="arrowHeadPink" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#e90074"></path>
+        </marker>
+      </defs>
+      <path d="M7 62 C42 68, 63 46, 82 24 S118 18, 122 20" fill="none" stroke="#e90074" stroke-width="2.5" marker-end="url(#arrowHeadPink)"></path>
+    </svg>
+
+    <div class="circle-icon circle-1">
+      <svg class="icon-svg" viewBox="0 0 80 80" aria-hidden="true">
+        <circle cx="40" cy="38" r="16" fill="none" stroke="#fff" stroke-width="2.8"></circle>
+        <circle cx="20" cy="28" r="9" fill="none" stroke="#fff" stroke-width="2.3"></circle>
+        <circle cx="60" cy="28" r="9" fill="none" stroke="#fff" stroke-width="2.3"></circle>
+        <circle cx="21" cy="53" r="10" fill="none" stroke="#fff" stroke-width="2.3"></circle>
+        <circle cx="58" cy="52" r="11" fill="none" stroke="#fff" stroke-width="2.3"></circle>
+        <path d="M30 44 L50 44" stroke="#fff" stroke-width="3"></path>
+        <circle cx="50" cy="43" r="3" fill="#fff"></circle>
+      </svg>
+    </div>
+
+    <div class="circle-icon circle-2">
+      <svg class="icon-svg" viewBox="0 0 80 80" aria-hidden="true">
+        <path d="M39 17 C27 21, 20 31, 20 44 C20 56, 29 64, 40 67 C51 64, 60 56, 60 44 C60 31 53 21 39 17 Z" fill="none" stroke="#fff" stroke-width="2.7"></path>
+        <circle cx="40" cy="44" r="10" fill="none" stroke="#fff" stroke-width="2.4"></circle>
+        <path d="M40 31 L40 20 M40 57 L40 67 M27 44 L18 44 M52 44 L62 44 M29 32 L21 24 M51 32 L60 23 M30 56 L22 64 M50 56 L59 65" stroke="#fff" stroke-width="2.2" stroke-linecap="round"></path>
+      </svg>
+    </div>
+
+    <div class="circle-icon circle-3">
+      <svg class="icon-svg" viewBox="0 0 80 80" aria-hidden="true">
+        <rect x="12" y="24" width="14" height="14" fill="none" stroke="#fff" stroke-width="2.3"></rect>
+        <rect x="46" y="24" width="14" height="14" fill="none" stroke="#fff" stroke-width="2.3"></rect>
+        <rect x="12" y="50" width="14" height="14" fill="none" stroke="#fff" stroke-width="2.3"></rect>
+        <rect x="54" y="50" width="14" height="14" fill="none" stroke="#fff" stroke-width="2.3"></rect>
+        <path d="M26 32 H42 V48 H28 Z" fill="none" stroke="#fff" stroke-width="2.3" stroke-linejoin="round"></path>
+        <path d="M27 47 L50 47 L61 36" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"></path>
+        <path d="M24 40 H13 V29 H25 Z" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+
+    <div class="circle-icon circle-4">
+      <svg class="icon-svg" viewBox="0 0 80 80" aria-hidden="true">
+        <path d="M18 32 H42 L55 42 V58 H18 Z" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round"></path>
+        <path d="M25 32 V23 H16" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"></path>
+        <circle cx="25" cy="23" r="3" fill="#fff"></circle>
+        <rect x="28" y="20" width="15" height="10" fill="none" stroke="#fff" stroke-width="2"></rect>
+        <rect x="26" y="28" width="18" height="10" fill="none" stroke="#fff" stroke-width="2"></rect>
+        <circle cx="34" cy="40" r="4" fill="#fff"></circle>
+        <circle cx="52" cy="45" r="4" fill="#fff"></circle>
+        <circle cx="43" cy="55" r="4" fill="#fff"></circle>
+      </svg>
+    </div>
+
+    <div class="circle-icon circle-5">
+      <svg class="icon-svg" viewBox="0 0 80 80" aria-hidden="true">
+        <path d="M23 28 H48 C54 28, 57 31, 57 36 V50 H23" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"></path>
+        <path d="M29 35 H43 M29 42 H47 M29 49 H40" stroke="#fff" stroke-width="2.2" stroke-linecap="round"></path>
+        <path d="M38 55 C28 61, 22 69, 22 76 H36" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"></path>
+        <circle cx="62" cy="29" r="10" fill="none" stroke="#fff" stroke-width="2.2"></circle>
+        <circle cx="62" cy="30" r="4" fill="#fff"></circle>
+      </svg>
+    </div>
+
+    <svg class="flow-svg cluster-flow-1" viewBox="0 0 160 105" aria-hidden="true">
+      <defs>
+        <marker id="arrowHeadWhite1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#ffffff"></path>
+        </marker>
+      </defs>
+      <path d="M10 47 C50 37, 78 45, 110 39" fill="none" stroke="#ffffff" stroke-width="2.6" opacity="0.9" marker-end="url(#arrowHeadWhite1)"></path>
+    </svg>
+
+    <svg class="flow-svg cluster-flow-2" viewBox="0 0 156 85" aria-hidden="true">
+      <defs>
+        <marker id="arrowHeadWhite2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#ffffff"></path>
+        </marker>
+      </defs>
+      <path d="M20 66 C55 38, 82 40, 115 20" fill="none" stroke="#ffffff" stroke-width="2.6" opacity="0.85" marker-end="url(#arrowHeadWhite2)"></path>
+    </svg>
+
+    <svg class="flow-svg cluster-flow-3" viewBox="0 0 150 72" aria-hidden="true">
+      <defs>
+        <marker id="arrowHeadWhite3" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#ffffff"></path>
+        </marker>
+      </defs>
+      <path d="M38 55 C66 68, 92 62, 128 44" fill="none" stroke="#ffffff" stroke-width="2.6" opacity="0.85" marker-end="url(#arrowHeadWhite3)"></path>
+    </svg>
+
+    <div class="analysis-circle">
+      <svg class="analysis-icon" viewBox="0 0 80 80" aria-hidden="true">
+        <path d="M14 60 H64" stroke="#111" stroke-width="3" fill="none" stroke-linecap="round"></path>
+        <path d="M20 60 V42" stroke="#111" stroke-width="3" fill="none" stroke-linecap="round"></path>
+        <path d="M34 60 V34" stroke="#111" stroke-width="3" fill="none" stroke-linecap="round"></path>
+        <path d="M48 60 V26" stroke="#111" stroke-width="3" fill="none" stroke-linecap="round"></path>
+        <path d="M62 60 V20" stroke="#111" stroke-width="3" fill="none" stroke-linecap="round"></path>
+        <path d="M20 34 L34 22 L47 30 L62 14" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M58 14 H66 V22" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+
+    <div class="analysis-label">Components of a<br>Market Analysis</div>
+  </div>
+</div>
+</body>
+</html>

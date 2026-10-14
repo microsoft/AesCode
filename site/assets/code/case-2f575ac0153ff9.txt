@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Summary Report | Overall Goal Performance</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9eef5;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background: #f7f9fb;
+    color: #0b2b53;
+  }
+
+  .title {
+    position: absolute;
+    top: 48px;
+    left: 66px;
+    width: 1244px;
+    text-align: center;
+    font-size: 48px;
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: -1.2px;
+    color: #082d58;
+  }
+
+  .logo-placeholder {
+    position: absolute;
+    top: 36px;
+    right: 48px;
+    width: 142px;
+    height: 36px;
+    border: 1px solid #a9b2bc;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #818b95;
+    font-size: 16px;
+    font-weight: 600;
+    background: #ffffff;
+  }
+
+  .left-panel {
+    position: absolute;
+    left: 58px;
+    top: 138px;
+    width: 138px;
+    height: 560px;
+    background: #3683cf;
+    border-radius: 24px 24px 24px 24px;
+  }
+
+  .left-label {
+    position: absolute;
+    top: 82px;
+    left: 46px;
+    width: 86px;
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-align: center;
+    z-index: 4;
+  }
+
+  .icon-circle {
+    position: absolute;
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+    background: #ffffff;
+    z-index: 8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  }
+
+  .icon-circle.one {
+    left: 115px;
+    top: 34px;
+  }
+
+  .icon-circle.two {
+    left: 115px;
+    top: 174px;
+  }
+
+  .icon-circle.three {
+    left: 115px;
+    top: 318px;
+  }
+
+  .icon-circle.four {
+    left: 115px;
+    top: 460px;
+  }
+
+  .icon-circle svg {
+    width: 42px;
+    height: 42px;
+    stroke: #185c8f;
+    fill: none;
+    stroke-width: 3.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .band {
+    position: absolute;
+    left: 202px;
+    width: 1110px;
+    height: 132px;
+  }
+
+  .band.row1 {
+    top: 138px;
+  }
+
+  .band.row2 {
+    top: 280px;
+  }
+
+  .band.row3 {
+    top: 421px;
+  }
+
+  .band.row4 {
+    top: 562px;
+  }
+
+  .desc-box {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 610px;
+    height: 132px;
+    background: #e4ebf1;
+    border-radius: 18px;
+    padding: 10px 28px 10px 62px;
+  }
+
+  .desc-heading {
+    margin: 0 0 6px 0;
+    font-size: 21px;
+    line-height: 1.15;
+    color: #1964a0;
+    font-weight: 800;
+  }
+
+  .desc-text {
+    margin: 0;
+    font-size: 16.5px;
+    line-height: 1.18;
+    color: #111111;
+  }
+
+  .badge-zone {
+    position: absolute;
+    left: 630px;
+    top: 18px;
+    width: 260px;
+    height: 100px;
+  }
+
+  .pill-badge {
+    width: 248px;
+    height: 39px;
+    border: 2px solid #2478c7;
+    border-radius: 22px;
+    margin-bottom: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a2d46;
+    font-size: 17.5px;
+    background: rgba(255,255,255,0.62);
+    box-shadow: inset 0 0 0 1px rgba(36,120,199,0.08);
+  }
+
+  .rate-box {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 222px;
+    height: 132px;
+    text-align: center;
+    color: #ffffff;
+  }
+
+  .rate-box.dark {
+    background: #143f6b;
+  }
+
+  .rate-box.mid {
+    background: #448dcc;
+  }
+
+  .rate-box.bright {
+    background: #279af2;
+  }
+
+  .rate-box.muted {
+    background: #86b3df;
+  }
+
+  .rate-label {
+    position: absolute;
+    top: 24px;
+    left: 0;
+    width: 222px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .rate-percent {
+    position: absolute;
+    top: 52px;
+    left: 0;
+    width: 222px;
+    color: #ffffff;
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Summary Report | Overall Goal Performance</div>
+    <div class="logo-placeholder">YOUR LOGO</div>
+
+    <div class="left-panel">
+      <div class="left-label">Full Year Goal Achievement</div>
+    </div>
+
+    <div class="icon-circle one" aria-hidden="true">
+      <svg viewBox="0 0 48 48">
+        <circle cx="24" cy="20" r="12"></circle>
+        <path d="M13 34h22"></path>
+        <path d="M24 11v18"></path>
+        <path d="M15 17c4 4 12 4 18 0"></path>
+      </svg>
+    </div>
+
+    <div class="icon-circle two" aria-hidden="true">
+      <svg viewBox="0 0 48 48">
+        <circle cx="24" cy="15" r="8"></circle>
+        <path d="M12 38c2-10 7-14 12-14s10 4 12 14"></path>
+      </svg>
+    </div>
+
+    <div class="icon-circle three" aria-hidden="true">
+      <svg viewBox="0 0 48 48">
+        <path d="M8 34l13-13 10 10 8-8"></path>
+        <path d="M30 14h10v10"></path>
+        <path d="M15 29h17"></path>
+      </svg>
+    </div>
+
+    <div class="icon-circle four" aria-hidden="true">
+      <svg viewBox="0 0 48 48">
+        <path d="M9 39h29"></path>
+        <path d="M9 39V20"></path>
+        <polyline points="16,28 24,20 32,28 40,20"></polyline>
+        <polyline points="29,20 32,17 35,20"></polyline>
+      </svg>
+    </div>
+
+    <div class="band row1">
+      <div class="desc-box">
+        <div class="desc-heading">01. Annual Market Sales Revenue</div>
+        <p class="desc-text">Target: $1.7M; Actual: $1.5M; Achievement Rate: 91.7%. Missing the target was due to slower Q4 sales, despite steady growth in previous quarters.</p>
+      </div>
+      <div class="badge-zone">
+        <div class="pill-badge">Steady Growth</div>
+        <div class="pill-badge">Slight Shortfall</div>
+      </div>
+      <div class="rate-box dark">
+        <div class="rate-label">Goal Achievement Rate</div>
+        <div class="rate-percent">91.7%</div>
+      </div>
+    </div>
+
+    <div class="band row2">
+      <div class="desc-box">
+        <div class="desc-heading">02. Annual Cumulative Visitor Volume</div>
+        <p class="desc-text">Target: 8.0M visits; Actual: 8.2M visits; Achievement Rate: 102.5%. Optimization efforts in Q2 and Q3 successfully drove higher engagement and traffic.</p>
+      </div>
+      <div class="badge-zone">
+        <div class="pill-badge">Exceeded Target</div>
+        <div class="pill-badge">Diversified Traffic</div>
+      </div>
+      <div class="rate-box mid">
+        <div class="rate-label">Goal Achievement Rate</div>
+        <div class="rate-percent">102.5%</div>
+      </div>
+    </div>
+
+    <div class="band row3">
+      <div class="desc-box">
+        <div class="desc-heading">03. New Followers Added (Annual)</div>
+        <p class="desc-text">Through multi-channel online and offline campaigns and precision marketing: Target 150K; Actual 180K; Achievement Rate 120%. The expanded influencer partnerships and targeted ads performed exceptionally well.</p>
+      </div>
+      <div class="badge-zone">
+        <div class="pill-badge">Significantly Exceeded Target</div>
+        <div class="pill-badge">Precision Acquisition</div>
+      </div>
+      <div class="rate-box bright">
+        <div class="rate-label">Goal Achievement Rate</div>
+        <div class="rate-percent">120%</div>
+      </div>
+    </div>
+
+    <div class="band row4">
+      <div class="desc-box">
+        <div class="desc-heading">04. Returning Customer Repurchase Rate (Annual)</div>
+        <p class="desc-text">Target: 25%; Actual: 24%; Achievement Rate: 96%. Repurchase intent is strong, showing steady year-over-year growth, with retention strategies nearly meeting the ambitious goal.</p>
+      </div>
+      <div class="badge-zone">
+        <div class="pill-badge">Steady Improvement</div>
+        <div class="pill-badge">Near Target</div>
+      </div>
+      <div class="rate-box muted">
+        <div class="rate-label">Goal Achievement Rate</div>
+        <div class="rate-percent">96%</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

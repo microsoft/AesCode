@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foster a culture of innovation</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e9eef4;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .title {
+      position: absolute;
+      top: 40px;
+      left: 210px;
+      width: 956px;
+      text-align: center;
+      font-size: 48px;
+      line-height: 1.12;
+      font-weight: 800;
+      letter-spacing: -1.2px;
+    }
+
+    .subtitle {
+      position: absolute;
+      top: 104px;
+      left: 210px;
+      width: 956px;
+      text-align: center;
+      font-size: 31px;
+      line-height: 1.15;
+      font-weight: 700;
+      color: #0078d4;
+    }
+
+    .main-card {
+      position: absolute;
+      left: 68px;
+      top: 168px;
+      width: 1240px;
+      height: 384px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .left-stat {
+      position: absolute;
+      left: 62px;
+      top: 72px;
+      width: 350px;
+      height: 230px;
+      text-align: center;
+    }
+
+    .big-percent {
+      font-size: 98px;
+      line-height: 0.95;
+      font-weight: 800;
+      color: #0078d4;
+      letter-spacing: -4px;
+    }
+
+    .stat-copy {
+      margin-top: 18px;
+      width: 320px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-size: 27px;
+      line-height: 1.35;
+      font-weight: 400;
+      color: #050505;
+    }
+
+    .divider {
+      position: absolute;
+      left: 430px;
+      top: 32px;
+      width: 1px;
+      height: 318px;
+      background: #d7d7d7;
+    }
+
+    .claim {
+      position: absolute;
+      right: 78px;
+      top: 28px;
+      width: 510px;
+      text-align: center;
+      font-size: 30px;
+      line-height: 1.3;
+      font-weight: 800;
+    }
+
+    .claim .blue {
+      color: #0078d4;
+    }
+
+    .comparison-area {
+      position: absolute;
+      left: 480px;
+      top: 135px;
+      width: 690px;
+      height: 205px;
+    }
+
+    #impactBarChart {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 220px;
+      height: 150px;
+      z-index: 1;
+      opacity: 0.01;
+    }
+
+    .small-box {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 172px;
+      height: 178px;
+      z-index: 2;
+      background: #f2f2f2;
+      border: 1.6px dashed #9d9d9d;
+      border-radius: 10px;
+      text-align: center;
+      color: #0078d4;
+    }
+
+    .icon-circle {
+      width: 58px;
+      height: 58px;
+      border: 2.5px solid #9d9d9d;
+      border-radius: 50%;
+      margin: 22px auto 12px auto;
+      position: relative;
+      opacity: 0.75;
+    }
+
+    .icon-circle:before,
+    .icon-circle:after {
+      content: "";
+      position: absolute;
+      background: #9d9d9d;
+      border-radius: 2px;
+    }
+
+    .icon-circle:before {
+      width: 18px;
+      height: 2.5px;
+      left: 23px;
+      top: 16px;
+      transform: rotate(-125deg);
+    }
+
+    .icon-circle:after {
+      width: 12px;
+      height: 2.5px;
+      left: 29px;
+      top: 24px;
+      transform: rotate(-45deg);
+      background: #0078d4;
+    }
+
+    .small-box-percent {
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 800;
+      color: #0078d4;
+      margin-top: 0;
+    }
+
+    .small-caption {
+      position: absolute;
+      left: 0;
+      top: 182px;
+      width: 172px;
+      z-index: 2;
+      color: #7d7d7d;
+      text-align: center;
+      font-size: 24px;
+      line-height: 1.1;
+    }
+
+    .plus-sign {
+      position: absolute;
+      left: 200px;
+      top: 60px;
+      z-index: 3;
+      font-size: 42px;
+      font-weight: 800;
+      color: #0078d4;
+    }
+
+    .big-bar {
+      position: absolute;
+      left: 258px;
+      top: 0;
+      width: 474px;
+      height: 178px;
+      z-index: 2;
+      background: #087bdd;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 54px;
+      line-height: 1;
+      font-weight: 800;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+    }
+
+    .big-caption {
+      position: absolute;
+      left: 426px;
+      top: 182px;
+      z-index: 2;
+      color: #0078d4;
+      text-align: center;
+      font-size: 24px;
+      line-height: 1.1;
+      width: 220px;
+    }
+
+    .blue-band {
+      position: absolute;
+      left: 0;
+      bottom: 32px;
+      width: 1376px;
+      height: 142px;
+      background: #c9e6fb;
+    }
+
+    .quote {
+      position: absolute;
+      left: 84px;
+      top: 18px;
+      width: 1208px;
+      color: #050505;
+      font-size: 29px;
+      line-height: 1.35;
+      font-weight: 700;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .attribution {
+      position: absolute;
+      right: 48px;
+      top: 106px;
+      width: 500px;
+      text-align: right;
+      color: #0078d4;
+      font-size: 21px;
+      line-height: 1.15;
+      font-weight: 700;
+    }
+
+    .source {
+      position: absolute;
+      left: 16px;
+      bottom: 8px;
+      color: #1b1b1b;
+      font-size: 14px;
+      line-height: 1.15;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Foster a culture of innovation</div>
+    <div class="subtitle">Expand the impact of automation</div>
+
+    <section class="main-card" aria-label="Impact of automation metrics">
+      <div class="left-stat">
+        <div class="big-percent">40%</div>
+        <div class="stat-copy">additional value from expanding adoption to medium-impact use cases</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="claim">
+        <span class="blue">25% of employees</span> experience<br />
+        time savings by year 3
+      </div>
+
+      <div class="comparison-area" aria-label="High and medium impact comparison">
+        <div id="impactBarChart"></div>
+
+        <div class="small-box">
+          <div class="icon-circle"></div>
+          <div class="small-box-percent">5%</div>
+        </div>
+        <div class="small-caption">High impact</div>
+
+        <div class="plus-sign">+</div>
+
+        <div class="big-bar">20%</div>
+        <div class="big-caption">Medium impact</div>
+      </div>
+    </section>
+
+    <section class="blue-band" aria-label="Testimonial">
+      <div class="quote">“We’re seeing increased numbers of developers using low-code tools. Our ability to get things done has improved. We’re empowering people to solve their own problems.”</div>
+      <div class="attribution">— Vice President at an Entertainment firm</div>
+    </section>
+
+    <div class="source">Source: The Total Economic Impact™ of Microsoft Power Automate, a commissioned study conducted by Forrester Consulting</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    const chart = echarts.init(document.getElementById('impactBarChart'));
+    chart.setOption({
+      animation: false,
+      grid: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 36,
+        containLabel: false
+      },
+      xAxis: {
+        type: 'value',
+        min: 0,
+        max: 25,
+        show: false
+      },
+      yAxis: {
+        type: 'category',
+        inverse: true,
+        data: ['High impact', 'Medium impact'],
+        show: false
+      },
+      series: [
+        {
+          type: 'bar',
+          data: [5, 20],
+          barWidth: 28,
+          itemStyle: {
+            color: function(params) {
+              return params.dataIndex === 0 ? '#f2f2f2' : '#087bdd';
+            },
+            borderColor: function(params) {
+              return params.dataIndex === 0 ? '#9d9d9d' : '#087bdd';
+            },
+            borderWidth: function(params) {
+              return params.dataIndex === 0 ? 1.6 : 0;
+            },
+            borderType: function(params) {
+              return params.dataIndex === 0 ? 'dashed' : 'none';
+            }
+          },
+          label: {
+            show: true,
+            position: 'insideRight',
+            color: function(params) {
+              return params.dataIndex === 0 ? '#0078d4' : '#ffffff';
+            },
+            fontSize: 20,
+            fontWeight: 800,
+            formatter: '{c}%'
+          },
+          z: 1
+        }
+      ]
+    });
+  </script>
+</body>
+</html>

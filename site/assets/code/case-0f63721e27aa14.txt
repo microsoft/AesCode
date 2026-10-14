@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>ESG发展历程信息图</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #ffffff;
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", Arial, sans-serif;
+    color: #111827;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1200px;
+    height: 896px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .caption {
+    position: absolute;
+    left: 43px;
+    top: 14px;
+    font-size: 19px;
+    color: #202124;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  .title {
+    position: absolute;
+    left: 42px;
+    top: 46px;
+    width: 1118px;
+    font-size: 33px;
+    line-height: 1.28;
+    font-weight: 800;
+    color: #05070a;
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 42px;
+    top: 148px;
+    font-size: 22px;
+    color: #a6a6a6;
+    font-weight: 400;
+  }
+
+  .current-label {
+    position: absolute;
+    right: 165px;
+    top: 158px;
+    font-size: 18px;
+    color: #b93b3b;
+    font-weight: 700;
+  }
+
+  /* Timeline */
+  .timeline-bar {
+    position: absolute;
+    left: 88px;
+    top: 232px;
+    width: 1065px;
+    height: 22px;
+    background: linear-gradient(90deg, #d8d8d8 0%, #e8e8e8 62%, #cfcfcf 100%);
+    clip-path: polygon(0 0, 96% 0, 99% 50%, 96% 100%, 100% 50%, 100% 0);
+  }
+
+  .marker {
+    position: absolute;
+    top: 220px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 4px solid #b8d7ef;
+    background: #f6fbfe;
+    z-index: 4;
+    box-shadow: 0 0 0 10px rgba(184, 215, 239, 0.16);
+  }
+
+  .marker::after {
+    content: "";
+    position: absolute;
+    left: 17px;
+    top: 38px;
+    width: 2px;
+    height: 35px;
+    background: #77c6e1;
+  }
+
+  .m1 { left: 188px; }
+  .m2 { left: 470px; }
+  .m3 { left: 742px; }
+  .m4 { left: 1020px; }
+
+  .decade {
+    position: absolute;
+    top: 190px;
+    font-size: 20px;
+    color: #161616;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .d1 { left: 162px; width: 135px; }
+  .d2 { left: 444px; width: 130px; }
+  .d3 { left: 713px; width: 160px; }
+  .d4 { left: 998px; width: 125px; }
+
+  /* Left vertical labels */
+  .left-label {
+    position: absolute;
+    left: 35px;
+    width: 43px;
+    height: 161px;
+    background: #d8d8d8;
+    color: #111827;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 800;
+    font-size: 17px;
+    z-index: 5;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+
+  .left-label.top { top: 442px; }
+  .left-label.mid { top: 610px; height: 58px; font-size: 16px; }
+  .left-label.bottom {
+    top: 700px;
+    height: 140px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 15px;
+  }
+
+  /* Panels */
+  .panel {
+    position: absolute;
+    top: 288px;
+    height: 560px;
+    border-radius: 24px;
+    border: 1.8px solid rgba(90, 103, 118, 0.85);
+    box-shadow: 0 5px 12px rgba(60, 100, 120, 0.13);
+  }
+
+  .p1 {
+    left: 86px;
+    width: 260px;
+    background: linear-gradient(180deg, #c9def0 0%, #bad9f2 58%, #c5dcf2 100%);
+  }
+
+  .p2 {
+    left: 360px;
+    width: 260px;
+    background: linear-gradient(180deg, #bde6ef 0%, #c7e8ee 60%, #b8e0e8 100%);
+  }
+
+  .p3 {
+    left: 635px;
+    width: 260px;
+    background: linear-gradient(180deg, #aee0e8 0%, #bdece8 58%, #aee6e8 100%);
+  }
+
+  .p4 {
+    left: 910px;
+    width: 260px;
+    background: linear-gradient(180deg, #c9efed 0%, #c8ece8 60%, #bce9e5 100%);
+  }
+
+  .panel-top-icon {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    height: 86px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .panel-title {
+    position: absolute;
+    top: 110px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: 800;
+    color: #070b11;
+  }
+
+  .panel-body {
+    position: absolute;
+    top: 154px;
+    left: 12px;
+    right: 12px;
+    color: #111827;
+    font-size: 16px;
+    line-height: 1.38;
+    font-weight: 500;
+    text-align: justify;
+  }
+
+  .divider {
+    position: absolute;
+    left: 26px;
+    right: 26px;
+    height: 1px;
+    background: rgba(20, 50, 70, 0.35);
+  }
+
+  .d1-line { top: 328px; }
+  .d2-line { top: 332px; }
+  .d3-line { top: 332px; }
+  .d4-line { top: 332px; }
+
+  .panel-subheading {
+    position: absolute;
+    top: 356px;
+    left: 12px;
+    right: 12px;
+    text-align: center;
+    color: #111827;
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 800;
+  }
+
+  .sub2 { top: 354px; }
+  .sub3 { top: 354px; }
+  .sub4 { top: 352px; }
+
+  .bottom-icons {
+    position: absolute;
+    top: 430px;
+    left: 22px;
+    right: 22px;
+    height: 80px;
+    display: flex;
+    justify-content: space2;
+    align-items: center;
+  }
+
+  .bottom-caption {
+    position: absolute;
+    bottom: 18px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #111827;
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 800;
+  }
+
+  .source {
+    position: absolute;
+    left: 43px;
+    bottom: 12px;
+    color: #555e66;
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .copyright {
+    position: absolute;
+    right: 42px;
+    bottom: 14px;
+    color: #696969;
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  svg {
+    display: block;
+  }
+
+  .icon-stroke {
+    stroke: #1f2933;
+    stroke-width: 2.3;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .icon-fill-light {
+    fill: #f4fbfd;
+    stroke: #1f2933;
+    stroke-width: 2.1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="caption">ESG是什么？</div>
+  <div class="title">但ESG起初并不是人们讨论可持续发展的普遍起点，而是在2020年后才成为“主流”</div>
+  <div class="subtitle">ESG的发展历程</div>
+  <div class="current-label">现阶段</div>
+
+  <div class="decade d1">1980年代</div>
+  <div class="decade d2">1990年代</div>
+  <div class="decade d3">2000-2010年代</div>
+  <div class="decade d4">2020年代</div>
+
+  <div class="timeline-bar"></div>
+  <div class="marker m1"></div>
+  <div class="marker m2"></div>
+  <div class="marker m3"></div>
+  <div class="marker m4"></div>
+
+  <div class="left-label top">描述</div>
+  <div class="left-label mid">主要内容</div>
+  <div class="left-label bottom">有关ESG的重心</div>
+
+  <!-- Panel 1 -->
+  <div class="panel p1">
+    <div class="panel-top-icon">
+      <svg width="82" height="82" viewBox="0 0 82 82" aria-label="leaf and shield icon">
+        <path class="icon-stroke" d="M23 61C17 40 20 23 31 14C42 5 55 13 58 30C61 47 52 56 42 59C38 57 35 53 33 47" />
+        <path class="icon-stroke" d="M25 62V44M21 61V38M29 61V39M38 64V46" />
+        <path class="icon-stroke" d="M55 57L68 47L68 64L47 64Z" />
+        <path class="icon-stroke" d="M55 48V57M47 57H55M64 48V57M52 64H60" />
+        <path class="icon-stroke" d="M56 57L48 65M55 57L66 57M55 57L57 49" />
+      </svg>
+    </div>
+    <div class="panel-title">环境、健康与安全（EHS）</div>
+    <div class="panel-body">
+      在1980年代，环境、健康与安全（EHS）概念逐步兴起，重点关注工作场所的安全和环境事故。随着工业化进程加快，对员工健康和环境影响的监管力度逐渐加强，促使企业建立初步的EHS管理体系。
+    </div>
+    <div class="divider d1-line"></div>
+    <div class="panel-subheading">加强对环境与员工权力的监管</div>
+    <div class="bottom-icons">
+      <svg width="52" height="44" viewBox="0 0 52 44" aria-label="society icon">
+        <circle class="icon-fill-light" cx="28" cy="10" r="8"/>
+        <circle class="icon-fill-light" cx="12" cy="22" r="7"/>
+        <circle class="icon-fill-light" cx="44" cy="22" r="7"/>
+        <path class="icon-stroke" d="M12 38V30M44 38V30M28 38V26"/>
+      </svg>
+      <svg width="52" height="44" viewBox="0 0 52 44" aria-label="environment icon">
+        <path class="icon-stroke" d="M25 5C37 14 42 29 31 39C18 50 6 36 13 21C20 7 25 5 25 5Z"/>
+        <path class="icon-stroke" d="M13 21C12 24 12 27 14 30M32 21C33 23 33 26 31 29"/>
+      </svg>
+      <svg width="52" height="44" viewBox="0 0 52 44" aria-label="governance icon">
+        <path class="icon-stroke" d="M14 31L31 14L38 21L20 38ZM20 38L32 26L45 36"/>
+      </svg>
+    </div>
+    <div class="bottom-caption">以“社会”与“环境”为重心</div>
+  </div>
+
+  <!-- Panel 2 -->
+  <div class="panel p2">
+    <div class="panel-top-icon">
+      <svg width="82" height="82" viewBox="0 0 82 82" aria-label="eco development icon">
+        <circle class="icon-stroke" cx="42" cy="40" r="24"/>
+        <path class="icon-stroke" d="M32 21C21 28 16 38 19 48C22 58 32 63 43 57"/>
+        <path class="icon-stroke" d="M57 28C68 25 77 32 77 43C76 53 67 58 56 53"/>
+        <path class="icon-stroke" d="M28 58C20 61 15 55 18 48"/>
+        <path class="icon-stroke" d="M52 66C60 63 66 57 62 49"/>
+      </svg>
+    </div>
+    <div class="panel-title">可持续性发展</div>
+    <div class="panel-body">
+      在1990年代，可持续发展的概念得到广泛认可，超越了基本的法律合规要求。企业开始关注其运营对环境的长期影响，致力于减少碳排放、资源消耗和污染，追求经济、社会和环境的协调发展。
+    </div>
+    <div class="divider d2-line"></div>
+    <div class="panel-subheading sub2">在法律义务之外减少对环境的负面影响</div>
+    <div class="bottom-icons">
+      <svg width="55" height="44" viewBox="0 0 55 44" aria-label="factory icon">
+        <path class="icon-stroke" d="M12 33H42M17 13V30M28 9V30M39 19V30"/>
+      </svg>
+      <svg width="55" height="44" viewBox="0 0 55 44" aria-label="globe icon">
+        <circle class="icon-stroke" cx="28" cy="22" r="15"/>
+        <path class="icon-stroke" d="M13 13L31 31M32 13L14 31"/>
+      </svg>
+      <svg width="55" height="44" viewBox="0 0 55 44" aria-label="leaf icon">
+        <path class="icon-stroke" d="M31 8C47 18 48 35 34 42C18 50 16 22 22 11"/>
+      </svg>
+    </div>
+    <div class="bottom-caption">以“环境”为重心</div>
+  </div>
+
+  <!-- Panel 3 -->
+  <div class="panel p3">
+    <div class="panel-top-icon">
+      <svg width="86" height="82" viewBox="0 0 86 82" aria-label="corporate responsibility icon">
+        <path class="icon-stroke" d="M26 34H60C67 34 71 28 71 23C71 18 66 14 58 14C51 14 48 18 44 23H28C20 23 15 28 15 34C15 40 20 44 28 44H38V62H30V47C24 46 20 42 20 36C20 30 25 26 32 26H44C51 26 56 30 56 36C56 42 51 46 45 46H38V62H30V44H26Z"/>
+        <circle class="icon-fill-light" cx="43" cy="18" r="8"/>
+        <circle class="icon-fill-light" cx="28" cy="14" r="6"/>
+        <circle class="icon-fill-light" cx="58" cy="14" r="6"/>
+      </svg>
+    </div>
+    <div class="panel-title">企业社会责任（CSR）</div>
+    <div class="panel-body">
+      在2000年至2010年间，企业社会责任（CSR）成为主流，强调企业在追求利润的同时，也应承担对员工、消费者、社区和环境的责任。重点在于道德商业实践、慈善活动和利益相关方参与。
+    </div>
+    <div class="divider d3-line"></div>
+    <div class="panel-subheading sub3">注重道德和慈善责任</div>
+    <div class="bottom-icons">
+      <svg width="55" height="44" viewBox="0 0 55 44" aria-label="handshake icon">
+        <path class="icon-stroke" d="M12 28H22L26 32L33 25L42 34"/>
+      </svg>
+      <svg width="55" height="44" viewBox="0 0 55 44" aria-label="heart cross icon">
+        <path class="icon-stroke" d="M28 8C18 16 18 28 28 35C38 28 38 16 28 8Z"/>
+        <path class="icon-stroke" d="M28 14V24M18 24H28"/>
+      </svg>
+      <svg width="55" height="44" viewBox="0 0 55 44" aria-label="building icon">
+        <path class="icon-stroke" d="M20 26H48M25 14V31M35 10V31M45 17V31"/>
+      </svg>
+    </div>
+    <div class="bottom-caption">以“社会”与“公司治理”为重心，同时也关注“环境”</div>
+  </div>
+
+  <!-- Panel 4 -->
+  <div class="panel p4">
+    <div class="panel-top-icon">
+      <svg width="84" height="82" viewBox="0 0 84 82" aria-label="globe and building icon">
+        <circle class="icon-stroke" cx="34" cy="30" r="24"/>
+        <path class="icon-stroke" d="M13 24H55M26 12C29 23 29 36 26 49M42 18C43 29 43 39 42 50"/>
+        <path class="icon-stroke" d="M53 20H70V61H52M62 28V43M62 52V61M53 37H64M53 47H64"/>
+      </svg>
+    </div>
+    <div class="panel-title">环境、社会与公司治理<br>（ESG）</div>
+    <div class="panel-body">
+      2020年后，ESG成为主流，作为全面评估企业绩效和风险的关键框架。它涵盖了环境、社会和公司治理三个方面的均衡评价，投资者和利益相关方更加重视企业在应对气候变化、社会公平和透明治理方面的表现。
+    </div>
+    <div class="divider d4-line"></div>
+    <div class="panel-subheading sub4">对环境、社会与公司治理三个方面的均衡全面的评价</div>
+    <div class="bottom-icons">
+      <svg width="55" height="44" viewBox="0 0 55 44" aria-label="bar chart icon">
+        <path class="icon-stroke" d="M10 33H45M14 28V18M24 22V13M34 18V25M44 14V28"/>
+      </svg>
+      <svg width="55" height="44" viewBox="0 0 55 44" aria-label="society icon">
+        <circle class="icon-fill-light" cx="28" cy="10" r="8"/>
+        <circle class="icon-fill-light" cx="12" cy="25" r="7"/>
+        <circle class="icon-fill-light" cx="44" cy="25" r="7"/>
+        <path class="icon-stroke" d="M12 39V31M44 39V31M28 39V28"/>
+      </svg>
+      <svg width="55" height="44" viewBox="0 0 55 44" aria-label="balance scale icon">
+        <path class="icon-stroke" d="M28 9V19M15 18H41M12 22L8 34M43 22L48 34"/>
+      </svg>
+    </div>
+    <div class="bottom-caption">全面考虑“环境”“社会”与“公司治理”</div>
+  </div>
+
+  <div class="source">资料来源：德勤研究、OC&amp;C分析</div>
+  <div class="copyright">© OC&amp;C Strategy Consultants 2022</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hyperliquid Landing Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #8ff0d8;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1408px;
+      height: 1056px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(74, 255, 214, 0.22), transparent 22%),
+        radial-gradient(circle at 80% 20%, rgba(26, 103, 91, 0.22), transparent 24%),
+        radial-gradient(circle at 50% 82%, rgba(51, 255, 212, 0.16), transparent 32%),
+        linear-gradient(135deg, #8ff5d7 0%, #54dfd4 45%, #6cf0c8 100%);
+      color: #fff;
+    }
+
+    .page {
+      position: absolute;
+      left: 32px;
+      top: 20px;
+      width: 1344px;
+      height: 1016px;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 22% 22%, rgba(43, 255, 218, 0.12), transparent 28%),
+        radial-gradient(circle at 78% 28%, rgba(30, 105, 94, 0.10), transparent 26%),
+        radial-gradient(circle at 50% 72%, rgba(60, 255, 218, 0.08), transparent 34%),
+        #02090b;
+      border: 1px solid rgba(114, 255, 224, 0.28);
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.45),
+        inset 0 0 30px rgba(82, 255, 222, 0.06);
+      overflow: hidden;
+    }
+
+    .nav {
+      position: absolute;
+      left: 42px;
+      top: 16px;
+      width: 1260px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -0.7px;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #72f6d2, #53e2a6);
+      box-shadow: 0 0 15px rgba(82, 255, 216, 0.55);
+      position: relative;
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      width: 20px;
+      height: 14px;
+      border-radius: 50%;
+      background: #051113;
+    }
+
+    .brand-mark::before {
+      left: -12px;
+      box-shadow: 0 0 10px rgba(114, 246, 210, 0.65);
+    }
+
+    .brand-mark::after {
+      right: -12px;
+      box-shadow: 0 0 10px rgba(82, 226, 166, 0.65);
+    }
+
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 17px;
+    }
+
+    .nav-button {
+      min-width: 104px;
+      height: 36px;
+      border: 1px solid rgba(151, 255, 232, 0.36);
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #f4fbfa;
+    }
+
+    .nav-button.primary {
+      min-width: 150px;
+      background: #87f4d2;
+      color: #051011;
+      box-shadow: 0 0 15px rgba(135, 244, 210, 0.42);
+    }
+
+    /* Left main column */
+    .hero-card {
+      position: absolute;
+      left: 15px;
+      top: 66px;
+      width: 788px;
+      height: 386px;
+      border-radius: 18px;
+      border: 1px solid rgba(73, 246, 220, 0.46);
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% 22%, rgba(54, 255, 220, 0.20), transparent 35%),
+        linear-gradient(180deg, rgba(3, 22, 24, 0.72), rgba(3, 13, 15, 0.92));
+    }
+
+    .hero-card .arc {
+      position: absolute;
+      left: -80px;
+      top: -82px;
+      width: 950px;
+      height: 230px;
+      border-radius: 50%;
+      border-top: 3px solid rgba(96, 255, 224, 0.86);
+      border-left: 1px solid rgba(78, 230, 210, 0.28);
+      border-right: 1px solid rgba(78, 230, 210, 0.28);
+      filter: drop-shadow(0 0 16px rgba(92, 255, 220, 0.85));
+      opacity: 0.95;
+    }
+
+    .hero-text {
+      position: absolute;
+      left: 110px;
+      top: 70px;
+      width: 600px;
+      text-align: center;
+    }
+
+    .hero-text h1 {
+      margin: 0 0 18px;
+      font-size: 42px;
+      line-height: 1.28;
+      letter-spacing: -1.3px;
+      font-weight: 850;
+      text-shadow: 0 0 12px rgba(80, 255, 220, 0.17);
+    }
+
+    .hero-text p {
+      margin: 0 auto 24px;
+      width: 530px;
+      font-size: 16px;
+      color: #f0f8f6;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 13px;
+    }
+
+    .pill {
+      width: 200px;
+      height: 42px;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .pill.filled {
+      background: #88f4d1;
+      color: #061213;
+      box-shadow: 0 0 14px rgba(136, 244, 209, 0.58);
+    }
+
+    .pill.outlined {
+      border: 1.5px solid rgba(132, 255, 224, 0.86);
+      color: #9af6dc;
+      background: rgba(10, 30, 32, 0.26);
+    }
+
+    .dashboard-shell {
+      position: absolute;
+      left: 15px;
+      top: 456px;
+      width: 788px;
+      height: 440px;
+      border-radius: 16px;
+      border: 1px solid rgba(75, 248, 223, 0.38);
+      background: #051112;
+      overflow: hidden;
+    }
+
+    .dashboard-placeholder {
+      position: absolute;
+      left: 31px;
+      top: 12px;
+      width: 726px;
+      height: 250px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(100, 255, 224, 0.18);
+    }
+
+    .dashboard-placeholder img {
+      display: block;
+      width: 726px;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .mini-tables {
+      position: absolute;
+      left: 84px;
+      bottom: 18px;
+      width: 620px;
+      height: 174px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      color: #e8f8f5;
+      font-size: 10px;
+    }
+
+    .mini-tables table th,
+    .mini-tables table td {
+      border: 1px solid rgba(106, 240, 219, 0.15);
+      padding: 5px 6px;
+      text-align: left;
+    }
+
+    .mini-tables table th {
+      background: rgba(108, 240, 218, 0.10);
+      font-weight: 700;
+    }
+
+    /* Right column */
+    .stack-card {
+      position: absolute;
+      left: 817px;
+      top: 66px;
+      width: 512px;
+      height: 408px;
+      border-radius: 16px;
+      border: 1px solid rgba(90, 250, 224, 0.42);
+      padding: 26px 24px 18px;
+      background: rgba(2, 12, 14, 0.48);
+    }
+
+    .stack-card h2 {
+      margin: 0 0 10px;
+      font-size: 26px;
+      line-height: 1.14;
+      letter-spacing: -0.5px;
+    }
+
+    .stack-card p {
+      margin: 0 0 14px;
+      font-size: 14px;
+      color: #f1fbfa;
+    }
+
+    .stack-illustration {
+      width: 400px;
+      height: 150px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 0 auto 12px;
+      border: 1px solid rgba(102, 249, 220, 0.24);
+    }
+
+    .stack-illustration img {
+      display: block;
+      width: 400px;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .metrics-table {
+      position: absolute;
+      left: 817px;
+      top: 480px;
+      width: 512px;
+      height: 122px;
+      border-collapse: collapse;
+      table-layout: fixed;
+      background: #061314;
+      border: 1px solid rgba(102, 250, 224, 0.36);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .metrics-table th,
+    .metrics-table td {
+      border: 1px solid rgba(102, 250, 224, 0.30);
+      padding: 10px 12px;
+      text-align: center;
+    }
+
+    .metrics-table th {
+      font-size: 13px;
+      color: #f3fbfa;
+      background: rgba(82, 255, 222, 0.04);
+      font-weight: 700;
+    }
+
+    .metrics-table td {
+      font-size: 21px;
+      color: #8ff3d7;
+      font-weight: 800;
+    }
+
+    .governance-card {
+      position: absolute;
+      left: 817px;
+      top: 622px;
+      width: 512px;
+      height: 204px;
+      border-radius: 15px;
+      border: 1px solid rgba(86, 250, 223, 0.42);
+      background: linear-gradient(135deg, rgba(4, 20, 22, 0.73), rgba(2, 11, 12, 0.82));
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 22px;
+    }
+
+    .governance-icon {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 2px solid rgba(110, 255, 224, 0.72);
+      background:
+        radial-gradient(circle, rgba(130, 255, 218, 0.23), transparent 43%),
+        linear-gradient(135deg, transparent 32%, rgba(82, 255, 220, 0.17) 32%, rgba(82, 255, 220, 0.17) 50%, transparent 50%);
+      box-shadow: 0 0 20px rgba(110, 255, 224, 0.42);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .governance-icon span {
+      width: 48px;
+      height: 26px;
+      border-radius: 50%;
+      background: #8ff5d2;
+    }
+
+    .governance-text {
+      font-size: 15px;
+      line-height: 1.45;
+      color: #fbfbfb;
+    }
+
+    .governance-actions {
+      margin-top: 12px;
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .governance-actions .pill {
+      width: 140px;
+      height: 36px;
+      border-radius: 22px;
+      font-size: 12px;
+    }
+
+    .subscription-strip {
+      position: absolute;
+      left: 15px;
+      bottom: 31px;
+      width: 1312px;
+      height: 130px;
+      border-radius: 16px;
+      border: 1px solid rgba(80, 255, 222, 0.46);
+      background:
+        radial-gradient(circle at 16% 45%, rgba(90, 255, 220, 0.13), transparent 27%),
+        #041011;
+      display: flex;
+      align-items: center;
+      justify-content: space0between;
+      padding: 0 27px 0 28px;
+    }
+
+    .subscription-left {
+      width: 610px;
+    }
+
+    .subscription-left h2 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      letter-spacing: -0.3px;
+    }
+
+    .subscription-left p {
+      margin: 0;
+      font-size: 14px;
+      color: #eefbf8;
+    }
+
+    .subscription-center {
+      width: 430px;
+    }
+
+    .email-form {
+      display: flex;
+      height: 48px;
+      border: 1px solid rgba(104, 250, 224, 0.33);
+      border-radius: 12px;
+      background: #071819;
+      overflow: hidden;
+      align-items: center;
+    }
+
+    .email-form .input {
+      width: 320px;
+      padding-left: 21px;
+      font-size: 13px;
+      color: #95eef6;
+    }
+
+    .email-form .subscribe-button {
+      width: 156px;
+      background: #8af6d2;
+      color: #071314;
+      display: flex;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    .subscription-right {
+      width: 230px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .floating-dot {
+      position: absolute;
+      border-radius: 50%;
+      background: #6ff6c9;
+      box-shadow: 0 0 12px rgba(111, 246, 201, 0.72);
+      opacity: 0.8;
+    }
+
+    .dot-1 {
+      width: 5px;
+      height: 5px;
+      left: 165px;
+      top: 182px;
+    }
+
+    .dot-2 {
+      width: 4px;
+      height: 4px;
+      left: 425px;
+      top: 263px;
+    }
+
+    .dot-3 {
+      width: 6px;
+      height: 6px;
+      right: 127px;
+      bottom: 57px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <main class="page">
+      <div class="nav">
+        <div class="brand">
+          <div class="brand-mark"></div>
+          <div>Hyperliquid</div>
+        </div>
+        <div class="nav-buttons">
+          <div class="nav-button">Docs</div>
+          <div class="nav-button">Stats</div>
+          <div class="nav-button primary">Launch App ↗</div>
+        </div>
+      </div>
+
+      <section class="hero-card">
+        <div class="arc"></div>
+        <div class="hero-text">
+          <h1>The Blockchain Revolution<br>To House All Finance</h1>
+          <p>Crypto is fragmented today. Hyperliquid is the hyper-performant chain for building projects and exchanging assets.</p>
+          <div class="hero-actions">
+            <div class="pill filled">Start Trading</div>
+            <div class="pill outlined">Start Building</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-shell">
+        <div class="dashboard-placeholder">
+          <img src="https://placehold.co/900x320?text=Trading+Dashboard" alt="Trading Dashboard placeholder">
+        </div>
+        <div class="mini-tables">
+          <table>
+            <tr>
+              <th>Market</th>
+              <th>Side</th>
+              <th>Size</th>
+              <th>Entry Price</th>
+              <th>Mark Price</th>
+              <th>Liq. Price</th>
+              <th>PNL (USD)</th>
+              <th>ROE</th>
+            </tr>
+            <tr>
+              <td>BTC-USD</td>
+              <td>Long</td>
+              <td>2.50 BTC</td>
+              <td>66,210.1</td>
+              <td>68,432.7</td>
+              <td>58,102.3</td>
+              <td>+5,556.50</td>
+              <td>+16.82%</td>
+            </tr>
+            <tr>
+              <td>ETH-USD</td>
+              <td>Long</td>
+              <td>15.00 ETH</td>
+              <td>3,214.6</td>
+              <td>3,452.2</td>
+              <td>2,615.7</td>
+              <td>+3,563.40</td>
+              <td>+14.73%</td>
+            </tr>
+            <tr>
+              <td>SOL-USD</td>
+              <td>Short</td>
+              <td>150.00 SOL</td>
+              <td>152.31</td>
+              <td>148.67</td>
+              <td>188.92</td>
+              <td>+548.40</td>
+              <td>+8.21%</td>
+            </tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="stack-card">
+        <h2>The Hyperliquid Stack</h2>
+        <p>A cutting-edge infrastructure purpose-built to power the next generation of decentralized finance.</p>
+        <div class="stack-illustration">
+          <img src="https://placehold.co/420x220?text=Hyperliquid+Stack+Illustration" alt="Hyperliquid Stack Illustration placeholder">
+        </div>
+      </section>
+
+      <table class="metrics-table" aria-label="Network metrics">
+        <tr>
+          <th>Block time</th>
+          <th>Users</th>
+          <th>Transactions per second</th>
+          <th>Daily volume</th>
+        </tr>
+        <tr>
+          <td>0.2 seconds</td>
+          <td>375,770</td>
+          <td>200,000</td>
+          <td>$5.1B</td>
+        </tr>
+      </table>
+
+      <section class="governance-card">
+        <div class="governance-icon">
+          <span></span>
+        </div>
+        <div>
+          <div class="governance-text">
+            Anyone can own, govern, and secure Hyperliquid through our native token. Join a community that builds, trades, and governs the future of decentralized finance—together.
+          </div>
+          <div class="governance-actions">
+            <div class="pill filled">Start Trading</div>
+            <div class="pill outlined">Start Building</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="subscription-strip">
+        <div class="subscription-left">
+          <h2>Community First.</h2>
+          <p>Stay up to date with the latest news, product updates, and ecosystem announcements.</p>
+        </div>
+        <div class="subscription-center">
+          <div class="email-form">
+            <div class="input">Enter your email</div>
+            <div class="subscribe-button">Subscribe</div>
+          </div>
+        </div>
+        <div class="subscription-right"></div>
+      </section>
+
+      <div class="floating-dot dot-1"></div>
+      <div class="floating-dot dot-2"></div>
+      <div class="floating-dot dot-3"></div>
+    </main>
+  </div>
+</body>
+</html>

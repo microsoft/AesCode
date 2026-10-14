@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Work Summary Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #d9d2c7;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background: #f8f5ef;
+      color: #1f1f1f;
+    }
+
+    /* Background abstract shapes */
+    .bg-arc-top-left {
+      position: absolute;
+      left: -110px;
+      top: -235px;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      border: 1px solid rgba(161, 137, 110, 0.35);
+      background: radial-gradient(circle at 40% 40%, rgba(180, 145, 110, 0.23), transparent 46%);
+      z-index: 1;
+    }
+
+    .bg-blob-top {
+      position: absolute;
+      left: -80px;
+      top: -180px;
+      width: 500px;
+      height: 430px;
+      border-radius: 52% 48% 42% 58%;
+      background: rgba(171, 138, 104, 0.22);
+      z-index: 2;
+      transform: rotate(32deg);
+    }
+
+    .bg-arc-top-right {
+      position: absolute;
+      right: -210px;
+      top: -240px;
+      width: 700px;
+      height: 640px;
+      border-radius: 50%;
+      border-left: 1px solid rgba(118, 140, 116, 0.28);
+      background: radial-gradient(circle at 58% 50%, rgba(172, 188, 170, 0.16), transparent 55%);
+      z-index: 2;
+    }
+
+    .bg-blob-right {
+      position: absolute;
+      right: -140px;
+      top: 350px;
+      width: 520px;
+      height: 380px;
+      border-radius: 44% 52% 40% 48%;
+      background: rgba(152, 168, 146, 0.28);
+      z-index: 3;
+    }
+
+    .bg-dot-corner {
+      position: absolute;
+      right: 22px;
+      bottom: 54px;
+      width: 94px;
+      height: 100px;
+      background-image: radial-gradient(#838d82 3px, transparent 3.6px);
+      background-size: 18px 18px;
+      opacity: 0.65;
+      z-index: 4;
+    }
+
+    .main-panel {
+      position: absolute;
+      left: 46px;
+      top: 41px;
+      width: 1188px;
+      height: 610px;
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 33px;
+      box-shadow: 0 14px 32px rgba(110, 89, 68, 0.14);
+      z-index: 6;
+    }
+
+    .panel-top-title {
+      position: absolute;
+      left: 48px;
+      top: 33px;
+      color: #744121;
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.6px;
+      line-height: 1.08;
+    }
+
+    .panel-subtitle {
+      position: absolute;
+      left: 58px;
+      top: 87px;
+      color: #8b532e;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+    }
+
+    .initiative {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      min-width: 420px;
+      min-height: 185px;
+    }
+
+    .initiative.top-left {
+      left: 42px;
+      top: 145px;
+    }
+
+    .initiative.top-right {
+      left: 600px;
+      top: 145px;
+    }
+
+    .initiative.bottom-left {
+      left: 42px;
+      top: 368px;
+    }
+
+    .initiative.bottom-right {
+      left: 600px;
+      top: 368px;
+    }
+
+    .diamond-icon {
+      width: 182px;
+      height: 182px;
+      margin-right: 34px;
+      border: 2px solid #8c5834;
+      background: var(--diamond-color);
+      border-radius: 24px;
+      transform: rotate(45deg);
+      box-shadow: 0 6px 12px rgba(106, 73, 50, 0.12);
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .diamond-icon::after {
+      content: "";
+      position: absolute;
+      inset: 38px;
+      border: 2px solid rgba(255, 255, 255, 0.95);
+      border-radius: 50%;
+      transform: rotate(45deg);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .diamond-icon.green {
+      background: #6f8f58;
+      border-color: #7e9968;
+    }
+
+    .diamond-icon.gold {
+      background: #c5b361;
+      border-color: #a89257;
+    }
+
+    .bulb-svg {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 74px;
+      height: 74px;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      z-index: 2;
+    }
+
+    .text-block {
+      width: 330px;
+    }
+
+    .heading-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 13px;
+    }
+
+    .initiative-heading {
+      font-size: 29px;
+      line-height: 1.1;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      white-space: nowrap;
+    }
+
+    .top-left .initiative-heading {
+      color: #191919;
+    }
+
+    .top-right .initiative-heading {
+      color: #1b1b1b;
+      font-size: 28px;
+    }
+
+    .bottom-left .initiative-heading {
+      color: #243429;
+      font-size: 29px;
+    }
+
+    .bottom-right .initiative-heading {
+      color: #253629;
+      font-size: 28px;
+    }
+
+    .arrow-line {
+      height: 1px;
+      width: 136px;
+      background: #8b5631;
+      position: relative;
+      margin-left: 2px;
+    }
+
+    .arrow-line::after {
+      content: "";
+      position: absolute;
+      right: -11px;
+      top: -7px;
+      width: 12px;
+      height: 12px;
+      border-top: 2px solid currentColor;
+      border-right: 2px solid currentColor;
+      transform: rotate(45deg);
+    }
+
+    .top-left .arrow-line {
+      color: #8b5631;
+      background: #8b5631;
+      width: 134px;
+    }
+
+    .top-right .arrow-line {
+      color: #9d6643;
+      background: #9d6643;
+      width: 82px;
+    }
+
+    .bottom-left .arrow-line {
+      color: #687760;
+      background: #687760;
+      width: 55px;
+    }
+
+    .bottom-right .arrow-line {
+      color: #778168;
+      background: #778168;
+      width: 56px;
+    }
+
+    .paragraph {
+      font-size: 16.5px;
+      line-height: 1.48;
+      color: #171717;
+      margin: 0;
+      letter-spacing: 0.05px;
+    }
+
+    .leaf-cluster-top {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 170px;
+      height: 120px;
+      z-index: 10;
+      opacity: 0.78;
+    }
+
+    .leaf-cluster-bottom {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 130px;
+      height: 125px;
+      z-index: 10;
+      opacity: 0.78;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="bg-arc-top-left"></div>
+    <div class="bg-blob-top"></div>
+    <div class="bg-arc-top-right"></div>
+    <div class="bg-blob-right"></div>
+    <div class="bg-dot-corner"></div>
+
+    <div class="leaf-cluster-top">
+      <svg width="170" height="120" viewBox="0 0 170 120" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#5d7253" stroke-width="1.5">
+          <path d="M55 70 C80 53, 102 44, 136 28" />
+          <path d="M78 82 C90 62, 113 60, 145 48" />
+          <path d="M102 100 C103 72, 116 57, 150 50" />
+          <path d="M36 82 C50 92, 56 110, 62 122" />
+          <path d="M118 40 C123 64, 126 84, 124 110" />
+        </g>
+        <g fill="#798b6a">
+          <ellipse cx="64" cy="42" rx="18" ry="11" transform="rotate(28 64 42)" />
+          <ellipse cx="84" cy="56" rx="18" ry="11" transform="rotate(42 84 56)" />
+          <ellipse cx="105" cy="68" rx="19" ry="11" transform="rotate(52 105 68)" />
+          <ellipse cx="128" cy="82" rx="17" ry="12" transform="rotate(63 128 82)" />
+          <ellipse cx="48" cy="96" rx="17" ry="10" transform="rotate(-35 48 96)" />
+          <ellipse cx="133" cy="30" rx="17" ry="10" transform="rotate(33 133 30)" />
+          <ellipse cx="114" cy="22" rx="16" ry="10" transform="rotate(-13 114 22)" />
+          <ellipse cx="148" cy="50" rx="16" ry="10" transform="rotate(18 148 50)" />
+        </g>
+      </svg>
+    </div>
+
+    <div class="leaf-cluster-bottom">
+      <svg width="130" height="125" viewBox="0 0 130 125" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#5d7253" stroke-width="1.5">
+          <path d="M65 74 C33 51, 12 40, 2 31" />
+          <path d="M62 88 C55 64, 42 55, 25 48" />
+          <path d="M66 97 C75 62, 82 50, 96 43" />
+          <path d="M74 112 C83 86, 97 80, 112 77" />
+        </g>
+        <g fill="#798b6a">
+          <ellipse cx="27" cy="56" rx="15" ry="10" transform="rotate(-28 27 56)" />
+          <ellipse cx="47" cy="68" rx="15" ry="10" transform="rotate(-36 47 68)" />
+          <ellipse cx="69" cy="80" rx="15" ry="10" transform="rotate(-45 69 80)" />
+          <ellipse cx="86" cy="92" rx="15" ry="10" transform="rotate(-52 86 92)" />
+        </g>
+      </svg>
+    </div>
+
+    <main class="main-panel">
+      <div class="panel-top-title">Work Summary</div>
+      <div class="panel-subtitle">Review Of Work Content</div>
+
+      <section class="initiative top-left">
+        <div class="diamond-icon" style="--diamond-color:#8f6039;">
+          <svg class="bulb-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M32 45 C24 35, 25 23, 35 20 C45 17, 52 28, 48 38" />
+              <path d="M48 45 C40 35, 39 23, 49 20 C59 17, 66 28, 62 38" />
+              <path d="M30 58 H50" />
+              <path d="M31 70 H49" />
+              <path d="M33 51 C32 38, 31 32, 35 28" />
+              <path d="M47 51 C48 38, 49 32, 45 28" />
+            </g>
+            <g stroke="#fff" stroke-width="3">
+              <line x1="40" y1="14" x2="40" y2="6" />
+              <line x1="28" y1="22" x2="20" y2="18" />
+              <line x1="52" y1="22" x2="60" y2="18" />
+              <line x1="18" y1="35" x2="10" y2="35" />
+              <line x1="62" y1="35" x2="70" y2="35" />
+            </g>
+          </svg>
+        </div>
+        <div class="text-block">
+          <div class="heading-row">
+            <div class="initiative-heading">Set Goals</div>
+            <div class="arrow-line"></div>
+          </div>
+          <p class="paragraph">
+            Define clear, measurable annual goals focused on business growth and market expansion to create value and achieve sustainable success.
+          </p>
+        </div>
+      </section>
+
+      <section class="initiative top-right">
+        <div class="diamond-icon" style="--diamond-color:#ae7b53;">
+          <svg class="bulb-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M32 45 C24 35, 25 23, 35 20 C45 17, 52 28, 48 38" />
+              <path d="M48 45 C40 35, 39 23, 49 20 C59 17, 66 28, 62 38" />
+              <path d="M30 58 H50" />
+              <path d="M31 70 H49" />
+              <path d="M33 51 C32 38, 31 32, 35 28" />
+              <path d="M47 51 C48 38, 49 32, 45 28" />
+            </g>
+            <g stroke="#fff" stroke-width="3">
+              <line x1="40" y1="14" x2="40" y2="6" />
+              <line x1="28" y1="22" x2="20" y2="18" />
+              <line x1="52" y1="22" x2="60" y2="18" />
+              <line x1="18" y1="35" x2="10" y2="35" />
+              <line x1="62" y1="35" x2="70" y2="35" />
+            </g>
+          </svg>
+        </div>
+        <div class="text-block">
+          <div class="heading-row">
+            <div class="initiative-heading">Build the Team</div>
+            <div class="arrow-line"></div>
+          </div>
+          <p class="paragraph">
+            Strengthen professional skills training and attract top talent to build a modern, high-performing, and collaborative organization.
+          </p>
+        </div>
+      </section>
+
+      <section class="initiative bottom-left">
+        <div class="diamond-icon green">
+          <svg class="bulb-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M32 45 C24 35, 25 23, 35 20 C45 17, 52 28, 48 38" />
+              <path d="M48 45 C40 35, 39 23, 49 20 C59 17, 66 28, 62 38" />
+              <path d="M30 58 H50" />
+              <path d="M31 70 H49" />
+              <path d="M33 51 C32 38, 31 32, 35 28" />
+              <path d="M47 51 C48 38, 49 32, 45 28" />
+            </g>
+            <g stroke="#fff" stroke-width="3">
+              <line x1="40" y1="14" x2="40" y2="6" />
+              <line x1="28" y1="22" x2="20" y2="18" />
+              <line x1="52" y1="22" x2="60" y2="18" />
+              <line x1="18" y1="35" x2="10" y2="35" />
+              <line x1="62" y1="35" x2="70" y2="35" />
+            </g>
+          </svg>
+        </div>
+        <div class="text-block">
+          <div class="heading-row">
+            <div class="initiative-heading">Enhance Service</div>
+            <div class="arrow-line"></div>
+          </div>
+          <p class="paragraph">
+            Optimize customer service processes and deliver superior product quality to improve customer satisfaction and loyalty.
+          </p>
+        </div>
+      </section>
+
+      <section class="initiative bottom-right">
+        <div class="diamond-icon gold">
+          <svg class="bulb-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M32 45 C24 35, 25 23, 35 20 C45 17, 52 28, 48 38" />
+              <path d="M48 45 C40 35, 39 23, 49 20 C59 17, 66 28, 62 38" />
+              <path d="M30 58 H50" />
+              <path d="M31 70 H49" />
+              <path d="M33 51 C32 38, 31 32, 35 28" />
+              <path d="M47 51 C48 38, 49 32, 45 28" />
+            </g>
+            <g stroke="#fff" stroke-width="3">
+              <line x1="40" y1="14" x2="40" y2="6" />
+              <line x1="28" y1="22" x2="20" y2="18" />
+              <line x1="52" y1="22" x2="60" y2="18" />
+              <line x1="18" y1="35" x2="10" y2="35" />
+              <line x1="62" y1="35" x2="70" y2="35" />
+            </g>
+          </svg>
+        </div>
+        <div class="text-block">
+          <div class="heading-row">
+            <div class="initiative-heading">Drive Transformation</div>
+            <div class="arrow-line"></div>
+          </div>
+          <p class="paragraph">
+            Accelerate end-to-end digital transformation of business processes to improve efficiency, accuracy, and decision-making.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

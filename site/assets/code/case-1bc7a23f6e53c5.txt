@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marketing Budget Allocation Breakdown</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f4f7f8;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background: #ffffff;
+      color: #242a2d;
+    }
+
+    .title {
+      position: absolute;
+      top: 14px;
+      left: 0;
+      width: 1280px;
+      text-align: center;
+      font-size: 44px;
+      line-height: 1.08;
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      color: #202528;
+    }
+
+    .subtitle {
+      position: absolute;
+      top: 78px;
+      left: 230px;
+      width: 820px;
+      text-align: center;
+      font-size: 20px;
+      line-height: 1.36;
+      font-weight: 400;
+      color: #555d66;
+    }
+
+    .donut-chart {
+      position: absolute;
+      left: 385px;
+      top: 150px;
+      width: 510px;
+      height: 510px;
+    }
+
+    .donut-center {
+      position: absolute;
+      left: 515px;
+      top: 285px;
+      width: 225px;
+      height: 180px;
+      border-radius: 50%;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 4;
+      pointer-events: none;
+      box-shadow: 0 0 0 0 #fff;
+    }
+
+    .center-label {
+      font-size: 23px;
+      font-weight: 800;
+      color: #444a4f;
+      margin-bottom: 8px;
+    }
+
+    .center-value {
+      font-size: 50px;
+      line-height: 1;
+      font-weight: 900;
+      color: #202528;
+      letter-spacing: -1px;
+    }
+
+    .info-card {
+      position: absolute;
+      width: 340px;
+      height: 145px;
+      border-radius: 11px;
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    .info-card-header {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      line-height: 1.1;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .info-card-body {
+      position: relative;
+      height: 97px;
+      padding: 18px 18px 12px 18px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      background: #ffffff;
+    }
+
+    .info-card-body p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.55;
+      color: #565d66;
+    }
+
+    .card-top-left {
+      left: 34px;
+      top: 158px;
+    }
+
+    .card-mid-left {
+      left: 34px;
+      top: 337px;
+    }
+
+    .card-bottom-left {
+      left: 34px;
+      top: 518px;
+    }
+
+    .card-top-right {
+      left: 906px;
+      top: 158px;
+    }
+
+    .card-mid-right {
+      left: 906px;
+      top: 337px;
+    }
+
+    .card-bottom-right {
+      left: 906px;
+      top: 519px;
+    }
+
+    .teal {
+      background: #19b7b1;
+      border: 1.5px solid #19b7b1;
+    }
+
+    .teal .info-card-body {
+      border-top: 2px solid #19b7b1;
+    }
+
+    .purple {
+      background: #8257e8;
+      border: 1.5px solid #8257e8;
+    }
+
+    .purple .info-card-body {
+      border-top: 2px solid #8257e8;
+    }
+
+    .green {
+      background: #38c459;
+      border: 1.5px solid #38c459;
+    }
+
+    .green .info-card-body {
+      border-top: 2px solid #38c459;
+    }
+
+    .red {
+      background: #ff4248;
+      border: 1.5px solid #ff4248;
+    }
+
+    .red .info-card-body {
+      border-top: 2px solid #ff4248;
+    }
+
+    .orange {
+      background: #ff8212;
+      border: 1.5px solid #ff8212;
+    }
+
+    .orange .info-card-body {
+      border-top: 2px solid #ff8212;
+    }
+
+    .blue {
+      background: #2184e7;
+      border: 1.5px solid #2184e7;
+    }
+
+    .blue .info-card-body {
+      border-top: 2px solid #2184e7;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Marketing Budget Allocation Breakdown</div>
+    <div class="subtitle">This chart shows how the marketing budget is divided across key channels. Each segment<br>represents a strategic area aimed at maximizing reach, engagement, and conversions.</div>
+
+    <div class="info-card card-top-left teal">
+      <div class="info-card-header">06. Email Marketing</div>
+      <div class="info-card-body">
+        <p>Sending emails to keep customers informed and engaged.</p>
+      </div>
+    </div>
+
+    <div class="info-card card-mid-left purple">
+      <div class="info-card-header">05. Influencer &amp; Affiliate Marketing</div>
+      <div class="info-card-body">
+        <p>Partnering with influencers and affiliates to reach more people.</p>
+      </div>
+    </div>
+
+    <div class="info-card card-bottom-left green">
+      <div class="info-card-header">04. Search Engine Marketing (SEM)</div>
+      <div class="info-card-body">
+        <p>Running paid search ads to bring in more website visitors.</p>
+      </div>
+    </div>
+
+    <div class="info-card card-top-right red">
+      <div class="info-card-header">01. Content Marketing</div>
+      <div class="info-card-body">
+        <p>Creating helpful content like blogs and videos to attract customers.</p>
+      </div>
+    </div>
+
+    <div class="info-card card-mid-right orange">
+      <div class="info-card-header">02. Social Media Marketing</div>
+      <div class="info-card-body">
+        <p>Promoting the brand through posts and ads on social platforms.</p>
+      </div>
+    </div>
+
+    <div class="info-card card-bottom-right blue">
+      <div class="info-card-header">03. Events &amp; Sponsorships</div>
+      <div class="info-card-body">
+        <p>Building brand presence through events and sponsorship deals.</p>
+      </div>
+    </div>
+
+    <div id="donutChart" class="donut-chart"></div>
+
+    <div class="donut-center">
+      <div class="center-label">Total Budget:</div>
+      <div class="center-value">$110k</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    const chart = echarts.init(document.getElementById('donutChart'));
+
+    const option = {
+      animation: false,
+      color: ['#ff4248', '#ff8212', '#2184e7', '#38c459', '#19b7b1', '#8257e8'],
+      tooltip: {
+        trigger: 'item',
+        formatter: '{b}: {c}%'
+      },
+      series: [
+        {
+          name: 'Marketing Budget Allocation',
+          type: 'pie',
+          radius: ['34%', '76%'],
+          center: ['50%', '50%'],
+          startAngle: 60,
+          clockwise: false,
+          avoidLabelOverlap: true,
+          itemStyle: {
+            borderColor: '#ffffff',
+            borderWidth: 3
+          },
+          labelLine: {
+            show: false
+          },
+          label: {
+            show: true,
+            position: 'inside',
+            color: '#ffffff',
+            fontSize: 28,
+            fontWeight: 800,
+            formatter: '{c}%'
+          },
+          emphasis: {
+            disabled: true
+          },
+          data: [15, 15, 15, 15, 20, 20]
+        }
+      ]
+    };
+
+    chart.setOption(option);
+  </script>
+</body>
+</html>

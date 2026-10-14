@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>コンタクト センターに Microsoft を選ぶ理由</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f3f5f8;
+      font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background: #ffffff;
+      color: #0a0a0a;
+    }
+
+    .title {
+      position: absolute;
+      top: 50px;
+      left: 0;
+      width: 1280px;
+      text-align: center;
+      font-size: 40px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #050505;
+    }
+
+    .card {
+      position: absolute;
+      top: 148px;
+      width: 376px;
+      height: 495px;
+      background: #ffffff;
+      border: 1px solid #d7dbe1;
+      border-radius: 16px;
+      box-shadow: 0 7px 16px rgba(20, 30, 40, 0.11);
+    }
+
+    .card-1 {
+      left: 54px;
+    }
+
+    .card-2 {
+      left: 451px;
+    }
+
+    .card-3 {
+      left: 848px;
+    }
+
+    .icon-wrap {
+      position: absolute;
+      top: 28px;
+      left: 0;
+      width: 376px;
+      height: 92px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon {
+      width: 86px;
+      height: 86px;
+      display: block;
+    }
+
+    .subheading {
+      position: absolute;
+      top: 128px;
+      left: 17px;
+      width: 342px;
+      font-size: 21px;
+      line-height: 1.35;
+      font-weight: 800;
+      color: #0b0b0b;
+      letter-spacing: 0.2px;
+    }
+
+    .body-text {
+      position: absolute;
+      top: 180px;
+      left: 17px;
+      width: 325px;
+      font-size: 16.5px;
+      line-height: 1.65;
+      font-weight: 400;
+      color: #111111;
+    }
+
+    .num {
+      position: absolute;
+      z-index: 0;
+      font-size: 180px;
+      line-height: 1;
+      font-weight: 800;
+      color: #d9e7fb;
+      opacity: 0.62;
+      filter: drop-shadow(0 10px 18px rgba(60, 110, 180, 0.10));
+    }
+
+    .num-1 {
+      left: 190px;
+      top: 345px;
+      width: 90px;
+      text-align: center;
+    }
+
+    .num-2 {
+      left: 580px;
+      top: 342px;
+      width: 112px;
+      text-align: center;
+    }
+
+    .num-3 {
+      left: 970px;
+      top: 339px;
+      width: 116px;
+      text-align: center;
+    }
+
+    svg {
+      overflow: visible;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, rgba(30, 100, 220, 0.22), transparent);
+      opacity: 0.35;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">コンタクト センターに Microsoft を選ぶ理由</div>
+
+    <div class="card card-1">
+      <div class="icon-wrap" aria-hidden="true">
+        <svg class="icon" viewBox="0 0 90 90" fill="none" role="img" aria-label="headset icon">
+          <path d="M36 14C45.4 9 57.3 11.2 65.5 19.4L78 32C82.8 36.8 82.8 46.2 78 51L65.5 63.5C57.3 71.7 45.4 73.9 36 69" stroke="#2b75e6" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M35.5 70C26.1 75 14.2 72.8 6 64.5L1.5 59.3" stroke="#2b75e6" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M19 25V43C19 46.8 21.8 50 25.5 50.5L31.5 51.2C35.2 51.7 38.5 49.6 40 45.8" stroke="#2b75e6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="13" y="34" width="13" height="28" rx="5.5" stroke="#2b75e6" stroke-width="4"/>
+          <path d="M61 26V43C61 46.8 63.8 50 67.5 50.5L73.5 51.2C77.2 51.7 80.5 49.6 82 45.8" stroke="#2b75e6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="54" y="34" width="13" height="28" rx="5.5" stroke="#2b75e6" stroke-width="4"/>
+          <path d="M25 63H35C38.3 63 41 65.7 41 69V73H25V63Z" stroke="#2b75e6" stroke-width="4" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="subheading">サービスに対する包括的なビジョン</div>
+      <div class="body-text">
+        Microsoft は、CCaaS、CRM、生成 AI を<br>
+        網羅したコンタクト センター向けのエンドツー<br>
+        エンドのソリューションを提供します。各社の<br>
+        状況に合わせて統合と成長を支援する、柔軟で<br>
+        構成可能なプラットフォームです。
+      </div>
+    </div>
+
+    <div class="card card-2">
+      <div class="icon-wrap" aria-hidden="true">
+        <svg class="icon" viewBox="0 0 90 90" fill="none" role="img" aria-label="connection icon">
+          <path d="M28 62C18.2 53.2 20.4 38.7 31.2 31.8L44.5 22.3C50.8 17.9 59.2 17.6 66.1 21.1L78 28.2" stroke="#2b75e6" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M66.1 21.1C73 24.6 78.2 31.6 79.6 40.1" stroke="#2b75e6" stroke-width="4.2" stroke-linecap="round"/>
+          <path d="M28.8 34.8C18.8 42.6 17.6 57.1 26.3 66.2L38.2 78.1" stroke="#2b75e6" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M39.5 52.2L59.8 31.8" stroke="#2b75e6" stroke-width="4.2" stroke-linecap="round"/>
+          <path d="M47.2 59.8L67.5 40.1" stroke="#2b75e6" stroke-width="4.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="subheading">Copilot を一貫して導入</div>
+      <div class="body-text">
+        Microsoft は、セルフサービスやルーティング<br>
+        からエージェント支援、通話後の要約、分析に<br>
+        至るまで、サービスの全ワークフローにわたって<br>
+        生成 AI を導入します。すべてが信頼できる<br>
+        データにつながっています。
+      </div>
+    </div>
+
+    <div class="card card-3">
+      <div class="icon-wrap" aria-hidden="true">
+        <svg class="icon" viewBox="0 0 90 90" fill="none" role="img" aria-label="cloud icon">
+          <path d="M32 64H68C78.5 64 86 56.5 86 46V39C86 29.2 78.8 21 69 20.1C65.1 10.4 52.2 5 39.5 9.2C31.4 11.9 25.2 19.3 23.4 28.2C13.8 28.2 8 36.8 12.5 45.4C14.2 48.6 16.9 50.8 20.2 52.1C21.2 59.1 26.6 64 32 64Z" stroke="#2b75e6" stroke-width="4.2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="subheading">拡張性と信頼性を考慮した設計</div>
+      <div class="body-text">
+        最新のクラウド インフラストラクチャ上に構築された<br>
+        このソリューションは、ワークロードの拡張性、<br>
+        信頼性、セキュリティを考慮して設計されています。<br>
+        お客様のニーズの変化に合わせて、Microsoft<br>
+        Cloud を活用いただけます。
+      </div>
+    </div>
+
+    <div class="num num-1">1</div>
+    <div class="num num-2">2</div>
+    <div class="num num-3">3</div>
+  </div>
+</body>
+</html>

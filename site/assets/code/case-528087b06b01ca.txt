@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>智慧城市综合数据运营平台</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #020817;
+    font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+    color: #d9efff;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2048px;
+    height: 1296px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 20% 18%, rgba(33, 118, 255, 0.14), transparent 26%),
+      radial-gradient(circle at 78% 22%, rgba(84, 200, 255, 0.10), transparent 26%),
+      linear-gradient(180deg, #041023 0%, #031021 42%, #041428 100%);
+  }
+
+  .top-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2048px;
+    height: 66px;
+    border-bottom: 1px solid rgba(60, 130, 255, 0.30);
+    background: rgba(3, 14, 35, 0.88);
+  }
+
+  .menu-strip {
+    position: absolute;
+    left: 20px;
+    top: 14px;
+    width: 40px;
+    height: 28px;
+    border-left: 4px solid #d9efff;
+    border-top: 4px solid #d9efff;
+    opacity: 0.9;
+  }
+
+  .brand {
+    position: absolute;
+    left: 82px;
+    top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #e8f5ff;
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+
+  .brand .logo {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #7cc7ff;
+    border-radius: 6px;
+    display: inline-block;
+  }
+
+  .brand-muted {
+    color: #9db8e6;
+    margin-left: 12px;
+  }
+
+  .top-icons {
+    position: absolute;
+    right: 140px;
+    top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    color: #d8edff;
+    font-size: 20px;
+  }
+
+  .timestamp {
+    position: absolute;
+    right: 26px;
+    top: 17px;
+    color: #29d9ff;
+    font-family: "Courier New", monospace;
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+
+  .title {
+    position: absolute;
+    left: 28px;
+    top: 92px;
+    font-size: 44px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(45, 135, 255, 0.32);
+  }
+
+  .subtitle {
+    position: absolute;
+    left: 28px;
+    top: 164px;
+    color: #b8d4f1;
+    font-size: 19px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  .card {
+    position: absolute;
+    border: 1px solid rgba(50, 130, 255, 0.56);
+    border-radius: 10px;
+    background: rgba(4, 20, 48, 0.68);
+    box-shadow: inset 0 0 20px rgba(35, 110, 255, 0.11), 0 0 12px rgba(0, 120, 255, 0.16);
+  }
+
+  .card-title {
+    position: absolute;
+    top: 14px;
+    left: 60px;
+    font-size: 24px;
+    font-weight: 750;
+    color: #edf7ff;
+  }
+
+  .summary-card {
+    left: 26px;
+    top: 205px;
+    width: 788px;
+    height: 260px;
+  }
+
+  .summary-card .card-title {
+    left: 58px;
+    color: #eaf6ff;
+  }
+
+  .summary-icons {
+    position: absolute;
+    top: 63px;
+    left: 22px;
+    display: flex;
+    gap: 14px;
+  }
+
+  .metric-tile {
+    width: 170px;
+    height: 175px;
+    border-radius: 8px;
+    border: 1px solid rgba(80, 160, 255, 0.36);
+    background: linear-gradient(180deg, rgba(12, 50, 90, 0.9), rgba(6, 30, 60, 0.92));
+    box-shadow: 0 0 12px rgba(0, 160, 255, 0.13);
+    text-align: center;
+  }
+
+  .metric-icon {
+    margin-top: 20px;
+    font-size: 36px;
+    color: #6fd8ff;
+  }
+
+  .metric-number {
+    margin-top: 12px;
+    font-size: 35px;
+    font-weight: 800;
+    color: #42d4ff;
+  }
+
+  .metric-label {
+    margin-top: 10px;
+    color: #dcecff;
+    font-size: 17px;
+  }
+
+  .traffic-card {
+    left: 26px;
+    top: 488px;
+    width: 788px;
+    height: 458px;
+  }
+
+  .traffic-card .card-title {
+    left: 42px;
+    font-size: 23px;
+  }
+
+  .filter-buttons {
+    position: absolute;
+    top: 14px;
+    right: 42px;
+    display: flex;
+    gap: 12px;
+  }
+
+  .pill {
+    min-width: 112px;
+    height: 38px;
+    border-radius: 8px;
+    border: 1px solid #2bce78;
+    background: rgba(36, 170, 110, 0.18);
+    color: #8ff1a4;
+    font-weight: 700;
+    text-align: center;
+    line-height: 36px;
+    font-size: 17px;
+  }
+
+  .pill.red {
+    border-color: #ff5b66;
+    color: #ff838a;
+    background: rgba(255, 66, 74, 0.16);
+  }
+
+  #trafficBar {
+    position: absolute;
+    left: 14px;
+    top: 66px;
+    width: 748px;
+    height: 360px;
+  }
+
+  .chat-bubble {
+    position: absolute;
+    left: 26px;
+    top: 930px;
+    width: 440px;
+    height: 108px;
+    border-radius: 22px;
+    background: #f4f7fa;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.38), inset 0 0 18px rgba(255, 255, 255, 0.28);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    padding-left: 72px;
+    color: #7699b4;
+    font-size: 20px;
+  }
+
+  .chat-avatar {
+    position: absolute;
+    left: 22px;
+    top: 18px;
+    width: 58px;
+    height: 66px;
+    border-radius: 50%;
+    background: #e9eff5;
+    border: 3px solid #aab7c3;
+  }
+
+  .chat-send {
+    position: absolute;
+    right: 30px;
+    top: 35px;
+    font-size: 32px;
+    color: #53a5ff;
+  }
+
+  .environment-card {
+    left: 836px;
+    top: 205px;
+    width: 660px;
+    height: 455px;
+  }
+
+  .environment-card .card-title {
+    left: 56px;
+  }
+
+  #environmentLine {
+    position: absolute;
+    left: 12px;
+    top: 70px;
+    width: 590px;
+    height: 360px;
+  }
+
+  .legend-list {
+    position: absolute;
+    right: 28px;
+    top: 136px;
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #e7f4ff;
+    font-size: 18px;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .energy-card {
+    left: 836px;
+    top: 686px;
+    width: 660px;
+    height: 265px;
+  }
+
+  .energy-card .card-title {
+    left: 56px;
+  }
+
+  .gauge-row {
+    position: absolute;
+    top: 70px;
+    left: 30px;
+    width: 600px;
+    height: 180px;
+    display: flex;
+    justify-content: space8round;
+  }
+
+  .gauge-box {
+    width: 290px;
+    text-align: center;
+    position: relative;
+  }
+
+  .gauge-label {
+    font-size: 21px;
+    color: #e9f6ff;
+  }
+
+  .ring {
+    width: 150px;
+    height: 150px;
+    margin: 18px auto 0;
+    border-radius: 50%;
+    border: 10px solid #24d2ff;
+    border-bottom-color: transparent;
+    border-right-color: #53effe;
+    transform: rotate(-45deg);
+    background: conic-gradient(#35e6ff 0 306deg, transparent 306deg 360deg);
+  }
+
+  .ring.green {
+    border-color: #38e24d;
+    background: conic-gradient(#41e958 0 209deg, transparent 209deg 360deg);
+  }
+
+  .gauge-value {
+    position: absolute;
+    top: 82px;
+    left: 0;
+    width: 290px;
+    font-size: 38px;
+    font-weight: 800;
+  }
+
+  .gauge-scale {
+    font-size: 17px;
+    color: #b9d7ef;
+  }
+
+  .control-card {
+    left: 1530px;
+    top: 205px;
+    width: 562px;
+    height: 400px;
+  }
+
+  .control-card .card-title {
+    left: 52px;
+  }
+
+  .dropdown-row {
+    position: absolute;
+    left: 28px;
+    width: 500px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .dropdown-row.one { top: 64px; }
+  .dropdown-row.two { top: 135px; }
+  .dropdown-row.three { top: 206px; }
+
+  .dd-label {
+    width: 120px;
+    color: #d5ebff;
+    font-size: 19px;
+  }
+
+  .dd-value {
+    flex: 1;
+    height: 48px;
+    border: 1px solid rgba(110, 180, 255, 0.36);
+    border-radius: 7px;
+    color: #eef7ff;
+    text-align: left;
+    padding-left: 18px;
+    background: rgba(15, 45, 86, 0.60);
+    font-size: 18px;
+  }
+
+  .wide-btn {
+    position: absolute;
+    left: 22px;
+    width: 518px;
+    height: 54px;
+    border-radius: 8px;
+    border: 1px solid;
+    text-align: center;
+    font-size: 21px;
+    font-weight: 750;
+    color: #ecfbff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .btn-teal {
+    top: 270px;
+    background: linear-gradient(90deg, #099fb6, #174676);
+    border-color: #42d5e6;
+  }
+
+  .btn-purple {
+    top: 324px;
+    background: linear-gradient(90deg, #352792, #6542d2);
+    border-color: #8366ff;
+  }
+
+  .status-card {
+    left: 1530px;
+    top: 622px;
+    width: 562px;
+    height: 328px;
+  }
+
+  .status-card .card-title {
+    left: 52px;
+  }
+
+  .status-list {
+    position: absolute;
+    top: 58px;
+    left: 16px;
+    width: 530px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .status-item {
+    height: 42px;
+    background: rgba(18, 60, 100, 0.62);
+    border: 1px solid rgba(80, 140, 210, 0.30);
+    border-radius: 6px;
+    display: flex;
+    justify-content: space2between;
+    align-items: center;
+    padding: 0 14px;
+    color: #d7efff;
+    font-size: 18px;
+  }
+
+  .status-pill {
+    min-width: 82px;
+    height: 30px;
+    border-radius: 6px;
+    color: #6cff80;
+    background: rgba(38, 180, 90, 0.22);
+    border: 1px solid #45e87d;
+    text-align: center;
+    line-height: 28px;
+    font-size: 16px;
+  }
+
+  .status-pill.red {
+    color: #ff7868;
+    border-color: #ff5b5b;
+    background: rgba(255, 68, 70, 0.18);
+  }
+
+  .bottom-left-facilities {
+    left: 48px;
+    top: 1040px;
+    width: 650px;
+    height: 242px;
+  }
+
+  .facility-grid {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    width: 620px;
+    display: flex;
+    gap: 12px;
+  }
+
+  .facility-card {
+    width: 148px;
+    height: 165px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid rgba(52, 140, 255, 0.30);
+    background: rgba(12, 40, 75, 0.72);
+  }
+
+  .facility-icon {
+    margin-top: 14px;
+    font-size: 42px;
+    color: #48d8ff;
+  }
+
+  .facility-label {
+    color: #d8efff;
+    font-size: 17px;
+    margin-top: 8px;
+  }
+
+  .facility-number {
+    color: #37d7ff;
+    font-size: 26px;
+    font-weight: 800;
+    margin-top: 6px;
+  }
+
+  .development-card {
+    left: 730px;
+    top: 960px;
+    width: 630px;
+    height: 322px;
+  }
+
+  .development-card .card-title {
+    left: 55px;
+  }
+
+  #developmentTrend {
+    position: absolute;
+    left: 14px;
+    top: 58px;
+    width: 590px;
+    height: 230px;
+  }
+
+  .feedback-card {
+    left: 1380px;
+    top: 960px;
+    width: 642px;
+    height: 322px;
+  }
+
+  .feedback-card .card-title {
+    left: 56px;
+  }
+
+  .feedback-panels {
+    position: absolute;
+    top: 68px;
+    left: 22px;
+    width: 600px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .feedback-panel {
+    flex: 1;
+    border-right: 1px solid rgba(100, 160, 255, 0.24);
+    min-height: 200px;
+    text-align: center;
+  }
+
+  .feedback-panel:last-child {
+    border-right: none;
+  }
+
+  .feedback-icon {
+    font-size: 45px;
+    margin-top: 10px;
+  }
+
+  .feedback-label {
+    color: #d7efff;
+    font-size: 17px;
+    margin-top: 8px;
+  }
+
+  .feedback-number {
+    color: #37d8ff;
+    font-size: 28px;
+    margin-top: 6px;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="top-bar">
+    <div class="menu-strip"></div>
+    <div class="brand"><span class="logo"></span><span>城市大脑</span><span class="brand-muted">智慧运营</span></div>
+    <div class="top-icons">
+      <span>◷</span>
+      <span>⌁</span>
+      <span>◔</span>
+    </div>
+    <div class="timestamp">2025-09-17 10:27:00</div>
+  </div>
+
+  <div class="title">智慧城市综合数据运营平台</div>
+  <div class="subtitle">汇聚城市数据，洞察运行态势，驱动科学决策，赋能智慧治理</div>
+
+  <div class="card summary-card">
+    <div class="card-title">城市运行概要</div>
+    <div class="summary-icons">
+      <div class="metric-tile">
+        <div class="metric-icon">♟</div>
+        <div class="metric-number">2418万</div>
+        <div class="metric-label">常住人口</div>
+      </div>
+      <div class="metric-tile">
+        <div class="metric-icon">▦</div>
+        <div class="metric-number">92.6%</div>
+        <div class="metric-label">城镇化率</div>
+      </div>
+      <div class="metric-tile">
+        <div class="metric-icon">◎</div>
+        <div class="metric-number">¥7.42万</div>
+        <div class="metric-label">人均可支配收入</div>
+      </div>
+      <div class="metric-tile">
+        <div class="metric-icon">♨</div>
+        <div class="metric-number">26.5℃</div>
+        <div class="metric-label">空气质量</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card traffic-card">
+    <div class="card-title">城市交通实时监控</div>
+    <div class="filter-buttons">
+      <div class="pill">✓ 已接入</div>
+      <div class="pill red">♟ 报警</div>
+    </div>
+    <div id="trafficBar"></div>
+  </div>
+
+  <div class="chat-bubble">
+    <div class="chat-avatar"></div>
+    告诉 AI 如何修改选中元素…
+    <div class="chat-send">➤</div>
+  </div>
+
+  <div class="card bottom-left-facilities">
+    <div class="facility-grid">
+      <div class="facility-card">
+        <div class="facility-icon">◖</div>
+        <div class="facility-label">智能路灯</div>
+        <div class="facility-number">12,345</div>
+      </div>
+      <div class="facility-card">
+        <div class="facility-icon">▥</div>
+        <div class="facility-label">智能垃圾桶</div>
+        <div class="facility-number">8,765</div>
+      </div>
+      <div class="facility-card">
+        <div class="facility-icon">P</div>
+        <div class="facility-label">智慧停车位</div>
+        <div class="facility-number">6,543</div>
+      </div>
+      <div class="facility-card">
+        <div class="facility-icon">◆</div>
+        <div class="facility-label">供水管网</div>
+        <div class="facility-number">98.2%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card environment-card">
+    <div class="card-title">环境监测数据</div>
+    <div id="environmentLine"></div>
+    <div class="legend-list">
+      <div class="legend-item"><span class="dot" style="background:#29d9ff;"></span><span>PM2.5</span></div>
+      <div class="legend-item"><span class="dot" style="background:#55e550;"></span><span>噪声</span></div>
+      <div class="legend-item"><span class="dot" style="background:#9058ff;"></span><span>水质</span></div>
+    </div>
+  </div>
+
+  <div class="card energy-card">
+    <div class="card-title">能源资源管理</div>
+    <div class="gauge-row">
+      <div class="gauge-box">
+        <div class="gauge-label">用电负荷</div>
+        <div class="ring"></div>
+        <div class="gauge-value">76%</div>
+        <div class="gauge-scale">当前负荷率</div>
+      </div>
+      <div class="gauge-box">
+        <div class="gauge-label">天然气供应</div>
+        <div class="ring green"></div>
+        <div class="gauge-value">58%</div>
+        <div class="gauge-scale">供应充足率</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card control-card">
+    <div class="card-title">数据筛选控制面板</div>
+    <div class="dropdown-row one"><div class="dd-label">时间范围</div><div class="dd-value">近7天</div></div>
+    <div class="dropdown-row two"><div class="dd-label">行政区划</div><div class="dd-value">全部区域</div></div>
+    <div class="dropdown-row three"><div class="dd-label">数据模型</div><div class="dd-value">综合模型</div></div>
+    <div class="wide-btn btn-teal">应用筛选条件</div>
+    <div class="wide-btn btn-purple">生成分析报告</div>
+  </div>
+
+  <div class="card status-card">
+    <div class="card-title">系统状态监控</div>
+    <div class="status-list">
+      <div class="status-item">实时数据接入 <span class="status-pill">正常</span></div>
+      <div class="status-item">分析引擎 <span class="status-pill">运行中</span></div>
+      <div class="status-item">存储集群 <span class="status-pill">正常</span></div>
+      <div class="status-item">网络延迟 <span class="status-pill red">32ms</span></div>
+      <div class="status-item">安全防护 <span class="status-pill red">有异常</span></div>
+    </div>
+  </div>
+
+  <div class="card development-card">
+    <div class="card-title">城市发展关键指标趋势</div>
+    <div id="developmentTrend"></div>
+  </div>
+
+  <div class="card feedback-card">
+    <div class="card-title">市民服务实时反馈</div>
+    <div class="feedback-panels">
+      <div class="feedback-panel">
+        <div class="feedback-icon">◔</div>
+        <div class="feedback-label">今日反馈</div>
+        <div class="feedback-number">3,245</div>
+      </div>
+      <div class="feedback-panel">
+        <div class="feedback-icon">☺</div>
+        <div class="feedback-label">满意度</div>
+        <div class="feedback-number">92.4%</div>
+      </div>
+      <div class="feedback-panel">
+        <div class="feedback-icon">◷</div>
+        <div class="feedback-label">平均响应时间</div>
+        <div class="feedback-number">18 分钟</div>
+      </div>
+      <div class="feedback-panel">
+        <div class="feedback-icon">✓</div>
+        <div class="feedback-label">已解决</div>
+        <div class="feedback-number">2,876</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var trafficChart = echarts.init(document.getElementById('trafficBar'));
+  trafficChart.setOption({
+    animation: false,
+    grid: { left: 45, right: 18, top: 26, bottom: 46 },
+    tooltip: { trigger: 'axis' },
+    xAxis: {
+      type: 'category',
+      data: ['越秀区', '天河区', '海珠区', '荔湾区', '白云区', '黄埔区', '番禺区'],
+      axisLine: { lineStyle: { color: '#9fb8d8' } },
+      axisTick: { show: false },
+      axisLabel: { color: '#e8f6ff', fontSize: 16 }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: 100,
+      interval: 20,
+      axisLine: { show: false },
+      splitLine: { lineStyle: { color: 'rgba(150, 200, 255, 0.20)' } },
+      axisLabel: { color: '#bfe4ff', fontSize: 16 }
+    },
+    series: [{
+      type: 'bar',
+      data: [55, 82, 47, 73, 66, 52, 89],
+      barWidth: 36,
+      label: { show: true, position: 'top', color: '#e7f6ff', fontSize: 16 },
+      itemStyle: {
+        borderRadius: [6, 6, 0, 0],
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          { offset: 0, color: '#9d59ff' },
+          { offset: 0.48, color: '#6b58ff' },
+          { offset: 1, color: '#28c4ef' }
+        ])
+      }
+    }]
+  });
+
+  var environmentChart = echarts.init(document.getElementById('environmentLine'));
+  environmentChart.setOption({
+    animation: false,
+    color: ['#36dcff', '#52e458', '#9058ff'],
+    grid: { left: 48, right: 60, top: 30, bottom: 42 },
+    tooltip: { trigger: 'axis' },
+    xAxis: {
+      type: 'category',
+      data: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+      axisLine: { lineStyle: { color: '#9fb8d8' } },
+      axisTick: { show: false },
+      axisLabel: { color: '#dcecff', fontSize: 16 }
+    },
+    yAxis: {
+      type: 'value',
+      min: 0,
+      max: 80,
+      interval: 20,
+      axisLine: { show: false },
+      splitLine: { lineStyle: { color: 'rgba(150, 200, 255, 0.20)' } },
+      axisLabel: { color: '#bfe4ff', fontSize: 16 }
+    },
+    series: [
+      {
+        name: 'PM2.5',
+        type: 'line',
+        data: [35, 48, 52, 60, 55, 62],
+        symbol: 'circle',
+        symbolSize: 11,
+        label: { show: true, position: 'top', color: '#edf8ff', fontSize: 15 }
+      },
+      {
+        name: '噪声',
+        type: 'line',
+        data: [52, 64, 66, 77, 72, 75],
+        symbol: 'circle',
+        symbolSize: 10
+      },
+      {
+        name: '水质',
+        type: 'line',
+        data: [16, 26, 26, 37, 30, 36],
+        symbol: 'circle',
+        symbolSize: 10
+      }
+    ]
+  });
+
+  var developmentChart = echarts.init(document.getElementById('developmentTrend'));
+  developmentChart.setOption({
+    animation: false,
+    grid: { left: 48, right: 22, top: 24, bottom: 36 },
+    tooltip: { trigger: 'axis' },
+    xAxis: {
+      type: 'category',
+      data: ['2025-03', '2025-04', '2025-05', '2025-06', '2025-07', '2025-08'],
+      axisLine: { lineStyle: { color: '#9fb8d8' } },
+      axisTick: { show: false },
+      axisLabel: { color: '#dcecff', fontSize: 16 }
+    },
+    yAxis: {
+      type: 'value',
+      min: 60,
+      max: 120,
+      interval: 10,
+      axisLine: { show: false },
+      splitLine: { lineStyle: { color: 'rgba(150, 200, 255, 0.20)' } },
+      axisLabel: { color: '#bfe4ff', fontSize: 16 }
+    },
+    series: [{
+      type: 'line',
+      data: [78.6, 82.4, 88.7, 94.2, 101.3, 108.6],
+      symbol: 'circle',
+      symbolSize: 12,
+      label: { show: true, position: 'top', color: '#edf8ff', fontSize: 15 },
+      lineStyle: { width: 3, color: '#28dcff' },
+      itemStyle: { color: '#34e8ff', borderColor: '#8ff8ff', borderWidth: 1 }
+    }]
+  });
+</script>
+</body>
+</html>

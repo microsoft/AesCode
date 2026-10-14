@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=853, initial-scale=1.0" />
+  <title>Aurelia Minimal Living Blog</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e9e9e9;
+      color: #242424;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 853px;
+      height: 1280px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .top-header {
+      height: 42px;
+      border-bottom: 1px solid #dedede;
+      display: flex;
+      align-items: center;
+      padding: 0 41px;
+      background: #fff;
+    }
+
+    .logo {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 21px;
+      letter-spacing: 0.2px;
+      margin-right: 130px;
+      font-weight: 500;
+      color: #242424;
+    }
+
+    .nav {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+      font-size: 8px;
+      color: #333;
+      white-space: nowrap;
+    }
+
+    .nav span {
+      display: inline-block;
+    }
+
+    .nav .active {
+      border-bottom: 1px solid #111;
+      padding-bottom: 4px;
+      font-weight: 700;
+    }
+
+    .socials {
+      margin-left: auto;
+      display: flex;
+      gap: 12px;
+      color: #222;
+      font-size: 13px;
+    }
+
+    .main-area {
+      position: absolute;
+      top: 57px;
+      left: 41px;
+      width: 533px;
+      height: 1086px;
+    }
+
+    .hero {
+      width: 533px;
+      height: 236px;
+      background: #f3f3f3;
+      overflow: hidden;
+    }
+
+    .hero img {
+      width: 533px;
+      height: 236px;
+      display: block;
+      object-fit: cover;
+    }
+
+    .meta-line {
+      margin-top: 14px;
+      font-size: 8px;
+      color: #666;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 8px 0 7px;
+      font-size: 26px;
+      line-height: 1.18;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: #202020;
+    }
+
+    .summary {
+      font-size: 11px;
+      color: #777;
+      padding: 0 0 12px;
+      border-bottom: 1px solid #e5e5e5;
+      margin-bottom: 14px;
+      width: 465px;
+    }
+
+    .article-body {
+      width: 468px;
+    }
+
+    .article-body h2 {
+      font-size: 14px;
+      margin: 0 0 5px;
+      font-weight: 800;
+      color: #2c2c2c;
+    }
+
+    .article-body p {
+      font-size: 9.8px;
+      line-height: 1.45;
+      margin: 0 0 8px;
+      color: #3c3c3c;
+    }
+
+    .article-body ul,
+    .article-body ol {
+      margin: 3px 0 8px 18px;
+      padding: 0;
+      font-size: 8.8px;
+    }
+
+    .article-body li {
+      margin: 1px 0;
+    }
+
+    .pull-quote {
+      margin: 8px 0 7px;
+      border-left: 2px solid #222;
+      padding-left: 8px;
+      font-size: 11px;
+      color: #555;
+      font-style: italic;
+    }
+
+    .author-card {
+      margin-top: 8px;
+      width: 468px;
+      height: 72px;
+      background: #f6f6f6;
+      display: flex;
+      padding: 10px 12px;
+      align-items: center;
+    }
+
+    .author-card img {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      margin-right: 13px;
+    }
+
+    .author-info h3 {
+      margin: 0 0 2px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .author-info p {
+      font-size: 8.5px;
+      line-height: 1.3;
+      margin: 0 0 5px;
+      color: #555;
+    }
+
+    .author-socials {
+      display: flex;
+      gap: 10px;
+      color: #333;
+      font-size: 10px;
+    }
+
+    .comments-title {
+      margin-top: 8px;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .comment {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .comment img {
+      width: 29px;
+      height: 29px;
+      border-radius: 50%;
+    }
+
+    .comment p {
+      margin: 0 0 2px;
+      font-size: 8.5px;
+    }
+
+    .comment small {
+      color: #888;
+      font-size: 7.5px;
+    }
+
+    .comment a {
+      font-size: 8px;
+      color: #222;
+      text-decoration: none;
+    }
+
+    .leave-comment {
+      margin-top: 11px;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .comment-form {
+      margin-top: 5px;
+      display: flex;
+      gap: 11px;
+    }
+
+    textarea,
+    input {
+      font-size: 8px;
+      padding: 4px;
+      border: 1px solid #ddd;
+      height: 19px;
+      color: #555;
+    }
+
+    textarea {
+      width: 288px;
+      height: 30px;
+    }
+
+    input {
+      width: 88px;
+      height: 18px;
+    }
+
+    .post-button {
+      background: #222;
+      color: #fff;
+      border: none;
+      height: 21px;
+      min-width: 78px;
+      font-size: 8px;
+      font-weight: 800;
+      margin-left: 10px;
+    }
+
+    .sidebar {
+      position: absolute;
+      top: 57px;
+      left: 605px;
+      width: 208px;
+      height: 1086px;
+    }
+
+    .search-box {
+      width: 192px;
+      height: 31px;
+      border: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      color: #999;
+      font-size: 8.5px;
+      margin-bottom: 18px;
+    }
+
+    .search-icon {
+      margin-left: auto;
+      color: #555;
+      font-size: 13px;
+    }
+
+    .side-card {
+      border-bottom: 1px solid #e2e2e2;
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+    }
+
+    .side-title {
+      font-size: 9px;
+      font-weight: 800;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .about-card .portrait {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 8px;
+    }
+
+    .about-card p {
+      margin: 0 0 6px;
+      text-align: center;
+      font-size: 8.8px;
+      color: #666;
+      line-height: 1.35;
+    }
+
+    .learn-button {
+      display: block;
+      text-align: center;
+      width: 82px;
+      height: 20px;
+      border: 1px solid #aaa;
+      background: #fff;
+      font-size: 8px;
+      font-weight: 800;
+      margin: 0 auto;
+    }
+
+    .related-item {
+      display: flex;
+      gap: 9px;
+      margin-bottom: 11px;
+    }
+
+    .related-item img {
+      width: 60px;
+      height: 40px;
+      object-fit: cover;
+    }
+
+    .related-text h3 {
+      margin: 0 0 3px;
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #333;
+    }
+
+    .related-text p {
+      margin: 0;
+      font-size: 8.2px;
+      color: #888;
+    }
+
+    .categories {
+      margin-bottom: 17px;
+    }
+
+    .categories p {
+      font-size: 8.2px;
+      margin: 3px 0;
+      color: #444;
+    }
+
+    .newsletter {
+      margin-top: 5px;
+    }
+
+    .newsletter p {
+      text-align: center;
+      font-size: 8.2px;
+      color: #666;
+      line-height: 1.35;
+      margin: 0 0 8px;
+    }
+
+    .newsletter input {
+      width: 155px;
+      height: 20px;
+      margin-bottom: 8px;
+    }
+
+    .newsletter .subscribe {
+      width: 155px;
+      height: 22px;
+      background: #222;
+      color: #fff;
+      border: none;
+      font-size: 8px;
+      font-weight: 800;
+    }
+
+    .newsletter .no-spam {
+      text-align: center;
+      color: #888;
+      font-size: 7.4px;
+      margin-top: 6px;
+    }
+
+    .footer {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 853px;
+      height: 131px;
+      background: #fafafa;
+      border-top: 1px solid #ececec;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 160px 130px 118px 140px;
+      gap: 22px;
+      padding: 13px 46px 0;
+    }
+
+    .footer h3 {
+      font-size: 11px;
+      margin: 0 0 5px;
+      color: #222;
+      font-weight: 800;
+    }
+
+    .footer p {
+      margin: 0 0 5px;
+      font-size: 8.5px;
+      color: #555;
+      line-height: 1.35;
+    }
+
+    .footer ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 8.5px;
+      color: #444;
+    }
+
+    .footer li {
+      margin-bottom: 2px;
+    }
+
+    .legal {
+      position: absolute;
+      left: 46px;
+      bottom: 8px;
+      right: 46px;
+      height: 15px;
+      border-top: 1px solid #dcdcdc;
+      font-size: 7.4px;
+      color: #888;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .legal .links {
+      display: flex;
+      gap: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <header class="top-header">
+      <div class="logo">Aurelia</div>
+      <nav class="nav" aria-label="Main navigation">
+        <span>Home</span>
+        <span>About</span>
+        <span class="active">Blog</span>
+        <span>Portfolio</span>
+        <span>Resources</span>
+        <span>Contact</span>
+      </nav>
+      <div class="socials" aria-label="Social links">
+        <span>◎</span><span>☯</span><span>✉</span>
+      </div>
+    </header>
+
+    <main class="main-area">
+      <section class="hero" aria-label="Minimal living hero image">
+        <img src="https://placehold.co/800x260?text=Minimal+Living+Interior" alt="Minimal Living Interior placeholder" />
+      </section>
+
+      <div class="meta-line">DESIGN  •  MAY 14, 2024  •  6 MIN READ</div>
+
+      <h1>
+        The Art of Minimal Living: Creating<br />
+        Space for What Matters
+      </h1>
+
+      <div class="summary">
+        Minimal living is more than a trend—it is a mindset. Discover how simplifying your space can lead to a more intentional, peaceful, and fulfilling life.
+      </div>
+
+      <section class="article-body">
+        <h2>What is Minimal Living?</h2>
+        <p>
+          At its core, minimal living is about intentionally choosing what adds value to your life and eliminating what does not. It is about surrounding yourself with things that serve a purpose or bring joy, and letting go of the excess.
+        </p>
+        <p>
+          When your environment is clear, your mind follows. You create space not just in your home, but in your schedule, your habits, and your mind.
+        </p>
+
+        <h2>The Benefits of Living With Less</h2>
+        <p>
+          Living with less can lead to more freedom, less stress, and a deeper appreciation for what truly matters.
+        </p>
+        <ul>
+          <li>Less clutter, less stress</li>
+          <li>More time and energy</li>
+          <li>Financial freedom</li>
+          <li>Greater focus and creativity</li>
+          <li>Stronger relationships</li>
+        </ul>
+
+        <h2>Practical Steps to Get Started</h2>
+        <p>Ready to embrace a more minimal lifestyle? Start small with these actionable steps:</p>
+        <ol>
+          <li>Declutter one area at a time.</li>
+          <li>Be intentional about future purchases.</li>
+          <li>Create daily routines that support calm and clarity.</li>
+          <li>Focus on experiences over things.</li>
+          <li>Regularly reassess what serves you.</li>
+        </ol>
+
+        <h2>Minimalism Looks Different for Everyone</h2>
+        <p>
+          Minimalism is not about having an empty home or owning the least amount possible. It is about designing a life that feels right for you.
+        </p>
+        <div class="pull-quote">
+          “Simplicity is the ultimate sophistication.”<br />
+          – Leonardo da Vinci
+        </div>
+      </section>
+
+      <section class="author-card" aria-label="About the author">
+        <img src="https://placehold.co/80x80?text=Author" alt="Author placeholder" />
+        <div class="author-info">
+          <h3>About the Author</h3>
+          <p><strong>Sarah Johnson</strong> is an interior designer and writer passionate about minimalism, mindful living, and creating beautiful, functional spaces.</p>
+          <div class="author-socials">◎ ☯ ✉</div>
+        </div>
+      </section>
+
+      <div class="comments-title">2 Comments</div>
+
+      <section class="comment" aria-label="Comment by Emily Carter">
+        <img src="https://placehold.co/30x30?text=EC" alt="Emily Carter avatar placeholder" />
+        <div>
+          <strong>Emily Carter</strong><small> May 15, 2024 at 9:12 am</small>
+          <p>This was such a refreshing read! I have been trying to embrace minimalism and these tips are super helpful.</p>
+          <a href="#">Reply</a>
+        </div>
+      </section>
+
+      <section class="comment" aria-label="Comment by James Lee">
+        <img src="https://placehold.co/30x30?text=JL" alt="James Lee avatar placeholder" />
+        <div>
+          <strong>James Lee</strong><small> May 15, 2024 at 11:47 am</small>
+          <p>Love this perspective. Minimal living has completely changed the way I approach my days.</p>
+        </div>
+      </section>
+
+      <div class="leave-comment">Leave a Comment</div>
+      <div class="comment-form">
+        <textarea placeholder="Write your comment..."></textarea>
+        <input placeholder="Name" />
+        <input placeholder="Email" />
+        <input placeholder="Website" />
+        <button class="post-button">POST COMMENT</button>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="search-box">
+        <span>Search the blog...</span>
+        <span class="search-icon">⌕</span>
+      </div>
+
+      <section class="side-card about-card">
+        <div class="side-title">ABOUT ME</div>
+        <img class="portrait" src="https://placehold.co/120x120?text=Profile" alt="Profile placeholder" />
+        <p>Hi, I'm Sarah! I share inspiration on minimal living, interior design, and creating a life you love.</p>
+        <a class="learn-button" href="#">LEARN MORE</a>
+      </section>
+
+      <section class="side-card">
+        <div class="side-title">RELATED POSTS</div>
+        <div class="related-item">
+          <img src="https://placehold.co/120x80?text=Post+Image" alt="Post Image placeholder" />
+          <div class="related-text">
+            <h3>10 Ways to Create a Calm Home</h3>
+            <p>April 28, 2024</p>
+          </div>
+        </div>
+        <div class="related-item">
+          <img src="https://placehold.co/120x80?text=Post+Image" alt="Post Image placeholder" />
+          <div class="related-text">
+            <h3>A Minimalist Bedroom Makeover</h3>
+            <p>April 20, 2024</p>
+          </div>
+        </div>
+        <div class="related-item">
+          <img src="https://placehold.co/120x80?text=Post+Image" alt="Post Image placeholder" />
+          <div class="related-text">
+            <h3>The Ultimate Guide to Decluttering</h3>
+            <p>April 10, 2024</p>
+          </div>
+        </div>
+        <div class="related-item">
+          <img src="https://placehold.co/120x80?text=Post+Image" alt="Post Image placeholder" />
+          <div class="related-text">
+            <h3>Mindful Mornings: Habits for Your Day</h3>
+            <p>March 30, 2024</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="side-card categories">
+        <div class="side-title">CATEGORIES</div>
+        <p>Design (24)</p>
+        <p>Lifestyle (18)</p>
+        <p>Minimalism (32)</p>
+        <p>Inspiration (15)</p>
+        <p>Personal (10)</p>
+      </section>
+
+      <section class="newsletter">
+        <div class="side-title" style="text-align:center;">STAY INSPIRED</div>
+        <p>Get simple living tips and inspiration straight to your inbox.</p>
+        <input placeholder="Your email address" />
+        <button class="subscribe">SUBSCRIBE</button>
+        <div class="no-spam">No spam, unsubscribe anytime.</div>
+      </section>
+    </aside>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <section>
+          <h3>Aurelia</h3>
+          <p>A blog about minimal living, thoughtful design, and creating a life of purpose and meaning.</p>
+          <div style="font-size:12px;color:#333;">◎ ☯ ✉</div>
+        </section>
+
+        <section>
+          <h3>QUICK LINKS</h3>
+          <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Blog</li>
+            <li>Portfolio</li>
+            <li>Contact</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>CATEGORIES</h3>
+          <ul>
+            <li>Design</li>
+            <li>Lifestyle</li>
+            <li>Minimalism</li>
+            <li>Inspiration</li>
+            <li>Personal</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>CONTACT</h3>
+          <p>hello@aurelia.com</p>
+          <p>(555) 123-4567</p>
+          <p>San Francisco, CA</p>
+        </section>
+      </div>
+
+      <div class="legal">
+        <span>© 2024 Aurelia. All rights reserved.</span>
+        <span class="links">
+          <span>Privacy Policy</span>
+          <span>Terms of Use</span>
+        </span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

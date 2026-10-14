@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>The research shows - Developer Platform Infographic</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #02071f;
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1536px;
+    height: 1024px;
+    overflow: hidden;
+    color: #ffffff;
+    background:
+      radial-gradient(circle at 92% 22%, rgba(128, 58, 255, 0.34), transparent 30%),
+      radial-gradient(circle at 6% 38%, rgba(0, 126, 255, 0.22), transparent 32%),
+      linear-gradient(105deg, #02102f 0%, #060928 46%, #110838 70%, #260752 100%);
+  }
+
+  .artboard::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle, rgba(50, 190, 255, 0.55) 1px, transparent 1.4px),
+      radial-gradient(circle, rgba(142, 80, 255, 0.45) 1px, transparent 1.4px);
+    background-size: 22px 22px, 20px 20px;
+    background-position: -110px 380px, 1390px 390px;
+    opacity: 0.35;
+    filter: blur(0.2px);
+    pointer-events: none;
+  }
+
+  .artboard::after {
+    content: "";
+    position: absolute;
+    left: -130px;
+    top: 260px;
+    width: 380px;
+    height: 560px;
+    background:
+      repeating-linear-gradient(
+        15deg,
+        rgba(32, 170, 255, 0.18) 0px,
+        rgba(32, 170, 255, 0.18) 2px,
+        transparent 3px,
+        transparent 15px
+      );
+    transform: rotate(22deg);
+    opacity: 0.35;
+    filter: blur(0.4px);
+    pointer-events: none;
+  }
+
+  .nav-text {
+    position: absolute;
+    left: 32px;
+    top: 32px;
+    font-size: 20px;
+    line-height: 1;
+    color: #53dcff;
+    font-weight: 700;
+    letter-spacing: 0.1px;
+    z-index: 3;
+  }
+
+  .headline {
+    position: absolute;
+    top: 86px;
+    left: 0;
+    width: 1536px;
+    text-align: center;
+    font-size: 60px;
+    line-height: 1.08;
+    color: #f8fbff;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    z-index: 2;
+    text-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+  }
+
+  .icon-row {
+    position: absolute;
+    top: 190px;
+    left: 120px;
+    width: 1296px;
+    height: 210px;
+    z-index: 3;
+  }
+
+  .icon-block {
+    position: absolute;
+    top: 0;
+    width: 290px;
+    height: 210px;
+    text-align: center;
+  }
+
+  .icon-block.one { left: 0; }
+  .icon-block.two { left: 324px; }
+  .icon-block.three { left: 648px; }
+  .icon-block.four { left: 972px; }
+
+  .icon-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 0 auto 14px auto;
+    background: #7446e8;
+    border: 2px solid rgba(255, 255, 255, 0.88);
+    box-shadow:
+      inset 0 0 18px rgba(255, 255, 255, 0.18),
+      0 8px 22px rgba(0, 0, 0, 0.28);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon-circle svg {
+    width: 70px;
+    height: 70px;
+    stroke: #ffffff;
+    fill: none;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .icon-label {
+    color: #9a61ff;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 1.2;
+    min-height: 76px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    text-shadow: 0 4px 10px rgba(150, 90, 255, 0.18);
+  }
+
+  .cards-row {
+    position: absolute;
+    top: 422px;
+    left: 86px;
+    width: 1364px;
+    height: 378px;
+    z-index: 3;
+  }
+
+  .metric-card {
+    position: absolute;
+    top: 0;
+    width: 316px;
+    height: 378px;
+    border-radius: 18px;
+    border: 1px solid rgba(180, 150, 255, 0.65);
+    background: #17175a;
+    box-shadow:
+      inset 0 0 28px rgba(120, 90, 255, 0.16),
+      0 12px 26px rgba(0, 0, 0, 0.22);
+  }
+
+  .metric-card.card-1 { left: 0; }
+  .metric-card.card-2 { left: 340px; }
+  .metric-card.card-3 { left: 680px; }
+  .metric-card.card-4 { left: 1020px; }
+
+  .metric-chart {
+    position: absolute;
+    left: 48px;
+    top: 36px;
+    width: 220px;
+    height: 220px;
+  }
+
+  .metric-value {
+    position: absolute;
+    left: 0;
+    top: 84px;
+    width: 316px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 58px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    z-index: 4;
+    text-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+  }
+
+  .metric-card.card-4 .metric-value {
+    top: 92px;
+    font-size: 58px;
+  }
+
+  .caption-pill {
+    position: absolute;
+    left: 40px;
+    bottom: 38px;
+    width: 236px;
+    height: 58px;
+    border-radius: 30px;
+    border: 1px solid rgba(190, 180, 255, 0.55);
+    background: #070b1f;
+    color: #f4f7ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+
+  .cta-button {
+    position: absolute;
+    left: 545px;
+    top: 830px;
+    width: 480px;
+    height: 102px;
+    border-radius: 17px;
+    background: #58d5f5;
+    border: 1px solid rgba(190, 255, 255, 0.55);
+    box-shadow:
+      0 12px 30px rgba(0, 0, 0, 0.35),
+      inset 0 0 20px rgba(255, 255, 255, 0.18);
+    display: flex;
+    align-items: center;
+    z-index: 4;
+  }
+
+  .cta-icon {
+    width: 82px;
+    height: 82px;
+    border: 2px solid #112a48;
+    border-radius: 50%;
+    margin-left: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f7fbff;
+  }
+
+  .cta-icon svg {
+    width: 42px;
+    height: 42px;
+    stroke: #112a48;
+    fill: none;
+    stroke-width: 3.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .cta-text {
+    margin-left: 22px;
+    color: #0b2b4f;
+    font-size: 38px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: -0.8px;
+  }
+
+  .footer-line {
+    position: absolute;
+    left: 0;
+    bottom: 34px;
+    width: 1536px;
+    text-align: center;
+    color: rgba(180, 190, 255, 0.45);
+    font-size: 15px;
+    letter-spacing: 11px;
+    font-weight: 500;
+    z-index: 2;
+  }
+
+  .bottom-glow {
+    position: absolute;
+    left: 0;
+    bottom: 62px;
+    width: 1536px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(120, 160, 255, 0.25), transparent);
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="nav-text">Appendix / Insights and Data</div>
+
+    <div class="headline">The research shows</div>
+
+    <div class="icon-row">
+      <div class="icon-block one">
+        <div class="icon-circle" aria-hidden="true">
+          <svg viewBox="0 0 80 80">
+            <path d="M15 50h10v10H15zM31 38h10v22h-10zM48 26h10v34H48z"/>
+            <path d="M16 50c12-4 24-8 35-18"/>
+            <path d="M45 32l12-12 12 12"/>
+            <path d="M57 20v16h16"/>
+          </svg>
+        </div>
+        <div class="icon-label">Developer<br>productivity</div>
+      </div>
+
+      <div class="icon-block two">
+        <div class="icon-circle" aria-hidden="true">
+          <svg viewBox="0 0 80 80">
+            <circle cx="40" cy="22" r="12"/>
+            <path d="M18 62c2-16 10-24 22-24s20 8 22 24"/>
+            <path d="M20 64h40"/>
+          </svg>
+        </div>
+        <div class="icon-label">Developer<br>onboarding</div>
+      </div>
+
+      <div class="icon-block three">
+        <div class="icon-circle" aria-hidden="true">
+          <svg viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="29"/>
+            <path d="M40 18v24l16 12"/>
+            <circle cx="61" cy="29" r="3"/>
+            <circle cx="23" cy="55" r="3"/>
+          </svg>
+        </div>
+        <div class="icon-label">Time spent managing<br>tools and code<br>infrastructure</div>
+      </div>
+
+      <div class="icon-block four">
+        <div class="icon-circle" aria-hidden="true">
+          <svg viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="28"/>
+            <path d="M31 39l9 9 20-22"/>
+          </svg>
+        </div>
+        <div class="icon-label">After go-live</div>
+      </div>
+    </div>
+
+    <div class="cards-row">
+      <div class="metric-card card-1">
+        <div id="chartProductivity" class="metric-chart"></div>
+        <div class="metric-value">22%</div>
+        <div class="caption-pill">Improvement</div>
+      </div>
+
+      <div class="metric-card card-2">
+        <div id="chartOnboarding" class="metric-chart"></div>
+        <div class="metric-value">80%</div>
+        <div class="caption-pill">More time saved</div>
+      </div>
+
+      <div class="metric-card card-3">
+        <div id="chartTimeSpent" class="metric-chart"></div>
+        <div class="metric-value">75%</div>
+        <div class="caption-pill">Improvement</div>
+      </div>
+
+      <div class="metric-card card-4">
+        <div id="chartAfterGoLive" class="metric-chart"></div>
+        <div class="metric-value">&lt;6</div>
+        <div class="caption-pill">Months payback</div>
+      </div>
+    </div>
+
+    <div class="cta-button">
+      <div class="cta-icon" aria-hidden="true">
+        <svg viewBox="0 0 52 52">
+          <path d="M15 9h18l8 8v26H15z"/>
+          <path d="M33 9v10h10"/>
+          <path d="M22 23h14v6H22z"/>
+          <path d="M22 33h14v6H22z"/>
+        </svg>
+      </div>
+      <div class="cta-text">Access Report</div>
+    </div>
+
+    <div class="bottom-glow"></div>
+    <div class="footer-line">GITHUB PLATFORM PITCH</div>
+  </div>
+
+<script>
+  const ringColor = '#8f94ad';
+  const cyanColor = '#55dcf5';
+
+  const chartProductivity = echarts.init(document.getElementById('chartProductivity'));
+  chartProductivity.setOption({
+    animation: false,
+    series: [{
+      type: 'pie',
+      radius: ['72%', '82%'],
+      center: ['50%', '50%'],
+      startAngle: 90,
+      clockwise: true,
+      avoidLabelOverlap: true,
+      label: { show: false },
+      labelLine: { show: false },
+      emphasis: { disabled: true },
+      data: [22, 78],
+      itemStyle: {
+        color: function(params) {
+          return params.dataIndex === 0 ? cyanColor : ringColor;
+        }
+      }
+    }]
+  });
+
+  const chartOnboarding = echarts.init(document.getElementById('chartOnboarding'));
+  chartOnboarding.setOption({
+    animation: false,
+    series: [{
+      type: 'pie',
+      radius: ['72%', '82%'],
+      center: ['50%', '50%'],
+      startAngle: 90,
+      clockwise: true,
+      label: { show: false },
+      labelLine: { show: false },
+      emphasis: { disabled: true },
+      data: [80, 20],
+      itemStyle: {
+        color: function(params) {
+          return params.dataIndex === 0 ? cyanColor : ringColor;
+        }
+      }
+    }]
+  });
+
+  const chartTimeSpent = echarts.init(document.getElementById('chartTimeSpent'));
+  chartTimeSpent.setOption({
+    animation: false,
+    series: [{
+      type: 'pie',
+      radius: ['72%', '82%'],
+      center: ['50%', '50%'],
+      startAngle: 90,
+      clockwise: true,
+      label: { show: false },
+      labelLine: { show: false },
+      emphasis: { disabled: true },
+      data: [75, 25],
+      itemStyle: {
+        color: function(params) {
+          return params.dataIndex === 0 ? cyanColor : ringColor;
+        }
+      }
+    }]
+  });
+
+  const chartAfterGoLive = echarts.init(document.getElementById('chartAfterGoLive'));
+  chartAfterGoLive.setOption({
+    animation: false,
+    series: [{
+      type: 'pie',
+      radius: ['72%', '82%'],
+      center: ['50%', '50%'],
+      startAngle: 90,
+      clockwise: true,
+      label: { show: false },
+      labelLine: { show: false },
+      emphasis: { disabled: true },
+      data: [6, 94],
+      itemStyle: {
+        color: function(params) {
+          return params.dataIndex === 0 ? cyanColor : ringColor;
+        }
+      }
+    }]
+  });
+</script>
+</body>
+</html>

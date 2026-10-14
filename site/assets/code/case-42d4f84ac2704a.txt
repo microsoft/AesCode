@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Microsoft Dev Box Infographic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #050817;
+      font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+    }
+
+    .artboard {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1376px;
+      height: 768px;
+      overflow: hidden;
+      color: #fff;
+      background:
+        radial-gradient(circle at 14% 48%, rgba(58, 209, 255, 0.25) 0, rgba(58, 209, 255, 0.04) 210px, transparent 420px),
+        radial-gradient(circle at 80% 50%, rgba(141, 81, 255, 0.25) 0, rgba(141, 81, 255, 0.05) 240px, transparent 430px),
+        radial-gradient(circle at 48% 21%, rgba(80, 155, 255, 0.18) 0, transparent 270px),
+        linear-gradient(110deg, #061122 0%, #101735 43%, #221541 72%, #401752 100%);
+    }
+
+    .artboard::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(180, 230, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(180, 230, 255, 0.05) 1px, transparent 1px);
+      background-size: 36px 36px;
+      opacity: 0.18;
+      mask-image: radial-gradient(circle at 52% 52%, black 0 280px, transparent 560px);
+    }
+
+    .artboard::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 84%, rgba(120, 230, 255, 0.16) 0 5px, transparent 8px),
+        radial-gradient(circle at 82% 85%, rgba(210, 140, 255, 0.18) 0 6px, transparent 10px);
+      opacity: 0.8;
+    }
+
+    .headline {
+      position: absolute;
+      top: 48px;
+      left: 120px;
+      width: 1136px;
+      text-align: center;
+      font-size: 48px;
+      line-height: 1.28;
+      letter-spacing: 2px;
+      font-weight: 800;
+      font-style: italic;
+      color: #f7fbff;
+      text-shadow:
+        0 5px 13px rgba(0, 0, 0, 0.55),
+        0 0 14px rgba(110, 180, 255, 0.28);
+      z-index: 3;
+    }
+
+    .panel {
+      position: absolute;
+      top: 232px;
+      width: 375px;
+      height: 362px;
+      border-radius: 58px;
+      border: 2px solid rgba(154, 215, 255, 0.45);
+      background: linear-gradient(145deg, rgba(70, 150, 255, 0.26), rgba(114, 80, 230, 0.12));
+      box-shadow:
+        0 0 22px rgba(104, 200, 255, 0.32),
+        inset 0 0 23px rgba(160, 215, 255, 0.32);
+      z-index: 2;
+    }
+
+    .panel-left {
+      left: 92px;
+    }
+
+    .panel-mid {
+      left: 502px;
+    }
+
+    .panel-right {
+      left: 912px;
+    }
+
+    .panel-inner {
+      position: absolute;
+      left: 31px;
+      top: 26px;
+      width: 313px;
+      height: 310px;
+      border-radius: 42px;
+      border: 3px solid rgba(130, 205, 255, 0.62);
+      background: linear-gradient(145deg, rgba(116, 220, 255, 0.34), rgba(30, 110, 230, 0.27));
+    }
+
+    .panel-left .panel-inner {
+      box-shadow:
+        0 0 28px rgba(148, 240, 255, 0.85),
+        inset 0 0 26px rgba(255, 255, 255, 0.26);
+    }
+
+    .panel-mid .panel-inner,
+    .panel-right .panel-inner {
+      box-shadow:
+        0 0 20px rgba(92, 160, 255, 0.25),
+        inset 0 0 18px rgba(255, 255, 255, 0.12);
+    }
+
+    .inner-card {
+      position: absolute;
+      left: 26px;
+      top: 28px;
+      width: 260px;
+      height: 260px;
+      border-radius: 25px;
+      border: 2px solid rgba(160, 210, 255, 0.82);
+      overflow: hidden;
+    }
+
+    .panel-left .inner-card {
+      background:
+        radial-gradient(circle at 35% 25%, rgba(190, 245, 255, 0.42), transparent 100px),
+        linear-gradient(145deg, #52d7fb 0%, #1688e5 48%, #075dd0 100%);
+      box-shadow:
+        0 0 22px rgba(220, 255, 255, 0.58),
+        inset 0 0 24px rgba(255, 255, 255, 0.34);
+    }
+
+    .panel-mid .inner-card,
+    .panel-right .inner-card {
+      background:
+        radial-gradient(circle at 62% 22%, rgba(132, 210, 255, 0.26), transparent 105px),
+        linear-gradient(145deg, rgba(70, 170, 255, 0.58), rgba(20, 52, 160, 0.75));
+    }
+
+    .state-label {
+      position: absolute;
+      top: -26px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 156px;
+      height: 38px;
+      border-radius: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: #e8f2fb;
+      background: rgba(190, 218, 235, 0.72);
+      border: 1px solid rgba(220, 245, 255, 0.46);
+      z-index: 5;
+      box-shadow:
+        0 0 10px rgba(255, 255, 255, 0.16),
+        inset 0 0 12px rgba(255, 255, 255, 0.22);
+    }
+
+    .panel-mid .state-label,
+    .panel-right .state-label {
+      background: rgba(160, 184, 205, 0.72);
+    }
+
+    .dev-name {
+      position: absolute;
+      top: 122px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 32px;
+      font-weight: 700;
+      color: #f5fbff;
+      z-index: 4;
+    }
+
+    .storage {
+      position: absolute;
+      left: 0;
+      bottom: 43px;
+      width: 100%;
+      text-align: center;
+      font-size: 18px;
+      color: #fff;
+      z-index: 4;
+    }
+
+    .active-progress {
+      position: absolute;
+      left: 52px;
+      bottom: 52px;
+      width: 128px;
+      height: 18px;
+      border-radius: 20px;
+      border: 2px solid rgba(160, 230, 255, 0.64);
+      background: rgba(120, 200, 255, 0.22);
+      z-index: 4;
+    }
+
+    .check {
+      position: absolute;
+      right: 48px;
+      bottom: 50px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #72ff71, #29cf37);
+      color: #083020;
+      font-size: 17px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+    }
+
+    .cloud-icon {
+      position: absolute;
+      left: 45px;
+      top: 31px;
+      width: 48px;
+      height: 32px;
+      z-index: 4;
+    }
+
+    .chip-icon {
+      position: absolute;
+      right: 50px;
+      top: 31px;
+      width: 50px;
+      height: 50px;
+      z-index: 4;
+    }
+
+    .pause-icon {
+      position: absolute;
+      left: 48px;
+      top: 34px;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      border: 4px solid rgba(180, 220, 255, 0.82);
+      z-index: 4;
+    }
+
+    .lock-icon {
+      position: absolute;
+      right: 52px;
+      top: 35px;
+      width: 45px;
+      height: 35px;
+      z-index: 4;
+    }
+
+    .storage-illustration {
+      position: absolute;
+      right: 35px;
+      bottom: 47px;
+      width: 70px;
+      height: 55px;
+      z-index: 4;
+    }
+
+    .baseline {
+      position: absolute;
+      left: 275px;
+      top: 598px;
+      width: 826px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(140, 220, 255, 0.65), rgba(255, 255, 255, 0.85), rgba(140, 220, 255, 0.65), transparent);
+      border-radius: 10px;
+      z-index: 2;
+    }
+
+    .body-text {
+      position: absolute;
+      left: 242px;
+      top: 638px;
+      width: 892px;
+      text-align: center;
+      color: #fff;
+      font-size: 16px;
+      line-height: 1.35;
+      z-index: 3;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.38);
+    }
+
+    .footer {
+      position: absolute;
+      left: 40px;
+      bottom: 12px;
+      color: rgba(210, 225, 255, 0.46);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 8px;
+      z-index: 3;
+    }
+
+    .footer::before {
+      content: "";
+      display: inline-block;
+      width: 17px;
+      height: 17px;
+      margin-right: 10px;
+      vertical-align: -3px;
+      background:
+        linear-gradient(#74c8ff, #74c8ff) 0 0 / 8px 8px no-repeat,
+        linear-gradient(#e35d4f, #e35d4f) 8px 0 / 8px 8px no-repeat,
+        linear-gradient(#79b54f, #79b54f) 0 8px / 8px 8px no-repeat,
+        linear-gradient(#5946d2, #5946d2) 8px 8px / 8px 8px no-repeat;
+      opacity: 0.82;
+    }
+
+    /* Decorative circuit lines */
+    .line-left {
+      position: absolute;
+      left: 68px;
+      top: 418px;
+      width: 200px;
+      height: 240px;
+      z-index: 1;
+      opacity: 0.28;
+      border-left: 2px solid rgba(160, 230, 255, 0.52);
+      border-bottom: 2px solid rgba(160, 230, 255, 0.52);
+    }
+
+    .line-left::after {
+      content: "";
+      position: absolute;
+      left: -8px;
+      top: -6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(212, 245, 255, 0.48);
+    }
+
+    .line-mid {
+      position: absolute;
+      left: 438px;
+      top: 350px;
+      width: 90px;
+      height: 120px;
+      z-index: 1;
+      opacity: 0.22;
+      border-left: 2px solid rgba(160, 220, 255, 0.45);
+      border-top: 2px solid rgba(160, 220, 255, 0.45);
+    }
+
+    .line-right {
+      position: absolute;
+      right: 85px;
+      top: 418px;
+      width: 200px;
+      height: 240px;
+      z-index: 1;
+      opacity: 0.27;
+      border-right: 2px solid rgba(160, 230, 255, 0.52);
+      border-bottom: 2px solid rgba(160, 230, 255, 0.52);
+    }
+
+    .code-left,
+    .code-right {
+      position: absolute;
+      top: 162px;
+      width: 105px;
+      height: 120px;
+      z-index: 1;
+      opacity: 0.14;
+      color: rgba(180, 235, 255, 0.45);
+      background:
+        repeating-linear-gradient(
+          90deg,
+          rgba(180, 235, 255, 0.12) 0,
+          rgba(180, 235, 255, 0.12) 2px,
+          transparent 2px,
+          transparent 10px
+        );
+    }
+
+    .code-left {
+      left: 23px;
+    }
+
+    .code-right {
+      right: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="headline">競合する構成やコストを気にせずに<br>シームレスなマルチタスクを可能にする</div>
+
+    <div class="code-left"></div>
+    <div class="code-right"></div>
+    <div class="line-left"></div>
+    <div class="line-mid"></div>
+    <div class="line-right"></div>
+
+    <div class="panel panel-left">
+      <div class="state-label">アクティブです</div>
+      <div class="panel-inner">
+        <div class="inner-card">
+          <div class="cloud-icon">
+            <svg width="48" height="32" viewBox="0 0 48 32" fill="none" stroke="#bdf7ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="18" cy="17" r="7"/>
+              <circle cx="28" cy="17" r="7"/>
+              <circle cx="13" cy="21" r="7"/>
+              <path d="M10 18h20"/>
+            </svg>
+          </div>
+          <div class="chip-icon">
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
+              <rect x="18" y="14" width="15" height="22" rx="3" fill="#95d7ff"/>
+              <rect x="11" y="11" width="29" height="29" rx="5" stroke="#ffe872" stroke-width="2"/>
+              <circle cx="24" cy="26" r="6" fill="#2868ff"/>
+              <path d="M7 8h36M8 9v32M42 10V9M10 13l-4 3M12 38l-5 -4M38 12l4 3M38 38l5 -4" stroke="#ffe872" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="dev-name">Dev Box 1</div>
+          <div class="active-progress"></div>
+          <div class="check">✓</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-mid">
+      <div class="state-label">休止状態</div>
+      <div class="panel-inner">
+        <div class="inner-card">
+          <div class="pause-icon">
+            <svg width="55" height="55" viewBox="0 0 55 55" fill="none">
+              <path d="M19 16v24M36 16v24" stroke="#c8e9ff" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="lock-icon">
+            <svg width="45" height="35" viewBox="0 0 45 35" fill="none">
+              <circle cx="22" cy="10" r="12" fill="#d7e7f8"/>
+              <rect x="14" y="17" width="17" height="13" rx="3" fill="#8fb8df"/>
+              <path d="M18 24v-4M25 24v-6M32 24v-8" stroke="#fff" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="dev-name">Dev Box 2</div>
+          <div class="storage">Storage</div>
+          <div class="storage-illustration">
+            <svg width="70" height="55" viewBox="0 0 70 55" fill="none">
+              <path d="M16 17L41 10L55 26L30 33L16 17Z" fill="#26c7ee"/>
+              <path d="M17 28L42 20L55 36L31 43L17 28Z" fill="#398df5"/>
+              <circle cx="50" cy="36" r="10" fill="#72dfff"/>
+              <path d="M22 22v9M32 20v11M42 18v13" stroke="#b6fffb" stroke-width="2"/>
+              <text x="40" y="14" font-family="Segoe UI" font-size="16" fill="#7ff7ff">Zz</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-right">
+      <div class="state-label">休止状態</div>
+      <div class="panel-inner">
+        <div class="inner-card">
+          <div class="pause-icon">
+            <svg width="55" height="55" viewBox="0 0 55 55" fill="none">
+              <path d="M19 16v24M36 16v24" stroke="#c8e9ff" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="lock-icon">
+            <svg width="45" height="35" viewBox="0 0 45 35" fill="none">
+              <circle cx="22" cy="10" r="12" fill="#d7e7f8"/>
+              <rect x="14" y="17" width="17" height="13" rx="3" fill="#8fb8df"/>
+              <path d="M18 24v-4M25 24v-6M32 24v-8" stroke="#fff" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="dev-name">Dev Box 3</div>
+          <div class="storage">Storage</div>
+          <div class="storage-illustration">
+            <svg width="70" height="55" viewBox="0 0 70 55" fill="none">
+              <path d="M16 17L41 10L55 26L30 33L16 17Z" fill="#26c7ee"/>
+              <path d="M17 28L42 20L55 36L31 43L17 28Z" fill="#398df5"/>
+              <circle cx="50" cy="36" r="10" fill="#72dfff"/>
+              <path d="M22 22v9M32 20v11M42 18v13" stroke="#b6fffb" stroke-width="2"/>
+              <text x="40" y="14" font-family="Segoe UI" font-size="16" fill="#7ff7ff">Zz</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="baseline"></div>
+
+    <div class="body-text">
+      開発者ごとに複数のDev Boxを展開でき、アクティブではないDev Boxは自動的に休止状態に移行します。<br>
+      休止状態のDev Boxは低コストのAzure Storage BLOBとして保存され、オンデマンドで迅速に再開できます。
+    </div>
+
+    <div class="footer">MICROSOFT DEV BOX</div>
+  </div>
+</body>
+</html>

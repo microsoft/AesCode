@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Secure and govern M365 Copilot with confidence</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9e8e5;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    color: #0b0b0b;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 18% 18%, rgba(93, 157, 210, 0.12), transparent 26%),
+      radial-gradient(circle at 82% 20%, rgba(78, 204, 190, 0.08), transparent 28%),
+      radial-gradient(circle at 82% 82%, rgba(239, 171, 113, 0.12), transparent 24%),
+      linear-gradient(110deg, #f6fbff 0%, #fbfaf7 55%, #fbf7f1 100%);
+  }
+
+  .title {
+    position: absolute;
+    top: 38px;
+    left: 0;
+    width: 1376px;
+    text-align: center;
+    font-size: 42px;
+    line-height: 1.1;
+    font-weight: 750;
+    letter-spacing: 0.2px;
+  }
+
+  .left-list {
+    position: absolute;
+    left: 54px;
+    top: 136px;
+    width: 660px;
+    height: 310px;
+  }
+
+  .bullet {
+    position: relative;
+    min-height: 60px;
+    margin-bottom: 12px;
+    padding-left: 84px;
+    font-size: 23px;
+    line-height: 1.18;
+    font-weight: 400;
+  }
+
+  .bullet .verb {
+    font-weight: 800;
+  }
+
+  .bullet-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+  }
+
+  .bullet-icon.blue {
+    background: #77a7e8;
+  }
+
+  .bullet-icon.teal {
+    background: #58c2b6;
+  }
+
+  .bullet-icon.purple {
+    background: #8b4a9f;
+  }
+
+  .bullet-icon.orange {
+    background: #ee965b;
+  }
+
+  .bullet-icon svg {
+    width: 35px;
+    height: 35px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .diamond-area {
+    position: absolute;
+    left: 748px;
+    top: 116px;
+    width: 552px;
+    height: 335px;
+  }
+
+  .diagram-label {
+    position: absolute;
+    font-size: 17px;
+    line-height: 1.18;
+    text-align: center;
+    z-index: 3;
+  }
+
+  .label-foundation {
+    left: 58px;
+    top: 12px;
+    width: 90px;
+  }
+
+  .label-compliance {
+    left: -22px;
+    top: 145px;
+    width: 94px;
+  }
+
+  .label-visibility {
+    right: -24px;
+    top: 145px;
+    width: 110px;
+  }
+
+  .label-defense {
+    right: -10px;
+    top: 276px;
+    width: 95px;
+  }
+
+  .connector {
+    position: absolute;
+    height: 1px;
+    background: #8f8f8f;
+    z-index: 1;
+  }
+
+  .conn-foundation {
+    left: 126px;
+    top: 30px;
+    width: 90px;
+  }
+
+  .conn-compliance {
+    left: 110px;
+    top: 160px;
+    width: 42px;
+  }
+
+  .conn-visibility {
+    left: 407px;
+    top: 160px;
+    width: 42px;
+  }
+
+  .conn-defense {
+    left: 280px;
+    top: 292px;
+    width: 96px;
+  }
+
+  .diamond {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    transform: rotate(45deg);
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+  }
+
+  .diamond.prepare {
+    left: 218px;
+    top: 0;
+    background: #70a8e4;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .diamond.discover {
+    left: 338px;
+    top: 84px;
+    background: #56c1b5;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .diamond.protect {
+    left: 218px;
+    top: 208px;
+    background: #85469e;
+    font-size: 19px;
+    font-weight: 800;
+  }
+
+  .diamond.govern {
+    left: 98px;
+    top: 84px;
+    background: #df9150;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .center-circle {
+    position: absolute;
+    left: 236px;
+    top: 104px;
+    width: 108px;
+    height: 108px;
+    border-radius: 50%;
+    background: #fbfbfb;
+    border: 3px solid #e0e0e0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 800;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.14);
+  }
+
+  .cta-banner {
+    position: absolute;
+    left: 54px;
+    top: 476px;
+    width: 1272px;
+    height: 54px;
+    border-radius: 30px;
+    background: linear-gradient(90deg, #76a7ed 0%, #68c1ce 48%, #78c2a0 100%);
+    box-shadow: 0 9px 18px rgba(43, 82, 114, 0.16);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 23px;
+    z-index: 6;
+  }
+
+  .cta-text {
+    font-size: 23px;
+    font-weight: 650;
+    letter-spacing: 0.1px;
+  }
+
+  .cta-text .linkish {
+    font-weight: 800;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .cards-container {
+    position: absolute;
+    left: 26px;
+    top: 502px;
+    width: 1328px;
+    height: 244px;
+    border: 1.8px solid #53a6f0;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.13);
+    z-index: 4;
+  }
+
+  .feature-row {
+    position: absolute;
+    left: 30px;
+    top: 63px;
+    width: 1268px;
+    height: 170px;
+    display: flex;
+    justify-content: space1between;
+    gap: 18px;
+  }
+
+  .card {
+    position: relative;
+    width: 236px;
+    height: 158px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 6px;
+    box-shadow: 0 6px 14px rgba(40, 47, 52, 0.20);
+    padding: 43px 16px 14px;
+    text-align: center;
+  }
+
+  .card-icon {
+    position: absolute;
+    left: 50%;
+    top: -28px;
+    transform: translateX(-50%);
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+  }
+
+  .card-icon.blue2 {
+    background: #bfe0ff;
+  }
+
+  .card-icon.teal2 {
+    background: #c6efe0;
+  }
+
+  .card-icon.purple2 {
+    background: #dcc8ef;
+  }
+
+  .card-icon.peach {
+    background: #ffe2cf;
+  }
+
+  .card-icon.pink {
+    background: #ffd2d7;
+  }
+
+  .card-icon svg {
+    width: 35px;
+    height: 35px;
+    fill: none;
+    stroke: #333;
+    stroke-width: 2.3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .card h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    line-height: 1.15;
+    font-weight: 800;
+  }
+
+  .card p {
+    margin: 0;
+    font-size: 15.7px;
+    line-height: 1.18;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="title">Secure and govern M365 Copilot with confidence</div>
+
+    <section class="left-list" aria-label="Secure Copilot action list">
+      <div class="bullet">
+        <div class="bullet-icon blue" aria-hidden="true">
+          <svg viewBox="0 0 40 40">
+            <path d="M20 5l13 6v12c0 7-4.2 12.2-13 15C11.2 35.2 7 30 7 23V11l13-6z"/>
+            <path d="M20 14v12M15 19l5 5 5-5"/>
+            <circle cx="29" cy="28" r="6"/>
+            <path d="M26 28l1.5 1.5M29 25v3M32 28l-1.5 1.5"/>
+          </svg>
+        </div>
+        <span class="verb">Prepare</span> your environment and implement Zero Trust strategy for secure Microsoft 365 Copilot adoption.
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-icon teal" aria-hidden="true">
+          <svg viewBox="0 0 40 40">
+            <circle cx="17" cy="18" r="11"/>
+            <circle cx="17" cy="18" r="4.5"/>
+            <path d="M23 26l9 9"/>
+            <path d="M27 22l10 10"/>
+          </svg>
+        </div>
+        <span class="verb">Discover</span> security, privacy, and safety risks with comprehensive visibility.
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-icon purple" aria-hidden="true">
+          <svg viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="10"/>
+            <path d="M20 10v10l7 6M14 20h-5M26 20h5M20 14l-5-5M20 26l5 5"/>
+            <path d="M30 11l3 3M10 11l-3 3M30 29l-3 3M10 29l3 3"/>
+          </svg>
+        </div>
+        <span class="verb">Protect</span> against emerging threats and safeguard sensitive data with end-to-end security.
+      </div>
+
+      <div class="bullet">
+        <div class="bullet-icon orange" aria-hidden="true">
+          <svg viewBox="0 0 40 40">
+            <path d="M9 25l9 9M21 18l10 10M11 16l12-8M13 28h17"/>
+            <path d="M12 29h16M14 25h14"/>
+          </svg>
+        </div>
+        <span class="verb">Govern</span> Microsoft 365 Copilot usage and systems to comply with code-of-conduct and regulatory policies.
+      </div>
+    </section>
+
+    <section class="diamond-area" aria-label="Generative AI security diamond diagram">
+      <div class="diagram-label label-foundation">Foundation<br>&amp; Strategy</div>
+      <div class="diagram-label label-compliance">Compliance<br>&amp; Policy</div>
+      <div class="diagram-label label-visibility">Visibility &amp;<br>Assessment</div>
+      <div class="diagram-label label-defense">Defense &amp;<br>Safeguards</div>
+
+      <div class="connector conn-foundation"></div>
+      <div class="connector conn-compliance"></div>
+      <div class="connector conn-visibility"></div>
+      <div class="connector conn-defense"></div>
+
+      <div class="diamond prepare">Prepare</div>
+      <div class="diamond discover">Discover</div>
+      <div class="diamond protect">Protect</div>
+      <div class="diamond govern">Govern</div>
+
+      <div class="center-circle">Generative<br>AI</div>
+    </section>
+
+    <section class="cta-banner">
+      <div class="cta-text">Take the <span class="linkish">Security for AI Assessment</span></div>
+    </section>
+
+    <section class="cards-container" aria-label="Security for AI Assessment feature cards">
+      <div class="feature-row">
+        <div class="card">
+          <div class="card-icon blue2" aria-hidden="true">
+            <svg viewBox="0 0 40 40">
+              <path d="M20 7l12 10v10c0 6-3.8 10-12 14C11.8 37 8 33 8 27V17L20 7z"/>
+              <path d="M20 15v9M15 20l5 5 5-5"/>
+            </svg>
+          </div>
+          <h3>Gain Clarity</h3>
+          <p>Clarify your organization’s current security posture and readiness for AI.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon teal2" aria-hidden="true">
+            <svg viewBox="0 0 40 40">
+              <circle cx="20" cy="20" r="12"/>
+              <path d="M14 22l7 7 11-13"/>
+              <path d="M28 12l5 5"/>
+            </svg>
+          </div>
+          <h3>Identify Key Gaps</h3>
+          <p>Pinpoint potential vulnerabilities and areas for improvement in your AI transformation.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon purple2" aria-hidden="true">
+            <svg viewBox="0 0 40 40">
+              <circle cx="20" cy="20" r="9"/>
+              <circle cx="20" cy="20" r="4"/>
+              <path d="M12 12l8 8M28 12l-8 8M12 28l8-8M28 28l-8-8"/>
+            </svg>
+          </div>
+          <h3>Receive Tailored Recommendations</h3>
+          <p>Get actionable steps and best practices to strengthen your AI security strategy.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon peach" aria-hidden="true">
+            <svg viewBox="0 0 40 40">
+              <path d="M8 28h24M18 18v11M10 10h20"/>
+            </svg>
+          </div>
+          <h3>Download Your Full Report</h3>
+          <p>Share a comprehensive report summarizing findings and aligning your team.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon pink" aria-hidden="true">
+            <svg viewBox="0 0 40 40">
+              <path d="M11 24l7-7 7 7-7 7z"/>
+              <path d="M22 18l8-8 8 8-8 8z"/>
+              <path d="M12 23l10 10M19 20l9 9"/>
+            </svg>
+          </div>
+          <h3>Keep the Momentum Going</h3>
+          <p>Benefit from expert guidance and clear next steps for secure AI adoption.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

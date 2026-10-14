@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Instructor Bench Strength & Team Development</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e8eef6;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  /* Top Header */
+  .header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1280px;
+    height: 88px;
+    background: #0d5aab;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .number-box {
+    position: absolute;
+    left: 18px;
+    top: 10px;
+    width: 84px;
+    height: 68px;
+    background: #ffffff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    font-weight: 800;
+    color: #0b58ad;
+    box-shadow: 0 5px 8px rgba(0,0,0,0.18);
+  }
+
+  .main-title {
+    position: absolute;
+    left: 124px;
+    top: 24px;
+    width: 820px;
+    color: #ffffff;
+    font-size: 31px;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    text-shadow: 0 2px 2px rgba(0,0,0,0.25);
+  }
+
+  .nav-triangles {
+    position: absolute;
+    right: 24px;
+    top: 27px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .nav-triangles span {
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-left: 23px solid #8fc3f7;
+    opacity: 0.95;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.22));
+  }
+
+  /* Central band background */
+  .flow-band {
+    position: absolute;
+    left: 0;
+    top: 134px;
+    width: 1280px;
+    height: 220px;
+    border-radius: 110px;
+    background:
+      radial-gradient(circle at 16% 56%, rgba(33,124,220,0.18), transparent 30%),
+      radial-gradient(circle at 84% 56%, rgba(33,124,220,0.18), transparent 30%),
+      linear-gradient(180deg, rgba(229,243,255,0.95) 0%, rgba(210,236,255,0.86) 54%, rgba(240,249,255,0.94) 100%);
+    z-index: 1;
+  }
+
+  .flow-band::before {
+    content: "";
+    position: absolute;
+    left: -110px;
+    top: 52px;
+    width: 1480px;
+    height: 82px;
+    border-radius: 50%;
+    border-top: 4px solid rgba(72,150,220,0.35);
+    border-bottom: 4px solid rgba(72,150,220,0.18);
+    transform: rotate(-14deg);
+    filter: blur(1px);
+  }
+
+  .flow-band::after {
+    content: "";
+    position: absolute;
+    left: -100px;
+    bottom: 29px;
+    width: 1460px;
+    height: 78px;
+    border-radius: 50%;
+    border-top: 4px solid rgba(120,180,230,0.25);
+    border-bottom: 4px solid rgba(120,180,230,0.12);
+    transform: rotate(12deg);
+    filter: blur(1px);
+  }
+
+  /* Central three-circle process */
+  .circle-left,
+  .circle-middle,
+  .circle-right {
+    position: absolute;
+    z-index: 5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .circle-left {
+    left: 382px;
+    top: 144px;
+    width: 158px;
+    height: 158px;
+    background: #0b59ba;
+    border: 7px solid #ffffff;
+    box-shadow: 0 8px 12px rgba(0,0,0,0.26);
+  }
+
+  .circle-right {
+    left: 740px;
+    top: 144px;
+    width: 158px;
+    height: 158px;
+    background: #0b59ba;
+    border: 7px solid #ffffff;
+    box-shadow: 0 8px 12px rgba(0,0,0,0.26);
+  }
+
+  .circle-middle {
+    left: 521px;
+    top: 112px;
+    width: 240px;
+    height: 240px;
+    background: #ffffff;
+    border: 5px solid #0b59ba;
+    box-shadow: 0 8px 12px rgba(0,0,0,0.28);
+    z-index: 8;
+  }
+
+  .circle-content {
+    transform: translateY(10px);
+  }
+
+  .circle-middle .circle-content {
+    transform: translateY(7px);
+  }
+
+  .middle-text {
+    margin-top: 8px;
+    color: #0b59ba;
+    font-size: 27px;
+    line-height: 1.15;
+    font-weight: 800;
+  }
+
+  /* Criteria text blocks */
+  .criteria-left {
+    position: absolute;
+    z-index: 4;
+    left: 73px;
+    top: 160px;
+    width: 292px;
+  }
+
+  .criteria-right {
+    position: absolute;
+    z-index: 4;
+    left: 945px;
+    top: 162px;
+    width: 275px;
+  }
+
+  .section-heading {
+    color: #0b59ba;
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+
+  .body-copy {
+    color: #3f4f5f;
+    font-size: 14.2px;
+    line-height: 1.65;
+    margin: 0 0 11px 0;
+  }
+
+  /* Icon styles */
+  .quality-icon,
+  .incentive-icon,
+  .db-icon {
+    position: relative;
+    margin-bottom: 6px;
+  }
+
+  .quality-icon::before {
+    content: "★";
+    position: absolute;
+    top: -28px;
+    left: 36px;
+    width: 38px;
+    height: 38px;
+    border: 4px solid #ffffff;
+    border-radius: 50%;
+    background: transparent;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 30px;
+  }
+
+  .quality-icon::after {
+    content: "";
+    position: absolute;
+    left: 22px;
+    top: 26px;
+    width: 48px;
+    height: 21px;
+    border-left: 12px solid #ffffff;
+    border-right: 12px solid #ffffff;
+    border-bottom: 13px solid #ffffff;
+    transform: skewY(-28deg);
+  }
+
+  .incentive-icon {
+    width: 44px;
+    height: 40px;
+    border: 4px solid #ffffff;
+    border-radius: 5px;
+  }
+
+  .incentive-icon::before,
+  .incentive-icon::after {
+    content: "";
+    position: absolute;
+    background: #ffffff;
+  }
+
+  .incentive-icon::before {
+    left: 12px;
+    top: -15px;
+    width: 16px;
+    height: 12px;
+    border-radius: 5px;
+    transform: rotate(45deg);
+  }
+
+  .incentive-icon::after {
+    left: -12px;
+    top: 12px;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+  }
+
+  .db-icon {
+    width: 62px;
+    height: 62px;
+    border-left: 4px solid #0b59ba;
+    border-right: 4px solid #0b59ba;
+    border-top: 4px solid #0b59ba;
+    border-radius: 50% 50% 45% 45%;
+    border-bottom: none;
+  }
+
+  .db-icon::before,
+  .db-icon::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    width: 42px;
+    height: 21px;
+    border: 3px solid #0b59ba;
+    border-radius: 50%;
+    background: #ffffff;
+  }
+
+  .db-icon::before {
+    top: 12px;
+  }
+
+  .db-icon::after {
+    top: 32px;
+  }
+
+  /* Lower callouts */
+  .callout {
+    position: absolute;
+    z-index: 3;
+    width: 278px;
+    height: 205px;
+  }
+
+  .callout-1 { left: 28px; top: 388px; }
+  .callout-2 { left: 335px; top: 388px; }
+  .callout-3 { left: 651px; top: 388px; }
+  .callout-4 { left: 964px; top: 388px; }
+
+  .node {
+    position: absolute;
+    left: 132px;
+    top: 0;
+    width: 17px;
+    height: 17px;
+    background: #0b59ba;
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px rgba(11,89,186,0.13);
+  }
+
+  .line {
+    position: absolute;
+    left: 144px;
+    top: 17px;
+    width: 2px;
+    height: 43px;
+    background: #aeb7bd;
+  }
+
+  .callout-label {
+    position: absolute;
+    left: 0;
+    top: 57px;
+    width: 278px;
+    height: 56px;
+    background: #0b59ba;
+    border-radius: 16px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+    padding-left: 70px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.14);
+  }
+
+  .callout-box {
+    position: absolute;
+    left: 0;
+    top: 109px;
+    width: 278px;
+    height: 148px;
+    background: rgba(255,255,255,0.78);
+    border: 1.5px solid #78aeea;
+    border-radius: 0 0 10px 10px;
+    padding: 17px 12px 12px 12px;
+    color: #3f4f5f;
+    font-size: 15.6px;
+    line-height: 1.62;
+  }
+
+  .callout-label-icon {
+    position: absolute;
+    left: 22px;
+    top: 12px;
+    width: 34px;
+    height: 34px;
+    color: #ffffff;
+  }
+
+  .callout-label-icon::before,
+  .callout-label-icon::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .callout-label-icon.star::before {
+    content: "✦";
+    width: 32px;
+    height: 32px;
+    border: 4px solid #ffffff;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    color: #ffffff;
+    font-size: 23px;
+    text-align: center;
+    line-height: 26px;
+  }
+
+  .callout-label-icon.bar::before {
+    left: 6px;
+    top: 13px;
+    width: 12px;
+    height: 12px;
+    background: #ffffff;
+    border: 3px solid #ffffff;
+  }
+
+  .callout-label-icon.bar::after {
+    left: 16px;
+    top: 4px;
+    width: 14px;
+    height: 25px;
+    background: #ffffff;
+    border: 3px solid #ffffff;
+  }
+
+  .callout-label-icon.book::before {
+    left: 8px;
+    top: 5px;
+    width: 18px;
+    height: 18px;
+    background: #ffffff;
+    border-radius: 50%;
+  }
+
+  .callout-label-icon.book::after {
+    left: 4px;
+    top: 22px;
+    width: 26px;
+    height: 11px;
+    background: #ffffff;
+    border-radius: 10px;
+  }
+
+  .callout-label-icon.people::before {
+    left: 8px;
+    top: 5px;
+    width: 14px;
+    height: 14px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 16px 0 0 #ffffff;
+  }
+
+  .callout-label-icon.people::after {
+    left: 4px;
+    top: 22px;
+    width: 26px;
+    height: 11px;
+    background: #ffffff;
+    border-radius: 12px 12px 4px 4px;
+  }
+</style>
+</head>
+<body>
+  <div class="artboard">
+    <div class="header">
+      <div class="number-box">02</div>
+      <div class="main-title">Instructor Bench Strength &amp; Team Development</div>
+      <div class="nav-triangles" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="flow-band"></div>
+
+    <div class="criteria-left">
+      <div class="section-heading">Multi-Factor Selection Criteria</div>
+      <p class="body-copy">In addition to performance and training impact, we add more selection dimensions such as subject-matter tests and training effectiveness evaluation.</p>
+      <p class="body-copy">This ensures a comprehensive view of instructor capability and potential.</p>
+    </div>
+
+    <div class="circle-left">
+      <div class="circle-content">
+        <div class="quality-icon" aria-hidden="true"></div>
+        <div>Raise<br>Quality</div>
+      </div>
+    </div>
+
+    <div class="criteria-right">
+      <div class="section-heading">Dynamic Selection Process</div>
+      <p class="body-copy">An internal instructor selection process runs on a quarterly or semiannual basis to identify and bring forward new internal talent.</p>
+      <p class="body-copy">Selection activities will be conducted once every quarter.</p>
+    </div>
+
+    <div class="circle-middle">
+      <div class="circle-content">
+        <div class="db-icon" aria-hidden="true"></div>
+        <div class="middle-text">Select<br>Top Talent</div>
+      </div>
+    </div>
+
+    <div class="circle-right">
+      <div class="circle-content">
+        <div class="incentive-icon" aria-hidden="true"></div>
+        <div>Incentive<br>Program</div>
+      </div>
+    </div>
+
+    <div class="callout callout-1">
+      <div class="node"></div>
+      <div class="line"></div>
+      <div class="callout-label">
+        <div class="callout-label-icon star" aria-hidden="true"></div>
+        <div>Diverse Incentive Options</div>
+      </div>
+      <div class="callout-box">
+        <p>Beyond bonuses and promotions, incentives can include opportunities to attend forums and conferences and broaden learning.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-2">
+      <div class="node"></div>
+      <div class="line"></div>
+      <div class="callout-label">
+        <div class="callout-label-icon bar" aria-hidden="true"></div>
+        <div>Tiered Incentive Framework</div>
+      </div>
+      <div class="callout-box">
+        <p>Build a tiered framework based on performance, training hours, and ratings, and classify instructors into levels with differentiated packages.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-3">
+      <div class="node"></div>
+      <div class="line"></div>
+      <div class="callout-label">
+        <div class="callout-label-icon book" aria-hidden="true"></div>
+        <div>Customized Development Plans</div>
+      </div>
+      <div class="callout-box">
+        <p>Tailor development plans to each instructor’s strengths and training needs, and prioritize train-the-trainer programs when facilitation skills are weaker.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-4">
+      <div class="node"></div>
+      <div class="line"></div>
+      <div class="callout-label">
+        <div class="callout-label-icon people" aria-hidden="true"></div>
+        <div>Mentor–Mentee Pairing</div>
+      </div>
+      <div class="callout-box">
+        <p>Launch a mentor–mentee program that pairs new or improving instructors with experienced senior instructors for 1:1 coaching.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

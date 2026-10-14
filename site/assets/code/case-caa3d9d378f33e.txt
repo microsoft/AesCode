@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Timeline of Major AI Milestones</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #020817;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1664px;
+    height: 1248px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 15%, rgba(0, 155, 255, 0.16), transparent 22%),
+      radial-gradient(circle at 15% 58%, rgba(174, 82, 255, 0.12), transparent 25%),
+      radial-gradient(circle at 85% 52%, rgba(255, 128, 35, 0.10), transparent 28%),
+      linear-gradient(180deg, #031026 0%, #020817 45%, #041531 100%);
+  }
+
+  .circuit-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.58;
+    background-image:
+      linear-gradient(90deg, transparent 0 38px, rgba(0, 173, 255, 0.25) 39px 40px, transparent 41px 70px),
+      linear-gradient(0deg, transparent 0 42px, rgba(0, 173, 255, 0.18) 43px 44px, transparent 45px 75px),
+      radial-gradient(circle, rgba(0, 173, 255, 0.35) 0 3px, transparent 4px);
+    background-size: 190px 130px, 220px 160px, 95px 70px;
+    background-position: -40px -30px, 820px 80px, 240px 140px;
+    border-image: linear-gradient(90deg, transparent, rgba(0, 173, 255, 0.55), transparent) 1;
+  }
+
+  .title {
+    position: absolute;
+    top: 36px;
+    left: 220px;
+    width: 1140px;
+    z-index: 3;
+    text-align: center;
+    color: #f5f7fb;
+    font-weight: 900;
+    font-size: 62px;
+    letter-spacing: -2px;
+    text-shadow: 0 0 14px rgba(78, 202, 255, 0.55);
+    line-height: 1.05;
+  }
+
+  .subtitle {
+    position: absolute;
+    top: 132px;
+    left: 388px;
+    width: 900px;
+    z-index: 3;
+    text-align: center;
+    color: #39c9fb;
+    font-size: 29px;
+    font-weight: 800;
+    text-shadow: 0 0 12px rgba(33, 186, 255, 0.55);
+  }
+
+  .logo {
+    position: absolute;
+    top: 52px;
+    right: 52px;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #f3f7fb;
+    font-weight: 700;
+    font-size: 24px;
+  }
+
+  .logo-mark {
+    width: 46px;
+    height: 46px;
+    position: relative;
+  }
+
+  .logo-mark::before,
+  .logo-mark::after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 0;
+    width: 6px;
+    height: 46px;
+    border-radius: 4px;
+    background: #35c9fb;
+    transform-origin: center;
+    box-shadow: 0 0 12px rgba(53, 201, 251, 0.8);
+  }
+
+  .logo-mark::before {
+    transform: rotate(45deg);
+  }
+
+  .logo-mark::after {
+    transform: rotate(-45deg);
+  }
+
+  .logo-small {
+    color: #26c7f5;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .timeline-line {
+    position: absolute;
+    left: 48px;
+    top: 665px;
+    width: 1568px;
+    height: 6px;
+    z-index: 5;
+    background: linear-gradient(90deg, #34e9fb, #48cfff, #27e2fb, #42c9ff, #34e9fb);
+    box-shadow: 0 0 16px rgba(42, 228, 255, 0.95);
+  }
+
+  .timeline-line::before,
+  .timeline-line::after {
+    content: "";
+    position: absolute;
+    top: -14px;
+    width: 36px;
+    height: 28px;
+    border-top: 3px solid #36d9ff;
+    border-right: 3px solid #36d9ff;
+  }
+
+  .timeline-line::before {
+    left: -20px;
+    transform: rotate(-135deg);
+  }
+
+  .timeline-line::after {
+    right: -20px;
+    transform: rotate(45deg);
+  }
+
+  .node {
+    position: absolute;
+    z-index: 6;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 3px solid #38dbff;
+    background: #f6fbff;
+    box-shadow: 0 0 12px rgba(56, 219, 255, 0.95);
+  }
+
+  .node.purple {
+    border-color: #9a52ff;
+  }
+
+  .node.blue {
+    border-color: #42a6ff;
+  }
+
+  .node.cyan {
+    border-color: #40e4f1;
+  }
+
+  .node.green {
+    border-color: #9cff29;
+  }
+
+  .node.yellow {
+    border-color: #ffe138;
+  }
+
+  .node.orange {
+    border-color: #ff9624;
+  }
+
+  .node.red {
+    border-color: #ff3c45;
+  }
+
+  .milestone {
+    position: absolute;
+    z-index: 7;
+    width: 220px;
+    text-align: center;
+    color: #f5f7fb;
+  }
+
+  .circle-icon {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 160px;
+    height: 160px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    border: 8px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 20, 40, 0.72);
+    box-shadow:
+      0 0 28px var(--accent),
+      inset 0 0 24px rgba(255, 255, 255, 0.12);
+  }
+
+  .circle-icon img {
+    width: 120px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    opacity: 0.9;
+  }
+
+  .year-badge {
+    position: absolute;
+    top: 108px;
+    left: 50%;
+    width: 84px;
+    height: 84px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.85);
+    background: var(--accent);
+    color: white;
+    font-weight: 900;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
+  }
+
+  .card {
+    position: absolute;
+    top: 220px;
+    width: 220px;
+    min-height: 230px;
+    padding: 12px 10px 16px;
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    background: rgba(2, 18, 48, 0.88);
+    box-shadow: 0 0 18px rgba(32, 178, 255, 0.25);
+  }
+
+  .milestone h3 {
+    margin: 0 0 12px;
+    font-size: 18px;
+    line-height: 1.2;
+    color: var(--accent);
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .milestone p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.35;
+    color: #f0f4fb;
+    font-weight: 600;
+  }
+
+  .connector {
+    position: absolute;
+    z-index: 4;
+    width: 2px;
+    background: rgba(120, 220, 255, 0.65);
+    height: 52px;
+  }
+
+  .m1950 { left: 40px; top: 188px; --accent: #a75cff; }
+  .m1956 { left: 262px; top: 188px; --accent: #44a8ff; }
+  .m1966 { left: 484px; top: 188px; --accent: #41d8e8; }
+  .m1997 { left: 706px; top: 188px; --accent: #9cff25; }
+  .m2006 { left: 928px; top: 188px; --accent: #ffe430; }
+  .m2011 { left: 1372px; top: 188px; --accent: #ff3642; }
+  .m2012 { left: 1148px; top: 188px; --accent: #ff8322; }
+
+  .m2016 { left: 40px; top: 700px; --accent: #a75cff; }
+  .m2017 { left: 262px; top: 700px; --accent: #44a8ff; }
+  .m1987 { left: 484px; top: 700px; --accent: #41d8e8; }
+  .m2018 { left: 706px; top: 700px; --accent: #9cff25; }
+  .m2020 { left: 928px; top: 700px; --accent: #ffe430; }
+  .m2022 { left: 1148px; top: 700px; --accent: #ff8322; }
+  .m2023 { left: 1372px; top: 700px; --accent: #ff3642; }
+  .m2025 { left: 1492px; top: 700px; --accent: #ff3642; }
+
+  .c1950 { left: 60px; top: 580px; }
+  .c1956 { left: 282px; top: 580px; }
+  .c1966 { left: 504px; top: 580px; }
+  .c1997 { left: 726px; top: 580px; }
+  .c2006 { left: 948px; top: 580px; }
+  .c2011 { left: 1392px; top: 580px; }
+  .c2012 { left: 1168px; top: 580px; }
+
+  .c2016 { left: 60px; top: 680px; }
+  .c2017 { left: 282px; top: 680px; }
+  .c1987 { left: 504px; top: 680px; }
+  .c2018 { left: 726px; top: 680px; }
+  .c2020 { left: 948px; top: 680px; }
+  .c2022 { left: 1168px; top: 680px; }
+  .c2023 { left: 1392px; top: 680px; }
+  .c2025 { left: 1512px; top: 680px; }
+
+  .n1950 { left: 126px; top: 638px; }
+  .n1956 { left: 322px; top: 638px; }
+  .n1966 { left: 525px; top: 638px; }
+  .n1997 { left: 746px; top: 638px; }
+  .n2006 { left: 968px; top: 638px; }
+  .n2011 { left: 1406px; top: 638px; }
+  .n2012 { left: 1182px; top: 638px; }
+
+  .n2016 { left: 126px; top: 818px; }
+  .n2017 { left: 322px; top: 818px; }
+  .n1987 { left: 525px; top: 818px; }
+  .n2018 { left: 746px; top: 818px; }
+  .n2020 { left: 968px; top: 818px; }
+  .n2022 { left: 1182px; top: 818px; }
+  .n2023 { left: 1406px; top: 818px; }
+  .n2025 { left: 1526px; top: 818px; }
+
+  .bottom-scale {
+    position: absolute;
+    left: 20px;
+    top: 1166px;
+    width: 1525px;
+    height: 36px;
+    z-index: 8;
+  }
+
+  .year-label {
+    position: absolute;
+    color: #45d6ff;
+    font-weight: 900;
+    font-size: 26px;
+    top: 1172px;
+  }
+
+  .year-label.year-title {
+    left: 0;
+    font-size: 18px;
+    color: #54e3ff;
+    top: 1180px;
+  }
+
+  .scale-line {
+    position: absolute;
+    top: 0;
+    left: 92px;
+    width: 1358px;
+    height: 2px;
+    background: #35d8ff;
+  }
+
+  .scale-dot {
+    position: absolute;
+    top: -8px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid #35d8ff;
+    background: #effcff;
+  }
+
+  .tick {
+    position: absolute;
+    top: -8px;
+    width: 2px;
+    height: 14px;
+    background: #48dfff;
+  }
+
+  .tick.t2 { left: 108px; }
+  .tick.t3 { left: 226px; }
+  .tick.t4 { left: 344px; }
+  .tick.t5 { left: 462px; }
+  .tick.t6 { left: 580px; }
+  .tick.t7 { left: 698px; }
+  .tick.t8 { left: 816px; }
+  .tick.t9 { left: 934px; }
+  .tick.t10 { left: 1052px; }
+  .tick.t11 { left: 1170px; }
+  .tick.t12 { left: 1288px; }
+  .tick.t13 { left: 1406px; }
+
+  .d1950 { left: 108px; }
+  .d1960 { left: 232px; }
+  .d1970 { left: 400px; }
+  .d1980 { left: 568px; }
+  .d1990 { left: 736px; }
+  .d2000 { left: 904px; }
+  .d2010 { left: 1072px; }
+  .d2020 { left: 1240px; }
+  .d2025 { left: 1408px; }
+
+  .milestone-label-1950 { left: 142px; }
+  .milestone-label-1960 { left: 310px; }
+  .milestone-label-1970 { left: 478px; }
+  .milestone-label-1980 { left: 646px; }
+  .milestone-label-1990 { left: 814px; }
+  .milestone-label-2000 { left: 982px; }
+  .milestone-label-2010 { left: 1150px; }
+  .milestone-label-2020 { left: 1318px; }
+  .milestone-label-2025 { left: 1486px; }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="circuit-layer"></div>
+
+  <div class="title">Timeline of Major AI Milestones</div>
+  <div class="subtitle">From Foundational Ideas to Frontier Models (1950-2025)</div>
+
+  <div class="logo">
+    <div class="logo-mark"></div>
+    <div>
+      <div>SparkLabs</div>
+      <div class="logo-small">AI Lab</div>
+    </div>
+  </div>
+
+  <div class="timeline-line"></div>
+
+  <div class="node purple c1950 n1950"></div>
+  <div class="node blue c1956 n1956"></div>
+  <div class="node cyan c1966 n1966"></div>
+  <div class="node green c1997 n1997"></div>
+  <div class="node yellow c2006 n2006"></div>
+  <div class="node orange c2012 n2012"></div>
+  <div class="node red c2011 n2011"></div>
+
+  <div class="node purple c2016 n2016"></div>
+  <div class="node blue c2017 n2017"></div>
+  <div class="node cyan c1987 n1987"></div>
+  <div class="node green c2018 n2018"></div>
+  <div class="node yellow c2020 n2020"></div>
+  <div class="node orange c2022 n2022"></div>
+  <div class="node red c2023 n2023"></div>
+  <div class="node red c2025 n2025"></div>
+
+  <div class="connector c1950"></div>
+  <div class="connector c1956"></div>
+  <div class="connector c1966"></div>
+  <div class="connector c1997"></div>
+  <div class="connector c2006"></div>
+  <div class="connector c2012"></div>
+  <div class="connector c2011"></div>
+
+  <div class="connector c2016"></div>
+  <div class="connector c2017"></div>
+  <div class="connector c1987"></div>
+  <div class="connector c2018"></div>
+  <div class="connector c2020"></div>
+  <div class="connector c2022"></div>
+  <div class="connector c2023"></div>
+  <div class="connector c2025"></div>
+
+  <!-- Top milestones -->
+  <section class="milestone m1950">
+    <div class="circle-icon">
+      <img src="https://placehold.co/130x95/202840/f6f8fb?text=1950+Turing" alt="Turing milestone illustration">
+    </div>
+    <div class="year-badge">1950</div>
+    <div class="card">
+      <h3>TURING TEST<br>PROPOSED</h3>
+      <p>Alan Turing proposes the Imitation Game as a way to determine if machines can exhibit intelligent behavior indistinguishable from humans.</p>
+    </div>
+  </section>
+
+  <section class="milestone m1956">
+    <div class="circle-icon">
+      <img src="https://placehold.co/130x95/111b30/f7f8fb?text=ELIZA+Chatbot" alt="ELIZA chatbot milestone illustration">
+    </div>
+    <div class="year-badge">1956</div>
+    <div class="card">
+      <h3>ELIZA<br>CHATBOT</h3>
+      <p>ELIZA, one of the first chatbots, is created by Joseph Weizenbaum at MIT to simulate a Rogerian psychotherapist.</p>
+    </div>
+  </section>
+
+  <section class="milestone m1966">
+    <div class="circle-icon">
+      <img src="https://placehold.co/130x95/202a3d/f7f8fb?text=Dartmouth+1956" alt="Dartmouth conference milestone illustration">
+    </div>
+    <div class="year-badge">1966</div>
+    <div class="card">
+      <h3>DARTMOUTH<br>CONFERENCE</h3>
+      <p>The Dartmouth Conference coins the term “Artificial Intelligence” and marks the official birth of AI as a field of study.</p>
+    </div>
+  </section>
+
+  <section class="milestone m1997">
+    <div class="circle-icon">
+      <img src="https://placehold.co/130x95/161f30/f7f8fb?text=Deep+Blue+1997" alt="Deep Blue milestone illustration">
+    </div>
+    <div class="year-badge">1997</div>
+    <div class="card">
+      <h3>IBM DEEP BLUE<br>DEFEATS<br>GARRY KASPAROV</h3>
+      <p>IBM's Deep Blue becomes the first computer to defeat reigning World Chess Champion Garry Kasparov.</p>
+    </div>
+  </section>
+
+  <section class="milestone m2006">
+    <div class="circle-icon">
+      <img src="https://placehold.co/130x95/172030/f7f8fb?text=Neural+Networks" alt="Deep learning milestone illustration">
+    </div>
+    <div class="year-badge">2006</div>
+    <div class="card">
+      <h3>DEEP<br>LEARNING</h3>
+      <p>Deep learning gains traction with advances in data, GPUs, and algorithms, powering a new wave of AI progress.</p>
+    </div>
+  </section>
+
+  <section class="milestone m2012">
+    <div class="circle-icon">
+      <img src="https://placehold.co/130x95/221820/f7f8fb?text=AlexNet+Images" alt="AlexNet milestone illustration">
+    </div>
+    <div class="year-badge">2012</div>
+    <div class="card">
+      <h3>ALEXNET WINS<br>IMAGENET<br>CHALLENGE</h3>
+      <p>AlexNet, a deep CNN, wins the ImageNet Large Scale Visual Recognition Challenge by a large margin.</p>
+    </div>
+  </section>
+
+  <section class="milestone m2011">
+    <div class="circle-icon">
+      <img src="https://placehold.co/130x95/112044/f7f8fb?text=Jeopardy%21" alt="Watson Jeopardy milestone illustration">
+    </div>
+    <div class="year-badge">2011</div>
+    <div class="card">
+      <h3>IBM WATSON<br>WINS<br>JEOPARDY!</h3>
+      <p>IBM Watson defeats human champions on the quiz show Jeopardy!, demonstrating natural language understanding at scale.</p>
+    </div>
+  </section>
+
+  <!-- Bottom milestones -->
+  <section class="milestone m2016">
+    <div class="circle-icon">
+      <img src="https://placehold.co/130x95/222222/f7f8fb?text=AlphaGo+Go" alt="AlphaGo milestone illustration">
+    </div>
+    <div class="year-badge">2016</div>
+    <div class="card">
+      <h3>ALPHAGO<br>BEATS LEE SEDOL</h3>
+      <p>DeepMind's AlphaGo defeats world Go champion Lee Sedol in a historic five-game match.</p>
+    </div>
+  </section>
+
+  <section class="milestone m2017">
+    <div class="circle-icon">
+      <img src="https://placehold.co/130x95/172848/f7f8fb?text=Transformer+2017" alt="Transformer milestone illustration">
+    </div>
+    <div class="year-badge">2017</div>
+    <div class="card">
+      <h3>TRANSFORMER<br>ARCHITECTURE<br>INTRODUCED</h3>
+      <p>The Transformer model, introduced in the paper “Attention Is All You Need”, revolutionizes NLP and beyond.</p>
+    </div>
+  </section>
+
+  <section class="milestone m1987">
+    <div class="circle-icon">
+      <img src="https://placehold.co/130x95/143958/f7f8fb?text=AI+Winter+Snow" alt="AI Winter milestone illustration">
+    </div>
+    <div class="year-badge">1987–1993</div>
+    <div class="card">
+      <h3>AI WINTER</h3>
+      <p>Reduced funding and high expectations lead to a slowdown in AI progress as limitations of early approaches become apparent.</p>
+    </div>
+  </section>
+
+  <section class="milestone m2018">
+    <div class="circle-icon">
+      <img src="https://placehold.co/130x95/7fb8ff/f7f8fb?text=Google+BERT" alt="BERT milestone illustration">
+    </div>
+    <div class="year-badge">2018</div>
+    <div class="card">
+      <h3>BERT RELEASED<br>BY GOOGLE</h3>
+      <p>BERT improves NLP by understanding context in both directions, setting a new standard for language models.</p>
+    </div>
+  </section>
+
+  <section class="milestone m2020">
+    <div class="circle-icon">
+      <img src="https://placehold.co/130x95/171f28/f7f8fb?text=GPT-3+OpenAI" alt="GPT-3 milestone illustration">
+    </div>
+    <div class="year-badge">2020</div>
+    <div class="card">
+      <h3>GPT-3 RELEASED<br>BY OPENAI</h3>
+      <p>GPT-3 demonstrates remarkable few-shot and zero-shot capabilities across a wide range of tasks.</p>
+    </div>
+  </section>
+
+  <section class="milestone m2022">
+    <div class="circle-icon">
+      <img src="https://placehold.co/130x95/3a1d34/f7f8fb?text=DALL-E+Stable" alt="Stable Diffusion and DALL-E milestone illustration">
+    </div>
+    <div class="year-badge">2022</div>
+    <div class="card">
+      <h3>STABLE DIFFUSION<br>&amp; DALL-E 2<br>LAUNCH</h3>
+      <p>Text-to-image models like Stable Diffusion and DALL-E 2 enable high-quality generative AI for everyone.</p>
+    </div>
+  </section>
+
+  <section class="milestone m2023">
+    <div class="circle-icon">
+      <img src="https://placehold.co/130x95/152044/f7f8fb?text=GPT-4+Multimodal" alt="GPT-4 milestone illustration">
+    </div>
+    <div class="year-badge">2023</div>
+    <div class="card">
+      <h3>GPT-4 RELEASED;<br>MULTIMODAL AI<br>EMERGES</h3>
+      <p>GPT-4 brings stronger reasoning and multimodal abilities, marking the rise of versatile, human-like AI systems.</p>
+    </div>
+  </section>
+
+  <section class="milestone m2025">
+    <div class="circle-icon">
+      <img src="https://placehold.co/130x95/112030/f7f8fb?text=Autonomous+Agents" alt="Agentic AI milestone illustration">
+    </div>
+    <div class="year-badge">2025</div>
+    <div class="card">
+      <h3>AGENTIC AI<br>ENTERS<br>MAINSTREAM</h3>
+      <p>Autonomous AI agents that plan, act, and collaborate achieve real-world impact across industries.</p>
+    </div>
+  </section>
+
+  <div class="bottom-scale">
+    <div class="year-label year-title">YEAR</div>
+    <div class="scale-line"></div>
+    <div class="tick t1"></div>
+    <div class="tick t2"></div>
+    <div class="tick t3"></div>
+    <div class="tick t4"></div>
+    <div class="tick t5"></div>
+    <div class="tick t6"></div>
+    <div class="tick t7"></div>
+    <div class="tick t8"></div>
+    <div class="tick t9"></div>
+    <div class="tick t10"></div>
+    <div class="tick t11"></div>
+    <div class="tick t12"></div>
+    <div class="tick t13"></div>
+    <div class="scale-dot d1950"></div>
+    <div class="scale-dot d1960"></div>
+    <div class="scale-dot d1970"></div>
+    <div class="scale-dot d1980"></div>
+    <div class="scale-dot d1990"></div>
+    <div class="scale-dot d2000"></div>
+    <div class="scale-dot d2010"></div>
+    <div class="scale-dot d2020"></div>
+    <div class="scale-dot d2025"></div>
+    <div class="year-label milestone-label-1950">1950</div>
+    <div class="year-label milestone-label-1960">1960</div>
+    <div class="year-label milestone-label-1970">1970</div>
+    <div class="year-label milestone-label-1980">1980</div>
+    <div class="year-label milestone-label-1990">1990</div>
+    <div class="year-label milestone-label-2000">2000</div>
+    <div class="year-label milestone-label-2010">2010</div>
+    <div class="year-label milestone-label-2020">2020</div>
+    <div class="year-label milestone-label-2025">2025</div>
+  </div>
+</div>
+</body>
+</html>

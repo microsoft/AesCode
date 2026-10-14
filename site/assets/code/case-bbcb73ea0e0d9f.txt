@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>设备环境监测平台</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #071420;
+    font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+  }
+
+  .artboard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1376px;
+    height: 768px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 48% 36%, rgba(28, 160, 204, 0.22), transparent 20%),
+      radial-gradient(circle at 86% 40%, rgba(16, 220, 200, 0.12), transparent 22%),
+      linear-gradient(180deg, #102838 0%, #0b1d2a 47%, #0a1c28 100%);
+    color: #eefaff;
+  }
+
+  .artboard::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(120, 220, 245, 0.09) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120, 220, 245, 0.08) 1px, transparent 1px);
+    background-size: 64px 64px, 64px 64px;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  .top-title {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 1376px;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #d9f5ff;
+    text-shadow: 0 0 16px rgba(88, 220, 255, 0.75);
+  }
+
+  .top-line {
+    position: absolute;
+    top: 44px;
+    left: 18px;
+    width: 1340px;
+    height: 28px;
+    border-top: 2px solid rgba(84, 216, 255, 0.85);
+    border-left: 2px solid rgba(84, 216, 255, 0.85);
+    border-right: 2px solid rgba(84, 216, 255, 0.85);
+    border-radius: 18px 18px 0 0;
+    opacity: 0.85;
+  }
+
+  .left-card {
+    position: absolute;
+    left: 42px;
+    width: 270px;
+    height: 108px;
+    border-radius: 6px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.12);
+  }
+
+  .left-card.red {
+    top: 103px;
+    background: linear-gradient(135deg, #ff3743, #ef3441);
+  }
+
+  .left-card.teal {
+    top: 233px;
+    background: #32c7ca;
+  }
+
+  .left-card.orange {
+    top: 362px;
+    background: linear-gradient(135deg, #ff940b, #ff8b08);
+  }
+
+  .icon-box {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 42px;
+    font-weight: 700;
+    border-right: 2px solid rgba(255, 255, 255, 0.45);
+    margin-right: 18px;
+  }
+
+  .card-text {
+    line-height: 1.45;
+  }
+
+  .card-text .small-title {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .card-text .big-number {
+    font-size: 34px;
+    font-weight: 800;
+  }
+
+  .top-metric {
+    position: absolute;
+    top: 108px;
+    width: 210px;
+    text-align: center;
+    color: #f3fbff;
+  }
+
+  .top-metric.one {
+    left: 410px;
+  }
+
+  .top-metric.two {
+    left: 626px;
+  }
+
+  .top-metric.three {
+    left: 876px;
+  }
+
+  .top-metric .label {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .top-metric .value {
+    font-size: 34px;
+    font-weight: 800;
+  }
+
+  .section-title {
+    position: absolute;
+    color: #f0fbff;
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .map-title {
+    left: 355px;
+    top: 208px;
+  }
+
+  .map-wrap {
+    position: absolute;
+    left: 348px;
+    top: 216px;
+    width: 382px;
+    height: 260px;
+  }
+
+  .map-svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 382px;
+    height: 240px;
+    border: 1px solid rgba(48, 220, 220, 0.45);
+    background: rgba(12, 88, 112, 0.22);
+  }
+
+  .marker {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #ff5252;
+    box-shadow: 0 0 12px rgba(255, 82, 82, 0.85);
+  }
+
+  .m1 { left: 124px; top: 102px; }
+  .m2 { left: 232px; top: 107px; }
+  .m3 { left: 260px; top: 130px; }
+  .m4 { left: 205px; top: 164px; }
+  .m5 { left: 284px; top: 172px; }
+  .m6 { left: 174px; top: 180px; }
+  .m7 { left: 282px; top: 201px; }
+
+  .orbit {
+    position: absolute;
+    left: -48px;
+    bottom: 20px;
+    width: 480px;
+    height: 82px;
+    border: 1px solid rgba(86, 220, 236, 0.45);
+    border-radius: 50%;
+    box-shadow: 0 0 16px rgba(92, 214, 234, 0.42);
+  }
+
+  .freq-title {
+    left: 760px;
+    top: 208px;
+  }
+
+  .progress-area {
+    position: absolute;
+    left: 760px;
+    top: 242px;
+    width: 280px;
+  }
+
+  .progress-row {
+    position: relative;
+    height: 36px;
+    margin-bottom: 10px;
+    color: #f1fbff;
+  }
+
+  .progress-label {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .track {
+    position: relative;
+    height: 10px;
+    width: 260px;
+    background: rgba(220, 230, 255, 0.22);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .fill {
+    height: 10px;
+    border-radius: 10px;
+  }
+
+  .p1 { background: #33a9ff; width: 82%; }
+  .p2 { background: #39e277; width: 74%; }
+  .p3 { background: #ffd34d; width: 62%; }
+  .p4 { background: #ff8b2b; width: 52%; }
+  .p5 { background: #a661ff; width: 40%; }
+
+  .row-value {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 14px;
+  }
+
+  .power-card {
+    position: absolute;
+    right: 62px;
+    top: 104px;
+    width: 246px;
+    height: 100px;
+    border: 2px solid rgba(72, 230, 230, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: space8around;
+    padding: 14px;
+    background: rgba(10, 42, 56, 0.72);
+  }
+
+  .power-icon {
+    font-size: 56px;
+    color: #fff;
+    margin-right: 18px;
+  }
+
+  .power-text .label {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .power-text .big {
+    font-size: 28px;
+    color: #ffe830;
+    font-weight: 800;
+  }
+
+  .dotted-world {
+    position: absolute;
+    right: 42px;
+    top: 225px;
+    width: 230px;
+    height: 112px;
+    border-top: 1px solid rgba(160, 220, 220, 0.35);
+    background:
+      radial-gradient(circle, rgba(180, 240, 255, 0.85) 2px, transparent 2.3px) 10px 18px / 14px 14px,
+      radial-gradient(circle, rgba(180, 240, 255, 0.55) 1.8px, transparent 2.2px) 130px 32px / 13px 13px;
+    opacity: 0.65;
+    filter: drop-shadow(0 0 8px rgba(84, 220, 255, 0.45));
+  }
+
+  .sensor-grid {
+    position: absolute;
+    right: 48px;
+    top: 346px;
+    width: 240px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 8px;
+  }
+
+  .sensor-card {
+    height: 54px;
+    border: 1px solid #48dce8;
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    background: rgba(12, 48, 64, 0.78);
+    color: #fff8e8;
+  }
+
+  .sensor-icon {
+    font-size: 23px;
+    min-width: 28px;
+    text-align: center;
+  }
+
+  .sensor-text strong {
+    display: block;
+    font-size: 14px;
+  }
+
+  .sensor-text span {
+    color: #ffd438;
+    font-size: 14px;
+  }
+
+  .detection-title {
+    left: 42px;
+    top: 498px;
+  }
+
+  #detectionChart {
+    position: absolute;
+    left: 42px;
+    top: 532px;
+    width: 440px;
+    height: 180px;
+  }
+
+  .status-title {
+    left: 506px;
+    top: 498px;
+  }
+
+  #pieChart {
+    position: absolute;
+    left: 520px;
+    top: 542px;
+    width: 230px;
+    height: 168px;
+  }
+
+  .pie-legend {
+    position: absolute;
+    left: 780px;
+    top: 610px;
+    font-size: 14px;
+    line-height: 2;
+  }
+
+  .dotline {
+    position: absolute;
+    left: 48px;
+    bottom: 13px;
+    width: 1280px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(84, 220, 255, 0.85), rgba(84, 220, 255, 0.25), rgba(84, 220, 255, 0.85), transparent);
+  }
+
+  .table-title {
+    right: 95px;
+    top: 498px;
+  }
+
+  .maintenance-table-wrap {
+    position: absolute;
+    right: 42px;
+    top: 532px;
+    width: 406px;
+    height: 190px;
+    border: 1px solid #40d7ee;
+    overflow: hidden;
+    background: rgba(10, 40, 55, 0.68);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    color: #f2fbff;
+  }
+
+  thead th {
+    color: #58fff3;
+    background: rgba(21, 88, 100, 0.75);
+    height: 24px;
+    border: 1px solid #48dce8;
+  }
+
+  tbody td {
+    height: 28px;
+    border: 1px solid #48dce8;
+    text-align: center;
+    background: rgba(18, 56, 72, 0.55);
+  }
+
+  tbody tr:nth-child(even) td {
+    background: rgba(28, 92, 110, 0.58);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+</style>
+</head>
+<body>
+<div class="artboard">
+  <div class="top-line"></div>
+  <div class="top-title">设备环境监测平台</div>
+
+  <div class="left-card red">
+    <div class="icon-box">📋</div>
+    <div class="card-text">
+      <div class="small-title">本月订单数</div>
+      <div class="big-number">18000</div>
+    </div>
+  </div>
+
+  <div class="left-card teal">
+    <div class="icon-box">👤</div>
+    <div class="card-text">
+      <div class="small-title">本月新增会员</div>
+      <div class="big-number">1000</div>
+    </div>
+  </div>
+
+  <div class="left-card orange">
+    <div class="icon-box">￥</div>
+    <div class="card-text">
+      <div class="small-title">一次消费会员</div>
+      <div class="big-number">600</div>
+    </div>
+  </div>
+
+  <div class="top-metric one">
+    <div class="label">设备数</div>
+    <div class="value">500</div>
+  </div>
+
+  <div class="top-metric two">
+    <div class="label">上月设备增加数</div>
+    <div class="value">30</div>
+  </div>
+
+  <div class="top-metric three">
+    <div class="label">增长率</div>
+    <div class="value">75%</div>
+  </div>
+
+  <div class="section-title map-title">设备分布</div>
+  <div class="map-wrap">
+    <div class="map-svg">
+      <svg width="382" height="240" viewBox="0 0 382 240" xmlns="http://www.w3.org/2000/svg">
+        <path d="M82 55 L126 32 L182 48 L220 72 L260 58 L312 82 L342 112 L318 150 L270 170 L206 160 L150 180 L96 162 L60 138 L50 96 Z" fill="none" stroke="#37eff4" stroke-width="2"/>
+        <path d="M162 60 L210 88 L250 92 L284 120 L258 150 L200 138 L154 122 L128 88 Z" fill="none" stroke="#37eff4" stroke-width="2"/>
+        <path d="M228 94 L276 102 L310 136 L284 176 L220 164 L178 142 Z" fill="none" stroke="#37eff4" stroke-width="2"/>
+        <path d="M110 112 L160 116 L198 140 L162 170 L104 154 L80 124 Z" fill="none" stroke="#37eff4" stroke-width="2"/>
+        <path d="M132 160 L188 172 L238 180 L280 192 L316 210 L278 232 L210 220 L150 204 L90 192 L48 205 L36 176 Z" fill="none" stroke="#37eff4" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="marker m1"></div>
+    <div class="marker m2"></div>
+    <div class="marker m3"></div>
+    <div class="marker m4"></div>
+    <div class="marker m5"></div>
+    <div class="marker m6"></div>
+    <div class="marker m7"></div>
+    <div class="orbit"></div>
+  </div>
+
+  <div class="section-title freq-title">设备使用频率</div>
+  <div class="progress-area">
+    <div class="progress-row">
+      <div class="progress-label">1号机</div>
+      <div class="track"><div class="fill p1"></div><div class="row-value">90%</div></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-label">2号机</div>
+      <div class="track"><div class="fill p2"></div><div class="row-value">85%</div></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-label">3号机</div>
+      <div class="track"><div class="fill p3"></div><div class="row-value">70%</div></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-label">4号机</div>
+      <div class="track"><div class="fill p4"></div><div class="row-value">60%</div></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-label">5号机</div>
+      <div class="track"><div class="fill p5"></div><div class="row-value">45%</div></div>
+    </div>
+  </div>
+
+  <div class="power-card">
+    <div class="power-icon">⏻</div>
+    <div class="power-text">
+      <div class="label">开关次数</div>
+      <div class="big">15<span style="font-size:18px;color:#fff;">次</span></div>
+    </div>
+  </div>
+
+  <div class="dotted-world"></div>
+
+  <div class="sensor-grid">
+    <div class="sensor-card"><div class="sensor-icon">🌡</div><div class="sensor-text"><strong>温度</strong><span>23℃</span></div></div>
+    <div class="sensor-card"><div class="sensor-icon">💧</div><div class="sensor-text"><strong>湿度</strong><span>56RH</span></div></div>
+    <div class="sensor-card"><div class="sensor-icon">📡</div><div class="sensor-text"><strong>信号</strong><span>-90dBm</span></div></div>
+    <div class="sensor-card"><div class="sensor-icon">☼</div><div class="sensor-text"><strong>光线</strong><span>250LX</span></div></div>
+  </div>
+
+  <div class="section-title detection-title">2018年前半年检测统计</div>
+  <div id="detectionChart"></div>
+
+  <div class="section-title status-title">本月设备状态统计</div>
+  <div id="pieChart"></div>
+  <div class="pie-legend">
+    <div>● 正常</div>
+    <div>● 异常</div>
+  </div>
+
+  <div class="section-title table-title">设备维保数据查看</div>
+  <div class="maintenance-table-wrap">
+    <table>
+      <thead>
+        <tr><th>维保日期</th><th>维保人员</th><th>联系电话</th><th>更换量</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>2018-02-06</td><td>张伟</td><td>13111345462</td><td>1000ml</td></tr>
+        <tr><td>2018-03-12</td><td>李强</td><td>13876543210</td><td>800ml</td></tr>
+        <tr><td>2018-04-20</td><td>王磊</td><td>15098765432</td><td>1200ml</td></tr>
+        <tr><td>2018-05-15</td><td>刘洋</td><td>13901234567</td><td>1100ml</td></tr>
+        <tr><td>2018-06-10</td><td>陈洁</td><td>15211223344</td><td>950ml</td></tr>
+        <tr><td>2018-07-01</td><td>赵刚</td><td>18655443322</td><td>1050ml</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="dotline"></div>
+</div>
+
+<script>
+  var detectionChart = echarts.init(document.getElementById('detectionChart'));
+  detectionChart.setOption({
+    animation: false,
+    grid: { left: 42, right: 18, top: 22, bottom: 34 },
+    legend: {
+      top: 0,
+      left: 62,
+      itemWidth: 20,
+      itemHeight: 10,
+      textStyle: { color: '#f0fbff', fontSize: 13 },
+      data: ['正常计数', '异常计数']
+    },
+    xAxis: {
+      type: 'category',
+      data: ['一月', '二月', '三月', '四月', '五月', '六月'],
+      axisLine: { lineStyle: { color: 'rgba(180,230,255,0.7)' } },
+      axisLabel: { color: '#f2fbff' }
+    },
+    yAxis: {
+      type: 'value',
+      splitLine: { lineStyle: { color: 'rgba(180,230,255,0.16)' } },
+      axisLabel: { color: '#f2fbff' }
+    },
+    series: [
+      {
+        name: '正常计数',
+        type: 'bar',
+        barWidth: 20,
+        data: [8, 10, 11, 4, 9, 13],
+        itemStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: '#58d7ff' },
+            { offset: 1, color: '#158de1' }
+          ])
+        }
+      },
+      {
+        name: '异常计数',
+        type: 'line',
+        data: [8, 10, 11, 4, 9, 13],
+        symbolSize: 6,
+        lineStyle: { color: '#ff5252', width: 2 },
+        itemStyle: { color: '#ff5252' }
+      }
+    ]
+  });
+
+  var pieChart = echarts.init(document.getElementById('pieChart'));
+  pieChart.setOption({
+    animation: false,
+    color: ['#46ed83', '#ff5050'],
+    series: [
+      {
+        type: 'pie',
+        radius: ['0%', '78%'],
+        center: ['50%', '50%'],
+        label: {
+          color: '#f0fbff',
+          formatter: '{b}: {c}%'
+        },
+        labelLine: { lineStyle: { color: 'rgba(180,240,255,0.65)' } },
+        data: [
+          { name: '正常', value: 89.29 },
+          { name: '异常', value: 10.71 }
+        ]
+      }
+    ]
+  });
+</script>
+</body>
+</html>
