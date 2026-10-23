@@ -56,7 +56,7 @@ aiolimiter==1.2.1                   # rate-limits the judge endpoint during RL
 python-dotenv==1.1.1                # .env loading for the eval scripts
 
 # ── HTML / image / rendering pipeline ───────────────────────────────────────
-Pillow==12.0.0
+Pillow==13.0.0
 opencv-python-headless==4.10.0.84    # headless build: the GUI variant needs libGL
 playwright==1.58.0                  # run `playwright install chromium` after pip install
 beautifulsoup4==4.14.3
