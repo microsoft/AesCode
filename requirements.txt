@@ -24,7 +24,7 @@ protobuf==6.33.5
 # commit and then patched in place; see the Installation section of README.md.
 #   pip install "verl @ git+https://github.com/volcengine/verl.git@4b9c14f2c306d43f84eccf47315323e3f1ce1270"
 #   bash verl_patches/apply_verl_patch.sh <site-packages>/verl
-vllm==0.17.1
+vllm==0.31.0
 ray==2.54.0
 tensordict==0.10.0
 flash-attn==2.8.3                   # build with --no-build-isolation
